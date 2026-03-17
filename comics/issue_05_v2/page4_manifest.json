@@ -1,0 +1,88 @@
+{
+  "issue": 5,
+  "page": 4,
+  "title": "Just a Hobby",
+  "accent": "#D69E2E",
+  "panels": [
+    {
+      "id": "p4_01_helsinki",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "Wide cinematic shot of a small dim apartment in Helsinki Finland 1991, a young man with dark hair hunches over a beige 386 PC, the room lit only by the glow of a CRT monitor showing soft blurred lines of green text, sparse Scandinavian furniture, winter darkness outside the window, cables on the desk, intensely focused late-night coding atmosphere, warm editorial illustration with ink lines and watercolor washes, cool blue and amber tones with gold accents",
+      "overlays": []
+    },
+    {
+      "id": "p4_02_robot_understatement",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round penguin-shaped robot with a shiny black and white body like a tuxedo, big round delighted orange eyes, a tiny red scarf, grinning ear to ear with stubby flippers raised in amused disbelief, sitting on top of a stack of computer servers, warm amber background. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"'Just a hobby, won't be big.' History's greatest understatement.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "'Just a hobby, won't be big.' History's greatest understatement.",
+      "speaker": "PENGUBOT"
+    },
+    {
+      "id": "p4_02b_torvalds_intro",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "<strong>Linus Torvalds</strong> was born on December 28, 1969, in Helsinki, Finland, into the Swedish-speaking minority. He was a quiet kid who preferred computers to people. In January 1991, he bought a 386 PC and started tinkering with <strong>MINIX</strong>, a small Unix-like teaching operating system created by professor Andrew Tanenbaum."
+    },
+    {
+      "id": "p4_03_frustrated",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Torvalds was frustrated by MINIX's limitations. He wanted a real operating system &mdash; one that could run on his cheap PC, take advantage of its hardware, and let him do what he wanted. So he started writing one himself."
+    },
+    {
+      "id": "p4_04_usenet_post",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 690 320\"><rect x=\"10\" y=\"0\" width=\"660\" height=\"280\" rx=\"8\" fill=\"#1A202C\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text x=\"30\" y=\"30\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">From: torvalds@klaava.Helsinki.FI (Linus Benedict Torvalds)</text><text x=\"30\" y=\"48\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">Newsgroups: comp.os.minix</text><text x=\"30\" y=\"66\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">Date: 25 Aug 91 20:57:08 GMT</text><line x1=\"30\" y1=\"78\" x2=\"650\" y2=\"78\" stroke=\"#4A5568\" stroke-width=\"1\"/><text x=\"30\" y=\"100\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">Hello everybody out there using minix -</text><text x=\"30\" y=\"125\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">I'm doing a (free) operating system</text><text x=\"30\" y=\"145\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#D69E2E\" font-weight=\"bold\">(just a hobby, won't be big and</text><text x=\"30\" y=\"165\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#D69E2E\" font-weight=\"bold\">professional like gnu)</text><text x=\"270\" y=\"165\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\"> for 386(486)</text><text x=\"30\" y=\"185\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">AT clones. This has been brewing since</text><text x=\"30\" y=\"205\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">april, and is starting to get ready...</text><text x=\"340\" y=\"255\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">-- Linus Torvalds, August 25, 1991</text></svg>",
+      "caption": "The famous Usenet post that launched Linux"
+    },
+    {
+      "id": "p4_05_context",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "He was comparing his project to <strong>GNU</strong> &mdash; Richard Stallman's ambitious, coordinated effort from Issue 4. By that measure, he was being completely realistic. A student's side project would not rival a multi-year effort with institutional backing. He was not making a prediction about Linux's future &mdash; he was being honest about where it stood that day.<br><br>By what actually happened, he was <em>spectacularly</em> wrong. Linux would eventually power more devices than any operating system in history."
+    },
+    {
+      "id": "p4_06_linux_growth",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 240\"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x=\"340\" y=\"5\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#D69E2E\">By 2020: Linux powers...</text><rect x=\"20\" y=\"25\" width=\"145\" height=\"80\" rx=\"8\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"92\" y=\"52\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\">100% of</text><text fill=\"#2D3748\" x=\"92\" y=\"72\" text-anchor=\"middle\" font-size=\"13\">world's top 500</text><text fill=\"#2D3748\" x=\"92\" y=\"90\" text-anchor=\"middle\" font-size=\"13\">supercomputers</text><rect x=\"185\" y=\"25\" width=\"145\" height=\"80\" rx=\"8\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"257\" y=\"52\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\">Android</text><text fill=\"#2D3748\" x=\"257\" y=\"72\" text-anchor=\"middle\" font-size=\"13\">phones (3+</text><text fill=\"#2D3748\" x=\"257\" y=\"90\" text-anchor=\"middle\" font-size=\"13\" textLength=\"117\" lengthAdjust=\"spacingAndGlyphs\">billion devices)</text><rect x=\"350\" y=\"25\" width=\"145\" height=\"80\" rx=\"8\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"422\" y=\"52\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\">Most web</text><text fill=\"#2D3748\" x=\"422\" y=\"72\" text-anchor=\"middle\" font-size=\"13\">servers on</text><text fill=\"#2D3748\" x=\"422\" y=\"90\" text-anchor=\"middle\" font-size=\"13\">the internet</text><rect x=\"515\" y=\"25\" width=\"145\" height=\"80\" rx=\"8\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"587\" y=\"52\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\">All top</text><text fill=\"#2D3748\" x=\"587\" y=\"72\" text-anchor=\"middle\" font-size=\"13\">cloud</text><text fill=\"#2D3748\" x=\"587\" y=\"90\" text-anchor=\"middle\" font-size=\"13\">platforms</text><text x=\"340\" y=\"140\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Linux v0.01 released September 17, 1991</text><text x=\"340\" y=\"160\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Switched to GPL v2 in February 1992</text><text x=\"340\" y=\"185\" text-anchor=\"middle\" font-size=\"12\" fill=\"#A0AEC0\">Name \"Linux\" chosen by Ari Lemmke (Torvalds wanted \"Freax\")</text></svg>",
+      "caption": "Linux: from a student's hobby to the world's most-used operating system"
+    },
+    {
+      "id": "p4_07_community",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Linux</strong> version 0.01 was released on September 17, 1991. It was rough. But something remarkable happened: people started contributing. Developers around the world downloaded the code, found bugs, wrote fixes, and sent patches back. The internet made it possible for a global community to collaborate on a single piece of software.<br><br>Torvalds had originally released Linux under a license that prohibited commercial use. In February 1992, he switched to the <strong>GNU General Public License</strong> (GPL) version 2. This was the turning point. The GPL guaranteed that Linux would remain free and open, and it invited the entire world to contribute."
+    },
+    {
+      "id": "p4_08_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Linux proved that a global community of volunteers, coordinating over the internet, could build software that rivaled &mdash; and eventually surpassed &mdash; anything produced by the wealthiest corporations on Earth. It was not just a technical achievement. It was a <strong>new way of working</strong>.",
+      "style": "accent"
+    },
+    {
+      "id": "p4_09_lab",
+      "type": "lab_link",
+      "layout": "full-width",
+      "lab_filename": "unix_pipe_playground",
+      "lab_title": "Unix Pipe Playground",
+      "lab_description": "The bazaar model works like Unix pipes: small contributions from many people, combined. Try building pipelines yourself -- chain small tools together and watch data flow through each stage."
+    },
+    {
+      "id": "p4_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "One student wrote a kernel. Thousands of strangers improved it. But why? Why would people work for free? A hacker and essayist was about to explain -- and his explanation would change the software industry forever."
+    }
+  ]
+}

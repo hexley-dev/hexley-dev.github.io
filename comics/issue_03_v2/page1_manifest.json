@@ -1,0 +1,89 @@
+{
+  "issue": 3,
+  "page": 1,
+  "title": "Morse Code Essays",
+  "accent": "#38A169",
+  "panels": [
+    {
+      "id": "p1_01_eniac_night",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A lone programmer hunched over a massive early 1950s computer console covered in switches, dials, and blinking amber lights, 3:47 AM on a wall clock, crumpled paper with columns of 0s and 1s scattered across the desk and floor, empty coffee cups, harsh overhead lamp casting dramatic shadows, the scene feels claustrophobic and exhausting, warm editorial illustration with ink lines and watercolor washes, muted earth tones with green #38A169 accent on indicator lights",
+      "overlays": []
+    },
+    {
+      "id": "p1_02_narration_existed",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "By the early 1950s, the machines from Issue 2 existed. ENIAC, EDVAC, the Manchester Mark 1 &mdash; rooms full of humming metal and blinking lights, capable of <strong>thousands of calculations per second</strong>.",
+      "style": "default"
+    },
+    {
+      "id": "p1_03_narration_nightmare",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "There was just one problem: <strong>talking to them was a nightmare.</strong>",
+      "style": "accent"
+    },
+    {
+      "id": "p1_04_robot_morse",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A small cute round brass robot with big sympathetic green clock-face eyes, one eye squinted shut in a wince, tiny hand pressed against the side of its face, wearing a miniature bowler hat with a gear pin, sitting on a pile of crumpled paper covered in binary digits, warm workshop background with soft amber lighting. A white speech bubble with black outline near the top right. Inside the bubble the text reads: \"Imagine writing an essay entirely in Morse code.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Imagine writing an essay entirely in Morse code.",
+      "speaker": "CLOCKWORK"
+    },
+    {
+      "id": "p1_05_binary_rain",
+      "type": "image",
+      "layout": "right",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "Abstract visualization of cascading columns of glowing green 0s and 1s falling like rain against a dark background, interspersed with frustrated red X marks and crossed-out sequences, a few English words like ADD and LOAD faintly visible but drowning in binary, digital rain meets analog frustration, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 glow",
+      "overlays": []
+    },
+    {
+      "id": "p1_06_narration_machinecode",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "These machines spoke only one language &mdash; <strong>machine code</strong>. Raw sequences of binary digits. Every instruction, every number, every memory address was a string of 0s and 1s. To tell the machine \"add these two numbers,\" you didn't write \"add.\" You wrote something like <code>00010110 01010000 01100001</code>.",
+      "style": "default"
+    },
+    {
+      "id": "p1_07_gap_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 690 280\"><rect x=\"10\" y=\"0\" width=\"660\" height=\"240\" rx=\"12\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><text x=\"340\" y=\"28\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"20\" font-weight=\"bold\" fill=\"#2D3748\">THE COMMUNICATION GAP</text><rect x=\"40\" y=\"50\" width=\"260\" height=\"70\" rx=\"8\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"2\"/><text x=\"170\" y=\"72\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\" fill=\"#2D3748\">WHAT THE HUMAN WANTS TO SAY:</text><text x=\"170\" y=\"100\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">\"Add the employee's salary to</text><text x=\"170\" y=\"114\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">the running total.\"</text><rect x=\"380\" y=\"50\" width=\"260\" height=\"70\" rx=\"8\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"2\"/><text x=\"510\" y=\"72\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\" fill=\"#2D3748\">WHAT THE MACHINE NEEDS:</text><text x=\"510\" y=\"94\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">00010110 01010000 01100001</text><text x=\"510\" y=\"110\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">00001010 11010001 01001110</text><path d=\"M300,85 L380,85\" stroke=\"#718096\" stroke-width=\"2\" stroke-dasharray=\"6,4\" marker-end=\"url(#arrow1)\"/><defs><marker id=\"arrow1\" markerWidth=\"8\" markerHeight=\"6\" refX=\"8\" refY=\"3\" orient=\"auto\"><polygon points=\"0,0 8,3 0,6\" fill=\"#718096\"/></marker></defs><rect x=\"190\" y=\"150\" width=\"300\" height=\"50\" rx=\"10\" fill=\"#38A169\" opacity=\"0.15\" stroke=\"#38A169\" stroke-width=\"2\" stroke-dasharray=\"8,4\"/><text x=\"340\" y=\"173\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" font-weight=\"bold\" fill=\"#1A202C\">&larr; THE GAP &rarr;</text><text x=\"340\" y=\"193\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#2D3748\">(This issue is about closing it.)</text><text x=\"340\" y=\"230\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#718096\">Programming was translation work. Humans think in words. Machines think in signals.</text></svg>",
+      "caption": "The communication gap between human thought and machine code"
+    },
+    {
+      "id": "p1_08_narration_bridge",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Programming was translation work. Humans think in words and concepts. Machines think in electrical signals &mdash; on or off, 1 or 0. <strong>Somebody had to bridge that gap.</strong><br><br>This is the story of the people who built that bridge. And the first thing they discovered was just how deep the chasm was.",
+      "style": "default"
+    },
+    {
+      "id": "p1_09_robot_chasm",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute translucent dome-headed translucent robot glowing with soft green inner light, big gentle luminous eyes like tiny moons, cable-arms with small light-bulb tips, floating above a vast glowing chasm that splits the ground between a human figure silhouette on the left side and a massive 1950s room-sized mainframe computer with panels of switches, dials, and blinking lights on the right side, no modern monitors or desktop PCs, the chasm is filled with cascading binary digits, dramatic lighting from below, a bridge of glowing green stepping stones begins to form across the gap. A white speech bubble with black outline in the top left. Inside the bubble the text reads: \"Deep chasm. But bridges can be built.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Deep chasm. But bridges can be built.",
+      "speaker": "STARLIGHT"
+    },
+    {
+      "id": "p1_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Just how bad was programming in binary? Let's look at what it actually took to tell an early computer to do <em>one simple thing</em>."
+    }
+  ]
+}

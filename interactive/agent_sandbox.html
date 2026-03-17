@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Sandbox — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS VARIABLES ===== */
+:root {
+  --hand: 'Caveat', 'Patrick Hand', cursive;
+  --body: 'Patrick Hand', cursive;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --accent: #9F7AEA;
+  --accent-light: #E9D8FD;
+  --accent-deep: #553C9A;
+  --bg: #FAF9F6;
+  --dark: #2D3748;
+  --mid: #4A5568;
+  --muted: #718096;
+  --border: #E2E8F0;
+  --card: #F7FAFC;
+  --dark-panel: #1A202C;
+  --think-bg: #BEE3F8;
+  --think-border: #63B3ED;
+  --plan-bg: #E9D8FD;
+  --plan-border: #9F7AEA;
+  --act-bg: #C6F6D5;
+  --act-border: #48BB78;
+  --observe-bg: #FEFCBF;
+  --observe-border: #ECC94B;
+  --green: #48BB78;
+  --red: #FC8181;
+  --orange: #F6AD55;
+}
+
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--dark);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(159,122,234,.04) 0%, transparent 55%),
+    radial-gradient(circle at 75% 75%, rgba(246,173,85,.03) 0%, transparent 55%);
+}
+
+/* ===== LAYOUT ===== */
+.container {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 0 12px 60px;
+}
+
+/* ===== HEADER ===== */
+.header {
+  text-align: center;
+  padding: 24px 16px 12px;
+}
+.back-link {
+font-family: var(--hand);
+  font-size: 14px;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.back-link:hover { opacity: 0.7; transition: opacity 0.15s; }
+.header h1 {
+  font-family: 'Bangers', cursive;
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--dark-panel);
+  margin: 8px 0 4px;
+  line-height: 1.2;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+}
+.header .subtitle {
+  font-family: var(--body);
+  font-size: 17px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.header .companion-note {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+}
+.title-bar {
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 10px auto 0;
+}
+
+/* ===== CONTEXT WINDOW BAR ===== */
+.context-bar {
+  margin: 16px auto 0;
+  max-width: 600px;
+  padding: 0 8px;
+}
+.context-bar-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.context-track {
+  width: 100%;
+  height: 10px;
+  background: var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+}
+.context-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #805AD5);
+  border-radius: 5px;
+  transition: width 0.6s ease;
+  width: 0%;
+}
+.context-fill.warn {
+  background: linear-gradient(90deg, var(--orange), var(--red));
+}
+.context-warning {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--red);
+  text-align: center;
+  margin-top: 4px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.context-warning.visible { opacity: 1; }
+
+/* ===== CONTROLS BAR ===== */
+.controls {
+  margin: 16px auto;
+  max-width: 920px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+}
+.task-select {
+  font-family: var(--body);
+  font-size: 15px;
+  padding: 7px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--dark);
+  cursor: pointer;
+  min-width: 200px;
+}
+.task-select:focus { outline: none; border-color: var(--accent); }
+.mode-toggle {
+  display: flex;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.mode-btn {
+  font-family: var(--body);
+  font-size: 14px;
+  padding: 7px 16px;
+  border: none;
+  background: #fff;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.mode-btn.active {
+  background: var(--accent);
+  color: #fff;
+}
+.play-controls {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.play-btn, .reset-btn {
+  font-family: var(--hand);
+  font-size: 15px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1.5px solid var(--accent);
+  background: var(--accent);
+  color: #fff;
+  transition: all 0.15s;
+}
+.play-btn:hover, .reset-btn:hover { opacity: 0.9; }
+.reset-btn {
+  background: transparent;
+  color: var(--accent);
+}
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 160px;
+}
+.speed-control label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+.speed-slider {
+  width: 80px;
+  accent-color: var(--accent);
+}
+
+/* ===== 3-COLUMN LAYOUT ===== */
+.workspace {
+  display: grid;
+  grid-template-columns: 200px 1fr 180px;
+  gap: 12px;
+  margin-top: 12px;
+  min-height: 500px;
+}
+@media (max-width: 800px) {
+  .workspace {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+  }
+  .file-panel { max-height: 200px; }
+  .tool-panel {
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    max-height: none !important;
+  }
+}
+
+/* ===== FILE PANEL (LEFT) ===== */
+.file-panel {
+  background: var(--dark-panel);
+  border-radius: 10px;
+  padding: 12px;
+  overflow-y: auto;
+  max-height: 600px;
+}
+.file-panel-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.file-tree-item {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #718096;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+  margin-bottom: 2px;
+}
+.file-tree-item:hover { background: rgba(255,255,255,0.07); }
+.file-tree-item.active { background: rgba(159,122,234,0.2); color: #E9D8FD; }
+.file-tree-item.modified {
+  animation: fileGlow 1s ease;
+}
+@keyframes fileGlow {
+  0%, 100% { background: transparent; }
+  30% { background: rgba(72,187,120,0.3); }
+}
+.file-icon { font-size: 13px; }
+.file-preview {
+  margin-top: 10px;
+  background: #0D1117;
+  border-radius: 6px;
+  padding: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #C9D1D9;
+  line-height: 1.6;
+  max-height: 280px;
+  overflow-y: auto;
+  white-space: pre;
+  tab-size: 2;
+}
+.file-preview .line-num {
+  color: #484F58;
+  display: inline-block;
+  width: 24px;
+  text-align: right;
+  margin-right: 8px;
+  user-select: none;
+}
+.file-preview .line-changed {
+  background: rgba(72,187,120,0.15);
+  display: block;
+  margin: 0 -10px;
+  padding: 0 10px;
+  animation: lineHighlight 2s ease-out;
+}
+@keyframes lineHighlight {
+  0% { background: rgba(72,187,120,0.4); }
+  100% { background: rgba(72,187,120,0.15); }
+}
+
+/* ===== AGENT PANEL (CENTER) ===== */
+.agent-panel {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  overflow-y: auto;
+  max-height: 600px;
+  scroll-behavior: smooth;
+}
+.agent-panel-title {
+  font-family: var(--hand);
+  font-size: 18px;
+  color: var(--dark);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cycle-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 14px 0 6px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+}
+.cycle-label:first-of-type { border-top: none; padding-top: 0; }
+.step-box {
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  border-left: 4px solid;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.step-box.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.step-box .step-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  display: block;
+}
+.step-think {
+  background: var(--think-bg);
+  border-color: var(--think-border);
+}
+.step-think .step-label { color: #2B6CB0; }
+.step-plan {
+  background: var(--plan-bg);
+  border-color: var(--plan-border);
+}
+.step-plan .step-label { color: var(--accent-deep); }
+.step-act {
+  background: var(--act-bg);
+  border-color: var(--act-border);
+}
+.step-act .step-label { color: #276749; }
+.step-act .tool-call {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: rgba(0,0,0,0.06);
+  padding: 6px 10px;
+  border-radius: 5px;
+  margin-top: 4px;
+  display: block;
+}
+.step-act .tool-result {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--dark-panel);
+  color: var(--green);
+  padding: 8px 10px;
+  border-radius: 5px;
+  margin-top: 6px;
+  white-space: pre;
+  overflow-x: auto;
+  max-height: 140px;
+  overflow-y: auto;
+  line-height: 1.5;
+}
+.step-act .tool-result.error {
+  color: var(--red);
+}
+.step-observe {
+  background: var(--observe-bg);
+  border-color: var(--observe-border);
+}
+.step-observe .step-label { color: #975A16; }
+
+/* Agent cursor blinking */
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 14px;
+  background: var(--dark);
+  animation: blink 0.7s infinite;
+  vertical-align: text-bottom;
+  margin-left: 1px;
+}
+@keyframes blink { 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } }
+
+/* ===== TOOL PANEL (RIGHT) ===== */
+.tool-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+.tool-panel-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+.tool-card {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  border-left: 4px solid;
+  transition: all 0.2s;
+}
+.tool-card.pulse {
+  animation: toolPulse 0.8s ease;
+}
+@keyframes toolPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(159,122,234,0); }
+  40% { box-shadow: 0 0 0 6px rgba(159,122,234,0.3); }
+}
+.tool-card .tool-name {
+  font-family: var(--hand);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.tool-card .tool-desc {
+  font-family: var(--body);
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.tool-card[data-tool="read"]    { border-left-color: var(--think-border); }
+.tool-card[data-tool="edit"]    { border-left-color: var(--plan-border); }
+.tool-card[data-tool="test"]    { border-left-color: var(--act-border); }
+.tool-card[data-tool="search"]  { border-left-color: var(--observe-border); }
+.tool-card[data-tool="list"]    { border-left-color: var(--muted); }
+
+/* Manual mode tool cards are clickable */
+.tool-card.clickable {
+  cursor: pointer;
+}
+.tool-card.clickable:hover {
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(159,122,234,0.15);
+}
+.tool-card .use-count {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ===== MANUAL MODE OVERLAY ===== */
+.manual-prompt-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+}
+.manual-prompt-overlay.active { display: flex; }
+.manual-prompt-box {
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+  border: 2px solid var(--accent);
+}
+.manual-prompt-box h3 {
+  font-family: var(--hand);
+  font-size: 22px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.manual-prompt-box p {
+  font-size: 14px;
+  color: var(--mid);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.manual-prompt-box .param-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 4px;
+}
+.manual-prompt-box input, .manual-prompt-box select {
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 7px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  width: 100%;
+  margin-bottom: 10px;
+  background: var(--card);
+  color: var(--dark);
+}
+.manual-prompt-box button {
+font-family: var(--hand);
+  font-size: 16px;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: opacity 0.15s ease;
+}
+.manual-prompt-box button:hover { opacity: 0.9; }
+.manual-feedback {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.4;
+  display: none;
+}
+.manual-feedback.good {
+  display: block;
+  background: var(--act-bg);
+  color: #276749;
+}
+.manual-feedback.ok {
+  display: block;
+  background: var(--observe-bg);
+  color: #975A16;
+}
+.manual-feedback.bad {
+  display: block;
+  background: #FED7D7;
+  color: #9B2C2C;
+}
+
+/* ===== SUMMARY PANEL ===== */
+.summary-panel {
+  display: none;
+  margin: 24px auto;
+  max-width: 600px;
+  background: #fff;
+  border: 2px solid var(--accent);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+}
+.summary-panel.visible { display: block; }
+.summary-panel h2 {
+  font-family: var(--hand);
+  font-size: 26px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.summary-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+.summary-stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+}
+.summary-stat .stat-num {
+  font-family: var(--hand);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.summary-stat .stat-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.summary-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin: 12px 0;
+}
+.summary-tool-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--accent-light);
+  color: var(--accent-deep);
+}
+.summary-quote {
+  font-family: var(--body);
+  font-size: 16px;
+  color: var(--mid);
+  margin-top: 16px;
+  padding: 12px;
+  border-top: 1px dashed var(--border);
+  font-style: italic;
+  line-height: 1.5;
+}
+.summary-comparison {
+  font-family: var(--body);
+  font-size: 15px;
+  color: var(--mid);
+  margin-top: 10px;
+  padding: 10px;
+  background: var(--observe-bg);
+  border-radius: 8px;
+}
+
+/* ===== SCROLLBAR STYLES ===== */
+.agent-panel::-webkit-scrollbar,
+.file-preview::-webkit-scrollbar,
+.file-panel::-webkit-scrollbar {
+  width: 6px;
+}
+.agent-panel::-webkit-scrollbar-track,
+.file-preview::-webkit-scrollbar-track,
+.file-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+.agent-panel::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+.file-preview::-webkit-scrollbar-thumb,
+.file-panel::-webkit-scrollbar-thumb {
+  background: #4A5568;
+  border-radius: 3px;
+}
+
+/* ===== ANIMATION HELPERS ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+*:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Accessibility: respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <a href="#" onclick="history.back();return false" style="text-decoration:none">&larr; Back</a>
+  <h1>Agent Sandbox</h1>
+  <p class="subtitle">Watch an AI agent think, plan, act, and learn from mistakes.</p>
+  <p class="companion-note">Interactive companion to Issue 8: The Agent Awakens</p>
+  <div class="title-bar"></div>
+</div>
+
+<!-- ===== CONTEXT WINDOW INDICATOR ===== -->
+<div class="context-bar">
+  <div class="context-bar-label">
+    <span>Context Window</span>
+    <span id="contextPct">0% used</span>
+  </div>
+  <div class="context-track">
+    <div class="context-fill" id="contextFill"></div>
+  </div>
+  <div class="context-warning" id="contextWarning">Context window getting full &#8212; the agent might start forgetting earlier steps!</div>
+</div>
+
+<!-- ===== CONTROLS ===== -->
+<div class="controls">
+  <select class="task-select" id="taskSelect">
+    <option value="fix_bug">Fix the Bug (calculator.js)</option>
+    <option value="dark_mode">Add Dark Mode (app.css)</option>
+    <option value="word_count">Count the Words (story.txt)</option>
+    <option value="find_secret">Find the Secret (3 files)</option>
+  </select>
+
+  <div class="mode-toggle">
+    <button class="mode-btn active" data-mode="watch" id="watchBtn" aria-pressed="true">Watch Mode</button>
+    <button class="mode-btn" data-mode="manual" id="manualBtn" aria-pressed="false">Manual Mode</button>
+  </div>
+
+  <div class="play-controls">
+    <button class="play-btn" id="playBtn">&#9654; Start</button>
+    <button class="reset-btn" id="resetBtn">&#8635; Reset</button>
+  </div>
+
+  <div class="speed-control" id="speedControl">
+    <label>Speed</label>
+    <input type="range" min="1" max="5" value="3" class="speed-slider" id="speedSlider" aria-label="Playback speed">
+    <label id="speedLabel">3x</label>
+  </div>
+</div>
+
+<!-- ===== MAIN WORKSPACE ===== -->
+<div class="workspace container">
+
+  <!-- LEFT: File System -->
+  <div class="file-panel" id="filePanel">
+    <div class="file-panel-title">Files</div>
+    <div id="fileTree"></div>
+    <div class="file-preview" id="filePreview" style="display:none"></div>
+  </div>
+
+  <!-- CENTER: Agent Thought Process -->
+  <div class="agent-panel" id="agentPanel">
+    <div class="agent-panel-title">
+      <svg width="20" height="20" viewBox="0 0 20 20"><rect x="4" y="6" width="12" height="10" rx="3" fill="var(--accent)" stroke="var(--dark)" stroke-width="1.2"/><rect x="5" y="0" width="10" height="8" rx="3" fill="#E2E8F0" stroke="var(--dark)" stroke-width="1.2"/><circle cx="8" cy="4" r="1.5" fill="var(--accent)"/><circle cx="12" cy="4" r="1.5" fill="var(--accent)"/></svg>
+      Agent Thought Process
+    </div>
+    <div id="agentLog"></div>
+  </div>
+
+  <!-- RIGHT: Tool Palette -->
+  <div class="tool-panel" id="toolPanel">
+    <div class="tool-panel-title">Tools</div>
+    <div class="tool-card" data-tool="read" id="toolRead">
+      <div class="tool-name">Read File</div>
+      <div class="tool-desc">Read a file's contents</div>
+      <div class="use-count" id="countRead">Used: 0</div>
+    </div>
+    <div class="tool-card" data-tool="edit" id="toolEdit">
+      <div class="tool-name">Edit File</div>
+      <div class="tool-desc">Replace text in a file</div>
+      <div class="use-count" id="countEdit">Used: 0</div>
+    </div>
+    <div class="tool-card" data-tool="test" id="toolTest">
+      <div class="tool-name">Run Tests</div>
+      <div class="tool-desc">Execute test suite</div>
+      <div class="use-count" id="countTest">Used: 0</div>
+    </div>
+    <div class="tool-card" data-tool="search" id="toolSearch">
+      <div class="tool-name">Search Code</div>
+      <div class="tool-desc">Find pattern in files</div>
+      <div class="use-count" id="countSearch">Used: 0</div>
+    </div>
+    <div class="tool-card" data-tool="list" id="toolList">
+      <div class="tool-name">List Files</div>
+      <div class="tool-desc">Show file tree</div>
+      <div class="use-count" id="countList">Used: 0</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SUMMARY PANEL ===== -->
+<div class="summary-panel" id="summaryPanel">
+  <h2>Task Complete!</h2>
+  <div class="summary-stats" id="summaryStats"></div>
+  <div class="summary-tools" id="summaryTools"></div>
+  <div class="summary-comparison" id="summaryComparison" style="display:none"></div>
+  <div class="summary-quote">
+    "The agent didn't follow a script. It REASONED about what to do at each step."
+  </div>
+</div>
+
+<!-- ===== MANUAL MODE OVERLAY ===== -->
+<div class="manual-prompt-overlay" id="manualOverlay">
+  <div class="manual-prompt-box" id="manualBox">
+    <h3 id="manualTitle">Your Turn</h3>
+    <p id="manualDesc">You are the agent. What tool do you want to use?</p>
+    <div id="manualFields"></div>
+    <button id="manualSubmit" onclick="submitManualChoice()">Execute</button>
+    <div class="manual-feedback" id="manualFeedback"></div>
+  </div>
+</div>
+
+<!-- ============================= -->
+<!-- ========= JAVASCRIPT ======== -->
+<!-- ============================= -->
+<script>
+/* ===== TASK DEFINITIONS ===== */
+/* Each task has: files (simulated filesystem), steps (ReAct cycles), and optimalSteps count. */
+
+const TASKS = {
+
+  /* ---------- TASK 1: FIX THE BUG ---------- */
+  fix_bug: {
+    description: "Fix the bug in calculator.js",
+    files: {
+      "calculator.js": {
+        icon: "JS",
+        content: [
+          'function add(a, b) {',
+          '  return a + b;',
+          '}',
+          '',
+          'function subtract(a, b) {',
+          '  return a - b;',
+          '}',
+          '',
+          'function multiply(a, b) {',
+          '  retrun a * b;',
+          '}',
+          '',
+          'function divide(a, b) {',
+          '  if (b === 0) return "Error";',
+          '  return a + b;',
+          '}',
+          '',
+          'module.exports = { add, subtract, multiply, divide };',
+        ]
+      },
+      "calculator.test.js": {
+        icon: "TS",
+        content: [
+          'const { add, subtract, multiply, divide } = require("./calculator");',
+          '',
+          'test("add: 2+3=5", () => expect(add(2,3)).toBe(5));',
+          'test("subtract: 5-3=2", () => expect(subtract(5,3)).toBe(2));',
+          'test("multiply: 4*3=12", () => expect(multiply(4,3)).toBe(12));',
+          'test("divide: 10/2=5", () => expect(divide(10,2)).toBe(5));',
+          'test("divide by zero", () => expect(divide(1,0)).toBe("Error"));',
+        ]
+      },
+      "package.json": {
+        icon: "{}",
+        content: [
+          '{',
+          '  "name": "calculator",',
+          '  "scripts": {',
+          '    "test": "jest"',
+          '  }',
+          '}',
+        ]
+      }
+    },
+    steps: [
+      /* Cycle 1: Discover */
+      {
+        cycle: 1,
+        think: "I need to fix a bug in calculator.js. Let me start by reading the file to understand what's there.",
+        plan: "I'll use the Read File tool on calculator.js to inspect the code.",
+        act: {
+          tool: "read",
+          call: 'ReadFile("calculator.js")',
+          file: "calculator.js",
+          resultType: "file"
+        },
+        observe: "I can see the code. There's a typo on line 9: 'retrun' instead of 'return' in the multiply function. Let me fix that.",
+        context: 12
+      },
+      /* Cycle 2: First fix */
+      {
+        cycle: 2,
+        think: "The typo is clear: 'retrun' should be 'return' on line 9 in the multiply function. Let me fix it.",
+        plan: "I'll use Edit File to replace 'retrun' with 'return' in calculator.js.",
+        act: {
+          tool: "edit",
+          call: 'EditFile("calculator.js", "retrun", "return")',
+          file: "calculator.js",
+          edit: { line: 8, old: '  retrun a * b;', new: '  return a * b;' },
+          resultText: "Replaced 'retrun' with 'return' on line 9."
+        },
+        observe: "Fix applied. Now I should run the tests to make sure everything passes.",
+        context: 24
+      },
+      /* Cycle 3: First test run -- FAILS */
+      {
+        cycle: 3,
+        think: "Let me run the test suite to verify the fix works and there are no other issues.",
+        plan: "I'll use Run Tests to execute the test suite.",
+        act: {
+          tool: "test",
+          call: 'RunTests()',
+          resultText: "PASS  add: 2+3=5\nPASS  subtract: 5-3=2\nPASS  multiply: 4*3=12\nFAIL  divide: 10/2=5\n  Expected: 5\n  Received: 12\nPASS  divide by zero\n\n4 passed, 1 failed",
+          isError: true
+        },
+        observe: "Wait -- the multiply test passes now, but the divide test is FAILING. Expected 5 but got 12. That means divide(10,2) is returning 12 instead of 5. Let me re-read the divide function.",
+        context: 41
+      },
+      /* Cycle 4: Re-read and discover second bug */
+      {
+        cycle: 4,
+        think: "The divide test failed. divide(10,2) returned 12 instead of 5. 10 + 2 = 12... wait, is the divide function using + instead of /? Let me look at the code again.",
+        plan: "I'll read calculator.js again to inspect the divide function.",
+        act: {
+          tool: "read",
+          call: 'ReadFile("calculator.js")',
+          file: "calculator.js",
+          resultType: "file"
+        },
+        observe: "Found it! Line 15: 'return a + b' -- it's using addition instead of division. The divide function has the wrong operator. This is a second bug!",
+        context: 55
+      },
+      /* Cycle 5: Fix the second bug */
+      {
+        cycle: 5,
+        think: "The divide function on line 15 uses 'a + b' instead of 'a / b'. I need to fix the operator.",
+        plan: "I'll use Edit File to replace 'return a + b' with 'return a / b' in the divide function.",
+        act: {
+          tool: "edit",
+          call: 'EditFile("calculator.js", "return a + b", "return a / b")',
+          file: "calculator.js",
+          edit: { line: 14, old: '  return a + b;', new: '  return a / b;' },
+          resultText: "Replaced 'return a + b' with 'return a / b' on line 15."
+        },
+        observe: "Second fix applied. Let me run the tests one more time to confirm everything passes.",
+        context: 67
+      },
+      /* Cycle 6: Tests pass! */
+      {
+        cycle: 6,
+        think: "Both bugs are fixed now. Let me verify by running the full test suite one last time.",
+        plan: "I'll run the tests to confirm all 5 tests pass.",
+        act: {
+          tool: "test",
+          call: 'RunTests()',
+          resultText: "PASS  add: 2+3=5\nPASS  subtract: 5-3=2\nPASS  multiply: 4*3=12\nPASS  divide: 10/2=5\nPASS  divide by zero\n\n5 passed, 0 failed",
+          isError: false
+        },
+        observe: "All 5 tests pass! Both bugs are fixed: the 'retrun' typo in multiply and the wrong operator in divide. Task complete.",
+        context: 82
+      }
+    ],
+    optimalSteps: 6,
+    summary: {
+      cycles: 6,
+      errors: 1,
+      errorDesc: "Divide function had wrong operator (+ instead of /)",
+      contextTokens: "6,420"
+    }
+  },
+
+  /* ---------- TASK 2: ADD DARK MODE ---------- */
+  dark_mode: {
+    description: "Add dark mode to app.css",
+    files: {
+      "app.css": {
+        icon: "CS",
+        content: [
+          '/* App Styles */',
+          'body {',
+          '  font-family: sans-serif;',
+          '  background: #ffffff;',
+          '  color: #333333;',
+          '  margin: 0;',
+          '  padding: 20px;',
+          '}',
+          '',
+          '.card {',
+          '  background: #f5f5f5;',
+          '  border: 1px solid #ddd;',
+          '  border-radius: 8px;',
+          '  padding: 16px;',
+          '  margin: 12px 0;',
+          '}',
+          '',
+          '.button {',
+          '  background: #4a90d9;',
+          '  color: white;',
+          '  border: none;',
+          '  padding: 8px 16px;',
+          '  border-radius: 4px;',
+          '  cursor: pointer;',
+          '}',
+        ]
+      },
+      "index.html": {
+        icon: "HT",
+        content: [
+          '<!DOCTYPE html>',
+          '<html>',
+          '<head>',
+          '  <link rel="stylesheet" href="app.css">',
+          '</head>',
+          '<body>',
+          '  <h1>My App</h1>',
+          '  <div class="card">Hello world</div>',
+          '  <button class="button">Click me</button>',
+          '</body>',
+          '</html>',
+        ]
+      },
+      "app.test.js": {
+        icon: "TS",
+        content: [
+          'test("dark mode class exists", () => {',
+          '  const css = readFile("app.css");',
+          '  expect(css).toContain(".dark-mode");',
+          '});',
+          'test("dark mode sets dark background", () => {',
+          '  const css = readFile("app.css");',
+          '  expect(css).toMatch(/\\.dark-mode.*background.*#[12]/s);',
+          '});',
+          'test("dark mode adjusts card", () => {',
+          '  const css = readFile("app.css");',
+          '  expect(css).toMatch(/\\.dark-mode.*\\.card/s);',
+          '});',
+        ]
+      }
+    },
+    steps: [
+      {
+        cycle: 1,
+        think: "I need to add dark mode to app.css. Let me first read the current CSS to understand the existing styles.",
+        plan: "I'll read app.css to see what styles are already defined.",
+        act: {
+          tool: "read",
+          call: 'ReadFile("app.css")',
+          file: "app.css",
+          resultType: "file"
+        },
+        observe: "I see the light-mode styles: white background, dark text, light gray cards. I need to add a .dark-mode class that inverts these.",
+        context: 10
+      },
+      {
+        cycle: 2,
+        think: "I should also check if there are tests I need to pass, so I know exactly what the dark mode implementation should include.",
+        plan: "I'll read the test file to understand the requirements.",
+        act: {
+          tool: "read",
+          call: 'ReadFile("app.test.js")',
+          file: "app.test.js",
+          resultType: "file"
+        },
+        observe: "The tests expect: 1) a .dark-mode class, 2) dark background color (#1... or #2...), 3) a .dark-mode .card rule. I know what to build.",
+        context: 22
+      },
+      {
+        cycle: 3,
+        think: "Now I'll add the dark mode CSS rules. I need .dark-mode on body for background/text, and .dark-mode .card for card styling.",
+        plan: "I'll append dark mode CSS rules at the end of app.css.",
+        act: {
+          tool: "edit",
+          call: 'EditFile("app.css", append dark mode rules)',
+          file: "app.css",
+          edit: {
+            append: true,
+            newLines: [
+              '',
+              '/* Dark Mode */',
+              '.dark-mode {',
+              '  background: #1a1a2e;',
+              '  color: #e0e0e0;',
+              '}',
+              '',
+              '.dark-mode .card {',
+              '  background: #16213e;',
+              '  border-color: #0f3460;',
+              '  color: #e0e0e0;',
+              '}',
+              '',
+              '.dark-mode .button {',
+              '  background: #6a5acd;',
+              '}',
+            ]
+          },
+          resultText: "Appended 15 lines to app.css (dark mode rules)."
+        },
+        observe: "Dark mode CSS added. Let me run the tests to verify it meets all requirements.",
+        context: 42
+      },
+      {
+        cycle: 4,
+        think: "Let me run the tests to confirm my dark mode implementation passes all three test cases.",
+        plan: "I'll run the test suite.",
+        act: {
+          tool: "test",
+          call: 'RunTests()',
+          resultText: "PASS  dark mode class exists\nPASS  dark mode sets dark background\nPASS  dark mode adjusts card\n\n3 passed, 0 failed",
+          isError: false
+        },
+        observe: "All 3 tests pass. The dark mode has been successfully added with background, text color, card, and button style overrides. Task complete.",
+        context: 56
+      }
+    ],
+    optimalSteps: 4,
+    summary: {
+      cycles: 4,
+      errors: 0,
+      errorDesc: "None",
+      contextTokens: "4,180"
+    }
+  },
+
+  /* ---------- TASK 3: COUNT WORDS ---------- */
+  word_count: {
+    description: "Count the words in story.txt",
+    files: {
+      "story.txt": {
+        icon: "TX",
+        content: [
+          'Once upon a time, in a land of silicon and light,',
+          'there lived a little program named Ada.',
+          'Ada could do one thing very well: she could count.',
+          'She counted the stars in the digital sky,',
+          'she counted the bits flowing through the wires,',
+          'and she counted every word in every story',
+          'that passed through her memory.',
+          '',
+          'One day, someone asked Ada a question:',
+          '"How many words are in YOUR story?"',
+          'Ada paused. She had never counted herself before.',
+          'So she began, one word at a time...',
+        ]
+      },
+      "count.js": {
+        icon: "JS",
+        content: [
+          'const fs = require("fs");',
+          '',
+          'function countWords(filename) {',
+          '  const text = fs.readFileSync(filename, "utf8");',
+          '  const words = text.split(/\\s+/).filter(w => w.length > 0);',
+          '  return words.length;',
+          '}',
+          '',
+          'console.log("Word count:", countWords("story.txt"));',
+        ]
+      }
+    },
+    steps: [
+      {
+        cycle: 1,
+        think: "I need to count the words in story.txt. Let me first list the files to see what I'm working with.",
+        plan: "I'll list the files in the directory.",
+        act: {
+          tool: "list",
+          call: 'ListFiles()',
+          resultText: "story.txt\ncount.js",
+          isError: false
+        },
+        observe: "There are two files: story.txt (the file to count) and count.js (a helper script). Let me read the story first.",
+        context: 8
+      },
+      {
+        cycle: 2,
+        think: "Let me read story.txt to see its contents and count the words.",
+        plan: "I'll read story.txt.",
+        act: {
+          tool: "read",
+          call: 'ReadFile("story.txt")',
+          file: "story.txt",
+          resultType: "file"
+        },
+        observe: "I can see the story. It's 12 lines of text. I could count manually, but let me use the existing count.js script to be precise.",
+        context: 22
+      },
+      {
+        cycle: 3,
+        think: "There's a count.js script already. Let me run it to get the exact word count. But first, let me verify what it does.",
+        plan: "I'll read count.js to verify it works correctly, then run the test.",
+        act: {
+          tool: "read",
+          call: 'ReadFile("count.js")',
+          file: "count.js",
+          resultType: "file"
+        },
+        observe: "The script reads the file, splits by whitespace, filters empty strings, and returns the count. That's a correct approach. Let me run it.",
+        context: 35
+      },
+      {
+        cycle: 4,
+        think: "The count.js script looks correct. Let me run it to get the word count for story.txt.",
+        plan: "I'll run the test/script to get the result.",
+        act: {
+          tool: "test",
+          call: 'RunTests("node count.js")',
+          resultText: "Word count: 78",
+          isError: false
+        },
+        observe: "The word count for story.txt is 78 words. Task complete. The story about Ada the counting program contains 78 words.",
+        context: 48
+      }
+    ],
+    optimalSteps: 4,
+    summary: {
+      cycles: 4,
+      errors: 0,
+      errorDesc: "None",
+      contextTokens: "3,240"
+    }
+  },
+
+  /* ---------- TASK 4: FIND THE SECRET ---------- */
+  find_secret: {
+    description: "Find the hidden message across 3 files",
+    files: {
+      "readme.md": {
+        icon: "MD",
+        content: [
+          '# Project Notes',
+          '',
+          'This project contains some configuration files.',
+          'Nothing special here, just the usual setup.',
+          '',
+          '> Hint: The secret is split across files.',
+          '> Look at the comments carefully.',
+        ]
+      },
+      "config.yaml": {
+        icon: "YM",
+        content: [
+          '# Application Config',
+          'name: my-app',
+          'version: 2.1.0',
+          'port: 3000',
+          '',
+          '# SECRET_PART_1: "Agents are"',
+          '',
+          'database:',
+          '  host: localhost',
+          '  port: 5432',
+        ]
+      },
+      "deploy.sh": {
+        icon: "SH",
+        content: [
+          '#!/bin/bash',
+          '# Deployment script',
+          '',
+          'echo "Starting deploy..."',
+          '',
+          '# SECRET_PART_2: "just loops"',
+          '',
+          'npm run build',
+          'npm run start',
+        ]
+      },
+      ".env.example": {
+        icon: "EN",
+        content: [
+          '# Environment template',
+          'DB_HOST=localhost',
+          'DB_PORT=5432',
+          'API_KEY=your-key-here',
+          '',
+          '# SECRET_PART_3: "that think"',
+          '',
+          '# Full secret: "Agents are just loops that think"',
+        ]
+      }
+    },
+    steps: [
+      {
+        cycle: 1,
+        think: "I need to find a hidden message across 3 files. Let me start by listing all available files.",
+        plan: "I'll list the files in the directory.",
+        act: {
+          tool: "list",
+          call: 'ListFiles()',
+          resultText: "readme.md\nconfig.yaml\ndeploy.sh\n.env.example",
+          isError: false
+        },
+        observe: "There are 4 files. Let me check the readme first since it might have a hint about where to look.",
+        context: 8
+      },
+      {
+        cycle: 2,
+        think: "The readme might contain instructions or hints about the secret. Let me read it first.",
+        plan: "I'll read readme.md.",
+        act: {
+          tool: "read",
+          call: 'ReadFile("readme.md")',
+          file: "readme.md",
+          resultType: "file"
+        },
+        observe: "The readme says 'The secret is split across files' and 'Look at the comments carefully.' So I need to search for something in the comments of each file.",
+        context: 18
+      },
+      {
+        cycle: 3,
+        think: "The secret is in comments and split across files. Let me search for a pattern like 'SECRET' or 'secret' across all files.",
+        plan: "I'll use Search Code to find any mention of 'SECRET' across all files.",
+        act: {
+          tool: "search",
+          call: 'SearchCode("SECRET")',
+          resultText: "config.yaml:6:  # SECRET_PART_1: \"Agents are\"\ndeploy.sh:6:   # SECRET_PART_2: \"just loops\"\n.env.example:6: # SECRET_PART_3: \"that think\"\n.env.example:8: # Full secret: \"Agents are just loops that think\"",
+          isError: false
+        },
+        observe: "Found it! The secret is split into 3 parts across the config, deploy script, and env file:\n  Part 1: \"Agents are\"\n  Part 2: \"just loops\"\n  Part 3: \"that think\"\n\nThe full secret message is: \"Agents are just loops that think.\" Task complete!",
+        context: 38
+      }
+    ],
+    optimalSteps: 3,
+    summary: {
+      cycles: 3,
+      errors: 0,
+      errorDesc: "None",
+      contextTokens: "2,860"
+    }
+  }
+};
+
+/* ===== MANUAL MODE HINTS ===== */
+/* For each task, define what the "ideal" tool choice is at each step, plus alternatives */
+const MANUAL_HINTS = {
+  fix_bug: [
+    { ideal: "read", idealParam: "calculator.js", goodAlts: ["list"], hint: "You have a buggy file. What should you do first?" },
+    { ideal: "edit", idealParam: "retrun -> return", goodAlts: ["search"], hint: "You found a typo. How do you fix it?" },
+    { ideal: "test", idealParam: "", goodAlts: [], hint: "You made a fix. How do you verify it works?" },
+    { ideal: "read", idealParam: "calculator.js", goodAlts: ["search"], hint: "A test failed. You need to investigate why." },
+    { ideal: "edit", idealParam: "a + b -> a / b", goodAlts: [], hint: "You found a wrong operator in divide. Fix it!" },
+    { ideal: "test", idealParam: "", goodAlts: [], hint: "You fixed the second bug. Verify everything passes." },
+  ],
+  dark_mode: [
+    { ideal: "read", idealParam: "app.css", goodAlts: ["list"], hint: "Start by understanding the existing styles." },
+    { ideal: "read", idealParam: "app.test.js", goodAlts: ["list"], hint: "Check what the tests expect from dark mode." },
+    { ideal: "edit", idealParam: "add dark mode CSS", goodAlts: [], hint: "Now add the dark mode CSS rules to app.css." },
+    { ideal: "test", idealParam: "", goodAlts: [], hint: "Verify your changes pass the tests." },
+  ],
+  word_count: [
+    { ideal: "list", idealParam: "", goodAlts: ["read"], hint: "What files are available to work with?" },
+    { ideal: "read", idealParam: "story.txt", goodAlts: [], hint: "Read the file you need to count." },
+    { ideal: "read", idealParam: "count.js", goodAlts: ["test"], hint: "There's a helper script. Check what it does." },
+    { ideal: "test", idealParam: "", goodAlts: [], hint: "Run the counting script to get the result." },
+  ],
+  find_secret: [
+    { ideal: "list", idealParam: "", goodAlts: ["read"], hint: "Start by seeing what files exist." },
+    { ideal: "read", idealParam: "readme.md", goodAlts: ["search"], hint: "The readme might have a clue." },
+    { ideal: "search", idealParam: "SECRET", goodAlts: ["read"], hint: "Search for the secret pattern across files." },
+  ]
+};
+
+
+/* ===== STATE ===== */
+let state = {
+  taskId: 'fix_bug',
+  mode: 'watch',        // 'watch' | 'manual'
+  running: false,
+  paused: false,
+  currentStep: 0,
+  speed: 3,
+  toolCounts: { read: 0, edit: 0, test: 0, search: 0, list: 0 },
+  manualSteps: 0,
+  files: {},             // deep copy of current task's files
+  animationTimer: null,
+  typingTimer: null,
+};
+
+/* ===== DOM REFS ===== */
+const $ = id => document.getElementById(id);
+const taskSelect   = $('taskSelect');
+const playBtn      = $('playBtn');
+const resetBtn     = $('resetBtn');
+const speedSlider  = $('speedSlider');
+const speedLabel   = $('speedLabel');
+const speedControl = $('speedControl');
+const watchBtn     = $('watchBtn');
+const manualBtn    = $('manualBtn');
+const fileTree     = $('fileTree');
+const filePreview  = $('filePreview');
+const agentLog     = $('agentLog');
+const contextFill  = $('contextFill');
+const contextPct   = $('contextPct');
+const contextWarn  = $('contextWarning');
+const summaryPanel = $('summaryPanel');
+const summaryStats = $('summaryStats');
+const summaryTools = $('summaryTools');
+const summaryComp  = $('summaryComparison');
+const manualOverlay = $('manualOverlay');
+const manualBox    = $('manualBox');
+const manualFields = $('manualFields');
+const manualFeedback = $('manualFeedback');
+
+/* ===== HELPERS ===== */
+function deepCopy(obj) { return JSON.parse(JSON.stringify(obj)); }
+
+function getSpeedMs() {
+  // Speed 1 = slow (60ms per char), speed 5 = fast (10ms per char)
+  const base = [60, 45, 30, 18, 10];
+  return base[state.speed - 1] || 30;
+}
+
+function getStepDelay() {
+  // Delay between steps: slow=1200ms, fast=300ms
+  const delays = [1200, 900, 600, 400, 250];
+  return delays[state.speed - 1] || 600;
+}
+
+/* ===== INITIALIZATION ===== */
+function init() {
+  loadTask(state.taskId);
+  taskSelect.addEventListener('change', () => {
+    state.taskId = taskSelect.value;
+    resetAll();
+  });
+  speedSlider.addEventListener('input', () => {
+    state.speed = parseInt(speedSlider.value);
+    speedLabel.textContent = state.speed + 'x';
+  });
+  watchBtn.addEventListener('click', () => setMode('watch'));
+  manualBtn.addEventListener('click', () => setMode('manual'));
+  playBtn.addEventListener('click', togglePlay);
+  resetBtn.addEventListener('click', resetAll);
+
+  // Keyboard handler for tool cards (Enter/Space triggers click in manual mode)
+  document.querySelectorAll('.tool-card').forEach(card => {
+    card.addEventListener('keydown', (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && card.classList.contains('clickable')) {
+        e.preventDefault();
+        card.click();
+      }
+    });
+  });
+}
+
+function setMode(mode) {
+  state.mode = mode;
+  watchBtn.classList.toggle('active', mode === 'watch');
+  manualBtn.classList.toggle('active', mode === 'manual');
+  watchBtn.setAttribute('aria-pressed', mode === 'watch');
+  manualBtn.setAttribute('aria-pressed', mode === 'manual');
+  speedControl.style.display = mode === 'watch' ? 'flex' : 'none';
+
+  // Make tool cards clickable in manual mode
+  document.querySelectorAll('.tool-card').forEach(card => {
+    card.classList.toggle('clickable', mode === 'manual');
+    if (mode === 'manual') {
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+    } else {
+      card.removeAttribute('tabindex');
+      card.removeAttribute('role');
+    }
+  });
+
+  resetAll();
+}
+
+function loadTask(taskId) {
+  const task = TASKS[taskId];
+  state.files = deepCopy(task.files);
+  renderFileTree();
+  // Auto-select first file
+  const firstFile = Object.keys(state.files)[0];
+  if (firstFile) showFile(firstFile);
+}
+
+/* ===== FILE PANEL ===== */
+function renderFileTree() {
+  fileTree.innerHTML = '';
+  const files = state.files;
+  Object.keys(files).forEach(name => {
+    const item = document.createElement('div');
+    item.className = 'file-tree-item';
+    item.dataset.file = name;
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('role', 'treeitem');
+    item.innerHTML = `<span class="file-icon" style="font-family:var(--mono);font-size:10px;background:${getFileColor(files[name].icon)};color:#fff;padding:1px 4px;border-radius:3px;">${files[name].icon}</span> ${name}`;
+    item.addEventListener('click', () => showFile(name));
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showFile(name); }
+    });
+    fileTree.appendChild(item);
+  });
+}
+
+function getFileColor(icon) {
+  const colors = { JS: '#F7DF1E', TS: '#3178C6', CS: '#264de4', HT: '#E34F26', MD: '#083fa1', TX: '#718096', YM: '#cb171e', SH: '#4EAA25', EN: '#ECC94B', '{}': '#718096' };
+  return colors[icon] || '#718096';
+}
+
+function showFile(name) {
+  document.querySelectorAll('.file-tree-item').forEach(el => {
+    el.classList.toggle('active', el.dataset.file === name);
+  });
+  const file = state.files[name];
+  if (!file) { filePreview.style.display = 'none'; return; }
+  filePreview.style.display = 'block';
+  renderFileContent(name);
+}
+
+function renderFileContent(name, changedLines) {
+  const file = state.files[name];
+  const lines = file.content;
+  let html = '';
+  lines.forEach((line, i) => {
+    const isChanged = changedLines && changedLines.includes(i);
+    const cls = isChanged ? ' class="line-changed"' : '';
+    html += `<span${cls}><span class="line-num">${i + 1}</span>${escapeHtml(line)}\n</span>`;
+  });
+  filePreview.innerHTML = html;
+
+  // Update tree item if it's the active one
+  const activeItem = document.querySelector(`.file-tree-item[data-file="${name}"]`);
+  if (activeItem && changedLines && changedLines.length > 0) {
+    activeItem.classList.add('modified');
+    setTimeout(() => activeItem.classList.remove('modified'), 1200);
+  }
+}
+
+function escapeHtml(text) {
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ===== CONTEXT BAR ===== */
+function updateContext(pct) {
+  contextFill.style.width = pct + '%';
+  contextPct.textContent = pct + '% used';
+  contextFill.classList.toggle('warn', pct >= 80);
+  contextWarn.classList.toggle('visible', pct >= 80);
+}
+
+/* ===== TOOL PANEL ===== */
+function pulseTool(toolName) {
+  const card = document.querySelector(`.tool-card[data-tool="${toolName}"]`);
+  if (!card) return;
+  card.classList.remove('pulse');
+  // Force reflow
+  void card.offsetWidth;
+  card.classList.add('pulse');
+  state.toolCounts[toolName]++;
+  $('count' + capitalize(toolName)).textContent = 'Used: ' + state.toolCounts[toolName];
+}
+
+function capitalize(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+function resetToolCounts() {
+  Object.keys(state.toolCounts).forEach(k => {
+    state.toolCounts[k] = 0;
+    $('count' + capitalize(k)).textContent = 'Used: 0';
+  });
+}
+
+/* ===== AGENT LOG ===== */
+function addCycleLabel(num) {
+  const label = document.createElement('div');
+  label.className = 'cycle-label';
+  label.textContent = 'ReAct Cycle ' + num;
+  agentLog.appendChild(label);
+}
+
+function createStepBox(type) {
+  const box = document.createElement('div');
+  box.className = `step-box step-${type}`;
+  const label = document.createElement('span');
+  label.className = 'step-label';
+  label.textContent = type.toUpperCase();
+  box.appendChild(label);
+  agentLog.appendChild(box);
+  return box;
+}
+
+/* Typing animation for text content */
+function typeText(element, text, charDelay) {
+  return new Promise(resolve => {
+    let i = 0;
+    const textNode = document.createElement('span');
+    element.appendChild(textNode);
+    const cursor = document.createElement('span');
+    cursor.className = 'typing-cursor';
+    element.appendChild(cursor);
+
+    function typeChar() {
+      if (state.paused && state.mode === 'watch') {
+        state.typingTimer = setTimeout(typeChar, 50);
+        return;
+      }
+      if (i < text.length) {
+        textNode.textContent += text[i];
+        i++;
+        // Auto-scroll
+        const panel = $('agentPanel');
+        panel.scrollTop = panel.scrollHeight;
+        state.typingTimer = setTimeout(typeChar, charDelay);
+      } else {
+        cursor.remove();
+        resolve();
+      }
+    }
+    typeChar();
+  });
+}
+
+/* Snap in content (no typing, for tool calls) */
+function snapContent(element, html) {
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  element.appendChild(div);
+  const panel = $('agentPanel');
+  panel.scrollTop = panel.scrollHeight;
+}
+
+/* ===== APPLY FILE EDITS ===== */
+function applyEdit(step) {
+  const act = step.act;
+  if (!act.edit) return;
+  const fileName = act.file;
+  const edit = act.edit;
+
+  if (edit.append) {
+    // Append new lines
+    state.files[fileName].content = state.files[fileName].content.concat(edit.newLines);
+    const startLine = state.files[fileName].content.length - edit.newLines.length;
+    const changedLines = edit.newLines.map((_, i) => startLine + i);
+    showFile(fileName);
+    renderFileContent(fileName, changedLines);
+  } else {
+    // Replace a specific line
+    state.files[fileName].content[edit.line] = edit.new;
+    showFile(fileName);
+    renderFileContent(fileName, [edit.line]);
+  }
+}
+
+/* ===== WATCH MODE: AUTO-RUN ===== */
+async function runWatchMode() {
+  const task = TASKS[state.taskId];
+  const steps = task.steps;
+
+  for (let i = state.currentStep; i < steps.length; i++) {
+    if (!state.running) return;
+    state.currentStep = i;
+    const step = steps[i];
+
+    // Cycle label
+    if (i === 0 || steps[i].cycle !== steps[i-1]?.cycle) {
+      addCycleLabel(step.cycle);
+    }
+
+    // THINK
+    await waitIfPaused();
+    if (!state.running) return;
+    const thinkBox = createStepBox('think');
+    thinkBox.classList.add('visible');
+    await typeText(thinkBox, step.think, getSpeedMs());
+    await delay(getStepDelay());
+
+    // PLAN
+    await waitIfPaused();
+    if (!state.running) return;
+    const planBox = createStepBox('plan');
+    planBox.classList.add('visible');
+    await typeText(planBox, step.plan, getSpeedMs());
+    await delay(getStepDelay());
+
+    // ACT
+    await waitIfPaused();
+    if (!state.running) return;
+    pulseTool(step.act.tool);
+    const actBox = createStepBox('act');
+    actBox.classList.add('visible');
+    snapContent(actBox, `<span class="tool-call">${escapeHtml(step.act.call)}</span>`);
+    await delay(getStepDelay());
+
+    // Show tool result
+    if (step.act.resultType === 'file') {
+      const file = state.files[step.act.file];
+      const content = file.content.map((l, idx) => `${String(idx+1).padStart(2)} | ${l}`).join('\n');
+      snapContent(actBox, `<div class="tool-result">${escapeHtml(content)}</div>`);
+      showFile(step.act.file);
+    } else if (step.act.resultText) {
+      const cls = step.act.isError ? 'tool-result error' : 'tool-result';
+      snapContent(actBox, `<div class="${cls}">${escapeHtml(step.act.resultText)}</div>`);
+    }
+
+    // Apply edits
+    if (step.act.edit) {
+      applyEdit(step);
+    }
+
+    await delay(getStepDelay());
+
+    // OBSERVE
+    await waitIfPaused();
+    if (!state.running) return;
+    const obsBox = createStepBox('observe');
+    obsBox.classList.add('visible');
+    await typeText(obsBox, step.observe, getSpeedMs());
+    await delay(getStepDelay());
+
+    // Update context
+    updateContext(step.context || 0);
+  }
+
+  // Done
+  state.running = false;
+  playBtn.textContent = '\u25B6 Start';
+  showSummary();
+}
+
+function delay(ms) {
+  return new Promise(resolve => {
+    state.animationTimer = setTimeout(resolve, ms);
+  });
+}
+
+function waitIfPaused() {
+  return new Promise(resolve => {
+    function check() {
+      if (!state.paused || !state.running) { resolve(); return; }
+      state.animationTimer = setTimeout(check, 100);
+    }
+    check();
+  });
+}
+
+/* ===== MANUAL MODE ===== */
+let manualResolve = null;
+let manualStepData = null;
+
+async function runManualMode() {
+  const task = TASKS[state.taskId];
+  const steps = task.steps;
+  const hints = MANUAL_HINTS[state.taskId];
+  state.manualSteps = 0;
+
+  for (let i = 0; i < steps.length; i++) {
+    if (!state.running) return;
+    state.currentStep = i;
+    const step = steps[i];
+    const hint = hints[i];
+
+    // Cycle label
+    if (i === 0 || steps[i].cycle !== steps[i-1]?.cycle) {
+      addCycleLabel(step.cycle);
+    }
+
+    // Show the THINK box (agent shares its thought)
+    const thinkBox = createStepBox('think');
+    thinkBox.classList.add('visible');
+    snapContent(thinkBox, step.think);
+
+    // Prompt user for tool choice
+    const userChoice = await promptManualChoice(i, step, hint);
+    if (!state.running) return;
+    state.manualSteps++;
+
+    // Show their choice as PLAN
+    const planBox = createStepBox('plan');
+    planBox.classList.add('visible');
+    snapContent(planBox, `You chose: ${capitalize(userChoice.tool)}${userChoice.param ? ' (' + userChoice.param + ')' : ''}`);
+
+    // ACT -- use the scripted result regardless
+    pulseTool(step.act.tool);
+    const actBox = createStepBox('act');
+    actBox.classList.add('visible');
+    snapContent(actBox, `<span class="tool-call">${escapeHtml(step.act.call)}</span>`);
+
+    // Show tool result
+    if (step.act.resultType === 'file') {
+      const file = state.files[step.act.file];
+      const content = file.content.map((l, idx) => `${String(idx+1).padStart(2)} | ${l}`).join('\n');
+      snapContent(actBox, `<div class="tool-result">${escapeHtml(content)}</div>`);
+      showFile(step.act.file);
+    } else if (step.act.resultText) {
+      const cls = step.act.isError ? 'tool-result error' : 'tool-result';
+      snapContent(actBox, `<div class="${cls}">${escapeHtml(step.act.resultText)}</div>`);
+    }
+
+    if (step.act.edit) {
+      applyEdit(step);
+    }
+
+    // OBSERVE
+    const obsBox = createStepBox('observe');
+    obsBox.classList.add('visible');
+    snapContent(obsBox, step.observe);
+
+    updateContext(step.context || 0);
+
+    await delay(300);
+  }
+
+  state.running = false;
+  playBtn.textContent = '\u25B6 Start';
+  showSummary(true);
+}
+
+function promptManualChoice(stepIdx, step, hint) {
+  return new Promise(resolve => {
+    manualResolve = resolve;
+    manualStepData = { step, hint, stepIdx };
+
+    const task = TASKS[state.taskId];
+    const fileNames = Object.keys(state.files);
+
+    $('manualTitle').textContent = `Step ${stepIdx + 1}: Your Turn`;
+    $('manualDesc').textContent = hint.hint;
+
+    // Build tool selector + param field
+    manualFields.innerHTML = `
+      <label class="param-label">Choose a tool:</label>
+      <select id="manualToolSelect">
+        <option value="read">Read File</option>
+        <option value="edit">Edit File</option>
+        <option value="test">Run Tests</option>
+        <option value="search">Search Code</option>
+        <option value="list">List Files</option>
+      </select>
+      <label class="param-label">Parameter (file name, search term, etc.):</label>
+      <input type="text" id="manualParamInput" placeholder="e.g. calculator.js" />
+    `;
+
+    manualFeedback.className = 'manual-feedback';
+    manualFeedback.style.display = 'none';
+    manualFeedback.textContent = '';
+
+    manualOverlay.classList.add('active');
+  });
+}
+
+function submitManualChoice() {
+  const toolSel = document.getElementById('manualToolSelect');
+  const paramInput = document.getElementById('manualParamInput');
+  if (!toolSel || !manualStepData) return;
+
+  const chosenTool = toolSel.value;
+  const chosenParam = paramInput.value.trim();
+  const { hint } = manualStepData;
+
+  // Evaluate choice
+  let quality;
+  if (chosenTool === hint.ideal) {
+    quality = 'good';
+    manualFeedback.textContent = 'Great choice! That\'s exactly what the agent would do.';
+  } else if (hint.goodAlts.includes(chosenTool)) {
+    quality = 'ok';
+    manualFeedback.textContent = `Not bad! That works, but the agent would use ${capitalize(hint.ideal)} here. Your way takes an extra step.`;
+  } else {
+    quality = 'bad';
+    manualFeedback.textContent = `Hmm, ${capitalize(chosenTool)} isn't the best choice here. The agent would use ${capitalize(hint.ideal)}. But let's see what happens...`;
+  }
+
+  manualFeedback.className = `manual-feedback ${quality}`;
+  manualFeedback.style.display = 'block';
+
+  // After brief feedback, close overlay and continue
+  setTimeout(() => {
+    manualOverlay.classList.remove('active');
+    if (manualResolve) {
+      manualResolve({ tool: chosenTool, param: chosenParam, quality });
+      manualResolve = null;
+      manualStepData = null;
+    }
+  }, quality === 'good' ? 800 : 1500);
+}
+
+/* ===== PLAY / PAUSE / RESET ===== */
+function togglePlay() {
+  if (!state.running) {
+    // Start
+    state.running = true;
+    state.paused = false;
+    playBtn.textContent = '\u23F8 Pause';
+    if (state.mode === 'watch') {
+      runWatchMode();
+    } else {
+      playBtn.textContent = 'Running...';
+      playBtn.disabled = true;
+      runManualMode();
+    }
+  } else if (state.mode === 'watch') {
+    // Toggle pause
+    state.paused = !state.paused;
+    playBtn.textContent = state.paused ? '\u25B6 Resume' : '\u23F8 Pause';
+  }
+}
+
+function resetAll() {
+  state.running = false;
+  state.paused = false;
+  state.currentStep = 0;
+  state.manualSteps = 0;
+  clearTimeout(state.animationTimer);
+  clearTimeout(state.typingTimer);
+  playBtn.textContent = '\u25B6 Start';
+  playBtn.disabled = false;
+  agentLog.innerHTML = '';
+  summaryPanel.classList.remove('visible');
+  manualOverlay.classList.remove('active');
+  manualResolve = null;
+  manualStepData = null;
+  resetToolCounts();
+  updateContext(0);
+  loadTask(state.taskId);
+}
+
+/* ===== SUMMARY ===== */
+function showSummary(isManual) {
+  const task = TASKS[state.taskId];
+  const s = task.summary;
+
+  summaryStats.innerHTML = `
+    <div class="summary-stat">
+      <div class="stat-num">${s.cycles}</div>
+      <div class="stat-label">ReAct Cycles</div>
+    </div>
+    <div class="summary-stat">
+      <div class="stat-num">${s.errors}</div>
+      <div class="stat-label">Errors Recovered</div>
+    </div>
+    <div class="summary-stat">
+      <div class="stat-num">${Object.values(state.toolCounts).reduce((a,b) => a+b, 0)}</div>
+      <div class="stat-label">Tool Calls</div>
+    </div>
+    <div class="summary-stat">
+      <div class="stat-num">${s.contextTokens}</div>
+      <div class="stat-label">Context Tokens</div>
+    </div>
+  `;
+
+  // Tool tags
+  summaryTools.innerHTML = '';
+  Object.entries(state.toolCounts).forEach(([tool, count]) => {
+    if (count > 0) {
+      const tag = document.createElement('span');
+      tag.className = 'summary-tool-tag';
+      tag.textContent = `${capitalize(tool)}: ${count}x`;
+      summaryTools.appendChild(tag);
+    }
+  });
+
+  // Manual mode comparison
+  if (isManual) {
+    summaryComp.style.display = 'block';
+    const agentSteps = task.optimalSteps;
+    const userSteps = state.manualSteps;
+    if (userSteps <= agentSteps) {
+      summaryComp.innerHTML = `You took <strong>${userSteps}</strong> steps. The agent took <strong>${agentSteps}</strong>. You matched or beat the agent!`;
+    } else {
+      summaryComp.innerHTML = `You took <strong>${userSteps}</strong> steps. The agent took <strong>${agentSteps}</strong>. The agent was ${userSteps - agentSteps} step(s) more efficient.`;
+    }
+  } else {
+    summaryComp.style.display = 'none';
+  }
+
+  if (s.errors > 0) {
+    summaryStats.innerHTML += `
+      <div class="summary-stat" style="grid-column: 1 / -1;">
+        <div class="stat-label" style="color:var(--red);font-size:12px;">Error Recovery: ${s.errorDesc}</div>
+      </div>
+    `;
+  }
+
+  summaryPanel.classList.add('visible');
+  summaryPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/* ===== BOOT ===== */
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

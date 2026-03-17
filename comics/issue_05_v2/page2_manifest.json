@@ -1,0 +1,119 @@
+{
+  "issue": 5,
+  "page": 2,
+  "title": "Three Inventions That Changed Everything",
+  "accent": "#D69E2E",
+  "panels": [
+    {
+      "id": "p2_01_tbl_portrait",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 512,
+      "prompt": "Portrait of Tim Berners-Lee at CERN in 1990, a thoughtful slightly rumpled man in his mid-thirties with brown hair and casual clothes, surrounded by cables and computers in a messy office, warm desk lamp lighting, he looks like a man solving a practical problem not launching a revolution, the black NeXT computer cube visible beside him, warm editorial illustration with ink lines and watercolor washes, gold accent",
+      "overlays": []
+    },
+    {
+      "id": "p2_01b_robot_intro",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 512,
+      "prompt": "A small cute round copper-orange robot with big warm hazel eyes, a tiny welcoming bow tie, both stubby hands open in a presenting gesture leaning forward warmly, polished rounded body with faint circuit-trace patterns, standing on a stack of old textbooks, warm amber background. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"Meet Tim Berners-Lee. Computing was in his blood.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Meet Tim Berners-Lee. Computing was in his blood.",
+      "speaker": "COPPERBOT"
+    },
+    {
+      "id": "p2_02_background",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Tim Berners-Lee</strong> was not trying to build a publishing empire or a social network. He had a practical problem: CERN employed over 10,000 researchers, using dozens of different computer systems, and they could not easily share documents with each other. Information was trapped in silos.<br><br>Born in London in 1955, both his parents worked on the Ferranti Mark 1, one of the earliest commercial computers. He studied physics at Oxford, then ended up at CERN, the European particle physics laboratory in Geneva."
+    },
+    {
+      "id": "p2_03_proposal",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "On <strong>March 12, 1989</strong>, Berners-Lee submitted a proposal titled <em>\"Information Management: A Proposal.\"</em> Sendall's response &mdash; <em>\"Vague but exciting...\"</em> &mdash; was enough to let the project proceed, though CERN never made it a priority. Berners-Lee essentially built the <strong>World Wide Web</strong> in his spare time, with help from colleague <strong>Robert Cailliau</strong>, who contributed to the proposal and championed the project within CERN.",
+      "style": "accent"
+    },
+    {
+      "id": "p2_04_html",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 236,
+      "gen_height": 384,
+      "prompt": "A stylized illustration of HTML code floating in space, angle brackets and tags like h1 p and a href visible in glowing gold text against a dark background, the tags forming the skeleton of a web page shape, clean and structured, a banner at top reading HTML, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "bottom-span",
+          "max_width": "280px",
+          "text": "<strong>HTML</strong> &mdash; The skeleton of every web page."
+        }
+      ]
+    },
+    {
+      "id": "p2_04b_http",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 236,
+      "gen_height": 384,
+      "prompt": "A stylized illustration of a browser and server exchanging messages, two glowing rectangular devices connected by arrows going back and forth labeled GET and 200 OK in gold text, clean diagram style against dark background, a banner at top reading HTTP, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "bottom-span",
+          "max_width": "280px",
+          "text": "<strong>HTTP</strong> &mdash; The language between browser and server."
+        }
+      ]
+    },
+    {
+      "id": "p2_04c_url",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 236,
+      "gen_height": 384,
+      "prompt": "A stylized illustration of a URL address bar floating in space, the text http info cern ch visible in glowing gold letters, an arrow pointing from the address to a small glowing server icon in the distance, like a postal address for the digital world, dark background, a banner at top reading URL, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "bottom-span",
+          "max_width": "280px",
+          "text": "<strong>URLs</strong> &mdash; An address for anything on the web."
+        }
+      ]
+    },
+    {
+      "id": "p2_05_three_inventions",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "By late 1990, working on a NeXT computer, Berners-Lee had created three inventions that became the foundation of the web:<br><br><strong>HTML</strong> (HyperText Markup Language) &mdash; simple tags like <code>&lt;h1&gt;</code> and <code>&lt;a href=\"...\"&gt;</code> that tell a browser what each piece of content is. The first version had only 18 tags. Its simplicity was the point.<br><br><strong>HTTP</strong> (HyperText Transfer Protocol) &mdash; your browser sends a request, the server sends a response. Clean, simple, stateless.<br><br><strong>URLs</strong> (Uniform Resource Locators) &mdash; addresses for anything on the web, like a postal address that tells your browser where to find a specific page, anywhere in the world."
+    },
+    {
+      "id": "p2_06_web_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 380\"><style>text{font-family:'JetBrains Mono',monospace; }</style><rect x=\"10\" y=\"0\" width=\"200\" height=\"180\" rx=\"10\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text x=\"110\" y=\"30\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#D69E2E\">HTML</text><text fill=\"#2D3748\" x=\"110\" y=\"55\" text-anchor=\"middle\" font-size=\"13\">The STRUCTURE</text><text fill=\"#2D3748\" x=\"110\" y=\"75\" text-anchor=\"middle\" font-size=\"13\">of a web page</text><text x=\"30\" y=\"105\" font-size=\"12\" font-family=\"monospace\" fill=\"#2D3748\">&lt;h1&gt;Hello&lt;/h1&gt;</text><text x=\"30\" y=\"125\" font-size=\"12\" font-family=\"monospace\" fill=\"#2D3748\" textLength=\"164\" lengthAdjust=\"spacingAndGlyphs\">&lt;p&gt;World&lt;/p&gt;</text><text x=\"30\" y=\"145\" font-size=\"12\" font-family=\"monospace\" fill=\"#2D3748\">&lt;a href=&quot;...&quot;&gt;</text><text x=\"110\" y=\"172\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">18 tags in v1</text><rect x=\"240\" y=\"0\" width=\"200\" height=\"180\" rx=\"10\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text x=\"340\" y=\"30\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#D69E2E\">HTTP</text><text fill=\"#2D3748\" x=\"340\" y=\"55\" text-anchor=\"middle\" font-size=\"13\">The LANGUAGE</text><text fill=\"#2D3748\" x=\"340\" y=\"75\" text-anchor=\"middle\" font-size=\"13\">browser &harr; server</text><text x=\"260\" y=\"105\" font-size=\"12\" font-family=\"monospace\" fill=\"#2D3748\">GET /page.html</text><text x=\"260\" y=\"125\" font-size=\"12\" font-family=\"monospace\" fill=\"#2D3748\">Host: info.cern.ch</text><text x=\"260\" y=\"150\" font-size=\"12\" font-family=\"monospace\" fill=\"#2D3748\">HTTP/1.1 200 OK</text><text x=\"260\" y=\"170\" font-size=\"12\" font-family=\"monospace\" fill=\"#2D3748\">Content-Type: text/html</text><rect x=\"470\" y=\"0\" width=\"200\" height=\"180\" rx=\"10\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text x=\"570\" y=\"30\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#D69E2E\">URL</text><text fill=\"#2D3748\" x=\"570\" y=\"55\" text-anchor=\"middle\" font-size=\"13\">The ADDRESS</text><text fill=\"#2D3748\" x=\"570\" y=\"75\" text-anchor=\"middle\" font-size=\"13\" textLength=\"168\" lengthAdjust=\"spacingAndGlyphs\">of anything on the web</text><text x=\"490\" y=\"110\" font-size=\"12\" font-family=\"monospace\" fill=\"#2D3748\">http://info.cern.ch/</text><text x=\"490\" y=\"130\" font-size=\"12\" font-family=\"monospace\" fill=\"#2D3748\">hypertext/WWW/</text><text x=\"490\" y=\"150\" font-size=\"12\" font-family=\"monospace\" fill=\"#2D3748\">Summary.html</text><line x1=\"110\" y1=\"185\" x2=\"340\" y2=\"220\" stroke=\"#D69E2E\" stroke-width=\"2\"/><line x1=\"340\" y1=\"185\" x2=\"340\" y2=\"220\" stroke=\"#D69E2E\" stroke-width=\"2\"/><line x1=\"570\" y1=\"185\" x2=\"340\" y2=\"220\" stroke=\"#D69E2E\" stroke-width=\"2\"/><rect x=\"230\" y=\"220\" width=\"220\" height=\"100\" rx=\"10\" fill=\"#D69E2E\" stroke=\"#2D3748\" stroke-width=\"2\"/><text x=\"340\" y=\"250\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\" fill=\"#fff\">THE WORLD WIDE WEB</text><text x=\"340\" y=\"275\" text-anchor=\"middle\" font-size=\"13\" fill=\"#fff\">August 6, 1991:</text><text x=\"340\" y=\"295\" text-anchor=\"middle\" font-size=\"13\" fill=\"#fff\">First public website goes live</text><text x=\"340\" y=\"315\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FEFCBF\">(info.cern.ch)</text></svg>",
+      "caption": "The Web's Foundation (1990): Three inventions that became the World Wide Web"
+    },
+    {
+      "id": "p2_07_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The <strong>World Wide Web is not the internet.</strong> The internet is the highway system &mdash; the physical network of cables and protocols (TCP/IP) built in the 1970s and 1980s. The web is what was built on top of it: a system of linked pages, accessible through browsers, using HTML, HTTP, and URLs. The internet carries the data. The web makes it readable.",
+      "style": "accent"
+    },
+    {
+      "id": "p2_08_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Berners-Lee built the first website and the first browser. But the web was still a tool for physicists. What turned it into something everyone could use?"
+    }
+  ]
+}

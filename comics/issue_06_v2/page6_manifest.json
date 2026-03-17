@@ -1,0 +1,95 @@
+{
+  "issue": 6,
+  "page": 6,
+  "title": "The AlexNet Earthquake",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p6_01_conference_reveal",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A dramatic conference presentation room showing a bar chart projected on a screen. The chart has five TALL grey bars all at similar heights reaching near the top, followed by one tiny SHORT red bar on the right side that reaches only HALFWAY up — the red bar is MUCH SMALLER than the grey bars, roughly half their height, showing a dramatic drop. The small red bar represents a breakthrough lower score. NO TEXT anywhere in the image. Audience of researchers viewed from behind, leaning forward in surprise at the screen. Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E accent on the small winning bar.",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "top-left",
+          "max_width": "260px",
+          "text": "<strong>September 2012.</strong> The ImageNet results are in."
+        }
+      ]
+    },
+    {
+      "id": "p6_02_robot_sputnik",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round bronze robot with big wide amazed crimson-glowing eyes, antenna vibrating with shock, stubby arms frozen mid-gesture in pure astonishment, mouth open in an O shape, standing on tiptoes looking upward at something towering above, dramatic upward lighting. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Toronto's entry: 15.3% error. Everyone else: ~26%.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E glow from above",
+      "bubble_text": "Toronto's entry: 15.3% error. Everyone else: ~26%.",
+      "speaker": "BRONZEBOT"
+    },
+    {
+      "id": "p6_03_narration_alexnet_intro",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "<strong>AlexNet</strong> was a deep convolutional neural network designed by <strong>Alex Krizhevsky</strong>, with his supervisor <strong>Geoffrey Hinton</strong> and fellow student <strong>Ilya Sutskever</strong> at the University of Toronto. The architecture was not entirely new — it was a CNN, the same basic idea LeCun had pioneered. But AlexNet was dramatically larger."
+    },
+    {
+      "id": "p6_04_relu_scene",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A visual metaphor for ReLU activation functions: a bright clean signal flowing through a simple open gate, the gate has a clean crisp design like a valve or switch, positive signal passes through clearly as a bright crimson stream, negative signal is neatly blocked and turned to zero shown as a calm flat line, the contrast between flowing and blocked is simple and immediate, circuit board aesthetic with warm tones, Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E accents",
+      "overlays": []
+    },
+    {
+      "id": "p6_05_narration_innovations",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "AlexNet's secret weapons:<br><br><strong>ReLU activation</strong> — if the input is positive, pass it through; if negative, output zero. This solved the <strong>vanishing gradient</strong> problem — in deep networks, the learning signal weakened through many layers like a message garbled in telephone. ReLU kept the signal strong.<br><br><strong>Dropout</strong> — randomly switching off neurons during training, forcing robust learning."
+    },
+    {
+      "id": "p6_06_gpu_irony",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A playful split composition: on the left side an NVIDIA GTX 580 graphics card shown rendering a colorful video game explosion with fireballs and particles, on the right side the exact same graphics card model but now processing a neural network visualization with weight matrices and data flowing through nodes, in the center a large equals sign connects the two sides showing they are the same hardware, bright warm lighting and slightly humorous tone, Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E and warm gold tones",
+      "bubble_text": "Two GPUs. Cost: $500 each. Changed the world.",
+      "speaker": "NARRATOR"
+    },
+    {
+      "id": "p6_07_narration_gpu_training",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Here is one of the great ironies of technology history. AlexNet was trained on <strong>two NVIDIA GTX 580 graphics cards</strong>, each with only 3 GB of memory. Graphics cards designed for rendering explosions in video games turned out to be perfectly suited for neural networks. The thousands of parallel cores that computed pixel colors simultaneously could just as easily compute neuron activations."
+    },
+    {
+      "id": "p6_08_result_chart",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 710 350\"><style>text{font-family:'JetBrains Mono',monospace;}.title{font-size:15px;font-weight:bold;}.label{font-size:12px}.small{font-size:12px;}.year{font-size:12px;font-weight:bold}.pct{font-size:12px;font-weight:bold}</style><text class=\"title\" x=\"340\" y=\"5\" text-anchor=\"middle\" fill=\"#2D3748\">ILSVRC Results — The Deep Learning Takeover</text><rect x=\"40\" y=\"25\" width=\"600\" height=\"230\" rx=\"8\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1.2\"/><line x1=\"100\" y1=\"40\" x2=\"100\" y2=\"245\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><line x1=\"100\" y1=\"245\" x2=\"600\" y2=\"245\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text class=\"small\" x=\"90\" y=\"55\" text-anchor=\"end\" fill=\"#2D3748\">30%</text><text class=\"small\" x=\"90\" y=\"115\" text-anchor=\"end\" fill=\"#2D3748\">20%</text><text class=\"small\" x=\"90\" y=\"175\" text-anchor=\"end\" fill=\"#2D3748\">10%</text><text class=\"small\" x=\"90\" y=\"235\" text-anchor=\"end\" fill=\"#2D3748\">0%</text><line x1=\"95\" y1=\"55\" x2=\"600\" y2=\"55\" stroke=\"#E2E8F0\" stroke-width=\"0.5\" stroke-dasharray=\"4,4\"/><line x1=\"95\" y1=\"115\" x2=\"600\" y2=\"115\" stroke=\"#E2E8F0\" stroke-width=\"0.5\" stroke-dasharray=\"4,4\"/><line x1=\"95\" y1=\"175\" x2=\"600\" y2=\"175\" stroke=\"#E2E8F0\" stroke-width=\"0.5\" stroke-dasharray=\"4,4\"/><rect x=\"130\" y=\"77\" width=\"50\" height=\"153\" rx=\"4\" fill=\"#A0AEC0\" opacity=\"0.6\"/><text class=\"year\" x=\"155\" y=\"262\" text-anchor=\"middle\" fill=\"#2D3748\">2010</text><text class=\"pct\" x=\"155\" y=\"72\" text-anchor=\"middle\" fill=\"#718096\">~28%</text><rect x=\"220\" y=\"89\" width=\"50\" height=\"141\" rx=\"4\" fill=\"#A0AEC0\" opacity=\"0.6\"/><text class=\"year\" x=\"245\" y=\"262\" text-anchor=\"middle\" fill=\"#2D3748\">2011</text><text class=\"pct\" x=\"245\" y=\"84\" text-anchor=\"middle\" fill=\"#718096\">~26%</text><rect x=\"310\" y=\"153\" width=\"50\" height=\"77\" rx=\"4\" fill=\"#E53E3E\"/><text class=\"year\" x=\"335\" y=\"262\" text-anchor=\"middle\" fill=\"#E53E3E\">2012</text><text class=\"pct\" x=\"335\" y=\"148\" text-anchor=\"middle\" fill=\"#E53E3E\">15.3%</text><text x=\"370\" y=\"130\" font-size=\"12\" fill=\"#E53E3E\" font-weight=\"bold\">AlexNet!</text><path d=\"M365,135 L358,150\" stroke=\"#E53E3E\" stroke-width=\"1.5\" marker-end=\"url(#ar6)\"/><rect x=\"400\" y=\"175\" width=\"50\" height=\"55\" rx=\"4\" fill=\"#E53E3E\" opacity=\"0.7\"/><text class=\"year\" x=\"425\" y=\"262\" text-anchor=\"middle\" fill=\"#2D3748\">2014</text><text class=\"pct\" x=\"425\" y=\"170\" text-anchor=\"middle\" fill=\"#E53E3E\">6.7%</text><rect x=\"490\" y=\"213\" width=\"50\" height=\"17\" rx=\"4\" fill=\"#E53E3E\" opacity=\"0.85\"/><text class=\"year\" x=\"515\" y=\"262\" text-anchor=\"middle\" fill=\"#2D3748\">2015</text><text class=\"pct\" x=\"515\" y=\"208\" text-anchor=\"middle\" fill=\"#E53E3E\">3.6%</text><line x1=\"100\" y1=\"215\" x2=\"580\" y2=\"215\" stroke=\"#38A169\" stroke-width=\"1.5\" stroke-dasharray=\"6,3\"/><text x=\"588\" y=\"219\" font-size=\"12\" fill=\"#38A169\" font-weight=\"bold\">Human ~5.1%</text><text x=\"340\" y=\"292\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E53E3E\" font-weight=\"bold\">Every winner after 2012 used deep neural networks. By 2015, machines beat humans.</text><defs><marker id=\"ar6\" markerWidth=\"7\" markerHeight=\"7\" refX=\"6\" refY=\"3.5\" orient=\"auto\"><polygon points=\"0,0 7,3.5 0,7\" fill=\"#E53E3E\"/></marker></defs></svg>",
+      "caption": "The deep learning takeover: from 28% error (2010) to beating humans (2015)."
+    },
+    {
+      "id": "p6_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "AlexNet was not one breakthrough. It was the convergence of three things: an <strong>algorithm</strong> that existed since the 1980s (CNNs and backpropagation), a <strong>dataset</strong> nobody had bothered to build until Fei-Fei Li did (ImageNet), and <strong>hardware</strong> never designed for AI (GPUs for video games). Breakthroughs often happen not when something new is invented, but when existing pieces finally come together."
+    },
+    {
+      "id": "p6_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "AlexNet proved deep learning worked. But WHY did it need GPUs? What is it about neural network training that makes regular CPUs too slow? The answer involves an accidental gift from the video game industry."
+    }
+  ]
+}

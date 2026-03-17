@@ -1,0 +1,106 @@
+{
+  "issue": 6,
+  "page": 8,
+  "title": "What Neural Networks See",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p8_01_feature_hierarchy",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A stunning visualization of a deep neural network's learned feature hierarchy flowing from left to right, on the far left a photograph of a tabby cat, then four vertical layers or columns between the cat and the output, the first column shows simple detected edges and lines in various angles, the second column shows textures and corner patterns, the third column shows recognizable parts like eyes ears and paws, the fourth column shows whole cat face shapes, on the far right a label reading 'cat 97 percent', the progression from simple to complex is visually clear and beautiful, warm lighting flowing through the layers, Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E accents on the label and connecting lines",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "top-right",
+          "max_width": "220px",
+          "text": "What does a neural network <em>see</em>?"
+        }
+      ]
+    },
+    {
+      "id": "p8_02_robot_awestruck",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 448,
+      "prompt": "A small cute cuboid robot made of visible colorful pastel voxel blocks, big pixel-art eyes wide with amazement, hands pressed against its cheeks in an awestruck expression, a tiny magnifying glass accessory hanging from its side, warm orange and crimson background glow suggesting revelation. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Nobody programmed this. It found it alone.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm crimson #E53E3E glow",
+      "bubble_text": "Nobody programmed this. It found it alone.",
+      "speaker": "PIXEL"
+    },
+    {
+      "id": "p8_03_narration_feature_vis",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "<strong>Feature visualization</strong> reveals what each layer of a trained network has learned to respond to. In a convolutional neural network, the layers form a natural hierarchy — <strong>simple features</strong> combining into <strong>complex ones</strong>, all discovered automatically through backpropagation."
+    },
+    {
+      "id": "p8_04_layer_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 280\"><style>.title{font-size:14px; font-weight:bold; } .layer{font-size:12px; font-weight:bold} .detail{font-size:12px; } .arrow{font-size:12px; font-weight:bold} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" class=\"title\" x=\"340\" y=\"5\" text-anchor=\"middle\">What Each Layer of a CNN Learns</text><rect x=\"25\" y=\"25\" width=\"110\" height=\"120\" rx=\"8\" fill=\"#FEFCBF\" opacity=\"0.3\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text class=\"layer\" x=\"80\" y=\"45\" text-anchor=\"middle\" fill=\"#E2E8F0\">INPUT</text><text fill=\"#E2E8F0\" class=\"detail\" x=\"80\" y=\"65\" text-anchor=\"middle\">Raw pixels</text><text fill=\"#E2E8F0\" class=\"detail\" x=\"80\" y=\"80\" text-anchor=\"middle\">of a photo</text><rect x=\"45\" y=\"90\" width=\"70\" height=\"45\" rx=\"4\" fill=\"#D69E2E\" opacity=\"0.15\"/><text fill=\"#E2E8F0\" class=\"detail\" x=\"80\" y=\"112\" text-anchor=\"middle\">[photo]</text><text fill=\"#E2E8F0\" class=\"arrow\" x=\"148\" y=\"90\" text-anchor=\"middle\">--></text><rect x=\"160\" y=\"25\" width=\"110\" height=\"120\" rx=\"8\" fill=\"#BEE3F8\" opacity=\"0.3\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text class=\"layer\" x=\"215\" y=\"45\" text-anchor=\"middle\" fill=\"#E2E8F0\">LAYER 1</text><text fill=\"#E2E8F0\" class=\"detail\" x=\"215\" y=\"65\" text-anchor=\"middle\">Edges, lines,</text><text fill=\"#E2E8F0\" class=\"detail\" x=\"215\" y=\"80\" text-anchor=\"middle\">color blobs</text><line x1=\"185\" y1=\"95\" x2=\"245\" y2=\"95\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><line x1=\"185\" y1=\"105\" x2=\"230\" y2=\"120\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><line x1=\"215\" y1=\"100\" x2=\"215\" y2=\"130\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><text fill=\"#E2E8F0\" class=\"arrow\" x=\"283\" y=\"90\" text-anchor=\"middle\">--></text><rect x=\"295\" y=\"25\" width=\"110\" height=\"120\" rx=\"8\" fill=\"#E9D8FD\" opacity=\"0.3\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text class=\"layer\" x=\"350\" y=\"45\" text-anchor=\"middle\" fill=\"#E2E8F0\">LAYER 2</text><text fill=\"#E2E8F0\" class=\"detail\" x=\"350\" y=\"65\" text-anchor=\"middle\">Corners,</text><text fill=\"#E2E8F0\" class=\"detail\" x=\"350\" y=\"80\" text-anchor=\"middle\">textures, fur</text><circle cx=\"335\" cy=\"110\" r=\"12\" fill=\"none\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><rect x=\"350\" y=\"98\" width=\"20\" height=\"20\" rx=\"3\" fill=\"none\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text fill=\"#E2E8F0\" class=\"arrow\" x=\"418\" y=\"90\" text-anchor=\"middle\">--></text><rect x=\"430\" y=\"25\" width=\"110\" height=\"120\" rx=\"8\" fill=\"#FED7D7\" opacity=\"0.3\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text class=\"layer\" x=\"485\" y=\"45\" text-anchor=\"middle\" fill=\"#E2E8F0\">LAYER 3+</text><text fill=\"#E2E8F0\" class=\"detail\" x=\"485\" y=\"65\" text-anchor=\"middle\">Eyes, ears,</text><text fill=\"#E2E8F0\" class=\"detail\" x=\"485\" y=\"80\" text-anchor=\"middle\">paws, noses</text><circle cx=\"470\" cy=\"105\" r=\"5\" fill=\"#E53E3E\" opacity=\"0.3\"/><circle cx=\"500\" cy=\"105\" r=\"5\" fill=\"#E53E3E\" opacity=\"0.3\"/><path d=\"M472,120 Q485,128 498,120\" fill=\"none\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text fill=\"#E2E8F0\" class=\"arrow\" x=\"553\" y=\"90\" text-anchor=\"middle\">--></text><rect x=\"565\" y=\"25\" width=\"95\" height=\"120\" rx=\"8\" fill=\"#C6F6D5\" opacity=\"0.3\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text class=\"layer\" x=\"613\" y=\"45\" text-anchor=\"middle\" fill=\"#E2E8F0\">OUTPUT</text><text fill=\"#E2E8F0\" class=\"detail\" x=\"613\" y=\"65\" text-anchor=\"middle\" textLength=\"67\" lengthAdjust=\"spacingAndGlyphs\">Cat faces,</text><text fill=\"#E2E8F0\" class=\"detail\" x=\"613\" y=\"80\" text-anchor=\"middle\" textLength=\"67\" lengthAdjust=\"spacingAndGlyphs\">whole cats</text><text x=\"613\" y=\"112\" text-anchor=\"middle\" font-size=\"14\" fill=\"#FFFFFF\" font-weight=\"bold\">cat: 97%</text><rect x=\"80\" y=\"165\" width=\"520\" height=\"30\" rx=\"6\" fill=\"#E53E3E\" opacity=\"0.08\"/><text x=\"120\" y=\"185\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">SIMPLE</text><text x=\"560\" y=\"185\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">COMPLEX</text><path d=\"M170,180 L540,180\" stroke=\"#E53E3E\" stroke-width=\"2\" marker-end=\"url(#a8)\"/><text x=\"340\" y=\"225\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">Nobody programmed this hierarchy. The network DISCOVERED it through backpropagation.</text><text x=\"340\" y=\"245\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">This is remarkably similar to how neuroscientists believe the visual cortex works.</text><defs><marker id=\"a8\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><polygon points=\"0,0 8,4 0,8\" fill=\"#E53E3E\"/></marker></defs></svg>",
+      "caption": "Edges become textures become parts become objects — each layer builds on the last."
+    },
+    {
+      "id": "p8_05_conv_filter_scene",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 320,
+      "prompt": "A large photograph of a cat on the left side, with a small red highlighted 3x3 square grid overlaid on the photo, arrows showing it sliding rightward and downward across the image. On the right side, a heatmap or feature map showing bright spots where edges were detected. The sliding window is highlighted in crimson #E53E3E. Clear diagrammatic educational style, showing the process of a filter scanning across an image. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p8_06_narration_conv",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "A CNN uses two elegant tricks. <strong>Convolutional filters</strong> — small sliding windows that scan across the image, so the same edge detector works everywhere. <strong>Pooling</strong> — periodically shrinking the image to focus on \"what\" is there rather than \"exactly where.\" This architecture was inspired by Fukushima's <strong>Neocognitron</strong> (1980) and refined by LeCun at Bell Labs."
+    },
+    {
+      "id": "p8_07_brain_comparison",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A side-by-side visual comparison: on the left a simplified warm diagram of the human visual cortex processing pipeline showing V1 V2 V4 regions as connected areas with a flow from simple features to complex recognition, on the right a neural network layer diagram with similar flow from edges to objects, dotted lines connect corresponding stages between them showing the parallel structure, both rendered in warm approachable tones not clinical, the comparison is clean and intuitive, Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E accents on connecting lines",
+      "bubble_text": "The network arrived at the same solution as the brain.",
+      "speaker": "NARRATOR"
+    },
+    {
+      "id": "p8_08_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "A deep neural network builds understanding from the bottom up: edges become textures, textures become parts, parts become objects. Each layer is an abstraction built on the layer below — the same principle we have seen throughout this entire series, from transistors to operating systems to programming languages. <strong>Deep learning discovered the power of abstraction on its own.</strong>"
+    },
+    {
+      "id": "p8_09_language_alert",
+      "type": "css_narration",
+      "layout": "left",
+      "flex": 1,
+      "text": "Remember our Language Alert from Page 3: when a CNN classifies an image as \"cat\" with 97% confidence, it has found <strong>statistical patterns in pixels</strong> that correlate with the label. It has never touched fur or heard a purr. Whether that counts as \"seeing\" is a question for Page 10."
+    },
+    {
+      "id": "p8_10_closing_scene",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A thoughtful scene: a small open book lying on a desk, one page shows a photograph of a cat, the other page shows flowing text in multiple languages, a warm reading lamp casts a golden pool of light over both pages, the scene suggests the transition from vision to language, warm cozy study atmosphere with books in the background, Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E reading lamp glow and warm gold tones",
+      "overlays": []
+    },
+    {
+      "id": "p8_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Neural networks could see. They could classify images better than humans. But vision is just one sense. The really hard problem was language. Could a machine learn to read, write, and reason with words?"
+    }
+  ]
+}

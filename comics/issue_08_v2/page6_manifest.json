@@ -1,0 +1,85 @@
+{
+  "issue": 8,
+  "page": 6,
+  "title": "Agentic Coding Tools — AI Sits Down at the Keyboard",
+  "accent": "#9F7AEA",
+  "panels": [
+    {
+      "id": "p6_01_terminal_agent",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "A developer's terminal on a dark background, soft out-of-focus lines of text showing an agent working autonomously. The terminal shows purposeful activity — green for success, amber for analysis, violet highlights for edits. No human hands visible. The cursor moves by itself. At the bottom of the screen: 'All tests passing.' in bright green. The terminal is framed by a subtle violet glow. Comic book style, warm editorial illustration with ink lines and watercolor washes, violet (#9F7AEA) accent glow around the terminal",
+      "screen_text": "All tests passing.",
+      "overlays": []
+    },
+    {
+      "id": "p6_02_robot_impressed",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 512,
+      "prompt": "A small cute flat rectangular robot made of punch-card paper, folded origami-style with dot-matrix eyes, amazed expression watching a glowing autonomous terminal scroll beside it, tiny paper hands clasped together in awe, vintage computing patterns on its body. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"No copy-paste. It just does the work.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, dark background with violet terminal glow",
+      "bubble_text": "No copy-paste. It just does the work.",
+      "speaker": "TAPE"
+    },
+    {
+      "id": "p6_02b_narration_category",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "By 2024-2025, a new category emerged: the <strong>autonomous coding agent</strong>. You give one a task &mdash; &ldquo;fix the failing tests,&rdquo; &ldquo;add dark mode,&rdquo; &ldquo;refactor auth&rdquo; &mdash; and it <em>works</em>. Reads your codebase. Edits files. Runs commands. Fixes its own mistakes. All without the human touching the keyboard."
+    },
+    {
+      "id": "p6_03_cookbook_chef",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-20 -20 760 210\" xmlns=\"http://www.w3.org/2000/svg\"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x=\"360\" y=\"8\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#9F7AEA\">The Cookbook-to-Chef Progression</text><rect x=\"15\" y=\"35\" width=\"215\" height=\"80\" rx=\"10\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"123\" y=\"55\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\">COOKBOOK</text><text fill=\"#2D3748\" x=\"123\" y=\"72\" text-anchor=\"middle\" font-size=\"12\">(Copilot, 2021)</text><text fill=\"#2D3748\" x=\"123\" y=\"89\" text-anchor=\"middle\" font-size=\"12\">\"Here's the recipe.\"</text><text x=\"123\" y=\"105\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Human does the cooking.</text><rect x=\"250\" y=\"35\" width=\"215\" height=\"80\" rx=\"10\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"358\" y=\"55\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\">COOKING SHOW</text><text fill=\"#2D3748\" x=\"358\" y=\"72\" text-anchor=\"middle\" font-size=\"12\">(ChatGPT, 2022)</text><text fill=\"#2D3748\" x=\"358\" y=\"89\" text-anchor=\"middle\" font-size=\"12\">\"Follow along!\"</text><text x=\"358\" y=\"105\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" textLength=\"183\" lengthAdjust=\"spacingAndGlyphs\">Human follows, copies steps.</text><rect x=\"485\" y=\"35\" width=\"225\" height=\"80\" rx=\"10\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"2.5\"/><text x=\"598\" y=\"55\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#1A202C\">CHEF</text><text x=\"598\" y=\"72\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">(Agents, 2024-25)</text><text fill=\"#2D3748\" x=\"598\" y=\"89\" text-anchor=\"middle\" font-size=\"12\">\"What do you want to eat?\"</text><text x=\"598\" y=\"105\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">AI cooks, tastes, adjusts, serves.</text><line x1=\"230\" y1=\"75\" x2=\"250\" y2=\"75\" stroke=\"#718096\" stroke-width=\"2\" marker-end=\"url(#arrowP6)\"/><line x1=\"465\" y1=\"75\" x2=\"485\" y2=\"75\" stroke=\"#718096\" stroke-width=\"2\" marker-end=\"url(#arrowP6)\"/><rect x=\"40\" y=\"135\" width=\"640\" height=\"30\" rx=\"6\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text fill=\"#2D3748\" x=\"360\" y=\"155\" text-anchor=\"middle\" font-size=\"12\" font-style=\"italic\">This progression applies to the entire category of agentic coding tools, not any single product.</text><defs><marker id=\"arrowP6\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"#718096\"/></marker></defs></svg>",
+      "caption": "From cookbook to chef: how AI's role in coding evolved"
+    },
+    {
+      "id": "p6_04_narration_landscape",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Aider</strong> (Paul Gauthier) pioneered the &ldquo;AI in the terminal&rdquo; approach. <strong>Cursor</strong> (Anysphere, 2023) was an AI-native editor forked from VS Code. <strong>Devin</strong> (Cognition Labs, March 2024) was announced as &ldquo;the first AI software engineer&rdquo; &mdash; then faced backlash when demo claims were found overstated. <strong>Windsurf</strong> (Codeium, late 2024) offered integrated agentic flows. <strong>Claude Code</strong> (Anthropic, early 2025) operates directly in the developer&rsquo;s terminal."
+    },
+    {
+      "id": "p6_05_spectrum",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 180\" xmlns=\"http://www.w3.org/2000/svg\"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x=\"340\" y=\"6\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#9F7AEA\">The AI Coding Tool Spectrum</text><rect x=\"40\" y=\"30\" width=\"600\" height=\"12\" rx=\"6\" fill=\"url(#specGrad)\" /><defs><linearGradient id=\"specGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"0\"><stop offset=\"0%\" stop-color=\"#BEE3F8\"/><stop offset=\"100%\" stop-color=\"#9F7AEA\"/></linearGradient></defs><rect x=\"40\" y=\"30\" width=\"600\" height=\"12\" rx=\"6\" fill=\"url(#specGrad)\"/><text x=\"40\" y=\"60\" font-size=\"12\" fill=\"#E2E8F0\">Less Autonomous</text><text x=\"640\" y=\"60\" text-anchor=\"end\" font-size=\"12\" fill=\"#E2E8F0\">More Autonomous</text><circle cx=\"100\" cy=\"36\" r=\"6\" fill=\"#4A9BD9\" stroke=\"#2D3748\" stroke-width=\"1.5\"/><text fill=\"#FFFFFF\" x=\"100\" y=\"80\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Copilot</text><text fill=\"#E2E8F0\" x=\"100\" y=\"92\" text-anchor=\"middle\" font-size=\"12\">(autocomplete)</text><circle cx=\"240\" cy=\"36\" r=\"6\" fill=\"#6B46C1\" stroke=\"#2D3748\" stroke-width=\"1.5\"/><text fill=\"#FFFFFF\" x=\"240\" y=\"80\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Copilot Chat</text><text fill=\"#E2E8F0\" x=\"240\" y=\"92\" text-anchor=\"middle\" font-size=\"12\">(2023)</text><circle cx=\"380\" cy=\"36\" r=\"6\" fill=\"#805AD5\" stroke=\"#2D3748\" stroke-width=\"1.5\"/><text fill=\"#FFFFFF\" x=\"380\" y=\"80\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Cursor/Windsurf</text><text fill=\"#E2E8F0\" x=\"380\" y=\"92\" text-anchor=\"middle\" font-size=\"12\">(2024)</text><circle cx=\"500\" cy=\"36\" r=\"6\" fill=\"#9F7AEA\" stroke=\"#2D3748\" stroke-width=\"1.5\"/><text fill=\"#FFFFFF\" x=\"500\" y=\"80\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Devin</text><text fill=\"#E2E8F0\" x=\"500\" y=\"92\" text-anchor=\"middle\" font-size=\"12\">(2024)</text><circle cx=\"590\" cy=\"36\" r=\"6\" fill=\"#9F7AEA\" stroke=\"#fff\" stroke-width=\"2\"/><text x=\"590\" y=\"80\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#FFFFFF\">Claude Code</text><text fill=\"#E2E8F0\" x=\"590\" y=\"92\" text-anchor=\"middle\" font-size=\"12\">Aider (2024-25)</text><text x=\"340\" y=\"120\" text-anchor=\"middle\" font-size=\"12\" font-style=\"italic\" fill=\"#E2E8F0\">This shows one dimension — autonomy. Different tools excel on different dimensions.</text></svg>",
+      "caption": "The spectrum of AI coding tools from autocomplete to fully autonomous agents"
+    },
+    {
+      "id": "p6_06_swebench",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>SWE-bench: The Reality Check.</strong> How do you know if a coding agent actually works? <strong>SWE-bench</strong> (Carlos Jimenez et al., Princeton, Oct 2023) contains 2,294 real GitHub issues. Early agents solved roughly 10-15%. By late 2024, top agents reached 30-50% on the verified subset. Impressive progress &mdash; but a long way from 100%. A useful corrective to the hype."
+    },
+    {
+      "id": "p6_07_narration_sandboxed",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "A crucial difference: <strong>where the AI runs</strong>. Sandboxed tools run in locked containers &mdash; safe, but the AI cannot access your real project. Terminal-based agents run in the user&rsquo;s actual environment, with real permissions. More capability, but also more responsibility."
+    },
+    {
+      "id": "p6_07b_robot_sandbox",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round amber robot with a dome head and big cautious green LED eyes, standing inside a transparent sandbox box with safety rails, stubby arms holding a tiny code file, antenna with a tiny shield on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Run code safely. Sandboxes keep mistakes contained.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Run code safely. Sandboxes keep mistakes contained.",
+      "speaker": "SANDBOT"
+    },
+    {
+      "id": "p6_08_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Coding agents could read, write, run, and iterate. But they all shared a hidden weakness — one that got worse the longer they worked. It was not a bug. It was a fundamental limit baked into the architecture."
+    }
+  ]
+}

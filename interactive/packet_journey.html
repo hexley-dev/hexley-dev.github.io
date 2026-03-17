@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Packet Journey — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS Variables — Issue 5 gold accent
+   ============================================================ */
+:root {
+  --hand: 'Caveat', 'Patrick Hand', cursive;
+  --body: 'Patrick Hand', cursive;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --accent: #D69E2E;
+  --accent-light: rgba(214, 158, 46, 0.12);
+  --accent-glow: rgba(214, 158, 46, 0.4);
+  --bg: #FAF9F6;
+  --dark: #2D3748;
+  --muted: #718096;
+  --border: #E2E8F0;
+  --card: #F7FAFC;
+  --dark-panel: #1A202C;
+  --blue: #4A9BD9;
+  --blue-light: rgba(74, 155, 217, 0.15);
+  --green: #48BB78;
+  --green-light: rgba(72, 187, 120, 0.15);
+  --yellow: #ECC94B;
+  --yellow-light: rgba(236, 201, 75, 0.15);
+  --red: #E53E3E;
+  --red-light: rgba(229, 62, 62, 0.15);
+  --purple: #805AD5;
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--dark);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(214,158,46,.04) 0%, transparent 55%),
+    radial-gradient(circle at 80% 80%, rgba(74,155,217,.03) 0%, transparent 55%);
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px 16px 60px;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.header {
+  text-align: center;
+  padding: 20px 0 16px;
+}
+.back-link {
+font-family: var(--hand);
+  font-size: 15px;
+  color: var(--accent);
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 10px;
+  transition: opacity 0.15s;
+}
+.back-link:hover { opacity: 0.7; transition: opacity 0.15s; }
+.header h1 {
+  font-family: var(--hand);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--dark-panel);
+  line-height: 1.1;
+}
+.header .subtitle {
+  font-family: var(--body);
+  font-size: 17px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.header .companion-note {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 8px;
+  letter-spacing: 0.5px;
+  opacity: 0.7;
+}
+.title-bar {
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 12px auto 0;
+}
+
+/* ============================================================
+   URL Input Bar
+   ============================================================ */
+.url-bar {
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 20px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color 0.3s;
+}
+.url-bar:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+.url-bar .lock-icon {
+  color: var(--green);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.url-bar input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--dark);
+  background: transparent;
+  min-width: 0;
+}
+.url-bar .go-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-family: var(--hand);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  flex-shrink: 0;
+}
+.url-bar .go-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 3px 12px var(--accent-glow);
+}
+.url-bar .go-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* URL Parts Display */
+.url-parts {
+  display: flex;
+  gap: 2px;
+  font-family: var(--mono);
+  font-size: 13px;
+  margin: 0 0 16px;
+  padding: 0 8px;
+  flex-wrap: wrap;
+  min-height: 24px;
+}
+.url-part {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.url-part.protocol { background: var(--green-light); color: #276749; }
+.url-part.domain { background: var(--blue-light); color: #2B6CB0; }
+.url-part.path { background: var(--yellow-light); color: #975A16; }
+.url-part-sep { color: var(--muted); padding: 2px 0; }
+
+/* ============================================================
+   Main Layout: Map + Sidebar
+   ============================================================ */
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+@media (max-width: 700px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+  .protocol-sidebar {
+    flex-direction: row !important;
+    overflow-x: auto;
+  }
+  .protocol-sidebar .layer {
+    min-width: 80px;
+  }
+}
+
+/* ============================================================
+   Network Map (SVG)
+   ============================================================ */
+.map-container {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+}
+.map-container svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ============================================================
+   Protocol Layer Sidebar
+   ============================================================ */
+.protocol-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.protocol-sidebar .sidebar-title {
+  font-family: var(--hand);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark-panel);
+  text-align: center;
+  margin-bottom: 4px;
+}
+.layer {
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #fff;
+  text-align: center;
+  transition: all 0.4s ease;
+  opacity: 0.5;
+}
+.layer.active {
+  opacity: 1;
+  transform: scale(1.04);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.layer .layer-name {
+  font-family: var(--hand);
+  font-size: 16px;
+  font-weight: 700;
+}
+.layer .layer-protocol {
+  font-family: var(--mono);
+  font-size: 11px;
+  margin-top: 2px;
+}
+.layer-app { border-color: var(--blue); }
+.layer-app.active { background: var(--blue-light); }
+.layer-app .layer-name { color: var(--blue); }
+.layer-transport { border-color: var(--green); }
+.layer-transport.active { background: var(--green-light); }
+.layer-transport .layer-name { color: var(--green); }
+.layer-network { border-color: var(--yellow); }
+.layer-network.active { background: var(--yellow-light); }
+.layer-network .layer-name { color: #B7791F; }
+.layer-link { border-color: var(--red); }
+.layer-link.active { background: var(--red-light); }
+.layer-link .layer-name { color: var(--red); }
+
+/* ============================================================
+   Explanation Panel
+   ============================================================ */
+.explanation-panel {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  min-height: 80px;
+  transition: border-color 0.3s;
+}
+.explanation-panel.highlight {
+  border-color: var(--accent);
+}
+.phase-title {
+  font-family: var(--hand);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.phase-description {
+  font-family: var(--body);
+  font-size: 16px;
+  color: var(--dark);
+  line-height: 1.5;
+}
+.phase-detail {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--dark-panel);
+  color: #718096;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-top: 10px;
+  white-space: pre;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+.phase-detail .http-method { color: #48BB78; }
+.phase-detail .http-status { color: #ECC94B; }
+.phase-detail .http-header { color: #4A9BD9; }
+.phase-detail .http-value { color: #F6AD55; }
+.phase-detail .html-tag { color: #FC8181; }
+
+/* ============================================================
+   Controls
+   ============================================================ */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.ctrl-btn {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-family: var(--hand);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--dark);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.ctrl-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.ctrl-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.ctrl-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.speed-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+.speed-group label {
+  font-family: var(--hand);
+  font-size: 15px;
+  color: var(--muted);
+}
+.speed-slider {
+  width: 80px;
+  accent-color: var(--accent);
+}
+.speed-value {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  min-width: 30px;
+}
+.phase-counter {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   Packet Inspector
+   ============================================================ */
+.packet-inspector {
+  background: var(--dark-panel);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  display: none;
+}
+.packet-inspector.visible {
+  display: block;
+}
+.packet-inspector .inspector-title {
+  font-family: var(--hand);
+  font-size: 20px;
+  font-weight: 700;
+  color: #F7FAFC;
+  margin-bottom: 10px;
+}
+.packet-inspector .close-inspector {
+  float: right;
+  background: none;
+  border: none;
+  color: #718096;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+.packet-inspector .close-inspector:hover { color: #E2E8F0; }
+.packet-layer {
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.packet-layer .layer-label {
+  font-family: var(--hand);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.packet-layer-link {
+  background: rgba(229, 62, 62, 0.15);
+  color: #FC8181;
+  border: 1px solid rgba(229, 62, 62, 0.3);
+}
+.packet-layer-ip {
+  background: rgba(236, 201, 75, 0.12);
+  color: #ECC94B;
+  border: 1px solid rgba(236, 201, 75, 0.25);
+}
+.packet-layer-tcp {
+  background: rgba(72, 187, 120, 0.12);
+  color: #68D391;
+  border: 1px solid rgba(72, 187, 120, 0.25);
+}
+.packet-layer-http {
+  background: rgba(74, 155, 217, 0.12);
+  color: #90CDF4;
+  border: 1px solid rgba(74, 155, 217, 0.25);
+}
+.envelope-visual {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin: 10px 0;
+}
+.envelope-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+/* ============================================================
+   Fun Facts
+   ============================================================ */
+.fun-facts {
+  background: linear-gradient(135deg, var(--accent-light), rgba(74,155,217,0.08));
+  border: 1.5px solid var(--accent);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-top: 20px;
+  display: none;
+}
+.fun-facts.visible {
+  display: block;
+  animation: fadeSlideUp 0.6s ease;
+}
+.fun-facts h3 {
+  font-family: var(--hand);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.fun-fact {
+  font-family: var(--body);
+  font-size: 16px;
+  color: var(--dark);
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border);
+  line-height: 1.4;
+}
+.fun-fact:last-child { border-bottom: none; }
+.fun-fact .fact-icon {
+  margin-right: 8px;
+}
+
+/* ============================================================
+   Animations
+   ============================================================ */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+@keyframes gearSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes packetBounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 600px) {
+  .header h1 { font-size: 28px; }
+  .url-bar { flex-wrap: wrap; }
+  .url-bar input { font-size: 13px; }
+  .controls { gap: 8px; }
+  .speed-group { margin-left: 0; width: 100%; }
+}
+
+/* ============================================================
+   Focus-visible for keyboard accessibility
+   ============================================================ */
+*:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Accessibility: respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ========== HEADER ========== -->
+  <div class="header">
+    <a href="#" onclick="history.back();return false" style="text-decoration:none">&larr; Back</a>
+    <h1>Packet Journey</h1>
+    <p class="subtitle">What happens when you type a URL and press Enter?</p>
+    <p class="companion-note">Interactive companion to Issue 5: The Connected World</p>
+    <div class="title-bar"></div>
+  </div>
+
+  <!-- ========== URL INPUT BAR ========== -->
+  <div class="url-bar">
+    <span class="lock-icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <rect x="3" y="7" width="10" height="7" rx="2" fill="#48BB78"/>
+        <path d="M5 7V5a3 3 0 016 0v2" stroke="#48BB78" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+    </span>
+    <input type="text" id="urlInput" value="https://example.com/hello" spellcheck="false" aria-label="URL to trace">
+    <button class="go-btn" id="goBtn" onclick="startJourney()" aria-label="Start packet journey">Go!</button>
+  </div>
+  <div class="url-parts" id="urlParts"></div>
+
+  <!-- ========== MAIN: Map + Protocol Sidebar ========== -->
+  <div class="main-layout">
+    <!-- Network Map -->
+    <div class="map-container">
+      <svg id="networkMap" viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Packet gradient - outgoing (blue) -->
+          <linearGradient id="packetBlue" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#4A9BD9"/>
+            <stop offset="100%" stop-color="#3182CE"/>
+          </linearGradient>
+          <!-- Packet gradient - incoming (green) -->
+          <linearGradient id="packetGreen" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#48BB78"/>
+            <stop offset="100%" stop-color="#38A169"/>
+          </linearGradient>
+          <!-- Glow filter -->
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <!-- Node shadow -->
+          <filter id="nodeShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1"/>
+          </filter>
+        </defs>
+
+        <!-- Connection lines -->
+        <g id="connectionLines" stroke="#E2E8F0" stroke-width="2" fill="none">
+          <line x1="70" y1="110" x2="165" y2="60"/>
+          <line x1="165" y1="60" x2="70" y2="110" stroke-dasharray="4 4" opacity="0.3"/>
+          <line x1="70" y1="110" x2="195" y2="110"/>
+          <line x1="195" y1="110" x2="295" y2="110"/>
+          <line x1="295" y1="110" x2="405" y2="110"/>
+          <line x1="405" y1="110" x2="505" y2="110"/>
+          <line x1="505" y1="110" x2="630" y2="110"/>
+        </g>
+
+        <!-- Secure tunnel overlay (hidden initially) -->
+        <rect id="secureTunnel" x="60" y="80" width="580" height="60" rx="12"
+              fill="none" stroke="#48BB78" stroke-width="2" stroke-dasharray="8 4"
+              opacity="0" style="transition: opacity 0.8s"/>
+
+        <!-- DNS Server node -->
+        <g id="nodeDNS" class="network-node" transform="translate(140, 26)" filter="url(#nodeShadow)">
+          <rect x="0" y="0" width="50" height="50" rx="10" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+          <!-- Phone book icon -->
+          <rect x="14" y="8" width="22" height="28" rx="3" fill="#ECC94B" opacity="0.8"/>
+          <rect x="12" y="10" width="22" height="28" rx="3" fill="#F6E05E"/>
+          <line x1="16" y1="18" x2="30" y2="18" stroke="#975A16" stroke-width="1.5"/>
+          <line x1="16" y1="23" x2="30" y2="23" stroke="#975A16" stroke-width="1.5"/>
+          <line x1="16" y1="28" x2="26" y2="28" stroke="#975A16" stroke-width="1.5"/>
+          <circle cx="25" cy="48" r="0" fill="none" id="dnsHighlight"/>
+          <text x="25" y="62" text-anchor="middle" font-family="'Caveat', cursive" font-size="12" font-weight="700" fill="#718096">DNS</text>
+        </g>
+
+        <!-- Browser node -->
+        <g id="nodeBrowser" class="network-node" transform="translate(20, 80)" filter="url(#nodeShadow)">
+          <rect x="0" y="0" width="60" height="50" rx="10" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+          <!-- Laptop icon -->
+          <rect x="12" y="8" width="36" height="24" rx="3" fill="#4A9BD9" opacity="0.2"/>
+          <rect x="14" y="10" width="32" height="20" rx="2" fill="#4A9BD9" opacity="0.3"/>
+          <rect x="18" y="14" width="24" height="12" rx="1" fill="#4A9BD9"/>
+          <rect x="8" y="34" width="44" height="4" rx="2" fill="#A0AEC0"/>
+          <text x="30" y="62" text-anchor="middle" font-family="'Caveat', cursive" font-size="12" font-weight="700" fill="#2D3748">Browser</text>
+        </g>
+
+        <!-- Router 1 -->
+        <g id="nodeRouter1" class="network-node" transform="translate(170, 85)" filter="url(#nodeShadow)">
+          <rect x="0" y="0" width="50" height="40" rx="8" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+          <circle cx="13" cy="14" r="4" fill="#D69E2E" opacity="0.7"/>
+          <circle cx="25" cy="14" r="4" fill="#48BB78" opacity="0.7"/>
+          <circle cx="37" cy="14" r="4" fill="#4A9BD9" opacity="0.7"/>
+          <line x1="10" y1="28" x2="40" y2="28" stroke="#E2E8F0" stroke-width="1.5"/>
+          <text x="25" y="54" text-anchor="middle" font-family="'Caveat', cursive" font-size="11" fill="#718096">Router 1</text>
+        </g>
+
+        <!-- Router 2 -->
+        <g id="nodeRouter2" class="network-node" transform="translate(270, 85)" filter="url(#nodeShadow)">
+          <rect x="0" y="0" width="50" height="40" rx="8" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+          <circle cx="13" cy="14" r="4" fill="#D69E2E" opacity="0.7"/>
+          <circle cx="25" cy="14" r="4" fill="#48BB78" opacity="0.7"/>
+          <circle cx="37" cy="14" r="4" fill="#4A9BD9" opacity="0.7"/>
+          <line x1="10" y1="28" x2="40" y2="28" stroke="#E2E8F0" stroke-width="1.5"/>
+          <text x="25" y="54" text-anchor="middle" font-family="'Caveat', cursive" font-size="11" fill="#718096">Router 2</text>
+        </g>
+
+        <!-- Internet Cloud -->
+        <g id="nodeCloud" class="network-node" transform="translate(370, 75)" filter="url(#nodeShadow)">
+          <ellipse cx="35" cy="25" rx="38" ry="22" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+          <ellipse cx="22" cy="28" rx="18" ry="14" fill="#EDF2F7"/>
+          <ellipse cx="45" cy="26" rx="16" ry="12" fill="#EDF2F7"/>
+          <ellipse cx="35" cy="18" rx="20" ry="14" fill="#F7FAFC"/>
+          <text x="35" y="30" text-anchor="middle" font-family="'Caveat', cursive" font-size="13" font-weight="700" fill="#718096">Internet</text>
+          <text x="35" y="60" text-anchor="middle" font-family="'Caveat', cursive" font-size="11" fill="#A0AEC0">The Cloud</text>
+        </g>
+
+        <!-- Router 3 -->
+        <g id="nodeRouter3" class="network-node" transform="translate(480, 85)" filter="url(#nodeShadow)">
+          <rect x="0" y="0" width="50" height="40" rx="8" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+          <circle cx="13" cy="14" r="4" fill="#D69E2E" opacity="0.7"/>
+          <circle cx="25" cy="14" r="4" fill="#48BB78" opacity="0.7"/>
+          <circle cx="37" cy="14" r="4" fill="#4A9BD9" opacity="0.7"/>
+          <line x1="10" y1="28" x2="40" y2="28" stroke="#E2E8F0" stroke-width="1.5"/>
+          <text x="25" y="54" text-anchor="middle" font-family="'Caveat', cursive" font-size="11" fill="#718096">Router 3</text>
+        </g>
+
+        <!-- Web Server -->
+        <g id="nodeServer" class="network-node" transform="translate(600, 80)" filter="url(#nodeShadow)">
+          <rect x="0" y="0" width="60" height="50" rx="10" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+          <!-- Server rack icon -->
+          <rect x="12" y="6" width="36" height="10" rx="2" fill="#48BB78" opacity="0.3"/>
+          <circle cx="40" cy="11" r="2.5" fill="#48BB78"/>
+          <rect x="12" y="19" width="36" height="10" rx="2" fill="#4A9BD9" opacity="0.3"/>
+          <circle cx="40" cy="24" r="2.5" fill="#4A9BD9"/>
+          <rect x="12" y="32" width="36" height="10" rx="2" fill="#805AD5" opacity="0.3"/>
+          <circle cx="40" cy="37" r="2.5" fill="#805AD5"/>
+          <text x="30" y="62" text-anchor="middle" font-family="'Caveat', cursive" font-size="12" font-weight="700" fill="#2D3748">Server</text>
+        </g>
+
+        <!-- Gear animation (hidden initially, for server processing) -->
+        <g id="serverGear" transform="translate(630, 105)" opacity="0">
+          <g id="gearRotate">
+            <circle cx="0" cy="0" r="8" fill="none" stroke="#805AD5" stroke-width="2"/>
+            <line x1="-10" y1="0" x2="10" y2="0" stroke="#805AD5" stroke-width="2"/>
+            <line x1="0" y1="-10" x2="0" y2="10" stroke="#805AD5" stroke-width="2"/>
+            <line x1="-7" y1="-7" x2="7" y2="7" stroke="#805AD5" stroke-width="2"/>
+            <line x1="7" y1="-7" x2="-7" y2="7" stroke="#805AD5" stroke-width="2"/>
+          </g>
+        </g>
+
+        <!-- Animated packet (main) -->
+        <g id="packet" opacity="0" style="cursor: pointer;" onclick="toggleInspector()" tabindex="0" role="button" aria-label="Click to inspect packet contents" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleInspector();}">
+          <rect x="-14" y="-10" width="28" height="20" rx="4" fill="url(#packetBlue)" filter="url(#glow)"/>
+          <path d="M-8,-4 L0,2 L8,-4" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <line x1="-6" y1="1" x2="6" y2="1" stroke="#fff" stroke-width="1" opacity="0.5"/>
+          <line x1="-4" y1="4" x2="4" y2="4" stroke="#fff" stroke-width="1" opacity="0.3"/>
+        </g>
+
+        <!-- Secondary packet (for handshake) -->
+        <g id="packet2" opacity="0">
+          <rect x="-14" y="-10" width="28" height="20" rx="4" fill="url(#packetGreen)" filter="url(#glow)"/>
+          <path d="M-8,-4 L0,2 L8,-4" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <line x1="-6" y1="1" x2="6" y2="1" stroke="#fff" stroke-width="1" opacity="0.5"/>
+        </g>
+
+        <!-- Node highlight ring -->
+        <circle id="nodeHighlight" cx="0" cy="0" r="0" fill="none" stroke="#D69E2E"
+                stroke-width="2" opacity="0" stroke-dasharray="4 3"/>
+
+        <!-- Packet label -->
+        <g id="packetLabel" opacity="0">
+          <rect x="-50" y="-35" width="100" height="20" rx="6" fill="var(--dark-panel)" opacity="0.9"/>
+          <text x="0" y="-21" text-anchor="middle" font-family="'JetBrains Mono', monospace"
+                font-size="10" fill="#E2E8F0" id="packetLabelText">DNS Query</text>
+        </g>
+
+        <!-- Status text at bottom -->
+        <text id="mapStatus" x="350" y="200" text-anchor="middle"
+              font-family="'Patrick Hand', cursive" font-size="14" fill="#A0AEC0" opacity="0">
+          Click "Go!" to start the journey
+        </text>
+
+        <!-- Lock icons for TLS (hidden initially) -->
+        <g id="tlsLockBrowser" opacity="0" transform="translate(55, 78)">
+          <rect x="0" y="5" width="12" height="10" rx="2" fill="#48BB78"/>
+          <path d="M2,5 V3 a4,4 0 0,1 8,0 V5" stroke="#48BB78" stroke-width="1.5" fill="none"/>
+        </g>
+        <g id="tlsLockServer" opacity="0" transform="translate(635, 78)">
+          <rect x="0" y="5" width="12" height="10" rx="2" fill="#48BB78"/>
+          <path d="M2,5 V3 a4,4 0 0,1 8,0 V5" stroke="#48BB78" stroke-width="1.5" fill="none"/>
+        </g>
+
+        <!-- Mini rendered page (hidden, for final step) -->
+        <g id="miniPage" opacity="0" transform="translate(20, 140)">
+          <rect x="0" y="0" width="60" height="42" rx="4" fill="#fff" stroke="#48BB78" stroke-width="1.5"/>
+          <rect x="0" y="0" width="60" height="10" rx="4" fill="#48BB78" opacity="0.3"/>
+          <text x="30" y="8" text-anchor="middle" font-size="5" fill="#276749" font-family="monospace">example.com</text>
+          <text x="30" y="28" text-anchor="middle" font-family="'Caveat', cursive" font-size="11" font-weight="700" fill="#2D3748">Hello,</text>
+          <text x="30" y="38" text-anchor="middle" font-family="'Caveat', cursive" font-size="11" font-weight="700" fill="#2D3748">World!</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Protocol Layers Sidebar -->
+    <div class="protocol-sidebar">
+      <div class="sidebar-title">Layers</div>
+      <div class="layer layer-app" id="layerApp">
+        <div class="layer-name">Application</div>
+        <div class="layer-protocol">HTTP</div>
+      </div>
+      <div class="layer layer-transport" id="layerTransport">
+        <div class="layer-name">Transport</div>
+        <div class="layer-protocol">TCP</div>
+      </div>
+      <div class="layer layer-network" id="layerNetwork">
+        <div class="layer-name">Network</div>
+        <div class="layer-protocol">IP</div>
+      </div>
+      <div class="layer layer-link" id="layerLink">
+        <div class="layer-name">Link</div>
+        <div class="layer-protocol">Ethernet</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== EXPLANATION PANEL ========== -->
+  <div class="explanation-panel" id="explanationPanel" aria-live="polite">
+    <div class="phase-title" id="phaseTitle">Ready to send a request</div>
+    <div class="phase-description" id="phaseDesc">
+      Enter a URL above and click "Go!" to watch your request travel through the internet.
+      You'll see every step — from DNS lookup to the final rendered page.
+    </div>
+    <div class="phase-detail" id="phaseDetail" style="display:none"></div>
+  </div>
+
+  <!-- ========== CONTROLS ========== -->
+  <div class="controls">
+    <button class="ctrl-btn" id="btnPrev" onclick="stepPrev()" disabled title="Previous phase" aria-label="Previous phase">
+      <svg width="14" height="14" viewBox="0 0 14 14"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+      Prev
+    </button>
+    <button class="ctrl-btn" id="btnPause" onclick="togglePause()" disabled title="Play / Pause" aria-label="Play or pause animation">
+      <span id="pauseIcon">
+        <svg width="14" height="14" viewBox="0 0 14 14"><rect x="2" y="2" width="4" height="10" rx="1" fill="currentColor"/><rect x="8" y="2" width="4" height="10" rx="1" fill="currentColor"/></svg>
+      </span>
+      <span id="pauseLabel">Pause</span>
+    </button>
+    <button class="ctrl-btn" id="btnNext" onclick="stepNext()" disabled title="Next phase" aria-label="Next phase">
+      Next
+      <svg width="14" height="14" viewBox="0 0 14 14"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    </button>
+    <span class="phase-counter" id="phaseCounter">Phase 0 / 7</span>
+    <div class="speed-group">
+      <label>Speed:</label>
+      <input type="range" class="speed-slider" id="speedSlider" min="0.5" max="3" step="0.25" value="1" oninput="updateSpeed()" aria-label="Animation speed">
+      <span class="speed-value" id="speedValue">1x</span>
+    </div>
+  </div>
+
+  <!-- ========== PACKET INSPECTOR ========== -->
+  <div class="packet-inspector" id="packetInspector">
+    <button class="close-inspector" onclick="toggleInspector()" aria-label="Close packet inspector">&#x2715;</button>
+    <div class="inspector-title">Packet Inspector</div>
+    <div class="envelope-visual" id="envelopeVisual"></div>
+    <div id="inspectorLayers"></div>
+  </div>
+
+  <!-- ========== FUN FACTS ========== -->
+  <div class="fun-facts" id="funFacts">
+    <h3>Journey Complete!</h3>
+    <div class="fun-fact"><span class="fact-icon">&#9201;</span> This entire journey happened in ~200 milliseconds</div>
+    <div class="fun-fact"><span class="fact-icon">&#127760;</span> Your request crossed through ~15 routers on average</div>
+    <div class="fun-fact"><span class="fact-icon">&#128225;</span> Every YouTube video, every email, every web search makes this exact journey</div>
+    <div class="fun-fact"><span class="fact-icon">&#128274;</span> HTTPS means every packet was encrypted — even the routers couldn't read it</div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   STATE
+   ============================================================ */
+const state = {
+  currentPhase: 0,
+  totalPhases: 7,
+  playing: false,
+  paused: false,
+  speed: 1,
+  animationTimer: null,
+  inspectorOpen: false,
+  parsedUrl: { protocol: 'https', domain: 'example.com', path: '/hello' },
+  resolvedIP: '93.184.216.34',
+  journeyStarted: false,
+  phaseAnimating: false
+};
+
+/* ============================================================
+   NODE POSITIONS (centers in SVG coordinates)
+   ============================================================ */
+const nodes = {
+  browser:  { x: 50, y: 105 },
+  dns:      { x: 165, y: 51 },
+  router1:  { x: 195, y: 105 },
+  router2:  { x: 295, y: 105 },
+  cloud:    { x: 405, y: 100 },
+  router3:  { x: 505, y: 105 },
+  server:   { x: 630, y: 105 }
+};
+
+/* Forward path: browser -> router1 -> router2 -> cloud -> router3 -> server */
+const forwardPath = [nodes.browser, nodes.router1, nodes.router2, nodes.cloud, nodes.router3, nodes.server];
+/* Reverse path */
+const reversePath = [...forwardPath].reverse();
+/* DNS path */
+const dnsOutPath = [nodes.browser, nodes.dns];
+const dnsBackPath = [nodes.dns, nodes.browser];
+
+/* ============================================================
+   PHASE DEFINITIONS
+   ============================================================ */
+const phases = [
+  {
+    title: 'Phase 1: DNS Lookup',
+    description: 'Your browser asks: "What\'s the IP address of <domain>?" The DNS server is the internet\'s phone book — it translates human-readable domain names into numeric IP addresses that routers understand.',
+    layers: ['app', 'network', 'link'],
+    detail: null
+  },
+  {
+    title: 'Phase 2: TCP Handshake',
+    description: 'Before sending any data, your browser and the server must agree to communicate. This three-step process is called a "handshake" — like a phone call: "Hello?" ... "Hello!" ... "Great, let\'s talk."',
+    layers: ['transport', 'network', 'link'],
+    detail: null
+  },
+  {
+    title: 'Phase 3: TLS Handshake',
+    description: 'HTTPS encrypts everything. Your browser and the server exchange cryptographic keys to create a secure tunnel. Even if someone intercepts the packet, they can\'t read its contents.',
+    layers: ['transport', 'network', 'link'],
+    detail: null
+  },
+  {
+    title: 'Phase 4: HTTP Request',
+    description: 'Now your browser sends the actual request through the secure tunnel. The packet travels through multiple routers, each one reading the destination IP and forwarding it one hop closer.',
+    layers: ['app', 'transport', 'network', 'link'],
+    detail: 'request'
+  },
+  {
+    title: 'Phase 5: Server Processing',
+    description: 'The web server receives your request, finds the right resource, and prepares a response. For a simple page this takes microseconds; for a complex app it might query databases and run code.',
+    layers: ['app'],
+    detail: null
+  },
+  {
+    title: 'Phase 6: HTTP Response',
+    description: 'The server sends its response back through the same chain of routers. The response includes a status code (200 OK means success), headers, and the HTML content of the page.',
+    layers: ['app', 'transport', 'network', 'link'],
+    detail: 'response'
+  },
+  {
+    title: 'Phase 7: Browser Rendering',
+    description: 'Your browser receives the HTML, parses it into a DOM tree, applies styles, and paints pixels on screen. The whole round trip took about 200 milliseconds — faster than a blink!',
+    layers: ['app'],
+    detail: null
+  }
+];
+
+/* ============================================================
+   DOM REFS
+   ============================================================ */
+const $ = id => document.getElementById(id);
+const urlInput = $('urlInput');
+const urlParts = $('urlParts');
+const packet = $('packet');
+const packet2 = $('packet2');
+const packetLabel = $('packetLabel');
+const packetLabelText = $('packetLabelText');
+const phaseTitle = $('phaseTitle');
+const phaseDesc = $('phaseDesc');
+const phaseDetail = $('phaseDetail');
+const phaseCounter = $('phaseCounter');
+const goBtn = $('goBtn');
+const btnPrev = $('btnPrev');
+const btnPause = $('btnPause');
+const btnNext = $('btnNext');
+
+/* ============================================================
+   URL PARSING
+   ============================================================ */
+function parseUrl() {
+  const raw = urlInput.value.trim();
+  let protocol = 'https';
+  let domain = '';
+  let path = '/';
+
+  try {
+    const url = new URL(raw.includes('://') ? raw : 'https://' + raw);
+    protocol = url.protocol.replace(':', '');
+    domain = url.hostname;
+    path = url.pathname || '/';
+  } catch(e) {
+    domain = raw.replace(/^https?:\/\//, '').split('/')[0] || 'example.com';
+    const pathMatch = raw.match(/\/[^?#]*/);
+    path = pathMatch ? pathMatch[0] : '/';
+  }
+
+  state.parsedUrl = { protocol, domain, path };
+
+  urlParts.innerHTML = `
+    <span class="url-part protocol">${protocol}://</span>
+    <span class="url-part domain">${domain}</span>
+    <span class="url-part path">${path}</span>
+  `;
+}
+
+urlInput.addEventListener('input', parseUrl);
+urlInput.addEventListener('keydown', e => { if (e.key === 'Enter') startJourney(); });
+parseUrl();
+
+/* ============================================================
+   ANIMATION HELPERS
+   ============================================================ */
+function sleep(ms) {
+  return new Promise(resolve => {
+    state.animationTimer = setTimeout(resolve, ms / state.speed);
+  });
+}
+
+/* Wait while paused */
+async function waitIfPaused() {
+  while (state.paused) {
+    await new Promise(r => setTimeout(r, 100));
+  }
+}
+
+/* Animate a packet element along a path of {x,y} points */
+async function animatePacket(el, path, duration, label) {
+  if (!path || path.length < 2) return;
+
+  el.setAttribute('opacity', '1');
+  if (label) {
+    packetLabelText.textContent = label;
+    packetLabel.setAttribute('opacity', '1');
+  }
+
+  const totalSegments = path.length - 1;
+  const segDuration = duration / totalSegments;
+
+  for (let i = 0; i < totalSegments; i++) {
+    await waitIfPaused();
+    const start = path[i];
+    const end = path[i + 1];
+    const startTime = performance.now();
+    const actualDur = segDuration / state.speed;
+
+    await new Promise(resolve => {
+      function tick(now) {
+        if (state.paused) {
+          requestAnimationFrame(tick);
+          return;
+        }
+        const elapsed = now - startTime;
+        const t = Math.min(elapsed / actualDur, 1);
+        /* Ease in-out */
+        const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+
+        const cx = start.x + (end.x - start.x) * ease;
+        const cy = start.y + (end.y - start.y) * ease;
+        el.setAttribute('transform', `translate(${cx}, ${cy})`);
+        if (label) {
+          packetLabel.setAttribute('transform', `translate(${cx}, ${cy})`);
+        }
+
+        if (t < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          resolve();
+        }
+      }
+      requestAnimationFrame(tick);
+    });
+
+    /* Brief pause at each node (router inspection effect) */
+    if (i < totalSegments - 1) {
+      highlightNode(path[i + 1]);
+      await sleep(200);
+    }
+  }
+
+  if (label) {
+    packetLabel.setAttribute('opacity', '0');
+  }
+}
+
+function setPacketColor(el, color) {
+  const rect = el.querySelector('rect');
+  if (rect) rect.setAttribute('fill', color === 'blue' ? 'url(#packetBlue)' : 'url(#packetGreen)');
+}
+
+function hidePacket(el) {
+  el.setAttribute('opacity', '0');
+}
+
+function highlightNode(pos) {
+  const ring = $('nodeHighlight');
+  ring.setAttribute('cx', pos.x);
+  ring.setAttribute('cy', pos.y);
+  ring.setAttribute('r', '28');
+  ring.setAttribute('opacity', '0.6');
+  setTimeout(() => ring.setAttribute('opacity', '0'), 600 / state.speed);
+}
+
+function setActiveLayers(layerIds) {
+  ['layerApp', 'layerTransport', 'layerNetwork', 'layerLink'].forEach(id => {
+    $(id).classList.remove('active');
+  });
+  layerIds.forEach(l => {
+    const map = { app: 'layerApp', transport: 'layerTransport', network: 'layerNetwork', link: 'layerLink' };
+    if (map[l]) $(map[l]).classList.add('active');
+  });
+}
+
+function updateExplanation(phaseIdx) {
+  const p = phases[phaseIdx];
+  const desc = p.description.replace('<domain>', state.parsedUrl.domain);
+
+  phaseTitle.textContent = p.title;
+  phaseDesc.textContent = desc;
+  phaseCounter.textContent = `Phase ${phaseIdx + 1} / ${state.totalPhases}: ${p.title.split(': ')[1]}`;
+
+  const panel = $('explanationPanel');
+  panel.classList.add('highlight');
+  setTimeout(() => panel.classList.remove('highlight'), 1000);
+
+  if (p.detail === 'request') {
+    phaseDetail.style.display = 'block';
+    phaseDetail.innerHTML =
+      `<span class="http-method">GET</span> <span class="http-value">${state.parsedUrl.path}</span> HTTP/1.1\n` +
+      `<span class="http-header">Host:</span> <span class="http-value">${state.parsedUrl.domain}</span>\n` +
+      `<span class="http-header">User-Agent:</span> PacketJourney/1.0\n` +
+      `<span class="http-header">Accept:</span> text/html`;
+  } else if (p.detail === 'response') {
+    phaseDetail.style.display = 'block';
+    phaseDetail.innerHTML =
+      `HTTP/1.1 <span class="http-status">200 OK</span>\n` +
+      `<span class="http-header">Content-Type:</span> <span class="http-value">text/html</span>\n` +
+      `<span class="http-header">Content-Length:</span> <span class="http-value">42</span>\n\n` +
+      `<span class="html-tag">&lt;html&gt;</span>Hello, World!<span class="html-tag">&lt;/html&gt;</span>`;
+  } else {
+    phaseDetail.style.display = 'none';
+  }
+
+  setActiveLayers(p.layers);
+  updateInspector(phaseIdx);
+}
+
+/* ============================================================
+   PACKET INSPECTOR
+   ============================================================ */
+function toggleInspector() {
+  state.inspectorOpen = !state.inspectorOpen;
+  $('packetInspector').classList.toggle('visible', state.inspectorOpen);
+}
+
+function updateInspector(phaseIdx) {
+  if (!state.inspectorOpen) return;
+  renderInspector(phaseIdx);
+}
+
+function renderInspector(phaseIdx) {
+  const layers = phases[phaseIdx]?.layers || [];
+  const layerData = {
+    link: {
+      label: 'Link (Ethernet)',
+      cls: 'packet-layer-link',
+      content: `Src MAC: a4:83:e7:2f:01:3c\nDst MAC: 00:1a:2b:3c:4d:5e\nType: IPv4 (0x0800)`
+    },
+    network: {
+      label: 'Network (IP)',
+      cls: 'packet-layer-ip',
+      content: `Src IP: 192.168.1.42\nDst IP: ${state.resolvedIP}\nTTL: 64 | Protocol: TCP`
+    },
+    transport: {
+      label: 'Transport (TCP)',
+      cls: 'packet-layer-tcp',
+      content: `Src Port: 54321\nDst Port: 443\nSeq: 1001 | Ack: 2001\nFlags: [ACK, PSH]`
+    },
+    app: {
+      label: 'Application (HTTP)',
+      cls: 'packet-layer-http',
+      content: phaseIdx >= 5
+        ? `HTTP/1.1 200 OK\nContent-Type: text/html`
+        : `GET ${state.parsedUrl.path} HTTP/1.1\nHost: ${state.parsedUrl.domain}`
+    }
+  };
+
+  /* Envelope visual */
+  const colors = { link: '#E53E3E', network: '#ECC94B', transport: '#48BB78', app: '#4A9BD9' };
+  const allLayers = ['link', 'network', 'transport', 'app'];
+  let envelopeHTML = '';
+  const activeLayers = allLayers.filter(l => layers.includes(l));
+
+  activeLayers.forEach((l, i) => {
+    const size = 50 - i * 8;
+    envelopeHTML += `<div class="envelope-ring" style="
+      width: ${size}px; height: ${size * 0.7}px;
+      border: 2px solid ${colors[l]};
+      background: ${colors[l]}11;
+      margin-left: ${i > 0 ? '-6px' : '0'};
+      z-index: ${10 - i};
+      position: relative;
+    ">${l.charAt(0).toUpperCase()}</div>`;
+  });
+  $('envelopeVisual').innerHTML = envelopeHTML;
+
+  /* Layer detail panels */
+  let html = '';
+  /* Show in order: link (outermost) -> ip -> tcp -> http (innermost) */
+  const displayOrder = ['link', 'network', 'transport', 'app'];
+  displayOrder.forEach(l => {
+    if (!layers.includes(l)) return;
+    const d = layerData[l];
+    html += `<div class="packet-layer ${d.cls}">
+      <div class="layer-label">${d.label}</div>
+      ${d.content}
+    </div>`;
+  });
+  $('inspectorLayers').innerHTML = html;
+}
+
+/* ============================================================
+   PHASE ANIMATIONS
+   ============================================================ */
+
+/* Phase 1: DNS Lookup */
+async function animatePhase1() {
+  state.phaseAnimating = true;
+  updateExplanation(0);
+  setPacketColor(packet, 'blue');
+
+  /* DNS Query */
+  packetLabelText.textContent = 'DNS Query';
+  await animatePacket(packet, dnsOutPath, 1200, 'DNS Query');
+  highlightNode(nodes.dns);
+  await sleep(800);
+
+  /* DNS Response */
+  setPacketColor(packet, 'green');
+  packetLabelText.textContent = state.resolvedIP;
+  await animatePacket(packet, dnsBackPath, 1200, state.resolvedIP);
+  highlightNode(nodes.browser);
+  await sleep(400);
+  hidePacket(packet);
+  state.phaseAnimating = false;
+}
+
+/* Phase 2: TCP 3-Way Handshake */
+async function animatePhase2() {
+  state.phaseAnimating = true;
+  updateExplanation(1);
+
+  /* SYN */
+  setPacketColor(packet, 'blue');
+  await animatePacket(packet, forwardPath, 2000, 'SYN');
+  highlightNode(nodes.server);
+  await sleep(400);
+  hidePacket(packet);
+
+  /* SYN-ACK */
+  setPacketColor(packet2, 'green');
+  packet2.setAttribute('opacity', '1');
+  packetLabelText.textContent = 'SYN-ACK';
+  packetLabel.setAttribute('opacity', '1');
+
+  await animatePacket(packet2, reversePath, 2000, 'SYN-ACK');
+  highlightNode(nodes.browser);
+  await sleep(400);
+  hidePacket(packet2);
+
+  /* ACK */
+  setPacketColor(packet, 'blue');
+  await animatePacket(packet, forwardPath, 1800, 'ACK');
+  highlightNode(nodes.server);
+  await sleep(300);
+  hidePacket(packet);
+  state.phaseAnimating = false;
+}
+
+/* Phase 3: TLS Handshake */
+async function animatePhase3() {
+  state.phaseAnimating = true;
+  updateExplanation(2);
+
+  /* Client Hello */
+  setPacketColor(packet, 'blue');
+  await animatePacket(packet, forwardPath, 1800, 'ClientHello');
+  await sleep(300);
+  hidePacket(packet);
+
+  /* Server Hello + Key */
+  setPacketColor(packet2, 'green');
+  packet2.setAttribute('opacity', '1');
+  await animatePacket(packet2, reversePath, 1800, 'ServerHello + Key');
+  await sleep(300);
+  hidePacket(packet2);
+
+  /* Show lock icons */
+  $('tlsLockBrowser').setAttribute('opacity', '1');
+  $('tlsLockServer').setAttribute('opacity', '1');
+
+  /* Show secure tunnel */
+  $('secureTunnel').setAttribute('opacity', '0.4');
+  await sleep(600);
+
+  /* Client Finished */
+  setPacketColor(packet, 'blue');
+  await animatePacket(packet, forwardPath, 1500, 'Finished');
+  await sleep(200);
+  hidePacket(packet);
+
+  state.phaseAnimating = false;
+}
+
+/* Phase 4: HTTP Request */
+async function animatePhase4() {
+  state.phaseAnimating = true;
+  updateExplanation(3);
+
+  setPacketColor(packet, 'blue');
+  await animatePacket(packet, forwardPath, 2500, 'GET ' + state.parsedUrl.path);
+  highlightNode(nodes.server);
+  await sleep(300);
+  hidePacket(packet);
+  state.phaseAnimating = false;
+}
+
+/* Phase 5: Server Processing */
+async function animatePhase5() {
+  state.phaseAnimating = true;
+  updateExplanation(4);
+
+  /* Show gear spinning */
+  const gear = $('serverGear');
+  const gearRotate = $('gearRotate');
+  gear.setAttribute('opacity', '1');
+
+  let angle = 0;
+  const spinInterval = setInterval(() => {
+    angle += 4;
+    gearRotate.setAttribute('transform', `rotate(${angle})`);
+  }, 30);
+
+  await sleep(2000);
+  clearInterval(spinInterval);
+  gear.setAttribute('opacity', '0');
+  state.phaseAnimating = false;
+}
+
+/* Phase 6: HTTP Response */
+async function animatePhase6() {
+  state.phaseAnimating = true;
+  updateExplanation(5);
+
+  setPacketColor(packet, 'green');
+  await animatePacket(packet, reversePath, 2500, '200 OK + HTML');
+  highlightNode(nodes.browser);
+  await sleep(300);
+  hidePacket(packet);
+  state.phaseAnimating = false;
+}
+
+/* Phase 7: Browser Rendering */
+async function animatePhase7() {
+  state.phaseAnimating = true;
+  updateExplanation(6);
+
+  /* Show mini page appearing */
+  const miniPage = $('miniPage');
+  miniPage.setAttribute('opacity', '0');
+  await sleep(500);
+
+  /* Fade in the rendered page */
+  let opacity = 0;
+  const fadeIn = setInterval(() => {
+    opacity += 0.05;
+    miniPage.setAttribute('opacity', Math.min(opacity, 1));
+    if (opacity >= 1) clearInterval(fadeIn);
+  }, 40);
+
+  await sleep(1500);
+
+  /* Show fun facts */
+  $('funFacts').classList.add('visible');
+  state.phaseAnimating = false;
+}
+
+const phaseAnimations = [
+  animatePhase1, animatePhase2, animatePhase3,
+  animatePhase4, animatePhase5, animatePhase6, animatePhase7
+];
+
+/* ============================================================
+   JOURNEY CONTROL
+   ============================================================ */
+async function startJourney() {
+  if (state.playing) return;
+  parseUrl();
+  resetVisuals();
+
+  state.playing = true;
+  state.paused = false;
+  state.currentPhase = 0;
+  state.journeyStarted = true;
+
+  goBtn.disabled = true;
+  btnPause.disabled = false;
+  btnNext.disabled = false;
+  updatePauseButton();
+
+  for (let i = 0; i < phaseAnimations.length; i++) {
+    state.currentPhase = i;
+    updateControls();
+    await waitIfPaused();
+    await phaseAnimations[i]();
+    if (!state.playing) return;
+    if (i < phaseAnimations.length - 1) await sleep(600);
+  }
+
+  /* Journey complete */
+  state.playing = false;
+  state.currentPhase = state.totalPhases;
+  goBtn.disabled = false;
+  btnPause.disabled = true;
+  updateControls();
+}
+
+async function jumpToPhase(idx) {
+  if (idx < 0 || idx >= phaseAnimations.length) return;
+  state.playing = false;
+  clearTimeout(state.animationTimer);
+  await sleep(100);
+
+  resetVisuals();
+  state.currentPhase = idx;
+  state.playing = true;
+  state.paused = false;
+  btnPause.disabled = false;
+  goBtn.disabled = true;
+  updatePauseButton();
+  updateControls();
+
+  /* Restore visuals for phases before this one */
+  if (idx >= 3) {
+    $('tlsLockBrowser').setAttribute('opacity', '1');
+    $('tlsLockServer').setAttribute('opacity', '1');
+    $('secureTunnel').setAttribute('opacity', '0.4');
+  }
+
+  /* Run current phase */
+  await phaseAnimations[idx]();
+
+  /* Continue playing remaining phases */
+  for (let i = idx + 1; i < phaseAnimations.length; i++) {
+    if (!state.playing) return;
+    state.currentPhase = i;
+    updateControls();
+    await waitIfPaused();
+    await sleep(600);
+    await phaseAnimations[i]();
+  }
+
+  state.playing = false;
+  state.currentPhase = state.totalPhases;
+  goBtn.disabled = false;
+  btnPause.disabled = true;
+  if (idx <= 6) $('funFacts').classList.add('visible');
+  updateControls();
+}
+
+function stepPrev() {
+  const target = Math.max(0, state.currentPhase - 1);
+  jumpToPhase(target);
+}
+
+function stepNext() {
+  const target = state.currentPhase + 1;
+  if (target < state.totalPhases) {
+    jumpToPhase(target);
+  }
+}
+
+function togglePause() {
+  state.paused = !state.paused;
+  updatePauseButton();
+}
+
+function updatePauseButton() {
+  const icon = $('pauseIcon');
+  const label = $('pauseLabel');
+  if (state.paused) {
+    icon.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14"><path d="M3 1l9 6-9 6z" fill="currentColor"/></svg>';
+    label.textContent = 'Play';
+    btnPause.classList.add('active');
+  } else {
+    icon.innerHTML = '<svg width="14" height="14" viewBox="0 0 14 14"><rect x="2" y="2" width="4" height="10" rx="1" fill="currentColor"/><rect x="8" y="2" width="4" height="10" rx="1" fill="currentColor"/></svg>';
+    label.textContent = 'Pause';
+    btnPause.classList.remove('active');
+  }
+}
+
+function updateSpeed() {
+  state.speed = parseFloat($('speedSlider').value);
+  $('speedValue').textContent = state.speed + 'x';
+}
+
+function updateControls() {
+  btnPrev.disabled = state.currentPhase <= 0;
+  btnNext.disabled = state.currentPhase >= state.totalPhases - 1;
+  phaseCounter.textContent = state.currentPhase < state.totalPhases
+    ? `Phase ${state.currentPhase + 1} / ${state.totalPhases}: ${phases[state.currentPhase].title.split(': ')[1]}`
+    : 'Journey Complete!';
+}
+
+function resetVisuals() {
+  hidePacket(packet);
+  hidePacket(packet2);
+  packetLabel.setAttribute('opacity', '0');
+  $('tlsLockBrowser').setAttribute('opacity', '0');
+  $('tlsLockServer').setAttribute('opacity', '0');
+  $('secureTunnel').setAttribute('opacity', '0');
+  $('serverGear').setAttribute('opacity', '0');
+  $('miniPage').setAttribute('opacity', '0');
+  $('nodeHighlight').setAttribute('opacity', '0');
+  $('funFacts').classList.remove('visible');
+  phaseDetail.style.display = 'none';
+  setActiveLayers([]);
+}
+
+/* ============================================================
+   INITIAL STATE
+   ============================================================ */
+$('mapStatus').setAttribute('opacity', '0.6');
+phaseCounter.textContent = 'Phase 0 / 7';
+</script>
+</body>
+</html>

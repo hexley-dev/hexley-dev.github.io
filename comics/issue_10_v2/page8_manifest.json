@@ -1,0 +1,98 @@
+{
+  "issue": 10,
+  "page": 8,
+  "title": "Your Place in the Stack",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p8_01_robot_direct",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round warm-amber robot with big sincere golden eyes, one stubby hand extended toward the viewer in invitation, the other hand touching its own chest, standing in a doorway of glowing light with the silhouette of the abstraction stack visible behind it like a luminous tower, welcoming posture, direct eye contact with the viewer. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Every person on that timeline started where you are: curious.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Every person on that timeline started where you are: curious.",
+      "speaker": "AMBER"
+    },
+    {
+      "id": "p8_01b_robot_speech",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "style": "accent",
+      "text": "Grace Hopper was told no one would use a compiler — she built one anyway. Linus said his OS was 'just a hobby, won't be big.' Fei-Fei Li labeled millions of images because she believed the data would matter. <strong>They didn't know what their work would become. They just started.</strong>"
+    },
+    {
+      "id": "p8_02_myths",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "One of the most persistent myths in computing is that you need to start young, or start with a math degree, or start with expensive equipment. The actual history tells a different story."
+    },
+    {
+      "id": "p8_03_backus_scene",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A warm illustration of a young man in 1950s clothing looking lost and uncertain, standing at a crossroads with a medical school building on one side (with an X mark) and a door labeled 'COMPUTING' on the other side glowing with warm orange light and an arrow pointing toward it. The young man is scratching his head. Warm retro color palette. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p8_03b_berners_scene",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A warm illustration of a bespectacled physicist at a desk in the late 1980s, surrounded by stacks of research papers in disarray, looking frustrated at the chaos, with a thought bubble showing interconnected documents linked by glowing lines — the seed of the World Wide Web. A small sign on the desk reads 'CERN'. Warm academic lighting. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p8_04_stories",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "John Backus, who created FORTRAN, was a mediocre student who stumbled into computing after failing to complete a medical degree. Tim Berners-Lee was a physicist who wanted a better way to share documents — not a computer scientist trying to build a world-changing platform. Ken Thompson wrote the first Unix in three weeks while his wife was on vacation."
+    },
+    {
+      "id": "p8_05_diversity",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The computing stack is <strong>not finished</strong>. The next layers will not be built by one kind of person. The problems ahead — alignment, interpretability, bias, energy, collaboration — are not purely technical. They require people who understand <strong>ethics, policy, design, communication, culture</strong>, and the lived experiences of communities underrepresented in technology."
+    },
+    {
+      "id": "p8_06_paths_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -25 680 305\"><style>text{font-family:'JetBrains Mono',monospace;}</style><text x=\"340\" y=\"0\" text-anchor=\"middle\" font-size=\"15\" fill=\"#DD6B20\" font-weight=\"bold\">Paths Into the Stack</text><rect x=\"190\" y=\"15\" width=\"300\" height=\"35\" rx=\"8\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><text x=\"340\" y=\"38\" text-anchor=\"middle\" font-size=\"12\" fill=\"#DD6B20\" font-weight=\"bold\">YOU ARE HERE: Curious. No experience required.</text><line x1=\"340\" y1=\"50\" x2=\"340\" y2=\"65\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><line x1=\"340\" y1=\"65\" x2=\"115\" y2=\"65\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><line x1=\"340\" y1=\"65\" x2=\"565\" y2=\"65\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><line x1=\"115\" y1=\"65\" x2=\"115\" y2=\"80\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><line x1=\"340\" y1=\"65\" x2=\"340\" y2=\"80\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><line x1=\"565\" y1=\"65\" x2=\"565\" y2=\"80\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><rect x=\"30\" y=\"80\" width=\"170\" height=\"170\" rx=\"8\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.2\"/><text x=\"115\" y=\"102\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">BUILD</text><text x=\"115\" y=\"120\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Learn to code.</text><text x=\"115\" y=\"136\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Build a website.</text><text x=\"115\" y=\"152\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Try Claude Code.</text><text x=\"115\" y=\"168\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Contribute to</text><text x=\"115\" y=\"182\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">open source.</text><text x=\"115\" y=\"206\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-style=\"italic\">Layers 3-4-8</text><text x=\"115\" y=\"240\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">Hands-on making</text><rect x=\"255\" y=\"80\" width=\"170\" height=\"170\" rx=\"8\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.2\"/><text x=\"340\" y=\"102\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#4A9BD9\">UNDERSTAND</text><text x=\"340\" y=\"120\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Study how AI works.</text><text x=\"340\" y=\"136\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Take a course on ML.</text><text x=\"340\" y=\"152\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Read papers.</text><text x=\"340\" y=\"168\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Watch 3Blue1Brown.</text><text x=\"340\" y=\"206\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-style=\"italic\">Layers 5-6-7</text><text x=\"340\" y=\"240\" text-anchor=\"middle\" font-size=\"12\" fill=\"#4A9BD9\" font-weight=\"bold\">Deep knowledge</text><rect x=\"480\" y=\"80\" width=\"170\" height=\"170\" rx=\"8\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.2\"/><text x=\"565\" y=\"102\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">SHAPE</text><text x=\"565\" y=\"120\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">AI ethics, policy,</text><text x=\"565\" y=\"136\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">fairness, education.</text><text x=\"565\" y=\"152\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Write about AI</text><text x=\"565\" y=\"168\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">for your community.</text><text x=\"565\" y=\"206\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-style=\"italic\">All layers</text><text x=\"565\" y=\"240\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">Social impact</text></svg>",
+      "caption": "Three paths into computing — all equally valuable"
+    },
+    {
+      "id": "p8_07_barriers",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The barriers to entry are lower than ever — free courses, open-source tools, online communities. But real obstacles still exist: access to computers, time, mentorship, and supportive environments. If you have the resources and curiosity, start building. If you face barriers, know that communities exist to help — and the field desperately needs more diverse voices."
+    },
+    {
+      "id": "p8_08_code",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -28 680 248\"><style>text{font-family:'JetBrains Mono','Fira Code',monospace;font-size:12px;}</style><rect x=\"40\" y=\"0\" width=\"600\" height=\"200\" rx=\"10\" fill=\"#1A202C\"/><text x=\"55\" y=\"-4\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#DD6B20\" font-weight=\"bold\">Your First Step — Talk to an AI Model (Python)</text><text x=\"55\" y=\"26\" fill=\"#E2E8F0\"># This is a real API call to Claude. Seven lines.</text><text x=\"55\" y=\"44\" fill=\"#E2E8F0\"># All you need: Python, an API key, and curiosity.</text><text x=\"55\" y=\"70\" fill=\"#48BB78\">import</text><text x=\"105\" y=\"70\" fill=\"#E2E8F0\"> anthropic</text><text x=\"55\" y=\"96\" fill=\"#E2E8F0\">client = anthropic.</text><text x=\"188\" y=\"96\" fill=\"#4A9BD9\">Anthropic</text><text x=\"253\" y=\"96\" fill=\"#E2E8F0\">()</text><text x=\"55\" y=\"118\" fill=\"#E2E8F0\">message = client.messages.</text><text x=\"244\" y=\"118\" fill=\"#4A9BD9\">create</text><text x=\"280\" y=\"118\" fill=\"#E2E8F0\">(</text><text x=\"75\" y=\"136\" fill=\"#DD6B20\">model</text><text x=\"110\" y=\"136\" fill=\"#E2E8F0\">=</text><text x=\"118\" y=\"136\" fill=\"#48BB78\">\"claude-sonnet-4-latest\"</text><text x=\"295\" y=\"136\" fill=\"#E2E8F0\">,</text><text x=\"75\" y=\"152\" fill=\"#DD6B20\">max_tokens</text><text x=\"155\" y=\"152\" fill=\"#E2E8F0\">=</text><text x=\"163\" y=\"152\" fill=\"#9F7AEA\">1024</text><text x=\"190\" y=\"152\" fill=\"#E2E8F0\">,</text><text x=\"75\" y=\"168\" fill=\"#DD6B20\">messages</text><text x=\"133\" y=\"168\" fill=\"#E2E8F0\">=[{</text><text x=\"155\" y=\"168\" fill=\"#48BB78\">\"role\"</text><text x=\"191\" y=\"168\" fill=\"#E2E8F0\">:</text><text x=\"198\" y=\"168\" fill=\"#48BB78\">\"user\"</text><text x=\"234\" y=\"168\" fill=\"#E2E8F0\">,</text><text x=\"241\" y=\"168\" fill=\"#48BB78\">\"content\"</text><text x=\"299\" y=\"168\" fill=\"#E2E8F0\">:</text><text x=\"306\" y=\"168\" fill=\"#48BB78\">\"Explain one layer...\"</text><text x=\"460\" y=\"168\" fill=\"#E2E8F0\">}]</text><text x=\"55\" y=\"186\" fill=\"#E2E8F0\">)</text><text x=\"55\" y=\"196\" fill=\"#4A9BD9\">print</text><text x=\"91\" y=\"196\" fill=\"#E2E8F0\">(message.content[</text><text x=\"216\" y=\"196\" fill=\"#9F7AEA\">0</text><text x=\"223\" y=\"196\" fill=\"#E2E8F0\">].text)</text></svg>",
+      "caption": "Seven lines of Python — your first conversation with an AI model"
+    },
+    {
+      "id": "p8_09_think",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<em>Which layer of the stack interests you most?</em> Are you drawn to the physics of hardware? The elegance of programming languages? The mystery of how neural networks learn? The social challenges of AI safety? There is no wrong answer. The stack needs people at <strong>every level</strong>."
+    },
+    {
+      "id": "p8_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Before a robot guide says goodbye, there is one more thing: a reading list. Because every issue we have written is just the beginning."
+    }
+  ]
+}

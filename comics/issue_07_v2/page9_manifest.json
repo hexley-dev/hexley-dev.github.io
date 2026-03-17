@@ -1,0 +1,93 @@
+{
+  "issue": 7,
+  "page": 9,
+  "title": "Constitutional AI and Claude",
+  "accent": "#4A9BD9",
+  "panels": [
+    {
+      "id": "p9_01_founding",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A stylized founding scene: two figures (a man and a woman, both professional and determined) walking through a doorway from a large corporate building on the left toward a smaller new building on the right with a sign reading 'Anthropic est. 2021', warm golden light streaming through the doorway, the smaller building glows with promise and potential, other researchers follow behind them, the mood is hopeful and purposeful, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm golden doorway light with blue #4A9BD9 accents on the new building",
+      "overlays": []
+    },
+    {
+      "id": "p9_02_narration_founding",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In <strong>2021</strong>, <strong>Dario Amodei</strong> and <strong>Daniela Amodei</strong> left OpenAI and founded <strong>Anthropic</strong>. Dario -- PhD in computational neuroscience, former VP of Research at OpenAI -- believed AI safety could not be an afterthought. It needed to be the <em>mission</em>."
+    },
+    {
+      "id": "p9_03_robot_constitution",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 576,
+      "prompt": "A tiny luminous dome-headed translucent robot, translucent and softly glowing with inner light, big gentle eyes like tiny moons, cable-arms with small light-bulb tips carefully holding a tiny glowing scroll that unfurls to reveal written principles, the scroll has elegant text and a wax seal, the robot looks earnest and thoughtful, floating in a calm contemplative space. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"What if the AI could judge itself using written rules?\" Comic book style, warm editorial illustration with ink lines and watercolor washes, soft warm glow with blue #4A9BD9 luminescence",
+      "bubble_text": "What if the AI could judge itself using written rules?",
+      "speaker": "STARLIGHT"
+    },
+    {
+      "id": "p9_04_narration_cai",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "In <strong>December 2022</strong>, Anthropic published <strong>Constitutional AI (CAI)</strong>. The core idea: instead of relying on case-by-case human judgments, write a <strong>constitution</strong> -- a set of explicit principles -- and use it to guide behavior. Like how human societies work."
+    },
+    {
+      "id": "p9_05_cai_loop",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 295\"><style>.title{font-size:14px; font-weight:bold; } .step{font-size:12px; font-weight:bold} .desc{font-size:12px; } .num{font-size:13px; font-weight:bold; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" class=\"title\" x=\"340\" y=\"5\" text-anchor=\"middle\">The Constitutional AI Loop</text><g transform=\"translate(30,25)\"><circle cx=\"25\" cy=\"22\" r=\"16\" fill=\"#4A9BD9\"/><text fill=\"#E2E8F0\" class=\"num\" x=\"25\" y=\"28\" text-anchor=\"middle\">1</text><text class=\"step\" x=\"50\" y=\"20\" fill=\"#4A9BD9\">Model generates response</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"50\" y=\"36\">(including to tricky prompts)</text></g><path d=\"M340,55 L340,65\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><g transform=\"translate(30,70)\"><circle cx=\"25\" cy=\"22\" r=\"16\" fill=\"#38A169\"/><text fill=\"#E2E8F0\" class=\"num\" x=\"25\" y=\"28\" text-anchor=\"middle\">2</text><text class=\"step\" x=\"50\" y=\"20\" fill=\"#E2E8F0\">Model reads constitutional principle</text><rect x=\"50\" y=\"30\" width=\"550\" height=\"24\" rx=\"5\" fill=\"#C6F6D5\" opacity=\"0.3\" stroke=\"#38A169\" stroke-width=\"1\"/><text fill=\"#E2E8F0\" class=\"desc\" x=\"60\" y=\"46\" textLength=\"529\" lengthAdjust=\"spacingAndGlyphs\">\"Is this response honest about uncertainty? Is it helpful? Could it cause harm?\"</text></g><path d=\"M340,120 L340,130\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><g transform=\"translate(30,135)\"><circle cx=\"25\" cy=\"22\" r=\"16\" fill=\"#DD6B20\"/><text fill=\"#E2E8F0\" class=\"num\" x=\"25\" y=\"28\" text-anchor=\"middle\">3</text><text class=\"step\" x=\"50\" y=\"20\" fill=\"#DD6B20\">Model critiques its own response</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"50\" y=\"36\">\"No, I stated a guess as a fact.\"</text></g><path d=\"M340,177 L340,187\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><g transform=\"translate(30,192)\"><circle cx=\"25\" cy=\"22\" r=\"16\" fill=\"#805AD5\"/><text fill=\"#E2E8F0\" class=\"num\" x=\"25\" y=\"28\" text-anchor=\"middle\">4</text><text class=\"step\" x=\"50\" y=\"20\" fill=\"#E2E8F0\">Model revises its response</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"50\" y=\"36\">Adds hedging language, acknowledges limitations</text></g><path d=\"M340,235 L340,245\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><rect x=\"180\" y=\"245\" width=\"320\" height=\"22\" rx=\"5\" fill=\"#4A9BD9\" opacity=\"0.15\" stroke=\"#4A9BD9\" stroke-width=\"1.2\"/><text x=\"340\" y=\"261\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">Revised response becomes training data</text></svg>",
+      "caption": "Constitutional AI: the model critiques and revises its own responses based on written principles."
+    },
+    {
+      "id": "p9_06_comparison",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 200\"><style>.title{font-size:13px; font-weight:bold; } .head{font-size:12px; font-weight:bold; } .cell{font-size:12px} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" class=\"title\" x=\"340\" y=\"5\" text-anchor=\"middle\">RLHF vs. Constitutional AI</text><rect x=\"40\" y=\"18\" width=\"600\" height=\"22\" rx=\"4\" fill=\"#4A9BD9\" opacity=\"0.12\"/><text fill=\"#E2E8F0\" class=\"head\" x=\"120\" y=\"33\" text-anchor=\"middle\"></text><text fill=\"#E2E8F0\" class=\"head\" x=\"300\" y=\"33\" text-anchor=\"middle\">RLHF</text><text fill=\"#E2E8F0\" class=\"head\" x=\"510\" y=\"33\" text-anchor=\"middle\">Constitutional AI</text><line x1=\"40\" y1=\"42\" x2=\"640\" y2=\"42\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text fill=\"#FFFFFF\" class=\"cell\" x=\"120\" y=\"60\" text-anchor=\"middle\" font-weight=\"bold\">Who judges?</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"300\" y=\"60\" text-anchor=\"middle\">Human evaluators</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"510\" y=\"60\" text-anchor=\"middle\">AI + written principles</text><line x1=\"40\" y1=\"70\" x2=\"640\" y2=\"70\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text fill=\"#FFFFFF\" class=\"cell\" x=\"120\" y=\"88\" text-anchor=\"middle\" font-weight=\"bold\">Scalability</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"300\" y=\"88\" text-anchor=\"middle\">Limited by human labor</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"510\" y=\"88\" text-anchor=\"middle\">Reduced human labor</text><line x1=\"40\" y1=\"98\" x2=\"640\" y2=\"98\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text fill=\"#FFFFFF\" class=\"cell\" x=\"120\" y=\"116\" text-anchor=\"middle\" font-weight=\"bold\">Transparency</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"300\" y=\"116\" text-anchor=\"middle\">Implicit in preferences</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"510\" y=\"116\" text-anchor=\"middle\">Explicit, written down</text><line x1=\"40\" y1=\"126\" x2=\"640\" y2=\"126\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text fill=\"#FFFFFF\" class=\"cell\" x=\"120\" y=\"144\" text-anchor=\"middle\" font-weight=\"bold\">Consistency</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"300\" y=\"144\" text-anchor=\"middle\">Varies between judges</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"510\" y=\"144\" text-anchor=\"middle\">Same principles every time</text><line x1=\"220\" y1=\"18\" x2=\"220\" y2=\"155\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><line x1=\"400\" y1=\"18\" x2=\"400\" y2=\"155\" stroke=\"#E2E8F0\" stroke-width=\"1\"/></svg>",
+      "caption": "Constitutional AI front-loads human judgment into written principles rather than case-by-case rankings."
+    },
+    {
+      "id": "p9_07_landscape",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A sweeping visual timeline of the LLM landscape in 2023, showing model logos and names arranged chronologically like a city skyline growing taller over time, from BERT and GPT-1 as small buildings on the left in 2018, through GPT-3 as a large tower in 2020, to ChatGPT, Claude 1, GPT-4, and Llama 2 as gleaming modern skyscrapers on the right in 2023, each labeled with its name and company, the skyline grows dramatically from left to right, Comic book style, warm editorial illustration with ink lines and watercolor washes, progression from grey historical to vibrant blue #4A9BD9 modern",
+      "overlays": []
+    },
+    {
+      "id": "p9_08_narration_claude",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Claude 1</strong> launched in <strong>March 2023</strong>. <strong>Claude 2</strong> followed in <strong>July 2023</strong> with a 100,000-token context window -- enough to process entire books. Meanwhile, Google released PaLM, Meta released <strong>Llama 2</strong> as open source, and <strong>GPT-4</strong> added multimodal capability."
+    },
+    {
+      "id": "p9_09_thinkit",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Human societies use constitutions to encode values that outlast any individual leader. Could AI constitutions serve the same purpose? If you could write the rules that govern an AI's behavior, <strong>what principles would YOU include?</strong>"
+    },
+    {
+      "id": "p9_09b_robot_claude",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round warm-orange robot with a dome head and big gentle amber LED eyes, stubby arms holding a tiny scroll labeled CONSTITUTIONAL AI, antenna with a tiny scale of justice on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Helpful, harmless, honest. That is the goal.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Helpful, harmless, honest. That is the goal.",
+      "speaker": "ETHICSBOT"
+    },
+    {
+      "id": "p9_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "From a single translation paper to a global industry in six years. But every layer connects to something deeper. Let's zoom out and see how it all fits together."
+    }
+  ]
+}

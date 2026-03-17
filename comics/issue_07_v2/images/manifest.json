@@ -1,0 +1,30 @@
+[
+  {
+    "id": "p10_01_thread_timeline",
+    "label": "",
+    "filename": "p10_01_thread_timeline.png",
+    "width": 768,
+    "height": 384
+  },
+  {
+    "id": "p10_04_robot_reflect",
+    "label": "",
+    "filename": "p10_04_robot_reflect.png",
+    "width": 288,
+    "height": 576
+  },
+  {
+    "id": "p10_07_trapped_textbox",
+    "label": "",
+    "filename": "p10_07_trapped_textbox.png",
+    "width": 768,
+    "height": 320
+  },
+  {
+    "id": "p10_09b_robot_trapped",
+    "label": "",
+    "filename": "p10_09b_robot_trapped.png",
+    "width": 640,
+    "height": 384
+  }
+]

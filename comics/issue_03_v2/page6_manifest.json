@@ -1,0 +1,99 @@
+{
+  "issue": 3,
+  "page": 6,
+  "title": "Programming in Almost-English",
+  "accent": "#38A169",
+  "panels": [
+    {
+      "id": "p6_01_robot_cobol",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute flat rectangular robot made of folded punch-card paper in origami style, with dot-matrix-printed eyes on a rectangular face and tiny paper-fold ears, standing beside a large 1960s mainframe cabinet with switches and indicator lights, and a nearby teletype paper printer with green-tinted code printout spooling onto the floor, the mainframe towering above the small robot, stacks of punched cards on a nearby table, warm overhead fluorescent lighting in a large institutional computer room. Comic book style, warm editorial illustration with ink lines and watercolor washes, deep green #38A169 accent",
+      "bubble_text": "Look! Code that reads like English!",
+      "speaker": "TAPE"
+    },
+    {
+      "id": "p6_02_narration_flowmatic",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "By the late 1950s, FORTRAN had conquered scientific computing. Grace Hopper was pushing a different frontier. Her <strong>FLOW-MATIC</strong> language (delivered 1958-59) could process English-like commands &mdash; and it caught the attention of the U.S. Department of Defense.",
+      "style": "default"
+    },
+    {
+      "id": "p6_03_pentagon_scene",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A conference room at the Pentagon in 1959, a large oval table with about a dozen people seated around it including both men and women in professional 1950s attire, documents and thick binders spread across the table, an American flag in the corner, a sign on an easel reads CODASYL Conference on Data Systems Languages, serious focused expressions on all faces, one woman standing presenting at a small podium, institutional lighting, comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p6_04_narration_codasyl",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "In May 1959, computer manufacturers, government agencies, and academics gathered at the Pentagon. <strong>Mary Hawes</strong> of Burroughs organized the initial meeting. Their goal: a single language for business data processing that would work on <em>any</em> machine.<br><br>The result was <strong>COBOL</strong> &mdash; the <strong>COmmon Business-Oriented Language</strong>, released in 1960.",
+      "style": "default"
+    },
+    {
+      "id": "p6_05_cobol_code",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 690 330\"><rect x=\"10\" y=\"0\" width=\"660\" height=\"290\" rx=\"12\" fill=\"#1A202C\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"340\" y=\"28\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" font-weight=\"bold\" fill=\"#FFFFFF\">A TASTE OF COBOL</text><text x=\"40\" y=\"55\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">IDENTIFICATION DIVISION.</text><text x=\"40\" y=\"72\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">PROGRAM-ID. PAYROLL.</text><text x=\"40\" y=\"97\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">DATA DIVISION.</text><text x=\"40\" y=\"114\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">WORKING-STORAGE SECTION.</text><text x=\"40\" y=\"131\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">01 HOURS-WORKED     PIC 99V9.</text><text x=\"40\" y=\"148\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">01 PAY-RATE         PIC 999V99.</text><text x=\"40\" y=\"165\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">01 GROSS-PAY        PIC 9999V99.</text><text x=\"40\" y=\"190\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">PROCEDURE DIVISION.</text><text x=\"40\" y=\"207\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">COMPUTE-PAY.</text><text x=\"40\" y=\"224\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#FFF\" font-weight=\"bold\">    MULTIPLY HOURS-WORKED BY PAY-RATE</text><text x=\"40\" y=\"241\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#FFF\" font-weight=\"bold\">        GIVING GROSS-PAY.</text><text x=\"40\" y=\"258\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">    DISPLAY \"GROSS PAY IS: \" GROSS-PAY.</text><text x=\"40\" y=\"275\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">    STOP RUN.</text><rect x=\"420\" y=\"200\" width=\"225\" height=\"65\" rx=\"8\" fill=\"#38A169\" opacity=\"0.15\" stroke=\"#38A169\" stroke-width=\"5\" stroke-dasharray=\"6,4\"/><text x=\"535\" y=\"222\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#C6F6D5\">Reads like English!</text><text x=\"535\" y=\"242\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">A manager could read this</text><text x=\"535\" y=\"258\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">and understand it.</text></svg>",
+      "caption": "COBOL code reads almost like a business memo"
+    },
+    {
+      "id": "p6_06_narration_sammet",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Hopper was a key technical advisor. <strong>Jean Sammet</strong> of IBM was another critical contributor &mdash; she would later write the definitive history of programming languages. COBOL was designed around a radical idea: <em>programs should be readable by managers, not just programmers.</em>",
+      "style": "default"
+    },
+    {
+      "id": "p6_07_robot_readable",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 384,
+      "prompt": "A small cute round robot with a smooth lavender body, big warm purple eyes shaped like semicircles when smiling, wearing tiny reading glasses perched on its nose and holding an open book labeled COBOL in one stubby hand, the other hand pointing up in a eureka gesture, surrounded by floating text fragments reading MULTIPLY DISPLAY COMPUTE in green glow, warm library-like background with bookshelves. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Verbose, but clear. That was the point.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Verbose, but clear. That was the point.",
+      "speaker": "BOOKWORM"
+    },
+    {
+      "id": "p6_08_narration_impact",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "The Department of Defense mandated COBOL compilers for government contracts. By the mid-1960s, COBOL was the most widely used language in the world. Banks, insurance companies, and governments ran on it. <strong>By some estimates, over 200 billion lines of COBOL are still in production today</strong>, processing 95% of ATM transactions.",
+      "style": "accent"
+    },
+    {
+      "id": "p6_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "COBOL proved that programming languages don't have to look like math or binary &mdash; they can look like <em>English</em>. By making code readable to non-specialists, COBOL opened computing to an entirely new audience. The idea that code should be readable by <strong>humans</strong>, not just machines, influences every modern language.",
+      "style": "accent"
+    },
+    {
+      "id": "p6_09b_robot_cobol",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round lavender robot with a dome head and big warm purple LED eyes, wearing tiny reading glasses, stubby arms holding an open ledger with readable English text like MULTIPLY and COMPUTE, antenna with a tiny pen nib on top, sitting at a banker's desk with an old adding machine. A white speech bubble with black outline above. Inside the bubble the text reads: \"Two hundred billion lines of COBOL. Still running.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Two hundred billion lines of COBOL. Still running.",
+      "speaker": "LEDGERBOT"
+    },
+    {
+      "id": "p6_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "We've climbed from binary to assembly to FORTRAN to almost-English. Each step made programming easier. But what's the <em>pattern</em> here? And where does it end?"
+    }
+  ]
+}

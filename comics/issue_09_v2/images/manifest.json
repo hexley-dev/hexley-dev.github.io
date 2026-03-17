@@ -1,0 +1,44 @@
+[
+  {
+    "id": "p10_01_stack_tower",
+    "label": "",
+    "filename": "p10_01_stack_tower.png",
+    "width": 768,
+    "height": 448
+  },
+  {
+    "id": "p10_04_robot_confession",
+    "label": "",
+    "filename": "p10_04_robot_confession.png",
+    "width": 432,
+    "height": 576
+  },
+  {
+    "id": "p10_04b_robot_orchestrator",
+    "label": "",
+    "filename": "p10_04b_robot_orchestrator.png",
+    "width": 432,
+    "height": 576
+  },
+  {
+    "id": "p10_06b_robot_selfreferential",
+    "label": "",
+    "filename": "p10_06b_robot_selfreferential.png",
+    "width": 640,
+    "height": 384
+  },
+  {
+    "id": "p10_08b_robot_newquestion",
+    "label": "",
+    "filename": "p10_08b_robot_newquestion.png",
+    "width": 640,
+    "height": 384
+  },
+  {
+    "id": "p10_11_teaser",
+    "label": "",
+    "filename": "p10_11_teaser.png",
+    "width": 768,
+    "height": 320
+  }
+]

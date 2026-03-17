@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Issue 08: AI Agents Take the Wheel — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Patrick+Hand&family=Source+Serif+4:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --comic: 'Bangers', 'Impact', sans-serif;
+  --hand: 'Patrick Hand', cursive;
+  --body: 'Source Serif 4', Georgia, serif;
+  --mono: 'JetBrains Mono', monospace;
+  --accent: #9F7AEA;
+  --accent-dark: color-mix(in srgb, #9F7AEA 80%, black);
+  --ink: #1A202C;
+  --gutter: 6px;
+  --narration-bg: #FFF9C4;
+  --narration-border: #E8B931;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #F0EBE1;
+  font-family: var(--hand);
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.comic-page {
+  width: 100%;
+  max-width: 720px;
+  background: #fff;
+  border: 3px solid var(--ink);
+  border-radius: 2px;
+  padding: var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter);
+  box-shadow: 5px 5px 0 rgba(0,0,0,0.12);
+}
+
+.page-header {
+  text-align: center;
+  padding: 6px 12px 8px;
+  background: var(--ink);
+  border-radius: 2px;
+  border-bottom: 3px solid var(--accent);
+}
+.page-header .issue-label {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+.page-header .page-title {
+  font-family: var(--comic);
+  font-size: 34px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+}
+
+/* Panels */
+.panel {
+  position: relative;
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #1a1a2e 25%, #252540 50%, #1a1a2e 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.panel.img-loaded {
+  animation: none;
+  background: #1a1a2e;
+}
+.panel:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.panel img.loaded {
+  opacity: 1;
+}
+.panel--bubble img {
+  object-fit: contain;
+  object-position: center;
+}
+.panel-row {
+  display: flex;
+  gap: var(--gutter);
+}
+.panel-row > * {
+  min-width: 0;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Narration overlay (on image panels) */
+.narration-overlay {
+  position: absolute;
+  background: var(--narration-bg);
+  border: 2px solid var(--narration-border);
+  padding: 10px 14px;
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4A3728;
+  z-index: 10;
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.05);
+}
+.narration-overlay strong { color: var(--accent); }
+
+/* CSS narration panel (standalone) */
+.css-narration {
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  background: var(--narration-bg);
+  border-color: var(--narration-border);
+  padding: 18px 22px;
+  font-family: var(--body);
+  font-size: 17.5px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #4A3728;
+}
+.css-narration strong { color: var(--accent); }
+.css-narration em { font-style: italic; }
+.css-narration--accent {
+  background: #FFF5F5;
+  border-color: var(--accent);
+}
+
+/* Page-turn hook */
+.css-hook {
+  text-align: center;
+  padding: 14px 20px;
+  font-family: var(--body);
+  font-size: 18px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--accent);
+  border-top: 1px dashed var(--narration-border);
+}
+
+/* OCR proof marker (hidden, for proofreader) */
+.ocr-expected {
+  display: none;
+}
+
+/* Lab link callout */
+.lab-link {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 0;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, rgba(229,62,62,0.06), rgba(229,62,62,0.02));
+  border: 2.5px solid var(--accent);
+  border-radius: 2px;
+  font-family: var(--body);
+}
+.lab-link-icon { color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.lab-link-title { font-size: 16px; color: var(--ink); }
+.lab-link-desc { font-size: 14px; color: #4A5568; margin: 4px 0 8px; line-height: 1.5; }
+.lab-link-btn {
+  display: inline-block;
+  padding: 5px 14px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 4px;
+  font-family: var(--hand);
+  font-size: 14px;
+  text-decoration: none;
+}
+.lab-link-btn:hover { opacity: 0.85; }
+
+/* Portrait image capped (when no adjacent narration) */
+.portrait-capped {
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+/* Narration in flex rows — vertically centered, compact text */
+.panel-row .css-narration {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.panel-row .css-narration p {
+  margin: 0;
+}
+
+/* SVG diagram */
+.svg-diagram {
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  overflow: hidden;
+  background: #1A202C;
+  padding: 12px;
+}
+.svg-diagram svg { width: 100%; height: auto; }
+.diagram-caption {
+  text-align: center;
+  font-family: var(--body);
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 8px;
+}
+
+/* Robot speech (placeholder for svg_robot panels) */
+.svg-robot {
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  padding: 16px;
+  background: #F7FAFC;
+  text-align: center;
+}
+.robot-speech {
+  font-family: var(--hand);
+  font-size: 15px;
+  color: var(--ink);
+  margin-top: 8px;
+}
+
+/* References (collapsible) */
+.references-section {
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  background: #F7FAFC;
+}
+.references-section summary {
+  font-family: var(--hand);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 14px 18px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.references-section summary::-webkit-details-marker { display: none; }
+.references-section summary::before {
+  content: '\25B6';
+  font-size: 12px;
+  color: var(--accent);
+  transition: transform 0.2s;
+}
+.references-section[open] summary::before {
+  transform: rotate(90deg);
+}
+.references-section .ref-list {
+  padding: 0 18px 16px;
+  list-style: none;
+}
+.references-section .ref-list li {
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4A5568;
+  padding: 6px 0;
+  border-top: 1px solid #E2E8F0;
+}
+.references-section .ref-list li:first-child {
+  border-top: 1px solid #CBD5E0;
+}
+.references-section .ref-list a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.references-section .ref-list a:hover {
+  text-decoration: underline;
+}
+.references-section .ref-list .ref-type {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(0,0,0,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 6px;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Print */
+@media print {
+  body { background: #fff; padding: 0; }
+  .comic-page { border: none; box-shadow: none; max-width: 100%; }
+  .page-nav { display: none !important; }
+  .page-section { display: block !important; page-break-after: always; }
+  .page-section:last-of-type { page-break-after: avoid; }
+  .panel { animation: none; background: #1a1a2e; transform: none; }
+  .panel img { opacity: 1; }
+  .panel:hover { transform: none; box-shadow: none; }
+  .lab-link-btn { background: none !important; color: var(--accent) !important; border: 1px solid var(--accent); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .page-section.active { animation: none; }
+  .panel { animation: none !important; transition: none !important; background: #1a1a2e; }
+  .panel img { transition: none !important; opacity: 1 !important; }
+  .progress-dot { transition: none; }
+  .references-section summary::before { transition: none; }
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  body { padding: 8px; }
+  .comic-page { padding: 3px; gap: 3px; }
+  .narration-overlay { font-size: 13px; padding: 6px 10px; }
+  .css-narration { font-size: 15px; padding: 12px 14px; }
+  .page-header .page-title { font-size: 20px; }
+  .panel-row { flex-direction: column; }
+  .progress-dots { gap: 3px; }
+  .progress-dot { width: 6px; height: 6px; }
+}
+
+
+/* Multi-page navigation */
+.page-section { display: none; }
+.page-section.active { display: block; animation: pageIn 0.3s ease-out; }
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--ink);
+  border-radius: 2px;
+  margin-top: 4px;
+}
+.page-nav > button {
+  font-family: var(--hand);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+.page-nav button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+.page-nav button:active:not(:disabled) {
+  transform: translateY(0);
+}
+.page-nav button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.page-nav-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.page-nav .page-indicator {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+}
+.progress-dots {
+  display: flex;
+  gap: 10px;
+}
+.progress-dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  min-width: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  font-size: 0;
+  line-height: 0;
+}
+.progress-dot:hover {
+  background: rgba(255,255,255,0.45);
+}
+.progress-dot.visited {
+  background: var(--accent);
+  opacity: 0.7;
+}
+.progress-dot.active {
+  background: var(--accent);
+  transform: scale(1.4);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+</style>
+</head>
+<body>
+<div class="comic-page">
+  <section class="page-section" data-page="1">
+    <div class="page-header">
+      <div class="issue-label">Issue 08 · Page 1</div>
+      <div class="page-title">Autocomplete Was Like a Helpful Passenger. Agents Took the Wheel.</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p1_01_split_screen.png" alt="p1_01_split_screen">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 3; aspect-ratio: 428/576;">
+  <img src="images/p1_02_robot_passenger.png" alt="CLOCKWORK: AI used to be the world's best passenger.">
+  <span class="ocr-expected" data-speaker="CLOCKWORK">AI used to be the world's best passenger.</span>
+</div>
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 428/576;">
+  <img src="images/p1_02b_robot_wheel.png" alt="CIRCUITBOT: Then it grabbed the wheel.">
+  <span class="ocr-expected" data-speaker="CIRCUITBOT">Then it grabbed the wheel.</span>
+</div>
+    </div>
+
+    <div class="css-narration"><p>In Issue 7, we watched language models learn to write code. You could type a question into a chat window, and an LLM would hand you a function, a class, an entire module. <strong>Extraordinary.</strong></p></div>
+
+    <div class="css-narration css-narration--accent"><p>But there was a catch. You still had to copy the code, run it yourself, read the errors, go back to the chat, and ask for a fix. It was like having a brilliant advisor locked in a soundproof room &mdash; they could slip you a plan under the door, but <strong>you</strong> had to do all the running.</p></div>
+
+    <div class="panel-row">
+<div class="panel" style="flex: 1; aspect-ratio: 357/512;">
+  <img src="images/p1_05_cursor_typing.png" alt="p1_05_cursor_typing">
+</div>
+<div class="panel" style="flex: 1; aspect-ratio: 357/512;">
+  <img src="images/p1_05b_task_complete.png" alt="p1_05b_task_complete">
+</div>
+    </div>
+
+    <div class="css-narration"><p>Between 2021 and 2025, that wall came down. AI went from <em>suggesting</em> code to <strong>writing, running, testing, debugging, and fixing</strong> code &mdash; all on its own. The advisor left the room and sat down at the keyboard.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-130 -20 860 310" xmlns="http://www.w3.org/2000/svg"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="300" y="10" text-anchor="middle" font-size="18" font-weight="bold" fill="#9F7AEA">The Four Leaps</text><circle cx="50" cy="80" r="46" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/><text fill="#1A202C" x="50" y="74" text-anchor="middle" font-size="11" font-weight="bold">Autocomplete</text><text fill="#2D3748" x="50" y="90" text-anchor="middle" font-size="11">(2021)</text><g transform="translate(50,136)"><rect x="-70" y="0" width="140" height="16" rx="4" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/><text fill="#2D3748" x="0" y="12" text-anchor="middle" font-size="11">AI predicts next line</text></g><circle cx="220" cy="80" r="36" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/><text fill="#1A202C" x="220" y="76" text-anchor="middle" font-size="12" font-weight="bold">Chat</text><text fill="#2D3748" x="220" y="90" text-anchor="middle" font-size="12">(2022-23)</text><g transform="translate(220,128)"><rect x="-78" y="0" width="156" height="16" rx="4" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/><text fill="#2D3748" x="0" y="12" text-anchor="middle" font-size="11">AI writes from description</text></g><circle cx="400" cy="80" r="44" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/><text fill="#1A202C" x="400" y="76" text-anchor="middle" font-size="12" font-weight="bold">Tool Use</text><text fill="#2D3748" x="400" y="90" text-anchor="middle" font-size="12">(2023)</text><g transform="translate(400,136)"><rect x="-80" y="0" width="160" height="16" rx="4" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/><text fill="#2D3748" x="0" y="12" text-anchor="middle" font-size="11">AI runs commands &amp; files</text></g><circle cx="580" cy="80" r="52" fill="#9F7AEA" stroke="#6B46C1" stroke-width="2.5"/><text x="580" y="72" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Agents</text><text x="580" y="88" text-anchor="middle" font-size="12" fill="#fff">(2024-25)</text><g transform="translate(580,144)"><rect x="-82" y="0" width="164" height="16" rx="4" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/><text fill="#2D3748" x="0" y="12" text-anchor="middle" font-size="11">AI plans, executes, iterates</text></g><line x1="96" y1="80" x2="184" y2="80" stroke="#9F7AEA" stroke-width="2" marker-end="url(#arrowV)"/><line x1="256" y1="80" x2="356" y2="80" stroke="#9F7AEA" stroke-width="2" marker-end="url(#arrowV)"/><line x1="444" y1="80" x2="528" y2="80" stroke="#9F7AEA" stroke-width="2" marker-end="url(#arrowV)"/><defs><marker id="arrowV" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9F7AEA"/></marker></defs><g transform="translate(0,185)"><rect x="0" y="0" width="660" height="50" rx="8" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1" stroke-dasharray="4,3"/><text x="330" y="18" text-anchor="middle" font-size="12" font-style="italic" fill="#2D3748">These leaps are conceptual stages, not a strict timeline. Research often ran</text><text x="330" y="32" text-anchor="middle" font-size="12" font-style="italic" fill="#2D3748">ahead of products -- ReAct (Leap 4) was published before ChatGPT (Leap 2).</text><text x="330" y="46" text-anchor="middle" font-size="12" font-style="italic" fill="#2D3748">Ideas, products, and experiments developed in messy parallel.</text></g></svg>
+    <p class="diagram-caption">The Four Leaps from autocomplete to autonomous agents</p>
+  </div>
+
+    <div class="css-narration css-narration--accent"><p>For 80 years, we made computers easier for humans to use. Now we are making computers that <strong>use themselves</strong>. The shift from &ldquo;AI writes code&rdquo; to &ldquo;AI does the work&rdquo; is not just a feature upgrade &mdash; it is a <strong>fundamental change</strong> in what a computer can do.</p></div>
+
+    <div class="css-hook">The first leap happened in June 2021, when a VS Code extension made millions of developers feel like they had a mind reader sitting inside their editor. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="2">
+    <div class="page-header">
+      <div class="issue-label">Issue 08 · Page 2</div>
+      <div class="page-title">GitHub Copilot — The First Taste of AI Coding</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p2_01_copilot_screen.png" alt="p2_01_copilot_screen">
+</div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 768/461;">
+  <img src="images/p2_02_robot_type_comment.png" alt="TINBOT: Type a comment. AI writes the code.">
+  <span class="ocr-expected" data-speaker="TINBOT">Type a comment. AI writes the code.</span>
+</div>
+
+    <div class="css-narration"><p>On <strong>June 29, 2021</strong>, GitHub announced <strong>Copilot</strong> as a technical preview. Built on <strong>OpenAI Codex</strong>, a 12-billion-parameter language model fine-tuned on billions of lines of public code, Copilot predicted not just the next word &mdash; but entire functions.</p></div>
+
+    <div class="panel-row">
+<div class="panel" style="flex: 1; aspect-ratio: 357/512;">
+  <img src="images/p2_04_friedman.png" alt="p2_04_friedman">
+</div>
+<div class="panel" style="flex: 1; aspect-ratio: 357/512;">
+  <img src="images/p2_04b_million_subs.png" alt="p2_04b_million_subs">
+</div>
+    </div>
+
+    <div class="css-narration"><p>Copilot became generally available on <strong>June 21, 2022</strong>, at $10/month. By February 2023: over <strong>one million paying subscribers</strong>. An internal study claimed developers completed tasks <strong>55% faster</strong>. Critics noted the study used a simple task &mdash; but nobody disputed the <em>feeling</em>. Developers called it a &ldquo;before and after&rdquo; moment.</p></div>
+
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p2_06_controversy.png" alt="p2_06_controversy">
+</div>
+
+    <div class="css-narration css-narration--accent"><p>Copilot had been trained on public code, including <strong>GPL-licensed</strong> code. Lawyer <strong>Matthew Butterick</strong> filed a class-action lawsuit in November 2022, calling it &ldquo;software piracy at an unprecedented scale.&rdquo; The fundamental question: is an AI learning patterns from code the same as <em>copying</em> that code? The legal system is still wrestling with the answer.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-10 -20 720 240" xmlns="http://www.w3.org/2000/svg"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="340" y="8" text-anchor="middle" font-size="16" font-weight="bold" fill="#9F7AEA">How Copilot Works</text><rect x="30" y="30" width="120" height="50" rx="8" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/><text fill="#1A202C" x="90" y="52" text-anchor="middle" font-size="12" font-weight="bold">1. You type</text><text fill="#2D3748" x="90" y="66" text-anchor="middle" font-size="12" textLength="92" lengthAdjust="spacingAndGlyphs">code + comment</text><rect x="190" y="30" width="120" height="50" rx="8" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/><text fill="#1A202C" x="250" y="52" text-anchor="middle" font-size="12" font-weight="bold">2. Sent to</text><text fill="#2D3748" x="250" y="66" text-anchor="middle" font-size="12">Codex model</text><rect x="350" y="30" width="120" height="50" rx="8" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/><text fill="#1A202C" x="410" y="52" text-anchor="middle" font-size="12" font-weight="bold">3. Predicts</text><text fill="#2D3748" x="410" y="66" text-anchor="middle" font-size="12">next tokens</text><rect x="510" y="30" width="140" height="50" rx="8" fill="#9F7AEA" stroke="#6B46C1" stroke-width="2"/><text x="580" y="52" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">4. Inline suggestion</text><text x="580" y="66" text-anchor="middle" font-size="12" fill="#fff" textLength="112" lengthAdjust="spacingAndGlyphs">appears in editor</text><line x1="150" y1="55" x2="190" y2="55" stroke="#9F7AEA" stroke-width="2" marker-end="url(#arrowP2)"/><line x1="310" y1="55" x2="350" y2="55" stroke="#9F7AEA" stroke-width="2" marker-end="url(#arrowP2)"/><line x1="470" y1="55" x2="510" y2="55" stroke="#9F7AEA" stroke-width="2" marker-end="url(#arrowP2)"/><rect x="200" y="110" width="280" height="45" rx="8" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text x="340" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1A202C">5. Press Tab to accept</text><text x="340" y="146" text-anchor="middle" font-size="12" fill="#2D3748">...or keep typing to ignore</text><line x1="580" y1="80" x2="580" y2="110" stroke="#38A169" stroke-width="1.5" stroke-dasharray="4,3"/><line x1="580" y1="110" x2="480" y2="132" stroke="#38A169" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowG)"/><defs><marker id="arrowP2" viewBox="0 0 10 30" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9F7AEA"/></marker><marker id="arrowG" viewBox="0 0 10 30" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#38A169"/></marker></defs></svg>
+    <p class="diagram-caption">How Copilot works: from typing to inline code suggestions</p>
+  </div>
+
+    <div class="css-narration"><p><em>&ldquo;If you read a thousand cookbooks and then write your own recipe, is that copying? What if your recipe happens to match someone else&rsquo;s word for word? At what point does &lsquo;learning from&rsquo; become &lsquo;copying&rsquo;?&rdquo;</em></p></div>
+
+    <div class="css-hook">Copilot could finish your sentences. But what if you didn't want to write code at all? What if you just wanted to describe what you needed — in plain English — and have AI write the whole thing? &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="3">
+    <div class="page-header">
+      <div class="issue-label">Issue 08 · Page 3</div>
+      <div class="page-title">Chat-Based Coding — Describe What You Want, Get Code Back</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p3_01_chat_interface.png" alt="p3_01_chat_interface">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 476/576;">
+  <img src="images/p3_02_robot_chat_explain.png" alt="SCARFBOT: Autocomplete finishes your line. Chat builds the whole thing.">
+  <span class="ocr-expected" data-speaker="SCARFBOT">Autocomplete finishes your line. Chat builds the whole thing.</span>
+</div>
+<div class="panel" style="flex: 1; aspect-ratio: 476/576;">
+  <img src="images/p3_02b_chatgpt_launch.png" alt="p3_02b_chatgpt_launch">
+</div>
+    </div>
+
+    <div class="css-narration"><p>On <strong>November 30, 2022</strong>, OpenAI launched <strong>ChatGPT</strong>. It reached <strong>100 million monthly active users</strong> by January 2023 &mdash; the fastest-growing consumer application in history. Developers discovered it was shockingly good at writing code from plain English descriptions.</p></div>
+
+    <div class="css-narration css-narration--accent"><p>When <strong>GPT-4</strong> arrived on March 14, 2023, the leap in code quality was dramatic. <strong>Claude</strong>, from Anthropic &mdash; co-founded by <strong>Dario Amodei</strong> and <strong>Daniela Amodei</strong> with a safety-first approach &mdash; entered the space in March 2023, followed by Claude 2 in July with a 100,000-token context window.</p></div>
+
+  <div class="panel" style="aspect-ratio: 768/448;">
+  <img src="images/p3_05_hamster_wheel.png" alt="p3_05_hamster_wheel">
+</div>
+
+    <div class="css-narration"><p>The AI could write code &mdash; but it could not <em>run</em> code. It could not see your project. Every interaction followed the same exhausting loop: describe, get code, copy, paste, run, hit error, copy error, go back, get fix, copy again&hellip; The human was the bottleneck.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 320" xmlns="http://www.w3.org/2000/svg"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="340" y="8" text-anchor="middle" font-size="16" font-weight="bold" fill="#9F7AEA">The Copy-Paste Hamster Wheel</text><ellipse cx="260" cy="150" rx="180" ry="110" fill="none" stroke="#E2E8F0" stroke-width="3" stroke-dasharray="8,4"/><rect x="180" y="35" width="90" height="35" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#1A202C" x="225" y="57" text-anchor="middle" font-size="12" font-weight="bold">1. Describe</text><rect x="320" y="50" width="90" height="35" rx="6" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text fill="#1A202C" x="365" y="72" text-anchor="middle" font-size="12" font-weight="bold">2. AI writes</text><rect x="380" y="120" width="75" height="35" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#1A202C" x="418" y="142" text-anchor="middle" font-size="12" font-weight="bold">3. Copy</text><rect x="370" y="190" width="80" height="35" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#1A202C" x="410" y="212" text-anchor="middle" font-size="12" font-weight="bold">4. Run</text><rect x="240" y="225" width="95" height="35" rx="6" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/><text x="288" y="247" text-anchor="middle" font-size="12" font-weight="bold" fill="#1A202C">5. ERROR!</text><rect x="100" y="190" width="100" height="35" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#1A202C" x="150" y="212" text-anchor="middle" font-size="12" font-weight="bold">6. Copy error</text><rect x="80" y="110" width="110" height="35" rx="6" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text fill="#1A202C" x="135" y="132" text-anchor="middle" font-size="12" font-weight="bold">7. AI fixes</text><path d="M 268 55 L 320 60" stroke="#718096" stroke-width="1.5" marker-end="url(#arrowH)"/><path d="M 400 85 L 410 120" stroke="#718096" stroke-width="1.5" marker-end="url(#arrowH)"/><path d="M 420 155 L 415 190" stroke="#718096" stroke-width="1.5" marker-end="url(#arrowH)"/><path d="M 370 215 L 335 232" stroke="#718096" stroke-width="1.5" marker-end="url(#arrowH)"/><path d="M 240 245 L 200 220" stroke="#718096" stroke-width="1.5" marker-end="url(#arrowH)"/><path d="M 115 190 L 120 145" stroke="#718096" stroke-width="1.5" marker-end="url(#arrowH)"/><path d="M 170 110 L 195 70" stroke="#718096" stroke-width="1.5" marker-end="url(#arrowH)"/><line x1="460" y1="137" x2="590" y2="137" stroke="#9F7AEA" stroke-width="3" marker-end="url(#arrowV2)"/><text x="525" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#9F7AEA">What if AI</text><text x="525" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#9F7AEA">did 3-6 itself?</text><defs><marker id="arrowH" viewBox="0 0 10 30" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#718096"/></marker><marker id="arrowV2" viewBox="0 0 10 30" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9F7AEA"/></marker></defs></svg>
+    <p class="diagram-caption">The Copy-Paste Hamster Wheel — humans as the bottleneck between AI and the computer</p>
+  </div>
+
+    <div class="css-narration css-narration--accent"><p>Chat-based coding was a revolution in <strong>capability</strong> but not in <strong>workflow</strong>. The AI got smarter, but the human still did all the running, testing, copying, and pasting. The bottleneck was not intelligence. It was the gap between the AI&rsquo;s brain and the computer it needed to control.</p></div>
+
+    <div class="css-hook">What broke the cycle was not a smarter model. It was giving the model something it never had before: hands. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="4">
+    <div class="page-header">
+      <div class="issue-label">Issue 08 · Page 4</div>
+      <div class="page-title">The Tool-Use Revolution — AI Learns to Use a Computer</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/448;">
+  <img src="images/p4_01_glass_room.png" alt="p4_01_glass_room">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 1; aspect-ratio: 357/512;">
+  <img src="images/p4_02_robot_locked.png" alt="GEARHEAD: Imagine being brilliant but locked in a room.">
+  <span class="ocr-expected" data-speaker="GEARHEAD">Imagine being brilliant but locked in a room.</span>
+</div>
+<div class="panel panel--bubble" style="flex: 1; aspect-ratio: 357/512;">
+  <img src="images/p4_02b_robot_phone.png" alt="PIXEL: Then someone hands you a phone and a toolbox.">
+  <span class="ocr-expected" data-speaker="PIXEL">Then someone hands you a phone and a toolbox.</span>
+</div>
+    </div>
+
+    <div class="css-narration"><p>The third leap changed everything: <strong>tool use</strong>. A language model is a text generator. It cannot read files, run commands, or check whether its code works. It is a brain in a jar &mdash; brilliant, but disconnected from the world.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-10 -20 720 330" xmlns="http://www.w3.org/2000/svg"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="340" y="8" text-anchor="middle" font-size="16" font-weight="bold" fill="#9F7AEA">How Tool Use Works</text><rect x="30" y="35" width="150" height="50" rx="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="2"/><text fill="#1A202C" x="105" y="55" text-anchor="middle" font-size="12" font-weight="bold">1. Human asks:</text><text fill="#2D3748" x="105" y="70" text-anchor="middle" font-size="12">"What's the weather?"</text><rect x="220" y="35" width="180" height="60" rx="8" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/><text fill="#1A202C" x="310" y="52" text-anchor="middle" font-size="12" font-weight="bold" textLength="152" lengthAdjust="spacingAndGlyphs">2. Model outputs JSON:</text><text fill="#2D3748" x="310" y="66" text-anchor="middle" font-size="12" font-family="'JetBrains Mono',monospace">{"function": "search_web",</text><text fill="#2D3748" x="310" y="80" text-anchor="middle" font-size="12" font-family="'JetBrains Mono',monospace"> "query": "weather Tokyo"}</text><rect x="440" y="35" width="210" height="50" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text fill="#1A202C" x="545" y="55" text-anchor="middle" font-size="12" font-weight="bold">3. Orchestrator executes</text><text fill="#2D3748" x="545" y="70" text-anchor="middle" font-size="12">real web search</text><rect x="320" y="140" width="200" height="45" rx="8" fill="#C6F6D5" stroke="#38A169" stroke-width="2"/><text fill="#1A202C" x="420" y="157" text-anchor="middle" font-size="12" font-weight="bold">4. Result fed back:</text><text fill="#2D3748" x="420" y="172" text-anchor="middle" font-size="12">"Tokyo: 22°C, partly cloudy"</text><rect x="120" y="140" width="160" height="45" rx="8" fill="#9F7AEA" stroke="#6B46C1" stroke-width="2"/><text x="200" y="157" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">5. Model responds:</text><text x="200" y="172" text-anchor="middle" font-size="12" fill="#fff" textLength="132" lengthAdjust="spacingAndGlyphs">"It's 22° in Tokyo!"</text><line x1="180" y1="60" x2="220" y2="60" stroke="#9F7AEA" stroke-width="2" marker-end="url(#arrowP4)"/><line x1="400" y1="60" x2="440" y2="60" stroke="#D69E2E" stroke-width="2" marker-end="url(#arrowY)"/><line x1="545" y1="85" x2="545" y2="120" stroke="#38A169" stroke-width="2"/><line x1="545" y1="120" x2="520" y2="140" stroke="#38A169" stroke-width="2" marker-end="url(#arrowGr)"/><line x1="320" y1="162" x2="280" y2="162" stroke="#9F7AEA" stroke-width="2" marker-end="url(#arrowP4)"/><rect x="50" y="210" width="600" height="70" rx="8" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.5"/><text x="350" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#DD6B20">Before vs. After Tool Use</text><text fill="#2D3748" x="170" y="250" text-anchor="middle" font-size="12">Before: "I can't access your files"</text><text fill="#2D3748" x="170" y="265" text-anchor="middle" font-size="12">Before: "Here's code, try it yourself"</text><text x="490" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#1A202C">After: Reads the file, responds</text><text x="490" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#1A202C">After: Runs it, sees output, iterates</text><defs><marker id="arrowP4" viewBox="0 0 10 30" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9F7AEA"/></marker><marker id="arrowY" viewBox="0 0 10 30" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#D69E2E"/></marker><marker id="arrowGr" viewBox="0 0 10 30" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#38A169"/></marker></defs></svg>
+    <p class="diagram-caption">Tool use: the model outputs structured JSON, an orchestrator executes real functions, results feed back</p>
+  </div>
+
+    <div class="css-narration"><p>In <strong>June 2023</strong>, OpenAI introduced <strong>function calling</strong> for GPT-3.5 and GPT-4. The <strong>Toolformer</strong> paper (Feb 2023) showed LLMs could learn <em>when</em> to use tools. <strong>Anthropic</strong> introduced tool use for Claude models in early 2024, generally available with <strong>Claude 3</strong> in March 2024. Tool use became a universal pattern.</p></div>
+
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p4_06_code_interpreter.png" alt="p4_06_code_interpreter">
+</div>
+
+    <div class="css-narration"><p>In <strong>July 2023</strong>, OpenAI released <strong>Code Interpreter</strong> for ChatGPT. For the first time, a mainstream AI product could write Python code <em>and run it</em> in a sandboxed environment, see the output, and iterate. The wall between &ldquo;thinking&rdquo; and &ldquo;doing&rdquo; had cracked open.</p></div>
+
+    <div class="css-narration css-narration--accent"><p><strong>Auto-GPT: The Mosaic Browser of AI Agents.</strong> In March/April 2023, an open-source project called <strong>Auto-GPT</strong> went explosively viral on GitHub. It tried to chain GPT-4 calls into a fully autonomous agent. In practice, it got stuck in loops and burned through API credits. But it captured the world&rsquo;s imagination about what autonomous AI <em>could</em> become &mdash; the crude but visionary prototype that proved mass appetite for autonomous AI.</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p4_08b_robot_agent.png" alt="AGENTBOT: Not just chatting. Actually doing things. An agent.">
+  <span class="ocr-expected" data-speaker="AGENTBOT">Not just chatting. Actually doing things. An agent.</span>
+</div>
+
+    <div class="css-narration css-narration--accent"><p>Tool use is the moment AI stopped being an <strong>oracle</strong> and started being a <strong>worker</strong>. An oracle answers questions. A worker takes actions. The difference is not intelligence &mdash; it is <strong>agency</strong>.</p></div>
+
+    <div class="css-hook">Tool use gave AI hands. But hands alone don't make a worker. A worker needs a plan — think, try, observe, repeat. In October 2022, a graduate student at Princeton had already written the playbook. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="5">
+    <div class="page-header">
+      <div class="issue-label">Issue 08 · Page 5</div>
+      <div class="page-title">The ReAct Loop — Think, Act, Observe, Repeat</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/448;">
+  <img src="images/p5_01_detective.png" alt="p5_01_detective">
+</div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 768/461;">
+  <img src="images/p5_02_robot_think.png" alt="SPROUT: Think. Try. Look. Repeat. That's how YOU solve problems too.">
+  <span class="ocr-expected" data-speaker="SPROUT">Think. Try. Look. Repeat. That's how YOU solve problems too.</span>
+</div>
+
+    <div class="css-narration"><p>Imagine a detective at a crime scene. She <strong>thinks</strong>: &ldquo;The window is broken from the inside.&rdquo; She <strong>acts</strong>: dusts for fingerprints. She <strong>observes</strong>: &ldquo;No prints on the glass.&rdquo; She <strong>thinks</strong> again: &ldquo;So the intruder wore gloves. Let me check the back door.&rdquo; <em>Think, act, observe, repeat.</em> That is how real problem-solving works.</p></div>
+
+    <div class="panel-row">
+<div class="panel" style="flex: 2; aspect-ratio: 476/384;">
+  <img src="images/p5_04_yao_portrait.png" alt="p5_04_yao_portrait">
+</div>
+  <div class="css-narration" style="flex: 1;"><p>On <strong>October 6, 2022</strong> &mdash; nearly two months <em>before</em> ChatGPT launched &mdash; <strong>Shunyu Yao</strong>, a PhD student at Princeton, published the blueprint for every AI agent that followed: <strong>&ldquo;ReAct: Synergizing Reasoning and Acting in Language Models.&rdquo;</strong></p></div>
+    </div>
+
+    <div class="css-narration"><p>Before ReAct, there were two separate approaches. <strong>Chain-of-thought</strong> asked the model to &ldquo;think step by step&rdquo; &mdash; good reasoning, but no real-world actions. <strong>Action-only</strong> had the model call tools directly without explaining its reasoning &mdash; things got done, but the model often took wrong turns. ReAct combined them.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-20 -20 750 380" xmlns="http://www.w3.org/2000/svg"><style>.mono{font-family:'JetBrains Mono',monospace; font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-size:12px; }</style><text x="340" y="10" text-anchor="middle" font-size="18" font-weight="bold" fill="#9F7AEA">The ReAct Loop</text><circle cx="170" cy="80" r="46" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2.5"/><text x="170" y="76" text-anchor="middle" font-size="14" font-weight="bold" fill="#1A202C">THINK</text><text fill="#2D3748" x="170" y="92" text-anchor="middle" font-size="11">Reason about it</text><circle cx="400" cy="80" r="40" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="2.5"/><text x="400" y="76" text-anchor="middle" font-size="14" font-weight="bold" fill="#1A202C">ACT</text><text fill="#2D3748" x="400" y="92" text-anchor="middle" font-size="12">Call a tool</text><circle cx="510" cy="200" r="46" fill="#C6F6D5" stroke="#38A169" stroke-width="2.5"/><text x="510" y="196" text-anchor="middle" font-size="14" font-weight="bold" fill="#1A202C">OBSERVE</text><text fill="#2D3748" x="510" y="212" text-anchor="middle" font-size="11">See the result</text><line x1="216" y1="75" x2="360" y2="75" stroke="#718096" stroke-width="2" marker-end="url(#arrowR)"/><path d="M 430 105 Q 470 150 510 154" fill="none" stroke="#718096" stroke-width="2" marker-end="url(#arrowR)"/><path d="M 475 230 Q 350 275 200 126" fill="none" stroke="#718096" stroke-width="2" marker-end="url(#arrowR)"/><text x="290" y="65" text-anchor="middle" font-size="12" fill="#E2E8F0">plan next step</text><text x="490" y="130" text-anchor="middle" font-size="12" fill="#E2E8F0">execute</text><text x="310" y="250" text-anchor="middle" font-size="12" fill="#E2E8F0">learn &amp; repeat</text><rect x="30" y="280" width="620" height="65" rx="6" fill="#1A202C"/><text x="50" y="298" class="mono" fill="#C6F6D5">Thought: "Bug in login. Let me read auth.py."</text><text x="50" y="312" class="mono" fill="#BEE3F8">Action:  read_file("auth.py")</text><text x="50" y="326" class="mono" fill="#FEFCBF">Obs:     [line 23: if password == stored_password]</text><text x="50" y="340" class="mono" fill="#C6F6D5">Thought: "Wrong comparison. Should hash first."</text><defs><marker id="arrowR" viewBox="0 0 10 30" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#718096"/></marker></defs></svg>
+    <p class="diagram-caption">The ReAct loop: Think, Act, Observe — then think again with new information</p>
+  </div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-10 -20 750 170" xmlns="http://www.w3.org/2000/svg"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="360" y="6" text-anchor="middle" font-size="14" font-weight="bold" fill="#9F7AEA">Chain-of-Thought vs. Action-Only vs. ReAct</text><rect x="30" y="25" width="210" height="40" rx="6" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/><text fill="#1A202C" x="135" y="42" text-anchor="middle" font-size="12" font-weight="bold">Chain-of-Thought</text><text fill="#2D3748" x="135" y="56" text-anchor="middle" font-size="12">Thinks well. Cannot act.</text><rect x="255" y="25" width="195" height="40" rx="6" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/><text fill="#1A202C" x="352" y="42" text-anchor="middle" font-size="12" font-weight="bold">Action-Only</text><text fill="#2D3748" x="352" y="56" text-anchor="middle" font-size="12">Acts fast. Often wrong.</text><rect x="465" y="25" width="240" height="40" rx="6" fill="#C6F6D5" stroke="#38A169" stroke-width="2"/><text x="585" y="42" text-anchor="middle" font-size="12" font-weight="bold" fill="#1A202C">ReAct</text><text x="585" y="56" text-anchor="middle" font-size="12" fill="#2D3748" textLength="216" lengthAdjust="spacingAndGlyphs">Plans well AND acts effectively.</text><rect x="30" y="80" width="675" height="45" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/><text fill="#2D3748" x="367" y="100" text-anchor="middle" font-size="12" font-style="italic" textLength="650" lengthAdjust="spacingAndGlyphs">"Explicit reasoning helps plan better actions; action results ground reasoning in reality."</text><text fill="#2D3748" x="367" y="116" text-anchor="middle" font-size="12">Thinking without acting is daydreaming. Acting without thinking is flailing.</text></svg>
+    <p class="diagram-caption">Three approaches compared: only ReAct combines reasoning with real-world actions</p>
+  </div>
+
+  <div class="lab-link">
+  <div class="lab-link-icon">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+    </svg>
+  </div>
+  <div class="lab-link-content">
+    <strong class="lab-link-title">Try It Yourself</strong>
+    <p class="lab-link-desc">Watch an AI agent think, plan, and recover from mistakes using the ReAct loop — or play the agent yourself!</p>
+    <a href="../../interactive/agent_sandbox.html" class="lab-link-btn">Open Agent Sandbox &rarr;</a>
+  </div>
+</div>
+
+    <div class="css-narration css-narration--accent"><p>The ReAct pattern is not an AI invention. It is the <strong>scientific method</strong>, applied to language models. Hypothesize, experiment, observe, revise. The oldest problem-solving strategy in human history, rediscovered in silicon.</p></div>
+
+    <div class="css-hook">The ReAct loop was the recipe. Tool use was the kitchen. Now someone needed to build real, practical coding agents — ones that could sit in a developer's terminal and actually do the work. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="6">
+    <div class="page-header">
+      <div class="issue-label">Issue 08 · Page 6</div>
+      <div class="page-title">Agentic Coding Tools — AI Sits Down at the Keyboard</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/448;">
+  <img src="images/p6_01_terminal_agent.png" alt="p6_01_terminal_agent">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 3; aspect-ratio: 428/512;">
+  <img src="images/p6_02_robot_impressed.png" alt="TAPE: No copy-paste. It just does the work.">
+  <span class="ocr-expected" data-speaker="TAPE">No copy-paste. It just does the work.</span>
+</div>
+  <div class="css-narration" style="flex: 2;"><p>By 2024-2025, a new category emerged: the <strong>autonomous coding agent</strong>. You give one a task &mdash; &ldquo;fix the failing tests,&rdquo; &ldquo;add dark mode,&rdquo; &ldquo;refactor auth&rdquo; &mdash; and it <em>works</em>. Reads your codebase. Edits files. Runs commands. Fixes its own mistakes. All without the human touching the keyboard.</p></div>
+    </div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-20 -20 760 210" xmlns="http://www.w3.org/2000/svg"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="360" y="8" text-anchor="middle" font-size="16" font-weight="bold" fill="#9F7AEA">The Cookbook-to-Chef Progression</text><rect x="15" y="35" width="215" height="80" rx="10" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text fill="#1A202C" x="123" y="55" text-anchor="middle" font-size="13" font-weight="bold">COOKBOOK</text><text fill="#2D3748" x="123" y="72" text-anchor="middle" font-size="12">(Copilot, 2021)</text><text fill="#2D3748" x="123" y="89" text-anchor="middle" font-size="12">"Here's the recipe."</text><text x="123" y="105" text-anchor="middle" font-size="12" fill="#2D3748">Human does the cooking.</text><rect x="250" y="35" width="215" height="80" rx="10" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="2"/><text fill="#1A202C" x="358" y="55" text-anchor="middle" font-size="13" font-weight="bold">COOKING SHOW</text><text fill="#2D3748" x="358" y="72" text-anchor="middle" font-size="12">(ChatGPT, 2022)</text><text fill="#2D3748" x="358" y="89" text-anchor="middle" font-size="12">"Follow along!"</text><text x="358" y="105" text-anchor="middle" font-size="12" fill="#2D3748" textLength="183" lengthAdjust="spacingAndGlyphs">Human follows, copies steps.</text><rect x="485" y="35" width="225" height="80" rx="10" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2.5"/><text x="598" y="55" text-anchor="middle" font-size="13" font-weight="bold" fill="#1A202C">CHEF</text><text x="598" y="72" text-anchor="middle" font-size="12" fill="#2D3748">(Agents, 2024-25)</text><text fill="#2D3748" x="598" y="89" text-anchor="middle" font-size="12">"What do you want to eat?"</text><text x="598" y="105" text-anchor="middle" font-size="12" fill="#2D3748">AI cooks, tastes, adjusts, serves.</text><line x1="230" y1="75" x2="250" y2="75" stroke="#718096" stroke-width="2" marker-end="url(#arrowP6)"/><line x1="465" y1="75" x2="485" y2="75" stroke="#718096" stroke-width="2" marker-end="url(#arrowP6)"/><rect x="40" y="135" width="640" height="30" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/><text fill="#2D3748" x="360" y="155" text-anchor="middle" font-size="12" font-style="italic">This progression applies to the entire category of agentic coding tools, not any single product.</text><defs><marker id="arrowP6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#718096"/></marker></defs></svg>
+    <p class="diagram-caption">From cookbook to chef: how AI's role in coding evolved</p>
+  </div>
+
+    <div class="css-narration"><p><strong>Aider</strong> (Paul Gauthier) pioneered the &ldquo;AI in the terminal&rdquo; approach. <strong>Cursor</strong> (Anysphere, 2023) was an AI-native editor forked from VS Code. <strong>Devin</strong> (Cognition Labs, March 2024) was announced as &ldquo;the first AI software engineer&rdquo; &mdash; then faced backlash when demo claims were found overstated. <strong>Windsurf</strong> (Codeium, late 2024) offered integrated agentic flows. <strong>Claude Code</strong> (Anthropic, early 2025) operates directly in the developer&rsquo;s terminal.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 180" xmlns="http://www.w3.org/2000/svg"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="340" y="6" text-anchor="middle" font-size="14" font-weight="bold" fill="#9F7AEA">The AI Coding Tool Spectrum</text><rect x="40" y="30" width="600" height="12" rx="6" fill="url(#specGrad)" /><defs><linearGradient id="specGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#BEE3F8"/><stop offset="100%" stop-color="#9F7AEA"/></linearGradient></defs><rect x="40" y="30" width="600" height="12" rx="6" fill="url(#specGrad)"/><text x="40" y="60" font-size="12" fill="#E2E8F0">Less Autonomous</text><text x="640" y="60" text-anchor="end" font-size="12" fill="#E2E8F0">More Autonomous</text><circle cx="100" cy="36" r="6" fill="#4A9BD9" stroke="#2D3748" stroke-width="1.5"/><text fill="#FFFFFF" x="100" y="80" text-anchor="middle" font-size="12" font-weight="bold">Copilot</text><text fill="#E2E8F0" x="100" y="92" text-anchor="middle" font-size="12">(autocomplete)</text><circle cx="240" cy="36" r="6" fill="#6B46C1" stroke="#2D3748" stroke-width="1.5"/><text fill="#FFFFFF" x="240" y="80" text-anchor="middle" font-size="12" font-weight="bold">Copilot Chat</text><text fill="#E2E8F0" x="240" y="92" text-anchor="middle" font-size="12">(2023)</text><circle cx="380" cy="36" r="6" fill="#805AD5" stroke="#2D3748" stroke-width="1.5"/><text fill="#FFFFFF" x="380" y="80" text-anchor="middle" font-size="12" font-weight="bold">Cursor/Windsurf</text><text fill="#E2E8F0" x="380" y="92" text-anchor="middle" font-size="12">(2024)</text><circle cx="500" cy="36" r="6" fill="#9F7AEA" stroke="#2D3748" stroke-width="1.5"/><text fill="#FFFFFF" x="500" y="80" text-anchor="middle" font-size="12" font-weight="bold">Devin</text><text fill="#E2E8F0" x="500" y="92" text-anchor="middle" font-size="12">(2024)</text><circle cx="590" cy="36" r="6" fill="#9F7AEA" stroke="#fff" stroke-width="2"/><text x="590" y="80" text-anchor="middle" font-size="12" font-weight="bold" fill="#FFFFFF">Claude Code</text><text fill="#E2E8F0" x="590" y="92" text-anchor="middle" font-size="12">Aider (2024-25)</text><text x="340" y="120" text-anchor="middle" font-size="12" font-style="italic" fill="#E2E8F0">This shows one dimension — autonomy. Different tools excel on different dimensions.</text></svg>
+    <p class="diagram-caption">The spectrum of AI coding tools from autocomplete to fully autonomous agents</p>
+  </div>
+
+    <div class="css-narration css-narration--accent"><p><strong>SWE-bench: The Reality Check.</strong> How do you know if a coding agent actually works? <strong>SWE-bench</strong> (Carlos Jimenez et al., Princeton, Oct 2023) contains 2,294 real GitHub issues. Early agents solved roughly 10-15%. By late 2024, top agents reached 30-50% on the verified subset. Impressive progress &mdash; but a long way from 100%. A useful corrective to the hype.</p></div>
+
+    <div class="css-narration"><p>A crucial difference: <strong>where the AI runs</strong>. Sandboxed tools run in locked containers &mdash; safe, but the AI cannot access your real project. Terminal-based agents run in the user&rsquo;s actual environment, with real permissions. More capability, but also more responsibility.</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p6_07b_robot_sandbox.png" alt="SANDBOT: Run code safely. Sandboxes keep mistakes contained.">
+  <span class="ocr-expected" data-speaker="SANDBOT">Run code safely. Sandboxes keep mistakes contained.</span>
+</div>
+
+    <div class="css-hook">Coding agents could read, write, run, and iterate. But they all shared a hidden weakness — one that got worse the longer they worked. It was not a bug. It was a fundamental limit baked into the architecture. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="7">
+    <div class="page-header">
+      <div class="issue-label">Issue 08 · Page 7</div>
+      <div class="page-title">The Context Window Problem — Why Agents "Forget"</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/448;">
+  <img src="images/p7_01_desk_avalanche.png" alt="p7_01_desk_avalanche">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 476/576;">
+  <img src="images/p7_02_robot_seven_things.png" alt="COTTONBOT: Your brain holds about 7 things at once.">
+  <span class="ocr-expected" data-speaker="COTTONBOT">Your brain holds about 7 things at once.</span>
+</div>
+<div class="panel panel--bubble" style="flex: 1; aspect-ratio: 476/576;">
+  <img src="images/p7_02b_robot_bigger_scale.png" alt="DISCBOT: AI agents? Similar problem. Bigger scale.">
+  <span class="ocr-expected" data-speaker="DISCBOT">AI agents? Similar problem. Bigger scale.</span>
+</div>
+    </div>
+
+    <div class="css-narration"><p>A <strong>context window</strong> is the maximum amount of text a language model can process in a single interaction. Think of it as the model's working memory &mdash; everything it can &ldquo;see&rdquo; at once. If information is outside the window, the model cannot access it. It is <em>gone</em>.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 320" xmlns="http://www.w3.org/2000/svg"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="340" y="8" text-anchor="middle" font-size="16" font-weight="bold" fill="#9F7AEA">Context Window Growth</text><rect x="60" y="35" width="60" height="25" rx="5" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/><text fill="#1A202C" x="90" y="52" text-anchor="middle" font-size="12" font-weight="bold">GPT-3</text><text x="90" y="74" text-anchor="middle" font-size="12" fill="#E2E8F0">2020</text><text fill="#E2E8F0" x="90" y="90" text-anchor="middle" font-size="12">2K tokens</text><text x="90" y="106" text-anchor="middle" font-size="12" fill="#A0AEC0">A short letter</text><rect x="155" y="35" width="70" height="30" rx="5" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/><text fill="#1A202C" x="190" y="54" text-anchor="middle" font-size="12" font-weight="bold" textLength="48" lengthAdjust="spacingAndGlyphs">GPT-3.5</text><text x="190" y="79" text-anchor="middle" font-size="12" fill="#E2E8F0">2022</text><text fill="#E2E8F0" x="190" y="95" text-anchor="middle" font-size="12">4K–16K</text><text x="190" y="111" text-anchor="middle" font-size="12" fill="#A0AEC0">A long essay</text><rect x="260" y="35" width="75" height="35" rx="5" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/><text fill="#1A202C" x="298" y="57" text-anchor="middle" font-size="12" font-weight="bold">GPT-4</text><text x="298" y="84" text-anchor="middle" font-size="12" fill="#E2E8F0">2023</text><text fill="#E2E8F0" x="298" y="100" text-anchor="middle" font-size="12">8K/32K</text><text x="298" y="116" text-anchor="middle" font-size="12" fill="#A0AEC0">A novella</text><rect x="370" y="35" width="100" height="42" rx="5" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/><text fill="#1A202C" x="420" y="60" text-anchor="middle" font-size="12" font-weight="bold">GPT-4 Turbo</text><text x="420" y="91" text-anchor="middle" font-size="12" fill="#E2E8F0">Late 2023</text><text fill="#E2E8F0" x="420" y="107" text-anchor="middle" font-size="12">128K tokens</text><text x="420" y="123" text-anchor="middle" font-size="12" fill="#A0AEC0">A short novel</text><rect x="505" y="35" width="110" height="50" rx="5" fill="#9F7AEA" stroke="#6B46C1" stroke-width="2.5"/><text x="560" y="64" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Claude 3</text><text x="560" y="99" text-anchor="middle" font-size="12" fill="#fff">2024</text><text x="560" y="115" text-anchor="middle" font-size="12" fill="#fff">200K tokens</text><text x="560" y="131" text-anchor="middle" font-size="12" fill="#E9D8FD">Two novels</text><line x1="120" y1="48" x2="155" y2="50" stroke="#9F7AEA" stroke-width="1.5" marker-end="url(#arrowP7)"/><line x1="225" y1="50" x2="260" y2="53" stroke="#9F7AEA" stroke-width="1.5" marker-end="url(#arrowP7)"/><line x1="335" y1="53" x2="370" y2="56" stroke="#9F7AEA" stroke-width="1.5" marker-end="url(#arrowP7)"/><line x1="470" y1="56" x2="505" y2="60" stroke="#9F7AEA" stroke-width="1.5" marker-end="url(#arrowP7)"/><rect x="80" y="160" width="520" height="35" rx="6" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1" stroke-dasharray="4,3"/><text x="340" y="182" text-anchor="middle" font-size="12" font-style="italic" fill="#2D3748" textLength="496" lengthAdjust="spacingAndGlyphs">Even two novels is not enough when your codebase is millions of lines.</text><defs><marker id="arrowP7" viewBox="0 0 10 30" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9F7AEA"/></marker></defs></svg>
+    <p class="diagram-caption">Context window growth from GPT-3 to Claude 3 — and why even two novels is not enough</p>
+  </div>
+
+    <div class="css-narration"><p>That sounds enormous. Surely 200,000 tokens is enough? <strong>Not quite.</strong> And the reason is a subtle, well-documented phenomenon that researchers call <strong>&ldquo;Lost in the Middle.&rdquo;</strong></p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-40 -20 740 280" xmlns="http://www.w3.org/2000/svg"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="340" y="8" text-anchor="middle" font-size="16" font-weight="bold" fill="#9F7AEA">The "Lost in the Middle" Curve</text><text x="340" y="28" text-anchor="middle" font-size="12" fill="#E2E8F0">Liu et al., 2023</text><line x1="80" y1="60" x2="80" y2="180" stroke="#2D3748" stroke-width="1.5"/><line x1="80" y1="180" x2="600" y2="180" stroke="#2D3748" stroke-width="1.5"/><text x="60" y="70" text-anchor="middle" font-size="12" fill="#E2E8F0">High</text><text x="60" y="178" text-anchor="middle" font-size="12" fill="#E2E8F0">Low</text><text x="30" y="125" text-anchor="middle" font-size="12" transform="rotate(-90 30 125)" fill="#E2E8F0">Recall Accuracy</text><text x="120" y="198" text-anchor="middle" font-size="12" fill="#E2E8F0">Beginning</text><text x="340" y="198" text-anchor="middle" font-size="12" fill="#E2E8F0">Middle</text><text x="560" y="198" text-anchor="middle" font-size="12" fill="#E2E8F0">End</text><path d="M 100 75 Q 160 80 220 120 Q 280 155 340 160 Q 400 155 460 120 Q 520 80 580 75" fill="none" stroke="#9F7AEA" stroke-width="3" stroke-linecap="round"/><path d="M 100 75 Q 160 80 220 120 Q 280 155 340 160 Q 400 155 460 120 Q 520 80 580 75 L 580 180 L 100 180 Z" fill="#E9D8FD" opacity="0.3"/><circle cx="100" cy="75" r="5" fill="#38A169"/><text x="100" y="65" text-anchor="middle" font-size="12" fill="#FFFFFF" font-weight="bold">Sharp</text><circle cx="340" cy="160" r="5" fill="#E53E3E"/><text x="340" y="150" text-anchor="middle" font-size="12" fill="#FFFFFF" font-weight="bold">Foggy</text><circle cx="580" cy="75" r="5" fill="#38A169"/><text x="580" y="65" text-anchor="middle" font-size="12" fill="#FFFFFF" font-weight="bold">Sharp</text><rect x="80" y="208" width="520" height="28" rx="5" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/><text fill="#2D3748" x="340" y="226" text-anchor="middle" font-size="12" font-style="italic" textLength="498" lengthAdjust="spacingAndGlyphs">Models attend well to what they read first and last. The middle fades.</text></svg>
+    <p class="diagram-caption">The U-shaped attention curve: models struggle with information in the middle of their context</p>
+  </div>
+
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p7_07_degradation_sequence.png" alt="p7_07_degradation_sequence">
+</div>
+
+    <div class="css-narration"><p>For a coding agent, this creates a slow-motion disaster. The agent starts with a clean, clear context. But as it works &mdash; reading files, running commands, analyzing errors &mdash; the context fills up. The original plan slides into the foggy middle. The agent may <strong>re-do work it already completed</strong>, contradict earlier decisions, or &ldquo;forget&rdquo; critical constraints.</p></div>
+
+    <div class="css-narration css-narration--accent"><p>A context window is like a desk. A bigger desk lets you spread out more documents. But no matter how big the desk, the papers in the center tend to get buried. Making the window bigger does <strong>not</strong> fix the problem. The issue is not the size of the memory &mdash; it is how <strong>attention distributes</strong> across it.</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p7_09b_robot_slowdisaster.png" alt="DRIFTBOT: Not a sudden explosion. A slow, quiet accumulation.">
+  <span class="ocr-expected" data-speaker="DRIFTBOT">Not a sudden explosion. A slow, quiet accumulation.</span>
+</div>
+
+    <div class="css-hook">Context degradation was a serious problem. But there was another challenge agents faced — one that actually showcased their most impressive capability. What happens when the code they write... does not work? &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="8">
+    <div class="page-header">
+      <div class="issue-label">Issue 08 · Page 8</div>
+      <div class="page-title">Error Recovery — Watching an Agent Debug Itself</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/448;">
+  <img src="images/p8_01_split_debug.png" alt="p8_01_split_debug">
+</div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 768/461;">
+  <img src="images/p8_02_robot_coach.png" alt="COACH: When the code breaks, agents fix it themselves.">
+  <span class="ocr-expected" data-speaker="COACH">When the code breaks, agents fix it themselves.</span>
+</div>
+
+    <div class="css-narration"><p>Here is what separates an <strong>agent</strong> from a code generator. A code generator writes code. If it fails, <em>you</em> fix it. An agent writes code, runs it, sees it fail, reads the error, reasons about the cause, writes a fix, and runs it again. The AI is <strong>active</strong>. It fixes its own mistakes.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 310" xmlns="http://www.w3.org/2000/svg"><style>.mono{font-family:'JetBrains Mono',monospace; font-size:12px} text{font-family:'JetBrains Mono',monospace; font-size:12px}</style><text x="340" y="8" text-anchor="middle" font-size="16" font-weight="bold" fill="#9F7AEA">The Error Recovery Loop</text><rect x="50" y="40" width="120" height="40" rx="8" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/><text fill="#1A202C" x="110" y="65" text-anchor="middle" font-size="12" font-weight="bold">Write Code</text><rect x="230" y="40" width="120" height="40" rx="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="2"/><text fill="#1A202C" x="290" y="65" text-anchor="middle" font-size="12" font-weight="bold">Run Tests</text><rect x="420" y="30" width="100" height="60" rx="8" fill="#C6F6D5" stroke="#38A169" stroke-width="2.5"/><text x="470" y="55" text-anchor="middle" font-size="12" font-weight="bold" fill="#1A202C">PASS?</text><rect x="570" y="40" width="80" height="40" rx="8" fill="#38A169" stroke="#276749" stroke-width="2"/><text x="610" y="65" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Done!</text><line x1="170" y1="60" x2="230" y2="60" stroke="#718096" stroke-width="2" marker-end="url(#arrowP8)"/><line x1="350" y1="60" x2="420" y2="60" stroke="#718096" stroke-width="2" marker-end="url(#arrowP8)"/><line x1="520" y1="60" x2="570" y2="60" stroke="#38A169" stroke-width="2" marker-end="url(#arrowP8g)"/><text x="545" y="50" font-size="12" fill="#FFFFFF" font-weight="bold">YES</text><line x1="470" y1="90" x2="470" y2="120" stroke="#E53E3E" stroke-width="2"/><text x="490" y="110" font-size="12" fill="#FFFFFF" font-weight="bold">NO</text><rect x="390" y="120" width="160" height="35" rx="6" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/><text x="470" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#1A202C">Read Error Message</text><rect x="390" y="170" width="160" height="35" rx="6" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/><text fill="#1A202C" x="470" y="192" text-anchor="middle" font-size="12" font-weight="bold">Reason About Cause</text><rect x="390" y="220" width="160" height="35" rx="6" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/><text fill="#1A202C" x="470" y="242" text-anchor="middle" font-size="12" font-weight="bold">Write Targeted Fix</text><line x1="470" y1="155" x2="470" y2="170" stroke="#718096" stroke-width="1.5" marker-end="url(#arrowP8)"/><line x1="470" y1="205" x2="470" y2="220" stroke="#718096" stroke-width="1.5" marker-end="url(#arrowP8)"/><path d="M 390 237 L 290 237 L 290 80" fill="none" stroke="#9F7AEA" stroke-width="2" marker-end="url(#arrowP8v)"/><text x="310" y="270" text-anchor="middle" font-size="12" font-style="italic" fill="#E2E8F0">loop back (with loop detection after N attempts)</text><defs><marker id="arrowP8" viewBox="0 0 10 30" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#718096"/></marker><marker id="arrowP8g" viewBox="0 0 10 30" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#38A169"/></marker><marker id="arrowP8v" viewBox="0 0 10 30" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9F7AEA"/></marker></defs></svg>
+    <p class="diagram-caption">The error recovery loop: write, run, fail, read error, reason, fix, run again</p>
+  </div>
+
+    <div class="panel-row">
+<div class="panel" style="flex: 3; aspect-ratio: 428/384;">
+  <img src="images/p8_05_debug_walkthrough.png" alt="p8_05_debug_walkthrough">
+</div>
+  <div class="css-narration" style="flex: 2;"><p><strong>Run 1:</strong> Tests fail &mdash; 401 Unauthorized.<br><strong>Agent thinks:</strong> &ldquo;Password comparison is wrong.&rdquo;<br><strong>Run 2:</strong> Fix introduced ImportError.<br><strong>Agent thinks:</strong> &ldquo;Missing import. Let me add it.&rdquo;<br><strong>Run 3:</strong> 4 tests passed, 0 failed.<br><br>Three tries. Two different errors. Both fixed <strong>without a human touching the keyboard.</strong></p></div>
+    </div>
+
+  <div class="panel" style="aspect-ratio: 768/256;">
+  <img src="images/p8_06_error_thrashing.png" alt="p8_06_error_thrashing">
+</div>
+
+    <div class="css-narration"><p>But error recovery is not unlimited. Agents can fall into <strong>repair loops</strong> &mdash; trying a fix that introduces a new error, fixing that but re-introducing the original, oscillating indefinitely. Good systems detect these loops: after three similar failed fixes, the agent steps back and tries a <strong>fundamentally different approach</strong>.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-10 -20 760 220" xmlns="http://www.w3.org/2000/svg"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="360" y="8" text-anchor="middle" font-size="14" font-weight="bold" fill="#9F7AEA">What Agents Can and Cannot Debug</text><rect x="40" y="30" width="200" height="28" rx="4" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text x="140" y="49" text-anchor="middle" font-size="12" font-weight="bold" fill="#1A202C">Syntax errors</text><rect x="250" y="30" width="100" height="28" rx="4" fill="#C6F6D5"/><text x="300" y="49" text-anchor="middle" font-size="12" fill="#2D3748">Very High</text><rect x="360" y="30" width="340" height="28" rx="4" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/><text fill="#2D3748" x="530" y="49" text-anchor="middle" font-size="12">Clear error message, mechanical fix</text><rect x="40" y="66" width="200" height="28" rx="4" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text x="140" y="85" text-anchor="middle" font-size="12" font-weight="bold" fill="#1A202C">Missing imports</text><rect x="250" y="66" width="100" height="28" rx="4" fill="#C6F6D5"/><text x="300" y="85" text-anchor="middle" font-size="12" fill="#2D3748">Very High</text><rect x="360" y="66" width="340" height="28" rx="4" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/><text fill="#2D3748" x="530" y="85" text-anchor="middle" font-size="12">Error names exactly what's missing</text><rect x="40" y="102" width="200" height="28" rx="4" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/><text fill="#1A202C" x="140" y="121" text-anchor="middle" font-size="12" font-weight="bold">Logic errors</text><rect x="250" y="102" width="100" height="28" rx="4" fill="#FEFCBF"/><text fill="#2D3748" x="300" y="121" text-anchor="middle" font-size="12">Medium</text><rect x="360" y="102" width="340" height="28" rx="4" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/><text fill="#2D3748" x="530" y="121" text-anchor="middle" font-size="12" textLength="320" lengthAdjust="spacingAndGlyphs">Requires understanding intent, not just syntax</text><rect x="40" y="138" width="200" height="28" rx="4" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/><text x="140" y="157" text-anchor="middle" font-size="12" font-weight="bold" fill="#1A202C">Architectural issues</text><rect x="250" y="138" width="100" height="28" rx="4" fill="#FED7D7"/><text x="300" y="157" text-anchor="middle" font-size="12" fill="#2D3748">Low</text><rect x="360" y="138" width="340" height="28" rx="4" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/><text fill="#2D3748" x="530" y="157" text-anchor="middle" font-size="12">Requires seeing the big picture</text></svg>
+    <p class="diagram-caption">Agent debugging success rates by error type — from very high (syntax) to low (architecture)</p>
+  </div>
+
+    <div class="css-narration css-narration--accent"><p>The ability to fail, read the failure, reason about it, and try again is what transforms a code generator into a <strong>coding partner</strong>. Error recovery is not perfect. But it closes the loop that chat-based coding left open.</p></div>
+
+    <div class="css-hook">Error recovery, tool use, the ReAct loop — a single agent could do remarkable things. But there was a ceiling. And anyone who pushed hard enough hit it. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="9">
+    <div class="page-header">
+      <div class="issue-label">Issue 08 · Page 9</div>
+      <div class="page-title">The Limits of a Single Agent — When One Brain Isn't Enough</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/448;">
+  <img src="images/p9_01_overwhelmed_agent.png" alt="p9_01_overwhelmed_agent">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 476/512;">
+  <img src="images/p9_02_robot_skyscraper.png" alt="CERAMIC: Even the smartest person can't build a skyscraper alone.">
+  <span class="ocr-expected" data-speaker="CERAMIC">Even the smartest person can't build a skyscraper alone.</span>
+</div>
+  <div class="css-narration" style="flex: 1;"><p>By late 2024, AI coding agents were genuinely useful. Developers relied on them daily. But a pattern emerged: the harder the task, the more likely the agent was to struggle. Not because the model wasn't smart enough &mdash; but because of <strong>structural limits</strong> that no amount of intelligence could overcome.</p></div>
+    </div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-10 -20 710 330" xmlns="http://www.w3.org/2000/svg"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="340" y="8" text-anchor="middle" font-size="16" font-weight="bold" fill="#9F7AEA">The Four Limits of a Single Agent</text><rect x="20" y="40" width="315" height="75" rx="10" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/><text fill="#2D3748" x="48" y="62" font-size="18">&#x1F4DC;</text><text x="72" y="64" font-size="12" font-weight="bold" fill="#1A202C">1. Context Degradation</text><text fill="#2D3748" x="72" y="82" font-size="12">The longer the task, the more the agent</text><text fill="#2D3748" x="72" y="96" font-size="12">forgets its own earlier work.</text><rect x="350" y="40" width="300" height="75" rx="10" fill="#FED7D7" stroke="#E53E3E" stroke-width="2"/><text fill="#2D3748" x="368" y="62" font-size="18">&#x1F32B;</text><text x="392" y="64" font-size="12" font-weight="bold" fill="#1A202C">2. Hallucination Under Pressure</text><text fill="#2D3748" x="392" y="82" font-size="12">When confused, agents invent</text><text fill="#2D3748" x="392" y="96" font-size="12">plausible-sounding nonsense.</text><rect x="30" y="135" width="300" height="75" rx="10" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text fill="#2D3748" x="48" y="157" font-size="18">&#x23F3;</text><text fill="#1A202C" x="72" y="159" font-size="12" font-weight="bold">3. Single-Thread Bottleneck</text><text fill="#2D3748" x="72" y="177" font-size="12">One agent = one task at a time.</text><text fill="#2D3748" x="72" y="191" font-size="12">Parallel work is impossible.</text><rect x="350" y="135" width="300" height="75" rx="10" fill="#FFF5EB" stroke="#DD6B20" stroke-width="2"/><text fill="#2D3748" x="368" y="157" font-size="18">&#x1F9F1;</text><text x="392" y="159" font-size="12" font-weight="bold" fill="#DD6B20">4. Compounding Errors</text><text fill="#2D3748" x="392" y="177" font-size="12">A small early mistake snowballs</text><text fill="#2D3748" x="392" y="191" font-size="12">into a large late disaster.</text><rect x="60" y="235" width="560" height="50" rx="8" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.5"/><text fill="#2D3748" x="340" y="256" text-anchor="middle" font-size="12" font-style="italic">These are not failures of <tspan font-weight="bold">intelligence</tspan>.</text><text fill="#2D3748" x="340" y="273" text-anchor="middle" font-size="12" font-style="italic">They are failures of <tspan font-weight="bold">architecture</tspan>.</text></svg>
+    <p class="diagram-caption">The four structural limits that hold back even the most capable single agent</p>
+  </div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 230" xmlns="http://www.w3.org/2000/svg"><style>.mono{font-family:'JetBrains Mono',monospace; font-size:12px} text{font-family:'JetBrains Mono',monospace; font-size:12px}</style><text x="340" y="8" text-anchor="middle" font-size="14" font-weight="bold" fill="#9F7AEA">Sequential vs. Parallel</text><text fill="#FFFFFF" x="50" y="42" font-size="12" font-weight="bold">Single Agent:</text><rect x="160" y="30" width="120" height="22" rx="4" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/><text fill="#1A202C" x="220" y="46" text-anchor="middle" font-size="12" font-weight="bold">Database</text><rect x="280" y="30" width="100" height="22" rx="4" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#1A202C" x="330" y="46" text-anchor="middle" font-size="12" font-weight="bold">API</text><rect x="380" y="30" width="120" height="22" rx="4" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text fill="#1A202C" x="440" y="46" text-anchor="middle" font-size="12" font-weight="bold">Frontend</text><rect x="500" y="30" width="100" height="22" rx="4" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/><text fill="#1A202C" x="550" y="46" text-anchor="middle" font-size="12" font-weight="bold">Tests</text><text x="620" y="46" font-size="12" fill="#FFFFFF" font-weight="bold">4 hrs</text><text fill="#FFFFFF" x="50" y="90" font-size="12" font-weight="bold">Multiple Agents:</text><rect x="160" y="78" width="120" height="22" rx="4" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/><text fill="#1A202C" x="220" y="94" text-anchor="middle" font-size="12" font-weight="bold">Database</text><rect x="160" y="104" width="115" height="22" rx="4" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#1A202C" x="218" y="120" text-anchor="middle" font-size="12" font-weight="bold">API</text><rect x="160" y="130" width="120" height="22" rx="4" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text fill="#1A202C" x="220" y="146" text-anchor="middle" font-size="12" font-weight="bold">Frontend</text><rect x="160" y="156" width="110" height="22" rx="4" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/><text fill="#1A202C" x="215" y="172" text-anchor="middle" font-size="12" font-weight="bold">Tests</text><text x="310" y="120" font-size="12" fill="#FFFFFF" font-weight="bold">1.5 hrs</text><line x1="285" y1="74" x2="285" y2="185" stroke="#38A169" stroke-width="1.5" stroke-dasharray="4,3"/></svg>
+    <p class="diagram-caption">One agent works sequentially (4 hours). Multiple agents work in parallel (1.5 hours). Same task, better architecture.</p>
+  </div>
+
+    <div class="css-narration css-narration--accent"><p><strong>Vibe Coding: A Cautionary Note.</strong> By early 2025, <strong>Andrej Karpathy</strong> coined the term <strong>&ldquo;vibe coding&rdquo;</strong> &mdash; describing what you want in natural language, barely reading the generated code. It captured both the promise and a real peril: what happens when humans stop understanding their own code? Over-reliance on agents risks systems built by AI that <em>no human fully comprehends</em>.</p></div>
+
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p9_06_compounding.png" alt="p9_06_compounding">
+</div>
+
+    <div class="css-narration"><p>A single agent, no matter how capable, is trying to hold an entire project in one context, work on it sequentially, and maintain perfect recall across thousands of steps. That is not how humans build complex things either. Humans build complex things with <strong>teams</strong>.</p></div>
+
+    <div class="css-narration"><p><em>&ldquo;Think about the hardest project you have ever worked on. Could one person have done it alone, no matter how talented? Or did it require different people with different skills, working in parallel, reviewing each other&rsquo;s work? Now think about why that same logic applies to AI.&rdquo;</em></p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p9_08b_robot_teams.png" alt="TEAMBOT: One agent is limited. But what about a team?">
+  <span class="ocr-expected" data-speaker="TEAMBOT">One agent is limited. But what about a team?</span>
+</div>
+
+    <div class="css-hook">One agent is powerful. But what about a TEAM? &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="10">
+    <div class="page-header">
+      <div class="issue-label">Issue 08 · Page 10</div>
+      <div class="page-title">One Agent Is Powerful. But What About a TEAM?</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p10_01_four_leaps_timeline.png" alt="p10_01_four_leaps_timeline">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 1; aspect-ratio: 357/512;">
+  <img src="images/p10_02_robot_reflective.png" alt="OBSIDIAN: Four years. Autocomplete to doing the whole job.">
+  <span class="ocr-expected" data-speaker="OBSIDIAN">Four years. Autocomplete to doing the whole job.</span>
+</div>
+<div class="panel panel--bubble" style="flex: 1; aspect-ratio: 357/512;">
+  <img src="images/p10_02b_robot_forward.png" alt="AURORA: The biggest leap? Making them work TOGETHER.">
+  <span class="ocr-expected" data-speaker="AURORA">The biggest leap? Making them work TOGETHER.</span>
+</div>
+    </div>
+
+    <div class="css-narration"><p>In <strong>2021</strong>, Copilot gave developers a taste of AI-assisted coding &mdash; magical, but fundamentally autocomplete. In <strong>2022</strong>, ChatGPT proved you could describe what you wanted in English and get working code &mdash; but the copy-paste cycle was maddening. In <strong>2023</strong>, tool use cracked the glass. In <strong>2024-2025</strong>, full coding agents put it all together.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-20 -20 800 230" xmlns="http://www.w3.org/2000/svg"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="380" y="8" text-anchor="middle" font-size="14" font-weight="bold" fill="#9F7AEA">The Thread Through Computing History</text><rect x="15" y="35" width="135" height="45" rx="6" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/><text fill="#1A202C" x="83" y="52" text-anchor="middle" font-size="12" font-weight="bold">Issue 1: Turing</text><text fill="#2D3748" x="83" y="67" text-anchor="middle" font-size="12">Symbols on tape</text><rect x="170" y="35" width="135" height="45" rx="6" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text fill="#1A202C" x="238" y="52" text-anchor="middle" font-size="12" font-weight="bold">Issue 3: Hopper</text><text fill="#2D3748" x="238" y="67" text-anchor="middle" font-size="12">Machines learn English</text><rect x="325" y="35" width="135" height="45" rx="6" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.5"/><text fill="#1A202C" x="393" y="52" text-anchor="middle" font-size="12" font-weight="bold">Issue 4: Unix</text><text fill="#2D3748" x="393" y="67" text-anchor="middle" font-size="12">Small tools compose</text><rect x="480" y="35" width="135" height="45" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#1A202C" x="548" y="52" text-anchor="middle" font-size="12" font-weight="bold">Issue 7: LLMs</text><text fill="#2D3748" x="548" y="67" text-anchor="middle" font-size="12">Read, write, reason</text><rect x="630" y="30" width="120" height="55" rx="6" fill="#9F7AEA" stroke="#6B46C1" stroke-width="2.5"/><text x="690" y="52" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Issue 8: Agents</text><text x="690" y="67" text-anchor="middle" font-size="12" fill="#fff">Act autonomously</text><line x1="150" y1="57" x2="170" y2="57" stroke="#718096" stroke-width="1.5" marker-end="url(#arrowP10)"/><line x1="305" y1="57" x2="325" y2="57" stroke="#718096" stroke-width="1.5" marker-end="url(#arrowP10)"/><line x1="460" y1="57" x2="480" y2="57" stroke="#718096" stroke-width="1.5" marker-end="url(#arrowP10)"/><line x1="615" y1="57" x2="630" y2="57" stroke="#718096" stroke-width="1.5" marker-end="url(#arrowP10)"/><rect x="610" y="105" width="140" height="45" rx="6" fill="#F7FAFC" stroke="#9F7AEA" stroke-width="1.5" stroke-dasharray="5,3"/><text x="680" y="123" text-anchor="middle" font-size="12" font-weight="bold" fill="#9F7AEA">Issue 9: ???</text><text x="680" y="139" text-anchor="middle" font-size="12" fill="#9F7AEA">Agent Swarms</text><line x1="690" y1="85" x2="690" y2="105" stroke="#9F7AEA" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowP10v)"/><rect x="40" y="165" width="680" height="28" rx="5" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/><text fill="#2D3748" x="380" y="184" text-anchor="middle" font-size="12" font-style="italic">Each leap closed another gap between "thinking about code" and "doing the work."</text><defs><marker id="arrowP10" viewBox="0 0 10 30" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#718096"/></marker><marker id="arrowP10v" viewBox="0 0 10 30" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#9F7AEA"/></marker></defs></svg>
+    <p class="diagram-caption">The thread through computing history: from Turing's tape to autonomous agents</p>
+  </div>
+
+  <div class="panel" style="aspect-ratio: 768/448;">
+  <img src="images/p10_05_single_vs_multi.png" alt="p10_05_single_vs_multi">
+</div>
+
+    <div class="css-narration"><p>The solution? The same one humans discovered thousands of years ago. You do not build a cathedral with one brilliant architect. You build it with a <strong>team</strong> &mdash; specialists who each focus on what they know best, coordinated by someone who holds the big picture.</p></div>
+
+    <div class="css-narration css-narration--accent"><p>What if you had a <strong>researcher agent</strong> that digs into documentation, a <strong>coder agent</strong> that writes the implementation, a <strong>tester agent</strong> that writes tests, and a <strong>reviewer agent</strong> that catches bugs &mdash; each with a fresh, clean context, each working in parallel, none weighed down by each other&rsquo;s noise? That is not science fiction. That is what is happening <strong>right now</strong>.</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p10_07b_robot_solution.png" alt="SOLVEBOT: The answer was there all along: divide the work.">
+  <span class="ocr-expected" data-speaker="SOLVEBOT">The answer was there all along: divide the work.</span>
+</div>
+
+    <div class="css-narration css-narration--accent"><p>The progression from autocomplete to agents is not just a story about AI getting smarter. It is a story about AI getting closer to doing <strong>real work in the real world</strong>. Each leap closed another gap between &ldquo;thinking about code&rdquo; and &ldquo;doing the work.&rdquo; But the final gap &mdash; between a brilliant solo performer and an effective <strong>team</strong> &mdash; is still being closed.</p></div>
+
+  <div class="panel" style="aspect-ratio: 768/256;">
+  <img src="images/p10_09_teaser_swarm.png" alt="p10_09_teaser_swarm">
+</div>
+
+  <details class="references-section">
+  <summary>References &amp; Further Reading</summary>
+  <ul class="ref-list">
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/2107.03374" target="_blank" rel="noopener">Evaluating Large Language Models Trained on Code.</a> &mdash; Chen, M., Tworek, J., Jun, H., et al</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/2210.03629" target="_blank" rel="noopener">ReAct: Synergizing Reasoning and Acting in Language Models.</a> &mdash; Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., Cao, Y</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/2307.03172" target="_blank" rel="noopener">Lost in the Middle: How Language Models Use Long Contexts.</a> &mdash; Liu, N.F., Lin, K., Hewitt, J., et al</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/2302.04761" target="_blank" rel="noopener">Toolformer: Language Models Can Teach Themselves to Use Tools.</a> &mdash; Schick, T., Dwivedi-Yu, J., et al</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/2310.06770" target="_blank" rel="noopener">SWE-bench: Can Language Models Resolve Real-World GitHub Issues?</a> &mdash; Jimenez, C.E., Yang, J., Wettig, A., et al</li>
+    <li><span class="ref-type">paper</span> <a href="https://github.blog/news-insights/product-news/github-copilot-is-generally-available-to-all-developers/" target="_blank" rel="noopener">GitHub Copilot is generally available to all developers.</a> &mdash; GitHub Blog</li>
+    <li><span class="ref-type">paper</span> <a href="https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/" target="_blank" rel="noopener">Research: quantifying GitHub Copilot's impact on developer productivity and happiness.</a> &mdash; GitHub Blog</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/2302.06590" target="_blank" rel="noopener">The Impact of AI on Developer Productivity: Evidence from GitHub Copilot.</a> &mdash; Peng, S., Kalliamvakou, E., Cihon, P., Demirer, M</li>
+    <li><span class="ref-type">paper</span> <a href="https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview" target="_blank" rel="noopener">Claude Code documentation.</a> &mdash; Anthropic</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/2303.08774" target="_blank" rel="noopener">GPT-4 Technical Report.</a> &mdash; OpenAI</li>
+    <li><span class="ref-type">paper</span> <a href="https://www.cognition.ai/blog/introducing-devin" target="_blank" rel="noopener">Introducing Devin, the first AI software engineer.</a> &mdash; Cognition Labs</li>
+    <li><span class="ref-type">paper</span> <a href="https://githubcopilotlitigation.com/" target="_blank" rel="noopener">GitHub Copilot litigation.</a> &mdash; Butterick, M</li>
+    <li><span class="ref-type">paper</span> <a href="https://github.com/paul-gauthier/aider" target="_blank" rel="noopener">Aider: AI pair programming in your terminal.</a> &mdash; Gauthier, P</li>
+    <li><span class="ref-type">paper</span> <a href="https://cursor.sh/" target="_blank" rel="noopener">Cursor: The AI-first Code Editor.</a> &mdash; Anysphere</li>
+    <li><span class="ref-type">video</span> <a href="https://www.youtube.com/watch?v=wjZofJX0v4M" target="_blank" rel="noopener">But what is a GPT? Visual intro to Transformers.</a> &mdash; 3Blue1Brown</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/2201.11903" target="_blank" rel="noopener">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models.</a> &mdash; Wei, J., Wang, X., Schuurmans, D., et al</li>
+    <li><span class="ref-type">paper</span> <a href="https://github.com/Significant-Gravitas/AutoGPT" target="_blank" rel="noopener">Auto-GPT.</a> &mdash; Significant Gravitas</li>
+  </ul>
+</details>
+
+    <div class="css-hook">In our next issue, the solo agent becomes a swarm. Multiple agents, working in parallel, communicating through files, each with a fresh context and a focused task. The pattern will look familiar — because it is the Unix philosophy, reborn in a new form. Issue 9: "The Swarm." &#x25B6;</div>
+  </section>
+
+  <div id="page-announce" class="sr-only" aria-live="polite" role="status"></div>
+  <div class="page-nav" role="navigation" aria-label="Page navigation">
+    <button id="prevBtn" onclick="navigate(-1)" aria-label="Previous page">&larr; Previous</button>
+    <div class="page-nav-center">
+      <span class="page-indicator">
+        Page <span id="pageNum">1</span> of 10
+      </span>
+      <div class="progress-dots" id="progressDots" role="tablist" aria-label="Pages"></div>
+    </div>
+    <button id="nextBtn" onclick="navigate(1)" aria-label="Next page">Next &rarr;</button>
+  </div>
+</div>
+
+<script>
+let currentPage = 1;
+const totalPages = 10;
+const sections = document.querySelectorAll('.page-section');
+const prevIssueUrl = '../issue_07_v2/index.html#page-10';
+const nextIssueUrl = '../issue_09_v2/index.html';
+const liveRegion = document.getElementById('page-announce');
+
+/* Generate progress dots */
+const dotsContainer = document.getElementById('progressDots');
+for (let i = 1; i <= totalPages; i++) {
+  const dot = document.createElement('button');
+  dot.className = 'progress-dot' + (i === 1 ? ' active' : '');
+  dot.setAttribute('aria-label', 'Page ' + i);
+  dot.setAttribute('role', 'tab');
+  dot.setAttribute('aria-selected', i === 1 ? 'true' : 'false');
+  (function(page) { dot.addEventListener('click', function() { showPage(page); }); })(i);
+  dotsContainer.appendChild(dot);
+}
+
+function showPage(n, updateHash) {
+  sections.forEach(s => s.classList.remove('active'));
+  const target = document.querySelector('[data-page="' + n + '"]');
+  if (target) {
+    target.classList.add('active');
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll: true});
+  }
+  currentPage = n;
+  document.getElementById('pageNum').textContent = n;
+  document.getElementById('prevBtn').disabled = (n <= 1 && !prevIssueUrl);
+  document.getElementById('nextBtn').disabled = (n >= totalPages && !nextIssueUrl);
+
+  /* Update progress dots */
+  document.querySelectorAll('.progress-dot').forEach(function(d, idx) {
+    var page = idx + 1;
+    d.classList.toggle('active', page === n);
+    d.classList.toggle('visited', page < n);
+    d.setAttribute('aria-selected', page === n ? 'true' : 'false');
+  });
+
+  /* Announce page change for screen readers */
+  if (liveRegion) liveRegion.textContent = 'Page ' + n + ' of ' + totalPages;
+
+  if (updateHash !== false) history.replaceState(null, '', '#page-' + n);
+  window.scrollTo(0, 0);
+}
+
+function navigate(dir) {
+  const next = currentPage + dir;
+  if (next >= 1 && next <= totalPages) {
+    showPage(next);
+  } else if (next < 1 && prevIssueUrl) {
+    window.location.href = prevIssueUrl;
+  } else if (next > totalPages && nextIssueUrl) {
+    window.location.href = nextIssueUrl;
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+});
+
+/* Image loading: shimmer → fade in */
+document.querySelectorAll('.panel img').forEach(function(img) {
+  function onLoad() {
+    img.classList.add('loaded');
+    var panel = img.closest('.panel');
+    if (panel) panel.classList.add('img-loaded');
+  }
+  if (img.complete && img.naturalWidth > 0) {
+    onLoad();
+  } else {
+    img.addEventListener('load', onLoad);
+    img.addEventListener('error', function() {
+      img.style.opacity = '1';
+      var panel = img.closest('.panel');
+      if (panel) panel.classList.add('img-loaded');
+    });
+  }
+});
+
+function pageFromHash() {
+  const m = location.hash.match(/^#page-(\d+)$/);
+  return m ? Math.max(1, Math.min(totalPages, parseInt(m[1]))) : 1;
+}
+window.addEventListener('hashchange', function() { showPage(pageFromHash()); });
+showPage(pageFromHash(), false);
+</script>
+</body>
+</html>

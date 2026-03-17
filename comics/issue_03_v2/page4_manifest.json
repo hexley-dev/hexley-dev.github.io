@@ -1,0 +1,87 @@
+{
+  "issue": 3,
+  "page": 4,
+  "title": "The Woman Who Taught Machines to Read",
+  "accent": "#38A169",
+  "panels": [
+    {
+      "id": "p4_01_hopper_scene",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A Navy office in 1952, a woman in a crisp dark Navy uniform with sharp intelligent eyes and a no-nonsense expression stands confidently before a room of skeptical men in business suits seated around a conference table, behind her a green chalkboard reads 'A PROGRAM THAT TRANSLATES ENGLISH TO MACHINE CODE' in chalk, the men lean back with arms crossed looking doubtful, she stands with one hand on the chalkboard and the other gesturing emphatically, dramatic overhead lighting, tension between skepticism and certainty, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on chalkboard border",
+      "overlays": []
+    },
+    {
+      "id": "p4_02_narration_intro",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Grace Brewster Murray Hopper</strong> earned her PhD in mathematics from Yale in 1934. In 1943, she joined the Navy and was assigned to program the Harvard Mark I. Her superpower was seeing what was obvious to nobody else: <em>computers would never reach their potential if only mathematicians could program them.</em>",
+      "style": "default"
+    },
+    {
+      "id": "p4_03_robot_hero",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 384,
+      "prompt": "A small cute soft round robot with a smooth pearl-white body, big sparkly magenta eyes bright with fierce admiration, wearing a tiny Navy captain's hat tilted at a jaunty angle, one stubby fist pressed against its chest in a gesture of deep respect, a small heart shape glows on its chest panel, warm golden background with faint stars. A white speech bubble with black outline near the top right. Inside the bubble the text reads: \"Grace Hopper. My absolute hero.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Grace Hopper. My absolute hero.",
+      "speaker": "PEARL"
+    },
+    {
+      "id": "p4_04_character_card",
+      "type": "svg_diagram",
+      "layout": "right",
+      "flex": 3,
+      "svg": "<svg viewBox=\"-10 -20 420 330\"><rect x=\"5\" y=\"0\" width=\"390\" height=\"290\" rx=\"12\" fill=\"#F7FAFC\" stroke=\"#38A169\" stroke-width=\"2\"/><rect x=\"5\" y=\"0\" width=\"365\" height=\"40\" rx=\"12\" fill=\"#38A169\"/><rect x=\"5\" y=\"20\" width=\"365\" height=\"20\" fill=\"#38A169\"/><text x=\"200\" y=\"27\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" font-weight=\"bold\" fill=\"#FFF\">GRACE BREWSTER MURRAY HOPPER</text><text x=\"20\" y=\"58\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Born: December 9, 1906 &mdash; New York City</text><text x=\"20\" y=\"76\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Died: January 1, 1992</text><text x=\"20\" y=\"94\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">PhD: Mathematics, Yale University (1934)</text><text x=\"20\" y=\"112\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Rank: Retired as Rear Admiral, US Navy</text><line x1=\"20\" y1=\"122\" x2=\"380\" y2=\"122\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"20\" y=\"142\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#38A169\">Known for:</text><text x=\"20\" y=\"160\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">First compiler (A-0, 1952), FLOW-MATIC,</text><text x=\"20\" y=\"176\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">key architect of COBOL, popularizing \"debugging\"</text><line x1=\"20\" y1=\"188\" x2=\"380\" y2=\"188\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"20\" y=\"208\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-style=\"italic\" fill=\"#718096\">\"It's easier to ask forgiveness than</text><text x=\"20\" y=\"224\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-style=\"italic\" fill=\"#718096\">it is to get permission.\"</text><line x1=\"20\" y1=\"236\" x2=\"380\" y2=\"236\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"20\" y=\"256\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Fun fact: The USS Hopper (DDG-70),</text><text x=\"20\" y=\"272\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\" textLength=\"357\" lengthAdjust=\"spacingAndGlyphs\">a guided-missile destroyer, was named in her honor.</text></svg>",
+      "caption": "Grace Hopper character card"
+    },
+    {
+      "id": "p4_05_narration_compiler",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In 1952, Hopper wrote what is widely regarded as the first <strong>compiler</strong> &mdash; a program called A-0 that translated mathematical notation into machine code. \"I had a running compiler,\" she recalled, \"and nobody would touch it. They told me a computer could only do arithmetic.\"<br><br>She kept building. A-0 led to A-2, then to <strong>FLOW-MATIC</strong> (delivered 1958-59), which understood English-like commands: <code>MULTIPLY PRICE BY QUANTITY GIVING TOTAL</code>.",
+      "style": "default"
+    },
+    {
+      "id": "p4_06_compiler_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 690 330\"><rect x=\"10\" y=\"0\" width=\"660\" height=\"290\" rx=\"12\" fill=\"#1A202C\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"340\" y=\"28\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" font-weight=\"bold\" fill=\"#FFFFFF\">THE COMPILER &mdash; WHAT IT DOES</text><text x=\"60\" y=\"60\" font-family=\"'JetBrains Mono',monospace\" font-size=\"15\" font-weight=\"bold\" fill=\"#FED7D7\">BEFORE (manual translation):</text><rect x=\"50\" y=\"72\" width=\"250\" height=\"28\" rx=\"6\" fill=\"#C6F6D5\" opacity=\"0.2\"/><text x=\"175\" y=\"91\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\" textLength=\"226\" lengthAdjust=\"spacingAndGlyphs\">Human writes: \"Multiply price...\"</text><text x=\"175\" y=\"113\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">&darr; Human MANUALLY translates</text><rect x=\"50\" y=\"122\" width=\"250\" height=\"28\" rx=\"6\" fill=\"#BEE3F8\" opacity=\"0.2\"/><text x=\"175\" y=\"141\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">Assembly code</text><text x=\"175\" y=\"163\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">&darr; Assembler converts</text><rect x=\"50\" y=\"172\" width=\"250\" height=\"28\" rx=\"6\" fill=\"#FED7D7\" opacity=\"0.2\"/><text x=\"175\" y=\"191\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">Machine code &rarr; Execute</text><text x=\"410\" y=\"60\" font-family=\"'JetBrains Mono',monospace\" font-size=\"15\" font-weight=\"bold\" fill=\"#48BB78\">AFTER (automatic):</text><rect x=\"370\" y=\"72\" width=\"275\" height=\"35\" rx=\"6\" fill=\"#C6F6D5\" opacity=\"0.25\"/><text x=\"510\" y=\"95\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">MULTIPLY PRICE BY QUANTITY</text><text x=\"510\" y=\"128\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">&darr;</text><rect x=\"370\" y=\"138\" width=\"275\" height=\"40\" rx=\"8\" fill=\"#38A169\" opacity=\"0.3\" stroke=\"#38A169\" stroke-width=\"5\"/><text x=\"510\" y=\"163\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#C6F6D5\">COMPILER</text><text x=\"510\" y=\"198\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">&darr; Automatically!</text><rect x=\"370\" y=\"208\" width=\"275\" height=\"28\" rx=\"6\" fill=\"#FED7D7\" opacity=\"0.2\"/><text x=\"510\" y=\"227\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">Machine code &rarr; Execute</text><rect x=\"50\" y=\"250\" width=\"595\" height=\"15\" rx=\"6\" fill=\"#38A169\" opacity=\"0.1\"/><text x=\"340\" y=\"269\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\" fill=\"#48BB78\">The compiler does in seconds what took a human hours or days.</text></svg>",
+      "caption": "Before and after compilers: manual vs. automatic translation"
+    },
+    {
+      "id": "p4_07_narration_bug",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The term \"bug\" for technical faults dates back to Thomas Edison in the 1870s. In 1947, operators working with the Harvard Mark II found an actual moth trapped in a relay. They taped it into the logbook: \"First <em>actual</em> case of bug being found.\" The word \"actual\" shows they already used \"bug\" as slang. Hopper loved this story and shared it widely, cementing <strong>\"debugging\"</strong> into computing's vocabulary.",
+      "style": "default"
+    },
+    {
+      "id": "p4_08_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "A <strong>compiler</strong> is a program that translates human-readable code into machine code. Hopper's insight was profound: if a computer can manipulate symbols, it can manipulate <em>words</em> just as easily as numbers. The compiler is the bridge between human thought and machine execution &mdash; and it's still how most software is built today.",
+      "style": "accent"
+    },
+    {
+      "id": "p4_08b_robot_compiler",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round bright-green robot with a dome head and big sparkly emerald LED eyes, wearing a tiny graduation cap, stubby arms holding two signs reading HUMAN WORDS and MACHINE CODE with a glowing bridge of light connecting them, antenna with a tiny moth perched on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Translate human words to machine code. A compiler!\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Translate human words to machine code. A compiler!",
+      "speaker": "COMPILEBOT"
+    },
+    {
+      "id": "p4_09_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Hopper proved computers could understand something beyond raw numbers. But in a different lab, a frustrated mathematician was about to create something even more ambitious &mdash; a language that looked like <em>algebra</em>. And IBM was going to bet its reputation on it."
+    }
+  ]
+}

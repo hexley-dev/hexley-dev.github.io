@@ -1,0 +1,104 @@
+{
+  "issue": 1,
+  "page": 3,
+  "title": "The Decision Problem",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p3_01_hilbert_stage",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "A grand conference stage in Bologna Italy 1928, a commanding white-haired elderly professor David Hilbert stands at center stage with arms raised in confident declaration, he wears a dark formal suit, behind him a large chalkboard shows 'Entscheidungsproblem' in beautiful chalk script, the audience of mathematicians in rows of seats fills the foreground seen from behind, ornate European lecture hall with columns and high ceilings, dramatic warm lighting, atmosphere of intellectual confidence and historic grandeur, warm editorial illustration with ink lines and watercolor washes with red accent highlights",
+      "overlays": []
+    },
+    {
+      "id": "p3_02_narration_hilbert",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>David Hilbert</strong> was, in 1928, arguably the most influential mathematician in the world. He stood before the International Congress of Mathematicians in Bologna and issued a challenge — one forming in his mind for decades.",
+      "style": "default"
+    },
+    {
+      "id": "p3_03_tape_translate",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute flat rectangular robot made of off-white punch-card paper folded origami-style with a boxy body, dot-matrix style eyes that glow amber, tiny paper tab arms, standing next to the word 'Entscheidungsproblem' written on a blackboard, one paper arm pointing at the word with a playful conspiratorial lean forward. A white speech bubble with black outline above. Inside the bubble the text reads: \"Don't panic. It means 'decision problem.'\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Don't panic. It means 'decision problem.'",
+      "speaker": "TAPE"
+    },
+    {
+      "id": "p3_04_word_breakdown",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-10 -25 510 245\"><rect x=\"5\" y=\"-10\" width=\"480\" height=\"215\" rx=\"12\" fill=\"#FFF5EB\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><text x=\"245\" y=\"18\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"20\" font-weight=\"bold\" fill=\"#2D3748\">ENTSCHEIDUNGSPROBLEM</text><line x1=\"30\" y1=\"28\" x2=\"265\" y2=\"28\" stroke=\"#E53E3E\" stroke-width=\"2\"/><line x1=\"265\" y1=\"28\" x2=\"470\" y2=\"28\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><text x=\"148\" y=\"50\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#E53E3E\">Entscheidung = \"Decision\"</text><text x=\"368\" y=\"50\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#4A9BD9\">Problem = \"Problem\"</text><rect x=\"30\" y=\"70\" width=\"430\" height=\"90\" rx=\"8\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text x=\"260\" y=\"92\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">Does there exist a PROCEDURE that can</text><text x=\"260\" y=\"110\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#2D3748\">take ANY statement in formal logic and</text><text x=\"260\" y=\"128\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#2D3748\">tell you — in finite steps — whether</text><text x=\"260\" y=\"146\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#2D3748\">it is ALWAYS TRUE?</text><text x=\"260\" y=\"175\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"15\" font-weight=\"bold\" fill=\"#E53E3E\">Hilbert's expected answer: YES!</text></svg>",
+      "caption": "The Entscheidungsproblem — Hilbert's decision problem"
+    },
+    {
+      "id": "p3_05_narration_dream",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Hilbert believed mathematics could be made <em>perfect</em>. Complete. Consistent. Decidable. He envisioned a kind of ultimate algorithm — a mechanical procedure that could take <em>any</em> mathematical statement and determine, in a finite number of steps, whether it was always true.<br><br>Think about what Hilbert was really asking: Is there a <strong>recipe</strong> — a set of instructions so precise that even a machine could follow them — that can settle every mathematical question ever posed?",
+      "style": "default"
+    },
+    {
+      "id": "p3_06_hilbert_quote",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 256,
+      "prompt": "Elegant typographic illustration on a warm parchment background, large elegant serif font reads 'We must know. We shall know.' as the primary text in the center, with smaller italic text below reading 'Wir müssen wissen. Wir werden wissen.' surrounded by decorative mathematical flourishes and small equation fragments, warm golden lighting, vintage academic atmosphere, editorial illustration with ink lines and watercolor washes, red accent border elements",
+      "overlays": []
+    },
+    {
+      "id": "p3_07_narration_godel_irony",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Hilbert said this on September 8, 1930 — in Konigsberg, in a radio address. <strong>One day earlier</strong>, at a conference in the same city, a quiet Austrian logician named <strong>Kurt Godel</strong> had announced results that would make Hilbert's dream impossible. Whether Hilbert attended Godel's talk or immediately grasped its implications is debated, but the irony is striking.",
+      "style": "default"
+    },
+    {
+      "id": "p3_08_pixel_lovelace",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 384,
+      "gen_height": 512,
+      "prompt": "A small cute cuboid robot made of visible pastel-colored voxels and blocks, each block a different soft color — pink, mint, lavender, peach — big round pixel eyes glowing teal, holding a tiny scroll of paper with numbers on it, standing next to a faded watercolor portrait of a Victorian woman in a dress (Ada Lovelace), warm nostalgic atmosphere. A white speech bubble with black outline above. Inside the bubble the text reads: \"Ada Lovelace wrote the first algorithm in 1843!\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Ada Lovelace wrote the first algorithm in 1843!",
+      "speaker": "PIXEL"
+    },
+    {
+      "id": "p3_09_narration_lovelace",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "A century before Hilbert, <strong>Ada Lovelace</strong> wrote what is recognized as the first algorithm — for Charles Babbage's never-built Analytical Engine. She even speculated machines might compose music. The idea of mechanical computation had <em>deep roots</em>. What was new in 1936 was not the dream, but the <strong>proof</strong> of what such machines could — and couldn't — do.",
+      "style": "default"
+    },
+    {
+      "id": "p3_10_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Hilbert wanted a <strong>universal truth machine</strong> for mathematics — a single procedure that could decide any statement, mechanically, without needing human insight. This was the dream. <strong>Turing would show it was impossible.</strong>"
+    },
+    {
+      "id": "p3_10b_robot_gears",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute copper-plated robot with a dome head and big wide astonished blue LED eyes, visible rivets along its round body, sitting on the edge of a giant broken stone tablet inscribed with crumbling mathematical formulas, one stubby hand scratching its head in bewilderment, tiny gears visible turning inside its transparent chest panel, scattered fragments of equations falling like confetti around it, dramatic lighting from above casting long shadows. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"The dream was beautiful. But dreams have limits.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "The dream was beautiful. But dreams have limits.",
+      "speaker": "COGSWORTH"
+    },
+    {
+      "id": "p3_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "But to prove something is IMPOSSIBLE, you first need to define exactly what a 'mechanical procedure' IS. Nobody had done that. Until Turing imagined the simplest possible machine..."
+    }
+  ]
+}

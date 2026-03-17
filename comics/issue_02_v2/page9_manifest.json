@@ -1,0 +1,114 @@
+{
+  "issue": 2,
+  "page": 9,
+  "title": "A Thousand Transistors on a Fingertip",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p9_01_tyranny_vs_chip",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A dramatic split-panel illustration. Left side: a cluttered laboratory workbench covered in individual transistors, resistors, and a tangled rat's nest of hand-soldered wires \u2014 messy, chaotic, fragile. The tyranny of numbers problem. Right side: a single clean silicon chip sitting on a human fingertip, glinting in the light, elegant and impossibly small. The contrast is striking \u2014 chaos versus elegance. Warm lighting on the left side, cool clean light on the right. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent highlights",
+      "overlays": []
+    },
+    {
+      "id": "p9_02_robot_marvel",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute miniature pastel-pink robot with warm magenta eyes, its body covered in fine visible circuit-board trace patterns like a printed circuit board, holding up its stubby hands as if pinching something impossibly tiny between thumb and forefinger, squinting at it in marveling disbelief, shaking its head. Tiny sparkles around the invisible object. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Two people. Same idea. Same year. Again.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Two people. Same idea. Same year. Again.",
+      "speaker": "CHIP"
+    },
+    {
+      "id": "p9_03_narration_tyranny",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "By the late 1950s, computers used transistors instead of vacuum tubes. Faster, smaller, better. But each transistor was still a separate component, wired together by hand. Engineers called this the <strong>\"tyranny of numbers\"</strong> &mdash; the more transistors you needed, the more connections you had to solder, and the more things could go wrong."
+    },
+    {
+      "id": "p9_04_narration_kilby",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In 1958, <strong>Jack Kilby</strong> &mdash; a new hire at Texas Instruments &mdash; had an idea during a quiet summer when most colleagues were on vacation. Alone in the lab, with no interruptions, he asked: What if you fabricated the entire circuit &mdash; transistors, resistors, capacitors, and their connections &mdash; from a <em>single piece of semiconductor material</em>?"
+    },
+    {
+      "id": "p9_05_kilby_lab",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A 1958 Texas Instruments laboratory, a lone engineer in shirtsleeves working at a clean workbench, carefully assembling a crude device on a slab of germanium with tiny gold wires under a magnifying lamp. The lab is quiet and empty \u2014 everyone else is on vacation. Tools, oscilloscope, and technical drawings surround him. Focused, solitary concentration. Warm golden lamp light, the rest of the lab in shadow. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent on the lamp",
+      "overlays": []
+    },
+    {
+      "id": "p9_06_narration_kilby_demo",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "On <strong>September 12, 1958</strong>, Kilby demonstrated the first <strong>integrated circuit</strong> (IC): a crude device built on a slab of germanium, with components connected by tiny gold wires. It was messy, but it worked."
+    },
+    {
+      "id": "p9_07_narration_noyce",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Independently, <strong>Robert Noyce</strong> at Fairchild Semiconductor had the same idea &mdash; and a better implementation. Noyce figured out how to build the connections directly into the silicon using <strong>planar technology</strong>, eliminating fragile gold wires. His version was practical to manufacture at scale. Known as <em>\"the Mayor of Silicon Valley\"</em> for his egalitarian style &mdash; no reserved parking, no corner offices."
+    },
+    {
+      "id": "p9_08_ic_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 260\"><defs><style>text{font-family:'JetBrains Mono',monospace;}</style></defs><text fill=\"#FFFFFF\" x=\"340\" y=\"5\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#DD6B20\">BEFORE vs. AFTER INTEGRATED CIRCUITS</text><rect x=\"10\" y=\"20\" width=\"310\" height=\"195\" rx=\"10\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"165\" y=\"44\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#1A202C\">BEFORE ICs</text><text x=\"25\" y=\"66\" font-size=\"12\" fill=\"#2D3748\">Separate components wired by hand:</text><rect x=\"40\" y=\"78\" width=\"30\" height=\"20\" rx=\"3\" fill=\"#DD6B20\" opacity=\"0.6\"/><text x=\"55\" y=\"92\" text-anchor=\"middle\" font-size=\"12\" fill=\"#fff\">T</text><line x1=\"70\" y1=\"88\" x2=\"100\" y2=\"88\" stroke=\"#2D3748\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/><rect x=\"100\" y=\"78\" width=\"30\" height=\"20\" rx=\"3\" fill=\"#DD6B20\" opacity=\"0.6\"/><text x=\"115\" y=\"92\" text-anchor=\"middle\" font-size=\"12\" fill=\"#fff\">T</text><line x1=\"55\" y1=\"98\" x2=\"55\" y2=\"118\" stroke=\"#2D3748\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/><line x1=\"115\" y1=\"98\" x2=\"115\" y2=\"118\" stroke=\"#2D3748\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/><rect x=\"40\" y=\"118\" width=\"30\" height=\"20\" rx=\"3\" fill=\"#4A9BD9\" opacity=\"0.6\"/><text x=\"55\" y=\"132\" text-anchor=\"middle\" font-size=\"12\" fill=\"#fff\">R</text><line x1=\"70\" y1=\"128\" x2=\"100\" y2=\"128\" stroke=\"#2D3748\" stroke-width=\"1.5\" stroke-dasharray=\"4,2\"/><rect x=\"100\" y=\"118\" width=\"30\" height=\"20\" rx=\"3\" fill=\"#805AD5\" opacity=\"0.6\"/><text x=\"115\" y=\"132\" text-anchor=\"middle\" font-size=\"12\" fill=\"#fff\">C</text><text x=\"165\" y=\"168\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Hundreds of hand-soldered</text><text x=\"165\" y=\"183\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">connections. Fragile.</text><rect x=\"360\" y=\"20\" width=\"310\" height=\"195\" rx=\"10\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"515\" y=\"44\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#1A202C\">AFTER ICs</text><text x=\"375\" y=\"66\" font-size=\"12\" fill=\"#2D3748\">Everything on ONE chip:</text><rect x=\"400\" y=\"78\" width=\"200\" height=\"70\" rx=\"8\" fill=\"#E2E8F0\" stroke=\"#38A169\" stroke-width=\"1.5\"/><rect x=\"415\" y=\"88\" width=\"22\" height=\"14\" rx=\"2\" fill=\"#DD6B20\" opacity=\"0.6\"/><line x1=\"437\" y1=\"95\" x2=\"453\" y2=\"95\" stroke=\"#38A169\" stroke-width=\"1.5\"/><rect x=\"453\" y=\"88\" width=\"22\" height=\"14\" rx=\"2\" fill=\"#DD6B20\" opacity=\"0.6\"/><line x1=\"475\" y1=\"95\" x2=\"491\" y2=\"95\" stroke=\"#38A169\" stroke-width=\"1.5\"/><rect x=\"491\" y=\"88\" width=\"22\" height=\"14\" rx=\"2\" fill=\"#DD6B20\" opacity=\"0.6\"/><rect x=\"430\" y=\"112\" width=\"22\" height=\"14\" rx=\"2\" fill=\"#4A9BD9\" opacity=\"0.6\"/><line x1=\"452\" y1=\"119\" x2=\"468\" y2=\"119\" stroke=\"#38A169\" stroke-width=\"1.5\"/><rect x=\"468\" y=\"112\" width=\"22\" height=\"14\" rx=\"2\" fill=\"#805AD5\" opacity=\"0.6\"/><text x=\"515\" y=\"168\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">All fabricated as ONE piece</text><text x=\"515\" y=\"183\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">of silicon. No hand-wiring.</text></svg>",
+      "caption": "Integrated circuits: from hand-wired chaos to a single chip"
+    },
+    {
+      "id": "p9_09_narration_credit",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Both men are credited as co-inventors. Kilby received the <strong>Nobel Prize in Physics in 2000</strong> (Noyce had died in 1990). Kilby once said of his co-inventor: <em>\"I'm sure history will give us equal credit.\"</em>"
+    },
+    {
+      "id": "p9_10_progression",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 763 280\"><defs><style>text{font-family:'JetBrains Mono',monospace;}</style></defs><rect x=\"10\" y=\"0\" width=\"720\" height=\"240\" rx=\"12\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"2\"/><text x=\"340\" y=\"28\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#DD6B20\">THE SHRINKING COMPUTER</text><line x1=\"30\" y1=\"40\" x2=\"710\" y2=\"40\" stroke=\"#DD6B20\" stroke-width=\"1\" opacity=\"0.4\"/><text x=\"35\" y=\"62\" font-size=\"12\" font-weight=\"bold\" fill=\"#2D3748\">1945</text><text x=\"120\" y=\"62\" font-size=\"12\" fill=\"#2D3748\">ENIAC</text><text x=\"310\" y=\"62\" font-size=\"12\" fill=\"#2D3748\">17,468 vacuum tubes</text><text x=\"530\" y=\"62\" font-size=\"12\" fill=\"#718096\">Fills a room (30 tons)</text><line x1=\"30\" y1=\"72\" x2=\"710\" y2=\"72\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"35\" y=\"92\" font-size=\"12\" font-weight=\"bold\" fill=\"#2D3748\">1947</text><text x=\"120\" y=\"92\" font-size=\"12\" fill=\"#2D3748\">Transistor</text><text x=\"310\" y=\"92\" font-size=\"12\" fill=\"#2D3748\">1 switch</text><text x=\"530\" y=\"92\" font-size=\"12\" fill=\"#718096\">Thumbnail</text><line x1=\"30\" y1=\"102\" x2=\"710\" y2=\"102\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"35\" y=\"122\" font-size=\"12\" font-weight=\"bold\" fill=\"#2D3748\">1958</text><text x=\"120\" y=\"122\" font-size=\"12\" fill=\"#2D3748\">First IC (Kilby)</text><text x=\"310\" y=\"122\" font-size=\"12\" fill=\"#2D3748\">~1 transistor + components</text><text x=\"530\" y=\"122\" font-size=\"12\" fill=\"#718096\">Fingertip</text><line x1=\"30\" y1=\"132\" x2=\"710\" y2=\"132\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"35\" y=\"152\" font-size=\"12\" font-weight=\"bold\" fill=\"#2D3748\">1971</text><text x=\"120\" y=\"152\" font-size=\"12\" fill=\"#2D3748\">Intel 4004</text><text x=\"310\" y=\"152\" font-size=\"12\" fill=\"#2D3748\">2,300 transistors</text><text x=\"530\" y=\"152\" font-size=\"12\" fill=\"#718096\">Fingernail</text><line x1=\"30\" y1=\"162\" x2=\"710\" y2=\"162\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"35\" y=\"182\" font-size=\"12\" font-weight=\"bold\" fill=\"#2D3748\">2020s</text><text x=\"120\" y=\"182\" font-size=\"12\" fill=\"#2D3748\">Modern phone chip</text><text x=\"310\" y=\"182\" font-size=\"12\" fill=\"#2D3748\">~15 BILLION transistors</text><text x=\"530\" y=\"182\" font-size=\"12\" fill=\"#718096\">Smaller than a stamp</text><line x1=\"30\" y1=\"198\" x2=\"710\" y2=\"198\" stroke=\"#DD6B20\" stroke-width=\"1\" opacity=\"0.4\"/><text x=\"340\" y=\"222\" text-anchor=\"middle\" font-size=\"12\" fill=\"#DD6B20\" font-weight=\"bold\">Moore's Law: transistor count doubles roughly every 2 years.</text><text x=\"340\" y=\"238\" text-anchor=\"middle\" font-size=\"12\" fill=\"#718096\" font-style=\"italic\" textLength=\"684\" lengthAdjust=\"spacingAndGlyphs\">This held for 50+ years &mdash; one of the most remarkable trends in technology history.</text></svg>",
+      "caption": "The shrinking computer: from rooms to fingertips"
+    },
+    {
+      "id": "p9_11_narration_moore",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In 1965, Intel co-founder <strong>Gordon Moore</strong> observed that the number of transistors on a chip was doubling approximately every two years &mdash; a trend that became known as <strong>Moore's Law</strong>. This prediction held remarkably steady for over five decades. Today, a single phone chip contains <strong>billions of transistors</strong> &mdash; each far smaller than a virus."
+    },
+    {
+      "id": "p9_12_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>Big Idea:</strong> The integrated circuit solved the tyranny of numbers by putting everything on one chip. The transistor made computers smaller. The IC made them scalable. Together, they set computing on an exponential growth curve that has continued for over sixty years. The hardware story of computing is a story of making switches smaller, faster, and cheaper &mdash; and cramming more of them onto a single chip."
+    },
+    {
+      "id": "p9_12b_robot_moores",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round pastel-pink robot with a dome head and big sparkly magenta LED eyes, stubby arms tracing an exponential curve on a tiny whiteboard chart that climbs steeply upward, antenna with a calculator on top, sitting on a silicon wafer like a surfboard. A white speech bubble with black outline above. Inside the bubble the text reads: \"Doubles every two years. For fifty years straight.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Doubles every two years. For fifty years straight.",
+      "speaker": "CHIPPY"
+    },
+    {
+      "id": "p9_13_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "By the end of the 1950s, the hardware revolution was in full swing. Computers had gone from room-sized vacuum-tube monsters to transistorized machines, and the integrated circuit promised to shrink them further. But there was still a massive problem \u2014 and it had nothing to do with hardware..."
+    }
+  ]
+}

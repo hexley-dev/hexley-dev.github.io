@@ -1,0 +1,85 @@
+{
+  "issue": 2,
+  "page": 1,
+  "title": "War Made It Real",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p1_01_hero_split",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A dramatic high-contrast illustration split diagonally by a jagged tear. The left half shows a faint translucent strip of Turing Machine tape floating in abstract blue-gray space, pale and theoretical, with faint mathematical symbols. The right half shows an enormous wall of vacuum tubes glowing bright orange in a dark room, tangled cables snaking everywhere, heat shimmer rising. The diagonal split is jagged like torn paper. Moody, cinematic lighting. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent color",
+      "overlays": []
+    },
+    {
+      "id": "p1_02_robot_intro",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute sturdy robot with big determined amber eyes, a dark iron-gray body with riveted plates, a tiny radar dish on its head, standing at the seam between two worlds \u2014 one hand touching an abstract floating paper tape, the other resting on a glowing orange vacuum tube. Grounded, serious stance, narrowed eyes. Dramatic split-world background: cool blue abstract left, warm orange industrial right. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Theory was beautiful. Then the world caught fire.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Theory was beautiful. Then the world caught fire.",
+      "speaker": "RADAR"
+    },
+    {
+      "id": "p1_03_narration_recap",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Last time, we watched a young mathematician imagine the simplest possible computing machine. Tape. Head. Rules. Beautiful. Elegant. <strong>Completely imaginary.</strong> Nobody had built one. Nobody needed to."
+    },
+    {
+      "id": "p1_04_narration_fire",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "And then the world caught fire.<br><br>In <strong>1936</strong>, Alan Turing's machine existed only on paper &mdash; a thought experiment. It was not designed to be built. But between <strong>1939 and 1945</strong>, the Second World War created problems that no human mind could solve fast enough. Encrypted messages. Artillery tables. The atomic bomb. <strong>Theory had a deadline.</strong>"
+    },
+    {
+      "id": "p1_05_war_urgency",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A dark wartime operations room in the 1940s, maps pinned to walls, radio equipment crackling, urgent officers leaning over tables covered in coded messages and calculations, dim yellow lamp light, cigarette smoke curling, sense of desperate urgency and time pressure. Muted greens, grays, warm orange highlights from the lamps. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p1_06_narration_converge",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "Across three countries, engineers and mathematicians raced to build machines that could think faster than people. They did not always know about each other's work. Different technologies, different designs &mdash; but they all converged on the same principle Turing had described: <strong>a machine that manipulates symbols according to rules.</strong>"
+    },
+    {
+      "id": "p1_07_machines_room",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A vast 1940s computing room seen from a low angle, rows of enormous black metal cabinets stretching into the distance, thousands of blinking lights and tangled cables, two small human figures dwarfed by the machinery, orange-warm glow from vacuum tubes illuminating the scene, dramatic shadows and scale. The machines are enormous, fragile-looking, and awe-inspiring. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent lighting",
+      "overlays": []
+    },
+    {
+      "id": "p1_08_narration_enormous",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The machines they built were <strong>enormous, fragile, expensive, and revolutionary</strong>. They filled entire rooms. They consumed enough electricity to power small neighborhoods. They broke down constantly. And they <em>changed everything</em>."
+    },
+    {
+      "id": "p1_09_timeline",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-25 -15 810 273\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"-10\" y=\"0\" width=\"780\" height=\"243\" rx=\"12\" fill=\"#1A202C\" stroke=\"#4A5568\" stroke-width=\"1\"/><defs><style>text{font-family:'JetBrains Mono',monospace; }</style></defs><text x=\"345\" y=\"18\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\" fill=\"#DD6B20\">From Theory to Silicon</text><line x1=\"55\" y1=\"135\" x2=\"640\" y2=\"135\" stroke=\"#DD6B20\" stroke-width=\"3\" stroke-linecap=\"round\"/><circle cx=\"55\" cy=\"135\" r=\"7\" fill=\"#DD6B20\"/><line x1=\"55\" y1=\"128\" x2=\"55\" y2=\"103\" stroke=\"#DD6B20\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"55\" y=\"93\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#DD6B20\">1936</text><text x=\"55\" y=\"77\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Turing's Paper</text><text x=\"55\" y=\"63\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">(theory)</text><circle cx=\"172\" cy=\"135\" r=\"7\" fill=\"#DD6B20\"/><line x1=\"172\" y1=\"142\" x2=\"172\" y2=\"167\" stroke=\"#DD6B20\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"172\" y=\"183\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#DD6B20\">1941</text><text x=\"172\" y=\"201\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Zuse's Z3</text><text x=\"172\" y=\"217\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">(first programmable)</text><circle cx=\"289\" cy=\"135\" r=\"7\" fill=\"#DD6B20\"/><line x1=\"289\" y1=\"128\" x2=\"289\" y2=\"103\" stroke=\"#DD6B20\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"289\" y=\"93\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#DD6B20\">1943</text><text x=\"289\" y=\"77\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Colossus</text><text x=\"289\" y=\"63\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">(code-breaking)</text><circle cx=\"406\" cy=\"135\" r=\"7\" fill=\"#DD6B20\"/><line x1=\"406\" y1=\"142\" x2=\"406\" y2=\"167\" stroke=\"#DD6B20\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"406\" y=\"183\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#DD6B20\">1945</text><text x=\"406\" y=\"201\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">ENIAC</text><text x=\"406\" y=\"217\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">(general purpose)</text><circle cx=\"523\" cy=\"135\" r=\"7\" fill=\"#DD6B20\"/><line x1=\"523\" y1=\"128\" x2=\"523\" y2=\"103\" stroke=\"#DD6B20\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"523\" y=\"93\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#DD6B20\">1947</text><text x=\"523\" y=\"77\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Transistor</text><text x=\"523\" y=\"63\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">(smaller)</text><circle cx=\"640\" cy=\"135\" r=\"7\" fill=\"#DD6B20\"/><line x1=\"640\" y1=\"142\" x2=\"640\" y2=\"167\" stroke=\"#DD6B20\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"640\" y=\"183\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#DD6B20\">1958</text><text x=\"640\" y=\"201\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Integrated Circuit</text><text x=\"640\" y=\"217\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">(on a chip)</text></svg>",
+      "caption": "From theory to silicon: the arc of Issue 2"
+    },
+    {
+      "id": "p1_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "The first person to build a programmable computer wasn't British or American. He was a German engineer, working alone, in his parents' apartment. And almost nobody noticed."
+    }
+  ]
+}

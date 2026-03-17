@@ -1,0 +1,80 @@
+{
+  "issue": 3,
+  "page": 7,
+  "title": "The Abstraction Ladder",
+  "accent": "#38A169",
+  "panels": [
+    {
+      "id": "p7_01_robot_expansive",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute round robot with a bright teal metallic body and big wide amazed white eyes with teal irises, stubby arms spread wide open as if embracing the universe, floating in space beside a towering glowing ladder that stretches from the ground up into the stars, each rung of the ladder glows a different color (red at bottom transitioning to green at top), tiny labels on each rung barely visible, cosmic background with nebula clouds, sense of grandeur and perspective. A white speech bubble with black outline near the top left. Inside the bubble the text reads: \"Every advance is the same trick: abstraction.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Every advance is the same trick: abstraction.",
+      "speaker": "COSMOS"
+    },
+    {
+      "id": "p7_02_narration_concept",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "There is a single idea connecting everything in this issue &mdash; and in the entire history of computing. That idea is <strong>abstraction</strong>. Abstraction means hiding complexity behind a simpler interface. You don't need to understand an engine to drive a car. Each layer of technology <em>abstracts away</em> the details beneath.",
+      "style": "default"
+    },
+    {
+      "id": "p7_03_ladder_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "gen_width": 800,
+      "gen_height": 650,
+      "svg": "<svg viewBox=\"-5 -20 810 667\"><rect x=\"10\" y=\"0\" width=\"780\" height=\"620\" rx=\"12\" fill=\"#1A202C\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"400\" y=\"32\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"22\" font-weight=\"bold\" fill=\"#FFFFFF\">THE ABSTRACTION LADDER</text><text x=\"400\" y=\"56\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#E2E8F0\">(each rung hides the complexity of the ones below)</text><text x=\"60\" y=\"86\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#48BB78\">&uarr; HIGHER = closer to human thinking</text><rect x=\"100\" y=\"98\" width=\"600\" height=\"65\" rx=\"10\" fill=\"#C6F6D5\" opacity=\"0.2\" stroke=\"#38A169\" stroke-width=\"2\"/><text x=\"120\" y=\"122\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#FFFFFF\">NATURAL LANGUAGE (future/present)</text><text x=\"120\" y=\"146\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#E2E8F0\">\"Build me a website with a contact form\"</text><text x=\"400\" y=\"178\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#E2E8F0\">&darr; AI / LLMs translate</text><rect x=\"100\" y=\"190\" width=\"600\" height=\"65\" rx=\"10\" fill=\"#BEE3F8\" opacity=\"0.2\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"120\" y=\"214\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#FFFFFF\">MODERN HIGH-LEVEL (Python, JavaScript)</text><text x=\"120\" y=\"238\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#E2E8F0\">total = sum(prices)</text><text x=\"400\" y=\"270\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#E2E8F0\">&darr; Interpreter/compiler translates</text><rect x=\"100\" y=\"282\" width=\"600\" height=\"65\" rx=\"10\" fill=\"#FEFCBF\" opacity=\"0.2\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text x=\"120\" y=\"306\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#FFFFFF\">EARLY HIGH-LEVEL (FORTRAN, COBOL, ALGOL)</text><text x=\"120\" y=\"330\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#E2E8F0\">Y = A*X + B</text><text x=\"400\" y=\"362\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#E2E8F0\">&darr; Compiler translates</text><rect x=\"100\" y=\"374\" width=\"600\" height=\"65\" rx=\"10\" fill=\"#E9D8FD\" opacity=\"0.2\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"120\" y=\"398\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#FFFFFF\">ASSEMBLY LANGUAGE (late 1940s)</text><text x=\"120\" y=\"422\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#E2E8F0\">LOAD R0, [5]  /  ADD R0, R1</text><text x=\"400\" y=\"454\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#E2E8F0\">&darr; Assembler translates</text><rect x=\"100\" y=\"466\" width=\"600\" height=\"65\" rx=\"10\" fill=\"#FED7D7\" opacity=\"0.2\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"120\" y=\"490\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#FFFFFF\">MACHINE CODE (binary)</text><text x=\"120\" y=\"514\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#E2E8F0\">00010110 01010000 01100001</text><text x=\"400\" y=\"546\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#E2E8F0\">&darr; Hardware decodes</text><rect x=\"100\" y=\"558\" width=\"600\" height=\"37\" rx=\"10\" fill=\"#718096\" opacity=\"0.2\" stroke=\"#718096\" stroke-width=\"1.5\"/><text x=\"120\" y=\"580\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#FFFFFF\">ELECTRICAL SIGNALS</text><text x=\"120\" y=\"600\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#E2E8F0\">High voltage = 1, Low voltage = 0</text><text x=\"60\" y=\"632\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#E2E8F0\">&darr; LOWER = closer to machine reality</text><line x1=\"80\" y1=\"95\" x2=\"80\" y2=\"620\" stroke=\"#38A169\" stroke-width=\"2\" stroke-dasharray=\"4,3\" opacity=\"0.5\"/></svg>",
+      "caption": "The abstraction ladder: every layer hides the complexity below"
+    },
+    {
+      "id": "p7_04_narration_stack",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The essential insight: <strong>no rung replaces the ones below it</strong>. Your browser still runs on machine code. FORTRAN still compiles to assembly. The abstraction ladder is not a replacement chain &mdash; it's a <em>stack</em>. And the stack only works because every layer faithfully translates to the one beneath it.",
+      "style": "accent"
+    },
+    {
+      "id": "p7_05_algol_scene",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "An international academic conference room in the late 1950s, a diverse group of European and American mathematicians and computer scientists gathered around a table covered with papers and notation, a blackboard behind them shows formal grammar notation with arrows and brackets labeled BNF, the atmosphere is intellectual and intense, men in tweed jackets and dark suits, cigarette smoke curling upward, warm amber and sepia tones, comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p7_06_narration_algol",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "Around the same time, an international committee designed <strong>ALGOL</strong> (ALGOrithmic Language). It introduced <strong>Backus-Naur Form (BNF)</strong> for describing grammars and <strong>block structure</strong> for organizing code. ALGOL never dominated commercially, but its ideas shaped <em>every language that followed</em> &mdash; making it arguably the most influential language of the era.",
+      "style": "default"
+    },
+    {
+      "id": "p7_07_lab_link",
+      "type": "lab_link",
+      "layout": "full-width",
+      "lab_filename": "compiler_explorer",
+      "lab_title": "Compiler Explorer",
+      "lab_description": "See the abstraction ladder in action! Type real code and watch it transform through four layers &mdash; from source code down to binary &mdash; with mapping lines showing how each element corresponds across levels."
+    },
+    {
+      "id": "p7_08_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Abstraction</strong> is the superpower of computing. Each layer hides complexity and lets humans think at a higher level. But no layer works alone &mdash; they all rest on the layers beneath. The entire history of programming is the story of building this ladder, <em>one rung at a time</em>.",
+      "style": "accent"
+    },
+    {
+      "id": "p7_09_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "FORTRAN was for math. COBOL was for business. But a mathematician at Dartmouth had a wilder question: could a programming language teach machines to <em>THINK</em>?"
+    }
+  ]
+}

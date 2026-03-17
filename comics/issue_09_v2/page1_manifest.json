@@ -1,0 +1,122 @@
+{
+  "issue": 9,
+  "page": 1,
+  "title": "One Agent Is Smart. But Even the Smartest Person Can't Build a Skyscraper Alone.",
+  "accent": "#48BB78",
+  "panels": [
+    {
+      "id": "p1_01_overwhelmed_terminal",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A single glowing cursor blinking furiously inside an overwhelmed terminal screen, code and error messages cascading off the edges, files scrolling past in a blur, the screen overflowing with text spilling beyond its borders, a chaotic avalanche of green and amber text on dark background, sense of digital overload and breakdown. Comic book style, warm editorial illustration with ink lines and watercolor washes, emerald #48BB78 accent glow on the cursor",
+      "overlays": []
+    },
+    {
+      "id": "p1_02_narr_issue8_recap",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In Issue 8, we watched AI agents learn to code on their own. They could read your project, write code, run tests, hit errors, fix them, and iterate — all without a human copying and pasting. It felt like the future had arrived."
+    },
+    {
+      "id": "p1_03_robot_skyscraper",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A small cute round copper-colored robot with big warm amber eyes like lanterns, wearing a tiny hard hat, stubby arms spread wide in a calming gesture, standing in front of a glowing overwhelmed terminal screen showing cascading error messages, construction blueprint rolled under one arm. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"One brilliant person can design a building.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, emerald green accent lighting",
+      "bubble_text": "One brilliant person can design a building.",
+      "speaker": "HARDHAT"
+    },
+    {
+      "id": "p1_03b_robot_team",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A small cute plush marshmallow-white robot with big teal LED eyes sparkling with enthusiasm, a tiny clipboard in one hand, the other hand pointing upward with excitement, round soft body with a miniature emerald scarf, bouncy and energetic pose. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"But to BUILD a skyscraper? You need a team.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "But to BUILD a skyscraper? You need a team.",
+      "speaker": "MARSHMALLOW"
+    },
+    {
+      "id": "p1_04_narr_ceiling",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "But there was a ceiling. And anyone who pushed a single agent hard enough slammed into it."
+    },
+    {
+      "id": "p1_05_context_scroll",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A long vertical scroll representing an AI agent's context window, the top section faded and illegible like ancient weathered parchment, the middle a blur of half-visible text, the bottom sharp and crystal clear with bright code and plans, glowing amber at the readable end fading to grey mist at the top, floating in dark space. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p1_05b_five_terminals",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A horizontal row of small glowing terminal screens against a dark background, each showing a different programming task: the first screen shows database SQL code, the second shows a frontend UI wireframe, the third shows green test results with checkmarks, the fourth shows API route definitions, and the fifth shows documentation text. Each screen glows with soft emerald green light, evenly spaced in a neat orderly line. Serene and calm atmosphere. Comic book style, warm editorial illustration with ink lines and watercolor washes, emerald #48BB78 accent",
+      "overlays": []
+    },
+    {
+      "id": "p1_06_narr_drift",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Give an agent a small, well-defined task — <em>\"write a function that sorts a list\"</em> — and it shines. Give it a large, messy, real-world project — <em>\"build me a full web application with authentication, a database, a payment system, tests, and documentation\"</em> — and something goes wrong. Not immediately. Not dramatically. But gradually, steadily, inevitably."
+    },
+    {
+      "id": "p1_07_juggler",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "Split composition: on the left, a single exhausted cartoon juggler trying to keep 20 colorful balls in the air, balls falling everywhere, sweat drops, panicked expression — on the right, five calm jugglers standing in a line, each serenely handling just four balls with ease, all balls controlled, smiles on their faces. A dotted line divides the two halves. Warm editorial illustration with ink lines and watercolor washes, emerald green accent on the right side",
+      "overlays": []
+    },
+    {
+      "id": "p1_08_narr_full_brain",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The agent starts strong. It makes a plan. It writes clean code. But as the work accumulates — as the terminal fills with thousands of lines of code, error messages, file contents, and conversation history — the agent begins to <strong>drift</strong>. It forgets its own plan. It revisits problems it already solved. It contradicts decisions it made twenty minutes ago.<br><br>It is not getting dumber. Its brain is getting <em>full</em>."
+    },
+    {
+      "id": "p1_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>\"The solution to an overwhelmed mind is not a bigger mind. It is more minds, each focused on less.\"</strong>"
+    },
+    {
+      "id": "p1_09b_robot_context",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round emerald-green robot with a dome head and big bright lime LED eyes, stubby arms squeezing a giant sponge labeled CONTEXT WINDOW that is overflowing with text, antenna with a tiny hourglass on top, looking strained. A white speech bubble with black outline above. Inside the bubble the text reads: \"Fill the context window and quality drops. Every time.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Fill the context window and quality drops. Every time.",
+      "speaker": "SPONGEBOT"
+    },
+    {
+      "id": "p1_10_narr_leap",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "This is the story of what happened next: the leap from one overwhelmed agent to a coordinated <strong>team</strong> of focused specialists. The leap from solo to <strong>swarm</strong>."
+    },
+    {
+      "id": "p1_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "But why exactly does a single agent fall apart? The answer lies in a phenomenon researchers call \"lost in the middle\" — and it reveals a fundamental limit baked into the very architecture that makes language models work."
+    }
+  ]
+}

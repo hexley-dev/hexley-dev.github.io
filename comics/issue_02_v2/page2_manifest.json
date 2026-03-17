@@ -1,0 +1,95 @@
+{
+  "issue": 2,
+  "page": 2,
+  "title": "The Forgotten First",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p2_01_zuse_apartment",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "Berlin 1938, a cramped apartment living room converted into a workshop. A dining table pushed aside, replaced by a bizarre contraption made of metal strips, old film stock, and hand-cut mechanical parts. A young man with dark hair and sharp intelligent eyes, late twenties, crouches beside the machine with tools in hand, intense focus. His bewildered parents hover in the doorway watching. Warm domestic lighting mixed with the cold gleam of metal parts. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent highlights",
+      "overlays": []
+    },
+    {
+      "id": "p2_02_robot_advocate",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round robin-egg blue robot with big indignant lime-green eyes, a tiny megaphone accessory clipped to one arm, one stubby hand gesturing emphatically as if correcting a wrong, eyebrows raised with advocate energy, standing on a stack of old books and film reels. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"History forgot him. Let's fix that.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm orange background accents",
+      "bubble_text": "History forgot him. Let's fix that.",
+      "speaker": "HERALD"
+    },
+    {
+      "id": "p2_03_narration_zuse_intro",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "The first working programmable computer? Built by a German civil engineer named <strong>Konrad Zuse</strong>, in his parents' living room, using scrap metal and old movie film. He studied civil engineering, not mathematics. He had no idea Turing's paper existed. He just <em>hated doing calculations by hand</em>."
+    },
+    {
+      "id": "p2_04_narration_obsession",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Starting in <strong>1936</strong> &mdash; the same year Turing wrote his paper &mdash; Zuse began building computing machines in his parents' apartment. His first attempt, the <strong>Z1</strong>, was purely mechanical, built from hand-cut metal plates. It jammed constantly. But the concept was sound."
+    },
+    {
+      "id": "p2_05_z3_machine",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 576,
+      "prompt": "Close-up of an early electromechanical computer circa 1941, a tall cabinet-like machine made of telephone relay switches arranged in orderly rows, with strips of punched 35mm film tape threading through a reader mechanism at the front. The machine has a utilitarian, hand-built quality. Dramatic side-lighting emphasizes the mechanical detail. Orange-warm accent lighting on the relay switches. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p2_06_z3_specs",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "style": "accent",
+      "text": "On <strong>May 12, 1941</strong>, Zuse completed the <strong>Z3</strong> &mdash; the world's first working, fully automatic, programmable digital computer. It used ~2,600 telephone relay switches. Addition in 0.8 seconds. Multiplication in ~3 seconds. Programs on punched 35mm movie film.<br><br>It was <strong>Turing-complete</strong> &mdash; proven retroactively in 1998 by Raul Rojas."
+    },
+    {
+      "id": "p2_07_z3_specbox",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 760 280\"><defs><style>text{font-family:'JetBrains Mono',monospace;}</style></defs><rect x=\"10\" y=\"0\" width=\"730\" height=\"245\" rx=\"12\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"2\"/><text x=\"375\" y=\"28\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#DD6B20\">THE Z3 (Berlin, 1941)</text><line x1=\"30\" y1=\"38\" x2=\"720\" y2=\"38\" stroke=\"#DD6B20\" stroke-width=\"1\" opacity=\"0.4\"/><text x=\"30\" y=\"62\" font-size=\"13\" fill=\"#2D3748\">Technology: ~2,600 electromechanical relay switches</text><text x=\"30\" y=\"82\" font-size=\"13\" fill=\"#2D3748\">Speed: Addition in 0.8 seconds, multiplication in ~3 seconds</text><text x=\"30\" y=\"102\" font-size=\"13\" fill=\"#2D3748\">Memory: 64 words of 22 bits each</text><text x=\"30\" y=\"122\" font-size=\"13\" fill=\"#2D3748\">Input: Punched 35mm film tape</text><text x=\"30\" y=\"142\" font-size=\"13\" fill=\"#2D3748\">Weight: ~1,000 kg (about 2,200 lbs)</text><text x=\"30\" y=\"162\" font-size=\"13\" fill=\"#2D3748\">Fate: Destroyed by Allied bombing, December 21, 1943</text><text x=\"30\" y=\"182\" font-size=\"13\" fill=\"#2D3748\">Turing-complete: Proven in 1998 (Raul Rojas)</text><text x=\"30\" y=\"202\" font-size=\"13\" fill=\"#2D3748\">Recognition: Largely unknown outside Germany for decades</text><text x=\"30\" y=\"228\" font-size=\"12\" fill=\"#718096\" font-style=\"italic\">Zuse also created Plankalku&#x308;l (1945), possibly the first high-level programming language.</text></svg>",
+      "caption": "Z3 specifications"
+    },
+    {
+      "id": "p2_08_narration_fate",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The German government showed little interest. The Z3 was destroyed in an Allied bombing raid on Berlin on <strong>December 21, 1943</strong>. Zuse rebuilt and continued working, eventually producing the Z4 &mdash; but his contributions were largely unknown outside Germany for decades."
+    },
+    {
+      "id": "p2_09_think",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>Think About It:</strong> Zuse, Turing, and others were working on similar problems at the same time, on different continents, without knowing about each other. Why do you think the same kinds of ideas often emerge independently? What does that tell us about the nature of invention?"
+    },
+    {
+      "id": "p2_08b_robot_convergence",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round bronze robot with a dome head and big curious amber LED eyes, wearing a tiny pith explorer hat, stubby arms holding a small globe with glowing dots on three continents, antenna with a compass on top, sitting on a pile of old maps and engineering blueprints. A white speech bubble with black outline above. Inside the bubble the text reads: \"Same idea, three countries, zero phone calls.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Same idea, three countries, zero phone calls.",
+      "speaker": "EXPLORER"
+    },
+    {
+      "id": "p2_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "While Zuse tinkered in Berlin, a very different kind of computing was happening in the English countryside — not to solve engineering problems, but to win a war."
+    }
+  ]
+}

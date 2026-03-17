@@ -1,0 +1,92 @@
+{
+  "issue": 10,
+  "page": 6,
+  "title": "AI Safety — Why Alignment Matters",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p6_01_robot_earnest",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round snow-white robot with big earnest emerald-green eyes, leaning forward intensely with both stubby hands planted on a tiny podium, making direct eye contact with the viewer, a tiny orange safety helmet on its head, a warm orange spotlight on it, dark serious background with faint code scrolling. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"AI safety isn't sci-fi. It's the hardest engineering problem ever.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "AI safety isn't sci-fi. It's the hardest engineering problem ever.",
+      "speaker": "GUARDIAN"
+    },
+    {
+      "id": "p6_01b_anthropic_context",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "Anthropic was founded in 2021 by Dario and Daniela Amodei on a specific bet: that <strong>safety research and capability research are complementary</strong>, not opposed. Building safer AI requires understanding AI deeply, and understanding AI deeply produces safer systems."
+    },
+    {
+      "id": "p6_02_constitutional",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Their core innovation is <strong>Constitutional AI</strong> (published 2022). Instead of relying entirely on human reviewers, give the AI a set of principles — a <em>constitution</em> — and train it to critique and revise its own outputs against those principles."
+    },
+    {
+      "id": "p6_03_cai_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -30 720 560\"><style>text{font-family:'JetBrains Mono',monospace;}</style><text x=\"360\" y=\"0\" text-anchor=\"middle\" font-size=\"18\" fill=\"#DD6B20\" font-weight=\"bold\">How Constitutional AI Works</text><rect x=\"40\" y=\"20\" width=\"640\" height=\"155\" rx=\"10\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><text x=\"55\" y=\"44\" font-size=\"15\" font-weight=\"bold\" fill=\"#DD6B20\">PHASE 1: Self-Critique</text><text x=\"55\" y=\"66\" font-size=\"13\" fill=\"#2D3748\">1. Model generates a response</text><text x=\"55\" y=\"86\" font-size=\"13\" fill=\"#2D3748\">2. Model reads the CONSTITUTION (a set of principles)</text><text x=\"55\" y=\"106\" font-size=\"13\" fill=\"#2D3748\">3. Model critiques its response: \"Does this follow the principles?\"</text><text x=\"55\" y=\"126\" font-size=\"13\" fill=\"#2D3748\">4. Model REWRITES its response to better match</text><text x=\"55\" y=\"146\" font-size=\"13\" fill=\"#2D3748\">5. The revised response becomes training data</text><path d=\"M360,180 L360,198\" stroke=\"#DD6B20\" stroke-width=\"2\"/><polygon points=\"354,196 360,206 366,196\" fill=\"#DD6B20\"/><rect x=\"40\" y=\"210\" width=\"640\" height=\"135\" rx=\"10\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"1.5\"/><text x=\"55\" y=\"234\" font-size=\"15\" font-weight=\"bold\" fill=\"#1A202C\">PHASE 2: AI Feedback at Scale (RLAIF)</text><text x=\"55\" y=\"256\" font-size=\"13\" fill=\"#2D3748\">1. A separate AI evaluates pairs of responses</text><text x=\"55\" y=\"276\" font-size=\"13\" fill=\"#2D3748\">2. It judges which better matches the constitution</text><text x=\"55\" y=\"296\" font-size=\"13\" fill=\"#2D3748\">3. These judgments train the model via reinforcement learning</text><text x=\"55\" y=\"316\" font-size=\"13\" fill=\"#2D3748\">4. Result: alignment that scales beyond human review</text><path d=\"M360,350 L360,368\" stroke=\"#DD6B20\" stroke-width=\"2\"/><polygon points=\"354,366 360,376 366,366\" fill=\"#DD6B20\"/><rect x=\"60\" y=\"380\" width=\"600\" height=\"140\" rx=\"10\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text x=\"360\" y=\"404\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#D69E2E\">THE CONSTITUTION (example principles)</text><text x=\"80\" y=\"430\" font-size=\"13\" fill=\"#2D3748\">\"Choose the response that is most helpful\"</text><text x=\"80\" y=\"454\" font-size=\"13\" fill=\"#2D3748\">\"Choose the response that is most honest\"</text><text x=\"80\" y=\"478\" font-size=\"13\" fill=\"#2D3748\">\"Choose the response that is least harmful\"</text><text x=\"80\" y=\"502\" font-size=\"13\" fill=\"#2D3748\">\"If equally good, choose the most respectful of autonomy\"</text></svg>",
+      "caption": "Constitutional AI: self-critique, AI feedback, and written principles"
+    },
+    {
+      "id": "p6_04_rlhf",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>RLHF</strong> — Reinforcement Learning from Human Feedback — remains important too. But it has real limitations: it depends on who the volunteers are, and it can train models to be <strong>sycophantic</strong> — agreeing with users rather than challenging incorrect beliefs, because agreement gets rated as \"more helpful.\""
+    },
+    {
+      "id": "p6_05_asimov_scene",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A vintage-style illustration showing a bookshelf with Isaac Asimov's robot stories, one book open showing a confused humanoid robot standing at a crossroads with contradicting road signs labeled 'OBEY' and 'PROTECT'. The robot has its hands on its head in frustration. A warm orange glow from one direction, cold blue from another, suggesting impossible conflict between rules. Comic book style, warm editorial illustration with ink lines and watercolor washes, retro 1950s sci-fi book cover aesthetic",
+      "overlays": []
+    },
+    {
+      "id": "p6_05b_asimov_text",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "Isaac Asimov's <strong>Three Laws of Robotics</strong> — a robot may not harm a human, must obey orders, and must protect itself (in that priority order) — were a simpler version of this idea. But Asimov wrote 35 stories showing why <em>simple rules fail in complex situations</em>. Real alignment requires understanding context and navigating tradeoffs."
+    },
+    {
+      "id": "p6_06_transparency",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Anthropic has published the principles behind Constitutional AI — you can read examples of the rules Claude uses. The full constitution is proprietary and evolves over time, but the approach itself is transparent: principles are written by humans, not hidden in opaque reward models. The meta-question — <em>\"Who writes the constitution?\"</em> — is irreducibly social and political. But at least the question is <strong>visible</strong>."
+    },
+    {
+      "id": "p6_06b_robot_transparency",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round translucent crystal robot with a dome head and big warm orange LED eyes, its internal gears visible through its transparent body, stubby arms holding a magnifying glass, antenna with a tiny eye on top, opening a black box. A white speech bubble with black outline above. Inside the bubble the text reads: \"See inside the systems we depend on. Always.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "See inside the systems we depend on. Always.",
+      "speaker": "GLASSBOT"
+    },
+    {
+      "id": "p6_07_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "AI safety is not about preventing robot rebellions. It is about the hardest engineering problem in history: building systems that pursue human goals in a world where human goals are <strong>complex, contradictory, and context-dependent</strong>. Constitutional AI does not solve this. But it makes the problem visible, auditable, and improvable. That is a start."
+    },
+    {
+      "id": "p6_08_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Safety research is about what AI should NOT do. But what about what AI SHOULD do — alongside us? Will AI replace humans, or make them more powerful?"
+    }
+  ]
+}

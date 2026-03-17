@@ -1,0 +1,99 @@
+{
+  "issue": 5,
+  "page": 7,
+  "title": "Organizing the World's Information",
+  "accent": "#D69E2E",
+  "panels": [
+    {
+      "id": "p7_01_garage",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A charming wide scene of a suburban garage in Menlo Park California 1998, two young men in their mid-twenties surrounded by humming whirring commodity computer hardware, a colorful server rack in the corner with its case visibly made from LEGO bricks in bright primary colors, cables snaking everywhere, a whiteboard with equations on the wall, warm California sunlight streaming through the open garage door, startup energy, warm editorial illustration with ink lines and watercolor washes, gold #D69E2E accents",
+      "overlays": []
+    },
+    {
+      "id": "p7_02_robot_clever",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round magnifying-glass-shaped robot with a big circular lens eye that acts as its face, a tiny golden handle tail, the lens reflecting web pages and search results, nodding slowly with an impressed expression, wearing a tiny detective cap, standing on a LEGO brick platform, warm golden background. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"Before Google, search ranked by word count. They counted links instead.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Before Google, search ranked by word count. They counted links instead.",
+      "speaker": "LENSBOT"
+    },
+    {
+      "id": "p7_02b_intro",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "<strong>Larry Page</strong> (born 1973) and <strong>Sergey Brin</strong> (born 1973 in Moscow &mdash; his family emigrated from the Soviet Union when he was six) met as Stanford PhD students in 1995. By most accounts, they disliked each other at first. They argued about nearly everything.<br><br>But they agreed on one thing: web search was terrible."
+    },
+    {
+      "id": "p7_03_bad_search",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Existing search engines like AltaVista, Lycos, and Yahoo! ranked pages primarily by keyword frequency. A page that mentioned \"dog\" fifty times ranked higher than a page mentioned once, even if the second page was written by a veterinarian."
+    },
+    {
+      "id": "p7_04_pagerank_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-74 -20 754 360\"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x=\"340\" y=\"5\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\" fill=\"#D69E2E\">How PageRank Works</text><text x=\"170\" y=\"30\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Each link = a \"vote.\" Votes from important pages count more.</text><circle cx=\"80\" cy=\"100\" r=\"28\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"80\" y=\"105\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\">A</text><circle cx=\"250\" cy=\"80\" r=\"35\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"3\"/><text x=\"250\" y=\"85\" text-anchor=\"middle\" font-size=\"18\" font-weight=\"bold\" fill=\"#D69E2E\">B</text><circle cx=\"420\" cy=\"100\" r=\"28\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"420\" y=\"105\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\">C</text><circle cx=\"120\" cy=\"200\" r=\"24\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"120\" y=\"205\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\">D</text><circle cx=\"380\" cy=\"200\" r=\"24\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"380\" y=\"205\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\">E</text><circle cx=\"250\" cy=\"260\" r=\"22\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"250\" y=\"265\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\">F</text><line x1=\"108\" y1=\"100\" x2=\"215\" y2=\"85\" stroke=\"#4A5568\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><line x1=\"392\" y1=\"100\" x2=\"285\" y2=\"85\" stroke=\"#4A5568\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><line x1=\"140\" y1=\"190\" x2=\"218\" y2=\"110\" stroke=\"#4A5568\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><line x1=\"360\" y1=\"195\" x2=\"272\" y2=\"110\" stroke=\"#4A5568\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><line x1=\"265\" y1=\"244\" x2=\"260\" y2=\"115\" stroke=\"#4A5568\" stroke-width=\"2\" marker-end=\"url(#arrow)\"/><defs><marker id=\"arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"#4A5568\"/></marker></defs><text x=\"250\" y=\"130\" text-anchor=\"middle\" font-size=\"12\" fill=\"#D69E2E\" font-weight=\"bold\">Most links = highest PageRank</text><rect x=\"470\" y=\"60\" width=\"200\" height=\"120\" rx=\"8\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text x=\"570\" y=\"85\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#D69E2E\">PageRank is RECURSIVE</text><text x=\"490\" y=\"108\" font-size=\"12\" fill=\"#2D3748\">Importance depends on</text><text x=\"490\" y=\"125\" font-size=\"12\" fill=\"#2D3748\">importance. Calculated</text><text x=\"490\" y=\"142\" font-size=\"12\" fill=\"#2D3748\" textLength=\"166\" lengthAdjust=\"spacingAndGlyphs\">iteratively until stable.</text><text x=\"490\" y=\"165\" font-size=\"12\" fill=\"#2D3748\">Like a random surfer</text><text x=\"490\" y=\"180\" font-size=\"12\" fill=\"#2D3748\">clicking links forever.</text><text x=\"340\" y=\"310\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Named after Larry PAGE, not \"web pages\" (though the pun was convenient)</text></svg>",
+      "caption": "Google's PageRank: treating links as votes of confidence"
+    },
+    {
+      "id": "p7_05_pagerank_explain",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Page and Brin's research project, originally called \"BackRub,\" produced <strong>PageRank</strong> &mdash; named after Larry Page, not \"web pages.\" The core insight: treat every link as a vote. If Page A links to Page B, that is a vote of confidence. But not all votes are equal &mdash; a link from a page that itself has many links counts more. Like academic citations: a paper cited by a thousand others is probably more important than one cited by two.<br><br>PageRank is <strong>recursive</strong>: importance depends on importance, calculated iteratively until it stabilizes. Mathematically, it is like imagining a random surfer clicking links endlessly &mdash; where they land most often is the most important page."
+    },
+    {
+      "id": "p7_06_bechtolsheim",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A scene of a man in a suit writing a check with a big impressed grin, handing it to two young men in casual t-shirts and jeans, in a clean Silicon Valley office setting, the check visible and made out to Google Inc, warm sunlight through windows, energy of a pivotal startup moment, warm editorial illustration with ink lines and watercolor washes, gold accent tones",
+      "overlays": []
+    },
+    {
+      "id": "p7_06b_bechtolsheim_text",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "When Page and Brin demonstrated the technology to <strong>Andy Bechtolsheim</strong>, co-founder of Sun Microsystems, he immediately wrote a check for $100,000 to \"Google Inc.\" &mdash; a company that did not yet legally exist. They had to incorporate before they could cash it."
+    },
+    {
+      "id": "p7_07_founding",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Google</strong> was officially incorporated on <strong>September 4, 1998</strong>, in a garage owned by Susan Wojcicki in Menlo Park. The name was a play on \"googol\" &mdash; the number 1 followed by 100 zeros. Its stated mission: <em>\"to organize the world's information and make it universally accessible and useful.\"</em>"
+    },
+    {
+      "id": "p7_08_lego_server",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 256,
+      "prompt": "Close-up of a computer server housed in a case made of colorful LEGO bricks in bright red blue yellow and green, cables protruding from the back, LEDs blinking, sitting on a humble desk in a garage workshop, the juxtaposition of toy materials and serious technology, warm golden light, warm editorial illustration with ink lines and watercolor washes, gold #D69E2E accents",
+      "overlays": []
+    },
+    {
+      "id": "p7_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Google's breakthrough was not building a search engine &mdash; many existed before it. The breakthrough was realizing that the <strong>structure of the web itself contains information</strong> about what matters. Links are votes. The web is not just content; it is a vast network of human judgment about what is important.<br><br>The first Google server was housed in a case made of Lego bricks. Cash-strapped students, building the future from spare parts. Within a decade, Google would become one of the most powerful companies on Earth &mdash; its mission to \"organize\" information would evolve into something more complex: monetizing the attention of the people searching for it.",
+      "style": "accent"
+    },
+    {
+      "id": "p7_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Google organized the world's existing information. But what if you could create an entirely new encyclopedia -- one written not by experts behind closed doors, but by everyone?"
+    }
+  ]
+}

@@ -1,0 +1,300 @@
+{
+  "issue": 3,
+  "page": 0,
+  "title": "Issue 3 Combined",
+  "accent": "#38A169",
+  "panels": [
+    {
+      "id": "p10_01_isolated_labs",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A wide cinematic view of a late 1960s computer lab with three separate islands of computing: on the left an IBM mainframe with spinning tape reels surrounded by programmers in white shirts, in the center a UNIVAC system with its own team, on the right a DEC PDP minicomputer with another group, each island is lit by its own pool of warm overhead light but there are NO cables or connections between them, dark gaps between the machines emphasize their isolation, the feeling is impressive but incomplete, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on indicator lights",
+      "overlays": []
+    },
+    {
+      "id": "p10_03_robot_reflective",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 448,
+      "gen_height": 576,
+      "prompt": "A small cute round copper-colored robot with big warm amber eyes looking upward with a spark of anticipation, wearing a tiny explorer's scarf that flutters gently, one stubby arm resting on a globe of the Earth while the other points toward the stars, sitting on a vintage trunk covered in travel stickers, a few disconnected cables lie on the floor around it, warm twilight background with a sky shifting from sunset orange to deep blue. A white speech bubble with black outline near the top right. Inside the bubble the text reads: \"Each computer was a brilliant island.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Each computer was a brilliant island.",
+      "speaker": "NAVIGATOR"
+    },
+    {
+      "id": "p10_06_isolation_scene",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 384,
+      "gen_height": 384,
+      "prompt": "A single massive 1960s mainframe computer sitting alone in a spotlight in the center of a vast dark empty room, thick power cables trailing off into the darkness but no network cables, the machine hums with power but is completely isolated, a few printouts spill from its printer but have nowhere to go, the mood is powerful but lonely, dramatic chiaroscuro lighting, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on indicator lights",
+      "overlays": []
+    },
+    {
+      "id": "p10_10_robot_next",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute round copper-colored robot with big warm amber eyes full of excitement, wearing a tiny explorer's scarf now billowing behind it, standing at the edge of a cliff looking out over a vast landscape where glowing green cables and connections begin to snake across the terrain linking distant computer buildings together, the horizon glows with the promise of dawn, the robot's posture is eager and forward-leaning, one stubby arm raised pointing toward the connecting future, dramatic wide panoramic composition, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on the glowing connections",
+      "bubble_text": "Next: connecting them all together.",
+      "speaker": "NAVIGATOR"
+    },
+    {
+      "id": "p1_01_eniac_night",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A lone programmer hunched over a massive early 1950s computer console covered in switches, dials, and blinking amber lights, 3:47 AM on a wall clock, crumpled paper with columns of 0s and 1s scattered across the desk and floor, empty coffee cups, harsh overhead lamp casting dramatic shadows, the scene feels claustrophobic and exhausting, warm editorial illustration with ink lines and watercolor washes, muted earth tones with green #38A169 accent on indicator lights",
+      "overlays": []
+    },
+    {
+      "id": "p1_04_robot_morse",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 512,
+      "gen_height": 384,
+      "prompt": "A small cute round brass robot with big sympathetic green clock-face eyes, one eye squinted shut in a wince, tiny hand pressed against the side of its face, wearing a miniature bowler hat with a gear pin, sitting on a pile of crumpled paper covered in binary digits, warm workshop background with soft amber lighting. A white speech bubble with black outline near the top right. Inside the bubble the text reads: \"Imagine writing an essay entirely in Morse code.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Imagine writing an essay entirely in Morse code.",
+      "speaker": "CLOCKWORK"
+    },
+    {
+      "id": "p1_05_binary_rain",
+      "type": "image",
+      "layout": "right",
+      "flex": 2,
+      "gen_width": 384,
+      "gen_height": 384,
+      "prompt": "Abstract visualization of cascading columns of glowing green 0s and 1s falling like rain against a dark background, interspersed with frustrated red X marks and crossed-out sequences, a few English words like ADD and LOAD faintly visible but drowning in binary, digital rain meets analog frustration, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 glow",
+      "overlays": []
+    },
+    {
+      "id": "p1_09_robot_chasm",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute translucent jellyfish-like robot glowing with soft green inner light, big gentle luminous eyes like tiny moons, delicate trailing tentacle-arms, floating above a vast glowing chasm that splits the ground between a human figure silhouette on the left side and a massive computer console on the right side, the chasm is filled with cascading binary digits, dramatic lighting from below, a bridge of glowing green stepping stones begins to form across the gap. A white speech bubble with black outline in the top left. Inside the bubble the text reads: \"Deep chasm. But bridges can be built.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Deep chasm. But bridges can be built.",
+      "speaker": "STARLIGHT"
+    },
+    {
+      "id": "p2_01_robot_exasperated",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute puffy dark-grey robot covered in glowing white chalk doodles of equations and diagrams, big bright yellow LED eyes wide with exasperation, stubby arms spread wide palms-up in a 'can you BELIEVE this' gesture, standing in front of a towering wall of binary code etched in glowing green text, looking overwhelmed and incredulous. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"One mistake? Hours hunting through ones and zeros.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "One mistake? Hours hunting through ones and zeros.",
+      "speaker": "CHALKBOT"
+    },
+    {
+      "id": "p2_03_programmer_desk",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 448,
+      "gen_height": 576,
+      "prompt": "A 1940s programmer at a cluttered desk covered with sheets of paper filled with columns of binary numbers, pencil in hand crossing out a sequence and rewriting it, reference cards pinned to a board behind showing opcode tables, a large vacuum-tube computer visible in the background through a doorway, expression of intense concentration and mild frustration, overhead desk lamp casting warm light, vintage sepia tones with green #38A169 accent on desk lamp shade, comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p2_07_robot_think",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 384,
+      "gen_height": 512,
+      "prompt": "A small cute squat boxy retro toy robot with big round orange headlamp eyes full of thoughtfulness, tiny antenna ears with bobbles, a wind-up key on its back, pastel silver body with rounded edges, sitting cross-legged like a kid pondering a riddle, chin resting on one stubby mitten hand, a single glowing lightbulb hovers above its head, soft warm background. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"GPS needs coordinates. Humans need landmarks.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "GPS needs coordinates. Humans need landmarks.",
+      "speaker": "TINBOT"
+    },
+    {
+      "id": "p3_01_robot_cautious",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 384,
+      "gen_height": 512,
+      "prompt": "A small cute round green robot with big hopeful emerald eyes, a tiny sprout growing from a pot on its head with two small leaves, leaf-shaped ears, smooth soft body, one stubby hand making a tilting so-so gesture while half-smiling cautiously, standing on a stack of old computer manuals, warm sunny background. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Better, but still thinking like the machine.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Better, but still thinking like the machine.",
+      "speaker": "SPROUT"
+    },
+    {
+      "id": "p3_03_assembly_scene",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "Close-up of a vintage 1950s computer terminal screen glowing green, showing neatly typed short assembly language mnemonics in green text, a programmer's hand hovering over a typewriter keyboard about to type the next instruction, reflection of the green screen text visible on wire-rimmed glasses in the foreground, dim lab environment, dramatic low-key lighting, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 tint on screen glow",
+      "screen_text": "LOAD ADD STORE",
+      "overlays": []
+    },
+    {
+      "id": "p3_07_holberton",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 384,
+      "gen_height": 512,
+      "prompt": "A woman in 1950s professional attire standing confidently beside the UNIVAC I computer, hands resting on a large ring binder of documentation, she has a determined expression and sharp intelligent eyes, the massive computer console fills the background with its characteristic rounded design and tape drives, warm amber lighting, historical documentary feel, comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p4_01_hopper_scene",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A Navy office in 1952, a woman in a crisp dark Navy uniform with sharp intelligent eyes and a no-nonsense expression stands confidently before a room of skeptical men in business suits seated around a conference table, behind her a green chalkboard reads 'A PROGRAM THAT TRANSLATES ENGLISH TO MACHINE CODE' in chalk, the men lean back with arms crossed looking doubtful, she stands with one hand on the chalkboard and the other gesturing emphatically, dramatic overhead lighting, tension between skepticism and certainty, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on chalkboard border",
+      "overlays": []
+    },
+    {
+      "id": "p4_03_robot_hero",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 448,
+      "gen_height": 384,
+      "prompt": "A small cute soft round robot with a smooth pearl-white body, big sparkly magenta eyes bright with fierce admiration, wearing a tiny Navy captain's hat tilted at a jaunty angle, one stubby fist pressed against its chest in a gesture of deep respect, a small heart shape glows on its chest panel, warm golden background with faint stars. A white speech bubble with black outline near the top right. Inside the bubble the text reads: \"Grace Hopper. My absolute hero.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Grace Hopper. My absolute hero.",
+      "speaker": "PEARL"
+    },
+    {
+      "id": "p5_01_robot_impressed",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute cuboid robot made of visible pastel-colored voxel blocks, each block a different soft color, big confident rectangular pixel eyes, arms crossed in an impressed posture with slightly raised eyebrows, standing beside a vintage IBM mainframe with reels and indicator lights, a large equation Y=A*X+B glows in green neon above the mainframe, warm laboratory background. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"FORTRAN changed everything. Code that looked like math.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "FORTRAN changed everything. Code that looked like math.",
+      "speaker": "PIXEL"
+    },
+    {
+      "id": "p5_03_backus_portrait",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 384,
+      "gen_height": 512,
+      "prompt": "A young man in his late twenties with dark-rimmed glasses and a confident but slightly disheveled appearance, wearing a white dress shirt with sleeves rolled up, standing before a large IBM mainframe computer with spinning tape reels, holding a thick stack of papers marked FORTRAN in one hand, the other hand gesturing toward a whiteboard showing the equation Y=A*X+B, 1950s IBM research lab setting with fluorescent lighting, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent",
+      "overlays": []
+    },
+    {
+      "id": "p5_07_fortran_scene",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 256,
+      "prompt": "Wide panoramic view of a 1950s IBM research lab, several scientists and engineers gathered around a large printout, expressions of amazement and excitement, one scientist pointing at a short formula on the printout while gesturing at a massive stack of assembly code pages beside it, IBM 704 mainframe in the background with spinning tape reels, celebratory atmosphere, warm golden lighting, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on the printout highlight",
+      "overlays": []
+    },
+    {
+      "id": "p6_01_robot_cobol",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute flat rectangular robot made of folded punch-card paper in origami style, with dot-matrix eyes glowing warmly, paper edges slightly curled and yellowed like vintage cards, stubby paper-fold arms gesturing grandly like a game show host presenting a prize, standing beside a large glowing terminal screen displaying soft out-of-focus lines of green text resembling English-like code, retro computer room background with tape drives. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Look! Code that reads like English!\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Look! Code that reads like English!",
+      "speaker": "TAPE"
+    },
+    {
+      "id": "p6_03_pentagon_scene",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 512,
+      "gen_height": 384,
+      "prompt": "A conference room at the Pentagon in 1959, a large oval table with about a dozen people seated around it including both men and women in professional 1950s attire, documents and thick binders spread across the table, an American flag in the corner, a sign on an easel reads CODASYL Conference on Data Systems Languages, serious focused expressions on all faces, one woman standing presenting at a small podium, institutional lighting, comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p6_07_robot_readable",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 384,
+      "gen_height": 384,
+      "prompt": "A small cute round robot with a smooth lavender body, big warm purple eyes shaped like semicircles when smiling, wearing tiny reading glasses perched on its nose and holding an open book labeled COBOL in one stubby hand, the other hand pointing up in a eureka gesture, surrounded by floating text fragments reading MULTIPLY DISPLAY COMPUTE in green glow, warm library-like background with bookshelves. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Verbose, but clear. That was the point.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Verbose, but clear. That was the point.",
+      "speaker": "BOOKWORM"
+    },
+    {
+      "id": "p7_01_robot_expansive",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute round robot with a bright teal metallic body and big wide amazed white eyes with teal irises, stubby arms spread wide open as if embracing the universe, floating in space beside a towering glowing ladder that stretches from the ground up into the stars, each rung of the ladder glows a different color (red at bottom transitioning to green at top), tiny labels on each rung barely visible, cosmic background with nebula clouds, sense of grandeur and perspective. A white speech bubble with black outline near the top left. Inside the bubble the text reads: \"Every advance is the same trick: abstraction.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Every advance is the same trick: abstraction.",
+      "speaker": "COSMOS"
+    },
+    {
+      "id": "p7_05_algol_scene",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 384,
+      "gen_height": 384,
+      "prompt": "An international academic conference room in the late 1950s, a diverse group of European and American mathematicians and computer scientists gathered around a table covered with papers and notation, a blackboard behind them shows formal grammar notation with arrows and brackets labeled BNF, the atmosphere is intellectual and intense, men in tweed jackets and dark suits, cigarette smoke curling upward, warm amber and sepia tones, comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p8_01_dartmouth",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "Dartmouth College seminar room in summer 1956, a small group of men in short-sleeved white shirts sitting casually around a large wooden table, papers and coffee cups scattered everywhere, ashtrays with cigarette smoke curling upward, a green chalkboard behind them reads DARTMOUTH SUMMER RESEARCH PROJECT ON ARTIFICIAL INTELLIGENCE in chalk, the mood is electric and informal, sunlight streaming through tall windows casting warm rectangles on the floor, ivy-covered brick visible through the windows, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on the chalkboard text",
+      "overlays": []
+    },
+    {
+      "id": "p8_03_robot_dreamy",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 448,
+      "gen_height": 384,
+      "prompt": "A small cute translucent jellyfish-like robot with a luminous bell-shaped body glowing with soft green and blue inner light, big gentle dreamy eyes like tiny stars, delicate trailing tentacle-arms, one arm resting on its chin in a thoughtful pose, head tilted slightly, floating above a pile of open books and mathematical papers, surrounded by glowing parentheses ( ) floating in the air like fireflies, warm dark background. A white speech bubble with black outline near the top right. Inside the bubble the text reads: \"Could a computer actually think?\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Could a computer actually think?",
+      "speaker": "STARLIGHT"
+    },
+    {
+      "id": "p9_01_robot_reverence",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round porcelain-white robot with big deep-blue soulful eyes, wearing a tiny black graduation cap with a green tassel, both stubby mitten hands clasped together against its chest in a gesture of deep respect and reverence, a soft golden halo of light behind its head, standing on a small stack of textbooks, warm sepia-toned library background with bookshelves and soft lamplight. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Sister Keller: first woman to earn a CS PhD.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Sister Keller: first woman to earn a CS PhD.",
+      "speaker": "SCHOLAR-BOT"
+    },
+    {
+      "id": "p9_03_keller_dartmouth",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 512,
+      "gen_height": 384,
+      "prompt": "A nun in a traditional black and white habit sitting at an early 1960s computer terminal in a university computer lab, typing with quiet intensity and focus, a green-glowing screen showing lines of BASIC code, other male students in the background glancing at her with curiosity but she is entirely absorbed in her work, Dartmouth College lab setting with large mainframe equipment visible, warm amber overhead lighting, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on the terminal screen glow",
+      "overlays": []
+    },
+    {
+      "id": "p9_07_keller_portrait",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 384,
+      "gen_height": 512,
+      "prompt": "A portrait of a nun in traditional black habit and white coif, standing in a university hallway beside a plaque reading Computer Science Department, she holds a rolled PhD diploma in one hand and rests the other on a stack of books, her expression is warm yet determined, mid-1960s academic setting with polished floors and institutional architecture, soft natural light from a window, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on the plaque",
+      "overlays": []
+    }
+  ]
+}

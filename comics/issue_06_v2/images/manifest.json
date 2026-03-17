@@ -1,0 +1,30 @@
+[
+  {
+    "id": "p10_01_vision_to_language",
+    "label": "",
+    "filename": "p10_01_vision_to_language.png",
+    "width": 768,
+    "height": 384
+  },
+  {
+    "id": "p10_03_rnn_struggle",
+    "label": "",
+    "filename": "p10_03_rnn_struggle.png",
+    "width": 432,
+    "height": 320
+  },
+  {
+    "id": "p10_05_robot_anticipation",
+    "label": "",
+    "filename": "p10_05_robot_anticipation.png",
+    "width": 352,
+    "height": 448
+  },
+  {
+    "id": "p10_10_closing_scene",
+    "label": "",
+    "filename": "p10_10_closing_scene.png",
+    "width": 768,
+    "height": 320
+  }
+]

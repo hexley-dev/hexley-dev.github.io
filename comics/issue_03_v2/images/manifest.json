@@ -1,0 +1,30 @@
+[
+  {
+    "id": "p10_01_isolated_labs",
+    "label": "",
+    "filename": "p10_01_isolated_labs.png",
+    "width": 768,
+    "height": 384
+  },
+  {
+    "id": "p10_03_robot_reflective",
+    "label": "",
+    "filename": "p10_03_robot_reflective.png",
+    "width": 288,
+    "height": 576
+  },
+  {
+    "id": "p10_06_isolation_scene",
+    "label": "",
+    "filename": "p10_06_isolation_scene.png",
+    "width": 352,
+    "height": 384
+  },
+  {
+    "id": "p10_10_robot_next",
+    "label": "",
+    "filename": "p10_10_robot_next.png",
+    "width": 768,
+    "height": 320
+  }
+]

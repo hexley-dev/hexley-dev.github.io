@@ -1,0 +1,107 @@
+{
+  "issue": 6,
+  "page": 2,
+  "title": "The Rise and Fall of the Perceptron",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p2_01_rosenblatt_machine",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A charismatic energetic man in his early thirties in a white lab coat, standing proudly next to a large imposing machine with patch cables, wires, and blinking lights at a 1958 university laboratory, the machine is the Mark I Perceptron -- a cabinet-sized apparatus with a grid of photocells on one side and tangled wires on the other, warm tungsten lighting illuminating the scene, 'CORNELL UNIVERSITY 1958' text on a plaque on the wall, sense of scientific optimism and ambition, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm sepia and crimson #E53E3E accents",
+      "overlays": []
+    },
+    {
+      "id": "p2_02_robot_intro",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round brass robot with big warm expressive amber eyes, wearing a tiny bow tie and holding a miniature chalkboard, standing on a wooden desk in a vintage 1950s office, warm expression turning slightly somber, one stubby arm gesturing toward the viewer. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"1958. Rosenblatt built a machine that learns.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm sepia tones with crimson #E53E3E accents",
+      "bubble_text": "1958. Rosenblatt built a machine that learns.",
+      "speaker": "BRASSBOT"
+    },
+    {
+      "id": "p2_03_narration_perceptron",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "<strong>Frank Rosenblatt</strong>, a psychologist and computer scientist at Cornell, built the <strong>Perceptron</strong> -- the first machine that could genuinely learn from data.<br><br>The concept was deceptively simple: take inputs, multiply each by a <strong>weight</strong>, add them up, and check if the sum exceeds a threshold. The breakthrough? The weights were <em>not set by a programmer</em>. The machine adjusted them itself."
+    },
+    {
+      "id": "p2_04_perceptron_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-31 -22 711 302\"><style>.title{font-size:15px; font-weight:bold; } .label{font-size:12px} .small{font-size:12px; } .weight{font-size:12px; font-weight:bold; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#2D3748\" x=\"340\" y=\"5\" text-anchor=\"middle\" class=\"title\">The Perceptron (1958)</text><g transform=\"translate(60,40)\"><rect x=\"0\" y=\"10\" width=\"70\" height=\"34\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" x=\"35\" y=\"32\" text-anchor=\"middle\" class=\"label\">x1 (pixel)</text><rect x=\"0\" y=\"60\" width=\"70\" height=\"34\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" font-size=\"12\" x=\"35\" y=\"82\" text-anchor=\"middle\" class=\"label\">x2 (pixel)</text><rect x=\"0\" y=\"110\" width=\"70\" height=\"34\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" font-size=\"12\" x=\"35\" y=\"132\" text-anchor=\"middle\" class=\"label\">x3 (pixel)</text><text fill=\"#1A202C\" x=\"35\" y=\"0\" text-anchor=\"middle\" class=\"small\" font-weight=\"bold\">INPUTS</text><line x1=\"70\" y1=\"27\" x2=\"240\" y2=\"80\" stroke=\"#E53E3E\" stroke-width=\"2\"/><text fill=\"#E2E8F0\" x=\"140\" y=\"42\" class=\"weight\">w1</text><line x1=\"70\" y1=\"77\" x2=\"240\" y2=\"80\" stroke=\"#E53E3E\" stroke-width=\"2\"/><text fill=\"#E2E8F0\" x=\"140\" y=\"72\" class=\"weight\">w2</text><line x1=\"70\" y1=\"127\" x2=\"240\" y2=\"80\" stroke=\"#E53E3E\" stroke-width=\"2\"/><text fill=\"#E2E8F0\" x=\"140\" y=\"118\" class=\"weight\">w3</text><circle cx=\"260\" cy=\"80\" r=\"24\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text x=\"260\" y=\"76\" text-anchor=\"middle\" font-size=\"20\" fill=\"#D69E2E\" font-weight=\"bold\">&Sigma;</text><text fill=\"#2D3748\" x=\"260\" y=\"92\" text-anchor=\"middle\" class=\"small\">sum</text><line x1=\"284\" y1=\"80\" x2=\"340\" y2=\"80\" stroke=\"#2D3748\" stroke-width=\"2\"/><rect x=\"340\" y=\"58\" width=\"90\" height=\"44\" rx=\"8\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"2\"/><text x=\"385\" y=\"76\" text-anchor=\"middle\" class=\"label\" fill=\"#1A202C\" font-weight=\"bold\">Threshold?</text><text x=\"385\" y=\"90\" text-anchor=\"middle\" class=\"small\" fill=\"#2D3748\">sum &gt; T?</text><line x1=\"430\" y1=\"68\" x2=\"510\" y2=\"48\" stroke=\"#38A169\" stroke-width=\"2\"/><rect x=\"510\" y=\"30\" width=\"70\" height=\"34\" rx=\"6\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"545\" y=\"52\" text-anchor=\"middle\" class=\"label\" fill=\"#1A202C\" font-weight=\"bold\">YES</text><line x1=\"430\" y1=\"92\" x2=\"510\" y2=\"112\" stroke=\"#718096\" stroke-width=\"2\"/><rect x=\"510\" y=\"95\" width=\"70\" height=\"34\" rx=\"6\" fill=\"#E2E8F0\" stroke=\"#718096\" stroke-width=\"1.5\"/><text x=\"545\" y=\"117\" text-anchor=\"middle\" class=\"label\" fill=\"#1A202C\" font-weight=\"bold\">NO</text></g><g transform=\"translate(60,200)\"><rect x=\"0\" y=\"0\" width=\"560\" height=\"36\" rx=\"8\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text x=\"280\" y=\"16\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#D69E2E\">KEY INSIGHT: The weights are LEARNED, not programmed.</text><text x=\"280\" y=\"30\" text-anchor=\"middle\" class=\"small\" fill=\"#D69E2E\">Show it examples. Adjust weights. Repeat.</text></g></svg>",
+      "caption": "A perceptron: inputs multiplied by learned weights, summed, and thresholded."
+    },
+    {
+      "id": "p2_05_nyt_headline",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 320,
+      "prompt": "A vintage 1958 newspaper front page close-up showing a headline 'NEW NAVY DEVICE LEARNS BY DOING' in bold serif font, the paper is yellowed and slightly creased, sitting on a wooden desk next to a coffee cup and reading glasses, warm nostalgic lighting, the feel of mid-century American optimism and scientific ambition, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm sepia tones",
+      "screen_text": "NEW NAVY DEVICE LEARNS BY DOING",
+      "overlays": []
+    },
+    {
+      "id": "p2_06_narration_hype",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "July 8, 1958. The New York Times: <em>\"New Navy Device Learns by Doing.\"</em> The hype was enormous. The Navy predicted perceptrons would eventually be conscious.<br><br>The hype was also <strong>dangerous</strong>. Because the Perceptron had real limits."
+    },
+    {
+      "id": "p2_07_minsky_critique",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A dramatic academic scene: two commanding professors at MIT in the late 1960s, one standing at a large chalkboard filled with mathematical equations and proofs, the other holding a thick hardcover book titled 'Perceptrons'. The chalkboard shows a diagram of XOR logic with a circle around the impossible straight-line boundary. Serious scholarly atmosphere, dark wood-paneled academic office, heavy with the weight of rigorous proof, Comic book style, warm editorial illustration with ink lines and watercolor washes, muted tones with cool blue shadows suggesting intellectual severity",
+      "overlays": []
+    },
+    {
+      "id": "p2_08_narration_minsky",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In 1969, <strong>Marvin Minsky</strong> and <strong>Seymour Papert</strong> at MIT published <em>Perceptrons</em>, proving mathematically that a single-layer perceptron could not compute <strong>XOR</strong> (exclusive or). Their proofs were correct. But their conclusion went further: they expressed deep skepticism that multi-layer networks could overcome these limits.<br><br>Funding evaporated almost overnight. A striking detail: Minsky and Rosenblatt had both attended the same high school in the Bronx, then championed opposing visions of AI for their entire careers.",
+      "style": "default"
+    },
+    {
+      "id": "p2_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The Perceptron was the <strong>seed of modern AI</strong>: a machine that learns from examples instead of following hand-written rules. Minsky and Papert proved its limits were real -- but they were the limits of <em>a single layer</em>, not of the idea itself. The field confused \"this simple version doesn't work\" with \"the whole approach is hopeless.\" That confusion cost <strong>two decades</strong>."
+    },
+    {
+      "id": "p2_10_rosenblatt_end",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round robot with a transparent glass dome head showing visible gears and circuits inside, soft pastel blue metal body with mechanical joints and rivets, big gentle sad LED eyes visible through the dome, cable-arms with small light-bulb tips at the ends, floating on tiny rocket boosters in an empty dark laboratory with abandoned equipment covered in dust sheets, holding a tiny wilted flower in one mechanical gripper, expression of quiet remembrance, dim warm light filtering through a single window. Comic book style, warm editorial illustration with ink lines and watercolor washes, muted melancholy tones with soft blue internal glow from the dome showing mechanical components, emphasize MECHANICAL construction not organic forms.",
+      "bubble_text": "Rosenblatt died in 1971. Age 43.",
+      "speaker": "JELLYBOT"
+    },
+    {
+      "id": "p2_11_narration_rosenblatt_death",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "Frank Rosenblatt died in a boating accident on July 11, 1971. He was 43. He never had the chance to respond to Minsky's critique. The idea he pioneered would not be vindicated for <strong>another forty years</strong>."
+    },
+    {
+      "id": "p2_12_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Neural network research went dark. Funding vanished. Researchers who believed in the idea had to hide their work under different names. But a few stubborn scientists refused to give up. And in 1986, they published a paper that changed everything."
+    }
+  ]
+}

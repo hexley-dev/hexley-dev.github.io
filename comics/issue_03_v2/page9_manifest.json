@@ -1,0 +1,112 @@
+{
+  "issue": 3,
+  "page": 9,
+  "title": "The First of Her Kind",
+  "accent": "#38A169",
+  "panels": [
+    {
+      "id": "p9_01_robot_reverence",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute round porcelain-white robot with big deep-blue soulful eyes, wearing a tiny black graduation cap with a green tassel, both stubby mitten hands clasped together against its chest in a gesture of deep respect and reverence, a soft golden halo of light behind its head, standing on a small stack of textbooks, warm sepia-toned library background with bookshelves and soft lamplight. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Sister Keller: first woman to earn a CS PhD.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Sister Keller: first woman to earn a CS PhD.",
+      "speaker": "SCHOLAR-BOT"
+    },
+    {
+      "id": "p9_02_narration_intro",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Mary Kenneth Keller</strong> was born in 1913 in Cleveland, Ohio. She entered the Sisters of Charity of the Blessed Virgin Mary in 1932, took her religious vows in 1940, and earned degrees in mathematics and physics. Then she turned to a field that barely existed yet: <em>computer science</em>.",
+      "style": "default"
+    },
+    {
+      "id": "p9_03_keller_dartmouth",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A nun in a traditional black and white habit sitting at an early 1960s Teletype terminal with a paper printout roll (no screen), connected by a cable to a large mainframe visible in the background, typing with quiet intensity and focus, other male students in the background glancing at her with curiosity but she is entirely absorbed in her work, Dartmouth College lab setting, NO modern CRT monitors, NO desktop computers -- only Teletype paper terminals and a large room-sized mainframe, warm amber overhead lighting, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on the indicator lights",
+      "overlays": []
+    },
+    {
+      "id": "p9_04_narration_dartmouth",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "In the late 1950s and early 1960s, Keller worked at Dartmouth College's computer center &mdash; which did not normally admit women, but the CS department made an exception, recognizing her talent. There, she was involved in the early development of <strong>BASIC</strong> (Beginner's All-purpose Symbolic Instruction Code), created by <strong>John Kemeny</strong> and <strong>Thomas Kurtz</strong> in 1964.",
+      "style": "default"
+    },
+    {
+      "id": "p9_05_basic_code",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 690 320\"><rect x=\"10\" y=\"0\" width=\"660\" height=\"280\" rx=\"12\" fill=\"#1A202C\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"340\" y=\"28\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" font-weight=\"bold\" fill=\"#FFFFFF\">A TASTE OF BASIC (1964)</text><text x=\"40\" y=\"58\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">10 PRINT \"WHAT IS YOUR NAME?\"</text><text x=\"40\" y=\"78\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">20 INPUT N$</text><text x=\"40\" y=\"98\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">30 PRINT \"HELLO, \"; N$; \"!\"</text><text x=\"40\" y=\"118\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">40 PRINT \"LET'S DO SOME MATH.\"</text><text x=\"40\" y=\"138\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">50 PRINT \"WHAT IS 7 + 5?\"</text><text x=\"40\" y=\"158\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">60 INPUT A</text><text x=\"40\" y=\"178\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">70 IF A = 12 THEN PRINT \"CORRECT!\"</text><text x=\"40\" y=\"195\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">   ELSE PRINT \"TRY AGAIN!\"</text><text x=\"40\" y=\"215\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">80 END</text><line x1=\"40\" y1=\"230\" x2=\"640\" y2=\"230\" stroke=\"#38A169\" stroke-width=\"1\" opacity=\"0.3\"/><text x=\"40\" y=\"252\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#C6F6D5\">Designed so a college freshman with NO technical background</text><text x=\"40\" y=\"270\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#C6F6D5\">could write a program on their first day. Simple. Forgiving. Empowering.</text></svg>",
+      "caption": "BASIC: the language that brought computing to the people"
+    },
+    {
+      "id": "p9_06_narration_basic_mission",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "BASIC was designed with a specific mission: give students who were <em>not</em> science or math majors a way to use computers. It was deliberately simple, with English-like commands and forgiving syntax. It would later power the personal computer revolution of the 1970s and 1980s, putting programming within reach of <strong>millions</strong> of hobbyists, students, and kids.",
+      "style": "default"
+    },
+    {
+      "id": "p9_07_keller_portrait",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A portrait of a nun in traditional black habit and white coif, standing in a university hallway beside a plaque reading Computer Science Department, she holds a rolled PhD diploma in one hand and rests the other on a stack of books, her expression is warm yet determined, mid-1960s academic setting with polished floors and institutional architecture, soft natural light from a window, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on the plaque",
+      "overlays": []
+    },
+    {
+      "id": "p9_08_character_card",
+      "type": "svg_diagram",
+      "layout": "right",
+      "flex": 3,
+      "svg": "<svg viewBox=\"-10 -20 480 310\"><rect x=\"5\" y=\"0\" width=\"430\" height=\"270\" rx=\"12\" fill=\"#F7FAFC\" stroke=\"#38A169\" stroke-width=\"2\"/><rect x=\"5\" y=\"0\" width=\"405\" height=\"36\" rx=\"12\" fill=\"#38A169\"/><rect x=\"5\" y=\"18\" width=\"405\" height=\"18\" fill=\"#38A169\"/><text x=\"220\" y=\"25\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#FFF\">SISTER MARY KENNETH KELLER, BVM</text><text x=\"20\" y=\"55\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Born: December 17, 1913 &mdash; Cleveland, Ohio</text><text x=\"20\" y=\"73\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Died: January 10, 1985</text><text x=\"20\" y=\"91\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\" textLength=\"397\" lengthAdjust=\"spacingAndGlyphs\">PhD: Computer Science, Univ. of Wisconsin-Madison (1965)</text><line x1=\"20\" y1=\"101\" x2=\"420\" y2=\"101\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"20\" y=\"121\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#38A169\">Known for:</text><text x=\"20\" y=\"139\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">One of the first two people to earn a CS PhD</text><text x=\"20\" y=\"155\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">in the US &mdash; and the first woman to do so</text><text x=\"20\" y=\"171\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Involved in early development of BASIC</text><text x=\"20\" y=\"187\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Founded CS dept. at Clarke College</text><line x1=\"20\" y1=\"199\" x2=\"420\" y2=\"199\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"20\" y=\"219\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-style=\"italic\" fill=\"#718096\">\"We're having an information explosion,</text><text x=\"20\" y=\"235\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-style=\"italic\" fill=\"#718096\">and information is of no use unless</text><text x=\"20\" y=\"251\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-style=\"italic\" fill=\"#718096\">it's available.\"</text></svg>",
+      "caption": "Mary Kenneth Keller character card"
+    },
+    {
+      "id": "p9_09_narration_phd",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In 1965, Keller completed her PhD at the <strong>University of Wisconsin-Madison</strong> &mdash; her dissertation was titled \"Inductive Inference on Computer Generated Patterns.\" She was, alongside Irving Tang, among the very first to receive a doctorate in computer science &mdash; and <em>the first woman to do so</em>.",
+      "style": "accent"
+    },
+    {
+      "id": "p9_10_narration_legacy",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "After her doctorate, Keller founded the computer science department at Clarke College in Dubuque, Iowa, and chaired it for twenty years. She was passionate about making computing accessible &mdash; especially to women and people outside the traditional technical elite.",
+      "style": "default"
+    },
+    {
+      "id": "p9_10b_robot_access",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round porcelain-white robot with a dome head and big deep blue LED eyes, wearing a tiny black graduation cap with green tassel, stubby arms holding open a door marked COMPUTING FOR EVERYONE, antenna with a tiny cross on top, warm golden light streaming through the open door. A white speech bubble with black outline above. Inside the bubble the text reads: \"She opened the door. For everyone.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "She opened the door. For everyone.",
+      "speaker": "DOORBOT"
+    },
+    {
+      "id": "p9_11_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Computing has always been shaped by people who believed it should be for <strong>everyone</strong>. Grace Hopper wanted programmers who weren't mathematicians. COBOL was designed for managers. BASIC was designed for students. Mary Kenneth Keller dedicated her career to this principle: <em>the power of computers means nothing if it's locked away from the people who need it.</em>",
+      "style": "accent"
+    },
+    {
+      "id": "p9_12_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "From machine code to assembly to FORTRAN to COBOL to LISP to BASIC &mdash; in barely fifteen years, humans built an extraordinary tower of languages. But every one had a hidden limitation. They all talked to <strong>ONE machine</strong> at a time. What happens when machines need to talk to <em>each other</em>?"
+    }
+  ]
+}

@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Computing Family Tree — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #DD6B20;
+  --bg: #FAF9F6;
+  --dark: #2D3748;
+  --mid: #4A5568;
+  --light: #718096;
+  --muted: #A0AEC0;
+  --border: #E2E8F0;
+  --card: #F7FAFC;
+  --panel: #1A202C;
+  --hand: 'Caveat', 'Patrick Hand', cursive;
+  --body: 'Patrick Hand', cursive;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Issue colors */
+  --issue1: #E53E3E;
+  --issue2: #DD6B20;
+  --issue3: #38A169;
+  --issue4: #805AD5;
+  --issue5: #D69E2E;
+  --issue6: #E53E3E;
+  --issue7: #4A9BD9;
+  --issue8: #9F7AEA;
+  --issue9: #48BB78;
+  --issue10: #DD6B20;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--dark);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(221,107,32,.04) 0%, transparent 50%),
+    radial-gradient(circle at 85% 80%, rgba(72,187,120,.03) 0%, transparent 50%);
+}
+
+/* Header */
+.illustration-header {
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 24px 8px;
+}
+
+.back-link {
+display: inline-block;
+  font-family: var(--body);
+  font-size: 14px;
+  color: var(--accent);
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: opacity 0.15s;
+}
+.back-link:hover { opacity: 0.7; transition: opacity 0.15s; }
+
+.illustration-header h1 {
+  font-family: var(--hand);
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--panel);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.illustration-header .subtitle {
+  font-family: var(--body);
+  font-size: 18px;
+  color: var(--mid);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.illustration-header .companion-note {
+  font-family: var(--body);
+  font-size: 13px;
+  color: #718096;
+  margin-top: 10px;
+}
+
+.title-bar {
+  width: 80px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 16px auto 0;
+}
+
+/* Tree container */
+.tree-container {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 16px 16px 24px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tree-svg-wrap {
+  min-width: 980px;
+}
+
+/* Legend */
+.legend {
+  max-width: 1000px;
+  margin: 0 auto 8px;
+  padding: 16px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--body);
+  font-size: 14px;
+  color: var(--mid);
+}
+
+.legend-line-solid {
+  width: 32px;
+  height: 2px;
+  background: var(--muted);
+  border-radius: 1px;
+}
+
+.legend-line-dashed {
+  width: 32px;
+  height: 0;
+  border-top: 2px dashed var(--muted);
+}
+
+.legend-node {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--muted);
+  background: var(--card);
+}
+
+.legend-node-large {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2.5px solid var(--accent);
+  background: var(--card);
+}
+
+/* Issue color swatches in legend */
+.issue-swatches {
+  max-width: 1000px;
+  margin: 0 auto 16px;
+  padding: 0 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.swatch {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--light);
+}
+
+.swatch-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Tooltip */
+.tooltip {
+  position: fixed;
+  display: none;
+  background: var(--panel);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.45;
+  max-width: 280px;
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0,0,0,.25);
+}
+
+.tooltip .tt-name {
+  font-family: var(--hand);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.tooltip .tt-date {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #718096;
+  margin-bottom: 4px;
+}
+
+.tooltip .tt-person {
+  font-size: 13px;
+  color: #CBD5E0;
+  margin-bottom: 4px;
+}
+
+.tooltip .tt-quote {
+  font-size: 13px;
+  font-style: italic;
+  color: #E2E8F0;
+  border-left: 2px solid;
+  padding-left: 8px;
+  margin-top: 4px;
+}
+
+/* Unix echo callout */
+.unix-echo {
+  max-width: 700px;
+  margin: 12px auto 24px;
+  padding: 18px 22px;
+  border-left: 4px solid var(--issue9);
+  background: rgba(72,187,120,.07);
+  border-radius: 0 12px 12px 0;
+  font-size: 15.5px;
+  line-height: 1.6;
+}
+
+.unix-echo .echo-title {
+  font-family: var(--hand);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--issue9);
+  margin-bottom: 4px;
+}
+
+.unix-echo .echo-body {
+  color: var(--mid);
+}
+
+.unix-echo .echo-note {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* Footer */
+.tree-footer {
+  text-align: center;
+  padding: 20px 24px 40px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.tree-footer p {
+  font-size: 14px;
+  color: var(--light);
+  margin-bottom: 6px;
+}
+
+.tree-footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+/* Print */
+@media print {
+  body { background: #fff; }
+  .tree-container { overflow: visible; }
+  .tree-svg-wrap { min-width: auto; }
+  .tooltip { display: none !important; }
+  .back-link { display: none; }
+}
+
+/* Mobile: vertical scroll with hint */
+@media (max-width: 768px) {
+  .illustration-header h1 { font-size: 32px; }
+  .illustration-header .subtitle { font-size: 16px; }
+  .tree-container { padding: 8px 4px; }
+  .scroll-hint {
+    display: block !important;
+    text-align: center;
+    font-family: var(--body);
+    font-size: 13px;
+    color: var(--muted);
+    padding: 4px 0 8px;
+  }
+}
+
+.scroll-hint { display: none; }
+
+/* Focus-Visible — keyboard accessibility */
+*:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* SVG node hover effects */
+.node-group { cursor: pointer; }
+.node-group:hover .node-circle { filter: brightness(1.1); }
+.node-group:hover .node-label { font-weight: 700; }
+
+/* Era band labels */
+.era-label {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  font-size: 14px;
+  fill-opacity: 0.9;
+}
+
+.era-issue-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  fill-opacity: 0.6;
+}
+</style>
+</head>
+<body>
+
+<div class="illustration-header">
+  <a href="#" onclick="history.back();return false" style="text-decoration:none">&larr; Back</a>
+  <h1>The Computing Family Tree</h1>
+  <p class="subtitle">90 years of ideas, connected. Every breakthrough built on the ones before.</p>
+  <p class="companion-note">Illustration companion to Issue 10: The Whole Stack</p>
+  <div class="title-bar"></div>
+</div>
+
+<!-- Legend -->
+<div class="legend">
+  <div class="legend-item"><span class="legend-line-solid"></span> Direct influence</div>
+  <div class="legend-item"><span class="legend-line-dashed"></span> Conceptual influence</div>
+  <div class="legend-item"><span class="legend-node-large"></span> Major breakthrough</div>
+  <div class="legend-item"><span class="legend-node"></span> Key concept</div>
+</div>
+
+<div class="issue-swatches">
+  <div class="swatch"><span class="swatch-dot" style="background:#E53E3E"></span>Issue 1</div>
+  <div class="swatch"><span class="swatch-dot" style="background:#DD6B20"></span>Issue 2</div>
+  <div class="swatch"><span class="swatch-dot" style="background:#38A169"></span>Issue 3</div>
+  <div class="swatch"><span class="swatch-dot" style="background:#805AD5"></span>Issue 4</div>
+  <div class="swatch"><span class="swatch-dot" style="background:#D69E2E"></span>Issue 5</div>
+  <div class="swatch"><span class="swatch-dot" style="background:#E53E3E"></span>Issue 6</div>
+  <div class="swatch"><span class="swatch-dot" style="background:#4A9BD9"></span>Issue 7</div>
+  <div class="swatch"><span class="swatch-dot" style="background:#9F7AEA"></span>Issue 8</div>
+  <div class="swatch"><span class="swatch-dot" style="background:#48BB78"></span>Issue 9</div>
+  <div class="swatch"><span class="swatch-dot" style="background:#DD6B20"></span>Issue 10</div>
+</div>
+
+<p class="scroll-hint">&larr; Scroll horizontally to explore &rarr;</p>
+
+<!-- The Tree -->
+<div class="tree-container">
+<div class="tree-svg-wrap">
+<svg id="treeSvg" viewBox="0 0 1020 1520" xmlns="http://www.w3.org/2000/svg" role="img" aria-roledescription="interactive diagram" aria-label="The Computing Family Tree: a visual map of 90 years of computing ideas from 1936 to 2026, showing how each breakthrough influenced the next.">
+<title>The Computing Family Tree</title>
+<desc>A panoramic visualization showing the lineage of computing concepts from the Turing Machine in 1936 through to Agent Swarms in 2026, organized by era and colored by the comic issue that covers each topic.</desc>
+
+<defs>
+  <!-- Robot head for nodes -->
+  <symbol id="robot-sm" viewBox="0 0 24 24">
+    <rect x="4" y="6" width="16" height="14" rx="3" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="1.5"/>
+    <rect x="6" y="8" width="12" height="8" rx="2" fill="currentColor" opacity="0.08"/>
+    <circle cx="9" cy="12" r="1.5" fill="currentColor"/>
+    <circle cx="15" cy="12" r="1.5" fill="currentColor"/>
+    <line x1="12" y1="3" x2="12" y2="6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="12" cy="2" r="1.5" fill="currentColor" opacity="0.5"/>
+  </symbol>
+
+  <!-- Arrow marker -->
+  <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#A0AEC0" opacity="0.6"/>
+  </marker>
+
+  <!-- Glow filter for highlighted connections -->
+  <filter id="glow">
+    <feGaussianBlur stdDeviation="2" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</defs>
+
+<!-- ============ ERA BACKGROUND BANDS ============ -->
+<!-- Issue 1: 1936 — The Root -->
+<rect x="0" y="0" width="1020" height="120" fill="#E53E3E" opacity="0.04" rx="0"/>
+<!-- Issue 2: 1940s-1950s Hardware -->
+<rect x="0" y="120" width="1020" height="200" fill="#DD6B20" opacity="0.04" rx="0"/>
+<!-- Issue 3: 1950s Languages -->
+<rect x="0" y="320" width="1020" height="180" fill="#38A169" opacity="0.04" rx="0"/>
+<!-- Issue 4: 1960s-1980s Software -->
+<rect x="0" y="500" width="1020" height="180" fill="#805AD5" opacity="0.04" rx="0"/>
+<!-- Issue 5: 1989-2000s Connected World -->
+<rect x="0" y="680" width="1020" height="180" fill="#D69E2E" opacity="0.04" rx="0"/>
+<!-- Issue 6: ML -->
+<rect x="0" y="860" width="1020" height="180" fill="#E53E3E" opacity="0.04" rx="0"/>
+<!-- Issue 7: Transformers -->
+<rect x="0" y="1040" width="1020" height="160" fill="#4A9BD9" opacity="0.04" rx="0"/>
+<!-- Issue 8: Agents -->
+<rect x="0" y="1200" width="1020" height="130" fill="#9F7AEA" opacity="0.04" rx="0"/>
+<!-- Issue 9: Swarms -->
+<rect x="0" y="1330" width="1020" height="190" fill="#48BB78" opacity="0.04" rx="0"/>
+
+<!-- Era labels (left side) -->
+<text x="16" y="32" class="era-label" fill="#E53E3E">1936 — The Root</text>
+<text x="16" y="48" class="era-issue-tag" fill="#E53E3E">Issue 1</text>
+
+<text x="16" y="148" class="era-label" fill="#DD6B20">1940s-1958 — First Machines</text>
+<text x="16" y="164" class="era-issue-tag" fill="#DD6B20">Issue 2</text>
+
+<text x="16" y="348" class="era-label" fill="#38A169">1950s — Languages</text>
+<text x="16" y="364" class="era-issue-tag" fill="#38A169">Issue 3</text>
+
+<text x="16" y="528" class="era-label" fill="#805AD5">1969-1980s — Software Revolution</text>
+<text x="16" y="544" class="era-issue-tag" fill="#805AD5">Issue 4</text>
+
+<text x="16" y="708" class="era-label" fill="#D69E2E">1989-2000s — Connected World</text>
+<text x="16" y="724" class="era-issue-tag" fill="#D69E2E">Issue 5</text>
+
+<text x="16" y="888" class="era-label" fill="#E53E3E">1958-2012 — Machine Learning</text>
+<text x="16" y="904" class="era-issue-tag" fill="#E53E3E">Issue 6</text>
+
+<text x="16" y="1068" class="era-label" fill="#4A9BD9">2017-2023 — The Transformer Age</text>
+<text x="16" y="1084" class="era-issue-tag" fill="#4A9BD9">Issue 7</text>
+
+<text x="16" y="1228" class="era-label" fill="#9F7AEA">2024-2025 — Agents</text>
+<text x="16" y="1244" class="era-issue-tag" fill="#9F7AEA">Issue 8</text>
+
+<text x="16" y="1365" class="era-label" fill="#48BB78">2025-2026 — Swarms</text>
+<text x="16" y="1381" class="era-issue-tag" fill="#48BB78">Issue 9</text>
+
+<!-- ============ CONNECTIONS (drawn first, behind nodes) ============ -->
+<g id="connections" fill="none" stroke-linecap="round">
+
+  <!-- === DIRECT INFLUENCE (solid lines) === -->
+  <!-- Node reference: name (x,y) r=radius, bottom=y+r, top=y-r -->
+
+  <!-- Turing Machine (500,75 r22) → Colossus (280,185 r16) -->
+  <path d="M 500,97 C 500,130 280,140 280,169" stroke="#DD6B20" stroke-width="1.8" opacity="0.4"/>
+  <!-- Turing Machine → ENIAC (500,185 r17) -->
+  <path d="M 500,97 C 500,135 500,140 500,168" stroke="#DD6B20" stroke-width="1.8" opacity="0.4"/>
+  <!-- Turing Machine → Z3 (720,185 r15) -->
+  <path d="M 500,97 C 500,130 720,140 720,170" stroke="#DD6B20" stroke-width="1.8" opacity="0.4"/>
+
+  <!-- ENIAC (500,185 r17) → Von Neumann (400,275 r18) -->
+  <path d="M 500,202 C 500,235 400,240 400,257" stroke="#DD6B20" stroke-width="1.8" opacity="0.4"/>
+  <!-- Turing Machine → Von Neumann (conceptual) -->
+  <path d="M 500,97 C 530,165 420,225 400,257" stroke="#DD6B20" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Von Neumann (400,275 r18) → Transistor (680,275 r15) — peer influence -->
+  <path d="M 418,275 C 500,275 600,275 665,275" stroke="#DD6B20" stroke-width="1.5" opacity="0.3" stroke-dasharray="5,4"/>
+  <!-- Transistor (680,275 r15) → IC (820,275 r15) -->
+  <path d="M 695,275 C 730,290 785,290 805,275" stroke="#DD6B20" stroke-width="1.5" opacity="0.35"/>
+
+  <!-- Von Neumann (400,275 r18) → Assembly (220,390 r15) -->
+  <path d="M 400,293 C 400,335 220,345 220,375" stroke="#38A169" stroke-width="1.8" opacity="0.4"/>
+  <!-- Assembly (220,390 r15) → FORTRAN (360,390 r15) -->
+  <path d="M 235,390 C 270,405 325,405 345,390" stroke="#38A169" stroke-width="1.5" opacity="0.35"/>
+  <!-- Assembly → COBOL (500,390 r14) -->
+  <path d="M 235,390 C 310,415 435,415 486,390" stroke="#38A169" stroke-width="1.5" opacity="0.35"/>
+  <!-- Turing Machine → LISP (660,390 r15) via Lambda Calculus -->
+  <path d="M 500,97 C 560,200 660,300 660,375" stroke="#38A169" stroke-width="1.5" opacity="0.3" stroke-dasharray="6,4"/>
+  <!-- COBOL (500,390) → Compiler (810,390 r15) — Grace Hopper connection -->
+  <path d="M 514,390 C 600,408 750,408 795,390" stroke="#38A169" stroke-width="1.5" opacity="0.35"/>
+
+  <!-- Assembly (220,390 r15) → Unix (290,570 r18) -->
+  <path d="M 220,405 C 220,475 260,510 290,552" stroke="#805AD5" stroke-width="1.8" opacity="0.4"/>
+  <!-- Unix (290,570 r18) → C Language (450,570 r15) -->
+  <path d="M 308,570 C 350,585 400,585 435,570" stroke="#805AD5" stroke-width="1.5" opacity="0.35"/>
+  <!-- IC (820,275 r15) → Personal Computer (640,570 r16) -->
+  <path d="M 820,290 C 820,430 640,490 640,554" stroke="#805AD5" stroke-width="1.5" opacity="0.35"/>
+  <!-- Unix (290,570 r18) → Free Software (810,570 r15) -->
+  <path d="M 308,570 C 450,610 700,610 795,570" stroke="#805AD5" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- Personal Computer (640,570 r16) → Web (300,750 r18) -->
+  <path d="M 640,586 C 640,660 300,680 300,732" stroke="#D69E2E" stroke-width="1.8" opacity="0.4"/>
+  <!-- Unix (290,570 r18) → Linux (470,750 r17) -->
+  <path d="M 290,588 C 290,670 470,680 470,733" stroke="#D69E2E" stroke-width="1.8" opacity="0.4"/>
+  <!-- Free Software (810,570 r15) → Linux (470,750 r17) -->
+  <path d="M 810,585 C 810,670 470,690 470,733" stroke="#D69E2E" stroke-width="1.5" opacity="0.3"/>
+  <!-- Linux (470,750 r17) → Open Source (620,750 r15) -->
+  <path d="M 487,750 C 530,768 575,768 605,750" stroke="#D69E2E" stroke-width="1.5" opacity="0.35"/>
+  <!-- Free Software (810,570 r15) → Open Source (620,750 r15) -->
+  <path d="M 810,585 C 810,680 620,700 620,735" stroke="#D69E2E" stroke-width="1.5" opacity="0.3"/>
+  <!-- Linux (470,750 r17) → Git (760,750 r14) -->
+  <path d="M 487,750 C 570,772 700,772 746,750" stroke="#D69E2E" stroke-width="1.5" opacity="0.35"/>
+  <!-- Web (300,750 r18) → Google (900,750 r14) -->
+  <path d="M 318,750 C 500,790 800,790 886,750" stroke="#D69E2E" stroke-width="1.5" opacity="0.35"/>
+
+  <!-- Turing Machine (500,75 r22) → Perceptron (250,930 r16) — long conceptual arc -->
+  <path d="M 500,97 C 540,400 250,700 250,914" stroke="#E53E3E" stroke-width="1.5" opacity="0.35" stroke-dasharray="6,4"/>
+  <!-- Perceptron (250,930 r16) → Neural Networks (420,930 r17) -->
+  <path d="M 266,930 C 315,950 375,950 403,930" stroke="#E53E3E" stroke-width="1.8" opacity="0.4"/>
+  <!-- ImageNet (600,930 r15) → AlexNet (720,930 r16) -->
+  <path d="M 615,930 C 645,945 690,945 704,930" stroke="#E53E3E" stroke-width="1.5" opacity="0.35"/>
+  <!-- Neural Networks (420,930 r17) → AlexNet (720,930 r16) -->
+  <path d="M 437,930 C 520,960 650,960 704,930" stroke="#E53E3E" stroke-width="1.8" opacity="0.4"/>
+  <!-- AlexNet (720,930 r16) → Deep Learning (880,930 r17) -->
+  <path d="M 736,930 C 780,950 840,950 863,930" stroke="#E53E3E" stroke-width="1.8" opacity="0.4"/>
+
+  <!-- Deep Learning (880,930 r17) → Transformer (340,1115 r22) -->
+  <path d="M 880,947 C 880,1020 340,1050 340,1093" stroke="#4A9BD9" stroke-width="2" opacity="0.45"/>
+  <!-- Transformer (340,1115 r22) → GPT (500,1115 r16) -->
+  <path d="M 362,1115 C 400,1130 460,1130 484,1115" stroke="#4A9BD9" stroke-width="1.8" opacity="0.4"/>
+  <!-- Transformer → BERT (640,1115 r15) -->
+  <path d="M 362,1115 C 440,1145 580,1145 625,1115" stroke="#4A9BD9" stroke-width="1.5" opacity="0.35"/>
+  <!-- Transformer → Claude (770,1115 r16) -->
+  <path d="M 362,1115 C 470,1150 700,1150 754,1115" stroke="#4A9BD9" stroke-width="1.5" opacity="0.35"/>
+  <!-- GPT (500,1115 r16) → LLMs (900,1150 r18) -->
+  <path d="M 516,1115 C 620,1155 820,1160 882,1150" stroke="#4A9BD9" stroke-width="1.5" opacity="0.3"/>
+  <!-- BERT (640,1115 r15) → LLMs -->
+  <path d="M 655,1115 C 720,1148 830,1155 882,1150" stroke="#4A9BD9" stroke-width="1.2" opacity="0.35"/>
+  <!-- Claude (770,1115 r16) → LLMs -->
+  <path d="M 786,1115 C 820,1140 860,1148 882,1150" stroke="#4A9BD9" stroke-width="1.2" opacity="0.35"/>
+
+  <!-- LLMs (900,1150 r18) → Tool Use (310,1280 r15) -->
+  <path d="M 900,1168 C 900,1220 310,1230 310,1265" stroke="#9F7AEA" stroke-width="1.8" opacity="0.4"/>
+  <!-- LLMs → ReAct (530,1280 r15) -->
+  <path d="M 900,1168 C 900,1215 530,1230 530,1265" stroke="#9F7AEA" stroke-width="1.8" opacity="0.4"/>
+  <!-- Tool Use (310,1280 r15) → Claude Code (750,1280 r17) -->
+  <path d="M 325,1280 C 450,1310 650,1310 733,1280" stroke="#9F7AEA" stroke-width="1.8" opacity="0.4"/>
+  <!-- ReAct (530,1280 r15) → Claude Code -->
+  <path d="M 545,1280 C 610,1302 690,1302 733,1280" stroke="#9F7AEA" stroke-width="1.5" opacity="0.35"/>
+
+  <!-- Claude Code (750,1280 r17) → Multi-Agent (340,1420 r17) -->
+  <path d="M 750,1297 C 750,1360 340,1370 340,1403" stroke="#48BB78" stroke-width="1.8" opacity="0.4"/>
+  <!-- Multi-Agent (340,1420 r17) → Constellation (560,1420 r16) -->
+  <path d="M 357,1420 C 410,1440 510,1440 544,1420" stroke="#48BB78" stroke-width="1.8" opacity="0.4"/>
+  <!-- Multi-Agent → Agent Swarms (770,1420 r18) -->
+  <path d="M 357,1420 C 470,1452 680,1452 752,1420" stroke="#48BB78" stroke-width="1.8" opacity="0.4"/>
+
+  <!-- === CROSS-POLLINATION (dashed lines) === -->
+
+  <!-- LISP (660,390) → Functional programming → ML arc to Perceptron (250,930) -->
+  <path d="M 660,405 C 700,600 150,750 250,914" stroke="#38A169" stroke-width="1.3" opacity="0.35" stroke-dasharray="5,4"/>
+
+  <!-- Unix (290,570) "small tools" → Agent Swarms (770,1420) — THE UNIX ECHO (highlighted) -->
+  <path d="M 290,588 C 150,900 150,1300 770,1438" stroke="#48BB78" stroke-width="2.5" opacity="0.35" stroke-dasharray="8,5" filter="url(#glow)" id="unix-echo-line"/>
+
+  <!-- Git (760,750) → LLM training data → LLMs (900,1150) -->
+  <path d="M 760,764 C 800,850 920,950 900,1132" stroke="#D69E2E" stroke-width="1.3" opacity="0.35" stroke-dasharray="5,4"/>
+
+  <!-- Unix (290,570) Philosophy → Multi-Agent (340,1420) composition -->
+  <path d="M 290,588 C 200,800 200,1250 340,1403" stroke="#805AD5" stroke-width="1.3" opacity="0.35" stroke-dasharray="5,4"/>
+
+</g>
+
+<!-- ============ NODES ============ -->
+<g id="nodes">
+
+  <!-- ====== ERA 1: 1936 — The Root ====== -->
+
+  <!-- Turing Machine (LARGE — foundational) -->
+  <g class="node-group" tabindex="0" aria-label="Turing Machine" data-name="Turing Machine" data-year="1936" data-person="Alan Turing" data-quote="Can a machine solve any mathematical problem?" data-issue="1" transform="translate(500, 75)">
+    <circle class="node-circle" cx="0" cy="0" r="22" fill="#FFF5F5" stroke="#E53E3E" stroke-width="2.5"/>
+    <use href="#robot-sm" x="-10" y="-10" width="20" height="20" color="#E53E3E"/>
+    <text x="0" y="36" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="13" fill="#2D3748">Turing Machine</text>
+    <text x="0" y="50" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1936</text>
+  </g>
+
+  <!-- ====== ERA 2: 1940s-1958 — First Machines ====== -->
+
+  <!-- Colossus -->
+  <g class="node-group" tabindex="0" aria-label="Colossus" data-name="Colossus" data-year="1943" data-person="Tommy Flowers, Bletchley Park" data-quote="Code-breaking at industrial scale" data-issue="2" transform="translate(280, 185)">
+    <circle class="node-circle" cx="0" cy="0" r="16" fill="#FFFAF0" stroke="#DD6B20" stroke-width="2"/>
+    <use href="#robot-sm" x="-8" y="-8" width="16" height="16" color="#DD6B20"/>
+    <text x="0" y="28" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Colossus</text>
+    <text x="0" y="40" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1943</text>
+  </g>
+
+  <!-- ENIAC -->
+  <g class="node-group" tabindex="0" aria-label="ENIAC" data-name="ENIAC" data-year="1945" data-person="Eckert &amp; Mauchly" data-quote="The first general-purpose electronic computer" data-issue="2" transform="translate(500, 185)">
+    <circle class="node-circle" cx="0" cy="0" r="17" fill="#FFFAF0" stroke="#DD6B20" stroke-width="2"/>
+    <use href="#robot-sm" x="-8" y="-8" width="16" height="16" color="#DD6B20"/>
+    <text x="0" y="28" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">ENIAC</text>
+    <text x="0" y="40" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1945</text>
+  </g>
+
+  <!-- Z3 -->
+  <g class="node-group" tabindex="0" aria-label="Z3" data-name="Z3" data-year="1941" data-person="Konrad Zuse" data-quote="The world's first programmable computer, built in Berlin" data-issue="2" transform="translate(720, 185)">
+    <circle class="node-circle" cx="0" cy="0" r="15" fill="#FFFAF0" stroke="#DD6B20" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#DD6B20"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Z3</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1941</text>
+  </g>
+
+  <!-- Von Neumann Architecture -->
+  <g class="node-group" tabindex="0" aria-label="Von Neumann Architecture" data-name="Von Neumann Architecture" data-year="1945" data-person="John von Neumann" data-quote="Store the program in memory, right next to the data" data-issue="2" transform="translate(400, 275)">
+    <circle class="node-circle" cx="0" cy="0" r="18" fill="#FFFAF0" stroke="#DD6B20" stroke-width="2.5"/>
+    <use href="#robot-sm" x="-9" y="-9" width="18" height="18" color="#DD6B20"/>
+    <text x="0" y="30" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Von Neumann Arch.</text>
+    <text x="0" y="42" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1945</text>
+  </g>
+
+  <!-- Transistor -->
+  <g class="node-group" tabindex="0" aria-label="Transistor" data-name="Transistor" data-year="1947" data-person="Bardeen, Brattain &amp; Shockley" data-quote="Smaller, reliable, no more vacuum tubes" data-issue="2" transform="translate(680, 275)">
+    <circle class="node-circle" cx="0" cy="0" r="15" fill="#FFFAF0" stroke="#DD6B20" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#DD6B20"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Transistor</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1947</text>
+  </g>
+
+  <!-- Integrated Circuit -->
+  <g class="node-group" tabindex="0" aria-label="Integrated Circuit" data-name="Integrated Circuit" data-year="1958" data-person="Kilby &amp; Noyce" data-quote="Thousands of transistors on a single chip" data-issue="2" transform="translate(820, 275)">
+    <circle class="node-circle" cx="0" cy="0" r="15" fill="#FFFAF0" stroke="#DD6B20" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#DD6B20"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Integrated Circuit</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1958</text>
+  </g>
+
+  <!-- ====== ERA 3: 1950s — Languages ====== -->
+
+  <!-- Assembly Language -->
+  <g class="node-group" tabindex="0" aria-label="Assembly Language" data-name="Assembly Language" data-year="1950s" data-person="Various pioneers" data-quote="Human mnemonics instead of raw machine code" data-issue="3" transform="translate(220, 390)">
+    <circle class="node-circle" cx="0" cy="0" r="15" fill="#F0FFF4" stroke="#38A169" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#38A169"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Assembly</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1950s</text>
+  </g>
+
+  <!-- FORTRAN -->
+  <g class="node-group" tabindex="0" aria-label="FORTRAN" data-name="FORTRAN" data-year="1957" data-person="John Backus, IBM" data-quote="The first high-level programming language" data-issue="3" transform="translate(360, 390)">
+    <circle class="node-circle" cx="0" cy="0" r="15" fill="#F0FFF4" stroke="#38A169" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#38A169"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">FORTRAN</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1957</text>
+  </g>
+
+  <!-- COBOL -->
+  <g class="node-group" tabindex="0" aria-label="COBOL" data-name="COBOL" data-year="1959" data-person="Grace Hopper et al." data-quote="Computing for business, in English-like syntax" data-issue="3" transform="translate(500, 390)">
+    <circle class="node-circle" cx="0" cy="0" r="14" fill="#F0FFF4" stroke="#38A169" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#38A169"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">COBOL</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1959</text>
+  </g>
+
+  <!-- LISP -->
+  <g class="node-group" tabindex="0" aria-label="LISP" data-name="LISP" data-year="1958" data-person="John McCarthy" data-quote="The language of AI, born from lambda calculus" data-issue="3" transform="translate(660, 390)">
+    <circle class="node-circle" cx="0" cy="0" r="15" fill="#F0FFF4" stroke="#38A169" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#38A169"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">LISP</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1958</text>
+  </g>
+
+  <!-- Compiler -->
+  <g class="node-group" tabindex="0" aria-label="Compiler" data-name="Compiler" data-year="1952" data-person="Grace Hopper" data-quote="Translate human code to machine code automatically" data-issue="3" transform="translate(810, 390)">
+    <circle class="node-circle" cx="0" cy="0" r="15" fill="#F0FFF4" stroke="#38A169" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#38A169"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Compiler</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1952</text>
+  </g>
+
+  <!-- ====== ERA 4: 1969-1980s — Software Revolution ====== -->
+
+  <!-- Unix -->
+  <g class="node-group" tabindex="0" aria-label="Unix" data-name="Unix" data-year="1969" data-person="Thompson &amp; Ritchie" data-quote="Small tools, piped together. Do one thing well." data-issue="4" transform="translate(290, 570)">
+    <circle class="node-circle" cx="0" cy="0" r="18" fill="#FAF5FF" stroke="#805AD5" stroke-width="2.5"/>
+    <use href="#robot-sm" x="-9" y="-9" width="18" height="18" color="#805AD5"/>
+    <text x="0" y="30" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="13" fill="#2D3748">Unix</text>
+    <text x="0" y="42" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1969</text>
+  </g>
+
+  <!-- C Language -->
+  <g class="node-group" tabindex="0" aria-label="C Language" data-name="C Language" data-year="1972" data-person="Dennis Ritchie" data-quote="Portable systems programming — write once, compile anywhere" data-issue="4" transform="translate(450, 570)">
+    <circle class="node-circle" cx="0" cy="0" r="15" fill="#FAF5FF" stroke="#805AD5" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#805AD5"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">C Language</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1972</text>
+  </g>
+
+  <!-- Personal Computer -->
+  <g class="node-group" tabindex="0" aria-label="Personal Computer" data-name="Personal Computer" data-year="1977-1984" data-person="Apple, IBM, and others" data-quote="A computer for every desk and every home" data-issue="4" transform="translate(640, 570)">
+    <circle class="node-circle" cx="0" cy="0" r="16" fill="#FAF5FF" stroke="#805AD5" stroke-width="2"/>
+    <use href="#robot-sm" x="-8" y="-8" width="16" height="16" color="#805AD5"/>
+    <text x="0" y="28" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Personal Computer</text>
+    <text x="0" y="40" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1977</text>
+  </g>
+
+  <!-- Free Software -->
+  <g class="node-group" tabindex="0" aria-label="Free Software" data-name="Free Software" data-year="1983" data-person="Richard Stallman" data-quote="Free as in freedom, not free as in beer" data-issue="4" transform="translate(810, 570)">
+    <circle class="node-circle" cx="0" cy="0" r="15" fill="#FAF5FF" stroke="#805AD5" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#805AD5"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Free Software</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1983</text>
+  </g>
+
+  <!-- ====== ERA 5: 1989-2000s — Connected World ====== -->
+
+  <!-- World Wide Web -->
+  <g class="node-group" tabindex="0" aria-label="World Wide Web" data-name="World Wide Web" data-year="1989" data-person="Tim Berners-Lee" data-quote="An information space where anyone can share anything" data-issue="5" transform="translate(300, 750)">
+    <circle class="node-circle" cx="0" cy="0" r="18" fill="#FFFFF0" stroke="#D69E2E" stroke-width="2.5"/>
+    <use href="#robot-sm" x="-9" y="-9" width="18" height="18" color="#D69E2E"/>
+    <text x="0" y="30" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="13" fill="#2D3748">World Wide Web</text>
+    <text x="0" y="42" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1989</text>
+  </g>
+
+  <!-- Linux -->
+  <g class="node-group" tabindex="0" aria-label="Linux" data-name="Linux" data-year="1991" data-person="Linus Torvalds" data-quote="I'm doing a (free) operating system (just a hobby)" data-issue="5" transform="translate(470, 750)">
+    <circle class="node-circle" cx="0" cy="0" r="17" fill="#FFFFF0" stroke="#D69E2E" stroke-width="2"/>
+    <use href="#robot-sm" x="-8" y="-8" width="16" height="16" color="#D69E2E"/>
+    <text x="0" y="28" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Linux</text>
+    <text x="0" y="40" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1991</text>
+  </g>
+
+  <!-- Open Source -->
+  <g class="node-group" tabindex="0" aria-label="Open Source" data-name="Open Source" data-year="1998" data-person="OSI, Raymond, Perens" data-quote="The cathedral and the bazaar — let everyone contribute" data-issue="5" transform="translate(620, 750)">
+    <circle class="node-circle" cx="0" cy="0" r="15" fill="#FFFFF0" stroke="#D69E2E" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#D69E2E"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Open Source</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1998</text>
+  </g>
+
+  <!-- Git -->
+  <g class="node-group" tabindex="0" aria-label="Git" data-name="Git" data-year="2005" data-person="Linus Torvalds" data-quote="Distributed version control — every clone is a full backup" data-issue="5" transform="translate(760, 750)">
+    <circle class="node-circle" cx="0" cy="0" r="14" fill="#FFFFF0" stroke="#D69E2E" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#D69E2E"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Git</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2005</text>
+  </g>
+
+  <!-- Google -->
+  <g class="node-group" tabindex="0" aria-label="Google" data-name="Google" data-year="1998" data-person="Page &amp; Brin" data-quote="Organize the world's information with PageRank" data-issue="5" transform="translate(900, 750)">
+    <circle class="node-circle" cx="0" cy="0" r="14" fill="#FFFFF0" stroke="#D69E2E" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#D69E2E"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Google</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1998</text>
+  </g>
+
+  <!-- ====== ERA 6: Machine Learning ====== -->
+
+  <!-- Perceptron -->
+  <g class="node-group" tabindex="0" aria-label="Perceptron" data-name="Perceptron" data-year="1958" data-person="Frank Rosenblatt" data-quote="A machine inspired by neurons — the first learning algorithm" data-issue="6" transform="translate(250, 930)">
+    <circle class="node-circle" cx="0" cy="0" r="16" fill="#FFF5F5" stroke="#E53E3E" stroke-width="2"/>
+    <use href="#robot-sm" x="-8" y="-8" width="16" height="16" color="#E53E3E"/>
+    <text x="0" y="28" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Perceptron</text>
+    <text x="0" y="40" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1958</text>
+  </g>
+
+  <!-- Neural Networks -->
+  <g class="node-group" tabindex="0" aria-label="Neural Networks" data-name="Neural Networks" data-year="1986" data-person="Rumelhart, Hinton &amp; Williams" data-quote="Backpropagation — teaching networks by correcting errors" data-issue="6" transform="translate(420, 930)">
+    <circle class="node-circle" cx="0" cy="0" r="17" fill="#FFF5F5" stroke="#E53E3E" stroke-width="2"/>
+    <use href="#robot-sm" x="-8" y="-8" width="16" height="16" color="#E53E3E"/>
+    <text x="0" y="28" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Neural Networks</text>
+    <text x="0" y="40" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">1986</text>
+  </g>
+
+  <!-- ImageNet -->
+  <g class="node-group" tabindex="0" aria-label="ImageNet" data-name="ImageNet" data-year="2009" data-person="Fei-Fei Li" data-quote="The data that changed everything — 14 million labeled images" data-issue="6" transform="translate(600, 930)">
+    <circle class="node-circle" cx="0" cy="0" r="15" fill="#FFF5F5" stroke="#E53E3E" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#E53E3E"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">ImageNet</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2009</text>
+  </g>
+
+  <!-- AlexNet -->
+  <g class="node-group" tabindex="0" aria-label="AlexNet" data-name="AlexNet" data-year="2012" data-person="Krizhevsky, Sutskever &amp; Hinton" data-quote="The 2012 breakthrough — deep learning finally works" data-issue="6" transform="translate(720, 930)">
+    <circle class="node-circle" cx="0" cy="0" r="16" fill="#FFF5F5" stroke="#E53E3E" stroke-width="2"/>
+    <use href="#robot-sm" x="-8" y="-8" width="16" height="16" color="#E53E3E"/>
+    <text x="0" y="28" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">AlexNet</text>
+    <text x="0" y="40" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2012</text>
+  </g>
+
+  <!-- Deep Learning -->
+  <g class="node-group" tabindex="0" aria-label="Deep Learning" data-name="Deep Learning" data-year="2012+" data-person="Hinton, LeCun, Bengio" data-quote="Many layers deep — the AI renaissance begins" data-issue="6" transform="translate(880, 930)">
+    <circle class="node-circle" cx="0" cy="0" r="17" fill="#FFF5F5" stroke="#E53E3E" stroke-width="2.5"/>
+    <use href="#robot-sm" x="-8" y="-8" width="16" height="16" color="#E53E3E"/>
+    <text x="0" y="28" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Deep Learning</text>
+    <text x="0" y="40" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2012+</text>
+  </g>
+
+  <!-- ====== ERA 7: 2017-2023 — Transformers ====== -->
+
+  <!-- Transformer (LARGE — pivotal) -->
+  <g class="node-group" tabindex="0" aria-label="Transformer" data-name="Transformer" data-year="2017" data-person="Vaswani et al., Google" data-quote="Attention Is All You Need — the architecture that changed everything" data-issue="7" transform="translate(340, 1115)">
+    <circle class="node-circle" cx="0" cy="0" r="22" fill="#EBF8FF" stroke="#4A9BD9" stroke-width="2.5"/>
+    <use href="#robot-sm" x="-10" y="-10" width="20" height="20" color="#4A9BD9"/>
+    <text x="0" y="34" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="13" fill="#2D3748">Transformer</text>
+    <text x="0" y="48" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2017</text>
+  </g>
+
+  <!-- GPT -->
+  <g class="node-group" tabindex="0" aria-label="GPT" data-name="GPT" data-year="2018-2023" data-person="OpenAI" data-quote="Scale the transformer, scale the data, scale the compute" data-issue="7" transform="translate(500, 1115)">
+    <circle class="node-circle" cx="0" cy="0" r="16" fill="#EBF8FF" stroke="#4A9BD9" stroke-width="2"/>
+    <use href="#robot-sm" x="-8" y="-8" width="16" height="16" color="#4A9BD9"/>
+    <text x="0" y="28" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">GPT</text>
+    <text x="0" y="40" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2018</text>
+  </g>
+
+  <!-- BERT -->
+  <g class="node-group" tabindex="0" aria-label="BERT" data-name="BERT" data-year="2018" data-person="Devlin et al., Google" data-quote="Bidirectional understanding — read the whole sentence at once" data-issue="7" transform="translate(640, 1115)">
+    <circle class="node-circle" cx="0" cy="0" r="15" fill="#EBF8FF" stroke="#4A9BD9" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#4A9BD9"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">BERT</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2018</text>
+  </g>
+
+  <!-- Claude -->
+  <g class="node-group" tabindex="0" aria-label="Claude" data-name="Claude" data-year="2023" data-person="Anthropic" data-quote="Constitutional AI — helpful, harmless, and honest" data-issue="7" transform="translate(770, 1115)">
+    <circle class="node-circle" cx="0" cy="0" r="16" fill="#EBF8FF" stroke="#4A9BD9" stroke-width="2"/>
+    <use href="#robot-sm" x="-8" y="-8" width="16" height="16" color="#4A9BD9"/>
+    <text x="0" y="28" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Claude</text>
+    <text x="0" y="40" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2023</text>
+  </g>
+
+  <!-- LLMs -->
+  <g class="node-group" tabindex="0" aria-label="LLMs" data-name="LLMs" data-year="2020s" data-person="Many labs worldwide" data-quote="Large Language Models — the convergence of scale, data, and architecture" data-issue="7" transform="translate(900, 1150)">
+    <circle class="node-circle" cx="0" cy="0" r="18" fill="#EBF8FF" stroke="#4A9BD9" stroke-width="2.5"/>
+    <use href="#robot-sm" x="-9" y="-9" width="18" height="18" color="#4A9BD9"/>
+    <text x="0" y="30" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="13" fill="#2D3748">LLMs</text>
+    <text x="0" y="42" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2020s</text>
+  </g>
+
+  <!-- ====== ERA 8: 2024-2025 — Agents ====== -->
+
+  <!-- Tool Use -->
+  <g class="node-group" tabindex="0" aria-label="Tool Use" data-name="Tool Use" data-year="2024" data-person="Anthropic, OpenAI, et al." data-quote="LLMs that can call functions and use external tools" data-issue="8" transform="translate(310, 1280)">
+    <circle class="node-circle" cx="0" cy="0" r="15" fill="#FAF5FF" stroke="#9F7AEA" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#9F7AEA"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Tool Use</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2024</text>
+  </g>
+
+  <!-- ReAct Pattern -->
+  <g class="node-group" tabindex="0" aria-label="ReAct Pattern" data-name="ReAct Pattern" data-year="2024" data-person="Yao et al." data-quote="Reason then Act — think step by step, then do something" data-issue="8" transform="translate(530, 1280)">
+    <circle class="node-circle" cx="0" cy="0" r="15" fill="#FAF5FF" stroke="#9F7AEA" stroke-width="2"/>
+    <use href="#robot-sm" x="-7" y="-7" width="14" height="14" color="#9F7AEA"/>
+    <text x="0" y="27" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">ReAct Pattern</text>
+    <text x="0" y="39" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2024</text>
+  </g>
+
+  <!-- Claude Code -->
+  <g class="node-group" tabindex="0" aria-label="Claude Code" data-name="Claude Code" data-year="2025" data-person="Anthropic" data-quote="An AI agent in your terminal — tool use meets coding" data-issue="8" transform="translate(750, 1280)">
+    <circle class="node-circle" cx="0" cy="0" r="17" fill="#FAF5FF" stroke="#9F7AEA" stroke-width="2.5"/>
+    <use href="#robot-sm" x="-8" y="-8" width="16" height="16" color="#9F7AEA"/>
+    <text x="0" y="28" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="13" fill="#2D3748">Claude Code</text>
+    <text x="0" y="40" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2025</text>
+  </g>
+
+  <!-- ====== ERA 9: 2025-2026 — Swarms ====== -->
+
+  <!-- Multi-Agent Systems -->
+  <g class="node-group" tabindex="0" aria-label="Multi-Agent Systems" data-name="Multi-Agent Systems" data-year="2025" data-person="Many teams" data-quote="Multiple AI agents working together on shared problems" data-issue="9" transform="translate(340, 1420)">
+    <circle class="node-circle" cx="0" cy="0" r="17" fill="#F0FFF4" stroke="#48BB78" stroke-width="2"/>
+    <use href="#robot-sm" x="-8" y="-8" width="16" height="16" color="#48BB78"/>
+    <text x="0" y="28" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Multi-Agent Systems</text>
+    <text x="0" y="40" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2025</text>
+  </g>
+
+  <!-- Constellation Pattern -->
+  <g class="node-group" tabindex="0" aria-label="Constellation Pattern" data-name="Constellation Pattern" data-year="2025" data-person="Anthropic" data-quote="Isolated agents communicating only through files" data-issue="9" transform="translate(560, 1420)">
+    <circle class="node-circle" cx="0" cy="0" r="16" fill="#F0FFF4" stroke="#48BB78" stroke-width="2"/>
+    <use href="#robot-sm" x="-8" y="-8" width="16" height="16" color="#48BB78"/>
+    <text x="0" y="28" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="12" fill="#2D3748">Constellation</text>
+    <text x="0" y="40" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2025</text>
+  </g>
+
+  <!-- Agent Swarms -->
+  <g class="node-group" tabindex="0" aria-label="Agent Swarms" data-name="Agent Swarms" data-year="2025-2026" data-person="The frontier" data-quote="Coordinated AI teams solving problems no single agent can" data-issue="9" transform="translate(770, 1420)">
+    <circle class="node-circle" cx="0" cy="0" r="18" fill="#F0FFF4" stroke="#48BB78" stroke-width="2.5"/>
+    <use href="#robot-sm" x="-9" y="-9" width="18" height="18" color="#48BB78"/>
+    <text x="0" y="30" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="13" fill="#2D3748">Agent Swarms</text>
+    <text x="0" y="42" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="11" fill="#A0AEC0">2026</text>
+  </g>
+
+</g>
+
+<!-- ============ UNIX ECHO annotation ============ -->
+<g id="unix-echo-annotation" transform="translate(130, 1000)">
+  <rect x="-10" y="-18" width="165" height="44" rx="8" fill="#F0FFF4" stroke="#48BB78" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.9"/>
+  <text x="72" y="-2" text-anchor="middle" font-family="'Caveat', cursive" font-size="13" font-weight="700" fill="#48BB78">The Unix Echo</text>
+  <text x="72" y="14" text-anchor="middle" font-family="'Patrick Hand', cursive" font-size="10" fill="#718096">Same idea, 56 years later</text>
+</g>
+
+<!-- ============ "Abstraction" running theme line ============ -->
+<g opacity="0.15">
+  <line x1="970" y1="60" x2="970" y2="1480" stroke="#DD6B20" stroke-width="1" stroke-dasharray="3,6"/>
+  <text x="980" y="770" font-family="'Caveat', cursive" font-size="11" fill="#DD6B20" transform="rotate(90 980 770)">Abstraction is the superpower</text>
+</g>
+
+</svg>
+</div>
+</div>
+
+<!-- Unix Echo Callout -->
+<div class="unix-echo">
+  <div class="echo-title">The Unix Echo</div>
+  <div class="echo-body">
+    In 1969, Doug McIlroy and the Unix team had a radical idea: <strong>build small, focused tools and pipe them together.</strong>
+    In 2025, AI agent swarms follow the exact same pattern: <strong>specialist agents, coordinated through shared protocols.</strong>
+  </div>
+  <div class="echo-note">The same idea, 56 years later. Doug McIlroy would be proud.</div>
+</div>
+
+<!-- Footer -->
+<div class="tree-footer">
+  <p>Every breakthrough built on the ones before. That is the story of computing.</p>
+  <p style="margin-top:12px;font-size:12px;color:#718096;font-family:var(--mono)">From Turing to Swarms &middot; Illustration Companion</p>
+</div>
+
+<!-- Tooltip -->
+<div class="tooltip" id="tooltip">
+  <div class="tt-name" id="tt-name"></div>
+  <div class="tt-date" id="tt-date"></div>
+  <div class="tt-person" id="tt-person"></div>
+  <div class="tt-quote" id="tt-quote"></div>
+</div>
+
+<script>
+(function() {
+  // Tooltip logic
+  const tooltip = document.getElementById('tooltip');
+  const ttName = document.getElementById('tt-name');
+  const ttDate = document.getElementById('tt-date');
+  const ttPerson = document.getElementById('tt-person');
+  const ttQuote = document.getElementById('tt-quote');
+
+  const issueColors = {
+    '1': '#E53E3E', '2': '#DD6B20', '3': '#38A169', '4': '#805AD5',
+    '5': '#D69E2E', '6': '#E53E3E', '7': '#4A9BD9', '8': '#9F7AEA',
+    '9': '#48BB78', '10': '#DD6B20'
+  };
+
+  // Helper: populate tooltip content from a node element
+  function showTooltipForNode(node) {
+    var name = node.dataset.name;
+    var year = node.dataset.year;
+    var person = node.dataset.person;
+    var quote = node.dataset.quote;
+    var issue = node.dataset.issue;
+
+    ttName.textContent = name;
+    ttDate.textContent = year;
+    ttPerson.textContent = person;
+    ttQuote.textContent = quote;
+    ttQuote.style.borderColor = issueColors[issue] || '#A0AEC0';
+
+    tooltip.style.display = 'block';
+  }
+
+  // Helper: position tooltip near an SVG element (for focus-based positioning)
+  function positionTooltipNearNode(node) {
+    var svg = document.getElementById('treeSvg');
+    var rect = node.getBoundingClientRect();
+    var x = rect.left + rect.width / 2 + 16;
+    var y = rect.top - 10;
+
+    if (x + 290 > window.innerWidth) {
+      x = rect.left - 296;
+    }
+    if (y + 120 > window.innerHeight) {
+      y = window.innerHeight - 130;
+    }
+    if (y < 10) y = 10;
+
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = y + 'px';
+  }
+
+  document.querySelectorAll('.node-group').forEach(function(node) {
+    // Mouse events
+    node.addEventListener('mouseenter', function(e) {
+      showTooltipForNode(this);
+      positionTooltip(e);
+      this.querySelector('.node-circle').style.filter = 'drop-shadow(0 0 6px rgba(0,0,0,0.15))';
+    });
+
+    node.addEventListener('mousemove', function(e) {
+      positionTooltip(e);
+    });
+
+    node.addEventListener('mouseleave', function() {
+      tooltip.style.display = 'none';
+      this.querySelector('.node-circle').style.filter = '';
+    });
+
+    // Keyboard focus events — show tooltip on focus, hide on blur
+    node.addEventListener('focus', function() {
+      showTooltipForNode(this);
+      positionTooltipNearNode(this);
+      this.querySelector('.node-circle').style.filter = 'drop-shadow(0 0 6px rgba(0,0,0,0.15))';
+    });
+
+    node.addEventListener('blur', function() {
+      tooltip.style.display = 'none';
+      this.querySelector('.node-circle').style.filter = '';
+    });
+
+    // Touch support
+    node.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      showTooltipForNode(this);
+      var touch = e.touches[0];
+      tooltip.style.left = Math.min(touch.clientX + 12, window.innerWidth - 300) + 'px';
+      tooltip.style.top = (touch.clientY - 100) + 'px';
+
+      setTimeout(function() { tooltip.style.display = 'none'; }, 3000);
+    });
+  });
+
+  // Escape key dismisses tooltip and blurs focused node
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && tooltip.style.display === 'block') {
+      tooltip.style.display = 'none';
+      if (document.activeElement && document.activeElement.classList.contains('node-group')) {
+        document.activeElement.querySelector('.node-circle').style.filter = '';
+        document.activeElement.blur();
+      }
+    }
+  });
+
+  function positionTooltip(e) {
+    var x = e.clientX + 16;
+    var y = e.clientY - 10;
+
+    // Keep tooltip on screen
+    if (x + 290 > window.innerWidth) {
+      x = e.clientX - 296;
+    }
+    if (y + 120 > window.innerHeight) {
+      y = window.innerHeight - 130;
+    }
+    if (y < 10) y = 10;
+
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = y + 'px';
+  }
+
+  // Close tooltip on body tap (mobile)
+  document.body.addEventListener('touchstart', function(e) {
+    if (!e.target.closest('.node-group')) {
+      tooltip.style.display = 'none';
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

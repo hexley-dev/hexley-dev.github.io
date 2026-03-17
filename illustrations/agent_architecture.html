@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Architecture Blueprint — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #9F7AEA;
+  --accent-deep: #7C3AED;
+  --bg: #FAF9F6;
+  --dark: #2D3748;
+  --mid: #4A5568;
+  --light: #718096;
+  --muted: #A0AEC0;
+  --border: #E2E8F0;
+  --card: #F7FAFC;
+  --panel: #1A202C;
+  --hand: 'Caveat', 'Patrick Hand', cursive;
+  --body: 'Patrick Hand', cursive;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Tool colors (from series palette) */
+  --tool-read: #BEE3F8;
+  --tool-edit: #E9D8FD;
+  --tool-run: #C6F6D5;
+  --tool-search: #FEFCBF;
+  --tool-web: #FED7D7;
+  --tool-write: #FFF5EB;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--dark);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(159,122,234,.03) 0%, transparent 55%),
+    radial-gradient(circle at 75% 75%, rgba(246,173,85,.03) 0%, transparent 55%);
+}
+
+/* Header */
+.illustration-header {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px 8px;
+}
+
+.back-link {
+display: inline-block;
+  font-family: var(--body);
+  font-size: 14px;
+  color: var(--accent);
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: opacity 0.15s;
+}
+.back-link:hover { opacity: 0.7; transition: opacity 0.15s; }
+
+.illustration-header h1 {
+  font-family: var(--hand);
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--panel);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.illustration-header .subtitle {
+  font-family: var(--body);
+  font-size: 18px;
+  color: var(--mid);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.illustration-header .companion-note {
+  font-family: var(--body);
+  font-size: 13px;
+  color: #718096;
+  margin-top: 10px;
+}
+
+.title-bar {
+  width: 80px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 16px auto 0;
+}
+
+/* Container */
+.blueprint-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px 16px 48px;
+}
+
+/* Panel cards */
+.panel-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  padding: 24px 24px 20px;
+  position: relative;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.panel-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--hand);
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.panel-title {
+  font-family: var(--hand);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--panel);
+  line-height: 1.2;
+}
+
+.panel-caption {
+  font-family: var(--body);
+  font-size: 16.5px;
+  color: var(--mid);
+  line-height: 1.55;
+  margin-top: 14px;
+  max-width: 820px;
+}
+
+.panel-caption strong { color: var(--panel); }
+.panel-caption em { color: var(--accent); font-style: italic; }
+
+.diagram-box {
+  margin: 14px auto 0;
+  max-width: 860px;
+}
+
+/* Connector arrows */
+.connector {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+}
+
+/* Big idea callout */
+.bigidea {
+  margin: 16px auto 0;
+  padding: 16px 20px;
+  border-left: 4px solid var(--accent);
+  background: rgba(159,122,234,.07);
+  border-radius: 0 10px 10px 0;
+  font-size: 15.5px;
+  line-height: 1.6;
+  max-width: 820px;
+  font-family: var(--body);
+  color: var(--dark);
+}
+
+/* Code inline */
+.code-inline {
+  font-family: var(--mono);
+  font-size: 14px;
+  background: var(--panel);
+  color: #48BB78;
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Comparison table */
+.compare-table {
+  width: 100%;
+  max-width: 820px;
+  margin: 16px auto 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: var(--body);
+  font-size: 15px;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+}
+
+.compare-table th {
+  background: var(--panel);
+  color: #fff;
+  font-family: var(--hand);
+  font-size: 16px;
+  font-weight: 700;
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.compare-table th:first-child {
+  width: 100px;
+}
+
+.compare-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.45;
+}
+
+.compare-table tr:last-child td {
+  border-bottom: none;
+}
+
+.compare-table tbody tr:nth-child(odd) {
+  background: var(--card);
+}
+
+.compare-table tbody tr:nth-child(even) {
+  background: #fff;
+}
+
+.compare-table .col-auto {
+  background: #FFF5EB;
+  color: var(--mid);
+}
+
+.compare-table .col-chat {
+  background: #BEE3F8;
+  color: var(--dark);
+}
+
+.compare-table .col-agent {
+  background: #E9D8FD;
+  color: var(--dark);
+}
+
+.compare-table .header-auto { background: #DD6B20; }
+.compare-table .header-chat { background: #4A9BD9; }
+.compare-table .header-agent { background: var(--accent); }
+
+/* Footer */
+.footer-note {
+  text-align: center;
+  font-family: var(--body);
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
+  padding: 0 24px;
+}
+
+/* SVG helpers */
+svg text { user-select: none; }
+
+/* Print styles */
+@media print {
+  body { background: #fff; }
+  .panel-card { break-inside: avoid; page-break-inside: avoid; border-color: #ccc; }
+  .connector svg { height: 24px; }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .illustration-header h1 { font-size: 30px; }
+  .illustration-header .subtitle { font-size: 16px; }
+  .illustration-header .companion-note { font-size: 12px; }
+  .illustration-header { padding: 24px 12px 8px; }
+  .blueprint-container { padding: 12px 8px 40px; }
+  .panel-card { padding: 18px 16px 16px; }
+  .panel-title { font-size: 22px; }
+  .panel-caption { font-size: 15px; }
+  .diagram-box { overflow-x: auto; }
+  .compare-table { font-size: 13px; }
+  .compare-table th, .compare-table td { padding: 8px 8px; }
+  .bigidea { font-size: 14px; padding: 12px 16px; }
+}
+
+@media (max-width: 400px) {
+  .illustration-header h1 { font-size: 26px; }
+  .illustration-header .subtitle { font-size: 14px; }
+  .illustration-header { padding: 16px 8px 6px; }
+  .blueprint-container { padding: 8px 4px 30px; }
+  .panel-card { padding: 14px 10px 12px; }
+  .panel-title { font-size: 20px; }
+  .panel-caption { font-size: 14px; }
+  .compare-table { font-size: 12px; }
+  .compare-table th, .compare-table td { padding: 6px 6px; }
+  .bigidea { font-size: 13px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="illustration-header">
+  <a href="#" onclick="history.back();return false" style="text-decoration:none">&larr; Back</a>
+  <h1>Agent Architecture Blueprint</h1>
+  <p class="subtitle">How an AI agent thinks, acts, observes, and learns from mistakes</p>
+  <p class="companion-note">Illustration companion to Issue 8: The Agent Awakens</p>
+  <div class="title-bar"></div>
+</header>
+
+<div class="blueprint-container">
+
+<!-- ===== SECTION 1: MAIN ARCHITECTURE DIAGRAM ===== -->
+<article class="panel-card">
+  <div class="panel-header">
+    <div class="panel-number">1</div>
+    <h2 class="panel-title">Agent Architecture &mdash; The Full Pipeline</h2>
+  </div>
+
+  <p class="panel-caption" style="margin-top:0;margin-bottom:10px">A complete view of how an AI agent processes a request from start to finish. Follow the arrows from the user's prompt through reasoning, tool use, and back again.</p>
+
+  <div class="diagram-box">
+    <svg viewBox="-20 -20 880 620" style="width:100%" aria-label="Full agent architecture diagram showing user input flowing through system prompt, LLM core with context window, tool router, tool belt, and the ReAct loop back to the user.">
+      <defs>
+        <linearGradient id="llmGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#9F7AEA"/>
+          <stop offset="100%" stop-color="#7C3AED"/>
+        </linearGradient>
+        <linearGradient id="llmGradLight" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#E9D8FD"/>
+          <stop offset="100%" stop-color="#D6BCFA"/>
+        </linearGradient>
+        <filter id="softShadow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feFlood flood-color="#2D3748" flood-opacity="0.1" result="color"/>
+          <feComposite in="color" in2="blur" operator="in" result="shadow"/>
+          <feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- ====== USER (left side) ====== -->
+      <rect x="10" y="30" width="140" height="140" rx="12" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+      <text x="80" y="52" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#718096;font-weight:700">USER</text>
+
+      <!-- Person icon (simplified Tera) -->
+      <g transform="translate(80,100) scale(0.55)">
+        <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+        <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+        <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+        <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+        <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+        <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+        <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+        <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+        <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+        <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+        <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+        <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+        <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+      </g>
+
+      <!-- Speech bubble from user -->
+      <rect x="10" y="178" width="140" height="42" rx="8" fill="#fff" stroke="#2D3748" stroke-width="1.5"/>
+      <text x="80" y="195" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#2D3748">"Fix the failing</text>
+      <text x="80" y="210" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#2D3748">test in auth.js"</text>
+
+      <!-- Arrow: User -> System Prompt -->
+      <line x1="150" y1="100" x2="178" y2="100" stroke="#2D3748" stroke-width="2"/>
+      <polygon points="175,94 186,100 175,106" fill="#2D3748"/>
+
+      <!-- ====== SYSTEM PROMPT BOX ====== -->
+      <rect x="188" y="24" width="130" height="152" rx="10" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.5"/>
+      <text x="253" y="46" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#DD6B20;font-weight:700">System Prompt</text>
+
+      <!-- Document icon -->
+      <rect x="210" y="54" width="86" height="14" rx="3" fill="#DD6B20" opacity="0.15"/>
+      <text x="253" y="64" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#DD6B20">Role</text>
+
+      <rect x="210" y="74" width="86" height="14" rx="3" fill="#DD6B20" opacity="0.15"/>
+      <text x="253" y="84" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#DD6B20">Available Tools</text>
+
+      <rect x="210" y="94" width="86" height="14" rx="3" fill="#DD6B20" opacity="0.15"/>
+      <text x="253" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#DD6B20">Constraints</text>
+
+      <rect x="210" y="114" width="86" height="14" rx="3" fill="#DD6B20" opacity="0.15"/>
+      <text x="253" y="124" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#DD6B20">Context</text>
+
+      <text x="253" y="148" text-anchor="middle" style="font-family:var(--body);font-size:9.5px;fill:#718096">Defines WHO</text>
+      <text x="253" y="160" text-anchor="middle" style="font-family:var(--body);font-size:9.5px;fill:#718096">the agent is</text>
+      <text x="253" y="172" text-anchor="middle" style="font-family:var(--body);font-size:9.5px;fill:#718096">&amp; WHAT it can do</text>
+
+      <!-- Arrow: System Prompt -> LLM -->
+      <line x1="318" y1="100" x2="346" y2="100" stroke="#2D3748" stroke-width="2"/>
+      <polygon points="343,94 354,100 343,106" fill="#2D3748"/>
+
+      <!-- ====== LLM CORE (center, large) ====== -->
+      <rect x="356" y="10" width="270" height="280" rx="14" fill="url(#llmGrad)" stroke="#553C9A" stroke-width="2.5" filter="url(#softShadow)"/>
+
+      <!-- LLM label -->
+      <text x="491" y="38" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#fff;font-weight:700">Large Language Model</text>
+      <text x="491" y="54" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#E9D8FD">(Claude)</text>
+
+      <!-- Context Window bar -->
+      <rect x="374" y="66" width="234" height="50" rx="6" fill="#1A202C" stroke="#553C9A" stroke-width="1"/>
+      <text x="491" y="80" text-anchor="middle" style="font-family:var(--hand);font-size:10px;fill:#A0AEC0;font-weight:700">Context Window</text>
+
+      <!-- Colored segments in context bar -->
+      <rect x="382" y="88" width="40" height="16" rx="3" fill="#718096" opacity="0.8"/>
+      <text x="402" y="99" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff">System</text>
+
+      <rect x="424" y="88" width="55" height="16" rx="3" fill="#4A9BD9" opacity="0.8"/>
+      <text x="451" y="99" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff">History</text>
+
+      <rect x="481" y="88" width="44" height="16" rx="3" fill="#48BB78" opacity="0.8"/>
+      <text x="503" y="99" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff">Current</text>
+
+      <rect x="527" y="88" width="72" height="16" rx="3" fill="#2D3748" stroke="#553C9A" stroke-width="0.5" stroke-dasharray="2,2"/>
+      <text x="563" y="99" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#718096">Available</text>
+
+      <text x="491" y="126" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#E9D8FD">200K tokens ~ 500 pages of text</text>
+
+      <!-- Reasoning section -->
+      <rect x="374" y="138" width="234" height="52" rx="8" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+      <text x="394" y="154" style="font-family:var(--hand);font-size:11px;fill:#fff;font-weight:700">Reasoning</text>
+
+      <!-- Thought bubble contents -->
+      <rect x="382" y="162" width="218" height="18" rx="4" fill="rgba(0,0,0,0.2)"/>
+      <text x="391" y="174" style="font-family:var(--mono);font-size:7.5px;fill:#E9D8FD">The test expects /api/auth/login...</text>
+
+      <!-- Output section -->
+      <rect x="374" y="200" width="234" height="76" rx="8" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+      <text x="394" y="216" style="font-family:var(--hand);font-size:11px;fill:#fff;font-weight:700">Output: Tool Call OR Text</text>
+
+      <!-- Tool call JSON preview -->
+      <rect x="382" y="224" width="218" height="42" rx="4" fill="#1A202C"/>
+      <text x="391" y="237" style="font-family:var(--mono);font-size:7.5px;fill:#48BB78">{ "tool": "edit_file",</text>
+      <text x="391" y="249" style="font-family:var(--mono);font-size:7.5px;fill:#48BB78">  "path": "auth.js",</text>
+      <text x="391" y="261" style="font-family:var(--mono);font-size:7.5px;fill:#48BB78">  "old_text": "..." }</text>
+
+      <!-- ====== TOOL ROUTER (right of LLM) ====== -->
+      <!-- Arrow: LLM -> Router -->
+      <line x1="626" y1="150" x2="655" y2="150" stroke="#fff" stroke-width="2"/>
+      <polygon points="652,144 663,150 652,156" fill="#fff"/>
+
+      <rect x="665" y="110" width="80" height="80" rx="10" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/>
+      <text x="705" y="140" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#553C9A;font-weight:700">Tool</text>
+      <text x="705" y="155" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#553C9A;font-weight:700">Router</text>
+      <text x="705" y="178" text-anchor="middle" style="font-family:var(--body);font-size:8px;fill:#718096">parses JSON</text>
+
+      <!-- ====== TOOL BELT (below, horizontal) ====== -->
+      <!-- Arrow: Router -> Tools -->
+      <line x1="705" y1="190" x2="705" y2="210" stroke="#9F7AEA" stroke-width="2"/>
+      <polygon points="699,207 705,218 711,207" fill="#9F7AEA"/>
+
+      <!-- Tool belt background -->
+      <rect x="40" y="320" width="790" height="100" rx="12" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+      <text x="435" y="340" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#718096;font-weight:700">Tool Belt</text>
+
+      <!-- Lines from router down to tool belt -->
+      <line x1="705" y1="218" x2="705" y2="320" stroke="#9F7AEA" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+      <!-- Tool 1: Read File -->
+      <rect x="60" y="350" width="110" height="56" rx="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/>
+      <!-- Eye icon -->
+      <circle cx="82" cy="370" r="8" fill="#fff" stroke="#4A9BD9" stroke-width="1.2"/>
+      <circle cx="82" cy="370" r="3.5" fill="#4A9BD9"/>
+      <text x="130" y="373" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#2A4365;font-weight:700">Read</text>
+      <text x="130" y="386" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#2A4365;font-weight:700">File</text>
+      <text x="115" y="400" text-anchor="middle" style="font-family:var(--body);font-size:7.5px;fill:#718096">See file contents</text>
+
+      <!-- Tool 2: Edit File -->
+      <rect x="184" y="350" width="110" height="56" rx="8" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/>
+      <!-- Pencil icon -->
+      <line x1="204" y1="380" x2="218" y2="362" stroke="#9F7AEA" stroke-width="2.5" stroke-linecap="round"/>
+      <polygon points="204,380 200,384 208,382" fill="#9F7AEA"/>
+      <text x="255" y="373" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#44337A;font-weight:700">Edit</text>
+      <text x="255" y="386" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#44337A;font-weight:700">File</text>
+      <text x="239" y="400" text-anchor="middle" style="font-family:var(--body);font-size:7.5px;fill:#718096">Change text in a file</text>
+
+      <!-- Tool 3: Run Command -->
+      <rect x="308" y="350" width="110" height="56" rx="8" fill="#C6F6D5" stroke="#48BB78" stroke-width="1.5"/>
+      <!-- Terminal icon -->
+      <rect x="324" y="360" width="20" height="15" rx="3" fill="#1A202C" stroke="#48BB78" stroke-width="1"/>
+      <text x="331" y="372" style="font-family:var(--mono);font-size:6px;fill:#48BB78">&gt;_</text>
+      <text x="379" y="373" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#276749;font-weight:700">Run</text>
+      <text x="379" y="386" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#276749;font-weight:700">Command</text>
+      <text x="363" y="400" text-anchor="middle" style="font-family:var(--body);font-size:7.5px;fill:#718096">Execute shell commands</text>
+
+      <!-- Tool 4: Search Code -->
+      <rect x="432" y="350" width="110" height="56" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+      <!-- Magnifying glass icon -->
+      <circle cx="455" cy="368" r="7" fill="none" stroke="#D69E2E" stroke-width="2"/>
+      <line x1="460" y1="373" x2="466" y2="379" stroke="#D69E2E" stroke-width="2" stroke-linecap="round"/>
+      <text x="503" y="373" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#744210;font-weight:700">Search</text>
+      <text x="503" y="386" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#744210;font-weight:700">Code</text>
+      <text x="487" y="400" text-anchor="middle" style="font-family:var(--body);font-size:7.5px;fill:#718096">Find patterns in code</text>
+
+      <!-- Tool 5: Web Search -->
+      <rect x="556" y="350" width="110" height="56" rx="8" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/>
+      <!-- Globe icon -->
+      <circle cx="578" cy="370" r="8" fill="none" stroke="#E53E3E" stroke-width="1.5"/>
+      <ellipse cx="578" cy="370" rx="4" ry="8" fill="none" stroke="#E53E3E" stroke-width="1"/>
+      <line x1="570" y1="370" x2="586" y2="370" stroke="#E53E3E" stroke-width="1"/>
+      <text x="627" y="373" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#9B2C2C;font-weight:700">Web</text>
+      <text x="627" y="386" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#9B2C2C;font-weight:700">Search</text>
+      <text x="611" y="400" text-anchor="middle" style="font-family:var(--body);font-size:7.5px;fill:#718096">Look up info online</text>
+
+      <!-- Tool 6: Write File -->
+      <rect x="680" y="350" width="110" height="56" rx="8" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.5"/>
+      <!-- Document icon -->
+      <rect x="699" y="360" width="14" height="18" rx="2" fill="none" stroke="#DD6B20" stroke-width="1.5"/>
+      <line x1="703" y1="366" x2="709" y2="366" stroke="#DD6B20" stroke-width="1"/>
+      <line x1="703" y1="370" x2="709" y2="370" stroke="#DD6B20" stroke-width="1"/>
+      <line x1="703" y1="374" x2="707" y2="374" stroke="#DD6B20" stroke-width="1"/>
+      <text x="753" y="373" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#9C4221;font-weight:700">Write</text>
+      <text x="753" y="386" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#9C4221;font-weight:700">File</text>
+      <text x="735" y="400" text-anchor="middle" style="font-family:var(--body);font-size:7.5px;fill:#718096">Create new files</text>
+
+      <!-- ====== REACT LOOP (circular flow) ====== -->
+      <!-- The big ReAct loop arc: from tools back up to LLM -->
+
+      <!-- Observation arrow: from tools back to LLM (left side) -->
+      <!-- Upward path from tool belt back to LLM -->
+      <path d="M50,380 L20,380 L20,150 L356,150" fill="none" stroke="#9F7AEA" stroke-width="2.5" stroke-dasharray="8,4"/>
+      <polygon points="350,144 362,150 350,156" fill="#9F7AEA"/>
+
+      <!-- Label on the return path -->
+      <rect x="2" y="238" width="35" height="84" rx="6" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1"/>
+      <text x="19" y="258" text-anchor="middle" style="font-family:var(--hand);font-size:9px;fill:#553C9A;font-weight:700" transform="rotate(-90,19,258)">OBSERVATION</text>
+      <text x="19" y="300" text-anchor="middle" style="font-family:var(--body);font-size:7px;fill:#718096" transform="rotate(-90,19,300)">Result goes back to LLM</text>
+
+      <!-- ====== ReAct Loop Label (center bottom) ====== -->
+      <rect x="280" y="440" width="300" height="70" rx="12" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2" stroke-dasharray="6,3"/>
+      <text x="430" y="462" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#553C9A;font-weight:700">The ReAct Loop</text>
+
+      <!-- Numbered steps in the loop -->
+      <circle cx="310" cy="488" r="8" fill="#9F7AEA"/>
+      <text x="310" y="492" text-anchor="middle" style="font-family:var(--hand);font-size:9px;fill:#fff;font-weight:700">1</text>
+      <text x="330" y="492" style="font-family:var(--body);font-size:9px;fill:#4A5568">THINK</text>
+
+      <circle cx="375" cy="488" r="8" fill="#9F7AEA"/>
+      <text x="375" y="492" text-anchor="middle" style="font-family:var(--hand);font-size:9px;fill:#fff;font-weight:700">2</text>
+      <text x="395" y="492" style="font-family:var(--body);font-size:9px;fill:#4A5568">ACT</text>
+
+      <circle cx="432" cy="488" r="8" fill="#9F7AEA"/>
+      <text x="432" y="492" text-anchor="middle" style="font-family:var(--hand);font-size:9px;fill:#fff;font-weight:700">3</text>
+      <text x="452" y="492" style="font-family:var(--body);font-size:9px;fill:#4A5568">OBSERVE</text>
+
+      <circle cx="510" cy="488" r="8" fill="#9F7AEA"/>
+      <text x="510" y="492" text-anchor="middle" style="font-family:var(--hand);font-size:9px;fill:#fff;font-weight:700">4</text>
+      <text x="530" y="492" style="font-family:var(--body);font-size:9px;fill:#4A5568">REPEAT</text>
+
+      <!-- Small circular arrow icon -->
+      <path d="M560,480 A12,12 0 1,1 555,492" fill="none" stroke="#9F7AEA" stroke-width="2"/>
+      <polygon points="552,489 555,498 560,491" fill="#9F7AEA"/>
+
+      <!-- ====== RESPONSE (bottom right) ====== -->
+      <!-- Arrow from LLM down to response -->
+      <line x1="491" y1="290" x2="491" y2="536" stroke="#2D3748" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <text x="508" y="530" style="font-family:var(--body);font-size:9px;fill:#718096">final answer</text>
+
+      <rect x="288" y="540" width="406" height="62" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+      <text x="491" y="560" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#2D3748">Fixed! The test was checking the wrong endpoint.</text>
+      <text x="491" y="576" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#2D3748">Changed /api/login to /api/auth/login. All tests pass.</text>
+      <text x="491" y="594" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#48BB78;font-weight:700">RESPONSE</text>
+
+      <!-- Arrow back to user -->
+      <line x1="288" y1="570" x2="80" y2="570" stroke="#2D3748" stroke-width="1.5"/>
+      <line x1="80" y1="570" x2="80" y2="228" stroke="#2D3748" stroke-width="1.5"/>
+      <polygon points="74,232 80,220 86,232" fill="#2D3748"/>
+
+    </svg>
+  </div>
+
+  <div class="bigidea">
+    <strong>The agent is an LLM in a loop.</strong> It receives input, reasons about what to do, calls a tool, observes the result, and decides whether to call another tool or respond. This Think-Act-Observe cycle is the beating heart of every AI agent.
+  </div>
+</article>
+
+<!-- Connector arrow -->
+<div class="connector">
+  <svg aria-hidden="true" viewBox="0 0 40 32" width="40" height="32"><polygon points="12,4 28,4 28,16 34,16 20,30 6,16 12,16" fill="#E2E8F0"/></svg>
+</div>
+
+<!-- ===== SECTION 2: THE CONTEXT WINDOW ===== -->
+<article class="panel-card">
+  <div class="panel-header">
+    <div class="panel-number">2</div>
+    <h2 class="panel-title">The Context Window &mdash; What the Agent Remembers</h2>
+  </div>
+
+  <p class="panel-caption" style="margin-top:0;margin-bottom:10px">Everything the agent knows lives inside the <strong>context window</strong> &mdash; a long sequence of tokens. Every message, every tool call, every result gets appended. Here is what the context looks like mid-task:</p>
+
+  <div class="diagram-box">
+    <svg viewBox="0 -20 860 240" style="width:100%" aria-label="Horizontal bar diagram showing the contents of the context window during an agent task, with colored segments for each piece of context and token counts.">
+
+      <!-- Background bar (total capacity) -->
+      <rect x="30" y="40" width="800" height="60" rx="8" fill="#1A202C" stroke="#553C9A" stroke-width="1.5"/>
+
+      <!-- 200K limit label -->
+      <text x="430" y="22" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#718096;font-weight:700">Context Window Capacity: 200,000 tokens</text>
+
+      <!-- Segments (scaled proportionally for visual, not exact) -->
+      <!-- System Prompt: ~2K tokens, visual width ~40px -->
+      <rect x="34" y="46" width="40" height="48" rx="4" fill="#718096" opacity="0.9"/>
+      <text x="54" y="68" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#fff">System</text>
+      <text x="54" y="80" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#fff">Prompt</text>
+      <text x="54" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#A0AEC0">2K</text>
+
+      <!-- History: ~15K tokens, width ~110px -->
+      <rect x="78" y="46" width="110" height="48" rx="4" fill="#4A9BD9" opacity="0.85"/>
+      <text x="133" y="68" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#fff">Conversation History</text>
+      <text x="133" y="80" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#fff">(previous turns)</text>
+      <text x="133" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#BEE3F8">15K</text>
+
+      <!-- User message: ~50 tokens, width ~20px -->
+      <rect x="192" y="46" width="30" height="48" rx="4" fill="#48BB78" opacity="0.85"/>
+      <text x="207" y="72" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff" transform="rotate(-90,207,72)">User msg</text>
+      <text x="207" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#C6F6D5">50</text>
+
+      <!-- Think 1: ~200 tokens -->
+      <rect x="226" y="46" width="36" height="48" rx="4" fill="#9F7AEA" opacity="0.7"/>
+      <text x="244" y="72" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff" transform="rotate(-90,244,72)">Think...</text>
+      <text x="244" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#E9D8FD">200</text>
+
+      <!-- Tool call: read auth.js -->
+      <rect x="266" y="46" width="48" height="48" rx="4" fill="#DD6B20" opacity="0.7"/>
+      <text x="290" y="66" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff">Tool call:</text>
+      <text x="290" y="76" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff">read</text>
+      <text x="290" y="86" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff">auth.js</text>
+      <text x="290" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#FFF5EB">100</text>
+
+      <!-- Result: file contents (~800 tokens) -->
+      <rect x="318" y="46" width="72" height="48" rx="4" fill="#E53E3E" opacity="0.5"/>
+      <text x="354" y="68" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#fff">Result:</text>
+      <text x="354" y="80" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#fff">file contents</text>
+      <text x="354" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#FED7D7">800</text>
+
+      <!-- Think 2: ~300 tokens -->
+      <rect x="394" y="46" width="40" height="48" rx="4" fill="#9F7AEA" opacity="0.7"/>
+      <text x="414" y="72" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff" transform="rotate(-90,414,72)">Think...</text>
+      <text x="414" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#E9D8FD">300</text>
+
+      <!-- Tool call: edit auth.js -->
+      <rect x="438" y="46" width="44" height="48" rx="4" fill="#DD6B20" opacity="0.7"/>
+      <text x="460" y="66" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff">Tool call:</text>
+      <text x="460" y="76" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff">edit</text>
+      <text x="460" y="86" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff">auth.js</text>
+      <text x="460" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#FFF5EB">150</text>
+
+      <!-- Result: success (~50 tokens) -->
+      <rect x="486" y="46" width="24" height="48" rx="4" fill="#48BB78" opacity="0.5"/>
+      <text x="498" y="72" text-anchor="middle" style="font-family:var(--mono);font-size:5.5px;fill:#fff" transform="rotate(-90,498,72)">Success</text>
+      <text x="498" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#C6F6D5">50</text>
+
+      <!-- Tool call: run tests -->
+      <rect x="514" y="46" width="44" height="48" rx="4" fill="#DD6B20" opacity="0.7"/>
+      <text x="536" y="66" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff">Tool call:</text>
+      <text x="536" y="76" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff">run</text>
+      <text x="536" y="86" text-anchor="middle" style="font-family:var(--mono);font-size:6px;fill:#fff">tests</text>
+      <text x="536" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#FFF5EB">100</text>
+
+      <!-- Result: all pass (~200 tokens) -->
+      <rect x="562" y="46" width="34" height="48" rx="4" fill="#48BB78" opacity="0.5"/>
+      <text x="579" y="72" text-anchor="middle" style="font-family:var(--mono);font-size:5.5px;fill:#fff" transform="rotate(-90,579,72)">All pass</text>
+      <text x="579" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#C6F6D5">200</text>
+
+      <!-- Response: ~150 tokens -->
+      <rect x="600" y="46" width="30" height="48" rx="4" fill="#D69E2E" opacity="0.7"/>
+      <text x="615" y="72" text-anchor="middle" style="font-family:var(--mono);font-size:5.5px;fill:#fff" transform="rotate(-90,615,72)">Response</text>
+      <text x="615" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#FEFCBF">150</text>
+
+      <!-- Empty remaining space -->
+      <rect x="634" y="46" width="190" height="48" rx="4" fill="#2D3748" stroke="#553C9A" stroke-width="0.5" stroke-dasharray="3,3"/>
+      <text x="729" y="72" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#553C9A">Remaining space</text>
+      <text x="729" y="88" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#718096">~181K tokens</text>
+
+      <!-- Legend -->
+      <rect x="30" y="130" width="12" height="12" rx="2" fill="#718096"/>
+      <text x="48" y="140" style="font-family:var(--body);font-size:10px;fill:#4A5568">System prompt</text>
+
+      <rect x="140" y="130" width="12" height="12" rx="2" fill="#4A9BD9"/>
+      <text x="158" y="140" style="font-family:var(--body);font-size:10px;fill:#4A5568">History</text>
+
+      <rect x="210" y="130" width="12" height="12" rx="2" fill="#48BB78"/>
+      <text x="228" y="140" style="font-family:var(--body);font-size:10px;fill:#4A5568">User / Success</text>
+
+      <rect x="320" y="130" width="12" height="12" rx="2" fill="#9F7AEA"/>
+      <text x="338" y="140" style="font-family:var(--body);font-size:10px;fill:#4A5568">Reasoning</text>
+
+      <rect x="415" y="130" width="12" height="12" rx="2" fill="#DD6B20"/>
+      <text x="433" y="140" style="font-family:var(--body);font-size:10px;fill:#4A5568">Tool calls</text>
+
+      <rect x="505" y="130" width="12" height="12" rx="2" fill="#E53E3E" opacity="0.5"/>
+      <text x="523" y="140" style="font-family:var(--body);font-size:10px;fill:#4A5568">Tool results</text>
+
+      <rect x="610" y="130" width="12" height="12" rx="2" fill="#D69E2E"/>
+      <text x="628" y="140" style="font-family:var(--body);font-size:10px;fill:#4A5568">Final response</text>
+
+      <!-- Usage indicator -->
+      <text x="30" y="170" style="font-family:var(--body);font-size:12px;fill:#4A5568">Used so far: <tspan style="font-weight:700;font-family:var(--mono);font-size:11px;fill:#9F7AEA">~19,100 tokens</tspan> out of 200,000</text>
+
+      <!-- Callout insight -->
+      <rect x="30" y="186" width="800" height="40" rx="8" fill="rgba(159,122,234,.08)" stroke="#9F7AEA" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="430" y="206" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#553C9A">Every tool call and its result gets added to the context. This is why agents eventually "forget" &mdash; the window fills up!</text>
+      <text x="430" y="220" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">Long tasks need careful context management: summarize old results, keep the important parts, let go of the rest.</text>
+
+    </svg>
+  </div>
+</article>
+
+<!-- Connector arrow -->
+<div class="connector">
+  <svg aria-hidden="true" viewBox="0 0 40 32" width="40" height="32"><polygon points="12,4 28,4 28,16 34,16 20,30 6,16 12,16" fill="#E2E8F0"/></svg>
+</div>
+
+<!-- ===== SECTION 3: TOOL CALL ANATOMY ===== -->
+<article class="panel-card">
+  <div class="panel-header">
+    <div class="panel-number">3</div>
+    <h2 class="panel-title">Tool Call Anatomy &mdash; One Tool Call, Step by Step</h2>
+  </div>
+
+  <p class="panel-caption" style="margin-top:0;margin-bottom:10px">When the LLM decides to use a tool, it outputs a structured JSON object. Here is exactly what happens during a single <span class="code-inline">edit_file</span> call:</p>
+
+  <div class="diagram-box">
+    <svg viewBox="0 -20 860 540" style="width:100%" aria-label="Detailed anatomy of a single tool call showing the JSON output, the six execution steps, and the result returned to the LLM.">
+
+      <!-- ====== WHAT THE LLM OUTPUTS ====== -->
+      <text x="20" y="6" style="font-family:var(--hand);font-size:16px;fill:#553C9A;font-weight:700">What the LLM outputs:</text>
+
+      <!-- JSON code block -->
+      <rect x="20" y="16" width="380" height="140" rx="10" fill="#1A202C"/>
+
+      <text x="40" y="40" style="font-family:var(--mono);font-size:13px;fill:#718096">{</text>
+      <text x="60" y="62" style="font-family:var(--mono);font-size:13px;fill:#E9D8FD">"tool"</text>
+      <text x="115" y="62" style="font-family:var(--mono);font-size:13px;fill:#718096">:</text>
+      <text x="130" y="62" style="font-family:var(--mono);font-size:13px;fill:#48BB78">"edit_file"</text>
+      <text x="225" y="62" style="font-family:var(--mono);font-size:13px;fill:#718096">,</text>
+
+      <text x="60" y="84" style="font-family:var(--mono);font-size:13px;fill:#E9D8FD">"path"</text>
+      <text x="115" y="84" style="font-family:var(--mono);font-size:13px;fill:#718096">:</text>
+      <text x="130" y="84" style="font-family:var(--mono);font-size:13px;fill:#48BB78">"auth.js"</text>
+      <text x="210" y="84" style="font-family:var(--mono);font-size:13px;fill:#718096">,</text>
+
+      <text x="60" y="106" style="font-family:var(--mono);font-size:13px;fill:#E9D8FD">"old_text"</text>
+      <text x="145" y="106" style="font-family:var(--mono);font-size:13px;fill:#718096">:</text>
+      <text x="160" y="106" style="font-family:var(--mono);font-size:13px;fill:#E53E3E">"fetch('/api/login')"</text>
+      <text x="345" y="106" style="font-family:var(--mono);font-size:13px;fill:#718096">,</text>
+
+      <text x="60" y="128" style="font-family:var(--mono);font-size:13px;fill:#E9D8FD">"new_text"</text>
+      <text x="145" y="128" style="font-family:var(--mono);font-size:13px;fill:#718096">:</text>
+      <text x="160" y="128" style="font-family:var(--mono);font-size:13px;fill:#48BB78">"fetch('/api/auth/login')"</text>
+
+      <text x="40" y="150" style="font-family:var(--mono);font-size:13px;fill:#718096">}</text>
+
+      <!-- ====== WHAT HAPPENS (execution steps) ====== -->
+      <text x="440" y="6" style="font-family:var(--hand);font-size:16px;fill:#553C9A;font-weight:700">What happens:</text>
+
+      <!-- Step boxes -->
+      <!-- Step 1 -->
+      <rect x="440" y="20" width="390" height="30" rx="6" fill="#E9D8FD"/>
+      <circle cx="460" cy="35" r="10" fill="#9F7AEA"/>
+      <text x="460" y="39" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#fff;font-weight:700">1</text>
+      <text x="480" y="39" style="font-family:var(--body);font-size:13px;fill:#44337A">JSON parsed by the tool router</text>
+
+      <!-- Arrow -->
+      <line x1="635" y1="50" x2="635" y2="58" stroke="#9F7AEA" stroke-width="1.5"/>
+      <polygon points="630,56 635,64 640,56" fill="#9F7AEA"/>
+
+      <!-- Step 2 -->
+      <rect x="440" y="64" width="390" height="30" rx="6" fill="#BEE3F8"/>
+      <circle cx="460" cy="79" r="10" fill="#4A9BD9"/>
+      <text x="460" y="83" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#fff;font-weight:700">2</text>
+      <text x="480" y="83" style="font-family:var(--body);font-size:13px;fill:#2A4365">edit_file tool receives the parameters</text>
+
+      <!-- Arrow -->
+      <line x1="635" y1="94" x2="635" y2="102" stroke="#4A9BD9" stroke-width="1.5"/>
+      <polygon points="630,100 635,108 640,100" fill="#4A9BD9"/>
+
+      <!-- Step 3 -->
+      <rect x="440" y="108" width="390" height="30" rx="6" fill="#C6F6D5"/>
+      <circle cx="460" cy="123" r="10" fill="#48BB78"/>
+      <text x="460" y="127" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#fff;font-weight:700">3</text>
+      <text x="480" y="127" style="font-family:var(--body);font-size:13px;fill:#276749">File auth.js is read from disk</text>
+
+      <!-- Arrow -->
+      <line x1="635" y1="138" x2="635" y2="146" stroke="#48BB78" stroke-width="1.5"/>
+      <polygon points="630,144 635,152 640,144" fill="#48BB78"/>
+
+      <!-- Step 4 -->
+      <rect x="440" y="152" width="390" height="30" rx="6" fill="#FEFCBF"/>
+      <circle cx="460" cy="167" r="10" fill="#D69E2E"/>
+      <text x="460" y="171" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#fff;font-weight:700">4</text>
+      <text x="480" y="171" style="font-family:var(--body);font-size:13px;fill:#744210">old_text found and replaced with new_text</text>
+
+      <!-- Arrow -->
+      <line x1="635" y1="182" x2="635" y2="190" stroke="#D69E2E" stroke-width="1.5"/>
+      <polygon points="630,188 635,196 640,188" fill="#D69E2E"/>
+
+      <!-- Step 5 -->
+      <rect x="440" y="196" width="390" height="30" rx="6" fill="#FFF5EB"/>
+      <circle cx="460" cy="211" r="10" fill="#DD6B20"/>
+      <text x="460" y="215" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#fff;font-weight:700">5</text>
+      <text x="480" y="215" style="font-family:var(--body);font-size:13px;fill:#9C4221">Updated file written back to disk</text>
+
+      <!-- Arrow -->
+      <line x1="635" y1="226" x2="635" y2="234" stroke="#DD6B20" stroke-width="1.5"/>
+      <polygon points="630,232 635,240 640,232" fill="#DD6B20"/>
+
+      <!-- Step 6 -->
+      <rect x="440" y="240" width="390" height="30" rx="6" fill="#C6F6D5"/>
+      <circle cx="460" cy="255" r="10" fill="#48BB78"/>
+      <text x="460" y="259" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#fff;font-weight:700">6</text>
+      <text x="480" y="259" style="font-family:var(--body);font-size:13px;fill:#276749">Success/failure returned to the LLM</text>
+
+      <!-- ====== BIG ARROW connecting output to result ====== -->
+      <path d="M210,156 L210,310" fill="none" stroke="#9F7AEA" stroke-width="2" stroke-dasharray="6,3"/>
+      <polygon points="204,307 210,318 216,307" fill="#9F7AEA"/>
+
+      <!-- ====== WHAT THE LLM RECEIVES BACK ====== -->
+      <text x="20" y="340" style="font-family:var(--hand);font-size:16px;fill:#553C9A;font-weight:700">What the LLM receives back:</text>
+
+      <!-- Result block -->
+      <rect x="20" y="352" width="500" height="50" rx="10" fill="#1A202C"/>
+      <text x="40" y="372" style="font-family:var(--mono);font-size:11px;fill:#A0AEC0">Tool Result:</text>
+      <text x="40" y="392" style="font-family:var(--mono);font-size:11px;fill:#48BB78">Successfully replaced "fetch('/api/login')"</text>
+
+      <rect x="20" y="402" width="500" height="30" rx="0 0 10 10" fill="#1A202C"/>
+      <text x="40" y="420" style="font-family:var(--mono);font-size:11px;fill:#48BB78">with "fetch('/api/auth/login')" in auth.js</text>
+
+      <!-- Arrow from result back into "context" -->
+      <line x1="520" y1="390" x2="570" y2="390" stroke="#9F7AEA" stroke-width="2"/>
+      <polygon points="567,384 578,390 567,396" fill="#9F7AEA"/>
+
+      <rect x="580" y="370" width="250" height="40" rx="8" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/>
+      <text x="705" y="387" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#553C9A">This result is appended to the</text>
+      <text x="705" y="401" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#553C9A;font-weight:700">context window as an observation</text>
+
+      <!-- ====== THEN WHAT? ====== -->
+      <text x="20" y="460" style="font-family:var(--hand);font-size:16px;fill:#553C9A;font-weight:700">Then what?</text>
+
+      <rect x="20" y="470" width="820" height="26" rx="6" fill="rgba(159,122,234,.08)"/>
+      <text x="430" y="488" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#4A5568">The LLM sees the result and decides: <tspan style="font-weight:700;fill:#553C9A">call another tool</tspan> (e.g., run tests to verify) or <tspan style="font-weight:700;fill:#553C9A">respond to the user</tspan> if the task is done.</text>
+
+    </svg>
+  </div>
+</article>
+
+<!-- Connector arrow -->
+<div class="connector">
+  <svg aria-hidden="true" viewBox="0 0 40 32" width="40" height="32"><polygon points="12,4 28,4 28,16 34,16 20,30 6,16 12,16" fill="#E2E8F0"/></svg>
+</div>
+
+<!-- ===== SECTION 4: ERROR RECOVERY ===== -->
+<article class="panel-card">
+  <div class="panel-header">
+    <div class="panel-number">4</div>
+    <h2 class="panel-title">Error Recovery &mdash; Learning from Failure</h2>
+  </div>
+
+  <p class="panel-caption" style="margin-top:0;margin-bottom:10px">The true power of an agent is not that it never makes mistakes &mdash; it is that it can <em>recognize failure and try a different approach</em>. Here is an agent recovering from an error:</p>
+
+  <div class="diagram-box">
+    <svg viewBox="0 -20 860 510" style="width:100%" aria-label="Flow diagram showing an agent making an edit, running tests that fail, reading the error, thinking about it, making a different edit, and succeeding.">
+
+      <!-- Step 1: Agent edits a file -->
+      <rect x="30" y="10" width="200" height="54" rx="10" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/>
+      <circle cx="50" cy="37" r="12" fill="#9F7AEA"/>
+      <text x="50" y="41" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#fff;font-weight:700">1</text>
+      <text x="145" y="33" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#44337A;font-weight:700">Agent edits auth.js</text>
+      <text x="145" y="50" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">Changes the API endpoint</text>
+
+      <!-- Arrow right -->
+      <line x1="230" y1="37" x2="268" y2="37" stroke="#2D3748" stroke-width="2"/>
+      <polygon points="265,31 276,37 265,43" fill="#2D3748"/>
+
+      <!-- Step 2: Run tests -> FAIL -->
+      <rect x="278" y="10" width="200" height="54" rx="10" fill="#FED7D7" stroke="#E53E3E" stroke-width="2"/>
+      <circle cx="298" cy="37" r="12" fill="#E53E3E"/>
+      <text x="298" y="41" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#fff;font-weight:700">2</text>
+      <text x="393" y="33" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#9B2C2C;font-weight:700">Runs tests</text>
+      <text x="393" y="50" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#E53E3E;font-weight:700">FAIL</text>
+
+      <!-- X mark on fail -->
+      <line x1="453" y1="22" x2="467" y2="36" stroke="#E53E3E" stroke-width="3" stroke-linecap="round"/>
+      <line x1="467" y1="22" x2="453" y2="36" stroke="#E53E3E" stroke-width="3" stroke-linecap="round"/>
+
+      <!-- Arrow down (failure path) -->
+      <line x1="378" y1="64" x2="378" y2="98" stroke="#E53E3E" stroke-width="2"/>
+      <polygon points="372,95 378,106 384,95" fill="#E53E3E"/>
+
+      <!-- Branch label -->
+      <text x="400" y="84" style="font-family:var(--body);font-size:10px;fill:#E53E3E;font-weight:700">test failed!</text>
+
+      <!-- Step 3: Agent reads error -->
+      <rect x="248" y="110" width="260" height="54" rx="10" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.5"/>
+      <circle cx="268" cy="137" r="12" fill="#DD6B20"/>
+      <text x="268" y="141" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#fff;font-weight:700">3</text>
+      <text x="393" y="130" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#9C4221;font-weight:700">Agent reads the error message</text>
+      <text x="393" y="150" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#DD6B20">"expected 200, got 404 at /api/auth/login"</text>
+
+      <!-- Arrow down -->
+      <line x1="378" y1="164" x2="378" y2="198" stroke="#2D3748" stroke-width="2"/>
+      <polygon points="372,195 378,206 384,195" fill="#2D3748"/>
+
+      <!-- Step 4: Agent thinks -->
+      <rect x="188" y="210" width="380" height="70" rx="10" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/>
+      <circle cx="208" cy="245" r="12" fill="#9F7AEA"/>
+      <text x="208" y="249" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#fff;font-weight:700">4</text>
+      <text x="393" y="234" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#44337A;font-weight:700">Agent reasons about the error</text>
+
+      <!-- Thought bubble -->
+      <rect x="240" y="248" width="310" height="24" rx="5" fill="rgba(0,0,0,0.08)"/>
+      <text x="395" y="264" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#553C9A">"404 means the route doesn't exist. I need to check</text>
+      <text x="395" y="274" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#553C9A">the router config, not just the test file."</text>
+
+      <!-- Arrow down -->
+      <line x1="378" y1="280" x2="378" y2="308" stroke="#2D3748" stroke-width="2"/>
+      <polygon points="372,305 378,316 384,305" fill="#2D3748"/>
+
+      <!-- Step 5: Makes a different edit -->
+      <rect x="228" y="318" width="300" height="54" rx="10" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/>
+      <circle cx="248" cy="345" r="12" fill="#9F7AEA"/>
+      <text x="248" y="349" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#fff;font-weight:700">5</text>
+      <text x="393" y="341" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#44337A;font-weight:700">Agent makes a different edit</text>
+      <text x="393" y="358" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">Fixes the route in router.js instead</text>
+
+      <!-- Arrow right -->
+      <line x1="528" y1="345" x2="568" y2="345" stroke="#2D3748" stroke-width="2"/>
+      <polygon points="565,339 576,345 565,351" fill="#2D3748"/>
+
+      <!-- Step 6: Run tests -> PASS -->
+      <rect x="578" y="318" width="200" height="54" rx="10" fill="#C6F6D5" stroke="#48BB78" stroke-width="2"/>
+      <circle cx="598" cy="345" r="12" fill="#48BB78"/>
+      <text x="598" y="349" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#fff;font-weight:700">6</text>
+      <text x="693" y="341" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#276749;font-weight:700">Runs tests again</text>
+      <text x="693" y="358" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#48BB78;font-weight:700">ALL PASS</text>
+
+      <!-- Checkmark -->
+      <path d="M755,332 L762,342 L775,322" fill="none" stroke="#48BB78" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- Arrow to Done -->
+      <line x1="678" y1="372" x2="678" y2="398" stroke="#48BB78" stroke-width="2"/>
+      <polygon points="672,395 678,406 684,395" fill="#48BB78"/>
+
+      <!-- Done box -->
+      <rect x="618" y="406" width="120" height="28" rx="8" fill="#48BB78"/>
+      <text x="678" y="424" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#fff;font-weight:700">DONE</text>
+
+      <!-- ====== Callout box ====== -->
+      <rect x="30" y="380" width="480" height="46" rx="10" fill="rgba(159,122,234,.08)" stroke="#9F7AEA" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <text x="270" y="400" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#553C9A;font-weight:700">This is what separates agents from autocomplete.</text>
+      <text x="270" y="418" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#4A5568">An agent can recognize failure, reason about WHY it failed, and try a different approach.</text>
+
+      <!-- Decorative loop arrow from step 2 failure around to step 5 -->
+      <path d="M508,37 L800,37 L800,345 L778,345" fill="none" stroke="#E53E3E" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.3"/>
+      <text x="810" y="190" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#E53E3E;opacity:0.7" transform="rotate(90,810,190)">recovery path</text>
+
+    </svg>
+  </div>
+</article>
+
+<!-- Connector arrow -->
+<div class="connector">
+  <svg aria-hidden="true" viewBox="0 0 40 32" width="40" height="32"><polygon points="12,4 28,4 28,16 34,16 20,30 6,16 12,16" fill="#E2E8F0"/></svg>
+</div>
+
+<!-- ===== SECTION 5: COMPARISON TABLE ===== -->
+<article class="panel-card">
+  <div class="panel-header">
+    <div class="panel-number">5</div>
+    <h2 class="panel-title">Agent vs. Chatbot vs. Autocomplete</h2>
+  </div>
+
+  <p class="panel-caption" style="margin-top:0;margin-bottom:14px">Three levels of AI assistance. Each one builds on the last, adding more <em>perception</em>, more <em>action</em>, and more <em>autonomy</em>.</p>
+
+  <div class="diagram-box">
+    <svg viewBox="0 -20 860 450" style="width:100%" aria-label="Comparison diagram with three columns: Autocomplete, Chatbot, and Agent, showing their differences across five dimensions.">
+
+      <!-- ====== Column Headers ====== -->
+      <!-- Dimension column header -->
+      <rect x="20" y="10" width="120" height="44" rx="8" fill="#2D3748"/>
+      <text x="80" y="38" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#fff;font-weight:700">Dimension</text>
+
+      <!-- Autocomplete -->
+      <rect x="150" y="10" width="210" height="44" rx="8" fill="#DD6B20"/>
+      <text x="255" y="32" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#fff;font-weight:700">Autocomplete</text>
+      <text x="255" y="47" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#FFF5EB">e.g. Copilot (early)</text>
+
+      <!-- Chatbot -->
+      <rect x="370" y="10" width="210" height="44" rx="8" fill="#4A9BD9"/>
+      <text x="475" y="32" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#fff;font-weight:700">Chatbot</text>
+      <text x="475" y="47" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#BEE3F8">e.g. ChatGPT</text>
+
+      <!-- Agent -->
+      <rect x="590" y="10" width="240" height="44" rx="8" fill="#9F7AEA"/>
+      <text x="710" y="32" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#fff;font-weight:700">Agent</text>
+      <text x="710" y="47" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#E9D8FD">e.g. Claude Code</text>
+
+      <!-- ====== Row 1: Sees ====== -->
+      <rect x="20" y="64" width="120" height="54" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="80" y="90" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#2D3748;font-weight:700">Sees</text>
+      <text x="80" y="104" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#718096">(perception)</text>
+
+      <rect x="150" y="64" width="210" height="54" rx="6" fill="#FFF5EB" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="255" y="86" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#4A5568">Current line of code</text>
+      <text x="255" y="104" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">+ nearby lines for context</text>
+
+      <rect x="370" y="64" width="210" height="54" rx="6" fill="#BEE3F8" stroke="#E2E8F0" stroke-width="1" opacity="0.4"/>
+      <text x="475" y="86" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#4A5568">Conversation thread</text>
+      <text x="475" y="104" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">+ pasted code snippets</text>
+
+      <rect x="590" y="64" width="240" height="54" rx="6" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/>
+      <text x="710" y="86" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#44337A;font-weight:700">Conversation + Files + Tools</text>
+      <text x="710" y="104" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#553C9A">+ command outputs + search results</text>
+
+      <!-- ====== Row 2: Does ====== -->
+      <rect x="20" y="126" width="120" height="54" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="80" y="152" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#2D3748;font-weight:700">Does</text>
+      <text x="80" y="166" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#718096">(action)</text>
+
+      <rect x="150" y="126" width="210" height="54" rx="6" fill="#FFF5EB" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="255" y="148" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#4A5568">Predicts next token(s)</text>
+      <text x="255" y="166" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">Tab to accept</text>
+
+      <rect x="370" y="126" width="210" height="54" rx="6" fill="#BEE3F8" stroke="#E2E8F0" stroke-width="1" opacity="0.4"/>
+      <text x="475" y="148" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#4A5568">Responds to messages</text>
+      <text x="475" y="166" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">Human copy-pastes the code</text>
+
+      <rect x="590" y="126" width="240" height="54" rx="6" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/>
+      <text x="710" y="148" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#44337A;font-weight:700">Reasons + Acts + Observes</text>
+      <text x="710" y="166" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#553C9A">Directly edits, runs, verifies</text>
+
+      <!-- ====== Row 3: Can Fix Errors? ====== -->
+      <rect x="20" y="188" width="120" height="54" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="80" y="210" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#2D3748;font-weight:700">Can fix</text>
+      <text x="80" y="226" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#2D3748;font-weight:700">errors?</text>
+
+      <rect x="150" y="188" width="210" height="54" rx="6" fill="#FED7D7" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="255" y="215" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#E53E3E;font-weight:700">No</text>
+      <text x="255" y="232" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">Doesn't see errors</text>
+
+      <rect x="370" y="188" width="210" height="54" rx="6" fill="#FEFCBF" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="475" y="215" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#D69E2E;font-weight:700">Can suggest fixes</text>
+      <text x="475" y="232" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">Human must apply them</text>
+
+      <rect x="590" y="188" width="240" height="54" rx="6" fill="#C6F6D5" stroke="#48BB78" stroke-width="1.5"/>
+      <text x="710" y="215" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#276749;font-weight:700">Fix AND verify</text>
+      <text x="710" y="232" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#276749">Edits code, runs tests, confirms</text>
+
+      <!-- ====== Row 4: Autonomy ====== -->
+      <rect x="20" y="250" width="120" height="54" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="80" y="280" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#2D3748;font-weight:700">Autonomy</text>
+
+      <rect x="150" y="250" width="210" height="54" rx="6" fill="#FFF5EB" stroke="#E2E8F0" stroke-width="1"/>
+      <!-- Autonomy bar: zero -->
+      <rect x="175" y="270" width="160" height="12" rx="4" fill="#E2E8F0"/>
+      <rect x="175" y="270" width="4" height="12" rx="4" fill="#DD6B20"/>
+      <text x="255" y="296" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#718096">Zero</text>
+
+      <rect x="370" y="250" width="210" height="54" rx="6" fill="#BEE3F8" stroke="#E2E8F0" stroke-width="1" opacity="0.4"/>
+      <!-- Autonomy bar: low -->
+      <rect x="395" y="270" width="160" height="12" rx="4" fill="#E2E8F0"/>
+      <rect x="395" y="270" width="40" height="12" rx="4" fill="#4A9BD9"/>
+      <text x="475" y="296" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#718096">Low</text>
+
+      <rect x="590" y="250" width="240" height="54" rx="6" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/>
+      <!-- Autonomy bar: high -->
+      <rect x="620" y="270" width="180" height="12" rx="4" fill="#E2E8F0"/>
+      <rect x="620" y="270" width="140" height="12" rx="4" fill="#9F7AEA"/>
+      <text x="710" y="296" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#553C9A;font-weight:700">High</text>
+
+      <!-- ====== Row 5: Loop? ====== -->
+      <rect x="20" y="312" width="120" height="54" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="80" y="338" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#2D3748;font-weight:700">Feedback</text>
+      <text x="80" y="354" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#2D3748;font-weight:700">loop?</text>
+
+      <rect x="150" y="312" width="210" height="54" rx="6" fill="#FFF5EB" stroke="#E2E8F0" stroke-width="1"/>
+      <text x="255" y="338" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#4A5568">None</text>
+      <text x="255" y="356" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">One-shot prediction</text>
+
+      <rect x="370" y="312" width="210" height="54" rx="6" fill="#BEE3F8" stroke="#E2E8F0" stroke-width="1" opacity="0.4"/>
+      <text x="475" y="338" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#4A5568">Manual</text>
+      <text x="475" y="356" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">Human pastes errors back</text>
+
+      <rect x="590" y="312" width="240" height="54" rx="6" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/>
+      <text x="710" y="338" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#44337A;font-weight:700">Automatic (ReAct)</text>
+      <text x="710" y="356" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#553C9A">Think-Act-Observe in a loop</text>
+
+      <!-- ====== Growing arrow across bottom ====== -->
+      <line x1="160" y1="388" x2="820" y2="388" stroke="#9F7AEA" stroke-width="2.5"/>
+      <polygon points="815,381 830,388 815,395" fill="#9F7AEA"/>
+      <text x="490" y="406" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#553C9A;font-weight:700">Increasing capability and autonomy</text>
+
+    </svg>
+  </div>
+
+  <div class="bigidea">
+    <strong>An agent is not a different model &mdash; it is the same LLM, wrapped in a loop, with access to tools.</strong> The intelligence comes from the model. The agency comes from the architecture: the ability to act on the world, observe the results, and keep going until the task is done.
+  </div>
+</article>
+
+</div><!-- /blueprint-container -->
+
+<!-- Footer -->
+<footer style="text-align:center;padding:16px 24px 40px;max-width:900px;margin:0 auto">
+  <div style="width:60px;height:2px;background:#E2E8F0;border-radius:1px;margin:0 auto 14px"></div>
+  <p style="font-family:var(--body);font-size:14px;color:#718096">From Turing to Swarms &mdash; Issue 8 Illustration</p>
+</footer>
+
+</body>
+</html>

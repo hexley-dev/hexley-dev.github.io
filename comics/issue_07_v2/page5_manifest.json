@@ -1,0 +1,98 @@
+{
+  "issue": 7,
+  "page": 5,
+  "title": "Tokenization -- How Words Become Numbers",
+  "accent": "#4A9BD9",
+  "panels": [
+    {
+      "id": "p5_01_text_machine",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A wide cinematic shot of readable English text flowing from the left side into an intricate mechanical machine in the center, the text is being sliced into colorful glowing puzzle pieces of varying sizes like a prism splitting light, on the right side the puzzle pieces transform into a stream of glowing numbers floating away, the machine itself is ornate and mechanical with gears and crystals, Comic book style, warm editorial illustration with ink lines and watercolor washes, vibrant rainbow colors splitting from warm text tones to cool number blue #4A9BD9 tones",
+      "overlays": []
+    },
+    {
+      "id": "p5_02_robot_tokenize",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute squat boxy retro toy robot with big round orange headlamp eyes full of gentle patience, tiny antenna ears with bobbles, a wind-up key on its back, pastel silver body with rounded edges, holding up colorful letter tiles like Scrabble pieces spelling 'un' 'happi' 'ness' in different colors, explaining warmly. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"We cut words into smart pieces.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, soft warm background with blue #4A9BD9 accents",
+      "bubble_text": "We cut words into smart pieces.",
+      "speaker": "TINBOT"
+    },
+    {
+      "id": "p5_03_narration_problem",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "How many words are in English? Between 170,000 and over a million. Add every language, typos, slang, URLs, emoji -- the number is <strong>effectively infinite</strong>. We can't give every word its own number. But individual letters carry almost no meaning. The solution: <strong>tokenization</strong> -- splitting text into <strong>subword pieces</strong>."
+    },
+    {
+      "id": "p5_04_bpe_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-10 -20 690 300\"><style>.title{font-size:14px; font-weight:bold; } .step{font-size:12px; font-weight:bold; } .tok{font-size:13px; font-weight:bold; font-family:'JetBrains Mono',monospace} .merge{font-size:12px; font-weight:bold} .small{font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" class=\"title\" x=\"340\" y=\"5\" text-anchor=\"middle\">Byte-Pair Encoding (BPE) in Action</text><g transform=\"translate(60,25)\"><text fill=\"#E2E8F0\" class=\"step\" x=\"0\" y=\"15\">Start:</text><rect x=\"80\" y=\"0\" width=\"28\" height=\"26\" rx=\"4\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1\"/><text class=\"tok\" x=\"94\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\">l</text><rect x=\"114\" y=\"0\" width=\"28\" height=\"26\" rx=\"4\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1\"/><text class=\"tok\" x=\"128\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\">o</text><rect x=\"148\" y=\"0\" width=\"28\" height=\"26\" rx=\"4\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1\"/><text class=\"tok\" x=\"162\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\">w</text><rect x=\"182\" y=\"0\" width=\"28\" height=\"26\" rx=\"4\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1\"/><text class=\"tok\" x=\"196\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\">e</text><rect x=\"216\" y=\"0\" width=\"28\" height=\"26\" rx=\"4\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1\"/><text class=\"tok\" x=\"230\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\">r</text><text fill=\"#E2E8F0\" class=\"small\" x=\"300\" y=\"18\">(5 tokens)</text></g><g transform=\"translate(60,65)\"><text fill=\"#E2E8F0\" class=\"step\" x=\"0\" y=\"15\">Step 1:</text><rect x=\"80\" y=\"0\" width=\"28\" height=\"26\" rx=\"4\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1\"/><text fill=\"#2D3748\" class=\"tok\" x=\"94\" y=\"18\" text-anchor=\"middle\">l</text><rect x=\"114\" y=\"0\" width=\"28\" height=\"26\" rx=\"4\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1\"/><text fill=\"#2D3748\" class=\"tok\" x=\"128\" y=\"18\" text-anchor=\"middle\">o</text><rect x=\"148\" y=\"0\" width=\"28\" height=\"26\" rx=\"4\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1\"/><text fill=\"#2D3748\" class=\"tok\" x=\"162\" y=\"18\" text-anchor=\"middle\">w</text><rect x=\"182\" y=\"0\" width=\"44\" height=\"26\" rx=\"4\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text font-size=\"12\" class=\"tok\" x=\"204\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\">er</text><text fill=\"#E2E8F0\" class=\"merge\" x=\"300\" y=\"18\">e+r merged!</text></g><g transform=\"translate(60,105)\"><text fill=\"#E2E8F0\" class=\"step\" x=\"0\" y=\"15\">Step 2:</text><rect x=\"80\" y=\"0\" width=\"38\" height=\"26\" rx=\"4\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text font-size=\"12\" class=\"tok\" x=\"99\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\">lo</text><rect x=\"124\" y=\"0\" width=\"28\" height=\"26\" rx=\"4\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1\"/><text fill=\"#2D3748\" class=\"tok\" x=\"138\" y=\"18\" text-anchor=\"middle\">w</text><rect x=\"158\" y=\"0\" width=\"44\" height=\"26\" rx=\"4\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text class=\"tok\" x=\"180\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\">er</text><text fill=\"#E2E8F0\" class=\"merge\" x=\"300\" y=\"18\">l+o merged!</text></g><g transform=\"translate(60,145)\"><text fill=\"#E2E8F0\" class=\"step\" x=\"0\" y=\"15\">Step 3:</text><rect x=\"80\" y=\"0\" width=\"54\" height=\"26\" rx=\"4\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text font-size=\"12\" class=\"tok\" x=\"107\" y=\"18\" text-anchor=\"middle\" fill=\"#4A9BD9\">low</text><rect x=\"140\" y=\"0\" width=\"44\" height=\"26\" rx=\"4\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text font-size=\"12\" class=\"tok\" x=\"162\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\">er</text><text fill=\"#E2E8F0\" class=\"merge\" x=\"300\" y=\"18\">lo+w merged!</text></g><g transform=\"translate(60,185)\"><text fill=\"#E2E8F0\" class=\"step\" x=\"0\" y=\"15\">Final:</text><rect x=\"80\" y=\"0\" width=\"80\" height=\"30\" rx=\"6\" fill=\"#4A9BD9\" stroke=\"#2D3748\" stroke-width=\"2\"/><text class=\"tok\" x=\"120\" y=\"20\" text-anchor=\"middle\" fill=\"#2D3748\" font-size=\"12\">lower</text><text x=\"300\" y=\"20\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">1 token!</text></g><line x1=\"55\" y1=\"30\" x2=\"55\" y2=\"210\" stroke=\"#E2E8F0\" stroke-width=\"1.5\" stroke-dasharray=\"4,3\"/><g transform=\"translate(60,230)\"><text fill=\"#E2E8F0\" class=\"title\" x=\"280\" y=\"5\" text-anchor=\"middle\">How Different Words Get Tokenized</text><text fill=\"#E2E8F0\" class=\"tok\" x=\"30\" y=\"28\" font-size=\"12\">\"the\"</text><text x=\"100\" y=\"28\" font-size=\"12\" fill=\"#E2E8F0\">[the] = 1 token</text><text fill=\"#E2E8F0\" class=\"tok\" x=\"240\" y=\"28\" font-size=\"12\">\"unhappiness\"</text><text x=\"370\" y=\"28\" font-size=\"12\" fill=\"#DD6B20\">[un][happi][ness] = 3 tokens</text></g></svg>",
+      "caption": "BPE merges frequent character pairs until common words become single tokens."
+    },
+    {
+      "id": "p5_05_narration_elegant",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The result is elegant. Common words like \"the\" are single tokens. Rare words get split: <strong>\"unhappiness\"</strong> becomes [un][happi][ness]. The model handles <em>any</em> word, even one it has never seen before, by breaking it into familiar fragments."
+    },
+    {
+      "id": "p5_06_position_encoding",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A row of colorful puzzle pieces laid out like a sentence, each piece has a small address badge or postal stamp below it showing a number (#1 #2 #3 #4 #5 #6), the pieces glow softly, sine and cosine wave patterns flow underneath like a river of mathematics connecting the position badges, the overall feel is orderly and organized, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm paper tones with blue #4A9BD9 address badges",
+      "overlays": []
+    },
+    {
+      "id": "p5_07_robot_position",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A tiny luminous dome-headed translucent robot, translucent and glowing with soft inner light, big gentle eyes like tiny moons, cable-arms with small light-bulb tips, floating while holding tiny numbered stamps (#1 #2 #3), peaceful and wise expression, sine wave patterns visible through its translucent body. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Positional encoding stamps each token with its address.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, soft deep blue background with blue #4A9BD9 glow",
+      "bubble_text": "Positional encoding stamps each token with its address.",
+      "speaker": "STARLIGHT"
+    },
+    {
+      "id": "p5_08_narration_position",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Since the Transformer processes all tokens in <strong>parallel</strong>, it has no idea what order they are in. \"Dog bites man\" and \"Man bites dog\" would look identical. The solution: <strong>positional encoding</strong> -- stamping each token with a unique mathematical pattern. Think of it like putting an address on each puzzle piece: <em>\"I am token number 7 in this sequence.\"</em>"
+    },
+    {
+      "id": "p5_09_thinkit",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Try tokenizing a word yourself! The word <strong>\"unbreakable\"</strong> would probably become [un][break][able]. Now try \"antidisestablishmentarianism\" -- how many pieces do you think that becomes? The model handles <em>any</em> word, even one it has never seen, by breaking it into familiar fragments."
+    },
+    {
+      "id": "p5_09b_robot_position",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round sky-blue robot with a dome head and big thoughtful teal LED eyes, stubby arms holding a magnifying glass over a sentence where each word has a glowing number underneath it, antenna with a tiny bookmark on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Where a word sits changes its meaning entirely.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Where a word sits changes its meaning entirely.",
+      "speaker": "POSBOT"
+    },
+    {
+      "id": "p5_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Now we have all the ingredients: self-attention to find relationships, tokenization to turn text into numbers, and positional encoding to preserve word order. Time to put it all together."
+    }
+  ]
+}

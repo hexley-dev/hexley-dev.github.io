@@ -1,0 +1,94 @@
+{
+  "issue": 8,
+  "page": 2,
+  "title": "GitHub Copilot — The First Taste of AI Coding",
+  "accent": "#9F7AEA",
+  "panels": [
+    {
+      "id": "p2_01_copilot_screen",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A developer's screen in Visual Studio Code, dark theme, the cursor blinks after a comment line reading '// find the most common word in a string', below the comment subtle gray translucent text appears showing soft out-of-focus lines of a code suggestion, waiting to be accepted, the developer's hand hovers over the Tab key, soft blue-violet glow emanating from the suggestion, atmosphere of wonder and possibility. Comic book style, warm editorial illustration with ink lines and watercolor washes, violet (#9F7AEA) accent glow on the inline suggestion text",
+      "overlays": []
+    },
+    {
+      "id": "p2_02_robot_type_comment",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute squat retro toy robot with big round orange headlamp eyes full of excitement, tiny antenna ears with bobbles, pastel silver body with rounded edges, wind-up key on its back, leaning forward eagerly pointing at a floating VS Code window, starry dark background with code symbols. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"Type a comment. AI writes the code.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, violet accent highlights",
+      "bubble_text": "Type a comment. AI writes the code.",
+      "speaker": "TINBOT"
+    },
+    {
+      "id": "p2_03_narration_copilot",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "On <strong>June 29, 2021</strong>, GitHub announced <strong>Copilot</strong> as a technical preview. Built on <strong>OpenAI Codex</strong>, a 12-billion-parameter language model fine-tuned on billions of lines of public code, Copilot predicted not just the next word &mdash; but entire functions."
+    },
+    {
+      "id": "p2_04_friedman",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A tech CEO presenting on a large stage, illuminated by a spotlight, behind him a massive screen showing the GitHub Copilot logo and 'June 2021' text, audience in silhouette, atmosphere of a major product launch, excitement and anticipation in the air. Comic book style, warm editorial illustration with ink lines and watercolor washes, violet and blue accent lighting",
+      "overlays": []
+    },
+    {
+      "id": "p2_04b_million_subs",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A large glowing digital counter display ticking upward, showing the number '1,000,000' with the label 'Paying Subscribers' below it and 'Feb 2023' above, bright violet neon glow, confetti and celebration particles, sense of massive adoption and milestone, dark background. Comic book style, warm editorial illustration with ink lines and watercolor washes, violet (#9F7AEA) accent",
+      "overlays": []
+    },
+    {
+      "id": "p2_05_narration_adoption",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Copilot became generally available on <strong>June 21, 2022</strong>, at $10/month. By February 2023: over <strong>one million paying subscribers</strong>. An internal study claimed developers completed tasks <strong>55% faster</strong>. Critics noted the study used a simple task &mdash; but nobody disputed the <em>feeling</em>. Developers called it a &ldquo;before and after&rdquo; moment."
+    },
+    {
+      "id": "p2_06_controversy",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A dramatic split composition. Left side: a developer grinning with delight, a glowing code suggestion floating before them, warm golden light, positive energy. Right side: another developer frowning at their screen where a code suggestion shows a familiar GPL license header appearing in the inline suggestion text, red warning glow, concern and suspicion. A jagged dividing line down the center separates the two reactions. Comic book style, warm editorial illustration with ink lines and watercolor washes, golden vs red contrast",
+      "overlays": []
+    },
+    {
+      "id": "p2_07_narration_lawsuit",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Copilot had been trained on public code, including <strong>GPL-licensed</strong> code. Lawyer <strong>Matthew Butterick</strong> filed a class-action lawsuit in November 2022, calling it &ldquo;software piracy at an unprecedented scale.&rdquo; The fundamental question: is an AI learning patterns from code the same as <em>copying</em> that code? The legal system is still wrestling with the answer."
+    },
+    {
+      "id": "p2_08_how_copilot_works",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-10 -20 720 240\" xmlns=\"http://www.w3.org/2000/svg\"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x=\"340\" y=\"8\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#9F7AEA\">How Copilot Works</text><rect x=\"30\" y=\"30\" width=\"120\" height=\"50\" rx=\"8\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"90\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">1. You type</text><text fill=\"#2D3748\" x=\"90\" y=\"66\" text-anchor=\"middle\" font-size=\"12\" textLength=\"92\" lengthAdjust=\"spacingAndGlyphs\">code + comment</text><rect x=\"190\" y=\"30\" width=\"120\" height=\"50\" rx=\"8\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"250\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">2. Sent to</text><text fill=\"#2D3748\" x=\"250\" y=\"66\" text-anchor=\"middle\" font-size=\"12\">Codex model</text><rect x=\"350\" y=\"30\" width=\"120\" height=\"50\" rx=\"8\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"410\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">3. Predicts</text><text fill=\"#2D3748\" x=\"410\" y=\"66\" text-anchor=\"middle\" font-size=\"12\">next tokens</text><rect x=\"510\" y=\"30\" width=\"140\" height=\"50\" rx=\"8\" fill=\"#9F7AEA\" stroke=\"#6B46C1\" stroke-width=\"2\"/><text x=\"580\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#fff\">4. Inline suggestion</text><text x=\"580\" y=\"66\" text-anchor=\"middle\" font-size=\"12\" fill=\"#fff\" textLength=\"112\" lengthAdjust=\"spacingAndGlyphs\">appears in editor</text><line x1=\"150\" y1=\"55\" x2=\"190\" y2=\"55\" stroke=\"#9F7AEA\" stroke-width=\"2\" marker-end=\"url(#arrowP2)\"/><line x1=\"310\" y1=\"55\" x2=\"350\" y2=\"55\" stroke=\"#9F7AEA\" stroke-width=\"2\" marker-end=\"url(#arrowP2)\"/><line x1=\"470\" y1=\"55\" x2=\"510\" y2=\"55\" stroke=\"#9F7AEA\" stroke-width=\"2\" marker-end=\"url(#arrowP2)\"/><rect x=\"200\" y=\"110\" width=\"280\" height=\"45\" rx=\"8\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"340\" y=\"130\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">5. Press Tab to accept</text><text x=\"340\" y=\"146\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">...or keep typing to ignore</text><line x1=\"580\" y1=\"80\" x2=\"580\" y2=\"110\" stroke=\"#38A169\" stroke-width=\"1.5\" stroke-dasharray=\"4,3\"/><line x1=\"580\" y1=\"110\" x2=\"480\" y2=\"132\" stroke=\"#38A169\" stroke-width=\"1.5\" stroke-dasharray=\"4,3\" marker-end=\"url(#arrowG)\"/><defs><marker id=\"arrowP2\" viewBox=\"0 0 10 30\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"#9F7AEA\"/></marker><marker id=\"arrowG\" viewBox=\"0 0 10 30\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"#38A169\"/></marker></defs></svg>",
+      "caption": "How Copilot works: from typing to inline code suggestions"
+    },
+    {
+      "id": "p2_09_think_about_it",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<em>&ldquo;If you read a thousand cookbooks and then write your own recipe, is that copying? What if your recipe happens to match someone else&rsquo;s word for word? At what point does &lsquo;learning from&rsquo; become &lsquo;copying&rsquo;?&rdquo;</em>"
+    },
+    {
+      "id": "p2_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Copilot could finish your sentences. But what if you didn't want to write code at all? What if you just wanted to describe what you needed — in plain English — and have AI write the whole thing?"
+    }
+  ]
+}

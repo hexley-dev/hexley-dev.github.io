@@ -1,0 +1,44 @@
+[
+  {
+    "id": "p10_01_four_leaps_timeline",
+    "label": "",
+    "filename": "p10_01_four_leaps_timeline.png",
+    "width": 768,
+    "height": 320
+  },
+  {
+    "id": "p10_02_robot_reflective",
+    "label": "",
+    "filename": "p10_02_robot_reflective.png",
+    "width": 352,
+    "height": 512
+  },
+  {
+    "id": "p10_02b_robot_forward",
+    "label": "",
+    "filename": "p10_02b_robot_forward.png",
+    "width": 352,
+    "height": 512
+  },
+  {
+    "id": "p10_05_single_vs_multi",
+    "label": "",
+    "filename": "p10_05_single_vs_multi.png",
+    "width": 768,
+    "height": 448
+  },
+  {
+    "id": "p10_07b_robot_solution",
+    "label": "",
+    "filename": "p10_07b_robot_solution.png",
+    "width": 640,
+    "height": 384
+  },
+  {
+    "id": "p10_09_teaser_swarm",
+    "label": "",
+    "filename": "p10_09_teaser_swarm.png",
+    "width": 768,
+    "height": 256
+  }
+]

@@ -1,0 +1,101 @@
+{
+  "issue": 9,
+  "page": 8,
+  "title": "A Real Example — Watching a Swarm Build a Web App",
+  "accent": "#48BB78",
+  "panels": [
+    {
+      "id": "p8_01_human_prompt",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 512,
+      "prompt": "A human developer typing at a modern terminal, the screen showing a single high-level request glowing in emerald green text, soft out-of-focus characters forming a long command line, the developer seen from behind in silhouette, warm desk lamp lighting, coffee cup beside the keyboard. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p8_01b_orchestrator_plan",
+      "type": "image",
+      "layout": "right",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 512,
+      "prompt": "An orchestrator terminal screen breaking a large project into four parallel workstreams, the screen shows a neat plan with four colored assignment cards being written to separate files — Backend (blue), Database (orange), Frontend (green), Tests (purple) — arrows pointing from the main task to each card, organized and methodical with emerald accent glow, dark background. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p8_02_robot_narrator",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute round ruby-red robot with big excited golden eyes sparkling like a sports commentator, wearing a tiny headset microphone, one arm pointing at a row of four parallel lanes behind it like a racing track, energetic and animated pose, the lanes show four small terminal screens each working on different colored tasks. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Watch the lanes. Each agent works alone, seeing only its own file.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, emerald green accent",
+      "bubble_text": "Watch the lanes. Each agent works alone, seeing only its own file.",
+      "speaker": "ANNOUNCER"
+    },
+    {
+      "id": "p8_03_narr_step1",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "A developer wants to build a <strong>task management web application</strong>. They type a single prompt: <em>\"Build a task management app with user authentication, a REST API, a database, and a React front end. Include tests.\"</em><br><br><strong>Step 1: The orchestrator makes a plan.</strong> It breaks the project into four parallel workstreams and one sequential review step."
+    },
+    {
+      "id": "p8_04_parallel_lanes",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "Four parallel lanes running side by side like a film strip, each lane showing a specialist agent terminal working independently: Lane 1 (blue) shows Backend agent building a REST API with Express.js code on screen, Lane 2 (orange) shows Database agent designing PostgreSQL schema, Lane 3 (green) shows Frontend agent building React components, Lane 4 (purple) shows Tests agent writing test suites — each lane is clearly separated, all progressing simultaneously, dark background with colored accent glow per lane. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p8_05_narr_specialists",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Step 2: Specialists spin up — in parallel.</strong> Agent A (Backend) builds a REST API with Express.js. Agent B (Database) designs a PostgreSQL schema. Agent C (Frontend) builds a React app. Agent D (Tests) writes integration and unit tests. Each has a fresh context. None of them know the others exist."
+    },
+    {
+      "id": "p8_06_gantt",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-61 -35 756 360\"><rect x=\"-15\" y=\"-20\" width=\"695\" height=\"330\" rx=\"12\" fill=\"#1A202C\"/><text x=\"340\" y=\"16\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"17\" font-weight=\"bold\">The Swarm Build — Visual Timeline</text><text x=\"620\" y=\"48\" text-anchor=\"end\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Time →</text><text x=\"50\" y=\"70\" text-anchor=\"end\" fill=\"#48BB78\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\">Orchestrator</text><rect x=\"70\" y=\"58\" width=\"70\" height=\"18\" rx=\"4\" fill=\"#48BB78\" opacity=\"0.4\"/><text x=\"105\" y=\"71\" text-anchor=\"middle\" fill=\"#C6F6D5\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">Plan</text><rect x=\"350\" y=\"58\" width=\"60\" height=\"18\" rx=\"4\" fill=\"#48BB78\" opacity=\"0.4\"/><text x=\"380\" y=\"71\" text-anchor=\"middle\" fill=\"#C6F6D5\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">Merge</text><rect x=\"520\" y=\"58\" width=\"80\" height=\"18\" rx=\"4\" fill=\"#48BB78\" opacity=\"0.4\"/><text x=\"560\" y=\"71\" text-anchor=\"middle\" fill=\"#C6F6D5\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">Route fixes</text><text x=\"50\" y=\"105\" text-anchor=\"end\" fill=\"#4A9BD9\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" textLength=\"47\" lengthAdjust=\"spacingAndGlyphs\">Agent A</text><rect x=\"70\" y=\"93\" width=\"260\" height=\"18\" rx=\"4\" fill=\"#4A9BD9\" opacity=\"0.5\"/><text x=\"200\" y=\"106\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">Backend</text><text x=\"50\" y=\"140\" text-anchor=\"end\" fill=\"#DD6B20\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" textLength=\"47\" lengthAdjust=\"spacingAndGlyphs\">Agent B</text><rect x=\"70\" y=\"128\" width=\"240\" height=\"18\" rx=\"4\" fill=\"#DD6B20\" opacity=\"0.5\"/><text x=\"190\" y=\"141\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">Database</text><text x=\"50\" y=\"175\" text-anchor=\"end\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" textLength=\"47\" lengthAdjust=\"spacingAndGlyphs\">Agent C</text><rect x=\"70\" y=\"163\" width=\"280\" height=\"18\" rx=\"4\" fill=\"#38A169\" opacity=\"0.5\"/><text x=\"210\" y=\"176\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">Frontend</text><text x=\"50\" y=\"210\" text-anchor=\"end\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" textLength=\"47\" lengthAdjust=\"spacingAndGlyphs\">Agent D</text><rect x=\"70\" y=\"198\" width=\"270\" height=\"18\" rx=\"4\" fill=\"#805AD5\" opacity=\"0.5\"/><text x=\"205\" y=\"211\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">Tests</text><text x=\"50\" y=\"245\" text-anchor=\"end\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Red Team</text><rect x=\"420\" y=\"233\" width=\"100\" height=\"18\" rx=\"4\" fill=\"#E53E3E\" opacity=\"0.5\"/><text x=\"470\" y=\"246\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">Review</text><text x=\"340\" y=\"280\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-style=\"italic\">Agents A-D work in parallel. Red Team runs AFTER merge — fresh eyes on committed work.</text></svg>",
+      "caption": "Parallel work compressed into a fraction of the time"
+    },
+    {
+      "id": "p8_07_narr_converge",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Step 3: Results converge.</strong> Each agent finishes and commits its work. The orchestrator merges the branches and resolves integration issues.<br><br><strong>Step 4: The Red Team.</strong> A final adversarial reviewer is spawned LAST, after all work is committed to files. Fresh eyes. Genuine critique. It runs last deliberately — genuine tension is preserved.<br><br><strong>Step 5: Fix and ship.</strong> The orchestrator routes findings back to specialists for fixes."
+    },
+    {
+      "id": "p8_08_narr_caveat",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Not every task benefits from multiple agents — the coordination overhead only pays off for genuinely multi-faceted problems. Simple, well-defined tasks are often better handled by a single agent. But for complex projects with distinct concerns, the results are often <strong>better</strong> — because each piece was built with full attention."
+    },
+    {
+      "id": "p8_08b_robot_converge",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round dark-emerald robot with a dome head and big thoughtful green LED eyes, stubby arms holding a magnifying glass over a Venn diagram where UNIX and SWARMS overlap, antenna with a tiny gear-and-brain hybrid on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Small tools piped together. Sound familiar?\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Small tools piped together. Sound familiar?",
+      "speaker": "ECHOBOT"
+    },
+    {
+      "id": "p8_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>\"A swarm does not just divide labor. It divides <em>attention</em>. Each agent gives its full, undegraded focus to one concern. The result is not just faster — it is often better than what one agent could produce alone, no matter how long it worked.\"</strong>"
+    },
+    {
+      "id": "p8_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "If this architecture feels familiar, it should. You have seen it before — over half a century ago, in a quiet lab in New Jersey. The Unix philosophy is back, and this time, the tools are thinking for themselves."
+    }
+  ]
+}

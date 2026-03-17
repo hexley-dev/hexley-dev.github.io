@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Binary Playground — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS Variables — match the comic series visual identity
+   ============================================================ */
+:root {
+  --hand: 'Caveat', 'Patrick Hand', cursive;
+  --body: 'Patrick Hand', cursive;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --accent: #E53E3E;
+  --accent-light: rgba(229, 62, 62, 0.12);
+  --accent-glow: rgba(229, 62, 62, 0.4);
+  --bg: #FAF9F6;
+  --dark: #2D3748;
+  --muted: #718096;
+  --border: #E2E8F0;
+  --card: #F7FAFC;
+  --dark-panel: #1A202C;
+  --green: #48BB78;
+  --green-light: rgba(72, 187, 120, 0.15);
+  --blue: #4A9BD9;
+  --blue-light: rgba(74, 155, 217, 0.15);
+  --yellow: #ECC94B;
+  --purple: #805AD5;
+  --bit-size: 42px;
+  --bit-size-sm: 32px;
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--dark);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(229,62,62,.03) 0%, transparent 55%),
+    radial-gradient(circle at 75% 75%, rgba(246,173,85,.03) 0%, transparent 55%);
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+.container {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 16px 60px;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.lab-header {
+  text-align: center;
+  padding: 24px 16px 16px;
+}
+
+.back-link {
+font-family: var(--hand);
+  font-size: 14px;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.back-link:hover { opacity: 0.7; transition: opacity 0.15s; }
+
+.lab-header h1 {
+  font-family: var(--hand);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--dark-panel);
+  margin: 8px 0 4px;
+  line-height: 1.1;
+}
+
+.lab-header .subtitle {
+  font-family: var(--body);
+  font-size: 17px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.lab-header .companion-note {
+  font-family: var(--body);
+  font-size: 13px;
+  color: var(--muted);
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.issue-links {
+  margin-top: 6px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.issue-links a {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  text-decoration: none;
+  padding: 2px 8px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  transition: background 0.2s, color 0.2s;
+}
+.issue-links a:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.title-bar {
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 12px auto 0;
+}
+
+/* ============================================================
+   Tabs
+   ============================================================ */
+.tab-bar {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid var(--border);
+  margin: 20px 0 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tab-btn {
+  font-family: var(--hand);
+  font-size: 17px;
+  font-weight: 700;
+  background: none;
+  border: none;
+  padding: 10px 16px;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.tab-btn:hover { color: var(--dark); }
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab-content {
+  display: none;
+  padding: 20px 0;
+  animation: fadeIn 0.3s ease;
+}
+.tab-content.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   Cards & Panels
+   ============================================================ */
+.card {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-family: var(--hand);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dark-panel);
+  margin-bottom: 12px;
+}
+
+.callout {
+  background: var(--accent-light);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  font-size: 15px;
+  color: var(--dark);
+  margin: 12px 0;
+  line-height: 1.4;
+}
+
+.callout.green {
+  background: var(--green-light);
+  border-left-color: var(--green);
+}
+
+.callout.blue {
+  background: var(--blue-light);
+  border-left-color: var(--blue);
+}
+
+/* ============================================================
+   Bit Grid — shared component
+   ============================================================ */
+.bit-grid {
+  display: inline-flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.bit-group {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.bit-group + .bit-group { margin-left: 8px; }
+
+.bit-cell {
+  width: var(--bit-size);
+  height: var(--bit-size);
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  background: #fff;
+}
+
+.bit-cell:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-light);
+}
+
+.bit-cell.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.bit-cell.on-green {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.bit-cell.on-blue {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+}
+
+.bit-cell.on-purple {
+  background: var(--purple);
+  border-color: var(--purple);
+  color: #fff;
+}
+
+.bit-cell.small {
+  width: var(--bit-size-sm);
+  height: var(--bit-size-sm);
+  font-size: 13px;
+}
+
+.bit-cell.readonly {
+  cursor: default;
+}
+.bit-cell.readonly:hover {
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+.place-labels {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.place-labels .place-group {
+  display: inline-flex;
+  gap: 3px;
+}
+
+.place-labels .place-group + .place-group { margin-left: 8px; }
+
+.place-label {
+  width: var(--bit-size);
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+}
+
+/* ============================================================
+   Input Fields
+   ============================================================ */
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.field-label {
+  font-family: var(--hand);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--dark-panel);
+  min-width: 80px;
+}
+
+.field-input {
+  font-family: var(--mono);
+  font-size: 16px;
+  padding: 8px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--dark);
+  outline: none;
+  transition: border-color 0.2s;
+  width: 200px;
+  max-width: 100%;
+}
+.field-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+.field-input.error {
+  border-color: #fc8181;
+  background: #fff5f5;
+}
+
+.field-input.wide { width: 260px; }
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.toggle-switch.active { background: var(--accent); }
+.toggle-switch::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+.toggle-switch.active::after { transform: translateX(20px); }
+
+.toggle-label {
+  font-family: var(--body);
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.addition-display {
+  font-family: var(--mono);
+  font-size: 15px;
+  color: var(--dark);
+  margin: 8px 0;
+  padding: 8px 12px;
+  background: var(--card);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  min-height: 36px;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   Bitwise Operations Tab
+   ============================================================ */
+.op-selector {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.op-btn {
+  font-family: var(--mono);
+  font-size: 13px;
+  padding: 6px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--dark);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.op-btn:hover { border-color: var(--accent); }
+.op-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.bitwise-breakdown {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+.bitwise-breakdown .col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: var(--bit-size);
+}
+.bitwise-breakdown .col + .col { /* no extra margin to align with bits */ }
+
+.result-label {
+  font-family: var(--hand);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--dark-panel);
+  margin: 12px 0 6px;
+}
+
+.practical-example {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 14px;
+}
+.practical-example .pe-title {
+  font-family: var(--hand);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.practical-example p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.practical-example code {
+  font-family: var(--mono);
+  background: var(--accent-light);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+/* ============================================================
+   Two's Complement Tab
+   ============================================================ */
+.step-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 8px 0;
+}
+.step-box .step-num {
+  font-family: var(--hand);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent);
+}
+.step-box .step-desc {
+  font-size: 14px;
+  color: var(--dark);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.number-line-container {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  margin: 16px 0;
+  overflow: hidden;
+}
+.number-line-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================================
+   Floating Point Tab
+   ============================================================ */
+.fp-bit-row {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+  align-items: flex-start;
+}
+
+.fp-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.fp-section-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+
+.fp-bit {
+  width: 22px;
+  height: 28px;
+  border: 1.5px solid var(--border);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  background: #fff;
+  transition: all 0.2s;
+}
+.fp-bit.sign { border-color: var(--accent); }
+.fp-bit.sign.on { background: var(--accent); color: #fff; }
+.fp-bit.exponent { border-color: var(--blue); }
+.fp-bit.exponent.on { background: var(--blue); color: #fff; }
+.fp-bit.mantissa { border-color: var(--green); }
+.fp-bit.mantissa.on { background: var(--green); color: #fff; }
+
+.fp-formula {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--dark);
+  background: var(--card);
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin: 10px 0;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.fp-examples {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+.fp-example-btn {
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--dark);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.fp-example-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+/* ============================================================
+   ASCII Table Tab
+   ============================================================ */
+.ascii-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+  gap: 3px;
+  margin: 12px 0;
+}
+.ascii-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 15px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+}
+.ascii-cell:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  transform: scale(1.1);
+  z-index: 2;
+}
+.ascii-cell.highlight {
+  background: var(--blue-light);
+  border-color: var(--blue);
+}
+
+.ascii-tooltip {
+  position: fixed;
+  background: var(--dark-panel);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 100;
+  line-height: 1.5;
+  display: none;
+  max-width: 200px;
+}
+
+.ascii-art-output {
+  font-family: var(--mono);
+  font-size: 13px;
+  background: var(--dark-panel);
+  color: var(--green);
+  padding: 14px;
+  border-radius: 10px;
+  overflow-x: auto;
+  line-height: 1.4;
+  margin: 10px 0;
+  min-height: 60px;
+  white-space: pre;
+}
+
+/* ============================================================
+   Fun Fact Button
+   ============================================================ */
+.fun-fact-bar {
+  text-align: center;
+  margin: 24px 0 8px;
+}
+.fun-fact-btn {
+  font-family: var(--hand);
+  font-size: 17px;
+  font-weight: 700;
+  padding: 10px 24px;
+  border: 2px solid var(--accent);
+  border-radius: 30px;
+  background: #fff;
+  color: var(--accent);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.fun-fact-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: scale(1.03);
+}
+
+.fun-fact-display {
+  font-family: var(--body);
+  font-size: 16px;
+  color: var(--dark);
+  text-align: center;
+  padding: 12px 16px;
+  margin: 10px 0;
+  background: var(--accent-light);
+  border-radius: 10px;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.4;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 600px) {
+  :root {
+    --bit-size: 36px;
+    --bit-size-sm: 28px;
+  }
+  .lab-header h1 { font-size: 28px; }
+  .tab-btn { font-size: 14px; padding: 8px 10px; }
+  .field-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .field-label { min-width: unset; }
+  .field-input { width: 100%; }
+  .field-input.wide { width: 100%; }
+  .card { padding: 14px; }
+  .bit-group + .bit-group { margin-left: 4px; }
+  .place-labels .place-group + .place-group { margin-left: 4px; }
+  .place-label { font-size: 9px; }
+  .fp-bit { width: 18px; height: 24px; font-size: 10px; }
+  .ascii-grid { grid-template-columns: repeat(auto-fill, minmax(36px, 1fr)); }
+}
+
+@media (max-width: 400px) {
+  :root {
+    --bit-size: 32px;
+    --bit-size-sm: 26px;
+  }
+  .op-selector { gap: 4px; }
+  .op-btn { padding: 4px 8px; font-size: 11px; }
+}
+*:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Accessibility: respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     Header
+     ============================================================ -->
+<header class="lab-header">
+  <a href="index.html" class="back-link">Back to All Labs</a>
+  <h1>Binary Playground</h1>
+  <p class="subtitle">The language every computer speaks. Learn to read it.</p>
+  <p class="companion-note">Interactive companion to Issues 1-3</p>
+  <div class="issue-links">
+    <a href="#" onclick="history.back();return false" style="text-decoration:none">&larr; Back</a>
+  </div>
+  <div class="title-bar"></div>
+</header>
+
+<div class="container">
+
+  <!-- ============================================================
+       Tab Bar
+       ============================================================ -->
+  <nav class="tab-bar" role="tablist">
+    <button class="tab-btn active" data-tab="convert" role="tab" aria-selected="true" id="tab-btn-convert" aria-controls="tab-convert">Convert</button>
+    <button class="tab-btn" data-tab="bitwise" role="tab" aria-selected="false" id="tab-btn-bitwise" aria-controls="tab-bitwise">Bitwise Ops</button>
+    <button class="tab-btn" data-tab="twos" role="tab" aria-selected="false" id="tab-btn-twos" aria-controls="tab-twos">Two's Complement</button>
+    <button class="tab-btn" data-tab="float" role="tab" aria-selected="false" id="tab-btn-float" aria-controls="tab-float">Floating Point</button>
+    <button class="tab-btn" data-tab="ascii" role="tab" aria-selected="false" id="tab-btn-ascii" aria-controls="tab-ascii">ASCII Table</button>
+  </nav>
+
+  <!-- ============================================================
+       TAB 1: Convert
+       ============================================================ -->
+  <section id="tab-convert" class="tab-content active" role="tabpanel" aria-labelledby="tab-btn-convert">
+    <div class="card">
+      <div class="card-title">Number Converter</div>
+
+      <!-- Toggle signed/unsigned -->
+      <div class="toggle-row">
+        <div id="signed-toggle" class="toggle-switch" role="switch" aria-checked="false" tabindex="0"></div>
+        <span class="toggle-label" id="signed-label">Unsigned (0 to 255)</span>
+      </div>
+
+      <!-- Input fields -->
+      <div class="field-row">
+        <span class="field-label">Decimal</span>
+        <input type="text" id="dec-input" class="field-input" placeholder="0" autocomplete="off">
+      </div>
+      <div class="field-row">
+        <span class="field-label">Binary</span>
+        <input type="text" id="bin-input" class="field-input wide" placeholder="00000000" autocomplete="off">
+      </div>
+      <div class="field-row">
+        <span class="field-label">Hex</span>
+        <input type="text" id="hex-input" class="field-input" placeholder="00" autocomplete="off">
+      </div>
+      <div class="field-row">
+        <span class="field-label">ASCII</span>
+        <input type="text" id="ascii-input" class="field-input" placeholder="NUL" maxlength="1" autocomplete="off">
+      </div>
+
+      <!-- Place value labels -->
+      <div style="margin-top: 16px;">
+        <div class="place-labels">
+          <div class="place-group">
+            <div class="place-label">128</div>
+            <div class="place-label">64</div>
+            <div class="place-label">32</div>
+            <div class="place-label">16</div>
+          </div>
+          <div class="place-group">
+            <div class="place-label">8</div>
+            <div class="place-label">4</div>
+            <div class="place-label">2</div>
+            <div class="place-label">1</div>
+          </div>
+        </div>
+
+        <!-- Clickable bit grid -->
+        <div class="bit-grid" id="convert-bits">
+          <div class="bit-group">
+            <div class="bit-cell" data-bit="7" tabindex="0" role="button" aria-label="Bit 7 (128)">0</div>
+            <div class="bit-cell" data-bit="6" tabindex="0" role="button" aria-label="Bit 6 (64)">0</div>
+            <div class="bit-cell" data-bit="5" tabindex="0" role="button" aria-label="Bit 5 (32)">0</div>
+            <div class="bit-cell" data-bit="4" tabindex="0" role="button" aria-label="Bit 4 (16)">0</div>
+          </div>
+          <div class="bit-group">
+            <div class="bit-cell" data-bit="3" tabindex="0" role="button" aria-label="Bit 3 (8)">0</div>
+            <div class="bit-cell" data-bit="2" tabindex="0" role="button" aria-label="Bit 2 (4)">0</div>
+            <div class="bit-cell" data-bit="1" tabindex="0" role="button" aria-label="Bit 1 (2)">0</div>
+            <div class="bit-cell" data-bit="0" tabindex="0" role="button" aria-label="Bit 0 (1)">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Addition display -->
+      <div class="addition-display" id="addition-display">Click bits or type a number above</div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TAB 2: Bitwise Operations
+       ============================================================ -->
+  <section id="tab-bitwise" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-bitwise">
+    <div class="card">
+      <div class="card-title">Bitwise Operations</div>
+
+      <!-- Number A -->
+      <div class="field-row">
+        <span class="field-label">A =</span>
+        <input type="text" id="bw-a-dec" class="field-input" placeholder="0" autocomplete="off" style="width:80px;">
+        <span style="font-family:var(--mono);font-size:13px;color:var(--muted);">decimal</span>
+      </div>
+      <div class="bit-grid" id="bw-a-bits">
+        <div class="bit-group">
+          <div class="bit-cell" data-bit="7" tabindex="0" role="button" aria-label="A Bit 7">0</div>
+          <div class="bit-cell" data-bit="6" tabindex="0" role="button" aria-label="A Bit 6">0</div>
+          <div class="bit-cell" data-bit="5" tabindex="0" role="button" aria-label="A Bit 5">0</div>
+          <div class="bit-cell" data-bit="4" tabindex="0" role="button" aria-label="A Bit 4">0</div>
+        </div>
+        <div class="bit-group">
+          <div class="bit-cell" data-bit="3" tabindex="0" role="button" aria-label="A Bit 3">0</div>
+          <div class="bit-cell" data-bit="2" tabindex="0" role="button" aria-label="A Bit 2">0</div>
+          <div class="bit-cell" data-bit="1" tabindex="0" role="button" aria-label="A Bit 1">0</div>
+          <div class="bit-cell" data-bit="0" tabindex="0" role="button" aria-label="A Bit 0">0</div>
+        </div>
+      </div>
+
+      <!-- Operation selector -->
+      <div class="op-selector" id="op-selector">
+        <button class="op-btn active" data-op="AND">AND</button>
+        <button class="op-btn" data-op="OR">OR</button>
+        <button class="op-btn" data-op="XOR">XOR</button>
+        <button class="op-btn" data-op="NOT">NOT(A)</button>
+        <button class="op-btn" data-op="SHL">Left Shift</button>
+        <button class="op-btn" data-op="SHR">Right Shift</button>
+      </div>
+
+      <!-- Number B -->
+      <div id="bw-b-section">
+        <div class="field-row">
+          <span class="field-label">B =</span>
+          <input type="text" id="bw-b-dec" class="field-input" placeholder="0" autocomplete="off" style="width:80px;">
+          <span style="font-family:var(--mono);font-size:13px;color:var(--muted);">decimal</span>
+        </div>
+        <div class="bit-grid" id="bw-b-bits">
+          <div class="bit-group">
+            <div class="bit-cell" data-bit="7" tabindex="0" role="button" aria-label="B Bit 7">0</div>
+            <div class="bit-cell" data-bit="6" tabindex="0" role="button" aria-label="B Bit 6">0</div>
+            <div class="bit-cell" data-bit="5" tabindex="0" role="button" aria-label="B Bit 5">0</div>
+            <div class="bit-cell" data-bit="4" tabindex="0" role="button" aria-label="B Bit 4">0</div>
+          </div>
+          <div class="bit-group">
+            <div class="bit-cell" data-bit="3" tabindex="0" role="button" aria-label="B Bit 3">0</div>
+            <div class="bit-cell" data-bit="2" tabindex="0" role="button" aria-label="B Bit 2">0</div>
+            <div class="bit-cell" data-bit="1" tabindex="0" role="button" aria-label="B Bit 1">0</div>
+            <div class="bit-cell" data-bit="0" tabindex="0" role="button" aria-label="B Bit 0">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="result-label" id="bw-result-label">Result: A AND B</div>
+      <div class="bit-grid" id="bw-result-bits">
+        <div class="bit-group">
+          <div class="bit-cell readonly small" data-bit="7">0</div>
+          <div class="bit-cell readonly small" data-bit="6">0</div>
+          <div class="bit-cell readonly small" data-bit="5">0</div>
+          <div class="bit-cell readonly small" data-bit="4">0</div>
+        </div>
+        <div class="bit-group">
+          <div class="bit-cell readonly small" data-bit="3">0</div>
+          <div class="bit-cell readonly small" data-bit="2">0</div>
+          <div class="bit-cell readonly small" data-bit="1">0</div>
+          <div class="bit-cell readonly small" data-bit="0">0</div>
+        </div>
+      </div>
+      <div style="font-family:var(--mono);font-size:14px;color:var(--muted);margin:6px 0;" id="bw-result-dec">= 0</div>
+
+      <!-- Per-bit breakdown -->
+      <div class="bitwise-breakdown" id="bw-breakdown"></div>
+
+      <!-- Practical example -->
+      <div class="practical-example" id="bw-practical">
+        <div class="pe-title">Why this matters</div>
+        <p>AND can check if a number is even: <code>N AND 1</code>. If the result is 0, the number is even! Try setting A to any number and B to 1.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TAB 3: Two's Complement
+       ============================================================ -->
+  <section id="tab-twos" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-twos">
+    <div class="card">
+      <div class="card-title">Two's Complement</div>
+      <p style="font-size:15px;color:var(--muted);margin-bottom:12px;">How computers represent negative numbers using only 0s and 1s.</p>
+
+      <div class="field-row">
+        <span class="field-label">Decimal</span>
+        <input type="text" id="tc-input" class="field-input" value="-42" autocomplete="off">
+        <span style="font-family:var(--mono);font-size:12px;color:var(--muted);">(-128 to 127)</span>
+      </div>
+
+      <!-- Steps -->
+      <div id="tc-steps"></div>
+
+      <!-- Number line -->
+      <div class="card-title" style="margin-top:18px;">Number Line</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:8px;">Click anywhere on the line to see its binary representation.</p>
+      <div class="number-line-container" id="number-line-container">
+        <svg class="number-line-svg" id="number-line-svg" viewBox="0 0 780 80" preserveAspectRatio="xMidYMid meet"></svg>
+      </div>
+      <div id="nl-info" style="text-align:center;font-family:var(--mono);font-size:14px;color:var(--dark);min-height:20px;"></div>
+    </div>
+
+    <div class="callout">
+      <strong>Why -1 is 11111111:</strong> Start with 1 (00000001), flip all bits (11111110), add 1 = 11111111. Every bit is on because -1 + 1 = 0, and 11111111 + 00000001 overflows to 00000000.
+    </div>
+    <div class="callout" style="margin-top:8px;">
+      <strong>Why -128 is 10000000:</strong> The highest bit (128) acts as the sign bit. With it set and all other bits 0, you get the most negative number: -128.
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TAB 4: Floating Point
+       ============================================================ -->
+  <section id="tab-float" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-float">
+    <div class="card">
+      <div class="card-title">IEEE 754 Floating Point (32-bit)</div>
+
+      <div class="field-row">
+        <span class="field-label">Decimal</span>
+        <input type="text" id="fp-input" class="field-input" placeholder="3.14" autocomplete="off">
+      </div>
+
+      <!-- Quick examples -->
+      <div class="fp-examples">
+        <button class="fp-example-btn" data-val="3.14">3.14</button>
+        <button class="fp-example-btn" data-val="0.1">0.1</button>
+        <button class="fp-example-btn" data-val="-7.5">-7.5</button>
+        <button class="fp-example-btn" data-val="0">0</button>
+        <button class="fp-example-btn" data-val="Infinity">Infinity</button>
+        <button class="fp-example-btn" data-val="NaN">NaN</button>
+        <button class="fp-example-btn" data-val="-0">-0</button>
+        <button class="fp-example-btn" data-val="42">42</button>
+      </div>
+
+      <!-- 32-bit display -->
+      <div style="overflow-x:auto;padding:4px 0;">
+        <div class="fp-bit-row" id="fp-bits"></div>
+      </div>
+
+      <!-- Legend -->
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin:8px 0;font-size:13px;font-family:var(--mono);">
+        <span><span style="display:inline-block;width:12px;height:12px;background:var(--accent);border-radius:2px;vertical-align:middle;"></span> Sign (1 bit)</span>
+        <span><span style="display:inline-block;width:12px;height:12px;background:var(--blue);border-radius:2px;vertical-align:middle;"></span> Exponent (8 bits)</span>
+        <span><span style="display:inline-block;width:12px;height:12px;background:var(--green);border-radius:2px;vertical-align:middle;"></span> Mantissa (23 bits)</span>
+      </div>
+
+      <!-- Formula -->
+      <div class="fp-formula" id="fp-formula">
+        Enter a number to see its IEEE 754 representation
+      </div>
+    </div>
+
+    <!-- 0.1 + 0.2 demo -->
+    <div class="card">
+      <div class="card-title">The Famous 0.1 + 0.2 Problem</div>
+      <p style="font-size:15px;color:var(--dark);margin-bottom:8px;">In JavaScript (and most languages):</p>
+      <div class="fp-formula">
+        <div>0.1 + 0.2 = <strong id="fp-demo-result"></strong></div>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted);">
+          0.1 in binary: 0.0001100110011... (repeating forever!)<br>
+          0.2 in binary: 0.0011001100110... (also repeating!)<br>
+          Neither 0.1 nor 0.2 can be exactly represented in binary,<br>
+          so tiny rounding errors accumulate.
+        </div>
+      </div>
+      <div class="callout">
+        This is why your calculator sometimes shows 0.30000000000000004! It is not a bug in JavaScript, it is a fundamental limit of representing decimal fractions in binary floating point.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TAB 5: ASCII Table
+       ============================================================ -->
+  <section id="tab-ascii" class="tab-content" role="tabpanel" aria-labelledby="tab-btn-ascii">
+    <div class="card">
+      <div class="card-title">Printable ASCII Characters (32-126)</div>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:8px;">Hover for details. Click to load in the Converter tab.</p>
+      <div class="ascii-grid" id="ascii-grid"></div>
+      <div class="ascii-tooltip" id="ascii-tooltip"></div>
+    </div>
+
+    <!-- Case bit trick -->
+    <div class="card">
+      <div class="card-title">The Case Bit Trick</div>
+      <p style="font-size:15px;color:var(--dark);margin-bottom:10px;">
+        Lowercase letters = uppercase + 32. That means they differ by exactly <strong>one bit</strong> (bit 5)!
+      </p>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center;justify-content:center;">
+        <div style="text-align:center;">
+          <div style="font-family:var(--mono);font-size:28px;font-weight:700;color:var(--accent);">A</div>
+          <div style="font-family:var(--mono);font-size:14px;color:var(--muted);">65 = 0<span style="color:var(--dark);">1</span>000001</div>
+        </div>
+        <div style="font-family:var(--hand);font-size:20px;color:var(--muted);">vs</div>
+        <div style="text-align:center;">
+          <div style="font-family:var(--mono);font-size:28px;font-weight:700;color:var(--blue);">a</div>
+          <div style="font-family:var(--mono);font-size:14px;color:var(--muted);">97 = 0<span style="color:var(--accent);font-weight:700;">1</span><span style="color:var(--blue);font-weight:700;">1</span>00001</div>
+        </div>
+      </div>
+      <div class="callout blue" style="margin-top:12px;">
+        Flip bit 5 (value 32) to toggle between upper and lowercase. Computers use this trick for fast case-insensitive comparisons!
+      </div>
+    </div>
+
+    <!-- Binary word display -->
+    <div class="card">
+      <div class="card-title">Binary Word Viewer</div>
+      <p style="font-size:14px;color:var(--muted);margin-bottom:8px;">Type a word to see each letter as binary.</p>
+      <div class="field-row">
+        <input type="text" id="ascii-word-input" class="field-input wide" value="Hello" maxlength="16" autocomplete="off">
+      </div>
+      <div class="ascii-art-output" id="ascii-word-output">Type something above...</div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Fun Fact Button
+       ============================================================ -->
+  <div class="fun-fact-bar">
+    <button class="fun-fact-btn" id="fun-fact-btn">Random Fun Fact</button>
+  </div>
+  <div class="fun-fact-display" id="fun-fact-display" style="display:none;"></div>
+
+</div><!-- end .container -->
+
+<script>
+/* ============================================================
+   BINARY PLAYGROUND — Main Script
+   All conversions in vanilla JS, no external dependencies.
+   ============================================================ */
+(function() {
+  'use strict';
+
+  /* ----------------------------------------------------------
+     Utility Functions
+     ---------------------------------------------------------- */
+
+  /** Clamp a value between min and max */
+  function clamp(val, min, max) {
+    return Math.max(min, Math.min(max, val));
+  }
+
+  /** Convert an 8-bit unsigned value to binary string (8 chars) */
+  function toBin8(val) {
+    return (val & 0xFF).toString(2).padStart(8, '0');
+  }
+
+  /** Format binary string with space between nibbles */
+  function formatBin(bin8) {
+    return bin8.slice(0, 4) + ' ' + bin8.slice(4);
+  }
+
+  /** Convert unsigned 8-bit to signed (-128..127) */
+  function toSigned(val) {
+    val = val & 0xFF;
+    return val > 127 ? val - 256 : val;
+  }
+
+  /** Convert signed to unsigned 8-bit */
+  function toUnsigned(val) {
+    return val < 0 ? val + 256 : val & 0xFF;
+  }
+
+  /* ----------------------------------------------------------
+     TAB SWITCHING
+     ---------------------------------------------------------- */
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabPanels = document.querySelectorAll('.tab-content');
+
+  function activateTab(btn) {
+    tabBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); b.setAttribute('tabindex', '-1'); });
+    tabPanels.forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    btn.setAttribute('tabindex', '0');
+    const panel = document.getElementById('tab-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  }
+
+  tabBtns.forEach((btn, index) => {
+    // Set initial tabindex: only active tab is focusable
+    btn.setAttribute('tabindex', btn.classList.contains('active') ? '0' : '-1');
+    btn.addEventListener('click', () => activateTab(btn));
+    btn.addEventListener('keydown', (e) => {
+      const btnArr = Array.from(tabBtns);
+      let newIndex = -1;
+      if (e.key === 'ArrowRight') { newIndex = (index + 1) % btnArr.length; }
+      else if (e.key === 'ArrowLeft') { newIndex = (index - 1 + btnArr.length) % btnArr.length; }
+      if (newIndex >= 0) {
+        e.preventDefault();
+        activateTab(btnArr[newIndex]);
+        btnArr[newIndex].focus();
+      }
+    });
+  });
+
+  /* ----------------------------------------------------------
+     TAB 1: CONVERTER
+     ---------------------------------------------------------- */
+  let isSigned = false;
+  let currentValue = 0; // always stored as unsigned 0-255
+
+  const decInput = document.getElementById('dec-input');
+  const binInput = document.getElementById('bin-input');
+  const hexInput = document.getElementById('hex-input');
+  const asciiInput = document.getElementById('ascii-input');
+  const convertBits = document.getElementById('convert-bits');
+  const additionDisplay = document.getElementById('addition-display');
+  const signedToggle = document.getElementById('signed-toggle');
+  const signedLabel = document.getElementById('signed-label');
+
+  /** Update all converter displays from currentValue (unsigned 0-255) */
+  function updateConverter(source) {
+    const bits = toBin8(currentValue);
+
+    // Update input fields (skip the one being typed in)
+    if (source !== 'dec') {
+      decInput.value = isSigned ? toSigned(currentValue) : currentValue;
+    }
+    if (source !== 'bin') {
+      binInput.value = formatBin(bits);
+    }
+    if (source !== 'hex') {
+      hexInput.value = currentValue.toString(16).toUpperCase().padStart(2, '0');
+    }
+    if (source !== 'ascii') {
+      if (currentValue >= 32 && currentValue <= 126) {
+        asciiInput.value = String.fromCharCode(currentValue);
+      } else if (currentValue === 0) {
+        asciiInput.value = '';
+        asciiInput.placeholder = 'NUL';
+      } else {
+        asciiInput.value = '';
+        asciiInput.placeholder = currentValue < 32 ? 'CTRL' : 'N/A';
+      }
+    }
+
+    // Update bit grid
+    const cells = convertBits.querySelectorAll('.bit-cell');
+    cells.forEach(cell => {
+      const bitIdx = parseInt(cell.dataset.bit);
+      const isOn = (currentValue >> bitIdx) & 1;
+      cell.textContent = isOn ? '1' : '0';
+      cell.classList.toggle('on', isOn === 1);
+    });
+
+    // Update addition display
+    updateAddition();
+
+    // Clear error states
+    [decInput, binInput, hexInput, asciiInput].forEach(inp => inp.classList.remove('error'));
+  }
+
+  /** Build the place-value addition string */
+  function updateAddition() {
+    const parts = [];
+    for (let i = 7; i >= 0; i--) {
+      if ((currentValue >> i) & 1) {
+        parts.push(Math.pow(2, i));
+      }
+    }
+    if (parts.length === 0) {
+      additionDisplay.textContent = '0 = 0';
+    } else {
+      const sum = isSigned ? toSigned(currentValue) : currentValue;
+      additionDisplay.textContent = parts.join(' + ') + ' = ' + sum;
+    }
+  }
+
+  // Decimal input handler
+  decInput.addEventListener('input', () => {
+    const text = decInput.value.trim();
+    if (text === '' || text === '-') { currentValue = 0; updateConverter('dec'); return; }
+    let val = parseInt(text, 10);
+    if (isNaN(val)) { decInput.classList.add('error'); return; }
+    if (isSigned) {
+      if (val < -128 || val > 127) { decInput.classList.add('error'); return; }
+      currentValue = toUnsigned(val);
+    } else {
+      if (val < 0 || val > 255) { decInput.classList.add('error'); return; }
+      currentValue = val;
+    }
+    updateConverter('dec');
+  });
+
+  // Binary input handler
+  binInput.addEventListener('input', () => {
+    const text = binInput.value.replace(/\s/g, '');
+    if (text === '') { currentValue = 0; updateConverter('bin'); return; }
+    if (!/^[01]{1,8}$/.test(text)) { binInput.classList.add('error'); return; }
+    currentValue = parseInt(text, 2) & 0xFF;
+    updateConverter('bin');
+  });
+
+  // Hex input handler
+  hexInput.addEventListener('input', () => {
+    const text = hexInput.value.trim();
+    if (text === '') { currentValue = 0; updateConverter('hex'); return; }
+    if (!/^[0-9a-fA-F]{1,2}$/.test(text)) { hexInput.classList.add('error'); return; }
+    currentValue = parseInt(text, 16) & 0xFF;
+    updateConverter('hex');
+  });
+
+  // ASCII input handler
+  asciiInput.addEventListener('input', () => {
+    const text = asciiInput.value;
+    if (text === '') { currentValue = 0; updateConverter('ascii'); return; }
+    const code = text.charCodeAt(0);
+    if (code > 255) { asciiInput.classList.add('error'); return; }
+    currentValue = code & 0xFF;
+    updateConverter('ascii');
+  });
+
+  // Bit grid click + keyboard handler
+  convertBits.querySelectorAll('.bit-cell').forEach(cell => {
+    cell.addEventListener('click', () => {
+      const bitIdx = parseInt(cell.dataset.bit);
+      currentValue ^= (1 << bitIdx);
+      currentValue &= 0xFF;
+      updateConverter('bits');
+    });
+    cell.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        cell.click();
+      }
+    });
+  });
+
+  // Signed/unsigned toggle
+  signedToggle.addEventListener('click', () => {
+    isSigned = !isSigned;
+    signedToggle.classList.toggle('active', isSigned);
+    signedToggle.setAttribute('aria-checked', isSigned ? 'true' : 'false');
+    signedLabel.textContent = isSigned ? 'Signed (-128 to 127)' : 'Unsigned (0 to 255)';
+    updateConverter('toggle');
+  });
+  signedToggle.addEventListener('keydown', (e) => {
+    if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); signedToggle.click(); }
+  });
+
+  // Initialize converter
+  updateConverter('init');
+
+  /* ----------------------------------------------------------
+     TAB 2: BITWISE OPERATIONS
+     ---------------------------------------------------------- */
+  let bwA = 0, bwB = 0;
+  let bwOp = 'AND';
+
+  const bwADec = document.getElementById('bw-a-dec');
+  const bwBDec = document.getElementById('bw-b-dec');
+  const bwABits = document.getElementById('bw-a-bits');
+  const bwBBits = document.getElementById('bw-b-bits');
+  const bwResultBits = document.getElementById('bw-result-bits');
+  const bwResultLabel = document.getElementById('bw-result-label');
+  const bwResultDec = document.getElementById('bw-result-dec');
+  const bwBreakdown = document.getElementById('bw-breakdown');
+  const bwBSection = document.getElementById('bw-b-section');
+  const bwPractical = document.getElementById('bw-practical');
+
+  /** Calculate bitwise result */
+  function bwCalc(a, b, op) {
+    switch (op) {
+      case 'AND': return (a & b) & 0xFF;
+      case 'OR':  return (a | b) & 0xFF;
+      case 'XOR': return (a ^ b) & 0xFF;
+      case 'NOT': return (~a) & 0xFF;
+      case 'SHL': return (a << 1) & 0xFF;
+      case 'SHR': return (a >>> 1) & 0xFF;
+      default: return 0;
+    }
+  }
+
+  /** Get operation symbol */
+  function opSymbol(op) {
+    switch (op) {
+      case 'AND': return 'AND';
+      case 'OR':  return 'OR';
+      case 'XOR': return 'XOR';
+      case 'NOT': return 'NOT';
+      case 'SHL': return '<<';
+      case 'SHR': return '>>';
+      default: return op;
+    }
+  }
+
+  /** Update bitwise display */
+  function updateBitwise() {
+    const result = bwCalc(bwA, bwB, bwOp);
+    const needsB = !['NOT', 'SHL', 'SHR'].includes(bwOp);
+
+    // Show/hide B section
+    bwBSection.style.display = needsB ? '' : 'none';
+
+    // Update A bits
+    bwABits.querySelectorAll('.bit-cell').forEach(cell => {
+      const idx = parseInt(cell.dataset.bit);
+      const isOn = (bwA >> idx) & 1;
+      cell.textContent = isOn ? '1' : '0';
+      cell.classList.toggle('on', isOn === 1);
+    });
+
+    // Update B bits
+    bwBBits.querySelectorAll('.bit-cell').forEach(cell => {
+      const idx = parseInt(cell.dataset.bit);
+      const isOn = (bwB >> idx) & 1;
+      cell.textContent = isOn ? '1' : '0';
+      cell.classList.toggle('on', isOn === 1);
+    });
+
+    // Update result bits with color coding
+    bwResultBits.querySelectorAll('.bit-cell').forEach(cell => {
+      const idx = parseInt(cell.dataset.bit);
+      const isOn = (result >> idx) & 1;
+      cell.textContent = isOn ? '1' : '0';
+      cell.classList.remove('on', 'on-green');
+      if (isOn) cell.classList.add('on-green');
+    });
+
+    // Update labels
+    if (needsB) {
+      bwResultLabel.textContent = 'Result: A ' + opSymbol(bwOp) + ' B';
+    } else if (bwOp === 'NOT') {
+      bwResultLabel.textContent = 'Result: NOT A';
+    } else {
+      bwResultLabel.textContent = 'Result: A ' + opSymbol(bwOp) + ' 1';
+    }
+    bwResultDec.textContent = '= ' + result + ' (0x' + result.toString(16).toUpperCase().padStart(2, '0') + ')';
+
+    // Update decimal inputs
+    bwADec.value = bwA;
+    bwBDec.value = bwB;
+
+    // Build per-bit breakdown
+    buildBreakdown(bwA, bwB, result, bwOp);
+
+    // Update practical example
+    updatePracticalExample();
+  }
+
+  /** Build the per-bit breakdown */
+  function buildBreakdown(a, b, result, op) {
+    bwBreakdown.innerHTML = '';
+    const needsB = !['NOT', 'SHL', 'SHR'].includes(op);
+
+    for (let i = 7; i >= 0; i--) {
+      const bitA = (a >> i) & 1;
+      const bitB = (b >> i) & 1;
+      const bitR = (result >> i) & 1;
+
+      const col = document.createElement('div');
+      col.className = 'col';
+      col.style.minWidth = 'var(--bit-size-sm)';
+
+      let desc = '';
+      if (op === 'AND') desc = bitA + ' AND ' + bitB + ' = ' + bitR;
+      else if (op === 'OR') desc = bitA + ' OR ' + bitB + ' = ' + bitR;
+      else if (op === 'XOR') desc = bitA + ' XOR ' + bitB + ' = ' + bitR;
+      else if (op === 'NOT') desc = 'NOT ' + bitA + ' = ' + bitR;
+      else if (op === 'SHL') desc = (i < 7 ? '' + ((a >> (i + 1)) & 1) : '0') + ' << = ' + bitR;
+      else if (op === 'SHR') desc = (i > 0 ? '' + ((a >> (i - 1)) & 1) : '0') + ' >> = ' + bitR;
+
+      col.innerHTML = '<span style="font-size:10px;color:' + (bitR ? 'var(--green)' : 'var(--muted)') + ';">' + desc + '</span>';
+
+      // Add spacer between nibbles
+      if (i === 4) {
+        const spacer = document.createElement('div');
+        spacer.className = 'col';
+        spacer.style.minWidth = '8px';
+        bwBreakdown.appendChild(spacer);
+      }
+
+      bwBreakdown.appendChild(col);
+    }
+  }
+
+  /** Update practical example based on operation */
+  function updatePracticalExample() {
+    const examples = {
+      'AND': '<div class="pe-title">Why this matters</div><p>AND can check if a number is even: <code>N AND 1</code>. If the result is 0, the number is even! Try setting A to any number and B to 1.</p>',
+      'OR':  '<div class="pe-title">Why this matters</div><p>OR is used to set specific bits. For example, <code>N OR 32</code> sets bit 5, which converts uppercase ASCII to lowercase.</p>',
+      'XOR': '<div class="pe-title">Why this matters</div><p>XOR is used in encryption! <code>data XOR key</code> encrypts, and <code>result XOR key</code> decrypts back to the original. Also: <code>A XOR A = 0</code> always.</p>',
+      'NOT': '<div class="pe-title">Why this matters</div><p>NOT flips every bit. In two\'s complement, <code>NOT A + 1 = -A</code>. This is how computers negate numbers!</p>',
+      'SHL': '<div class="pe-title">Why this matters</div><p>Left shift by 1 is the same as multiplying by 2. Computers use this because bit shifting is much faster than multiplication!</p>',
+      'SHR': '<div class="pe-title">Why this matters</div><p>Right shift by 1 is the same as integer division by 2. Fast and used everywhere in low-level code and graphics.</p>'
+    };
+    bwPractical.innerHTML = examples[bwOp] || '';
+  }
+
+  // A decimal input
+  bwADec.addEventListener('input', () => {
+    const val = parseInt(bwADec.value, 10);
+    if (!isNaN(val) && val >= 0 && val <= 255) {
+      bwA = val;
+      updateBitwise();
+    }
+  });
+
+  // B decimal input
+  bwBDec.addEventListener('input', () => {
+    const val = parseInt(bwBDec.value, 10);
+    if (!isNaN(val) && val >= 0 && val <= 255) {
+      bwB = val;
+      updateBitwise();
+    }
+  });
+
+  // A bit clicks + keyboard
+  bwABits.querySelectorAll('.bit-cell').forEach(cell => {
+    cell.addEventListener('click', () => {
+      const idx = parseInt(cell.dataset.bit);
+      bwA ^= (1 << idx);
+      bwA &= 0xFF;
+      updateBitwise();
+    });
+    cell.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cell.click(); }
+    });
+  });
+
+  // B bit clicks + keyboard
+  bwBBits.querySelectorAll('.bit-cell').forEach(cell => {
+    cell.addEventListener('click', () => {
+      const idx = parseInt(cell.dataset.bit);
+      bwB ^= (1 << idx);
+      bwB &= 0xFF;
+      updateBitwise();
+    });
+    cell.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); cell.click(); }
+    });
+  });
+
+  // Operation selector
+  document.getElementById('op-selector').querySelectorAll('.op-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#op-selector .op-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      bwOp = btn.dataset.op;
+      updateBitwise();
+    });
+  });
+
+  // Initialize bitwise
+  updateBitwise();
+
+  /* ----------------------------------------------------------
+     TAB 3: TWO'S COMPLEMENT
+     ---------------------------------------------------------- */
+  const tcInput = document.getElementById('tc-input');
+  const tcSteps = document.getElementById('tc-steps');
+
+  /** Update two's complement display */
+  function updateTwosComplement(val) {
+    tcSteps.innerHTML = '';
+
+    if (isNaN(val) || val < -128 || val > 127) {
+      tcSteps.innerHTML = '<div class="step-box"><div class="step-desc">Enter a number between -128 and 127</div></div>';
+      return;
+    }
+
+    const unsigned = toUnsigned(val);
+    const bits = toBin8(unsigned);
+
+    if (val >= 0) {
+      // Positive number — straightforward
+      tcSteps.innerHTML =
+        '<div class="step-box">' +
+          '<div class="step-num">Positive number</div>' +
+          '<div class="step-desc">Positive numbers are stored directly in binary.</div>' +
+        '</div>' +
+        '<div class="step-box">' +
+          '<div class="step-num">' + val + ' in binary</div>' +
+          '<div class="step-desc" style="font-family:var(--mono);font-size:18px;letter-spacing:2px;margin-top:6px;">' + formatBin(bits) + '</div>' +
+        '</div>';
+    } else {
+      // Negative number — show step-by-step
+      const posVal = Math.abs(val);
+      const posBits = toBin8(posVal);
+      const flipped = toBin8((~posVal) & 0xFF);
+      const result = toBin8(unsigned);
+
+      tcSteps.innerHTML =
+        '<div class="step-box">' +
+          '<div class="step-num">Step 1: Start with the positive value</div>' +
+          '<div class="step-desc">|' + val + '| = ' + posVal + '</div>' +
+          '<div class="step-desc" style="font-family:var(--mono);font-size:16px;letter-spacing:2px;margin-top:4px;">' + formatBin(posBits) + '</div>' +
+        '</div>' +
+        '<div class="step-box">' +
+          '<div class="step-num">Step 2: Flip all bits (one\'s complement)</div>' +
+          '<div class="step-desc" style="font-family:var(--mono);font-size:16px;letter-spacing:2px;margin-top:4px;">' +
+            renderFlippedBits(posBits, flipped) +
+          '</div>' +
+        '</div>' +
+        '<div class="step-box">' +
+          '<div class="step-num">Step 3: Add 1 (two\'s complement)</div>' +
+          '<div class="step-desc" style="font-family:var(--mono);font-size:16px;letter-spacing:2px;margin-top:4px;">' +
+            formatBin(flipped) + ' + 1 = <strong>' + formatBin(result) + '</strong>' +
+          '</div>' +
+        '</div>' +
+        '<div class="step-box" style="background:var(--accent-light);border-color:var(--accent);">' +
+          '<div class="step-num">Result</div>' +
+          '<div class="step-desc" style="font-family:var(--mono);font-size:20px;letter-spacing:2px;margin-top:4px;">' +
+            val + ' = ' + formatBin(result) +
+          '</div>' +
+          '<div class="step-desc" style="font-size:13px;color:var(--muted);margin-top:4px;">' +
+            'Unsigned value: ' + unsigned + ' | Hex: 0x' + unsigned.toString(16).toUpperCase().padStart(2, '0') +
+          '</div>' +
+        '</div>';
+    }
+  }
+
+  /** Render flipped bits with color highlighting */
+  function renderFlippedBits(original, flipped) {
+    let html = '';
+    for (let i = 0; i < 8; i++) {
+      if (i === 4) html += ' ';
+      const changed = original[i] !== flipped[i];
+      html += '<span style="color:' + (changed ? 'var(--accent);font-weight:700' : 'var(--dark)') + ';">' + flipped[i] + '</span>';
+    }
+    return html;
+  }
+
+  tcInput.addEventListener('input', () => {
+    const text = tcInput.value.trim();
+    if (text === '' || text === '-') { updateTwosComplement(0); return; }
+    const val = parseInt(text, 10);
+    updateTwosComplement(val);
+  });
+
+  // Initialize with pre-filled value
+  updateTwosComplement(parseInt(tcInput.value, 10) || 0);
+
+  /* ----------------------------------------------------------
+     Number Line (SVG)
+     ---------------------------------------------------------- */
+  function buildNumberLine() {
+    const svg = document.getElementById('number-line-svg');
+    const container = document.getElementById('number-line-container');
+    const width = 780;
+    const height = 80;
+    const lineY = 40;
+    const startX = 20;
+    const endX = width - 20;
+    const range = endX - startX; // pixels for -128 to 127
+
+    /** Convert value (-128..127) to X position */
+    function valToX(val) {
+      return startX + ((val + 128) / 255) * range;
+    }
+
+    // Build SVG content
+    let svgContent = '';
+
+    // Main line
+    svgContent += '<line x1="' + startX + '" y1="' + lineY + '" x2="' + endX + '" y2="' + lineY + '" stroke="#CBD5E0" stroke-width="2"/>';
+
+    // Tick marks and labels
+    const ticks = [-128, -64, -32, 0, 32, 64, 127];
+    ticks.forEach(t => {
+      const x = valToX(t);
+      const isZero = t === 0;
+      svgContent += '<line x1="' + x + '" y1="' + (lineY - (isZero ? 12 : 8)) + '" x2="' + x + '" y2="' + (lineY + (isZero ? 12 : 8)) + '" stroke="' + (isZero ? '#2D3748' : '#A0AEC0') + '" stroke-width="' + (isZero ? 2 : 1) + '"/>';
+      svgContent += '<text x="' + x + '" y="' + (lineY + 24) + '" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#718096">' + t + '</text>';
+    });
+
+    // Marker (will be updated on click)
+    svgContent += '<circle id="nl-marker" cx="' + valToX(0) + '" cy="' + lineY + '" r="6" fill="#E53E3E" stroke="#fff" stroke-width="2" style="display:none;"/>';
+
+    // Clickable overlay
+    svgContent += '<rect x="' + startX + '" y="0" width="' + range + '" height="' + height + '" fill="transparent" style="cursor:pointer;" id="nl-clickarea" tabindex="0" role="slider" aria-valuemin="-128" aria-valuemax="127" aria-valuenow="0" aria-label="Number line"/>';
+
+    svg.innerHTML = svgContent;
+
+    // Click handler
+    const clickArea = document.getElementById('nl-clickarea');
+    const marker = document.getElementById('nl-marker');
+    const nlInfo = document.getElementById('nl-info');
+    let nlCurrentVal = 0;
+
+    function setNumberLineValue(val) {
+      val = clamp(val, -128, 127);
+      nlCurrentVal = val;
+
+      const x = valToX(val);
+      marker.setAttribute('cx', x);
+      marker.style.display = '';
+      clickArea.setAttribute('aria-valuenow', val);
+
+      const unsigned = toUnsigned(val);
+      nlInfo.textContent = val + ' = ' + formatBin(toBin8(unsigned)) + ' (unsigned: ' + unsigned + ')';
+
+      // Also update the steps
+      tcInput.value = val;
+      updateTwosComplement(val);
+    }
+
+    function handleClick(e) {
+      const rect = svg.getBoundingClientRect();
+      const svgX = ((e.clientX - rect.left) / rect.width) * width;
+      let val = Math.round(((svgX - startX) / range) * 255 - 128);
+      setNumberLineValue(val);
+    }
+
+    clickArea.addEventListener('click', handleClick);
+
+    // Keyboard navigation for number line
+    clickArea.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        setNumberLineValue(nlCurrentVal + (e.shiftKey ? 10 : 1));
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        setNumberLineValue(nlCurrentVal - (e.shiftKey ? 10 : 1));
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        setNumberLineValue(-128);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        setNumberLineValue(127);
+      }
+    });
+  }
+
+  buildNumberLine();
+
+  /* ----------------------------------------------------------
+     TAB 4: FLOATING POINT
+     ---------------------------------------------------------- */
+  const fpInput = document.getElementById('fp-input');
+  const fpBitsContainer = document.getElementById('fp-bits');
+  const fpFormula = document.getElementById('fp-formula');
+
+  /** Convert float to IEEE 754 32-bit representation */
+  function floatToBits(val) {
+    const buffer = new ArrayBuffer(4);
+    const floatView = new Float32Array(buffer);
+    const intView = new Uint32Array(buffer);
+    floatView[0] = val;
+    return intView[0];
+  }
+
+  /** Build the 32-bit visual display */
+  function buildFPBits() {
+    let html = '';
+
+    // Sign bit section
+    html += '<div class="fp-section"><div class="fp-section-label">Sign</div><div style="display:flex;gap:1px;">';
+    html += '<div class="fp-bit sign" data-fp="31">0</div>';
+    html += '</div></div>';
+
+    // Exponent section (bits 30-23)
+    html += '<div class="fp-section" style="margin-left:4px;"><div class="fp-section-label">Exponent</div><div style="display:flex;gap:1px;">';
+    for (let i = 30; i >= 23; i--) {
+      html += '<div class="fp-bit exponent" data-fp="' + i + '">0</div>';
+    }
+    html += '</div></div>';
+
+    // Mantissa section (bits 22-0)
+    html += '<div class="fp-section" style="margin-left:4px;"><div class="fp-section-label">Mantissa</div><div style="display:flex;gap:1px;flex-wrap:wrap;">';
+    for (let i = 22; i >= 0; i--) {
+      html += '<div class="fp-bit mantissa" data-fp="' + i + '">0</div>';
+    }
+    html += '</div></div>';
+
+    fpBitsContainer.innerHTML = html;
+  }
+
+  /** Update floating point display */
+  function updateFloatingPoint(val) {
+    if (val === undefined || val === null) val = 0;
+
+    const bits = floatToBits(val);
+
+    // Update bit cells
+    fpBitsContainer.querySelectorAll('.fp-bit').forEach(cell => {
+      const idx = parseInt(cell.dataset.fp);
+      const isOn = (bits >>> idx) & 1;
+      cell.textContent = isOn ? '1' : '0';
+      cell.classList.toggle('on', isOn === 1);
+    });
+
+    // Extract fields
+    const sign = (bits >>> 31) & 1;
+    const exponent = (bits >>> 23) & 0xFF;
+    const mantissa = bits & 0x7FFFFF;
+
+    // Build formula
+    let formulaHTML = '';
+
+    if (isNaN(val)) {
+      formulaHTML = '<strong>NaN</strong> (Not a Number)<br>' +
+        '<span style="font-size:12px;color:var(--muted);">Exponent = 255 (all 1s) and mantissa is non-zero.<br>' +
+        'NaN is used for undefined results like 0/0 or sqrt(-1).</span>';
+    } else if (!isFinite(val)) {
+      formulaHTML = '<strong>' + (sign ? '-' : '+') + 'Infinity</strong><br>' +
+        '<span style="font-size:12px;color:var(--muted);">Exponent = 255 (all 1s) and mantissa = 0.<br>' +
+        'Used for overflow results like 1/0.</span>';
+    } else if (val === 0) {
+      const negZero = (1 / val) === -Infinity;
+      formulaHTML = '<strong>' + (negZero ? '-0' : '0') + '</strong><br>' +
+        '<span style="font-size:12px;color:var(--muted);">' +
+        (negZero ? 'Negative zero! Sign bit = 1, everything else = 0. Yes, IEEE 754 has two zeros.' : 'All bits are zero.') +
+        '</span>';
+    } else {
+      const biasedExp = exponent - 127;
+      const mantissaBin = (mantissa >>> 0).toString(2).padStart(23, '0');
+      let mantissaVal = 1;
+      for (let i = 0; i < 23; i++) {
+        if ((mantissa >> (22 - i)) & 1) {
+          mantissaVal += Math.pow(2, -(i + 1));
+        }
+      }
+
+      formulaHTML = '(-1)<sup>' + sign + '</sup> &times; 1.' + mantissaBin.replace(/0+$/, '0') + ' &times; 2<sup>' + biasedExp + '</sup><br>' +
+        '<span style="font-size:12px;color:var(--muted);">' +
+        '= ' + (sign ? '-' : '') + mantissaVal.toFixed(8).replace(/0+$/, '0') + ' &times; ' + Math.pow(2, biasedExp) +
+        ' = <strong>' + val + '</strong>' +
+        '</span><br>' +
+        '<span style="font-size:11px;color:var(--muted);">' +
+        'Sign: ' + sign + ' | Exponent: ' + exponent + ' (bias ' + biasedExp + ') | Mantissa: 0x' + mantissa.toString(16).toUpperCase().padStart(6, '0') +
+        '</span>';
+    }
+
+    fpFormula.innerHTML = formulaHTML;
+  }
+
+  // Build FP bit display
+  buildFPBits();
+
+  fpInput.addEventListener('input', () => {
+    const text = fpInput.value.trim();
+    if (text === '' || text === '-') { updateFloatingPoint(0); return; }
+    if (text.toLowerCase() === 'nan') { updateFloatingPoint(NaN); return; }
+    if (text.toLowerCase() === 'infinity' || text === 'inf') { updateFloatingPoint(Infinity); return; }
+    if (text === '-0') { updateFloatingPoint(-0); return; }
+    if (text.toLowerCase() === '-infinity' || text === '-inf') { updateFloatingPoint(-Infinity); return; }
+    const val = parseFloat(text);
+    if (isNaN(val) && text !== '') return; // partial input, wait
+    updateFloatingPoint(val);
+  });
+
+  // Example buttons
+  document.querySelectorAll('.fp-example-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      fpInput.value = btn.dataset.val;
+      const text = btn.dataset.val;
+      if (text === 'NaN') { updateFloatingPoint(NaN); return; }
+      if (text === 'Infinity') { updateFloatingPoint(Infinity); return; }
+      if (text === '-0') { updateFloatingPoint(-0); return; }
+      updateFloatingPoint(parseFloat(text));
+    });
+  });
+
+  // 0.1 + 0.2 demo
+  document.getElementById('fp-demo-result').textContent = (0.1 + 0.2).toPrecision(17);
+
+  // Initialize FP
+  updateFloatingPoint(0);
+
+  /* ----------------------------------------------------------
+     TAB 5: ASCII TABLE
+     ---------------------------------------------------------- */
+  const asciiGrid = document.getElementById('ascii-grid');
+  const asciiTooltip = document.getElementById('ascii-tooltip');
+
+  /** Build the ASCII grid */
+  function buildASCIIGrid() {
+    let html = '';
+    for (let code = 32; code <= 126; code++) {
+      const char = String.fromCharCode(code);
+      const displayChar = code === 32 ? 'SP' : char;
+      html += '<div class="ascii-cell" data-code="' + code + '" title="' + (code === 32 ? 'Space' : char) + '">' + displayChar + '</div>';
+    }
+    asciiGrid.innerHTML = html;
+
+    // Event delegation for hover
+    asciiGrid.addEventListener('mousemove', handleASCIIHover);
+    asciiGrid.addEventListener('mouseleave', () => { asciiTooltip.style.display = 'none'; });
+    asciiGrid.addEventListener('click', handleASCIIClick);
+  }
+
+  function handleASCIIHover(e) {
+    const cell = e.target.closest('.ascii-cell');
+    if (!cell) { asciiTooltip.style.display = 'none'; return; }
+
+    const code = parseInt(cell.dataset.code);
+    const char = code === 32 ? 'Space' : String.fromCharCode(code);
+    const bin = toBin8(code);
+
+    asciiTooltip.innerHTML =
+      '<strong>' + char + '</strong><br>' +
+      'Dec: ' + code + '<br>' +
+      'Bin: ' + formatBin(bin) + '<br>' +
+      'Hex: 0x' + code.toString(16).toUpperCase().padStart(2, '0');
+
+    asciiTooltip.style.display = 'block';
+
+    // Position near cursor
+    const rect = asciiTooltip.getBoundingClientRect();
+    let x = e.clientX + 12;
+    let y = e.clientY - 10;
+    if (x + rect.width > window.innerWidth - 10) x = e.clientX - rect.width - 12;
+    if (y + rect.height > window.innerHeight - 10) y = e.clientY - rect.height - 10;
+    asciiTooltip.style.left = x + 'px';
+    asciiTooltip.style.top = y + 'px';
+  }
+
+  function handleASCIIClick(e) {
+    const cell = e.target.closest('.ascii-cell');
+    if (!cell) return;
+
+    const code = parseInt(cell.dataset.code);
+    currentValue = code;
+    updateConverter('ascii-table');
+
+    // Switch to convert tab
+    tabBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+    tabPanels.forEach(p => p.classList.remove('active'));
+    const convertBtn = document.querySelector('[data-tab="convert"]');
+    convertBtn.classList.add('active');
+    convertBtn.setAttribute('aria-selected', 'true');
+    document.getElementById('tab-convert').classList.add('active');
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  buildASCIIGrid();
+
+  // Highlight letter cells in the ASCII grid
+  (function highlightLetters() {
+    const cells = asciiGrid.querySelectorAll('.ascii-cell');
+    cells.forEach(cell => {
+      const code = parseInt(cell.dataset.code);
+      if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+        cell.classList.add('highlight');
+      }
+    });
+  })();
+
+  /* ----------------------------------------------------------
+     Binary Word Viewer
+     ---------------------------------------------------------- */
+  const asciiWordInput = document.getElementById('ascii-word-input');
+  const asciiWordOutput = document.getElementById('ascii-word-output');
+
+  function updateBinaryWordViewer() {
+    const text = asciiWordInput.value;
+    if (!text) {
+      asciiWordOutput.textContent = 'Type something above...';
+      return;
+    }
+
+    let output = '';
+    const maxLen = Math.min(text.length, 16);
+
+    // Header: character labels
+    let headerLine = '';
+
+    for (let i = 0; i < maxLen; i++) {
+      const char = text[i];
+      const code = text.charCodeAt(i);
+      const clampedCode = Math.min(code, 255);
+      const bin = toBin8(clampedCode);
+
+      if (i > 0) headerLine += '  ';
+      headerLine += "  '" + char + "'  ";
+    }
+
+    output += headerLine + '\n';
+
+    // Binary with space groups
+    let binLine = '';
+    for (let i = 0; i < maxLen; i++) {
+      const code = Math.min(text.charCodeAt(i), 255);
+      const bin = toBin8(code);
+      if (i > 0) binLine += '  ';
+      binLine += formatBin(bin);
+    }
+    output += binLine + '\n';
+
+    // Decimal values
+    let decLine = '';
+    for (let i = 0; i < maxLen; i++) {
+      const code = Math.min(text.charCodeAt(i), 255);
+      const dec = code.toString().padStart(3, ' ');
+      if (i > 0) decLine += '  ';
+      decLine += '  ' + dec + '   ';
+    }
+    output += decLine;
+
+    asciiWordOutput.textContent = output;
+  }
+
+  asciiWordInput.addEventListener('input', updateBinaryWordViewer);
+  updateBinaryWordViewer();
+
+  /* ----------------------------------------------------------
+     FUN FACTS
+     ---------------------------------------------------------- */
+  const funFacts = [
+    "42 in binary is 101010 -- the answer to life, the universe, and everything.",
+    "The number 255 (11111111) is the maximum of an 8-bit unsigned integer -- that's why RGB colors go 0-255.",
+    "ASCII 7 is the 'bell' character -- old terminals would literally ring a bell when they received it!",
+    "Powers of 2: 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024... that's why computers love these numbers.",
+    "The word 'bit' is short for 'binary digit' -- coined by Claude Shannon in 1948.",
+    "A byte (8 bits) can represent 256 different values. That's 2 to the power of 8.",
+    "The nibble (4 bits) can represent one hexadecimal digit. Two nibbles make a byte.",
+    "In two's complement, flipping all bits and adding 1 gives you the negative. So NOT 0 + 1 = -0... which overflows to 0!",
+    "IEEE 754 has both +0 and -0. They compare as equal, but 1/+0 = +Infinity and 1/-0 = -Infinity.",
+    "There are 9,007,199,254,740,992 different NaN values in 64-bit floating point.",
+    "Alan Turing's original 1936 paper used 0 and 1 as tape symbols -- binary was there from the very start.",
+    "The first electronic computers used vacuum tubes as binary switches: glowing = 1, dark = 0."
+  ];
+
+  let factIndex = -1;
+  const funFactBtn = document.getElementById('fun-fact-btn');
+  const funFactDisplay = document.getElementById('fun-fact-display');
+
+  funFactBtn.addEventListener('click', () => {
+    factIndex = (factIndex + 1) % funFacts.length;
+    funFactDisplay.style.display = 'flex';
+    funFactDisplay.style.animation = 'none';
+    // Force reflow
+    funFactDisplay.offsetHeight;
+    funFactDisplay.style.animation = 'fadeIn 0.3s ease';
+    funFactDisplay.textContent = funFacts[factIndex];
+  });
+
+})();
+</script>
+</body>
+</html>

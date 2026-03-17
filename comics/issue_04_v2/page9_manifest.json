@@ -1,0 +1,128 @@
+{
+  "issue": 4,
+  "page": 9,
+  "title": "The GUI Revolution — Xerox PARC, Mac, Windows",
+  "accent": "#805AD5",
+  "panels": [
+    {
+      "id": "p9_01_xerox_alto",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "The Xerox Alto computer from 1973, a boxy beige computer with a portrait-oriented screen showing windows and icons and a cursor, a three-button mouse sitting beside it on the desk, the screen glowing with a graphical interface, warm 1970s office setting, vintage and groundbreaking feeling, warm editorial illustration with ink lines and watercolor washes, purple accent highlights Period-appropriate 1970s desk items only — papers, phone with rotary dial, NO modern technology, NO laptops.",
+      "overlays": [],
+      "label": "The Xerox Alto (1973) — windows, icons, menus, and a mouse"
+    },
+    {
+      "id": "p9_01b_narration_parc",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "<strong>Xerox PARC</strong> (Palo Alto Research Center), established in 1970, was building the future. By the mid-1970s, PARC had invented the <strong>graphical user interface</strong>, Ethernet, laser printing, WYSIWYG editing, and object-oriented programming. Their <strong>Alto</strong> (1973) integrated all of it — windows, icons, menus, and a mouse."
+    },
+    {
+      "id": "p9_02_robot_commands",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round lavender robot with big delighted rose-pink eyes, wearing a tiny artist's beret at a jaunty angle, pointing excitedly at a computer screen that shows colorful windows and icons, paintbrush tucked behind one antenna, warm purple and pink tones. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Before the GUI, computers meant memorizing commands.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Before the GUI, computers meant memorizing commands.",
+      "speaker": "ARTISTBOT"
+    },
+    {
+      "id": "p9_02b_robot_point",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round rainbow-shimmer robot with big triumphant golden eyes, holding a tiny computer mouse above its head like a trophy, confetti and sparkles around it, joyful celebratory pose, bright colorful background with purple accents. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"The GUI meant point at things instead of typing.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "The GUI meant point at things instead of typing.",
+      "speaker": "RAINBOWBOT"
+    },
+    {
+      "id": "p9_03_jobs_parc",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "A dramatic wide-shot scene in December 1979 at Xerox PARC, a young energetic man with dark hair in jeans and a black turtleneck, arms raised excitedly, face electrified with inspiration, while a researcher in glasses demonstrates a graphical interface on an Alto computer screen nearby, other researchers watching with mixed expressions, tension and excitement in the air, warm editorial illustration with ink lines and watercolor washes, purple and amber lighting",
+      "overlays": [],
+      "label": "Steve Jobs at Xerox PARC, December 1979 — 'Why aren't you DOING anything with this?!'"
+    },
+    {
+      "id": "p9_04_narration_jobs",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In December 1979, <strong>Steve Jobs</strong> visited PARC. Researcher <strong>Larry Tesler</strong> demonstrated the Alto. Jobs was electrified: <em>\"Why aren't you doing anything with this? This is the greatest thing! This is revolutionary!\"</em> Not everyone agreed — <strong>Adele Goldberg</strong>, a key developer of Smalltalk, objected to giving away PARC's crown jewels. She was overruled by management."
+    },
+    {
+      "id": "p9_05_mac_vs_windows",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "The original 1984 Apple Macintosh computer screen showing a clean friendly desktop interface with small icons, a menu bar at the top, the happy Mac boot icon, warm and inviting, a small mouse beside the compact all-in-one beige computer, warm editorial illustration with ink lines and watercolor washes, purple accent glow",
+      "overlays": [],
+      "label": "The Apple Macintosh, January 24, 1984"
+    },
+    {
+      "id": "p9_05b_windows",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A 1985 Windows 1.0 screen showing clunky tiled windows with basic graphics, a chunky PC beneath it, looking primitive compared to the Mac, grey and blue interface with sharp right angles, warm editorial illustration with ink lines and watercolor washes, muted tones with purple accent",
+      "overlays": [],
+      "label": "Windows 1.0, November 1985 — slow, limited, but the beginning"
+    },
+    {
+      "id": "p9_06_narration_mac",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The <strong>Apple Macintosh</strong> launched January 24, 1984 at $2,495, with the legendary \"1984\" commercial by Ridley Scott. Apple didn't just copy PARC — they added the menu bar, drag-and-drop, and a simplified single-button mouse. Microsoft followed with <strong>Windows 1.0</strong> in November 1985 — clunky and limited. It wasn't until <strong>Windows 3.0</strong> (1990) that their GUI succeeded commercially."
+    },
+    {
+      "id": "p9_07_lineage",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 150\"><defs><marker id=\"arr9\" markerWidth=\"8\" markerHeight=\"6\" refX=\"8\" refY=\"3\" orient=\"auto\"><polygon points=\"0 0, 8 3, 0 6\" fill=\"#805AD5\"/></marker></defs><line x1=\"30\" y1=\"50\" x2=\"650\" y2=\"50\" stroke=\"#E9D8FD\" stroke-width=\"2\"/><circle cx=\"60\" cy=\"50\" r=\"6\" fill=\"#805AD5\"/><text x=\"60\" y=\"35\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">Engelbart</text><text x=\"60\" y=\"75\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">1968</text><line x1=\"66\" y1=\"50\" x2=\"155\" y2=\"50\" stroke=\"#805AD5\" stroke-width=\"2\" marker-end=\"url(#arr9)\"/><circle cx=\"165\" cy=\"50\" r=\"6\" fill=\"#805AD5\"/><text x=\"165\" y=\"35\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">Xerox Alto</text><text x=\"165\" y=\"75\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">1973</text><line x1=\"171\" y1=\"50\" x2=\"260\" y2=\"50\" stroke=\"#805AD5\" stroke-width=\"2\" marker-end=\"url(#arr9)\"/><circle cx=\"270\" cy=\"50\" r=\"5\" fill=\"#A0AEC0\"/><text x=\"270\" y=\"35\" text-anchor=\"middle\" font-size=\"12\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\">Star $16k</text><text x=\"270\" y=\"75\" text-anchor=\"middle\" font-size=\"12\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\">1981</text><line x1=\"276\" y1=\"50\" x2=\"345\" y2=\"50\" stroke=\"#805AD5\" stroke-width=\"2\" marker-end=\"url(#arr9)\"/><circle cx=\"355\" cy=\"50\" r=\"5\" fill=\"#A0AEC0\"/><text x=\"355\" y=\"35\" text-anchor=\"middle\" font-size=\"12\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\">Lisa $10k</text><text x=\"355\" y=\"75\" text-anchor=\"middle\" font-size=\"12\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\">1983</text><line x1=\"361\" y1=\"50\" x2=\"430\" y2=\"50\" stroke=\"#805AD5\" stroke-width=\"2\" marker-end=\"url(#arr9)\"/><circle cx=\"440\" cy=\"50\" r=\"8\" fill=\"#805AD5\" stroke=\"#2D3748\" stroke-width=\"2\"/><text x=\"440\" y=\"32\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">Macintosh</text><text x=\"440\" y=\"75\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">1984</text><line x1=\"448\" y1=\"50\" x2=\"525\" y2=\"50\" stroke=\"#805AD5\" stroke-width=\"2\" marker-end=\"url(#arr9)\"/><circle cx=\"535\" cy=\"50\" r=\"6\" fill=\"#805AD5\"/><text x=\"535\" y=\"35\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">Win 1.0</text><text x=\"535\" y=\"75\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">1985</text><line x1=\"541\" y1=\"50\" x2=\"620\" y2=\"50\" stroke=\"#805AD5\" stroke-width=\"2\" marker-end=\"url(#arr9)\"/><circle cx=\"630\" cy=\"50\" r=\"6\" fill=\"#805AD5\"/><text x=\"630\" y=\"35\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">Win 3.0</text><text x=\"630\" y=\"75\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">1990</text><text x=\"340\" y=\"105\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-style=\"italic\">Engelbart → PARC → Apple → Microsoft — each built on what came before</text></svg>",
+      "caption": "The GUI lineage — no single entity invented the graphical interface"
+    },
+    {
+      "id": "p9_08_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The GUI did not make computers more powerful. It made computers more <em>accessible</em>. And accessibility is a kind of power — the power to bring millions of new minds into the computing revolution."
+    },
+    {
+      "id": "p9_09_thinkbox",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Think About It:</strong> Every interface is a tradeoff. Command lines are fast and precise for experts. GUIs are intuitive for everyone. Today we are asking the same question again: is talking to an AI assistant the next interface revolution? What will <em>that</em> make possible?"
+    },
+    {
+      "id": "p9_09b_robot_interface",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round lavender robot with a dome head and big curious rose-pink LED eyes, wearing a tiny artist beret, stubby arms holding a computer mouse in one hand and a keyboard in the other, antenna with a tiny cursor arrow on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Click or type? Every interface is a tradeoff.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Click or type? Every interface is a tradeoff.",
+      "speaker": "MOUSEBOT"
+    },
+    {
+      "id": "p9_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Step back and look at where we are. In just two decades, software became portable. Computers became personal. Networks began connecting them. Interfaces became visual. And a movement declared that software should be free. But there is one enormous problem still unsolved..."
+    }
+  ]
+}

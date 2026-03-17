@@ -1,0 +1,96 @@
+{
+  "issue": 6,
+  "page": 1,
+  "title": "How Do You Describe a Cat?",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p1_01_cat_wall",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A wide cinematic shot of a wall covered floor-to-ceiling with photographs of cats pinned and taped in overlapping layers, every variety imaginable -- tabby, calico, Persian, Siamese, hairless, kittens, sleeping cats, leaping cats, cats in boxes, cats in snow, hundreds of photos creating a colorful mosaic of feline diversity, a single yellow sticky note in the center reads 'WRITE A RULE FOR ALL OF THESE', warm overhead lighting casting soft shadows on the photos, Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E accent highlights on some photo borders",
+      "overlays": []
+    },
+    {
+      "id": "p1_02_robot_challenge",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 512,
+      "prompt": "A small cute boxy retro robot with big round orange headlamp eyes, a wind-up key on its back, stubby arms crossed confidently, one metal eyebrow raised in a playful challenging expression, standing in front of a wall of cat photographs, looking directly at the viewer with a cheeky grin. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Quick. Describe ALL cats.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm paper-tone background with crimson #E53E3E accents",
+      "bubble_text": "Quick. Describe ALL cats.",
+      "speaker": "TINBOT"
+    },
+    {
+      "id": "p1_03_narration_intro",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In Issue 5, we watched the world get connected. The web, open source, Wikipedia, GitHub -- by the mid-2000s, humanity had assembled the largest collection of knowledge, text, and code ever created.<br><br>But computers still could not do something a <strong>toddler</strong> does effortlessly: look at a photograph and say <em>\"cat.\"</em>"
+    },
+    {
+      "id": "p1_04_edge_detection",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A split-panel illustration showing the struggle of rule-based computer vision. Left side: a clean simple line drawing of a cat silhouette with labeled arrows pointing to features -- 'pointy ears', 'whiskers', 'tail', 'four legs' -- like an engineering diagram. Right side: four small photos arranged in a grid showing edge cases that break the rules -- a hairless Sphynx cat, a Scottish Fold with floppy ears, a cat curled in a box with only its head visible, and a blurry nighttime cat photo. Red X marks over each photo. Clean analytical style with a warm paper background, Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E for the X marks",
+      "overlays": []
+    },
+    {
+      "id": "p1_05_narration_rules_fail",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "For decades, researchers tried the obvious approach: <strong>write rules</strong>. Detect edges. Measure angles. Count features. Describe what a cat \"looks like\" in mathematical terms.<br><br>The problem? <em>\"What a cat looks like\"</em> is almost infinitely variable. Has pointy ears? Some cats have floppy ears. Has fur? Sphynx cats are hairless. Has four legs? So does a dog.",
+      "style": "default"
+    },
+    {
+      "id": "p1_06_toddler_cats",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round soft green robot with big bright leaf-shaped ears and a tiny plant growing from the top of its head, sitting cross-legged on the ground surrounded by scattered picture books showing cats of different breeds, pointing at a photo with one stubby arm and looking amazed, warm nursery-like setting. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"A toddler just sees thousands of cats.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, soft green and warm paper tones",
+      "bubble_text": "A toddler just sees thousands of cats.",
+      "speaker": "SPROUT"
+    },
+    {
+      "id": "p1_07_narration_children",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "A three-year-old identifies every cat instantly. How? Not by following rules. Children learn by seeing <strong>thousands of examples</strong>. Nobody tells a toddler: <em>\"triangular ears at a 47-degree angle.\"</em> The concept just <strong>emerges</strong>."
+    },
+    {
+      "id": "p1_08_paradigm_shift",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>What if machines could learn the same way?</strong><br><br>Stop writing rules. Show the machine millions of examples. Let the patterns emerge on their own."
+    },
+    {
+      "id": "p1_09_researchers_silhouette",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A dramatic wide cinematic shot looking down a long university corridor at dusk, warm golden light streaming through tall windows on the left side, three small silhouetted figures walking toward the light at the far end of the corridor, papers and notebooks tucked under their arms, sense of determination and purpose, the corridor walls lined with old academic bulletin boards and office doors, long shadows stretching toward the viewer, Comic book style, warm editorial illustration with ink lines and watercolor washes, golden hour light with crimson #E53E3E tinted sky visible through windows",
+      "overlays": []
+    },
+    {
+      "id": "p1_10_narration_story_setup",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "This is the story of the people who spent <strong>decades</strong> proving they could. An idea abandoned by the mainstream, kept alive by a handful of stubborn researchers, and vindicated in a single stunning afternoon in <strong>2012</strong>.",
+      "style": "default"
+    },
+    {
+      "id": "p1_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "For sixty years, AI researchers tried to write rules by hand. They called it \"symbolic AI.\" It worked for chess and logic. It failed at vision, language, and common sense. But there was always another approach -- one inspired by the human brain itself."
+    }
+  ]
+}

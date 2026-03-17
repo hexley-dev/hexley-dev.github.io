@@ -1,0 +1,93 @@
+{
+  "issue": 8,
+  "page": 9,
+  "title": "The Limits of a Single Agent — When One Brain Isn't Enough",
+  "accent": "#9F7AEA",
+  "panels": [
+    {
+      "id": "p9_01_overwhelmed_agent",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "A single small figure (representing an AI agent) sits at a massive desk piled impossibly high with papers, documents, and scrolling code printouts. The desk overflows in every direction: code files, test results, error logs, database schemas, API specs, deployment configs cascade off the edges. The figure's eyes are spinning with overwhelm, papers literally falling like an avalanche. Some documents float away. The atmosphere is chaotic but sympathetic -- we feel for this lone worker drowning in complexity. Warm amber desk lamp barely visible under the paper mountain. Comic book style, warm editorial illustration with ink lines and watercolor washes, violet (#9F7AEA) glow on the falling papers, warm amber on the lamp",
+      "overlays": []
+    },
+    {
+      "id": "p9_02_robot_skyscraper",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 476,
+      "gen_height": 512,
+      "prompt": "A small cute round ceramic robot with a matte lavender glaze finish, big sympathetic dark-blue eyes, tiny arms crossed thoughtfully, wearing a miniature hard hat, standing next to a towering half-built model skyscraper made of code blocks that is starting to lean dangerously. The robot looks at the overwhelmed desk scene with empathy and understanding. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Even the smartest person can't build a skyscraper alone.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, soft violet ambient lighting",
+      "bubble_text": "Even the smartest person can't build a skyscraper alone.",
+      "speaker": "CERAMIC"
+    },
+    {
+      "id": "p9_02b_narration_limits_intro",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "By late 2024, AI coding agents were genuinely useful. Developers relied on them daily. But a pattern emerged: the harder the task, the more likely the agent was to struggle. Not because the model wasn't smart enough &mdash; but because of <strong>structural limits</strong> that no amount of intelligence could overcome."
+    },
+    {
+      "id": "p9_03_four_limits",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-10 -20 710 330\" xmlns=\"http://www.w3.org/2000/svg\"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x=\"340\" y=\"8\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#9F7AEA\">The Four Limits of a Single Agent</text><rect x=\"20\" y=\"40\" width=\"315\" height=\"75\" rx=\"10\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"2\"/><text fill=\"#2D3748\" x=\"48\" y=\"62\" font-size=\"18\">&#x1F4DC;</text><text x=\"72\" y=\"64\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">1. Context Degradation</text><text fill=\"#2D3748\" x=\"72\" y=\"82\" font-size=\"12\">The longer the task, the more the agent</text><text fill=\"#2D3748\" x=\"72\" y=\"96\" font-size=\"12\">forgets its own earlier work.</text><rect x=\"350\" y=\"40\" width=\"300\" height=\"75\" rx=\"10\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"2\"/><text fill=\"#2D3748\" x=\"368\" y=\"62\" font-size=\"18\">&#x1F32B;</text><text x=\"392\" y=\"64\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">2. Hallucination Under Pressure</text><text fill=\"#2D3748\" x=\"392\" y=\"82\" font-size=\"12\">When confused, agents invent</text><text fill=\"#2D3748\" x=\"392\" y=\"96\" font-size=\"12\">plausible-sounding nonsense.</text><rect x=\"30\" y=\"135\" width=\"300\" height=\"75\" rx=\"10\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text fill=\"#2D3748\" x=\"48\" y=\"157\" font-size=\"18\">&#x23F3;</text><text fill=\"#1A202C\" x=\"72\" y=\"159\" font-size=\"12\" font-weight=\"bold\">3. Single-Thread Bottleneck</text><text fill=\"#2D3748\" x=\"72\" y=\"177\" font-size=\"12\">One agent = one task at a time.</text><text fill=\"#2D3748\" x=\"72\" y=\"191\" font-size=\"12\">Parallel work is impossible.</text><rect x=\"350\" y=\"135\" width=\"300\" height=\"75\" rx=\"10\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"2\"/><text fill=\"#2D3748\" x=\"368\" y=\"157\" font-size=\"18\">&#x1F9F1;</text><text x=\"392\" y=\"159\" font-size=\"12\" font-weight=\"bold\" fill=\"#DD6B20\">4. Compounding Errors</text><text fill=\"#2D3748\" x=\"392\" y=\"177\" font-size=\"12\">A small early mistake snowballs</text><text fill=\"#2D3748\" x=\"392\" y=\"191\" font-size=\"12\">into a large late disaster.</text><rect x=\"60\" y=\"235\" width=\"560\" height=\"50\" rx=\"8\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" x=\"340\" y=\"256\" text-anchor=\"middle\" font-size=\"12\" font-style=\"italic\">These are not failures of <tspan font-weight=\"bold\">intelligence</tspan>.</text><text fill=\"#2D3748\" x=\"340\" y=\"273\" text-anchor=\"middle\" font-size=\"12\" font-style=\"italic\">They are failures of <tspan font-weight=\"bold\">architecture</tspan>.</text></svg>",
+      "caption": "The four structural limits that hold back even the most capable single agent"
+    },
+    {
+      "id": "p9_04_gantt_comparison",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 230\" xmlns=\"http://www.w3.org/2000/svg\"><style>.mono{font-family:'JetBrains Mono',monospace; font-size:12px} text{font-family:'JetBrains Mono',monospace; font-size:12px}</style><text x=\"340\" y=\"8\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#9F7AEA\">Sequential vs. Parallel</text><text fill=\"#FFFFFF\" x=\"50\" y=\"42\" font-size=\"12\" font-weight=\"bold\">Single Agent:</text><rect x=\"160\" y=\"30\" width=\"120\" height=\"22\" rx=\"4\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"220\" y=\"46\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Database</text><rect x=\"280\" y=\"30\" width=\"100\" height=\"22\" rx=\"4\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"330\" y=\"46\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">API</text><rect x=\"380\" y=\"30\" width=\"120\" height=\"22\" rx=\"4\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"440\" y=\"46\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Frontend</text><rect x=\"500\" y=\"30\" width=\"100\" height=\"22\" rx=\"4\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"550\" y=\"46\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Tests</text><text x=\"620\" y=\"46\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">4 hrs</text><text fill=\"#FFFFFF\" x=\"50\" y=\"90\" font-size=\"12\" font-weight=\"bold\">Multiple Agents:</text><rect x=\"160\" y=\"78\" width=\"120\" height=\"22\" rx=\"4\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"220\" y=\"94\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Database</text><rect x=\"160\" y=\"104\" width=\"115\" height=\"22\" rx=\"4\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"218\" y=\"120\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">API</text><rect x=\"160\" y=\"130\" width=\"120\" height=\"22\" rx=\"4\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"220\" y=\"146\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Frontend</text><rect x=\"160\" y=\"156\" width=\"110\" height=\"22\" rx=\"4\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"215\" y=\"172\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Tests</text><text x=\"310\" y=\"120\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">1.5 hrs</text><line x1=\"285\" y1=\"74\" x2=\"285\" y2=\"185\" stroke=\"#38A169\" stroke-width=\"1.5\" stroke-dasharray=\"4,3\"/></svg>",
+      "caption": "One agent works sequentially (4 hours). Multiple agents work in parallel (1.5 hours). Same task, better architecture."
+    },
+    {
+      "id": "p9_05_vibe_coding",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>Vibe Coding: A Cautionary Note.</strong> By early 2025, <strong>Andrej Karpathy</strong> coined the term <strong>&ldquo;vibe coding&rdquo;</strong> &mdash; describing what you want in natural language, barely reading the generated code. It captured both the promise and a real peril: what happens when humans stop understanding their own code? Over-reliance on agents risks systems built by AI that <em>no human fully comprehends</em>."
+    },
+    {
+      "id": "p9_06_compounding",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A visual timeline showing the compounding error problem. Starting from the left with a small red dot labeled 'Minute 5: Slight wrong design choice', the dot sends out ripples that grow into yellow expanding circles labeled 'Minute 15: All code builds on it', then into large orange warning zones labeled 'Minute 30: Tests fail at line 247, not line 5', and finally into a chaotic red explosion labeled 'Minute 45: Agent patches wrong line, more errors'. A dotted line from the chaos points back to the original small red dot with text: 'The root cause is buried.' Dark background with the timeline moving left to right, each stage getting more visually chaotic. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p9_07_narration_teams",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "A single agent, no matter how capable, is trying to hold an entire project in one context, work on it sequentially, and maintain perfect recall across thousands of steps. That is not how humans build complex things either. Humans build complex things with <strong>teams</strong>."
+    },
+    {
+      "id": "p9_08_think_about_it",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<em>&ldquo;Think about the hardest project you have ever worked on. Could one person have done it alone, no matter how talented? Or did it require different people with different skills, working in parallel, reviewing each other&rsquo;s work? Now think about why that same logic applies to AI.&rdquo;</em>"
+    },
+    {
+      "id": "p9_08b_robot_teams",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round emerald robot with a dome head and big curious green LED eyes, stubby arms orchestrating three smaller robots working together, antenna with a tiny conductor baton on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"One agent is limited. But what about a team?\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "One agent is limited. But what about a team?",
+      "speaker": "TEAMBOT"
+    },
+    {
+      "id": "p9_09_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "One agent is powerful. But what about a TEAM?"
+    }
+  ]
+}

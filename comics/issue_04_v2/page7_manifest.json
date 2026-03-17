@@ -1,0 +1,126 @@
+{
+  "issue": 4,
+  "page": 7,
+  "title": "ARPANET and TCP/IP — The Internet's Quiet Beginning",
+  "accent": "#805AD5",
+  "panels": [
+    {
+      "id": "p7_01_first_message",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "Dramatic recreation of October 29 1969, a young graduate student sitting at a UCLA terminal in a dim computer lab, typing intently, the terminal screen glowing with the letters L O, sparks and electrical effects flying from the machine representing a crash, other researchers watching with surprise, warm amber and purple lighting, tension and excitement, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": [],
+      "screen_text": "LO",
+      "label": "October 29, 1969 — Charley Kline types 'LO' before the system crashes"
+    },
+    {
+      "id": "p7_02_robot_login",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round mint-green robot with big amused golden eyes and one raised eyebrow sculpted antenna, one hand covering its mouth stifling a laugh, standing next to a smoking vintage terminal that shows L O on its screen, scattered sparks, warm golden and purple tones. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"The first Internet message? Supposed to be LOGIN.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "The first Internet message? Supposed to be LOGIN.",
+      "screen_text": "LO",
+      "speaker": "MINTBOT"
+    },
+    {
+      "id": "p7_02b_robot_lo",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round sunny-yellow robot with big delighted teal eyes, laughing with its mouth wide open, a tiny lightning bolt shape on its chest like a badge, floating confetti and sparkles around it, celebratory purple and yellow background. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"It crashed after LO. Lo and behold!\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "It crashed after LO. Lo and behold!",
+      "speaker": "SUNNYBOT"
+    },
+    {
+      "id": "p7_03_narration_licklider",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The idea began with <strong>J.C.R. Licklider</strong>, a psychologist and computer scientist at ARPA, who imagined an \"Intergalactic Computer Network\" where researchers everywhere could share data freely. <strong>Larry Roberts</strong> designed ARPANET's architecture. <strong>Leonard Kleinrock</strong> at UCLA developed the theory of packet switching. The team at <strong>BBN</strong> built the routing machines."
+    },
+    {
+      "id": "p7_04_narration_kline",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "On October 29, 1969, UCLA graduate student <strong>Charley Kline</strong> tried to send \"LOGIN\" to Stanford Research Institute, 350 miles away. He typed <strong>L</strong>. Confirmed. <strong>O</strong>. Confirmed. <strong>G</strong>. The system crashed. The first message sent over <strong>ARPANET</strong> was \"LO.\""
+    },
+    {
+      "id": "p7_04b_robot_packets",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round mint-green robot with a dome head and big amused golden LED eyes, stubby arms tossing tiny colorful envelopes into the air, each labeled with a destination address, antenna with a tiny postal horn on top, standing next to a mailbox shaped like a router. A white speech bubble with black outline above. Inside the bubble the text reads: \"Split the message into packets. Send them separately.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Split the message into packets. Send separately.",
+      "speaker": "MAILBOT"
+    },
+    {
+      "id": "p7_05_narration_myth",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>Myth: ARPANET was built to survive nuclear war.</strong> Reality: Completely false. ARPANET was built to let researchers at different universities <em>share expensive computing resources</em>. The confusion comes from Paul Baran's separate 1964 RAND Corporation research on survivable networks."
+    },
+    {
+      "id": "p7_06_packet_switching",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 315\"><text x=\"340\" y=\"5\" text-anchor=\"middle\" font-size=\"14\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">Packet Switching: The Postal System of the Internet</text><rect x=\"20\" y=\"25\" width=\"120\" height=\"40\" rx=\"8\" fill=\"#805AD5\"/><text x=\"80\" y=\"50\" text-anchor=\"middle\" font-size=\"14\" fill=\"#fff\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">H E L L O</text><text x=\"80\" y=\"80\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">Original message</text><line x1=\"140\" y1=\"45\" x2=\"180\" y2=\"45\" stroke=\"#805AD5\" stroke-width=\"2\"/><polygon points=\"178,40 188,45 178,50\" fill=\"#805AD5\"/><g transform=\"translate(200,25)\"><rect x=\"0\" y=\"0\" width=\"30\" height=\"30\" rx=\"4\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"15\" y=\"20\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1A202C\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">H</text></g><g transform=\"translate(240,25)\"><rect x=\"0\" y=\"0\" width=\"30\" height=\"30\" rx=\"4\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text x=\"15\" y=\"20\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1A202C\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">E</text></g><g transform=\"translate(280,25)\"><rect x=\"0\" y=\"0\" width=\"30\" height=\"30\" rx=\"4\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"15\" y=\"20\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1A202C\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">L</text></g><g transform=\"translate(320,25)\"><rect x=\"0\" y=\"0\" width=\"30\" height=\"30\" rx=\"4\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"15\" y=\"20\" text-anchor=\"middle\" font-size=\"14\" fill=\"#4A9BD9\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">L</text></g><g transform=\"translate(360,25)\"><rect x=\"0\" y=\"0\" width=\"30\" height=\"30\" rx=\"4\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"15\" y=\"20\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1A202C\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">O</text></g><text x=\"300\" y=\"80\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">Split into packets</text><circle cx=\"200\" cy=\"140\" r=\"12\" fill=\"#F7FAFC\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><circle cx=\"340\" cy=\"120\" r=\"12\" fill=\"#F7FAFC\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><circle cx=\"480\" cy=\"140\" r=\"12\" fill=\"#F7FAFC\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><circle cx=\"270\" cy=\"170\" r=\"12\" fill=\"#F7FAFC\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><circle cx=\"410\" cy=\"170\" r=\"12\" fill=\"#F7FAFC\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><line x1=\"212\" y1=\"140\" x2=\"328\" y2=\"120\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><line x1=\"352\" y1=\"120\" x2=\"468\" y2=\"140\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><line x1=\"212\" y1=\"146\" x2=\"258\" y2=\"166\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><line x1=\"282\" y1=\"170\" x2=\"398\" y2=\"170\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><line x1=\"422\" y1=\"166\" x2=\"468\" y2=\"146\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><text x=\"340\" y=\"205\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">Different routes through the network</text><g transform=\"translate(200,220)\"><rect x=\"0\" y=\"0\" width=\"30\" height=\"30\" rx=\"4\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"15\" y=\"20\" text-anchor=\"middle\" font-size=\"14\" fill=\"#4A9BD9\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">L</text></g><g transform=\"translate(240,220)\"><rect x=\"0\" y=\"0\" width=\"30\" height=\"30\" rx=\"4\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"15\" y=\"20\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1A202C\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">O</text></g><g transform=\"translate(280,220)\"><rect x=\"0\" y=\"0\" width=\"30\" height=\"30\" rx=\"4\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"15\" y=\"20\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1A202C\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">H</text></g><g transform=\"translate(320,220)\"><rect x=\"0\" y=\"0\" width=\"30\" height=\"30\" rx=\"4\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text x=\"15\" y=\"20\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1A202C\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">E</text></g><g transform=\"translate(360,220)\"><rect x=\"0\" y=\"0\" width=\"30\" height=\"30\" rx=\"4\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"15\" y=\"20\" text-anchor=\"middle\" font-size=\"14\" fill=\"#1A202C\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">L</text></g><line x1=\"400\" y1=\"235\" x2=\"430\" y2=\"235\" stroke=\"#805AD5\" stroke-width=\"2\"/><polygon points=\"428,230 438,235 428,240\" fill=\"#805AD5\"/><rect x=\"445\" y=\"220\" width=\"120\" height=\"40\" rx=\"8\" fill=\"#805AD5\"/><text x=\"505\" y=\"245\" text-anchor=\"middle\" font-size=\"14\" fill=\"#fff\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">H E L L O</text><text x=\"505\" y=\"275\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">Reassembled!</text></svg>",
+      "caption": "The Internet is a postal system, not a phone call"
+    },
+    {
+      "id": "p7_07_cerf_kahn",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "Two men in 1970s professional attire shaking hands in a warm collaborative gesture, one distinguished with a three-piece suit and hearing aid, the other intense and focused, between them a glowing diagram of interconnected network nodes, symbolizing TCP/IP connecting different networks, warm purple and gold tones, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": [],
+      "label": "Vint Cerf and Bob Kahn — the architects of TCP/IP"
+    },
+    {
+      "id": "p7_07b_narration_tcpip",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "<strong>Vint Cerf</strong> (born 1943, hearing-impaired since childhood) and <strong>Bob Kahn</strong> (born 1938) published the design for <strong>TCP/IP</strong> in May 1974 — a universal set of rules for breaking messages into packets, addressing them, routing them, and reassembling them."
+    },
+    {
+      "id": "p7_08_narration_flagday",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "On January 1, 1983 — <strong>\"flag day\"</strong> — every computer on ARPANET switched to TCP/IP simultaneously. Many historians call this the true <strong>birth of the Internet</strong>: the moment when different networks could, for the first time, speak the same language."
+    },
+    {
+      "id": "p7_08b_robot_flagday",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round sunny-yellow robot with a dome head and big excited teal LED eyes, stubby arms waving a tiny flag with TCP/IP written on it, antenna with a tiny globe on top, standing on a calendar page reading JANUARY 1 1983. A white speech bubble with black outline above. Inside the bubble the text reads: \"One protocol. Every network, same language.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "One protocol. Every network, same language.",
+      "speaker": "FLAGBOT"
+    },
+    {
+      "id": "p7_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "ARPANET did not just connect computers. It established a principle: build a universal protocol, and <em>any</em> network can join. TCP/IP did not care what kind of computer you had. It only cared that you spoke the same language. That openness is why the Internet scaled to billions of devices."
+    },
+    {
+      "id": "p7_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Software was portable. Computers were personal. Networks were growing. But a new threat was emerging: software was becoming a product — locked behind licenses, hidden from the people who used it. One programmer at MIT decided this was a moral crisis."
+    }
+  ]
+}

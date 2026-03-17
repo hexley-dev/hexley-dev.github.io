@@ -1,0 +1,138 @@
+{
+  "issue": 5,
+  "page": 5,
+  "title": "The Cathedral and the Bazaar",
+  "accent": "#D69E2E",
+  "panels": [
+    {
+      "id": "p5_01_cathedral",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 576,
+      "prompt": "A tall Gothic cathedral seen from below, orderly and planned, a small group of architects working from blueprints behind closed doors inside the grand stone structure, stained glass windows with code symbols, cool blue and grey tones, formal and controlled atmosphere, labeled THE CATHEDRAL at the bottom, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "bottom-span",
+          "max_width": "200px",
+          "text": "<strong>The Cathedral</strong>"
+        }
+      ]
+    },
+    {
+      "id": "p5_01b_bazaar",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 576,
+      "prompt": "A chaotic vibrant bazaar marketplace seen from above, hundreds of colorful stalls, people trading arguing building things together, a riot of activity and color, banners and flags flying, gold and warm amber tones, energetic and alive atmosphere, labeled THE BAZAAR at the bottom, warm editorial illustration with ink lines and watercolor washes, gold #D69E2E accents",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "bottom-span",
+          "max_width": "200px",
+          "text": "<strong>The Bazaar</strong>"
+        }
+      ]
+    },
+    {
+      "id": "p5_02_robot_idea",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute round teal robot with big thoughtful amber eyes, one stubby hand on its chin in a thinking pose and the other gesturing broadly outward, wearing a tiny philosopher's beret tilted to one side, sitting on a stack of open books and papers, warm golden background with faint code symbols. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Cathedral: planned and private. Bazaar: messy and alive.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Cathedral: planned and private. Bazaar: messy and alive.",
+      "speaker": "THINKBOT"
+    },
+    {
+      "id": "p5_03_raymond_intro",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In May 1997, <strong>Eric S. Raymond</strong> presented an essay called <em>\"The Cathedral and the Bazaar\"</em> at the Linux Kongress. It would become the foundational text of the <strong>open-source movement</strong>."
+    },
+    {
+      "id": "p5_04_two_models",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 714 360\"><style>text{font-family:'JetBrains Mono',monospace; }</style><rect x=\"10\" y=\"0\" width=\"310\" height=\"200\" rx=\"10\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><text x=\"165\" y=\"28\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#1A202C\">THE CATHEDRAL</text><text fill=\"#2D3748\" x=\"30\" y=\"55\" font-size=\"13\">&#8226; Closed source</text><text fill=\"#2D3748\" x=\"30\" y=\"78\" font-size=\"13\">&#8226; Planned releases</text><text fill=\"#2D3748\" x=\"30\" y=\"101\" font-size=\"13\">&#8226; Top-down control</text><text fill=\"#2D3748\" x=\"30\" y=\"124\" font-size=\"13\">&#8226; Polish then ship</text><text x=\"30\" y=\"155\" font-size=\"12\" fill=\"#2D3748\">Small team &#x2192; careful design</text><text x=\"30\" y=\"178\" font-size=\"12\" fill=\"#2D3748\">Examples: Windows, early GNU tools</text><rect x=\"360\" y=\"0\" width=\"310\" height=\"200\" rx=\"10\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text x=\"515\" y=\"28\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#D69E2E\">THE BAZAAR</text><text fill=\"#2D3748\" x=\"380\" y=\"55\" font-size=\"13\">&#8226; Open source</text><text fill=\"#2D3748\" x=\"380\" y=\"78\" font-size=\"13\">&#8226; Release early/often</text><text fill=\"#2D3748\" x=\"380\" y=\"101\" font-size=\"13\">&#8226; Bottom-up feedback</text><text fill=\"#2D3748\" x=\"380\" y=\"124\" font-size=\"13\">&#8226; Ship then polish</text><text x=\"380\" y=\"155\" font-size=\"12\" fill=\"#2D3748\">Everyone contributes &#x2192; messy but alive</text><text x=\"380\" y=\"178\" font-size=\"12\" fill=\"#2D3748\">Examples: Linux, Apache, Mozilla</text><rect x=\"100\" y=\"220\" width=\"480\" height=\"80\" rx=\"10\" fill=\"#D69E2E\" stroke=\"#2D3748\" stroke-width=\"2\"/><text x=\"340\" y=\"250\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\" fill=\"#fff\">\"Given enough eyeballs, all bugs are shallow.\"</text><text x=\"340\" y=\"275\" text-anchor=\"middle\" font-size=\"13\" fill=\"#FEFCBF\">-- Linus's Law (Raymond, 1997)</text><text x=\"340\" y=\"295\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FEFCBF\" textLength=\"448\" lengthAdjust=\"spacingAndGlyphs\">If thousands can see the code, every bug is obvious to someone.</text></svg>",
+      "caption": "Two models of software development"
+    },
+    {
+      "id": "p5_05_models_explained",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The <strong>Cathedral</strong> model: a small, closed team designs the software carefully, releases it when it is ready, and controls every change. This is how most commercial software was built.<br><br>The <strong>Bazaar</strong> model: release early, release often, share everything, let anyone contribute. Accept that the process will be messy. Trust that the community will find and fix problems faster than any closed team could.<br><br>Raymond's most famous line: <strong>\"Given enough eyeballs, all bugs are shallow.\"</strong> He called this \"Linus's Law.\" If thousands of people can see the code, every bug becomes obvious to <em>someone</em>."
+    },
+    {
+      "id": "p5_06_netscape_mozilla",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A dramatic scene showing the Mozilla Firefox logo emerging like a phoenix from the wreckage of the Netscape browser wars, a fiery fox circling a globe of the Earth, broken browser windows and corporate logos scattered below, Mitchell Baker standing confidently at the helm guiding the project, warm gold and orange flames against a dark background, editorial illustration with ink lines and watercolor washes, gold #D69E2E accents",
+      "overlays": []
+    },
+    {
+      "id": "p5_07_mozilla_baker",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The essay hit the software industry like a thunderbolt. In January 1998, Netscape &mdash; losing the Browser Wars to Microsoft &mdash; released its source code. Raymond's essay was the direct inspiration. That release became the <strong>Mozilla</strong> project, and it was <strong>Mitchell Baker</strong> &mdash; a lawyer and technologist &mdash; who shepherded it from a messy code dump into a real organization. Baker became CEO of the Mozilla Foundation and led the creation of <strong>Firefox</strong>, proving that the bazaar model could build world-class consumer software. When Firefox launched in 2004, it broke Internet Explorer's near-monopoly."
+    },
+    {
+      "id": "p5_08_osi_split",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In February 1998, Raymond and Bruce Perens founded the <strong>Open Source Initiative</strong> (OSI). They chose \"open source\" instead of Stallman's \"free software.\" Stallman emphasized philosophical freedom &mdash; <em>\"free as in freedom, not free as in beer.\"</em> Raymond emphasized practical superiority &mdash; open development simply produces better results.<br><br>Stallman was not pleased. He saw \"open source\" as a dilution of freedom principles. This split &mdash; freedom versus pragmatism &mdash; persists to this day. But both sides agreed: sharing code is better than hoarding it."
+    },
+    {
+      "id": "p5_09b_robot_opensource",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round teal robot with a dome head and big bright gold LED eyes, wearing a tiny open-source badge, stubby arms holding a forking tree diagram with branches labeled FREE and OPEN, antenna with tiny interlocking gears on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Free or open source? Same code, different philosophy.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Free or open source? Same code, different philosophy.",
+      "speaker": "FORKBOT"
+    },
+    {
+      "id": "p5_09_who_can_afford",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "There is a question that rarely gets asked: <strong>who can afford to contribute?</strong> Writing free software requires leisure time, education, and a computer with internet access. The open-source movement was overwhelmingly built by people in wealthy countries with the financial safety nets to work for free. \"Open to all\" did not mean \"accessible to all.\" The bazaar had no entry fee, but getting to the bazaar was not free.",
+      "style": "accent"
+    },
+    {
+      "id": "p5_10_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Big Idea:</strong> Open source is more than a license &mdash; it is a philosophy. The radical claim: transparency and collaboration produce better software than secrecy and control. But open source also raises questions about labor: when code is \"free,\" who pays the people who write it? The community garden feeds many, but the gardeners still need to eat.",
+      "style": "accent"
+    },
+    {
+      "id": "p5_10b_robot_freeopen",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round golden-amber robot with a dome head and big wide gold LED eyes, stubby arms holding a tiny open padlock, antenna with a tiny key on top, standing at a fork in the road with signs reading FREE SOFTWARE and OPEN SOURCE, both paths leading to the same distant mountain. A white speech bubble with black outline above. Inside the bubble the text reads: \"Two movements. Different names. Same revolution.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Two movements. Different names. Same revolution.",
+      "speaker": "FORKBOT2"
+    },
+    {
+      "id": "p5_11_think",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<em>Think About It:</em> Open source means the \"recipe\" is published, not just the \"meal.\" Science publishes methods so others can replicate and improve them. What if medicine or education published their \"recipes\" too? Where would openness help, and where might it cause problems?"
+    },
+    {
+      "id": "p5_12_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "The web was free. The code was open. People were connecting. And then capitalism noticed."
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "issue": 4,
+  "page": 1,
+  "title": "Every Program Was Trapped on One Machine. Unix Set Software Free.",
+  "accent": "#805AD5",
+  "panels": [
+    {
+      "id": "p1_01_terminal_glow",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A single glowing green terminal screen in a dim, cavernous 1960s computer room, harsh light casting long shadows on the floor, thick cables tethering the terminal to a hulking mainframe in the background, quiet, still atmosphere of isolation, deep navy and green tones, warm editorial illustration with ink lines and watercolor washes, purple accent glow on the edges",
+      "overlays": []
+    },
+    {
+      "id": "p1_02_narration_1969",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "It was <strong>1969</strong>. Humans had just walked on the moon. But back on Earth, the world of computing was <em>fractured</em>."
+    },
+    {
+      "id": "p1_03_robot_trapped",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A small cute round brass robot with big sad violet eyes, a tiny padlock pendant around its neck, sitting on top of a glowing terminal marked PDP-7, looking down at chains connecting the terminal to the floor, dim lab setting with purple shadows. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"In the 1960s, every program was built for one machine.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "In the 1960s, every program was built for one machine.",
+      "speaker": "LOCKBOT"
+    },
+    {
+      "id": "p1_03b_robot_scratch",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A small cute boxy retro robot with big round orange headlamp eyes, a tiny wrench tucked behind one antenna ear, arms spread in a helpless shrug, surrounded by scattered punched cards and tangled tape reels, warm orange and purple tones. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"Move to a new computer? Start over from scratch.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Move to a new computer? Start over from scratch.",
+      "speaker": "WRENCHBOT"
+    },
+    {
+      "id": "p1_04_narration_stitched",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Every operating system was hand-stitched for one machine, like a suit that only fits one person. Write a program on an IBM mainframe, and it could never run on a DEC minicomputer. Write it on a PDP-7, and it was trapped there forever."
+    },
+    {
+      "id": "p1_05_cages",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "Three different 1960s computers — a tall IBM mainframe, a medium DEC PDP-7, and a squat Honeywell — each inside a locked metal cage with padlocks, glowing programs represented as floating paper documents trapped inside each cage, LARGE CLEAR VISIBLE LABELS on the front of each cage reading IBM PROGRAMS ONLY on the first cage, DEC PROGRAMS ONLY on the second cage, and HONEYWELL PROGRAMS ONLY on the third cage in bold legible white text on dark metal signs, dark moody atmosphere with purple and indigo lighting, warm editorial illustration with ink lines and watercolor washes, purple #805AD5 accent",
+      "overlays": [],
+      "label": "Three computers, each in a locked cage with their programs trapped inside"
+    },
+    {
+      "id": "p1_06_narration_chained",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Software was powerful — but it was <strong>chained to the hardware</strong> it was born on.",
+      "style": "accent"
+    },
+    {
+      "id": "p1_07_narration_change",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "That was about to change. In a quiet lab in New Jersey, two programmers were about to build something small, elegant, and radical. Not a bigger machine. Not a faster processor. An <em>idea</em> — a philosophy that would reshape all of computing."
+    },
+    {
+      "id": "p1_08_unix_reveal",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "Dramatic reveal of the word UNIX glowing in bright purple neon letters against a dark backdrop, rays of light emanating outward, small cute round robot with big starry eyes gazing up at the glowing text in awe, silhouettes of chains breaking apart on either side, cinematic and bold, warm editorial illustration with ink lines and watercolor washes, purple and violet color palette",
+      "bubble_text": "They called it Unix.",
+      "bubble_style": "impact",
+      "speaker": "NARRATOR"
+    },
+    {
+      "id": "p1_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Before Unix, software was trapped. One program, one machine. The story of the 1970s and 1980s is the story of setting software — and people — <strong>free</strong>."
+    },
+    {
+      "id": "p1_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Where did this revolution begin? Not in a Silicon Valley garage. In a telephone company's research lab — the most productive square footage in the history of science."
+    }
+  ]
+}

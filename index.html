@@ -7,7 +7,7 @@ layout: null
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>hexley.dev</title>
-  <meta name="description" content="Developer portfolio — coming soon.">
+  <meta name="description" content="From Turing to Swarms — a 10-issue interactive comic series on the history of computing.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
@@ -40,7 +40,6 @@ layout: null
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Grain overlay */
     body::before {
       content: '';
       position: fixed;
@@ -53,7 +52,6 @@ layout: null
       background-size: 256px 256px;
     }
 
-    /* Subtle grid background */
     body::after {
       content: '';
       position: fixed;
@@ -69,18 +67,6 @@ layout: null
       -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 70%);
     }
 
-    .page {
-      position: relative;
-      z-index: 1;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2rem;
-    }
-
-    /* Top decorative bar */
     .topbar {
       position: fixed;
       top: 0;
@@ -97,17 +83,27 @@ layout: null
       50% { opacity: 1; }
     }
 
+    .page {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      padding-top: 4rem;
+    }
+
     .container {
-      max-width: 640px;
+      max-width: 780px;
       width: 100%;
     }
 
-    /* Header mark */
     .mark {
       display: flex;
       align-items: center;
       gap: 1rem;
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
       animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) both;
     }
 
@@ -151,28 +147,23 @@ layout: null
       color: var(--ink);
     }
 
-    /* Main heading */
     .heading {
       font-family: 'Instrument Serif', Georgia, serif;
       font-weight: 400;
-      font-size: clamp(3rem, 8vw, 5.5rem);
-      line-height: 1;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      line-height: 1.1;
       color: var(--charcoal);
       margin-bottom: 0.25em;
       animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
     }
 
-    .heading em {
-      font-style: italic;
-      color: var(--amber);
-    }
+    .heading em { font-style: italic; color: var(--amber); }
 
-    /* Divider */
     .divider {
       width: 64px;
       height: 2px;
       background: var(--charcoal);
-      margin: 2rem 0;
+      margin: 1.5rem 0;
       animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
       position: relative;
     }
@@ -188,58 +179,134 @@ layout: null
       border-radius: 50%;
     }
 
-    /* Body text */
-    .body {
+    .intro {
       font-size: 0.9375rem;
       line-height: 1.75;
       color: var(--ink);
-      max-width: 480px;
+      max-width: 600px;
+      margin-bottom: 2.5rem;
       animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both;
     }
 
-    .body a {
-      color: var(--amber);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.3s ease;
-    }
-
-    .body a:hover {
-      border-bottom-color: var(--amber);
-    }
-
-    /* Status badge */
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 2.5rem;
-      padding: 0.625rem 1.125rem;
-      background: var(--parchment);
+    .issues {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--rule);
       border: 1px solid var(--rule);
-      border-radius: 100px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--warm-gray);
+      border-radius: 8px;
+      overflow: hidden;
       animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
     }
 
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--sage);
-      animation: pulse 2.5s ease-in-out infinite;
+    .issue-row {
+      display: flex;
+      align-items: baseline;
+      padding: 0.875rem 1.25rem;
+      background: var(--cream);
+      gap: 1rem;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
+    .issue-num {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--amber);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+      min-width: 4rem;
     }
 
-    /* Bottom info strip */
+    .issue-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 1.0625rem;
+      color: var(--charcoal);
+      flex: 1;
+    }
+
+    .issue-period {
+      font-size: 0.75rem;
+      color: var(--warm-gray);
+      flex-shrink: 0;
+      min-width: 5.5rem;
+      text-align: right;
+    }
+
+    .issue-versions {
+      display: flex;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .version-link {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.25rem 0.625rem;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .version-link--v1 {
+      color: var(--warm-gray);
+      border: 1px solid var(--rule);
+    }
+
+    .version-link--v1:hover {
+      color: var(--ink);
+      border-color: var(--warm-gray);
+    }
+
+    .version-link--v2 {
+      color: var(--amber);
+      border: 1px solid var(--amber);
+    }
+
+    .version-link--v2:hover {
+      background: var(--amber);
+      color: var(--cream);
+    }
+
+    .section-heading {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-weight: 400;
+      font-size: 1.5rem;
+      color: var(--charcoal);
+      margin-top: 3rem;
+      margin-bottom: 0.5rem;
+      animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+    }
+
+    .section-intro {
+      font-size: 0.875rem;
+      color: var(--warm-gray);
+      margin-bottom: 1rem;
+      animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+    }
+
+    .lab-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.875rem;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .lab-link:hover {
+      color: var(--amber);
+    }
+
+    .colophon {
+      margin-top: 2.5rem;
+      font-size: 0.8125rem;
+      line-height: 1.7;
+      color: var(--warm-gray);
+      max-width: 600px;
+      animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.75s both;
+    }
+
     .footer {
       position: relative;
       z-index: 1;
@@ -251,7 +318,7 @@ layout: null
       color: var(--warm-gray);
       letter-spacing: 0.04em;
       border-top: 1px solid var(--rule);
-      animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.75s both;
+      animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.9s both;
     }
 
     .footer a {
@@ -260,41 +327,13 @@ layout: null
       transition: color 0.3s ease;
     }
 
-    .footer a:hover {
-      color: var(--amber);
-    }
+    .footer a:hover { color: var(--amber); }
 
     .footer-links {
       display: flex;
       gap: 1.5rem;
     }
 
-    /* Corner accents */
-    .corner {
-      position: fixed;
-      width: 32px;
-      height: 32px;
-      z-index: 10;
-      opacity: 0;
-      animation: cornerIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
-    }
-
-    .corner--tl { top: 24px; left: 24px; border-top: 2px solid var(--charcoal); border-left: 2px solid var(--charcoal); }
-    .corner--tr { top: 24px; right: 24px; border-top: 2px solid var(--charcoal); border-right: 2px solid var(--charcoal); }
-    .corner--bl { bottom: 24px; left: 24px; border-bottom: 2px solid var(--charcoal); border-left: 2px solid var(--charcoal); }
-    .corner--br { bottom: 24px; right: 24px; border-bottom: 2px solid var(--charcoal); border-right: 2px solid var(--charcoal); }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes cornerIn {
-      from { opacity: 0; }
-      to { opacity: 0.15; }
-    }
-
-    /* Floating amber accent */
     .accent-orb {
       position: fixed;
       width: 300px;
@@ -321,32 +360,32 @@ layout: null
       animation-duration: 15s;
     }
 
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     @keyframes float {
       0%, 100% { transform: translate(0, 0) scale(1); }
       33% { transform: translate(-10px, 15px) scale(1.05); }
       66% { transform: translate(8px, -10px) scale(0.95); }
     }
 
-    /* Mobile */
     @media (max-width: 640px) {
       .footer {
         flex-direction: column;
         gap: 0.75rem;
         text-align: center;
       }
-      .corner { display: none; }
-      .mark { margin-bottom: 2rem; }
+      .issue-period { display: none; }
+      .issue-row { padding: 0.75rem 1rem; flex-wrap: wrap; }
+      .issue-title { min-width: 100%; order: 3; margin-top: 0.25rem; }
+      .issue-versions { order: 2; margin-left: auto; }
     }
   </style>
 </head>
 <body>
   <div class="topbar"></div>
-
-  <div class="corner corner--tl"></div>
-  <div class="corner corner--tr"></div>
-  <div class="corner corner--bl"></div>
-  <div class="corner corner--br"></div>
-
   <div class="accent-orb"></div>
   <div class="accent-orb accent-orb--sage"></div>
 
@@ -362,28 +401,206 @@ layout: null
         <span class="mark-text">hexley.dev</span>
       </div>
 
-      <h1 class="heading">Something <em>new</em> is<br>being built.</h1>
+      <h1 class="heading">From Turing<br>to <em>Swarms</em></h1>
 
       <div class="divider"></div>
 
-      <p class="body">
-        A quiet workshop for software, ideas, and the
-        occasional side&nbsp;project. The scaffolding is still up,
-        but the foundation is&nbsp;solid.
+      <p class="intro">
+        A 10-issue interactive comic series tracing the full arc of computing, from Alan Turing's 1936 thought experiment to modern AI agent swarms. Built for curious people with no CS background.
       </p>
 
-      <div class="status">
-        <span class="status-dot"></span>
-        Work in progress
+      <div class="issues">
+        <div class="issue-row">
+          <span class="issue-num">Issue 01</span>
+          <span class="issue-title">Can a Machine Think?</span>
+          <span class="issue-period">1936</span>
+          <div class="issue-versions">
+            <a class="version-link version-link--v1" href="comics/issue_01_v1/">v1</a>
+            <a class="version-link version-link--v2" href="comics/issue_01_v2/">v2</a>
+          </div>
+        </div>
+        <div class="issue-row">
+          <span class="issue-num">Issue 02</span>
+          <span class="issue-title">Building the First Brains</span>
+          <span class="issue-period">1940s-50s</span>
+          <div class="issue-versions">
+            <a class="version-link version-link--v1" href="comics/issue_02_v1/">v1</a>
+            <a class="version-link version-link--v2" href="comics/issue_02_v2/">v2</a>
+          </div>
+        </div>
+        <div class="issue-row">
+          <span class="issue-num">Issue 03</span>
+          <span class="issue-title">Teaching Machines to Understand Us</span>
+          <span class="issue-period">1950s-60s</span>
+          <div class="issue-versions">
+            <a class="version-link version-link--v1" href="comics/issue_03_v1/">v1</a>
+            <a class="version-link version-link--v2" href="comics/issue_03_v2/">v2</a>
+          </div>
+        </div>
+        <div class="issue-row">
+          <span class="issue-num">Issue 04</span>
+          <span class="issue-title">Small Tools, Big Ideas</span>
+          <span class="issue-period">1970s</span>
+          <div class="issue-versions">
+            <a class="version-link version-link--v1" href="comics/issue_04_v1/">v1</a>
+            <a class="version-link version-link--v2" href="comics/issue_04_v2/">v2</a>
+          </div>
+        </div>
+        <div class="issue-row">
+          <span class="issue-num">Issue 05</span>
+          <span class="issue-title">Connecting Everything</span>
+          <span class="issue-period">1980s-90s</span>
+          <div class="issue-versions">
+            <a class="version-link version-link--v1" href="comics/issue_05_v1/">v1</a>
+            <a class="version-link version-link--v2" href="comics/issue_05_v2/">v2</a>
+          </div>
+        </div>
+        <div class="issue-row">
+          <span class="issue-num">Issue 06</span>
+          <span class="issue-title">Machines That Learn</span>
+          <span class="issue-period">1990s-2010s</span>
+          <div class="issue-versions">
+            <a class="version-link version-link--v1" href="comics/issue_06_v1/">v1</a>
+            <a class="version-link version-link--v2" href="comics/issue_06_v2/">v2</a>
+          </div>
+        </div>
+        <div class="issue-row">
+          <span class="issue-num">Issue 07</span>
+          <span class="issue-title">Attention is All You Need</span>
+          <span class="issue-period">2017</span>
+          <div class="issue-versions">
+            <a class="version-link version-link--v1" href="comics/issue_07_v1/">v1</a>
+            <a class="version-link version-link--v2" href="comics/issue_07_v2/">v2</a>
+          </div>
+        </div>
+        <div class="issue-row">
+          <span class="issue-num">Issue 08</span>
+          <span class="issue-title">The Agent Awakens</span>
+          <span class="issue-period">2023-24</span>
+          <div class="issue-versions">
+            <a class="version-link version-link--v1" href="comics/issue_08_v1/">v1</a>
+            <a class="version-link version-link--v2" href="comics/issue_08_v2/">v2</a>
+          </div>
+        </div>
+        <div class="issue-row">
+          <span class="issue-num">Issue 09</span>
+          <span class="issue-title">The Swarm</span>
+          <span class="issue-period">2025</span>
+          <div class="issue-versions">
+            <a class="version-link version-link--v1" href="comics/issue_09_v1/">v1</a>
+            <a class="version-link version-link--v2" href="comics/issue_09_v2/">v2</a>
+          </div>
+        </div>
+        <div class="issue-row">
+          <span class="issue-num">Issue 10</span>
+          <span class="issue-title">The Whole Stack</span>
+          <span class="issue-period">2026</span>
+          <div class="issue-versions">
+            <a class="version-link version-link--v1" href="comics/issue_10_v1/">v1</a>
+            <a class="version-link version-link--v2" href="comics/issue_10_v2/">v2</a>
+          </div>
+        </div>
       </div>
+
+      <h2 class="section-heading">Interactive Labs</h2>
+      <p class="section-intro">Hands-on explorations that let you play with the concepts from each issue.</p>
+
+      <div class="issues">
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/turing_machine_sandbox.html">Turing Machine Sandbox</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/binary_playground.html">Binary Playground</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/logic_gates_lab.html">Logic Gates Lab</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/compiler_explorer.html">Compiler Explorer</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/unix_pipe_playground.html">Unix Pipe Playground</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/sorting_arena.html">Sorting Arena</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/packet_journey.html">Packet Journey</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/git_branching_visualizer.html">Git Branching Visualizer</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/cryptography_lab.html">Cryptography Lab</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/moores_law_time_machine.html">Moore's Law Time Machine</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/neural_network_playground.html">Neural Network Playground</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/tokenizer_deep_dive.html">Tokenizer Deep Dive</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/attention_visualizer.html">Attention Visualizer</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/agent_sandbox.html">Agent Sandbox</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/swarm_simulator.html">Swarm Simulator</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="interactive/full_stack_elevator.html">Full Stack Elevator</a>
+        </div>
+      </div>
+
+      <h2 class="section-heading">Illustrated Guides</h2>
+      <p class="section-intro">Visual deep-dives into key architectures and concepts.</p>
+
+      <div class="issues">
+        <div class="issue-row">
+          <a class="lab-link" href="illustrations/halting_problem_proof.html">The Halting Problem Proof</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="illustrations/von_neumann_blueprint.html">Von Neumann Blueprint</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="illustrations/pioneers_gallery.html">Pioneers Gallery</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="illustrations/hardware_evolution.html">Hardware Evolution</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="illustrations/computing_family_tree.html">Computing Family Tree</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="illustrations/internet_physical_map.html">Internet Physical Map</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="illustrations/neural_network_anatomy.html">Neural Network Anatomy</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="illustrations/embedding_galaxy.html">Embedding Galaxy</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="illustrations/transformer_blueprint.html">The Transformer Blueprint</a>
+        </div>
+        <div class="issue-row">
+          <a class="lab-link" href="illustrations/agent_architecture.html">Agent Architecture</a>
+        </div>
+      </div>
+
+      <p class="colophon">
+        Written and illustrated with AI. Built with Claude Code using multi-agent orchestration.
+        v1 was the first pass. v2 is the result of iterative refinement through research, review, and regeneration agents.
+      </p>
     </div>
   </main>
 
   <footer class="footer">
     <span>&copy; 2026 hexley.dev</span>
-    <div class="footer-links">
-      <a href="https://github.com/hexley-dev" target="_blank" rel="noopener">GitHub</a>
-    </div>
   </footer>
 </body>
 </html>

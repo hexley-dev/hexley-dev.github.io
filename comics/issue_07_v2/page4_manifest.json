@@ -1,0 +1,65 @@
+{
+  "issue": 7,
+  "page": 4,
+  "title": "Self-Attention Explained",
+  "accent": "#4A9BD9",
+  "panels": [
+    {
+      "id": "p4_01_robot_teacher",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A small cute soft round robot wearing an oversized floppy graduation cap that keeps slipping over one eye, big sparkly blue eyes in enthusiastic teacher mode, holding a tiny whiteboard marker in one stubby hand, standing at a large whiteboard covered with attention mechanism diagrams showing arrows connecting words, pointing at the board with energy and confidence, the whiteboard has colorful Q K V labels. A white speech bubble with black outline near the top right. Inside the bubble the text reads: \"I'll use an analogy, then the real thing. Ready?\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm classroom lighting with blue #4A9BD9 accents on the board",
+      "bubble_text": "I'll use an analogy, then the real thing. Ready?",
+      "speaker": "SCHOLAR"
+    },
+    {
+      "id": "p4_02_narration_party",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Imagine you are at a party. Fifty people, all talking. An RNN listens to <strong>one person at a time</strong>, in order. By person 30, person 1 is a blur. <strong>Self-attention</strong> works differently: you can hear everyone simultaneously and instantly decide who is most relevant to what you need to understand <em>right now</em>."
+    },
+    {
+      "id": "p4_03_qkv_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-50 -20 760 380\"><style>.title{font-size:14px; font-weight:bold; } .word{font-size:13px; font-weight:bold} .small{font-size:12px; } .qkv{font-size:12px; font-weight:bold} .analogy{font-size:12px; font-style:italic} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#2D3748\" class=\"title\" x=\"340\" y=\"5\" text-anchor=\"middle\">Self-Attention: Query, Key, Value</text><g transform=\"translate(40,30)\"><rect x=\"0\" y=\"0\" width=\"180\" height=\"60\" rx=\"10\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text font-size=\"12\" class=\"qkv\" x=\"90\" y=\"22\" text-anchor=\"middle\" fill=\"#2D3748\">Query (Q)</text><text fill=\"#2D3748\" class=\"analogy\" x=\"90\" y=\"40\" text-anchor=\"middle\">\"What am I looking for?\"</text><text fill=\"#2D3748\" class=\"small\" x=\"90\" y=\"55\" text-anchor=\"middle\">Raising your hand to ask</text></g><g transform=\"translate(250,30)\"><rect x=\"0\" y=\"0\" width=\"180\" height=\"60\" rx=\"10\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text font-size=\"12\" class=\"qkv\" x=\"90\" y=\"22\" text-anchor=\"middle\" fill=\"#2D3748\">Key (K)</text><text fill=\"#2D3748\" class=\"analogy\" x=\"90\" y=\"40\" text-anchor=\"middle\">\"What do I have to offer?\"</text><text fill=\"#2D3748\" class=\"small\" x=\"90\" y=\"55\" text-anchor=\"middle\">Wearing a name tag</text></g><g transform=\"translate(460,30)\"><rect x=\"0\" y=\"0\" width=\"180\" height=\"60\" rx=\"10\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text font-size=\"12\" class=\"qkv\" x=\"90\" y=\"22\" text-anchor=\"middle\" fill=\"#4A9BD9\">Value (V)</text><text fill=\"#2D3748\" class=\"analogy\" x=\"90\" y=\"40\" text-anchor=\"middle\">\"Here is my information\"</text><text fill=\"#2D3748\" class=\"small\" x=\"90\" y=\"55\" text-anchor=\"middle\">The actual content itself</text></g><text fill=\"#FFFFFF\" class=\"title\" x=\"340\" y=\"120\" text-anchor=\"middle\">Example: \"The cat sat on the mat because it was soft.\"</text><g transform=\"translate(20,140)\"><rect x=\"0\" y=\"0\" width=\"46\" height=\"28\" rx=\"5\" fill=\"#E2E8F0\" stroke=\"#A0AEC0\" stroke-width=\"1\"/><text class=\"word\" x=\"23\" y=\"19\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">The</text><rect x=\"54\" y=\"0\" width=\"46\" height=\"28\" rx=\"5\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" class=\"word\" x=\"77\" y=\"19\" text-anchor=\"middle\" font-size=\"12\">cat</text><rect x=\"108\" y=\"0\" width=\"46\" height=\"28\" rx=\"5\" fill=\"#E2E8F0\" stroke=\"#A0AEC0\" stroke-width=\"1\"/><text class=\"word\" x=\"131\" y=\"19\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">sat</text><rect x=\"162\" y=\"0\" width=\"38\" height=\"28\" rx=\"5\" fill=\"#E2E8F0\" stroke=\"#A0AEC0\" stroke-width=\"1\"/><text class=\"word\" x=\"181\" y=\"19\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">on</text><rect x=\"208\" y=\"0\" width=\"46\" height=\"28\" rx=\"5\" fill=\"#E2E8F0\" stroke=\"#A0AEC0\" stroke-width=\"1\"/><text class=\"word\" x=\"231\" y=\"19\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">the</text><rect x=\"262\" y=\"0\" width=\"50\" height=\"28\" rx=\"5\" fill=\"#4A9BD9\" stroke=\"#2D3748\" stroke-width=\"1.5\"/><text class=\"word\" x=\"287\" y=\"19\" text-anchor=\"middle\" font-size=\"12\" fill=\"white\">mat</text><rect x=\"320\" y=\"0\" width=\"70\" height=\"28\" rx=\"5\" fill=\"#E2E8F0\" stroke=\"#A0AEC0\" stroke-width=\"1\"/><text class=\"word\" x=\"355\" y=\"19\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" textLength=\"48\" lengthAdjust=\"spacingAndGlyphs\">because</text><rect x=\"398\" y=\"0\" width=\"36\" height=\"28\" rx=\"5\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text class=\"word\" x=\"416\" y=\"19\" text-anchor=\"middle\" font-size=\"12\" fill=\"#D69E2E\">it</text><rect x=\"442\" y=\"0\" width=\"46\" height=\"28\" rx=\"5\" fill=\"#E2E8F0\" stroke=\"#A0AEC0\" stroke-width=\"1\"/><text class=\"word\" x=\"465\" y=\"19\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">was</text><rect x=\"496\" y=\"0\" width=\"50\" height=\"28\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.2\"/><text fill=\"#2D3748\" class=\"word\" x=\"521\" y=\"19\" text-anchor=\"middle\" font-size=\"12\">soft</text></g><g transform=\"translate(20,140)\"><text x=\"416\" y=\"50\" text-anchor=\"middle\" font-size=\"12\" fill=\"#D69E2E\" font-weight=\"bold\">Query from \"it\":</text><text x=\"416\" y=\"62\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">\"What noun am I?\"</text><line x1=\"416\" y1=\"28\" x2=\"77\" y2=\"80\" stroke=\"#4A9BD9\" stroke-width=\"1.5\" opacity=\"0.4\"/><line x1=\"416\" y1=\"28\" x2=\"287\" y2=\"80\" stroke=\"#4A9BD9\" stroke-width=\"3.5\" opacity=\"0.9\"/><line x1=\"416\" y1=\"28\" x2=\"521\" y2=\"80\" stroke=\"#805AD5\" stroke-width=\"1\" opacity=\"0.3\"/><text x=\"77\" y=\"95\" text-anchor=\"middle\" font-size=\"12\" fill=\"#4A9BD9\">medium</text><text x=\"287\" y=\"95\" text-anchor=\"middle\" font-size=\"12\" fill=\"#4A9BD9\" font-weight=\"bold\">HIGH</text><text x=\"521\" y=\"95\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">low</text></g><text x=\"340\" y=\"270\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">Result: \"it\" now carries information mostly from \"mat\"</text><rect x=\"60\" y=\"283\" width=\"560\" height=\"36\" rx=\"8\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1.2\"/><text x=\"340\" y=\"305\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">Attention(Q, K, V) = softmax(Q * K^T / sqrt(d)) * V</text></svg>",
+      "caption": "Each word computes Query, Key, Value. Queries match against Keys to determine attention weights."
+    },
+    {
+      "id": "p4_04_narration_multihead",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Now here is the clever part: <strong>multi-head attention</strong>. Instead of doing this once, the Transformer runs <strong>multiple attention operations in parallel</strong> (the original paper used 8 \"heads\"). Each head learns to focus on different kinds of relationships."
+    },
+    {
+      "id": "p4_05_multihead_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -23 680 283\"><style>.title{font-size:13px; font-weight:bold; } .word{font-size:12px} .small{font-size:12px; } .head{font-size:12px; font-weight:bold} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" class=\"title\" x=\"340\" y=\"5\" text-anchor=\"middle\">Multi-Head Attention: Different Heads, Different Relationships</text><g transform=\"translate(20,30)\"><text class=\"head\" x=\"100\" y=\"0\" text-anchor=\"middle\" fill=\"#E2E8F0\">Head 1: Coreference</text><rect x=\"0\" y=\"10\" width=\"200\" height=\"55\" rx=\"6\" fill=\"#FED7D7\" opacity=\"0.3\" stroke=\"#E53E3E\" stroke-width=\"1\"/><text font-size=\"12\" class=\"word\" x=\"20\" y=\"32\" fill=\"#2D3748\">The cat sat on the</text><text class=\"word\" x=\"20\" y=\"50\" fill=\"#2D3748\">mat because <tspan fill=\"#D69E2E\" font-weight=\"bold\">it</tspan> was soft</text><line x1=\"115\" y1=\"45\" x2=\"160\" y2=\"30\" stroke=\"#E53E3E\" stroke-width=\"2.5\" opacity=\"0.8\"/><text class=\"small\" x=\"150\" y=\"22\" fill=\"#2D3748\">mat</text></g><g transform=\"translate(240,30)\"><text class=\"head\" x=\"100\" y=\"0\" text-anchor=\"middle\" fill=\"#E2E8F0\">Head 2: Adjective-Noun</text><rect x=\"0\" y=\"10\" width=\"200\" height=\"55\" rx=\"6\" fill=\"#C6F6D5\" opacity=\"0.3\" stroke=\"#38A169\" stroke-width=\"1\"/><text font-size=\"12\" class=\"word\" x=\"20\" y=\"32\" fill=\"#2D3748\">The cat sat on the</text><text class=\"word\" x=\"20\" y=\"50\" fill=\"#2D3748\">mat because it was <tspan fill=\"#805AD5\" font-weight=\"bold\">soft</tspan></text><line x1=\"160\" y1=\"45\" x2=\"140\" y2=\"30\" stroke=\"#38A169\" stroke-width=\"2.5\" opacity=\"0.8\"/><text class=\"small\" x=\"128\" y=\"22\" fill=\"#2D3748\">mat</text></g><g transform=\"translate(460,30)\"><text class=\"head\" x=\"100\" y=\"0\" text-anchor=\"middle\" fill=\"#E2E8F0\">Head 3: Subject-Verb</text><rect x=\"0\" y=\"10\" width=\"200\" height=\"55\" rx=\"6\" fill=\"#E9D8FD\" opacity=\"0.3\" stroke=\"#805AD5\" stroke-width=\"1\"/><text font-size=\"12\" class=\"word\" x=\"20\" y=\"32\" fill=\"#2D3748\">The <tspan fill=\"#4A9BD9\" font-weight=\"bold\">cat</tspan> <tspan fill=\"#805AD5\" font-weight=\"bold\">sat</tspan> on the</text><text class=\"word\" x=\"20\" y=\"50\" fill=\"#2D3748\">mat because it was soft</text><line x1=\"68\" y1=\"27\" x2=\"96\" y2=\"27\" stroke=\"#805AD5\" stroke-width=\"2.5\" opacity=\"0.8\"/></g><rect x=\"40\" y=\"110\" width=\"600\" height=\"40\" rx=\"8\" fill=\"#BEE3F8\" opacity=\"0.2\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"340\" y=\"135\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\" textLength=\"572\" lengthAdjust=\"spacingAndGlyphs\">Different heads learn different relationships. Together, they capture the full picture.</text><g transform=\"translate(40,170)\"><text fill=\"#E2E8F0\" class=\"title\" x=\"300\" y=\"0\" text-anchor=\"middle\">The Formula (Simplified)</text><rect x=\"80\" y=\"10\" width=\"440\" height=\"32\" rx=\"6\" fill=\"#1A202C\"/><text x=\"300\" y=\"32\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">Attention(Q,K,V) = softmax(Q*K^T / sqrt(d)) * V</text><text fill=\"#E2E8F0\" class=\"small\" x=\"300\" y=\"60\" text-anchor=\"middle\">Match Queries to Keys, scale, turn into percentages, then weight the Values.</text></g></svg>",
+      "caption": "Each attention head captures a different type of relationship between words."
+    },
+    {
+      "id": "p4_06_lab_link",
+      "type": "lab_link",
+      "layout": "full-width",
+      "lab_filename": "attention_visualizer",
+      "lab_title": "Attention Visualizer",
+      "lab_description": "Type your own sentence and see which words pay attention to which -- try pronoun resolution, word sense disambiguation, or write your own examples."
+    },
+    {
+      "id": "p4_07_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Self-attention lets every word in a sentence look at every other word <strong>simultaneously</strong>. Instead of reading left to right and hoping to remember, the model builds a complete web of relationships in a single step. This is why Transformers are so powerful -- and why they can be trained in parallel on modern GPUs."
+    },
+    {
+      "id": "p4_08_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "But wait. If every word looks at every other word simultaneously, how does the model know what ORDER the words are in? \"The cat ate the fish\" and \"The fish ate the cat\" have the same words."
+    }
+  ]
+}

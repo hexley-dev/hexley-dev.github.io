@@ -1,0 +1,109 @@
+{
+  "issue": 9,
+  "page": 2,
+  "title": "The Context Window Ceiling",
+  "accent": "#48BB78",
+  "panels": [
+    {
+      "id": "p2_01_hallway",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A long dramatic hallway stretching into the distance representing a context window, the near end bright and crystal clear with sharp text and code symbols, the far end faded and dim, the middle section shrouded in fog where information is blurred and hard to see, glowing tokens float in the air getting dimmer toward the back, moody atmospheric perspective lighting. Comic book style, warm editorial illustration with ink lines and watercolor washes, emerald green glow at the sharp end",
+      "overlays": []
+    },
+    {
+      "id": "p2_02_narr_race",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Between 2023 and 2025, AI companies raced to build bigger <strong>context windows</strong> — the amount of text a model can \"see\" at once. Windows grew from 8,000 tokens to 32,000, then 128,000, then 200,000 and beyond. The assumption was simple: more memory means better performance."
+    },
+    {
+      "id": "p2_03_robot_recipe",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A small cute round lavender-colored robot with big thoughtful violet eyes showing concern, wearing tiny reading glasses perched on its nose, holding an enormous oversized cookbook that dwarfs its body, looking overwhelmed by the size of the book, pages fluttering. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Imagine reading a 300-page recipe while cooking.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Imagine reading a 300-page recipe while cooking.",
+      "speaker": "BOOKWORM"
+    },
+    {
+      "id": "p2_03b_robot_page47",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A small cute boxy robot made of stacked pastel-pink and mint index cards, big round worried orange eyes, tiny paper-tab ears, one hand scratching its head in confusion, surrounded by floating page numbers with page 47 highlighted and circled in red but fading away. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Page 1? Crystal clear. Page 300? Right there. But page 47?\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Page 1? Crystal clear. Page 300? Right there. But page 47?",
+      "speaker": "CARDBOT"
+    },
+    {
+      "id": "p2_04_narr_lost_middle",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "It did not work out that way. Researchers Nelson Liu and colleagues published <strong>\"Lost in the Middle\"</strong> (formally published in <em>Transactions of the Association for Computational Linguistics</em> in 2024). They tested how well language models actually used information placed at different positions in their context. The results were striking."
+    },
+    {
+      "id": "p2_05_u_curve",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-20 -35 715 405\"><defs><linearGradient id=\"ucurve9\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"0\"><stop offset=\"0%\" stop-color=\"#48BB78\"/><stop offset=\"50%\" stop-color=\"#E53E3E\"/><stop offset=\"100%\" stop-color=\"#48BB78\"/></linearGradient></defs><rect x=\"0\" y=\"-20\" width=\"680\" height=\"360\" rx=\"12\" fill=\"#1A202C\"/><text x=\"340\" y=\"18\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" font-weight=\"bold\">The U-Shaped Attention Curve</text><line x1=\"80\" y1=\"250\" x2=\"600\" y2=\"250\" stroke=\"#4A5568\" stroke-width=\"1.5\"/><line x1=\"80\" y1=\"50\" x2=\"80\" y2=\"250\" stroke=\"#4A5568\" stroke-width=\"1.5\"/><text x=\"340\" y=\"280\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\">Position in context window</text><text x=\"130\" y=\"295\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Beginning</text><text x=\"340\" y=\"295\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Middle</text><text x=\"550\" y=\"295\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">End</text><text x=\"30\" y=\"155\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" transform=\"rotate(-90,30,155)\">Performance</text><path d=\"M100,80 C160,85 220,200 340,220 C460,200 540,85 580,80\" fill=\"none\" stroke=\"url(#ucurve9)\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><circle cx=\"100\" cy=\"80\" r=\"5\" fill=\"#48BB78\"/><circle cx=\"340\" cy=\"220\" r=\"5\" fill=\"#E53E3E\"/><circle cx=\"580\" cy=\"80\" r=\"5\" fill=\"#48BB78\"/><text x=\"100\" y=\"70\" text-anchor=\"middle\" fill=\"#48BB78\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">High</text><text x=\"340\" y=\"240\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Valley</text><text x=\"580\" y=\"70\" text-anchor=\"middle\" fill=\"#48BB78\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">High</text></svg>",
+      "caption": "Models are great at remembering what they read first and last. The middle? Not so much."
+    },
+    {
+      "id": "p2_06_narr_ushape",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Models performed well on information near the <strong>beginning</strong> and the <strong>end</strong> of their context, but struggled significantly with information in the <strong>middle</strong>. A U-shaped curve. The bigger the context window, the deeper the valley."
+    },
+    {
+      "id": "p2_07_degradation",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "Three-panel sequence showing context degradation: LEFT panel shows a clean terminal with a clear numbered plan at the top (Step 1 Set up database, Step 2 Build API, Step 3 Add auth) glowing green — CENTER panel shows the same terminal 30 minutes later, the plan buried under avalanches of blurred text and noise, the plan barely visible — RIGHT panel shows the terminal typing 'Step 1: Set up database' AGAIN, a red warning icon, the agent has lost track. Dark backgrounds with amber and green text. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "screen_text": "Step 1 Set up database, Step 2 Build API, Step 3 Add auth",
+      "overlays": []
+    },
+    {
+      "id": "p2_08_narr_vicious",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "For coding agents, this creates a vicious cycle. The agent accumulates context relentlessly: file contents, tool outputs, error messages, its own reasoning. By the time it is deep into a task, the careful plan it made at the beginning has been pushed into the foggy middle. The agent does not \"forget\" — the plan is still technically there. But the model's attention has <strong>drifted away</strong> from it."
+    },
+    {
+      "id": "p2_09_narr_degradation",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Practitioners started calling this <strong>context degradation</strong> — the agent's ability to use its full context effectively breaks down as the context fills up. And making the window bigger did not fix it. It just moved the fog further away."
+    },
+    {
+      "id": "p2_09b_robot_degradation",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round forest-green robot with a dome head and big worried amber LED eyes, stubby arms holding a shrinking bar chart showing declining quality, antenna with a tiny warning light blinking. A white speech bubble with black outline above. Inside the bubble the text reads: \"More context does not mean better answers. Often worse.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "More context does not mean better. Often worse.",
+      "speaker": "DECAYBOT"
+    },
+    {
+      "id": "p2_10_thinkbox",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<em>\"Have you ever re-read a paragraph in a textbook because you forgot what it said? Now imagine re-reading it while someone keeps adding new pages between you and the paragraph, and you can never go back more than 300 pages. That is what context degradation feels like to an AI agent.\"</em>"
+    },
+    {
+      "id": "p2_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Making one agent smarter was not enough. Making its memory bigger was not enough. So researchers and engineers asked a different question entirely: what if instead of one agent with a huge brain, we used a TEAM of agents, each with a fresh, focused brain?"
+    }
+  ]
+}

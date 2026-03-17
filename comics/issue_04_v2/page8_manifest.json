@@ -1,0 +1,106 @@
+{
+  "issue": 4,
+  "page": 8,
+  "title": "Richard Stallman and Free Software — \"Free as in Freedom\"",
+  "accent": "#805AD5",
+  "panels": [
+    {
+      "id": "p8_01_printer_jam",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A large Xerox laser printer in a 1980s office with a paper jam, red warning light blinking angrily, crumpled paper sticking out, a frustrated programmer standing next to it with hands on hips looking exasperated, warm fluorescent office lighting with red and purple accent, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": [],
+      "label": "The printer jam that sparked a revolution in software freedom"
+    },
+    {
+      "id": "p8_02_robot_right",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A small cute round dark-navy robot with big serious amber eyes, wearing a tiny judge's gavel pendant around its neck, one arm raised making an earnest point, standing on a stack of open-source code printouts, warm amber and purple tones, thoughtful atmosphere. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Should you have the right to look inside your tools?\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Should you have the right to look inside your tools?",
+      "speaker": "JUDGEBOT"
+    },
+    {
+      "id": "p8_02b_robot_stallman",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A small cute round copper-orange robot with big resolute forest-green eyes, wearing a tiny banner across its chest that says FREE, standing with fists on hips in a determined hero pose, a glow of conviction around it, warm orange and purple tones. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"Stallman said yes — and dedicated his life to it.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Stallman said yes — and dedicated his life to it.",
+      "speaker": "FREEDOMBOT"
+    },
+    {
+      "id": "p8_03_narration_stallman",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Richard Stallman</strong> (born 1953, New York) had been a programmer at MIT's AI Laboratory since 1971. In the AI Lab of the 1970s, software was freely shared. If a program had a bug, anyone could fix it. The code was a commons."
+    },
+    {
+      "id": "p8_04_stallman_screen",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A man with intense eyes, long dark hair and a full beard sitting at a terminal in a 1980s MIT office, the screen displaying ACCESS DENIED SOURCE CODE PROPRIETARY in red text, his expression a mix of anger and determination, stacks of printouts and manuals around him, harsh fluorescent lighting with purple shadows, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": [],
+      "screen_text": "ACCESS DENIED SOURCE CODE PROPRIETARY",
+      "label": "Stallman confronts proprietary software — ACCESS DENIED"
+    },
+    {
+      "id": "p8_05_narration_printer",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Stallman had modified a Xerox printer's software to notify everyone when a jam occurred. When MIT received a newer printer, he asked for its source code. Xerox refused — the code was now proprietary. <em>\"It was my first direct encounter with a nondisclosure agreement,\"</em> Stallman later said, <em>\"and it taught me that nondisclosure agreements have victims.\"</em>"
+    },
+    {
+      "id": "p8_06_narration_gnu",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "On <strong>September 27, 1983</strong>, Stallman announced the <strong>GNU Project</strong> (GNU's Not Unix) — a complete, free operating system compatible with Unix. In 1985, he published the <strong>GNU Manifesto</strong> and founded the <strong>Free Software Foundation</strong>."
+    },
+    {
+      "id": "p8_07_four_freedoms",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-8 -21 688 285\"><text x=\"340\" y=\"5\" text-anchor=\"middle\" font-size=\"16\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">The Four Freedoms of Software</text><g transform=\"translate(30,30)\"><rect x=\"0\" y=\"0\" width=\"140\" height=\"100\" rx=\"10\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"2\"/><text x=\"70\" y=\"30\" text-anchor=\"middle\" font-size=\"28\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">0</text><text x=\"70\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">Run</text><text x=\"70\" y=\"68\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">Use the program</text><text x=\"70\" y=\"82\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">for any purpose</text></g><g transform=\"translate(190,30)\"><rect x=\"0\" y=\"0\" width=\"140\" height=\"100\" rx=\"10\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"2\"/><text x=\"70\" y=\"30\" text-anchor=\"middle\" font-size=\"28\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">1</text><text x=\"70\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">Study &amp; Modify</text><text x=\"70\" y=\"68\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">Read and change</text><text x=\"70\" y=\"82\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">the source code</text></g><g transform=\"translate(350,30)\"><rect x=\"0\" y=\"0\" width=\"140\" height=\"100\" rx=\"10\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"2\"/><text x=\"70\" y=\"30\" text-anchor=\"middle\" font-size=\"28\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">2</text><text x=\"70\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">Redistribute</text><text x=\"70\" y=\"68\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">Share copies</text><text x=\"70\" y=\"82\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">with anyone</text></g><g transform=\"translate(510,30)\"><rect x=\"0\" y=\"0\" width=\"140\" height=\"100\" rx=\"10\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"2\"/><text x=\"70\" y=\"30\" text-anchor=\"middle\" font-size=\"28\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">3</text><text x=\"70\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">Improve &amp; Share</text><text x=\"70\" y=\"68\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">Distribute your</text><text x=\"70\" y=\"82\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">modified versions</text></g><text x=\"340\" y=\"160\" text-anchor=\"middle\" font-size=\"13\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\" font-style=\"italic\">\"Free as in freedom, not free as in beer.\"</text><text x=\"340\" y=\"185\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">You CAN sell free software — the GPL permits it.</text><text x=\"340\" y=\"205\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">What you CANNOT do is hide the source code.</text><text x=\"340\" y=\"235\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">In 1989, the GNU General Public License (GPL) introduced <tspan font-weight=\"bold\">copyleft</tspan> —</text><text x=\"340\" y=\"250\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">using copyright law to keep software free forever.</text></svg>",
+      "caption": "The Four Freedoms — the foundation of the free software movement"
+    },
+    {
+      "id": "p8_08_narration_tools",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "By the early 1990s, the GNU project had produced essential tools — the <strong>GCC</strong> compiler, the <strong>Emacs</strong> editor, the <strong>bash</strong> shell — but lacked a kernel. That missing piece would arrive in 1991, from a Finnish college student named Linus Torvalds. But that is a story for Issue 5."
+    },
+    {
+      "id": "p8_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Stallman's insight was this: software freedom is not a technical issue. It is a <em>moral</em> issue. If you cannot read, modify, and share the tools you depend on, you are not truly free. This idea would reshape the entire software industry."
+    },
+    {
+      "id": "p8_09b_robot_freedom",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round dark-navy robot with a dome head and big resolute green LED eyes, stubby arms holding a tiny scroll labeled THE FOUR FREEDOMS, antenna with a tiny torch flame on top, standing next to a computer with its side panel open. A white speech bubble with black outline above. Inside the bubble the text reads: \"If you cannot read the code, you are not truly free.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Cannot read the code? Not truly free.",
+      "speaker": "FREEBOT"
+    },
+    {
+      "id": "p8_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Software was being set free. But there was another kind of freedom still missing. For most people, using a computer still meant memorizing obscure commands. What if, instead, you could just point at what you wanted?"
+    }
+  ]
+}

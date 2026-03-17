@@ -1,0 +1,119 @@
+{
+  "issue": 9,
+  "page": 9,
+  "title": "The Unix Parallel — Small Tools Piped Together, 55 Years Later",
+  "accent": "#48BB78",
+  "panels": [
+    {
+      "id": "p9_01_split_eras",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "Dramatic split-panel page: LEFT HALF shows a 1970s Bell Labs scene with an amber-on-black terminal showing a Unix pipeline command with pipe symbols connecting short commands, a developer silhouetted against the terminal glow, vintage computing aesthetic, a floating quote above: 'Do one thing well' — RIGHT HALF shows a 2025 modern terminal running an orchestrator spawning agents with role labels visible, the same silhouetted figure pose, the same terminal glow but modern, 55 years apart, a dotted line connects the two eras at the center. Comic book style, warm editorial illustration with ink lines and watercolor washes, emerald green accent on the modern side, amber accent on the vintage side",
+      "screen_text": "cat | grep | sort | uniq",
+      "overlays": []
+    },
+    {
+      "id": "p9_02_robot_remember",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round bronze-patina robot with big deep reverent amber eyes, wearing a tiny vintage bow tie and a small clock pendant, one hand placed over its chest in an emotional gesture, deeply moved expression, standing in the gap between two glowing eras — a faint vintage terminal glow on the left and a modern emerald glow on the right. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Remember Issue 4? Unix. Small programs. Piped together.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Remember Issue 4? Unix. Small programs. Piped together.",
+      "speaker": "VINTAGE"
+    },
+    {
+      "id": "p9_02b_robot_elegance",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round iridescent rainbow-sheen robot with big warm reverent rose-gold eyes, arms spread wide connecting two worlds, a tiny pipe symbol | etched on its chest glowing softly, reflective metallic surface showing both old amber terminal reflections and new green code reflections, contemplative and awed expression. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Same idea. Same elegance. Fifty-five years apart.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Same idea. Same elegance. Fifty-five years apart.",
+      "speaker": "PRISM"
+    },
+    {
+      "id": "p9_03_narr_mcilroy",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In 1964, <strong>Doug McIlroy</strong> — head of the Computing Techniques Research Department at Bell Labs — wrote an internal memo. He wanted a way to connect programs together <em>\"like a garden hose — screw in another segment when it becomes necessary to massage data in another way.\"</em>"
+    },
+    {
+      "id": "p9_04_garden_hose",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "McIlroy's garden hose metaphor illustrated: literal garden hose segments being screwed together in a row, each segment labeled with a different capability — filter, sort, count, transform — with water (representing data) flowing through them from left to right, lush green garden setting, whimsical and educational. Below the hoses, the same visual repeated but with glowing AI agent icons instead of hose segments, and glowing file documents instead of water flowing between them. Comic book style, warm editorial illustration with ink lines and watercolor washes, emerald green accent",
+      "overlays": []
+    },
+    {
+      "id": "p9_05_narr_unix_pipe",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "His vision became the <strong>Unix pipe</strong>: the <strong>|</strong> character that chains small programs together. <code>cat file | grep pattern | sort | uniq</code>. Four small tools. None knows about the others. Each reads text in and writes text out. Complex behavior emerges from simple, composable parts."
+    },
+    {
+      "id": "p9_06_comparison_table",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-15 -35 710 390\"><rect x=\"0\" y=\"-20\" width=\"680\" height=\"360\" rx=\"12\" fill=\"#1A202C\"/><text x=\"340\" y=\"16\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"17\" font-weight=\"bold\">The 55-Year Echo</text><rect x=\"40\" y=\"35\" width=\"280\" height=\"28\" rx=\"6\" fill=\"#DD6B20\" opacity=\"0.2\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><text x=\"180\" y=\"54\" text-anchor=\"middle\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\">Unix Pipes (1978)</text><rect x=\"360\" y=\"35\" width=\"280\" height=\"28\" rx=\"6\" fill=\"#48BB78\" opacity=\"0.2\" stroke=\"#48BB78\" stroke-width=\"1.5\"/><text x=\"500\" y=\"54\" text-anchor=\"middle\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\">Multi-Agent AI (2025)</text><line x1=\"40\" y1=\"80\" x2=\"640\" y2=\"80\" stroke=\"#4A5568\" stroke-width=\"0.5\"/><text x=\"180\" y=\"98\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Small program</text><text x=\"340\" y=\"98\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Unit</text><text x=\"500\" y=\"98\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Specialist agent</text><line x1=\"40\" y1=\"110\" x2=\"640\" y2=\"110\" stroke=\"#4A5568\" stroke-width=\"0.5\"/><text x=\"180\" y=\"128\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Do one thing well</text><text x=\"340\" y=\"128\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Principle</text><text x=\"500\" y=\"128\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Focus on one concern</text><line x1=\"40\" y1=\"140\" x2=\"640\" y2=\"140\" stroke=\"#4A5568\" stroke-width=\"0.5\"/><text x=\"180\" y=\"158\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Text streams (stdin/stdout)</text><text x=\"340\" y=\"158\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Communication</text><text x=\"500\" y=\"158\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Text files (markdown)</text><line x1=\"40\" y1=\"170\" x2=\"640\" y2=\"170\" stroke=\"#4A5568\" stroke-width=\"0.5\"/><text x=\"180\" y=\"188\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">None (separate processes)</text><text x=\"340\" y=\"188\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Memory sharing</text><text x=\"500\" y=\"188\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">None (separate contexts)</text><line x1=\"40\" y1=\"200\" x2=\"640\" y2=\"200\" stroke=\"#4A5568\" stroke-width=\"0.5\"/><text x=\"180\" y=\"218\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">cmd1 | cmd2 | cmd3</text><text x=\"340\" y=\"218\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Composition</text><text x=\"500\" y=\"218\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Researcher → Writer → Editor</text><line x1=\"40\" y1=\"230\" x2=\"640\" y2=\"230\" stroke=\"#4A5568\" stroke-width=\"0.5\"/><text x=\"180\" y=\"248\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">The shell</text><text x=\"340\" y=\"248\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Coordination</text><text x=\"500\" y=\"248\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">The orchestrator</text><line x1=\"40\" y1=\"260\" x2=\"640\" y2=\"260\" stroke=\"#4A5568\" stroke-width=\"0.5\"/><text x=\"180\" y=\"278\" text-anchor=\"middle\" fill=\"#DD6B20\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Emerges from simple parts</text><text x=\"340\" y=\"278\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Complex behavior</text><text x=\"500\" y=\"278\" text-anchor=\"middle\" fill=\"#48BB78\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Emerges from simple parts</text><text x=\"340\" y=\"315\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\">Fifty-five years. The longest-running good idea in computing.</text></svg>",
+      "caption": "The same fundamental design pattern, rediscovered across half a century"
+    },
+    {
+      "id": "p9_07_narr_philosophy",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In 1978, McIlroy articulated the philosophy: <strong>\"Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.\"</strong>"
+    },
+    {
+      "id": "p9_08_narr_not_analogy",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "This is not merely an analogy. Both Unix pipes and multi-agent file communication solve the same fundamental design problem: how do you build complex behavior from simple, composable, interchangeable parts? Both reject the monolithic approach in favor of <strong>modular composition</strong>. Both use text as the universal interface."
+    },
+    {
+      "id": "p9_08b_robot_philosophy",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round translucent emerald robot with a dome head and big deep green LED eyes, stubby arms cradling a tiny glowing orb showing the Unix pipe symbol morphing into an agent swarm diagram, antenna with a tiny infinity symbol on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Not an analogy. The same fundamental design principle.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Not an analogy. The same design principle.",
+      "speaker": "ZENBOT"
+    },
+    {
+      "id": "p9_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>\"The best ideas in computing are not inventions — they are principles. Composition through text has been rediscovered over half a century, at new scales, solving new problems. It is an immortal idea.\"</strong>"
+    },
+    {
+      "id": "p9_10_narr_transcends",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "McIlroy was thinking about text processing in 1964. He could not have imagined AI agents in 2025. But the principle — compose small, focused tools through universal interfaces — transcends the technology. Fifty-five years. The longest-running good idea in computing."
+    },
+    {
+      "id": "p9_10b_robot_transcends",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round luminous emerald robot with a dome head and big deep green LED eyes, stubby arms holding a tiny diagram showing TURING 1936 connected by a glowing thread to SWARMS 2025, antenna with a tiny spiral on top, floating above a timeline ribbon. A white speech bubble with black outline above. Inside the bubble the text reads: \"From Turing to swarms. One unbroken thread.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "From Turing to swarms. One unbroken thread.",
+      "speaker": "THREADBOT"
+    },
+    {
+      "id": "p9_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Multi-agent systems are the newest layer in a stack that is 90 years tall — from Turing's imaginary tape machine to swarms of coordinating AI agents. And there is one more secret hiding in this issue. It involves YOU, right now, reading these words."
+    }
+  ]
+}

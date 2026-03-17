@@ -1,0 +1,230 @@
+{
+  "issue": 4,
+  "page": 10,
+  "title": "Software Is Free. Machines Are Personal. But They're Still ISOLATED...",
+  "accent": "#805AD5",
+  "panels": [
+    {
+      "id": "p10_01_landscape",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "Panoramic view of the late 1980s computing landscape, dozens of personal computers on desks in homes and offices and schools, each screen glowing with a different application — a spreadsheet, a word processor, a game — warm and colorful but each computer is inside its own transparent bubble, isolated, no connections between them, a few thin faint lines of early modem connections between a handful, the rest float alone, atmospheric wide shot, warm editorial illustration with ink lines and watercolor washes, purple and warm amber tones",
+      "overlays": [],
+      "label": "The late 1980s — brilliant, powerful, personal computers, all isolated from each other"
+    },
+    {
+      "id": "p10_02_robot_unix",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute round silver robot with big reflective violet eyes, wearing a tiny purple scarf, sitting on a ledge overlooking a cityscape of glowing computer screens in bubbles below, chin resting on one hand in a reflective pose, faint glowing threads of early internet visible in the background, contemplative and wistful atmosphere, purple and silver tones. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"Unix gave us a philosophy: small tools, composed together.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Unix gave us a philosophy: small tools, composed together.",
+      "speaker": "REFLECTBOT"
+    },
+    {
+      "id": "p10_03_narration_recap_unix",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Unix</strong> and <strong>C</strong> had proven that software did not have to be trapped on one machine. The Unix philosophy — small tools, piped together, doing one thing well — had shown that the most powerful systems are built from simple, composable parts. <em>(Hold on to that idea. It will matter again, profoundly, in our final chapters.)</em>"
+    },
+    {
+      "id": "p10_04_robot_portability",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 384,
+      "prompt": "A small cute round electric-blue robot with big bright white eyes, wearing a tiny backpack covered in travel stickers from different computers (PDP-11, VAX, Intel), energetic pose walking forward with purpose, stepping across a bridge between two platforms, warm blue and purple tones. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"C, portability. PCs, independence. GUIs, accessibility.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "C, portability. PCs, independence. GUIs, accessibility.",
+      "speaker": "TRAVELBOT"
+    },
+    {
+      "id": "p10_04b_narration_pcs",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "<strong>Personal computers</strong> had moved computing from the institution to the individual. The <strong>GUI</strong> opened the door for everyone. <strong>Richard Stallman</strong> and the free software movement declared that code should belong to everyone. And <strong>ARPANET</strong> had quietly evolved into something with the potential to connect all of it."
+    },
+    {
+      "id": "p10_05_robot_islands",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A small cute round translucent glass robot with big wistful violet-blue eyes, standing alone on a small glowing island made of a computer motherboard, looking out at dozens of other identical islands scattered across a dark ocean, each island has a glowing computer on it but none are connected, thin faint threads of light in the far distance hint at future connections, lonely but hopeful atmosphere, deep purple and blue tones with warm highlights. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"But look. All these machines are islands. Brilliant, lonely islands.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "All these machines are islands. Brilliant, lonely islands.",
+      "speaker": "GLASSBOT"
+    },
+    {
+      "id": "p10_06_narration_isolated",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "But in 1989, the vast majority of personal computers were still isolated. You could write a document, play a game, run a spreadsheet — but sharing anything with another human being meant copying it to a floppy disk and physically carrying it across the room."
+    },
+    {
+      "id": "p10_07_pillars",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 682 300\"><text x=\"340\" y=\"5\" text-anchor=\"middle\" font-size=\"14\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">The State of Computing, ~1989</text><rect x=\"30\" y=\"70\" width=\"110\" height=\"130\" rx=\"6\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"2\"/><text x=\"85\" y=\"95\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">Unix/C</text><text x=\"85\" y=\"115\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">Portable,</text><text x=\"85\" y=\"130\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">composable</text><text x=\"85\" y=\"145\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">software</text><rect x=\"155\" y=\"70\" width=\"110\" height=\"130\" rx=\"6\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"2\"/><text x=\"210\" y=\"95\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">PCs</text><text x=\"210\" y=\"115\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">Computing</text><text x=\"210\" y=\"130\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">for</text><text x=\"210\" y=\"145\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">individuals</text><rect x=\"280\" y=\"70\" width=\"110\" height=\"130\" rx=\"6\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"2\"/><text x=\"335\" y=\"95\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">TCP/IP</text><text x=\"335\" y=\"115\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">Universal</text><text x=\"335\" y=\"130\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">network</text><text x=\"335\" y=\"145\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">language</text><rect x=\"405\" y=\"70\" width=\"110\" height=\"130\" rx=\"6\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"2\"/><text x=\"460\" y=\"95\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">The GUI</text><text x=\"460\" y=\"115\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">Accessible</text><text x=\"460\" y=\"130\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">interfaces</text><rect x=\"530\" y=\"70\" width=\"120\" height=\"130\" rx=\"6\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"2\"/><text x=\"590\" y=\"95\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">Free Software</text><text x=\"590\" y=\"115\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">Code that</text><text x=\"590\" y=\"130\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">belongs to</text><text x=\"590\" y=\"145\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"'JetBrains Mono',monospace\">everyone</text><line x1=\"30\" y1=\"210\" x2=\"650\" y2=\"210\" stroke=\"#805AD5\" stroke-width=\"2\" stroke-dasharray=\"8,4\"/><text x=\"340\" y=\"235\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-style=\"italic\">The missing piece: the connection that ties it all together</text><polygon points=\"630,228 650,235 630,241\" fill=\"#805AD5\"/><text x=\"640\" y=\"260\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\">→ Issue 5</text></svg>",
+      "caption": "Five pillars of the computing landscape — but the connection between them is still missing"
+    },
+    {
+      "id": "p10_08_narration_merge",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Humans had built brilliant, powerful personal machines. They had built a network that could, in theory, connect them all. But the two revolutions had not yet merged. It would take a physicist at a European research lab, trying to solve a very mundane problem — sharing documents with his colleagues — to connect the final wire."
+    },
+    {
+      "id": "p10_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The 1970s and 1980s were an era of liberation. Software was freed from hardware. Computing was freed from institutions. Users were freed from expertise. Code was freed from ownership. But the final liberation — connecting every machine and every person — was still waiting. <strong>That story begins next.</strong>"
+    },
+    {
+      "id": "p10_09b_robot_island",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round translucent glass robot with a dome head and big wistful violet LED eyes, stubby arms reaching out toward other glowing computers floating on separate islands, thin threads of light beginning to connect them, antenna with a tiny anchor on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"All the pieces exist. They just need connecting.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "All the pieces exist. They just need connecting.",
+      "speaker": "ISLANDBOT"
+    },
+    {
+      "id": "p10_references",
+      "type": "references",
+      "layout": "full-width",
+      "references": [
+        {
+          "title": "The Evolution of the Unix Time-sharing System.",
+          "author": "Ritchie, Dennis M",
+          "url": "https://www.bell-labs.com/usr/dmr/www/hist.html",
+          "type": "paper",
+          "note": "AT&T Bell Laboratories Technical Journal"
+        },
+        {
+          "title": "The Development of the C Language.",
+          "author": "Ritchie, Dennis M",
+          "url": "https://www.bell-labs.com/usr/dmr/www/chist.html",
+          "type": "paper",
+          "note": "History of Programming Languages II"
+        },
+        {
+          "title": "The C Programming Language.",
+          "author": "Kernighan, Brian W. and Dennis M. Ritchie",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "UNIX: A History and a Memoir.",
+          "author": "Kernighan, Brian W",
+          "url": "https://www.cs.princeton.edu/~bwk/memoir.html",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "The Art of Unix Programming.",
+          "author": "Raymond, Eric S",
+          "url": "http://www.catb.org/~esr/writings/taoup/html/",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "A Protocol for Packet Network Intercommunication.",
+          "author": "Cerf, Vinton G. and Robert E. Kahn",
+          "url": "https://www.cs.princeton.edu/courses/archive/fall06/cos561/papers/cerf74.pdf",
+          "type": "paper",
+          "note": "IEEE Transactions on Communications"
+        },
+        {
+          "title": "Free as in Freedom: Richard Stallman's Crusade for Free Software.",
+          "author": "Williams, Sam",
+          "url": "http://www.oreilly.com/openbook/freedom/",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Steve Jobs.",
+          "author": "Isaacson, Walter",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Dealers of Lightning: Xerox PARC and the Dawn of the Computer Age.",
+          "author": "Hiltzik, Michael",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "The Idea Factory: Bell Labs and the Great Age of American Innovation.",
+          "author": "Gertner, Jon",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Hackers: Heroes of the Computer Revolution.",
+          "author": "Levy, Steven",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Where Wizards Stay Up Late: The Origins of the Internet.",
+          "author": "Hafner, Katie and Matthew Lyon",
+          "url": "https://archive.org/details/wherewizardsstay00hafn",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Reflections on Trusting Trust.",
+          "author": "Thompson, Ken",
+          "url": "https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf",
+          "type": "paper",
+          "note": "Communications of the ACM"
+        },
+        {
+          "title": "An Open Letter to Hobbyists.",
+          "author": "Gates, Bill",
+          "url": "https://en.wikipedia.org/wiki/An_Open_Letter_to_Hobbyists",
+          "type": "paper",
+          "note": "Homebrew Computer Club Newsletter"
+        },
+        {
+          "title": "The GNU Manifesto.",
+          "author": "Stallman, Richard",
+          "url": "https://www.gnu.org/gnu/manifesto.html",
+          "type": "paper",
+          "note": "Dr. Dobb's Journal"
+        },
+        {
+          "title": "On Distributed Communications.",
+          "author": "Baran, Paul",
+          "url": "https://www.rand.org/pubs/research_memoranda/RM3420.html",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Twenty Years of Berkeley Unix.",
+          "author": "McKusick, Marshall Kirk",
+          "url": "https://www.oreilly.com/openbook/opensources/book/kirkmck.html",
+          "type": "book",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "p10_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Next issue: \"The Connected World\" — A CERN physicist invents the Web, a Finnish student gives away an operating system, and suddenly all the world's knowledge — and code — is connected. Everything changes. Again."
+    }
+  ]
+}

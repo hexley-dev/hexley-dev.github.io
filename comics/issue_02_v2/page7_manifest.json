@@ -1,0 +1,123 @@
+{
+  "issue": 2,
+  "page": 7,
+  "title": "Five Boxes That Run the World",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p7_01_robot_blueprint",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute translucent crystal-blue robot with calm teal eyes, made of smooth glassy material with faint schematic lines etched into its body, standing reverently beside a large framed architectural diagram like a museum guide presenting a masterwork. One stubby arm extended in a graceful presentation gesture, the other arm tucked behind its back. The diagram in the background shows five labeled boxes connected by arrows. Warm gallery lighting. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Five boxes. Some arrows. Still the blueprint.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent on the diagram",
+      "bubble_text": "Five boxes. Some arrows. Still the blueprint.",
+      "speaker": "BLUEPRINT"
+    },
+    {
+      "id": "p7_02_narration_intro",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "This is it. The design that runs the world. Five components, connected by pathways called <strong>buses</strong>. Every computer you have ever touched &mdash; your laptop, your phone, game consoles, servers &mdash; follows this basic layout. Von Neumann described it in 1945. It is still the blueprint."
+    },
+    {
+      "id": "p7_03_vonneumann_arch",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 500\"><defs><style>text{font-family:'JetBrains Mono',monospace;}</style><marker id=\"arrowDown\" viewBox=\"0 0 10 10\" refX=\"5\" refY=\"10\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M0,0 L5,10 L10,0\" fill=\"#DD6B20\"/></marker><marker id=\"arrowRight\" viewBox=\"0 0 10 10\" refX=\"10\" refY=\"5\" markerWidth=\"8\" markerHeight=\"8\" orient=\"auto\"><path d=\"M0,0 L10,5 L0,10\" fill=\"#D69E2E\"/></marker></defs><text fill=\"#FFFFFF\" x=\"340\" y=\"8\" text-anchor=\"middle\" font-size=\"17\" font-weight=\"bold\" fill=\"#DD6B20\">THE VON NEUMANN ARCHITECTURE (1945 &mdash; still used today)</text><rect x=\"140\" y=\"30\" width=\"400\" height=\"100\" rx=\"12\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><text x=\"340\" y=\"55\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">MEMORY UNIT</text><rect x=\"170\" y=\"65\" width=\"140\" height=\"45\" rx=\"6\" fill=\"#fff\" stroke=\"#4A9BD9\" stroke-width=\"1.2\"/><text x=\"240\" y=\"85\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">INSTRUCTIONS</text><text x=\"240\" y=\"100\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">(program)</text><rect x=\"370\" y=\"65\" width=\"140\" height=\"45\" rx=\"6\" fill=\"#fff\" stroke=\"#4A9BD9\" stroke-width=\"1.2\"/><text x=\"440\" y=\"85\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">DATA</text><text x=\"440\" y=\"100\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">(numbers, text)</text><text x=\"340\" y=\"122\" text-anchor=\"middle\" font-size=\"12\" fill=\"#4A9BD9\">Programs and data live TOGETHER in memory</text><line x1=\"340\" y1=\"130\" x2=\"340\" y2=\"165\" stroke=\"#DD6B20\" stroke-width=\"3\" marker-end=\"url(#arrowDown)\"/><rect x=\"280\" y=\"145\" width=\"120\" height=\"18\" rx=\"4\" fill=\"#DD6B20\" opacity=\"0.15\"/><text fill=\"#FFFFFF\" x=\"340\" y=\"158\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#FFFFFF\">DATA BUS</text><rect x=\"140\" y=\"170\" width=\"400\" height=\"120\" rx=\"12\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text x=\"340\" y=\"195\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">CENTRAL PROCESSING UNIT (CPU)</text><rect x=\"170\" y=\"205\" width=\"160\" height=\"65\" rx=\"6\" fill=\"#fff\" stroke=\"#D69E2E\" stroke-width=\"1.2\"/><text x=\"250\" y=\"225\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">CONTROL UNIT</text><text x=\"250\" y=\"240\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Fetches &amp; decodes</text><text x=\"250\" y=\"253\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">instructions</text><rect x=\"350\" y=\"205\" width=\"160\" height=\"65\" rx=\"6\" fill=\"#fff\" stroke=\"#D69E2E\" stroke-width=\"1.2\"/><text x=\"430\" y=\"225\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">ALU</text><text x=\"430\" y=\"240\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Arithmetic &amp; Logic</text><text x=\"430\" y=\"253\" text-anchor=\"middle\" font-size=\"12\" textLength=\"136\" lengthAdjust=\"spacingAndGlyphs\" fill=\"#2D3748\">Does the actual math</text><line x1=\"330\" y1=\"237\" x2=\"350\" y2=\"237\" stroke=\"#D69E2E\" stroke-width=\"1.5\" marker-end=\"url(#arrowRight)\"/><line x1=\"340\" y1=\"290\" x2=\"340\" y2=\"325\" stroke=\"#DD6B20\" stroke-width=\"3\"/><rect x=\"280\" y=\"305\" width=\"120\" height=\"18\" rx=\"4\" fill=\"#DD6B20\" opacity=\"0.15\"/><text fill=\"#FFFFFF\" x=\"340\" y=\"318\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#FFFFFF\">I/O BUS</text><line x1=\"340\" y1=\"325\" x2=\"240\" y2=\"350\" stroke=\"#DD6B20\" stroke-width=\"2\"/><line x1=\"340\" y1=\"325\" x2=\"440\" y2=\"350\" stroke=\"#DD6B20\" stroke-width=\"2\"/><rect x=\"140\" y=\"350\" width=\"200\" height=\"80\" rx=\"12\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"2\"/><text x=\"240\" y=\"375\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">INPUT</text><text x=\"240\" y=\"393\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Keyboard, Mouse</text><text x=\"240\" y=\"407\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Camera, Network</text><rect x=\"340\" y=\"350\" width=\"200\" height=\"80\" rx=\"12\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"2\"/><text x=\"440\" y=\"375\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">OUTPUT</text><text x=\"440\" y=\"393\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Screen, Speakers</text><text x=\"440\" y=\"407\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Printer, Network</text><text fill=\"#FFFFFF\" x=\"340\" y=\"455\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#DD6B20\">THE CYCLE: Fetch instruction &rarr; Decode &rarr; Execute &rarr; Repeat</text></svg>",
+      "caption": "The Von Neumann Architecture — five boxes and some arrows"
+    },
+    {
+      "id": "p7_04_narration_memory",
+      "type": "css_narration",
+      "layout": "left",
+      "flex": 1,
+      "text": "<strong>1. The Memory Unit</strong> &mdash; stores both programs and data as numbers. The computer reads instructions from memory, one at a time. Every piece of information &mdash; whether a number to add or an instruction that says \"add\" &mdash; lives in the same memory."
+    },
+    {
+      "id": "p7_05_narration_alu",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "style": "accent",
+      "text": "<strong>2. The ALU</strong> &mdash; the part that actually computes. It performs arithmetic (addition, subtraction, multiplication, division) and logic operations (AND, OR, NOT, comparisons). It is the calculator inside the computer."
+    },
+    {
+      "id": "p7_05b_robot_fiveboxes",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round steel-blue robot with a dome head and big excited teal LED eyes, stubby arms spread wide presenting five small glowing boxes arranged in a line, each box a different pastel color with tiny labels, antenna with a spinning gear on top, standing proudly like a museum tour guide. A white speech bubble with black outline above. Inside the bubble the text reads: \"Five boxes. That is literally the whole computer.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Five boxes. That is literally the whole computer.",
+      "speaker": "ARCHIE"
+    },
+    {
+      "id": "p7_06_narration_control",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>3. The Control Unit</strong> &mdash; the conductor of the orchestra. It reads instructions from memory, decodes them, and tells the ALU and other components what to do. It keeps track of which instruction to execute next using a <strong>program counter</strong> &mdash; a pointer that moves through the program step by step."
+    },
+    {
+      "id": "p7_07_narration_io",
+      "type": "css_narration",
+      "layout": "left",
+      "flex": 3,
+      "text": "<strong>4. Input</strong> &mdash; how information gets in. 1940s: punched cards, paper tape. Today: keyboard, mouse, microphone, camera, network.<br><br><strong>5. Output</strong> &mdash; how results get out. 1940s: printed paper, lights on a panel. Today: screen, speakers, network, printer."
+    },
+    {
+      "id": "p7_07b_robot_io",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round mint-green robot with a dome head and big curious teal LED eyes, stubby arms holding a tiny keyboard in one hand and a tiny screen in the other, antenna with a tiny plug connector on top, standing between an INPUT sign and an OUTPUT sign. A white speech bubble with black outline above. Inside the bubble the text reads: \"Input and output. How the computer talks to the world.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Input and output. How the computer talks to the world.",
+      "speaker": "IOBOT"
+    },
+    {
+      "id": "p7_08_narration_buses",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "style": "accent",
+      "text": "These components communicate through <strong>buses</strong> &mdash; shared pathways that carry data, addresses, and control signals. The elegance: it separates <em>what the machine does</em> (the program) from <em>how it's built</em> (the hardware). Build the hardware once. Change the software forever."
+    },
+    {
+      "id": "p7_09_fde_cycle",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 220\"><defs><style>text{font-family:'JetBrains Mono',monospace;}</style></defs><text fill=\"#FFFFFF\" x=\"340\" y=\"5\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#DD6B20\">THE FETCH-DECODE-EXECUTE CYCLE</text><rect x=\"70\" y=\"30\" width=\"155\" height=\"55\" rx=\"10\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><text x=\"147\" y=\"55\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">FETCH</text><text x=\"147\" y=\"72\" text-anchor=\"middle\" font-size=\"12\" textLength=\"130\" lengthAdjust=\"spacingAndGlyphs\" fill=\"#2D3748\">Get next instruction</text><line x1=\"225\" y1=\"57\" x2=\"268\" y2=\"57\" stroke=\"#DD6B20\" stroke-width=\"2.5\"/><polygon points=\"268,52 278,53 268,53\" fill=\"#DD6B20\"/><rect x=\"275\" y=\"30\" width=\"155\" height=\"55\" rx=\"10\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text x=\"352\" y=\"55\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">DECODE</text><text x=\"352\" y=\"72\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Figure out what it means</text><line x1=\"430\" y1=\"57\" x2=\"468\" y2=\"57\" stroke=\"#DD6B20\" stroke-width=\"2.5\"/><polygon points=\"468,52 478,57 468,62\" fill=\"#DD6B20\"/><rect x=\"475\" y=\"30\" width=\"150\" height=\"55\" rx=\"10\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"2\"/><text x=\"550\" y=\"55\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">EXECUTE</text><text x=\"550\" y=\"72\" text-anchor=\"middle\" font-size=\"12\" textLength=\"120\" lengthAdjust=\"spacingAndGlyphs\" fill=\"#2D3748\">Do the operation</text><line x1=\"550\" y1=\"85\" x2=\"550\" y2=\"110\" stroke=\"#2D3748\" stroke-width=\"2\"/><line x1=\"550\" y1=\"110\" x2=\"50\" y2=\"110\" stroke=\"#2D3748\" stroke-width=\"2\"/><line x1=\"50\" y1=\"110\" x2=\"50\" y2=\"57\" stroke=\"#2D3748\" stroke-width=\"2\"/><line x1=\"50\" y1=\"57\" x2=\"68\" y2=\"57\" stroke=\"#2D3748\" stroke-width=\"2\"/><polygon points=\"68,52 78,53 68,62\" fill=\"#2D3748\"/><text fill=\"#FFFFFF\" x=\"300\" y=\"130\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#DD6B20\">REPEAT</text><text fill=\"#FFFFFF\" x=\"340\" y=\"160\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#FFFFFF\">Billions of times per second in modern computers.</text></svg>",
+      "caption": "The Fetch-Decode-Execute cycle — the heartbeat of every computer"
+    },
+    {
+      "id": "p7_10_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>Big Idea:</strong> The von Neumann architecture is the most successful engineering blueprint in history. Every general-purpose computer since 1945 follows this basic design: memory holds both programs and data; the CPU fetches, decodes, and executes instructions one at a time; and input/output connects the machine to the world. Five boxes. Some arrows. The foundation of the digital age."
+    },
+    {
+      "id": "p7_11_think",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Think About It:</strong> Your phone follows the von Neumann architecture. Open your phone's settings and look at \"About Phone\" or \"Storage.\" Can you identify the <strong>Memory</strong> (GB of storage and RAM), <strong>Input</strong> (touchscreen, microphone, camera), <strong>Output</strong> (screen, speakers, vibration motor), and <strong>CPU</strong> (e.g., A17 Bionic or Snapdragon 8)? <strong>Apps</strong> are the programs stored in memory. Five boxes. Some arrows. Right there in your pocket."
+    },
+    {
+      "id": "p7_11b_robot_pocket",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round chrome robot with a dome head and big amazed green LED eyes, stubby arms holding up a tiny smartphone next to an enormous vacuum-tube computer in the background for scale, antenna wobbling with surprise, mouth open in astonishment. A white speech bubble with black outline above. Inside the bubble the text reads: \"Same five boxes. Now it fits in your pocket.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Same five boxes. Now it fits in your pocket.",
+      "speaker": "SCALEBOT"
+    },
+    {
+      "id": "p7_12_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "The architecture was brilliant. But the technology — vacuum tubes — was a nightmare. They were big, hot, power-hungry, and they burned out constantly. Something had to change. And in 1947, at Bell Labs in New Jersey, three physicists changed everything."
+    }
+  ]
+}

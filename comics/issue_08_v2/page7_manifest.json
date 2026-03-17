@@ -1,0 +1,103 @@
+{
+  "issue": 8,
+  "page": 7,
+  "title": "The Context Window Problem — Why Agents \"Forget\"",
+  "accent": "#9F7AEA",
+  "panels": [
+    {
+      "id": "p7_01_desk_avalanche",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "A dramatic overhead view of a wooden desk that tells a story in two halves. The near side of the desk has a clean, tidy arrangement: a crisp task description, a clear plan, a single code file, everything legible and organized. The far side is an avalanche of papers: error logs, file printouts, reasoning chains, tool outputs, conversation transcripts, all piling up and burying the original plan documents. A faint translucent hand reaches through the mess trying to find the plan but cannot reach it. Warm amber desk lamp light, atmospheric dust motes. Comic book style, warm editorial illustration with ink lines and watercolor washes, violet (#9F7AEA) glow on the buried plan papers",
+      "overlays": []
+    },
+    {
+      "id": "p7_02_robot_seven_things",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 476,
+      "gen_height": 576,
+      "prompt": "A small cute cotton-candy-pink round robot with big worried teal eyes, tiny hands pressed against its head in an overwhelmed gesture, fluffy cloud-like body texture, a little bow tie that is askew from stress, surrounded by floating papers and documents swirling around it like a storm. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Your brain holds about 7 things at once.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, soft violet background with paper particles",
+      "bubble_text": "Your brain holds about 7 things at once.",
+      "speaker": "COTTONBOT"
+    },
+    {
+      "id": "p7_02b_robot_bigger_scale",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 476,
+      "gen_height": 576,
+      "prompt": "A small cute round robot made of stacked translucent memory discs, each disc glowing a different pastel color, big wide amber eyes gesturing broadly with tiny arms spread wide to indicate enormous scale, floating data fragments orbit around it like rings of a planet. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"AI agents? Similar problem. Bigger scale.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, deep violet background",
+      "bubble_text": "AI agents? Similar problem. Bigger scale.",
+      "speaker": "DISCBOT"
+    },
+    {
+      "id": "p7_03_narration_context_window",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "A <strong>context window</strong> is the maximum amount of text a language model can process in a single interaction. Think of it as the model's working memory &mdash; everything it can &ldquo;see&rdquo; at once. If information is outside the window, the model cannot access it. It is <em>gone</em>."
+    },
+    {
+      "id": "p7_04_context_growth",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 320\" xmlns=\"http://www.w3.org/2000/svg\"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x=\"340\" y=\"8\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#9F7AEA\">Context Window Growth</text><rect x=\"60\" y=\"35\" width=\"60\" height=\"25\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"90\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">GPT-3</text><text x=\"90\" y=\"74\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">2020</text><text fill=\"#E2E8F0\" x=\"90\" y=\"90\" text-anchor=\"middle\" font-size=\"12\">2K tokens</text><text x=\"90\" y=\"106\" text-anchor=\"middle\" font-size=\"12\" fill=\"#A0AEC0\">A short letter</text><rect x=\"155\" y=\"35\" width=\"70\" height=\"30\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"190\" y=\"54\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" textLength=\"48\" lengthAdjust=\"spacingAndGlyphs\">GPT-3.5</text><text x=\"190\" y=\"79\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">2022</text><text fill=\"#E2E8F0\" x=\"190\" y=\"95\" text-anchor=\"middle\" font-size=\"12\">4K–16K</text><text x=\"190\" y=\"111\" text-anchor=\"middle\" font-size=\"12\" fill=\"#A0AEC0\">A long essay</text><rect x=\"260\" y=\"35\" width=\"75\" height=\"35\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"298\" y=\"57\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">GPT-4</text><text x=\"298\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">2023</text><text fill=\"#E2E8F0\" x=\"298\" y=\"100\" text-anchor=\"middle\" font-size=\"12\">8K/32K</text><text x=\"298\" y=\"116\" text-anchor=\"middle\" font-size=\"12\" fill=\"#A0AEC0\">A novella</text><rect x=\"370\" y=\"35\" width=\"100\" height=\"42\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"420\" y=\"60\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">GPT-4 Turbo</text><text x=\"420\" y=\"91\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">Late 2023</text><text fill=\"#E2E8F0\" x=\"420\" y=\"107\" text-anchor=\"middle\" font-size=\"12\">128K tokens</text><text x=\"420\" y=\"123\" text-anchor=\"middle\" font-size=\"12\" fill=\"#A0AEC0\">A short novel</text><rect x=\"505\" y=\"35\" width=\"110\" height=\"50\" rx=\"5\" fill=\"#9F7AEA\" stroke=\"#6B46C1\" stroke-width=\"2.5\"/><text x=\"560\" y=\"64\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#fff\">Claude 3</text><text x=\"560\" y=\"99\" text-anchor=\"middle\" font-size=\"12\" fill=\"#fff\">2024</text><text x=\"560\" y=\"115\" text-anchor=\"middle\" font-size=\"12\" fill=\"#fff\">200K tokens</text><text x=\"560\" y=\"131\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E9D8FD\">Two novels</text><line x1=\"120\" y1=\"48\" x2=\"155\" y2=\"50\" stroke=\"#9F7AEA\" stroke-width=\"1.5\" marker-end=\"url(#arrowP7)\"/><line x1=\"225\" y1=\"50\" x2=\"260\" y2=\"53\" stroke=\"#9F7AEA\" stroke-width=\"1.5\" marker-end=\"url(#arrowP7)\"/><line x1=\"335\" y1=\"53\" x2=\"370\" y2=\"56\" stroke=\"#9F7AEA\" stroke-width=\"1.5\" marker-end=\"url(#arrowP7)\"/><line x1=\"470\" y1=\"56\" x2=\"505\" y2=\"60\" stroke=\"#9F7AEA\" stroke-width=\"1.5\" marker-end=\"url(#arrowP7)\"/><rect x=\"80\" y=\"160\" width=\"520\" height=\"35\" rx=\"6\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><text x=\"340\" y=\"182\" text-anchor=\"middle\" font-size=\"12\" font-style=\"italic\" fill=\"#2D3748\" textLength=\"496\" lengthAdjust=\"spacingAndGlyphs\">Even two novels is not enough when your codebase is millions of lines.</text><defs><marker id=\"arrowP7\" viewBox=\"0 0 10 30\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"#9F7AEA\"/></marker></defs></svg>",
+      "caption": "Context window growth from GPT-3 to Claude 3 — and why even two novels is not enough"
+    },
+    {
+      "id": "p7_05_narration_not_enough",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "That sounds enormous. Surely 200,000 tokens is enough? <strong>Not quite.</strong> And the reason is a subtle, well-documented phenomenon that researchers call <strong>&ldquo;Lost in the Middle.&rdquo;</strong>"
+    },
+    {
+      "id": "p7_06_lost_in_middle",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-40 -20 740 280\" xmlns=\"http://www.w3.org/2000/svg\"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x=\"340\" y=\"8\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#9F7AEA\">The \"Lost in the Middle\" Curve</text><text x=\"340\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">Liu et al., 2023</text><line x1=\"80\" y1=\"60\" x2=\"80\" y2=\"180\" stroke=\"#2D3748\" stroke-width=\"1.5\"/><line x1=\"80\" y1=\"180\" x2=\"600\" y2=\"180\" stroke=\"#2D3748\" stroke-width=\"1.5\"/><text x=\"60\" y=\"70\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">High</text><text x=\"60\" y=\"178\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">Low</text><text x=\"30\" y=\"125\" text-anchor=\"middle\" font-size=\"12\" transform=\"rotate(-90 30 125)\" fill=\"#E2E8F0\">Recall Accuracy</text><text x=\"120\" y=\"198\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">Beginning</text><text x=\"340\" y=\"198\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">Middle</text><text x=\"560\" y=\"198\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">End</text><path d=\"M 100 75 Q 160 80 220 120 Q 280 155 340 160 Q 400 155 460 120 Q 520 80 580 75\" fill=\"none\" stroke=\"#9F7AEA\" stroke-width=\"3\" stroke-linecap=\"round\"/><path d=\"M 100 75 Q 160 80 220 120 Q 280 155 340 160 Q 400 155 460 120 Q 520 80 580 75 L 580 180 L 100 180 Z\" fill=\"#E9D8FD\" opacity=\"0.3\"/><circle cx=\"100\" cy=\"75\" r=\"5\" fill=\"#38A169\"/><text x=\"100\" y=\"65\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">Sharp</text><circle cx=\"340\" cy=\"160\" r=\"5\" fill=\"#E53E3E\"/><text x=\"340\" y=\"150\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">Foggy</text><circle cx=\"580\" cy=\"75\" r=\"5\" fill=\"#38A169\"/><text x=\"580\" y=\"65\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">Sharp</text><rect x=\"80\" y=\"208\" width=\"520\" height=\"28\" rx=\"5\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text fill=\"#2D3748\" x=\"340\" y=\"226\" text-anchor=\"middle\" font-size=\"12\" font-style=\"italic\" textLength=\"498\" lengthAdjust=\"spacingAndGlyphs\">Models attend well to what they read first and last. The middle fades.</text></svg>",
+      "caption": "The U-shaped attention curve: models struggle with information in the middle of their context"
+    },
+    {
+      "id": "p7_07_degradation_sequence",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A three-panel horizontal comic strip sequence showing context degradation. Left panel: 'Minute 0' label, a clean fresh notebook with a crisp plan visible (Step 1: Fix auth, Step 2: Add tests, Step 3: Update docs), everything clear and legible, bright lighting. Center panel: 'Minute 30' label, the same notebook now buried under a massive pile of printed code, error logs, and file contents, the plan barely peeking out from underneath, dimmer lighting. Right panel: 'Minute 45' label, the agent writing 'First let me fix the authentication...' on a new page, not realizing it already completed that step, a faded completed checkmark barely visible behind the pile, confused atmosphere. Comic book style, warm editorial illustration with ink lines and watercolor washes, violet tinting increasing with each panel",
+      "overlays": []
+    },
+    {
+      "id": "p7_08_narration_slow_disaster",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "For a coding agent, this creates a slow-motion disaster. The agent starts with a clean, clear context. But as it works &mdash; reading files, running commands, analyzing errors &mdash; the context fills up. The original plan slides into the foggy middle. The agent may <strong>re-do work it already completed</strong>, contradict earlier decisions, or &ldquo;forget&rdquo; critical constraints."
+    },
+    {
+      "id": "p7_09_narration_desk_metaphor",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "A context window is like a desk. A bigger desk lets you spread out more documents. But no matter how big the desk, the papers in the center tend to get buried. Making the window bigger does <strong>not</strong> fix the problem. The issue is not the size of the memory &mdash; it is how <strong>attention distributes</strong> across it."
+    },
+    {
+      "id": "p7_09b_robot_slowdisaster",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round rust-orange robot with a dome head and big worried amber LED eyes, stubby arms holding a tiny hourglass with sand running out, antenna spinning nervously, standing on a tilting desk covered in error messages. A white speech bubble with black outline above. Inside the bubble the text reads: \"Not a sudden explosion. A slow, quiet accumulation.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Not a sudden explosion. A slow, quiet accumulation.",
+      "speaker": "DRIFTBOT"
+    },
+    {
+      "id": "p7_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Context degradation was a serious problem. But there was another challenge agents faced — one that actually showcased their most impressive capability. What happens when the code they write... does not work?"
+    }
+  ]
+}

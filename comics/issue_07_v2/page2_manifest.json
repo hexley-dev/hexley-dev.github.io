@@ -1,0 +1,88 @@
+{
+  "issue": 7,
+  "page": 2,
+  "title": "The Problem Was Real -- and Getting Worse",
+  "accent": "#4A9BD9",
+  "panels": [
+    {
+      "id": "p2_01_google_hq",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "Aerial view of a stylized Google headquarters campus in 2016, modern glass buildings with colorful accents, a massive satellite dish and server farms visible, the sky is overcast with a sense of urgency, digital translation symbols and language characters float in the air above the buildings, a subtle banner reads 'Google Translate: Now Neural', Comic book style, warm editorial illustration with ink lines and watercolor washes, muted blues and greys with blue #4A9BD9 accents",
+      "overlays": []
+    },
+    {
+      "id": "p2_02_narration_stakes",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In <strong>November 2016</strong>, Google deployed neural machine translation for Google Translate, replacing a decades-old phrase-based approach. Millions of people used it daily. Even small improvements mattered at that scale."
+    },
+    {
+      "id": "p2_03_robot_attention",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 576,
+      "prompt": "A small cute cuboid robot made of visible colorful pastel voxel blocks, each block a different soft color, big pixel-art eyes showing a thinking expression, one blocky hand on its chin in contemplation, the other hand holding a tiny chain with a glowing blue link, standing in front of a simplified neural network diagram drawn on a whiteboard. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Attention helped. But it was chained to the bottleneck.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, clean white background with blue #4A9BD9 accents",
+      "bubble_text": "Attention helped. But it was chained to the bottleneck.",
+      "speaker": "PIXEL"
+    },
+    {
+      "id": "p2_04_narration_bahdanau",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "The fix was called <strong>attention</strong> -- published in 2014 by <strong>Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio</strong>. Instead of compressing the entire input into one vector, attention let the decoder \"look back\" at different parts of the input for each output word. It worked. But the underlying architecture was still an RNN."
+    },
+    {
+      "id": "p2_05_attention_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-2 -20 682 320\"><style>.title{font-size:14px; font-weight:bold; } .label{font-size:12px} .small{font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#2D3748\" class=\"title\" x=\"170\" y=\"5\" text-anchor=\"middle\">BEFORE: Basic RNN</text><text fill=\"#E2E8F0\" class=\"title\" x=\"510\" y=\"5\" text-anchor=\"middle\">AFTER: RNN + Attention</text><line x1=\"340\" y1=\"-15\" x2=\"340\" y2=\"280\" stroke=\"#E2E8F0\" stroke-width=\"1.5\" stroke-dasharray=\"6,4\"/><g transform=\"translate(40,30)\"><rect x=\"0\" y=\"0\" width=\"260\" height=\"40\" rx=\"8\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" class=\"label\" x=\"130\" y=\"25\" text-anchor=\"middle\" textLength=\"232\" lengthAdjust=\"spacingAndGlyphs\">Source: \"Le chat est sur le tapis\"</text><path d=\"M130,40 L130,70\" stroke=\"#4A9BD9\" stroke-width=\"2\" marker-end=\"url(#arrowB)\"/><rect x=\"80\" y=\"72\" width=\"100\" height=\"32\" rx=\"6\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text class=\"small\" x=\"130\" y=\"93\" text-anchor=\"middle\" fill=\"#1A202C\" font-weight=\"bold\">Single Vector</text><text fill=\"#E2E8F0\" class=\"small\" x=\"130\" y=\"118\" text-anchor=\"middle\">Everything squeezed</text><text fill=\"#E2E8F0\" class=\"small\" x=\"130\" y=\"130\" text-anchor=\"middle\">through a straw</text><path d=\"M130,104 L130,148\" stroke=\"#E53E3E\" stroke-width=\"2\" marker-end=\"url(#arrowB)\"/><rect x=\"0\" y=\"150\" width=\"260\" height=\"40\" rx=\"8\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" class=\"label\" x=\"130\" y=\"175\" text-anchor=\"middle\">Decoder tries to reconstruct</text><text class=\"small\" x=\"130\" y=\"210\" text-anchor=\"middle\" fill=\"#E2E8F0\">Lost details. Degraded memory.</text></g><g transform=\"translate(380,30)\"><rect x=\"0\" y=\"0\" width=\"260\" height=\"40\" rx=\"8\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" class=\"label\" x=\"130\" y=\"25\" text-anchor=\"middle\" textLength=\"232\" lengthAdjust=\"spacingAndGlyphs\">Source: \"Le chat est sur le tapis\"</text><line x1=\"45\" y1=\"40\" x2=\"45\" y2=\"72\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><line x1=\"90\" y1=\"40\" x2=\"90\" y2=\"72\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><line x1=\"130\" y1=\"40\" x2=\"130\" y2=\"72\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><line x1=\"170\" y1=\"40\" x2=\"170\" y2=\"72\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><line x1=\"215\" y1=\"40\" x2=\"215\" y2=\"72\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><circle cx=\"45\" cy=\"80\" r=\"8\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.2\"/><circle cx=\"90\" cy=\"80\" r=\"8\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.2\"/><circle cx=\"130\" cy=\"80\" r=\"8\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.2\"/><circle cx=\"170\" cy=\"80\" r=\"8\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.2\"/><circle cx=\"215\" cy=\"80\" r=\"8\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.2\"/><line x1=\"45\" y1=\"88\" x2=\"130\" y2=\"148\" stroke=\"#4A9BD9\" stroke-width=\"1\" opacity=\"0.3\"/><line x1=\"90\" y1=\"88\" x2=\"130\" y2=\"148\" stroke=\"#4A9BD9\" stroke-width=\"3\" opacity=\"0.9\"/><line x1=\"130\" y1=\"88\" x2=\"130\" y2=\"148\" stroke=\"#4A9BD9\" stroke-width=\"1.5\" opacity=\"0.5\"/><line x1=\"170\" y1=\"88\" x2=\"130\" y2=\"148\" stroke=\"#4A9BD9\" stroke-width=\"1\" opacity=\"0.3\"/><line x1=\"215\" y1=\"88\" x2=\"130\" y2=\"148\" stroke=\"#4A9BD9\" stroke-width=\"2\" opacity=\"0.7\"/><rect x=\"0\" y=\"150\" width=\"260\" height=\"40\" rx=\"8\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" class=\"label\" x=\"130\" y=\"175\" text-anchor=\"middle\" textLength=\"232\" lengthAdjust=\"spacingAndGlyphs\">Decoder focuses on relevant words</text><text class=\"small\" x=\"130\" y=\"210\" text-anchor=\"middle\" fill=\"#FFFFFF\" font-weight=\"bold\">Direct access. Much better!</text></g><text fill=\"#E2E8F0\" class=\"small\" x=\"340\" y=\"255\" text-anchor=\"middle\">Bahdanau, Cho &amp; Bengio (2014) -- Attention as an add-on to RNNs</text><text x=\"340\" y=\"275\" text-anchor=\"middle\" font-size=\"12\" fill=\"#4A9BD9\" font-weight=\"bold\">\"But the RNN backbone was still the bottleneck.\"</text><defs><marker id=\"arrowB\" markerWidth=\"8\" markerHeight=\"8\" refX=\"7\" refY=\"4\" orient=\"auto\"><polygon points=\"0,0 8,4 0,8\" fill=\"#4A9BD9\"/></marker></defs></svg>",
+      "caption": "Attention (2014) let the decoder look back at source words -- but was still bolted onto a slow RNN."
+    },
+    {
+      "id": "p2_06_narration_team",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Several researchers at Google were growing frustrated. The attention mechanism was the <strong>best part</strong>. The RNN backbone was the <strong>bottleneck</strong>. What if you kept the attention and threw away everything else?"
+    },
+    {
+      "id": "p2_07_vaswani",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A group of eight diverse researchers gathered around a whiteboard in a modern Google office, brainstorming intensely, the whiteboard covered with attention diagrams and crossed-out RNN labels, coffee cups scattered on the table, warm afternoon light through large windows, one researcher in the center gesturing emphatically while others lean in with interest, the atmosphere is buzzing with creative energy, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm tones with blue #4A9BD9 diagram highlights",
+      "overlays": []
+    },
+    {
+      "id": "p2_08_robot_radical",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A small cute round green robot with a tiny plant growing from its head, leaf-shaped ears perking up with excitement, big bright eager eyes, holding a tiny eraser in one hand and pointing at a crossed-out 'RNN' label with the other, standing on a desk near a whiteboard. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"What if attention was ALL you needed?\" Comic book style, warm editorial illustration with ink lines and watercolor washes, clean office background with blue #4A9BD9 accents",
+      "bubble_text": "What if attention was ALL you needed?",
+      "speaker": "SPROUT"
+    },
+    {
+      "id": "p2_09_thinkit",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Think about how <em>you</em> read a complicated sentence. Do you read it one word at a time, left to right, never going back? Or do your eyes jump around -- rereading the beginning, skipping ahead, connecting words that are far apart? Which approach sounds more like how understanding actually works?"
+    },
+    {
+      "id": "p2_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "On June 12, 2017, the team uploaded their paper to arXiv. They gave it a title that was either brilliantly confident or recklessly bold. It was both."
+    }
+  ]
+}

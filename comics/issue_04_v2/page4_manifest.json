@@ -1,0 +1,96 @@
+{
+  "issue": 4,
+  "page": 4,
+  "title": "The Unix Philosophy — Do One Thing Well, Pipe It Together",
+  "accent": "#805AD5",
+  "panels": [
+    {
+      "id": "p4_01_mcilroy_whiteboard",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A distinguished older man in a 1970s collared shirt standing at a whiteboard, enthusiastically drawing a diagram of garden hoses screwed together end-to-end with water flowing through them, arrows showing data flow, other researchers watching with interest, bright fluorescent lab lighting, warm editorial illustration with ink lines and watercolor washes, purple accent on the whiteboard drawings",
+      "overlays": [],
+      "label": "Doug McIlroy at the whiteboard — the garden hose analogy for Unix pipes"
+    },
+    {
+      "id": "p4_02_narration_mcilroy",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Doug McIlroy</strong>, the head of the department where Unix was born, had been championing an idea since the early 1960s. In a 1964 memo, he wrote: <em>\"We should have some ways of coupling programs like garden hoses — screw in another segment when it becomes necessary to massage data in another way.\"</em>"
+    },
+    {
+      "id": "p4_03_robot_sort",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round purple robot with big excited magenta eyes, wearing a tiny factory foreman hard hat, standing on a conveyor belt, eagerly sorting small data cards that flow past, energetic pose with arms gesturing, factory-like background with pipes and gears, purple and magenta tones. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"One sorts. One deduplicates. One counts. Three tiny workers.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "One sorts. One deduplicates. One counts.",
+      "speaker": "FOREMAN"
+    },
+    {
+      "id": "p4_03b_robot_system",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute plump robot with a round turquoise body, big bright green eyes full of excitement, a tiny conductor's baton in one hand, standing between three smaller worker-bots connected by glowing purple pipes, orchestrating their teamwork, warm lighting with purple accent glow. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Connect them and that is a system.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Connect them and that is a system.",
+      "speaker": "CONDUCTOR"
+    },
+    {
+      "id": "p4_04_narration_pipe",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In 1973, Thompson implemented it. The <strong>pipe</strong> — represented by the <code>|</code> symbol — allowed the output of one program to flow directly into the input of another. Before pipes, you had to save intermediate files at every stage. Pipes eliminated the friction and made composing small programs feel natural."
+    },
+    {
+      "id": "p4_05_conveyor_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 690 220\"><rect x=\"10\" y=\"10\" width=\"660\" height=\"170\" rx=\"12\" fill=\"#1A202C\"/><rect x=\"60\" y=\"50\" width=\"100\" height=\"50\" rx=\"8\" fill=\"#805AD5\" stroke=\"#E9D8FD\" stroke-width=\"2\"/><text x=\"110\" y=\"80\" text-anchor=\"middle\" font-size=\"16\" fill=\"#fff\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">sort</text><text x=\"110\" y=\"120\" text-anchor=\"middle\" font-size=\"12\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\">alphabetize</text><line x1=\"160\" y1=\"75\" x2=\"220\" y2=\"75\" stroke=\"#E9D8FD\" stroke-width=\"3\"/><text x=\"190\" y=\"68\" text-anchor=\"middle\" font-size=\"18\" fill=\"#E9D8FD\" font-family=\"JetBrains Mono, monospace\">|</text><rect x=\"220\" y=\"50\" width=\"100\" height=\"50\" rx=\"8\" fill=\"#805AD5\" stroke=\"#E9D8FD\" stroke-width=\"2\"/><text x=\"270\" y=\"80\" text-anchor=\"middle\" font-size=\"16\" fill=\"#fff\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">uniq</text><text x=\"270\" y=\"120\" text-anchor=\"middle\" font-size=\"12\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\">deduplicate</text><line x1=\"320\" y1=\"75\" x2=\"380\" y2=\"75\" stroke=\"#E9D8FD\" stroke-width=\"3\"/><text x=\"350\" y=\"68\" text-anchor=\"middle\" font-size=\"18\" fill=\"#E9D8FD\" font-family=\"JetBrains Mono, monospace\">|</text><rect x=\"380\" y=\"50\" width=\"100\" height=\"50\" rx=\"8\" fill=\"#805AD5\" stroke=\"#E9D8FD\" stroke-width=\"2\"/><text x=\"430\" y=\"80\" text-anchor=\"middle\" font-size=\"16\" fill=\"#fff\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">wc -l</text><text x=\"430\" y=\"120\" text-anchor=\"middle\" font-size=\"12\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\">count lines</text><line x1=\"480\" y1=\"75\" x2=\"540\" y2=\"75\" stroke=\"#48BB78\" stroke-width=\"3\"/><polygon points=\"540,70 555,75 540,80\" fill=\"#48BB78\"/><text x=\"600\" y=\"82\" text-anchor=\"middle\" font-size=\"16\" fill=\"#48BB78\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">42</text><text x=\"340\" y=\"155\" text-anchor=\"middle\" font-size=\"12\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\">sort names.txt | uniq | wc -l → \"How many unique names?\"</text></svg>",
+      "caption": "Three tiny tools, one useful answer — the Unix pipe in action"
+    },
+    {
+      "id": "p4_06_robot_pipe",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 256,
+      "prompt": "A small cute round chrome robot with big triumphant violet eyes, standing proudly on top of a large purple pipe that connects two machines, arms raised in victory, data flowing through the pipe as glowing particles, dramatic lighting with purple beams, celebratory atmosphere. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"That conveyor belt? It is a Unix pipe.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "That conveyor belt? It is a Unix pipe.",
+      "speaker": "CHROMEBOT"
+    },
+    {
+      "id": "p4_07_narration_philosophy",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "McIlroy articulated the Unix philosophy: <em>\"Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.\"</em>"
+    },
+    {
+      "id": "p4_08_comparison",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 230\"><text x=\"340\" y=\"5\" text-anchor=\"middle\" font-size=\"14\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">Old Way vs. Unix Way</text><rect x=\"20\" y=\"25\" width=\"640\" height=\"70\" rx=\"8\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\" stroke-dasharray=\"5,3\"/><text x=\"40\" y=\"48\" font-size=\"12\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">OLD WAY:</text><text x=\"40\" y=\"72\" font-size=\"12\" fill=\"#2D3748\" font-family=\"JetBrains Mono, monospace\">Prog A → save file1.txt → Prog B → save file2.txt → Prog C → result</text><rect x=\"20\" y=\"110\" width=\"640\" height=\"70\" rx=\"8\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"40\" y=\"133\" font-size=\"12\" fill=\"#1A202C\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">UNIX WAY:</text><text x=\"40\" y=\"157\" font-size=\"12\" fill=\"#2D3748\" font-family=\"JetBrains Mono, monospace\">Prog A | Prog B | Prog C → result</text></svg>",
+      "caption": "No intermediate files. No friction. Just flow."
+    },
+    {
+      "id": "p4_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Don't build a Swiss Army knife. Build a knife, a screwdriver, and a can opener — and make them work together. The power is in the <strong>composition</strong>, not in any single tool. <em>Remember this idea. It will come back 55 years later, in a very surprising way.</em>"
+    },
+    {
+      "id": "p4_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Unix had a philosophy. It had pipes. But it was still written in assembly — still chained to one machine. To break that chain, Dennis Ritchie was building something: a new programming language named after a letter of the alphabet."
+    }
+  ]
+}

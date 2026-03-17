@@ -1,0 +1,37 @@
+[
+  {
+    "id": "p10_01_landscape",
+    "label": "The late 1980s \u2014 brilliant, powerful, personal computers, all isolated from each other",
+    "filename": "p10_01_landscape.png",
+    "width": 768,
+    "height": 448
+  },
+  {
+    "id": "p10_02_robot_unix",
+    "label": "",
+    "filename": "p10_02_robot_unix.png",
+    "width": 768,
+    "height": 320
+  },
+  {
+    "id": "p10_04_robot_portability",
+    "label": "",
+    "filename": "p10_04_robot_portability.png",
+    "width": 288,
+    "height": 384
+  },
+  {
+    "id": "p10_05_robot_islands",
+    "label": "",
+    "filename": "p10_05_robot_islands.png",
+    "width": 768,
+    "height": 384
+  },
+  {
+    "id": "p10_09b_robot_island",
+    "label": "",
+    "filename": "p10_09b_robot_island.png",
+    "width": 640,
+    "height": 384
+  }
+]

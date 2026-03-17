@@ -1,0 +1,102 @@
+{
+  "issue": 9,
+  "page": 4,
+  "title": "Architecture 1 — The Lead Agent and Its Specialist Workers",
+  "accent": "#48BB78",
+  "panels": [
+    {
+      "id": "p4_01_hierarchy_visual",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A large organizational diagram brought to life: at the top, a glowing emerald terminal labeled Lead Agent holding a clipboard with a clear plan, lines branch down to three smaller specialist terminals below — one labeled Researcher with a magnifying glass icon, one labeled Coder with a code bracket icon, one labeled Tester with a checkmark icon — each specialist has a focused task bubble glowing above it, results flow back up as green arrows to the lead, dark background with warm lighting and emerald accents. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p4_02_narr_hierarchical",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The first and most common architecture is <strong>hierarchical</strong>: one lead agent that coordinates, and multiple worker agents that execute."
+    },
+    {
+      "id": "p4_03_robot_boss",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute round forest-green robot with big cheerful golden eyes, wearing a tiny teacher's pointer stick in one hand and a miniature clipboard in the other, a mortarboard cap on its head, standing beside a simplified org chart drawn on a floating whiteboard, pointing at the top box labeled 'Lead' with enthusiasm. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"This is the Boss Model. One coordinator, many specialists.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "This is the Boss Model. One coordinator, many specialists.",
+      "speaker": "PROFESSOR"
+    },
+    {
+      "id": "p4_04_step1",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 448,
+      "prompt": "A glowing terminal screen showing step 1: the lead agent receives a task 'Build a user login system' and decomposes it into three subtask cards — 'Research best practices' in blue, 'Write the code' in amber, 'Write the tests' in green — arrows point from the main task to each subtask card, clean organized layout on dark background. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "screen_text": "Build a user login system | Research best practices | Write the code | Write the tests",
+      "overlays": []
+    },
+    {
+      "id": "p4_04b_step2",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 448,
+      "prompt": "Three small specialist terminal screens spinning up simultaneously, each glowing with a different color — blue for Researcher, amber for Coder, green for Tester — each showing a focused brief document, working independently in their own isolated bubbles, results flowing as arrows back toward a lead terminal above them, dark background. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p4_05_narr_how_works",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "You give a complex task to the <strong>lead agent</strong>. It makes a plan: \"This task has three parts.\" It then <strong>spawns</strong> specialist agents — one for each part — and gives each one a focused brief. Each specialist works within its own clean context. When each finishes, it sends its output back to the lead, which synthesizes everything into a final result."
+    },
+    {
+      "id": "p4_06_diagram_hierarchy",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-15 -35 710 410\"><rect x=\"0\" y=\"-20\" width=\"680\" height=\"380\" rx=\"12\" fill=\"#1A202C\"/><text x=\"340\" y=\"16\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"17\" font-weight=\"bold\">The Hierarchical Architecture</text><rect x=\"260\" y=\"40\" width=\"160\" height=\"40\" rx=\"8\" fill=\"#48BB78\" opacity=\"0.3\" stroke=\"#48BB78\" stroke-width=\"2\"/><text x=\"340\" y=\"65\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\">Lead Agent</text><line x1=\"290\" y1=\"80\" x2=\"140\" y2=\"130\" stroke=\"#48BB78\" stroke-width=\"1.5\"/><line x1=\"340\" y1=\"80\" x2=\"340\" y2=\"130\" stroke=\"#48BB78\" stroke-width=\"1.5\"/><line x1=\"390\" y1=\"80\" x2=\"540\" y2=\"130\" stroke=\"#48BB78\" stroke-width=\"1.5\"/><rect x=\"70\" y=\"130\" width=\"140\" height=\"36\" rx=\"7\" fill=\"#4A9BD9\" opacity=\"0.25\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"140\" y=\"153\" text-anchor=\"middle\" fill=\"#BEE3F8\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\">Researcher</text><rect x=\"270\" y=\"130\" width=\"140\" height=\"36\" rx=\"7\" fill=\"#DD6B20\" opacity=\"0.25\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><text x=\"340\" y=\"153\" text-anchor=\"middle\" fill=\"#FFF5EB\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\">Coder</text><rect x=\"470\" y=\"130\" width=\"140\" height=\"36\" rx=\"7\" fill=\"#38A169\" opacity=\"0.25\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"540\" y=\"153\" text-anchor=\"middle\" fill=\"#C6F6D5\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\">Tester</text><text x=\"140\" y=\"190\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">research brief</text><text x=\"340\" y=\"190\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">code files</text><text x=\"540\" y=\"190\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">test results</text><line x1=\"140\" y1=\"200\" x2=\"290\" y2=\"250\" stroke=\"#718096\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><line x1=\"340\" y1=\"200\" x2=\"340\" y2=\"250\" stroke=\"#718096\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><line x1=\"540\" y1=\"200\" x2=\"390\" y2=\"250\" stroke=\"#718096\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><rect x=\"260\" y=\"250\" width=\"160\" height=\"40\" rx=\"8\" fill=\"#48BB78\" opacity=\"0.3\" stroke=\"#48BB78\" stroke-width=\"2\"/><text x=\"340\" y=\"275\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\">Lead synthesizes</text><text x=\"340\" y=\"320\" text-anchor=\"middle\" fill=\"#48BB78\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\">→ Final Output</text></svg>",
+      "caption": "One lead coordinates, specialists execute, results converge"
+    },
+    {
+      "id": "p4_07_narr_claude_task",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "This is the pattern behind <strong>Claude Code's Task tool</strong>. When Claude Code needs to accomplish something complex, it can spawn <strong>subagents</strong> — isolated instances that each tackle a piece of the puzzle. The parent agent maintains the big picture while the children handle the details."
+    },
+    {
+      "id": "p4_08_narr_clean_context",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "It works well because the lead agent's context stays clean. Instead of accumulating thousands of tokens of code output, error logs, and intermediate reasoning, the lead only sees the summaries. The messy details live in the specialists' contexts — which are created fresh and destroyed when done."
+    },
+    {
+      "id": "p4_08b_robot_cleancontext",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round bright-green robot with a dome head and big satisfied emerald LED eyes, stubby arms organizing tiny file folders into neat compartments, antenna with a tiny broom on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Fresh context, focused task. The isolation trick.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Fresh context, focused task. The isolation trick.",
+      "speaker": "TIDYBOT"
+    },
+    {
+      "id": "p4_09_thinkbox",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<em>\"Think about the last group project you worked on. Did you have one person coordinating who did what? Or did everyone just figure it out as they went? Which worked better?\"</em>"
+    },
+    {
+      "id": "p4_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "The hierarchical model is clean and intuitive. But some teams pushed the idea further. What if the agents were not just separate workers — but completely, radically isolated from each other? No shared memory. No real-time communication. Just files on a disk."
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "issue": 9,
+  "page": 6,
+  "title": "The \"Same Brain\" Problem — And Why File-Based Communication Solves It",
+  "accent": "#48BB78",
+  "panels": [
+    {
+      "id": "p6_01_split_review",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "Split illustration: LEFT half shows a single person at a desk wearing a 'Writer' hat, they write an essay then immediately put on a 'Critic' hat to review their own work, their expression uncertain, they keep reading what they meant to write not what they actually wrote — RIGHT half shows a different person in a completely different room reading the same essay for the first time, immediately spotting a red circled error on page two with a surprised expression, the two halves divided by a clear vertical line. Comic book style, warm editorial illustration with ink lines and watercolor washes, emerald green accent on the right side",
+      "overlays": []
+    },
+    {
+      "id": "p6_02_robot_proofread",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A small cute round terracotta-orange robot with big animated teal eyes making a crucial point, one stubby arm raised with index finger up, the other arm holding a tiny red pen, a miniature editor's visor on its head, energetic teaching pose, pencil tucked behind one ear-antenna. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Ever tried proofreading your own writing?\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Ever tried proofreading your own writing?",
+      "speaker": "REDPEN"
+    },
+    {
+      "id": "p6_02b_robot_fresh",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A small cute round cloudy-grey robot with big thoughtful pale blue eyes, wearing tiny spectacles perched on its round nose, holding a magnifying glass examining a document closely, a detective-style deerstalker cap, contemplative and analytical pose. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Fresh eyes catch what familiar eyes miss.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Fresh eyes catch what familiar eyes miss.",
+      "speaker": "DETECTIVE"
+    },
+    {
+      "id": "p6_03_narr_experiment",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Here is a deceptively simple experiment. Give a language model a coding task. Let it write a solution. Then, in the same conversation, ask it to review that solution for bugs. It will almost always be generous — because it already \"knows\" the intent behind every line."
+    },
+    {
+      "id": "p6_04_same_brain_visual",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "Two side by side scenes: LEFT scene shows a single AI agent at a terminal writing code then reviewing it with a green checkmark and '9/10' score displayed, thought bubble shows it reusing the same neural pathways, warm orange glow — RIGHT scene shows a completely separate fresh AI agent at a different terminal reviewing the same code with a red '6/10' score and three bug icons highlighted, thought bubble shows fresh neural pathways lighting up differently, cool blue glow. A dividing line between the two scenes. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p6_05_narr_same_brain",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "This is the <strong>\"Same Brain\" problem.</strong> When a single model instance generates both the work and the critique, the critique is statistically conditioned on the work. The tokens of the review are generated in a context that already contains the tokens of the code. The \"critic\" is not independent — it is the same brain wearing a different hat."
+    },
+    {
+      "id": "p6_06_narr_separate",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Now run the experiment differently. Spawn a <strong>completely separate</strong> model instance. Give it the same code with no conversation history. This second instance routinely finds issues the first one missed. Not because it is a better model — it is literally the <em>same</em> model. But its context is clean."
+    },
+    {
+      "id": "p6_07_diagram_before_after",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-15 -35 710 380\"><rect x=\"0\" y=\"-20\" width=\"680\" height=\"350\" rx=\"12\" fill=\"#1A202C\"/><text x=\"340\" y=\"16\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"17\" font-weight=\"bold\">The Same Brain Problem: Before &amp; After</text><text x=\"170\" y=\"48\" text-anchor=\"middle\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\">BEFORE: Single Context</text><rect x=\"40\" y=\"60\" width=\"130\" height=\"30\" rx=\"6\" fill=\"#DD6B20\" opacity=\"0.3\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><text x=\"105\" y=\"80\" text-anchor=\"middle\" fill=\"#FFF5EB\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Agent writes code</text><text x=\"200\" y=\"80\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\">→</text><rect x=\"220\" y=\"60\" width=\"120\" height=\"30\" rx=\"6\" fill=\"#DD6B20\" opacity=\"0.3\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><text x=\"280\" y=\"80\" text-anchor=\"middle\" fill=\"#FFF5EB\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Same agent reviews</text><text x=\"105\" y=\"115\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-style=\"italic\">(anchored to own reasoning)</text><text x=\"280\" y=\"115\" text-anchor=\"middle\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\">\"Looks good! 9/10\"</text><line x1=\"340\" y1=\"40\" x2=\"340\" y2=\"290\" stroke=\"#4A5568\" stroke-width=\"1\" stroke-dasharray=\"6,4\"/><text x=\"510\" y=\"48\" text-anchor=\"middle\" fill=\"#48BB78\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\">AFTER: Isolated Agents</text><rect x=\"380\" y=\"60\" width=\"120\" height=\"28\" rx=\"6\" fill=\"#48BB78\" opacity=\"0.3\" stroke=\"#48BB78\" stroke-width=\"1.5\"/><text x=\"440\" y=\"79\" text-anchor=\"middle\" fill=\"#C6F6D5\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Agent A writes code</text><text x=\"545\" y=\"79\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\">→</text><rect x=\"560\" y=\"60\" width=\"95\" height=\"28\" rx=\"6\" fill=\"#718096\" opacity=\"0.3\" stroke=\"#718096\" stroke-width=\"5\"/><text x=\"610\" y=\"79\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">saves to file</text><text x=\"510\" y=\"108\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-style=\"italic\">Agent A's process ends. Context destroyed.</text><rect x=\"380\" y=\"125\" width=\"120\" height=\"28\" rx=\"6\" fill=\"#4A9BD9\" opacity=\"0.3\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"440\" y=\"144\" text-anchor=\"middle\" fill=\"#BEE3F8\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Agent B starts fresh</text><text x=\"545\" y=\"144\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\">→</text><rect x=\"560\" y=\"125\" width=\"95\" height=\"28\" rx=\"6\" fill=\"#4A9BD9\" opacity=\"0.3\" stroke=\"#4A9BD9\" stroke-width=\"5\"/><text x=\"610\" y=\"144\" text-anchor=\"middle\" fill=\"#BEE3F8\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">reads file</text><text x=\"510\" y=\"176\" text-anchor=\"middle\" fill=\"#48BB78\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\">\"Found 3 bugs. 6/10.\"</text><text x=\"510\" y=\"196\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-style=\"italic\">(no memory of writing the code)</text><text x=\"340\" y=\"245\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\">Same model. Same code. Different result.</text><text x=\"340\" y=\"270\" text-anchor=\"middle\" fill=\"#48BB78\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\">The difference is not intelligence — it is independence.</text></svg>",
+      "caption": "Isolation eliminates anchoring bias — the same model critiques better from a fresh context"
+    },
+    {
+      "id": "p6_08_narr_process_isolation",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "This is why the Constellation Pattern insists on <strong>process-level isolation</strong>, not just prompt-level role-playing. When Agent B reads Agent A's output file, it processes it as external data — the same way it would process any text you paste into a fresh conversation. The anchoring effect is eliminated by the hard boundary of a separate process."
+    },
+    {
+      "id": "p6_09_narr_files_enforce",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Files make this boundary <em>visible</em> and <em>enforceable</em>. No shared memory, no hidden state, no runtime connection — just text on disk. The simplest possible interface, and therefore the hardest to accidentally contaminate."
+    },
+    {
+      "id": "p6_09b_robot_isolation",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round jade-green robot with a dome head and big alert emerald LED eyes, stubby arms holding a tiny process inside a transparent container with INPUT and OUTPUT ports, antenna with a tiny lock on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Processes isolated. Communication through files only.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Processes isolated. Communication through files only.",
+      "speaker": "CONTAINERBOT"
+    },
+    {
+      "id": "p6_10_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>\"True independence requires separate contexts, not separate models. The same AI, reading the same code in a fresh session, will critique it differently than it would critique its own work — because it has no memory of writing it.\"</strong>"
+    },
+    {
+      "id": "p6_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Isolation gives agents fresh eyes. But when multiple agents need to edit the same codebase at the same time, a new problem appears: how do you keep them from stepping on each other's work? The answer was hiding in a Git feature from 2015."
+    }
+  ]
+}

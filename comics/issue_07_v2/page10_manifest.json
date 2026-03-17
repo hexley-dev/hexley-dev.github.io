@@ -1,0 +1,211 @@
+{
+  "issue": 7,
+  "page": 10,
+  "title": "The Longest Thread -- and What Comes Next",
+  "accent": "#4A9BD9",
+  "panels": [
+    {
+      "id": "p10_01_thread_timeline",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A sweeping panoramic illustration showing a luminous golden thread connecting computing milestones from left to right: a simple tape machine (1936), vacuum tubes (1940s), a compiler terminal (1950s), Unix pipes (1970s), a web browser (1990s), neural network nodes (2010s), and arriving at a glowing Transformer architecture and blinking chat cursor (2017-2023), each milestone is a small detailed vignette connected by the continuous golden thread, the thread glows brighter as it reaches the present, a robot guide stands at the far right looking back along the entire timeline, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm golden thread with blue #4A9BD9 glow at the modern end",
+      "overlays": []
+    },
+    {
+      "id": "p10_02_narration_trace",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Turing imagined a machine that could follow any instruction. Von Neumann built one. Hopper taught it to understand English. The internet connected them all. Neural networks learned to see. And now Transformers have learned to <strong>read, write, and reason</strong>."
+    },
+    {
+      "id": "p10_03_connections",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-20 -20 860 260\"><style>.title{font-size:14px; font-weight:bold; } .issue{font-size:12px; font-weight:bold} .conn{font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" class=\"title\" x=\"410\" y=\"5\" text-anchor=\"middle\">Key Connections Across All Issues</text><g transform=\"translate(20,25)\"><rect x=\"0\" y=\"0\" width=\"380\" height=\"36\" rx=\"6\" fill=\"#FED7D7\" opacity=\"0.3\" stroke=\"#E53E3E\" stroke-width=\"1.2\"/><text class=\"issue\" x=\"10\" y=\"22\" fill=\"#2D3748\">Issue 6: Backprop</text><text fill=\"#2D3748\" class=\"conn\" x=\"155\" y=\"22\" textLength=\"213\" lengthAdjust=\"spacingAndGlyphs\">still trains every Transformer</text></g><g transform=\"translate(420,25)\"><rect x=\"0\" y=\"0\" width=\"380\" height=\"36\" rx=\"6\" fill=\"#FED7D7\" opacity=\"0.3\" stroke=\"#E53E3E\" stroke-width=\"1.2\"/><text class=\"issue\" x=\"10\" y=\"22\" fill=\"#2D3748\">Issue 6: GPUs</text><text fill=\"#2D3748\" class=\"conn\" x=\"110\" y=\"22\">are the essential hardware</text></g><g transform=\"translate(20,72)\"><rect x=\"0\" y=\"0\" width=\"380\" height=\"36\" rx=\"6\" fill=\"#C6F6D5\" opacity=\"0.3\" stroke=\"#38A169\" stroke-width=\"1.2\"/><text class=\"issue\" x=\"10\" y=\"22\" fill=\"#2D3748\">Issue 5: The Web</text><text fill=\"#2D3748\" class=\"conn\" x=\"130\" y=\"22\">provides the training data</text></g><g transform=\"translate(420,72)\"><rect x=\"0\" y=\"0\" width=\"380\" height=\"36\" rx=\"6\" fill=\"#E9D8FD\" opacity=\"0.3\" stroke=\"#805AD5\" stroke-width=\"1.2\"/><text class=\"issue\" x=\"10\" y=\"22\" fill=\"#2D3748\">Issues 4-5: Open Source</text><text fill=\"#2D3748\" class=\"conn\" x=\"185\" y=\"22\">accelerates development</text></g><g transform=\"translate(20,119)\"><rect x=\"0\" y=\"0\" width=\"780\" height=\"36\" rx=\"6\" fill=\"#BEE3F8\" opacity=\"0.3\" stroke=\"#4A9BD9\" stroke-width=\"1.2\"/><text class=\"issue\" x=\"10\" y=\"22\" fill=\"#2D3748\">Issue 4: Composable tools</text><text fill=\"#2D3748\" class=\"conn\" x=\"195\" y=\"22\">return as AI agents piping data via tools (Issues 8-9)</text></g><rect x=\"130\" y=\"172\" width=\"560\" height=\"40\" rx=\"8\" fill=\"#4A9BD9\" opacity=\"0.1\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"410\" y=\"196\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\" textLength=\"532\" lengthAdjust=\"spacingAndGlyphs\">Every revolution builds a new layer of abstraction on top of everything before.</text></svg>",
+      "caption": "The Transformer did not replace neural networks, backpropagation, or GPUs. It stood on all of them."
+    },
+    {
+      "id": "p10_04_robot_reflect",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 576,
+      "prompt": "A small cute flat rectangular robot made of old punch-card paper, folded origami-style with dot-matrix eyes glowing warmly, sitting on a stack of old computer manuals while looking at a modern glowing chat interface hovering in the air before it, one arm reaching toward the past (vintage computing equipment) and the other toward the future (a blinking cursor), reflective and wistful expression. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"But they're still trapped in a text box.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm nostalgic tones blending to cool blue #4A9BD9 future glow",
+      "bubble_text": "But they're still trapped in a text box.",
+      "speaker": "TAPE"
+    },
+    {
+      "id": "p10_05_narration_parrots",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "In 2021, <strong>Timnit Gebru, Emily Bender, Margaret Mitchell</strong>, and Angelina McMillan-Major asked: are LLMs actually understanding language, or just mimicking patterns like a sophisticated parrot? They raised critical questions about environmental cost, biased training data, and whether the race to scale is outpacing our ability to control what we are building."
+    },
+    {
+      "id": "p10_06_narration_parrots2",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The \"Stochastic Parrots\" paper argued that: (1) LLMs do not truly \"understand\" language; (2) training massive models has enormous environmental cost; (3) biases in training data get amplified at scale; (4) the race to scale is driven by corporate incentives, not just science. These are not fringe concerns -- they are <strong>central tensions</strong> in the story of modern AI."
+    },
+    {
+      "id": "p10_07_trapped_textbox",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A glowing chat window floating in pure black emptiness like a portal in the void. The window is a flat bright rectangle with a thin border, containing lines of green text conversation and a blinking cursor at the bottom. Small glowing emoji icons, document symbols, and code brackets orbit the window like satellites in space. The window casts soft blue-green light into the surrounding infinite darkness. Nothing else exists — no desk, no floor, no walls, just the bright floating chat window alone in darkness with orbiting symbols. Comic book style, warm editorial illustration with ink lines and watercolor washes, deep black background with bright blue #4A9BD9 glow from the chat window",
+      "overlays": []
+    },
+    {
+      "id": "p10_08_narration_trapped",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Here is where we are in early 2023: language models can write essays, code, poetry, and analysis. But they are still <strong>trapped</strong>. An LLM lives in a text box. It can write a Python function, but it cannot <em>run</em> it. It can describe a plan, but it cannot <em>execute</em> it."
+    },
+    {
+      "id": "p10_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Every revolution in computing follows the same pattern: someone builds a <strong>new layer of abstraction</strong> on top of everything that came before. The Transformer did not replace neural networks, backpropagation, or GPUs. It stood on all of them."
+    },
+    {
+      "id": "p10_09b_robot_trapped",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round translucent blue robot with a dome head and big wistful indigo LED eyes, stubby arms pressing against an invisible glass wall, a chat window visible on one side, tools on the other side out of reach, antenna drooping. A white speech bubble with black outline above. Inside the bubble the text reads: \"So smart, but trapped in a chat window. Familiar?\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "So smart, but trapped in a chat window. Familiar?",
+      "speaker": "WINDOWBOT"
+    },
+    {
+      "id": "p10_references",
+      "type": "references",
+      "layout": "full-width",
+      "references": [
+        {
+          "title": "Attention Is All You Need.",
+          "author": "Vaswani, A., et al. (2017)",
+          "url": "https://arxiv.org/abs/1706.03762",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Improving Language Understanding by Generative Pre-Training.",
+          "author": "Radford, A., et al. (2018)",
+          "url": "https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Language Models are Unsupervised Multitask Learners.",
+          "author": "Radford, A., et al. (2019)",
+          "url": "https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Language Models are Few-Shot Learners.",
+          "author": "Brown, T. B., et al. (2020)",
+          "url": "https://arxiv.org/abs/2005.14165",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding.",
+          "author": "Devlin, J., et al. (2018)",
+          "url": "https://arxiv.org/abs/1810.04805",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Training language models to follow instructions with human feedback.",
+          "author": "Ouyang, L., et al. (2022)",
+          "url": "https://arxiv.org/abs/2203.02155",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Constitutional AI: Harmlessness from AI Feedback.",
+          "author": "Bai, Y., et al. (2022)",
+          "url": "https://arxiv.org/abs/2212.08073",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Scaling Laws for Neural Language Models.",
+          "author": "Kaplan, J., et al. (2020)",
+          "url": "https://arxiv.org/abs/2001.08361",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Training Compute-Optimal Large Language Models.",
+          "author": "Hoffmann, J., et al. (2022)",
+          "url": "https://arxiv.org/abs/2203.15556",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "The Illustrated Transformer.",
+          "author": "Alammar, J",
+          "url": "https://jalammar.github.io/illustrated-transformer/",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "But what is a GPT? Visual intro to Transformers.",
+          "author": "3Blue1Brown",
+          "url": "https://www.youtube.com/watch?v=wjZofJX0v4M",
+          "type": "video",
+          "note": ""
+        },
+        {
+          "title": "On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?",
+          "author": "Bender, E. M., Gebru, T., et al. (2021)",
+          "url": "https://dl.acm.org/doi/10.1145/3442188.3445922",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Neural Machine Translation by Jointly Learning to Align and Translate.",
+          "author": "Bahdanau, D., Cho, K., & Bengio, Y. (2014)",
+          "url": "https://arxiv.org/abs/1409.0473",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Long Short-Term Memory.",
+          "author": "Hochreiter, S., & Schmidhuber, J. (1997)",
+          "url": "https://www.bioinf.jku.at/publications/older/2604.pdf",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Neural Machine Translation of Rare Words with Subword Units.",
+          "author": "Sennrich, R., Haddow, B., & Birch, A. (2016)",
+          "url": "https://arxiv.org/abs/1508.07909",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Learning to summarize from human feedback.",
+          "author": "Stiennon, N., et al. (2020)",
+          "url": "https://arxiv.org/abs/2009.01325",
+          "type": "paper",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "p10_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "In our next issue, the text box shatters. LLMs learn to use tools -- to run code, read files, browse the web, and take real-world actions. The age of AI agents begins. Issue 8: \"The Agent Awakens.\""
+    }
+  ]
+}

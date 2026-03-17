@@ -1,0 +1,103 @@
+{
+  "issue": 6,
+  "page": 5,
+  "title": "Fourteen Million Images",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p5_01_feifei_office",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A determined woman in her early thirties standing in a small university office surrounded by printouts of images pinned to every wall -- animals, vehicles, furniture, food -- Post-it notes with category labels, computer screens showing taxonomy trees of object categories, stacks of papers on the desk and floor, the atmosphere of obsessive focused work with a clear sense of purpose, warm afternoon light through blinds, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm tones with crimson #E53E3E accents on key labels",
+      "overlays": []
+    },
+    {
+      "id": "p5_02_robot_feifei",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round green robot with big bright admiring eyes, tiny leaf-shaped antenna ears, holding a miniature camera in one stubby arm, leaning forward eagerly as if watching something inspiring, sitting on a stack of photography books, warm paper-tone background. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Fei-Fei Li bet everything on a dataset.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, soft green tones with crimson #E53E3E accents",
+      "bubble_text": "Fei-Fei Li bet everything on a dataset.",
+      "speaker": "LEAFBOT"
+    },
+    {
+      "id": "p5_03_narration_feifei_insight",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "<strong>Fei-Fei Li</strong>, then a new professor at Princeton, looked at the problem differently. She was inspired by how children learn: not by rules, but through <strong>massive exposure</strong> to examples.<br><br>Her insight: the field was spending too much effort on algorithms and not enough on <strong>data</strong>. Colleagues told her it was \"a waste of time.\" Real research meant new algorithms, not data collection."
+    },
+    {
+      "id": "p5_04_immigration_story",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A warm intimate scene of a dry cleaning shop in New Jersey in the early 2000s, a young Asian-American woman in her twenties studying a thick textbook at the front counter while steam presses work behind her, books and papers piled next to the cash register, the contrast between humble working environment and ambitious academic pursuit, warm fluorescent interior lighting mixed with daylight from the front window, sense of grit and determination, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm nostalgic tones",
+      "overlays": []
+    },
+    {
+      "id": "p5_05_narration_path",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "Li had immigrated from Beijing as a teenager. Her parents ran a dry cleaning business in New Jersey. She worked multiple jobs while studying at Princeton. The dataset idea was dismissed by colleagues -- but she pushed forward anyway."
+    },
+    {
+      "id": "p5_06_imagenet_scale",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 330\"><style>.title{font-size:15px; font-weight:bold; } .label{font-size:12px} .small{font-size:12px; } .num{font-size:18px; font-weight:bold; } .cat{font-size:12px; font-weight:bold} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#2D3748\" x=\"340\" y=\"5\" text-anchor=\"middle\" class=\"title\">ImageNet -- The Dataset That Changed Everything</text><g transform=\"translate(30,30)\"><rect x=\"0\" y=\"0\" width=\"620\" height=\"60\" rx=\"10\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\" opacity=\"0.3\"/><text fill=\"#2D3748\" font-size=\"12\" x=\"310\" y=\"22\" text-anchor=\"middle\" class=\"num\">14+ million images</text><text fill=\"#2D3748\" x=\"310\" y=\"42\" text-anchor=\"middle\" class=\"label\">21,000+ categories, labeled by workers worldwide via Amazon Mechanical Turk</text></g><g transform=\"translate(30,110)\"><rect x=\"0\" y=\"0\" width=\"145\" height=\"70\" rx=\"8\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.3\"/><text x=\"72\" y=\"20\" text-anchor=\"middle\" class=\"cat\" fill=\"#4A9BD9\">tabby cat</text><text fill=\"#2D3748\" x=\"72\" y=\"38\" text-anchor=\"middle\" class=\"small\">1,300+ images</text><rect x=\"10\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"42\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"74\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"106\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"160\" y=\"0\" width=\"145\" height=\"70\" rx=\"8\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.3\"/><text x=\"232\" y=\"20\" text-anchor=\"middle\" class=\"cat\" fill=\"#2D3748\">golden retriever</text><text fill=\"#2D3748\" x=\"232\" y=\"38\" text-anchor=\"middle\" class=\"small\">1,300+ images</text><rect x=\"170\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"202\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"234\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"266\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"320\" y=\"0\" width=\"145\" height=\"70\" rx=\"8\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.3\"/><text x=\"392\" y=\"20\" text-anchor=\"middle\" class=\"cat\" fill=\"#D69E2E\">school bus</text><text fill=\"#2D3748\" x=\"392\" y=\"38\" text-anchor=\"middle\" class=\"small\">1,300+ images</text><rect x=\"330\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"362\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"394\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"426\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"480\" y=\"0\" width=\"140\" height=\"70\" rx=\"8\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.3\"/><text x=\"550\" y=\"20\" text-anchor=\"middle\" class=\"cat\" fill=\"#2D3748\">acoustic guitar</text><text fill=\"#2D3748\" x=\"550\" y=\"38\" text-anchor=\"middle\" class=\"small\">1,300+ images</text><rect x=\"490\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"522\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"554\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/><rect x=\"586\" y=\"44\" width=\"28\" height=\"18\" rx=\"3\" fill=\"#E2E8F0\"/></g><text fill=\"#E2E8F0\" x=\"340\" y=\"200\" text-anchor=\"middle\" class=\"small\">...and 20,996 more categories</text><g transform=\"translate(30,215)\"><rect x=\"0\" y=\"0\" width=\"620\" height=\"65\" rx=\"8\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text x=\"310\" y=\"18\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#1A202C\">FEI-FEI LI'S CORE INSIGHT</text><text x=\"310\" y=\"38\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">\"Stop writing rules for what a cat looks like.</text><text x=\"310\" y=\"54\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Show the machine MILLIONS of cats. Let it figure out the rules on its own.\"</text></g></svg>",
+      "caption": "ImageNet: 14 million images, 21,000 categories -- the fuel for deep learning."
+    },
+    {
+      "id": "p5_07_narration_imagenet",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The result was <strong>ImageNet</strong>: over 14 million labeled images in 21,000+ categories. To label at this scale, Li's team used Amazon Mechanical Turk -- paying workers fractions of a cent per label. The project took three years.<br><br>In <strong>2010</strong>, she launched the <strong>ILSVRC</strong> competition: 1,000 categories, 1.2 million training images. The first two years saw modest progress. Traditional methods hit ~25-28% top-5 error.",
+      "style": "default"
+    },
+    {
+      "id": "p5_08_competition_bars",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-42 -20 722 240\"><style>.title{font-size:14px; font-weight:bold; } .label{font-size:12px} .small{font-size:12px; } .year{font-size:12px; font-weight:bold} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" x=\"340\" y=\"5\" text-anchor=\"middle\" class=\"title\">ILSVRC Competition -- Top-5 Error Rate</text><g transform=\"translate(80,30)\"><line x1=\"0\" y1=\"0\" x2=\"0\" y2=\"130\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><line x1=\"0\" y1=\"0\" x2=\"520\" y2=\"0\" stroke=\"#E2E8F0\" stroke-width=\"1\" stroke-dasharray=\"4,4\"/><text fill=\"#E2E8F0\" x=\"-10\" y=\"5\" text-anchor=\"end\" class=\"small\">30%</text><line x1=\"0\" y1=\"43\" x2=\"520\" y2=\"43\" stroke=\"#E2E8F0\" stroke-width=\"1\" stroke-dasharray=\"4,4\"/><text fill=\"#E2E8F0\" x=\"-10\" y=\"48\" text-anchor=\"end\" class=\"small\">20%</text><line x1=\"0\" y1=\"87\" x2=\"520\" y2=\"87\" stroke=\"#E2E8F0\" stroke-width=\"1\" stroke-dasharray=\"4,4\"/><text fill=\"#E2E8F0\" x=\"-10\" y=\"92\" text-anchor=\"end\" class=\"small\">10%</text><line x1=\"0\" y1=\"130\" x2=\"520\" y2=\"130\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><text fill=\"#E2E8F0\" x=\"-10\" y=\"135\" text-anchor=\"end\" class=\"small\">0%</text><rect x=\"40\" y=\"9\" width=\"60\" height=\"121\" rx=\"4\" fill=\"#A0AEC0\" opacity=\"0.7\"/><text fill=\"#E2E8F0\" x=\"70\" y=\"150\" text-anchor=\"middle\" class=\"year\">2010</text><text x=\"70\" y=\"30\" text-anchor=\"middle\" class=\"small\" fill=\"#fff\">~28%</text><rect x=\"150\" y=\"19\" width=\"60\" height=\"111\" rx=\"4\" fill=\"#A0AEC0\" opacity=\"0.7\"/><text fill=\"#E2E8F0\" x=\"180\" y=\"150\" text-anchor=\"middle\" class=\"year\">2011</text><text x=\"180\" y=\"40\" text-anchor=\"middle\" class=\"small\" fill=\"#fff\">~26%</text><rect x=\"260\" y=\"64\" width=\"60\" height=\"66\" rx=\"4\" fill=\"#E53E3E\"/><text x=\"290\" y=\"150\" text-anchor=\"middle\" class=\"year\" fill=\"#E2E8F0\">2012</text><text x=\"290\" y=\"85\" text-anchor=\"middle\" class=\"small\" fill=\"#fff\" textLength=\"40\" lengthAdjust=\"spacingAndGlyphs\">~15.3%</text><text x=\"290\" y=\"55\" text-anchor=\"middle\" font-size=\"16\" fill=\"#FFFFFF\" font-weight=\"bold\">!!!</text><path d=\"M230,30 L255,64\" stroke=\"#E53E3E\" stroke-width=\"2\" stroke-dasharray=\"4,3\" fill=\"none\"/><text x=\"400\" y=\"80\" text-anchor=\"middle\" font-size=\"13\" fill=\"#FFFFFF\" font-weight=\"bold\">~10.8 point gap</text><text x=\"400\" y=\"100\" text-anchor=\"middle\" class=\"small\" fill=\"#E2E8F0\">(unprecedented)</text><line x1=\"325\" y1=\"64\" x2=\"370\" y2=\"64\" stroke=\"#E53E3E\" stroke-width=\"1.5\" stroke-dasharray=\"3,3\"/><line x1=\"325\" y1=\"19\" x2=\"370\" y2=\"19\" stroke=\"#A0AEC0\" stroke-width=\"1.5\" stroke-dasharray=\"3,3\"/><line x1=\"375\" y1=\"19\" x2=\"375\" y2=\"64\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><polygon points=\"373,25 375,19 377,25\" fill=\"#E53E3E\"/><polygon points=\"373,58 375,60 377,58\" fill=\"#E53E3E\"/></g><text x=\"340\" y=\"200\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#FFFFFF\">Then came 2012. Something extraordinary happened.</text></svg>",
+      "caption": "The ILSVRC competition: steady progress, then AlexNet shattered every record."
+    },
+    {
+      "id": "p5_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Fei-Fei Li's ImageNet proved that in machine learning, <strong>data can be more important than algorithms</strong>. A good algorithm with insufficient data learns nothing. A reasonable algorithm with millions of labeled examples can <em>learn to see</em>."
+    },
+    {
+      "id": "p5_10_bias_note",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Think About It:</strong> ImageNet was not perfect. The dataset reflected biases of its web sources -- certain regions were underrepresented, and some labels carried cultural assumptions. Li has since spoken openly about these issues. Even \"letting the data speak\" requires careful attention to <em>whose voices</em> the data represents. Bias in training data becomes bias in the model.",
+      "style": "default"
+    },
+    {
+      "id": "p5_10b_robot_bias",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round crimson robot with a dome head and big serious amber LED eyes, stubby arms holding a magnifying glass over a dataset of tiny colored dots with clusters missing, antenna with a tiny warning triangle on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Bad data in, bad decisions out. Bias is real.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Bad data in, bad decisions out. Bias is real.",
+      "speaker": "WATCHBOT"
+    },
+    {
+      "id": "p5_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "The dataset was ready. The algorithms existed. But what happened in 2012 was not a gradual improvement. It was an earthquake. A professor, a postdoc, and a grad student -- with two video game graphics cards -- were about to obliterate the competition."
+    }
+  ]
+}

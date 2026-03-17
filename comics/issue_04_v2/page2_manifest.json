@@ -1,0 +1,136 @@
+{
+  "issue": 4,
+  "page": 2,
+  "title": "Bell Labs \u2014 The Most Productive Research Lab in History",
+  "accent": "#805AD5",
+  "panels": [
+    {
+      "id": "p2_01_belllabs_exterior",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "Exterior view of a sprawling modernist mid-century research campus with manicured green lawns, clean geometric architecture with long horizontal windows, warm afternoon sunlight, a sense of quiet importance and intellectual power, vintage 1960s aesthetic. NO TEXT ON BUILDINGS, NO SIGNS, NO WRITTEN WORDS, NO LABELS — just architecture. Comic book style, warm editorial illustration with ink lines and watercolor washes, purple accent highlights on building edges",
+      "overlays": [],
+      "label": "Bell Telephone Laboratories, Murray Hill, New Jersey"
+    },
+    {
+      "id": "p2_02_robot_prizes",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute puffy cloud-white robot with big sparkly purple eyes wide with amazement, wearing a tiny lab coat that is too big for it, standing in front of a wall of framed golden Nobel Prize plaques, arms raised in astonishment, warm golden lighting reflecting off the plaques. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Nine Nobel Prizes. The transistor. Information theory.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Nine Nobel Prizes. The transistor. Information theory.",
+      "speaker": "LABCOAT"
+    },
+    {
+      "id": "p2_02b_robot_water",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round seafoam-green robot with big curious teal eyes, a tiny water cooler perched on its head like a hat, one hand on its chin in a thinking pose, standing in a 1960s office hallway with open doors and chalkboards visible, purple and teal tones. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"All from one building. What was in the water?\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "All from one building. What was in the water?",
+      "speaker": "THINKERBOT"
+    },
+    {
+      "id": "p2_03_narration_att",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Bell Telephone Laboratories</strong> was the research arm of AT&T, the American telephone monopoly. It operated from 1925 onward, and its output was staggering."
+    },
+    {
+      "id": "p2_04_hallway",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A warm 1960s office hallway scene at Bell Labs, physicists and mathematicians in white shirts and ties chatting at a chalkboard covered in equations, an open office door with a researcher waving someone in, fluorescent lighting, intellectual camaraderie, vintage Kodachrome color palette with purple accent, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": [],
+      "label": "Bell Labs hallway \u2014 physicists and mathematicians cross-pollinating ideas"
+    },
+    {
+      "id": "p2_04b_cafeteria",
+      "type": "image",
+      "layout": "right",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A 1960s cafeteria table at Bell Labs covered in napkin sketches of circuit diagrams and equations, coffee cups and lunch trays pushed aside, two researchers in shirt sleeves leaning over the sketches excitedly, warm overhead lighting, vintage feel, purple accent on the napkin ink, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": [],
+      "label": "Bell Labs cafeteria \u2014 napkin sketches that changed the world"
+    },
+    {
+      "id": "p2_05_narration_inventions",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The transistor? Bell Labs, 1947. Information theory \u2014 the mathematical foundation of all digital communication? Claude Shannon at Bell Labs, 1948. The laser? Bell Labs. Satellite communications? Bell Labs. Radio astronomy? Bell Labs."
+    },
+    {
+      "id": "p2_06_narration_secret",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "AT&T was a regulated monopoly. It could afford to fund pure research with no expectation of immediate profit. Bell Labs management had a radical philosophy: <strong>hire brilliant people, give them freedom, and trust that useful things will emerge.</strong>"
+    },
+    {
+      "id": "p2_07b_robot_belllabs",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round cloud-white robot with a dome head and big amazed purple LED eyes, wearing a tiny lab coat with BELL LABS patch, stubby arms juggling miniature inventions \u2014 a transistor, a phone, a satellite, a laser beam \u2014 antenna with a tiny bell on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Brilliant people, given freedom. That was the secret.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Brilliant people, given freedom. That was the secret.",
+      "speaker": "BELLBOT"
+    },
+    {
+      "id": "p2_07_narration_dept1127",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In the late 1960s, a corner of this extraordinary environment \u2014 <strong>Department 1127</strong>, the Computing Techniques Research group led by <strong>Doug McIlroy</strong> \u2014 became the birthplace of Unix. Ken Thompson and Dennis Ritchie were there. So was Brian Kernighan. So was <strong>Lorinda Cherry</strong>, a mathematician and programmer who developed tools like <em>eqn</em> \u2014 software that let scientists typeset mathematical equations directly from a terminal."
+    },
+    {
+      "id": "p2_08_cherry_eqn",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A woman programmer in 1970s attire working at a terminal in an office at Bell Labs, the screen showing soft out-of-focus lines of mathematical notation, a sense of quiet accomplishment, warm amber lighting, bookshelves and papers in the background, purple accent on the terminal glow, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": [],
+      "label": "Lorinda Cherry's eqn tool \u2014 mathematical typesetting from a terminal"
+    },
+    {
+      "id": "p2_09_narration_diversity",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "But the Bell Labs of the 1960s and 1970s was overwhelmingly white and male. This was not accidental \u2014 it reflected structural barriers. Most top CS programs admitted few women and fewer people of color. Bell Labs recruited almost exclusively from these programs. The contributions that <em>did</em> come from people outside that narrow slice \u2014 like Cherry's \u2014 only make the question of what was lost sharper."
+    },
+    {
+      "id": "p2_10_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Bell Labs proved something profound: when you give brilliant people freedom and surround them with other brilliant people, the results can change the world. Not in spite of having no immediate commercial goal \u2014 <em>because</em> of it."
+    },
+    {
+      "id": "p2_10b_robot_barriers",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round dusky-rose robot with a dome head and big thoughtful amber LED eyes, wearing a tiny hard hat, stubby arms holding a clipboard, antenna drooping slightly, standing beside a door with a sign reading RESTRICTED ACCESS. A white speech bubble with black outline above. Inside the bubble the text reads: \"Imagine what was lost. Who was locked out.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Imagine what was lost. Who was locked out.",
+      "speaker": "GATEKEEPER"
+    },
+    {
+      "id": "p2_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Two of those brilliant people were about to do something nobody asked them to do. One of them had just gotten three weeks of uninterrupted time \u2014 because his wife took the baby to visit her parents."
+    }
+  ]
+}

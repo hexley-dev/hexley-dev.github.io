@@ -1,0 +1,110 @@
+{
+  "issue": 5,
+  "page": 6,
+  "title": "Irrational Exuberance",
+  "accent": "#D69E2E",
+  "panels": [
+    {
+      "id": "p6_01_nasdaq_rise",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A dramatic stylized stock chart showing a line climbing steeply upward from left to right, glowing gold line against a dark background, dollar signs and dotcom startup logos floating around the ascending line, confetti and money raining upward, the peak labeled 5048, exuberant manic energy, warm editorial illustration with ink lines and watercolor washes, gold #D69E2E accents",
+      "overlays": []
+    },
+    {
+      "id": "p6_02_robot_wild",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round shiny silver robot with big wide green eyes with one eyebrow raised in skeptical surprise, a tiny bowtie and a miniature stock ticker tape trailing from one hand, the other stubby hand raised in a stop gesture, standing on a pile of gold coins and dollar bills, warm golden background. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"Any '.com' company seemed worth billions. Most were not.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Any '.com' company seemed worth billions. Most were not.",
+      "speaker": "SILVERBOT"
+    },
+    {
+      "id": "p6_02b_netscape_ipo",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "Netscape's explosive IPO on August 9, 1995, sent a signal to Wall Street: the internet was where the money was. A 16-month-old company was worth $2.9 billion. Marc Andreessen, 24 years old, appeared barefoot on the cover of <em>Time</em> magazine, sitting on a golden throne."
+    },
+    {
+      "id": "p6_03_gold_rush",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "What followed was a gold rush. Venture capital flooded into any startup with \".com\" in its name. Business plans were optional. Revenue was irrelevant. The metric that mattered was \"eyeballs\" &mdash; how many people visited your website.<br><br>On December 5, 1996, Federal Reserve Chairman Alan Greenspan warned of <strong>\"irrational exuberance\"</strong> in the markets. Nobody listened."
+    },
+    {
+      "id": "p6_04_casualties",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A graveyard of dot-com companies, stylized tombstones with names like Pets.com Webvan Kozmo.com eToys engraved on them, wilting flowers and deflated balloons, a sock puppet mascot lying broken on the ground, overcast grey sky, warm editorial illustration with ink lines and watercolor washes, muted desaturated gold and grey tones",
+      "overlays": []
+    },
+    {
+      "id": "p6_04b_casualties_text",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "<strong>Pets.com</strong> spent $11.8 million on advertising while generating only $619,000 in revenue. It lasted 268 days from IPO to liquidation.<br><br><strong>Webvan</strong> raised $375 million and filed for bankruptcy in 2001.<br><br><strong>Kozmo.com</strong> burned through $280 million delivering snacks by bicycle."
+    },
+    {
+      "id": "p6_05_crash",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 256,
+      "prompt": "Dramatic wide shot of a stock chart line plummeting from a peak, the golden line shattering like glass as it falls, startup logos crumbling and falling like debris, dollar signs evaporating, red downward arrows, the feeling of financial catastrophe, dark stormy background, warm editorial illustration with ink lines and watercolor washes, gold turning to ash",
+      "overlays": []
+    },
+    {
+      "id": "p6_06_crash_narration",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "On <strong>March 10, 2000</strong>, the NASDAQ Composite peaked at <strong>5,048.62</strong>. Then it fell. And kept falling. By October 2002, it had dropped to approximately 1,114 &mdash; a decline of roughly <strong>78%</strong>. Trillions of dollars in market value evaporated. Companies vanished overnight. Thousands of workers lost their jobs.",
+      "style": "accent"
+    },
+    {
+      "id": "p6_07_bubble_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 280\"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x=\"340\" y=\"5\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\" fill=\"#D69E2E\">NASDAQ Composite (1995-2002)</text><polyline points=\"50,200 150,180 250,140 350,60 400,25 410,25 450,80 500,120 550,160 600,190\" fill=\"none\" stroke=\"#D69E2E\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"400\" cy=\"25\" r=\"5\" fill=\"#E53E3E\"/><text x=\"400\" y=\"18\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">5,048 (March 2000)</text><circle cx=\"600\" cy=\"190\" r=\"5\" fill=\"#718096\"/><text x=\"600\" y=\"210\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">~1,114 (Oct 2002)</text><text x=\"50\" y=\"218\" font-size=\"12\" fill=\"#A0AEC0\">Aug 1995</text><text x=\"510\" y=\"145\" font-size=\"13\" fill=\"#FFFFFF\" font-weight=\"bold\">78% decline</text><rect x=\"30\" y=\"230\" width=\"280\" height=\"20\" rx=\"4\" fill=\"#FED7D7\"/><text x=\"170\" y=\"245\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Casualties: Pets.com, Webvan, Kozmo, eToys</text><rect x=\"370\" y=\"230\" width=\"280\" height=\"20\" rx=\"4\" fill=\"#C6F6D5\"/><text x=\"510\" y=\"245\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" textLength=\"260\" lengthAdjust=\"spacingAndGlyphs\">Survivors: Amazon, eBay, Google, PayPal</text></svg>",
+      "caption": "The Dot-Com Bubble: from irrational exuberance to a 78% crash"
+    },
+    {
+      "id": "p6_08_survived",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "But here is what the simple \"bubble\" story misses: the crash destroyed speculative money, not the technology. Internet usage continued to rise throughout the bust. The fiber-optic cables, data centers, and networking infrastructure built during the boom remained &mdash; and actually made the next wave of innovation cheaper. Amazon's stock fell 93% &mdash; from $107 to $7 &mdash; but the company survived and eventually became one of the most valuable in the world."
+    },
+    {
+      "id": "p6_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The dot-com crash taught a brutal lesson: technology that changes the world and companies that make money are <strong>two different things</strong>. The internet was revolutionary. Most dot-com business plans were not. The infrastructure survived. The speculation did not. And the next generation of internet companies would be built on the rubble &mdash; literally inheriting the fiber-optic cables and data centers that the boom had overbuilt.",
+      "style": "accent"
+    },
+    {
+      "id": "p6_09b_robot_survived",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round phoenix-orange robot with a dome head and big determined amber LED eyes, stubby arms rising from a pile of broken dot-com era CDs, wings made of circuit board traces spread wide, antenna with a tiny flame on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"The companies died. The technology lived on.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "The companies died. The technology lived on.",
+      "speaker": "PHOENIX"
+    },
+    {
+      "id": "p6_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Two Stanford PhD students had been watching the chaos from a garage in Menlo Park. They had no business plan and a server made of Lego bricks. But they had something nobody else did: a better way to find things."
+    }
+  ]
+}

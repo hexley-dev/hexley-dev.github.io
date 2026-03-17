@@ -1,0 +1,107 @@
+{
+  "issue": 6,
+  "page": 7,
+  "title": "The Accidental AI Hardware",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p7_01_gpu_split",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A playful split panel composition, left side shows a glowing GPU graphics card rendering a vivid video game scene with colorful particle effects and 3D terrain, right side shows the same model of GPU card now processing a neural network training visualization with flowing data streams and matrix operations, a bold dividing line down the center with a playful double-arrow connecting both sides, warm bright lighting with a sense of technological irony, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm crimson #E53E3E and neon blue accents",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "top-left",
+          "max_width": "220px",
+          "text": "Same hardware. Two completely different purposes."
+        }
+      ]
+    },
+    {
+      "id": "p7_02_robot_amused",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 448,
+      "prompt": "A small cute flat rectangular robot made of punch-card paper with an origami-style folded body, dot-matrix display eyes showing a winking expression, a tiny joystick accessory clipped to its side, one stubby paper arm pointing at something offscreen with an amused posture, warm workshop background with circuit boards. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"AI's best hardware? Built for video games.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm crimson #E53E3E accents",
+      "bubble_text": "AI's best hardware? Built for video games.",
+      "speaker": "TAPEBOT"
+    },
+    {
+      "id": "p7_03_narration_cpu_vs_gpu",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "A <strong>CPU</strong> is like one brilliant mathematician — it solves almost any problem, but works through tasks mostly one at a time. A <strong>GPU</strong> is like an army of thousands of simpler calculators, all working simultaneously. Rendering a video game frame means computing millions of pixels in parallel — and neural network training involves the exact same kind of work."
+    },
+    {
+      "id": "p7_04_cpu_gpu_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 360\"><style>.title{font-size:14px; font-weight:bold; } .label{font-size:12px; font-weight:bold} .small{font-size:12px; } .analogy{font-size:12px; font-style:italic; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" class=\"title\" x=\"340\" y=\"5\" text-anchor=\"middle\">CPU vs GPU — Why GPUs Revolutionized AI</text><rect x=\"30\" y=\"25\" width=\"290\" height=\"130\" rx=\"10\" fill=\"#BEE3F8\" opacity=\"0.2\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text class=\"label\" x=\"175\" y=\"48\" text-anchor=\"middle\" fill=\"#E2E8F0\">CPU (Central Processing Unit)</text><rect x=\"80\" y=\"60\" width=\"50\" height=\"40\" rx=\"6\" fill=\"#4A9BD9\" stroke=\"#2D3748\" stroke-width=\"1.5\"/><text x=\"105\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"white\" font-weight=\"bold\">Core 1</text><rect x=\"145\" y=\"60\" width=\"50\" height=\"40\" rx=\"6\" fill=\"#4A9BD9\" stroke=\"#2D3748\" stroke-width=\"1.5\"/><text x=\"170\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"white\" font-weight=\"bold\">Core 2</text><rect x=\"210\" y=\"60\" width=\"50\" height=\"40\" rx=\"6\" fill=\"#4A9BD9\" opacity=\"0.6\" stroke=\"#2D3748\" stroke-width=\"1.2\"/><text x=\"235\" y=\"84\" text-anchor=\"middle\" font-size=\"12\" fill=\"white\">Core 3</text><text fill=\"#E2E8F0\" class=\"small\" x=\"175\" y=\"120\" text-anchor=\"middle\">4-16 powerful cores</text><text fill=\"#E2E8F0\" class=\"analogy\" x=\"175\" y=\"140\" text-anchor=\"middle\">Like ONE brilliant mathematician</text><rect x=\"360\" y=\"25\" width=\"290\" height=\"130\" rx=\"10\" fill=\"#FED7D7\" opacity=\"0.2\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text class=\"label\" x=\"505\" y=\"48\" text-anchor=\"middle\" fill=\"#E2E8F0\">GPU (Graphics Processing Unit)</text><g transform=\"translate(380,58)\"><rect x=\"0\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.9\"/><rect x=\"17\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.85\"/><rect x=\"34\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.8\"/><rect x=\"51\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.75\"/><rect x=\"68\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.9\"/><rect x=\"85\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.85\"/><rect x=\"102\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.8\"/><rect x=\"119\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.75\"/><rect x=\"136\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.85\"/><rect x=\"153\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.8\"/><rect x=\"170\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.75\"/><rect x=\"187\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.9\"/><rect x=\"204\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.85\"/><rect x=\"221\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.8\"/><rect x=\"238\" y=\"0\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.75\"/><rect x=\"0\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.85\"/><rect x=\"17\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.8\"/><rect x=\"34\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.75\"/><rect x=\"51\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.9\"/><rect x=\"68\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.85\"/><rect x=\"85\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.8\"/><rect x=\"102\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.75\"/><rect x=\"119\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.9\"/><rect x=\"136\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.85\"/><rect x=\"153\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.8\"/><rect x=\"170\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.75\"/><rect x=\"187\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.9\"/><rect x=\"204\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.85\"/><rect x=\"221\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.8\"/><rect x=\"238\" y=\"14\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.75\"/><rect x=\"0\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.8\"/><rect x=\"17\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.75\"/><rect x=\"34\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.9\"/><rect x=\"51\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.85\"/><rect x=\"68\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.8\"/><rect x=\"85\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.75\"/><rect x=\"102\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.9\"/><rect x=\"119\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.85\"/><rect x=\"136\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.8\"/><rect x=\"153\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.75\"/><rect x=\"170\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.9\"/><rect x=\"187\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.85\"/><rect x=\"204\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.8\"/><rect x=\"221\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.75\"/><rect x=\"238\" y=\"28\" width=\"14\" height=\"10\" rx=\"2\" fill=\"#E53E3E\" opacity=\"0.9\"/></g><text fill=\"#E2E8F0\" class=\"small\" x=\"505\" y=\"120\" text-anchor=\"middle\">Thousands of simple cores</text><text fill=\"#E2E8F0\" class=\"analogy\" x=\"505\" y=\"140\" text-anchor=\"middle\">Like an ARMY of calculators</text><rect x=\"120\" y=\"170\" width=\"440\" height=\"65\" rx=\"8\" fill=\"#FEFCBF\" opacity=\"0.4\" stroke=\"#D69E2E\" stroke-width=\"1.2\"/><text x=\"340\" y=\"192\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">Neural Network Training:</text><text fill=\"#E2E8F0\" class=\"small\" x=\"340\" y=\"210\" text-anchor=\"middle\">Each layer = one giant matrix multiplication</text><text fill=\"#E2E8F0\" class=\"small\" x=\"340\" y=\"225\" text-anchor=\"middle\">= millions of multiply-and-add operations = PERFECT for GPU parallelism</text><rect x=\"80\" y=\"250\" width=\"230\" height=\"40\" rx=\"6\" fill=\"#BEE3F8\" opacity=\"0.3\" stroke=\"#4A9BD9\" stroke-width=\"1.2\"/><text x=\"195\" y=\"274\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">CPU: weeks to train</text><rect x=\"370\" y=\"250\" width=\"230\" height=\"40\" rx=\"6\" fill=\"#FED7D7\" opacity=\"0.3\" stroke=\"#E53E3E\" stroke-width=\"1.2\"/><text x=\"485\" y=\"274\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">GPU: ~5 days to train</text><text x=\"340\" y=\"310\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">Speedup: 10x to 70x depending on the task</text></svg>",
+      "caption": "CPUs: a few powerful cores. GPUs: thousands of simple cores working in parallel."
+    },
+    {
+      "id": "p7_05_cuda_scene",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 320,
+      "prompt": "A timeline visualization showing key GPU milestones rendered as a road or path through a landscape, sign posts along the path read '2007 CUDA' at the start, '2009 GPU deep learning' in the middle, '2012 AlexNet' as a triumphant peak, and '2020s NVIDIA rises' at the far end with a gleaming modern building, the road goes from modest beginning to grand future, warm golden hour lighting across the landscape, Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E and warm gold tones",
+      "overlays": []
+    },
+    {
+      "id": "p7_06_narration_cuda",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "NVIDIA released <strong>CUDA</strong> in 2007 — a programming platform for general-purpose computing on GPUs. <strong>Andrew Ng</strong>'s group at Stanford showed GPUs could accelerate deep learning by <strong>10 to 70 times</strong>. Ng co-founded <strong>Google Brain</strong> in 2011, which famously trained a network on YouTube thumbnails — it learned to detect cat-like patterns without ever being labeled \"cat.\""
+    },
+    {
+      "id": "p7_07_narration_nvidia",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Without cheap, powerful GPUs, AlexNet could not have been trained in a reasonable time. NVIDIA CEO Jensen Huang, recognizing the opportunity, pivoted the company's entire strategy toward AI. A graphics card company became one of the most valuable companies on Earth."
+    },
+    {
+      "id": "p7_07b_robot_gpu",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round metallic-green robot with a dome head and big bright lime LED eyes, stubby arms holding a graphics card like a surfboard, antenna with a tiny CUDA core symbol on top, standing on a wave of parallel computation arrows. A white speech bubble with black outline above. Inside the bubble the text reads: \"GPUs: thousands of workers computing in parallel.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "GPUs: thousands of workers computing in parallel.",
+      "speaker": "GPUBOT"
+    },
+    {
+      "id": "p7_08_thinkit",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "AlexNet trained in less than a week on two GPUs. But as models grew, so did their energy demands. Training GPT-3 consumed an estimated <strong>1,287 MWh</strong> of electricity — roughly what 120 US homes use in a year. The deep learning revolution brought incredible capabilities, but also <strong>real environmental costs</strong>."
+    },
+    {
+      "id": "p7_09_robot_reflect",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A small cute round green robot with a tiny sprouting plant growing from its head, leaf-shaped ears drooping thoughtfully, big warm olive-green eyes looking contemplative, one arm resting on its chin in a thinking pose, sitting on a stack of tiny GPU cards as if they were building blocks, soft warm background with gentle lighting. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Power brings responsibility.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm green and crimson #E53E3E tones",
+      "bubble_text": "Power brings responsibility.",
+      "speaker": "SPROUT"
+    },
+    {
+      "id": "p7_10_hook",
+      "type": "css_hook",
+      "layout": "right",
+      "flex": 1,
+      "text": "GPUs provided the compute. ImageNet provided the data. Backpropagation provided the algorithm. But what exactly does a neural network learn inside those hidden layers? The answer is one of the most beautiful results in computer science."
+    }
+  ]
+}

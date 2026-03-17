@@ -1,0 +1,113 @@
+{
+  "issue": 5,
+  "page": 9,
+  "title": "The Tool That Lets Millions Write Code Together",
+  "accent": "#D69E2E",
+  "panels": [
+    {
+      "id": "p9_01_torvalds_annoyed",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A man with dark hair sitting at a computer in April 2005, arms crossed and visibly annoyed scowling at the screen, a thought bubble above his head reading Fine I'll build my own, the screen shows an error message or revoked license notice, dim office lighting, determined expression on his face, warm editorial illustration with ink lines and watercolor washes, gold amber tones",
+      "overlays": []
+    },
+    {
+      "id": "p9_02_robot_impressed",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round wrench-shaped robot with a shiny chrome body, big impressed blue eyes shaking its head slowly, a tiny hard hat on its head, holding a miniature branching tree diagram like a code repository graph, one hand gesturing in disbelief, standing on a circuit board platform, warm golden background. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"Torvalds needed a tool. He built Git in two weeks.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Torvalds needed a tool. He built Git in two weeks.",
+      "speaker": "WRENCHBOT"
+    },
+    {
+      "id": "p9_02b_context",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "The Linux kernel is one of the most complex collaborative software projects in history &mdash; by 2020, over 20,000 developers had contributed. Coordinating that many people editing the same codebase requires a <strong>version control system</strong>.<br><br>Since 2002, Linux had used a proprietary tool called BitKeeper. In April 2005, free licenses were revoked. Torvalds responded by building his own &mdash; he started around April 3 and had a self-hosting version by April 7."
+    },
+    {
+      "id": "p9_03_git_design",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Git's design was radical. Unlike older systems (CVS, SVN) where one central server held the official code, Git is <strong>distributed</strong>. Every developer has a complete copy of the entire repository &mdash; every file, every change, the full history. You can work offline. You can branch &mdash; create your own parallel version &mdash; almost instantly.",
+      "style": "accent"
+    },
+    {
+      "id": "p9_04_vcs_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 330\"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x=\"160\" y=\"5\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#FFFFFF\">OLD MODEL (CVS/SVN)</text><text x=\"510\" y=\"5\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#D69E2E\">GIT (Distributed)</text><rect x=\"90\" y=\"20\" width=\"140\" height=\"80\" rx=\"10\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"160\" y=\"50\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\">CENTRAL</text><text fill=\"#2D3748\" x=\"160\" y=\"68\" text-anchor=\"middle\" font-size=\"12\">SERVER</text><text x=\"160\" y=\"85\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">(single source)</text><rect x=\"60\" y=\"130\" width=\"50\" height=\"35\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" x=\"85\" y=\"152\" text-anchor=\"middle\" font-size=\"12\">A</text><rect x=\"135\" y=\"130\" width=\"50\" height=\"35\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" x=\"160\" y=\"152\" text-anchor=\"middle\" font-size=\"12\">B</text><rect x=\"210\" y=\"130\" width=\"50\" height=\"35\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" x=\"235\" y=\"152\" text-anchor=\"middle\" font-size=\"12\">C</text><line x1=\"85\" y1=\"130\" x2=\"130\" y2=\"100\" stroke=\"#4A5568\" stroke-width=\"1.5\"/><line x1=\"160\" y1=\"130\" x2=\"160\" y2=\"100\" stroke=\"#4A5568\" stroke-width=\"1.5\"/><line x1=\"235\" y1=\"130\" x2=\"190\" y2=\"100\" stroke=\"#4A5568\" stroke-width=\"1.5\"/><text x=\"160\" y=\"185\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">(partial copies)</text><text x=\"160\" y=\"200\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">Server dies = disaster</text><rect x=\"410\" y=\"20\" width=\"90\" height=\"55\" rx=\"8\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"455\" y=\"42\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Full</text><text fill=\"#2D3748\" x=\"455\" y=\"58\" text-anchor=\"middle\" font-size=\"12\">Copy A</text><rect x=\"530\" y=\"20\" width=\"90\" height=\"55\" rx=\"8\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"575\" y=\"42\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Full</text><text fill=\"#2D3748\" x=\"575\" y=\"58\" text-anchor=\"middle\" font-size=\"12\">Copy B</text><rect x=\"410\" y=\"100\" width=\"90\" height=\"55\" rx=\"8\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"455\" y=\"122\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Full</text><text fill=\"#2D3748\" x=\"455\" y=\"138\" text-anchor=\"middle\" font-size=\"12\">Copy C</text><rect x=\"530\" y=\"100\" width=\"90\" height=\"55\" rx=\"8\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"575\" y=\"122\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Full</text><text fill=\"#2D3748\" x=\"575\" y=\"138\" text-anchor=\"middle\" font-size=\"12\">Copy D</text><line x1=\"500\" y1=\"47\" x2=\"530\" y2=\"47\" stroke=\"#D69E2E\" stroke-width=\"2\"/><line x1=\"500\" y1=\"127\" x2=\"530\" y2=\"127\" stroke=\"#D69E2E\" stroke-width=\"2\"/><line x1=\"455\" y1=\"75\" x2=\"455\" y2=\"100\" stroke=\"#D69E2E\" stroke-width=\"2\"/><line x1=\"575\" y1=\"75\" x2=\"575\" y2=\"100\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text x=\"515\" y=\"82\" text-anchor=\"middle\" font-size=\"12\" fill=\"#D69E2E\">merge</text><text x=\"515\" y=\"175\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">(every copy is complete)</text><text x=\"515\" y=\"192\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">No single point of failure</text><line x1=\"320\" y1=\"10\" x2=\"320\" y2=\"210\" stroke=\"#E2E8F0\" stroke-width=\"2\" stroke-dasharray=\"4\"/><rect x=\"90\" y=\"230\" width=\"500\" height=\"60\" rx=\"10\" fill=\"#D69E2E\" stroke=\"#2D3748\" stroke-width=\"2\"/><text x=\"340\" y=\"250\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#fff\">GITHUB (2008) -- Making Git Social</text><text x=\"340\" y=\"273\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FEFCBF\">Fork &#x2192; Change &#x2192; Pull Request &#x2192; Review &#x2192; Merge</text></svg>",
+      "caption": "Centralized vs. Distributed Version Control, and GitHub's social layer"
+    },
+    {
+      "id": "p9_05_notebook_metaphor",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Think of it as a magical notebook where every change is saved forever, you can rewind to any previous version, and a thousand people can write in their own copies simultaneously, then merge all their work together.<br><br>But Git was a command-line tool designed for kernel hackers. It was powerful and notoriously unfriendly. The tool that made Git accessible to everyone came three years later."
+    },
+    {
+      "id": "p9_06_github_scene",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A wide scene showing the GitHub octocat logo at center surrounded by a vast web of connected repositories and developer profiles stretching outward like a social network, pull request icons and code review comments floating around, branching tree diagrams in gold, the feel of a thriving global collaborative community, dark background with glowing gold connections, warm editorial illustration with ink lines and watercolor washes, gold #D69E2E accents",
+      "overlays": []
+    },
+    {
+      "id": "p9_07_github_narration",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In April 2008, <strong>GitHub</strong> launched. Founded by Tom Preston-Werner, Chris Wanstrath, PJ Hyett, and Scott Chacon, GitHub wrapped Git in a web interface and added social features: <strong>pull requests</strong> (a way to propose changes to someone else's code), issue tracking, code review, and developer profiles that functioned like resumes.<br><br>GitHub turned open-source contribution from an insider activity into something anyone could do. See a bug? Fork it, fix it, submit a pull request. The entire process is transparent, documented, and public."
+    },
+    {
+      "id": "p9_08_scale",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "By 2018, when Microsoft acquired GitHub for <strong>$7.5 billion</strong>, the platform hosted over 28 million developers and 85 million repositories. It had become the de facto library of the world's code &mdash; a single place where millions of software projects could be discovered, studied, copied, and improved.",
+      "style": "accent"
+    },
+    {
+      "id": "p9_08b_robot_github",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round dark-green robot with a dome head and big excited lime LED eyes, stubby arms typing on a tiny laptop showing a git branch diagram, antenna with a tiny octopus on top, surrounded by floating code snippets. A white speech bubble with black outline above. Inside the bubble the text reads: \"Three hundred million repositories. Code shared worldwide.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Three hundred million repos. Code shared worldwide.",
+      "speaker": "GITBOT"
+    },
+    {
+      "id": "p9_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Big Idea:</strong> Git and GitHub solved the hardest problem in collaborative creation: how to let thousands of people edit the same thing at the same time without chaos. In doing so, they created the world's largest library of code &mdash; open, searchable, forkable. That library would soon become something no one anticipated: a training dataset for artificial intelligence."
+    },
+    {
+      "id": "p9_10_think",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<em>Think About It:</em> GitHub turned code contribution into a social activity, complete with profiles and contribution histories. How does making collaboration visible and public change the way people work? Does it encourage more participation, or does it create new kinds of pressure?"
+    },
+    {
+      "id": "p9_11_lab",
+      "type": "lab_link",
+      "layout": "full-width",
+      "lab_filename": "full_stack_elevator",
+      "lab_title": "Full Stack Elevator",
+      "lab_description": "Git lives in Layer 4 of the full computing stack. Explore all 8 layers in the Full Stack Elevator -- from physics to swarms, including the web protocols and networking from this issue."
+    },
+    {
+      "id": "p9_12_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "The web connected humanity's documents. Open source connected humanity's code. Wikipedia connected humanity's knowledge. Git and GitHub made it all searchable, forkable, and available at scale. What if a machine could learn from it all?"
+    }
+  ]
+}

@@ -1,0 +1,231 @@
+{
+  "issue": 5,
+  "page": 10,
+  "title": "The Ocean of Data",
+  "accent": "#D69E2E",
+  "panels": [
+    {
+      "id": "p10_01_ocean_establishing",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A vast sweeping panoramic view of a calm ocean at dawn, but the water is made of flowing streams of text, code snippets, hyperlinks, and wiki markup all swirling together in currents, small islands dot the surface each with a tiny glowing signpost, the ocean stretches to the horizon under a warm golden sky, on the sandy shore in the bottom-right corner a tiny round robot stands looking out at the enormity shielding its eyes with one hand, warm editorial illustration with ink lines and watercolor washes, gold #D69E2E sunrise tones, hopeful and awe-inspiring atmosphere",
+      "label": "A vast ocean made of flowing text, code, and data stretching to the horizon, with a small robot on the shore looking out",
+      "overlays": []
+    },
+    {
+      "id": "p10_02_robot_ocean",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute lighthouse-shaped robot with a round white body, big reflective golden eyes, a tiny rotating lamp on its head casting a warm beam, standing at the edge of a sandy shore looking out at a vast horizon, one hand raised shielding its eyes, posture of quiet awe and anticipation, warm golden sunset light, soft waves of text and code lapping at its feet. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"They gave it all away. They built the ocean.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "They gave it all away. They built the ocean.",
+      "speaker": "LIGHTHOUSE-BOT"
+    },
+    {
+      "id": "p10_03_fifteen_years",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "Look at what happened in just fifteen years.<br><br>Berners-Lee gave away the web. Torvalds gave away an operating system. Wales gave away an encyclopedia. Thousands of developers gave away their code.<br><br>Every one of them chose <strong>sharing over control</strong>, openness over ownership."
+    },
+    {
+      "id": "p10_04_extraordinary",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "And without knowing it, they built something extraordinary: the <strong>largest collection of human knowledge and human-written code ever assembled</strong>. Billions of web pages. Hundreds of millions of repositories. The sum total of what humanity knows and builds &mdash; connected and searchable.",
+      "style": "accent"
+    },
+    {
+      "id": "p10_05_openness_left",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A tall warm illustration showing a cascade of hands passing gifts downward like a relay, at the top a hand releases a glowing document labeled WWW, below another hand passes a penguin-shaped software package labeled Linux, below that hands pass an open book labeled Wikipedia, at the bottom hands pass a branching tree diagram labeled GitHub, each gift trails golden sparks as it falls, the background is warm cream with subtle circuit-board patterns, warm editorial illustration with ink lines and watercolor washes, gold #D69E2E accents",
+      "label": "A cascade of hands passing gifts: the Web, Linux, Wikipedia, and GitHub, each enabling the next"
+    },
+    {
+      "id": "p10_05b_openness_text",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "Tim Berners-Lee could have patented the web. <strong>He gave it to the world.</strong><br><br>Linus Torvalds could have kept Linux proprietary. <strong>He released it under the GPL.</strong><br><br>CERN could have charged licensing fees. <strong>They placed HTTP and HTML in the public domain.</strong><br><br>Wikipedia could have been expert-only. <strong>It opened the door to everyone.</strong><br><br>GitHub could have kept repos private by default. <strong>It made open source the norm.</strong>"
+    },
+    {
+      "id": "p10_06_cascade_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -21 680 581\"><style>.year{font-size:13px; font-weight:bold; } .label{font-size:12px} .note{font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text x=\"340\" y=\"5\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#D69E2E\">THE CASCADE OF OPENNESS</text><line x1=\"100\" y1=\"25\" x2=\"100\" y2=\"450\" stroke=\"#D69E2E\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><circle cx=\"100\" cy=\"40\" r=\"6\" fill=\"#D69E2E\"/><text fill=\"#E2E8F0\" x=\"120\" y=\"38\" class=\"year\">1985</text><text fill=\"#E2E8F0\" x=\"120\" y=\"53\" class=\"label\">Perlman's STP enables scalable network bridges</text><circle cx=\"100\" cy=\"80\" r=\"6\" fill=\"#D69E2E\"/><text fill=\"#E2E8F0\" x=\"120\" y=\"78\" class=\"year\">1989</text><text fill=\"#E2E8F0\" x=\"120\" y=\"93\" class=\"label\">Berners-Lee gives away the Web (HTML, HTTP, URLs)</text><circle cx=\"100\" cy=\"120\" r=\"6\" fill=\"#D69E2E\"/><text fill=\"#E2E8F0\" x=\"120\" y=\"118\" class=\"year\">1991</text><text fill=\"#E2E8F0\" x=\"120\" y=\"133\" class=\"label\">Torvalds gives away Linux (GPL)</text><circle cx=\"100\" cy=\"160\" r=\"6\" fill=\"#D69E2E\"/><text fill=\"#E2E8F0\" x=\"120\" y=\"158\" class=\"year\">1993</text><text fill=\"#E2E8F0\" x=\"120\" y=\"173\" class=\"label\">CERN releases WWW into the public domain</text><circle cx=\"100\" cy=\"200\" r=\"6\" fill=\"#D69E2E\"/><text fill=\"#E2E8F0\" x=\"120\" y=\"198\" class=\"year\">1997</text><text fill=\"#E2E8F0\" x=\"120\" y=\"213\" class=\"label\">Raymond explains WHY openness wins</text><circle cx=\"100\" cy=\"240\" r=\"6\" fill=\"#D69E2E\"/><text fill=\"#E2E8F0\" x=\"120\" y=\"238\" class=\"year\">1998</text><text fill=\"#E2E8F0\" x=\"120\" y=\"253\" class=\"label\">Google organizes the open web</text><text fill=\"#E2E8F0\" x=\"140\" y=\"268\" class=\"note\">Baker shepherds Mozilla &#x2192; Firefox (2004)</text><circle cx=\"100\" cy=\"310\" r=\"6\" fill=\"#D69E2E\"/><text fill=\"#E2E8F0\" x=\"120\" y=\"308\" class=\"year\">2001</text><text fill=\"#E2E8F0\" x=\"120\" y=\"323\" class=\"label\">Wikipedia opens knowledge to everyone</text><circle cx=\"100\" cy=\"355\" r=\"6\" fill=\"#D69E2E\"/><text fill=\"#E2E8F0\" x=\"120\" y=\"353\" class=\"year\">2005</text><text fill=\"#E2E8F0\" x=\"120\" y=\"368\" class=\"label\">Git enables distributed collaboration</text><circle cx=\"100\" cy=\"400\" r=\"6\" fill=\"#D69E2E\"/><text fill=\"#E2E8F0\" x=\"120\" y=\"398\" class=\"year\">2008</text><text fill=\"#E2E8F0\" x=\"120\" y=\"413\" class=\"label\">GitHub makes code sharing social</text><polygon points=\"100,450 94,440 106,440\" fill=\"#D69E2E\"/><rect x=\"50\" y=\"465\" width=\"580\" height=\"60\" rx=\"10\" fill=\"#D69E2E\" stroke=\"#2D3748\" stroke-width=\"2\"/><text x=\"340\" y=\"488\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#fff\">THE RESULT: An ocean of connected data</text><text x=\"340\" y=\"508\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FEFCBF\" textLength=\"548\" lengthAdjust=\"spacingAndGlyphs\">Billions of pages, millions of repos &mdash; the sum of human knowledge online</text></svg>",
+      "caption": "The Cascade of Openness: each act of sharing enabled the next"
+    },
+    {
+      "id": "p10_07_demographics",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "But this story is not purely heroic. The connected world was shaped by who had access: overwhelmingly English-speaking, Western, educated, and male. The \"openness\" was real, but it reflected the demographics of its creators. And the cumulative result &mdash; this ocean of human-created content &mdash; would soon be used in ways those creators <strong>never imagined and never consented to</strong>."
+    },
+    {
+      "id": "p10_08_question_scene",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 256,
+      "prompt": "A wide ultra-cinematic panel showing a vast calm ocean of flowing text and code at night under stars, and on the far horizon a large mechanical shape is rising out of the data ocean like a submarine surfacing, its silhouette suggesting gears and circuits and a single glowing eye, beams of golden light radiate from it, the scene feels like a new dawn approaching, the mood is curious and anticipatory not threatening, warm editorial illustration with ink lines and watercolor washes, deep navy sky with gold #D69E2E highlights",
+      "label": "A vast data ocean at night with a large mechanical shape rising on the horizon, suggesting something new emerging from the collected knowledge",
+      "overlays": []
+    },
+    {
+      "id": "p10_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Big Idea:</strong> The connected world was built by people who chose sharing over hoarding, openness over control. In doing so, they unknowingly created something beyond any individual's imagination: the <strong>training data for artificial intelligence</strong>. The web, open source, Wikipedia, and GitHub did not just connect humanity. They created the raw material for machines that learn. Whether the creators would have consented to that use is an open question.",
+      "style": "accent"
+    },
+    {
+      "id": "p10_10_think",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<em>Think About It:</em> Every piece of text on the web, every line of code on GitHub, every Wikipedia article was created by a human being. When an AI trains on billions of web pages, is it \"learning\" the same way a student learns from a textbook? Who owns the knowledge that billions of people contributed freely? Who owns the patterns a machine discovers in that knowledge? And did the people who built the open web consent to their work being used this way?"
+    },
+    {
+      "id": "p10_10b_robot_connected",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round warm-copper robot with a dome head and big reflective gold LED eyes, stubby arms spreading a glowing web of connections between tiny computer icons, antenna with a tiny satellite dish on top, standing on a globe. A white speech bubble with black outline above. Inside the bubble the text reads: \"Connected. Open. Shared. Now what do we build?\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Connected. Open. Shared. Now what do we build?",
+      "speaker": "WEBBOT"
+    },
+    {
+      "id": "p10_references",
+      "type": "references",
+      "layout": "full-width",
+      "references": [
+        {
+          "title": "Information Management: A Proposal.",
+          "author": "Berners-Lee, Tim",
+          "url": "https://www.w3.org/History/1989/proposal.html",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Weaving the Web: The Original Design and Ultimate Destiny of the World Wide Web.",
+          "author": "Berners-Lee, Tim",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Just for Fun: The Story of an Accidental Revolutionary.",
+          "author": "Torvalds, Linus and Diamond, David",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "The Cathedral and the Bazaar.",
+          "author": "Raymond, Eric S",
+          "url": "http://www.catb.org/~esr/writings/cathedral-bazaar/",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "The Anatomy of a Large-Scale Hypertextual Web Search Engine.",
+          "author": "Page, Lawrence and Brin, Sergey",
+          "url": "http://infolab.stanford.edu/~backrub/google.html",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "In the Plex: How Google Thinks, Works, and Shapes Our Lives.",
+          "author": "Levy, Steven",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "The Wikipedia Revolution: How a Bunch of Nobodies Created the World's Greatest Encyclopedia.",
+          "author": "Lih, Andrew",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Dot.con: How America Lost Its Mind and Money in the Internet Age.",
+          "author": "Cassidy, John",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Pro Git.",
+          "author": "Chacon, Scott and Straub, Ben",
+          "url": "https://git-scm.com/book",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Internet encyclopaedias go head to head.",
+          "author": "Giles, Jim",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Netscape Time: The Making of the Billion-Dollar Start-Up That Took On Microsoft.",
+          "author": "Clark, Jim",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "A Short History of the Web.",
+          "author": "CERN",
+          "url": "https://home.cern/science/computing/birth-web/short-history-web",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "How Git Works",
+          "author": "Computerphile (YouTube)",
+          "url": "",
+          "type": "video",
+          "note": ""
+        },
+        {
+          "title": "Interconnections: Bridges, Routers, Switches, and Internetworking Protocols.",
+          "author": "Perlman, Radia",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "The Mozilla Manifesto.",
+          "author": "Baker, Mitchell",
+          "url": "https://www.mozilla.org/en-US/about/manifesto/",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Wikipedia Survey.",
+          "author": "Glott, Ruediger, Philipp Schmidt, and Rishab Ghosh",
+          "url": "",
+          "type": "paper",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "p10_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "For sixty years, humans wrote rules for machines. Then three stubborn researchers proved that machines could discover their own rules — if you gave them enough examples and enough compute. The age of machine learning begins. Next: Issue 6 — \"Machines That Learn.\""
+    }
+  ]
+}

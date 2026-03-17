@@ -1,0 +1,93 @@
+{
+  "issue": 1,
+  "page": 1,
+  "title": "Can a Machine Think?",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p1_01_sky",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "Vast deep-navy night sky filled with glowing mathematical symbols floating like constellations — integral signs, summation ∑, square root √, infinity ∞, logical operators ∀∃, equals signs — soft nebula clouds in indigo and violet, tiny glowing dots connect symbols like star charts, a faint strip of binary tape with 0s and 1s half-hidden among the equations as subtle foreshadowing, sense of cosmic wonder and mystery, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p1_02_narration_2am",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "It sounds like the kind of question a kid asks at 2&nbsp;AM. The kind adults smile at and say, <em>\"That's very interesting, dear.\"</em>"
+    },
+    {
+      "id": "p1_03_clockwork_wonder",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 448,
+      "gen_height": 576,
+      "prompt": "A small cute round brass robot with big curious green clock-face eyes, a tiny gear on its back and a miniature top hat, sitting on the edge of a giant glowing question mark with stubby legs dangling into starry void below, head tilted up in wonder, warm and friendly expression, one hand resting on chin thoughtfully. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Is there a recipe for ANY logical question?\" Comic book style, warm editorial illustration with ink lines and watercolor washes, deep blue starry background",
+      "bubble_text": "Is there a recipe for ANY logical question?",
+      "speaker": "CLOCKWORK"
+    },
+    {
+      "id": "p1_04_chalkbot_serious",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 3,
+      "gen_width": 448,
+      "gen_height": 576,
+      "prompt": "A small cute puffy robot with a round dark-grey body covered in glowing white chalk doodles of equations and stars, big bright yellow LED eyes radiating curiosity, a tiny chalk stick tucked behind one ear, one stubby hand raised presenting an idea, floating in a deep starry void. A white speech bubble with black outline above the robot. Inside the bubble the text reads: \"Someone asked this. Seriously.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Someone asked this. Seriously.",
+      "speaker": "CHALKBOT"
+    },
+    {
+      "id": "p1_05_narration_1928",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "But in <strong>1928</strong>, one of the most famous mathematicians alive asked this question <em>seriously</em>. And he expected the answer to be <strong>yes</strong>.",
+      "style": "default"
+    },
+    {
+      "id": "p1_06_hilbert_lecture",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "A grand 1920s lecture hall with warm amber lighting, rows of seated mathematicians in dark suits seen from behind, at the front a commanding white-haired elderly professor stands at a large green chalkboard gesturing dramatically with one hand raised, the chalkboard shows 'Entscheidungsproblem' in elegant chalk script, dust motes drift in shafts of golden light from tall windows, atmosphere of intellectual intensity and historic significance, warm editorial illustration with ink lines and watercolor washes, red accent highlights on the professor's podium",
+      "overlays": []
+    },
+    {
+      "id": "p1_07_wrong_impact",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 256,
+      "prompt": "Abstract dramatic explosion of shattering golden mathematical symbols and equations breaking apart like glass against deep crimson and dark background, shards of formulas flying outward from center, bold dramatic white text in the center reads: \"He was wrong.\" dramatic chiaroscuro lighting, bold and cinematic, editorial illustration style with ink lines",
+      "bubble_text": "He was wrong.",
+      "bubble_style": "impact"
+    },
+    {
+      "id": "p1_08_narration_wrong",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Spectacularly, beautifully, <em>world-changingly</em> wrong.<br><br>The story of how we found that out is the story of how <strong>computing was born</strong>. Not in a lab. Not in a factory. In the mind of a mathematician who liked to run long distances and think about impossible things."
+    },
+    {
+      "id": "p1_09_runner",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "Silhouette of a young man running alone along a misty riverbank at golden-hour dusk, Cambridge gothic college spires in the distant background, scattered autumn leaves on the ground, reflections of the runner in still water, moody atmospheric perspective with layers of mist, dreamy contemplative mood, warm editorial illustration with ink lines and watercolor washes in earth tones with subtle red accent in the sky",
+      "overlays": []
+    },
+    {
+      "id": "p1_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Who was the mathematician who asked the question? And who was the young man who proved him wrong?"
+    }
+  ]
+}

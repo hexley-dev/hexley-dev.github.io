@@ -1,0 +1,89 @@
+{
+  "issue": 1,
+  "page": 4,
+  "title": "The Simplest Possible Machine",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p4_01_tinbot_excited",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute squat boxy retro toy robot with big round orange headlamp eyes blazing with excitement, tiny antenna ears with red bobbles, a little wind-up key on its back, pastel silver body with rounded edges, arms spread wide in a dramatic reveal gesture, standing on a clean white stage with spotlights, mathematical symbols floating in the background like confetti. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"THIS is the idea that started everything.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "THIS is the idea that started everything.",
+      "speaker": "TINBOT"
+    },
+    {
+      "id": "p4_02_narration_genius",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Turing's genius was not in building something complex. It was in stripping computation down to its absolute essence.<br><br>He asked himself: when a human mathematician sits down to solve a problem, what are they <em>actually doing</em>? They're looking at symbols on paper. They're following rules. They're writing new symbols. They're deciding what to do next based on what they see.",
+      "style": "default"
+    },
+    {
+      "id": "p4_03_turing_thinking",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 448,
+      "gen_height": 576,
+      "prompt": "A young man with dark wavy hair in his twenties sits at a plain wooden desk in a sparse Cambridge study, chin resting on one hand in deep thought, a few sheets of paper before him with diagrams of tape and squares, a pencil in his other hand, soft golden afternoon light through a leaded window illuminates his focused expression, the feeling of an idea forming, contemplative and intimate atmosphere, warm editorial illustration with ink lines and watercolor washes in warm earth tones",
+      "overlays": []
+    },
+    {
+      "id": "p4_04_narration_amachine",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "So Turing imagined the simplest possible version of this process. He called it an <strong>a-machine</strong> (automatic machine) — we now call it a <strong>Turing Machine</strong>, a name that came into use after Alonzo Church used it in his 1937 review of Turing's paper — and it has just <strong>three parts</strong>:",
+      "style": "default"
+    },
+    {
+      "id": "p4_05_tm_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-10 -30 700 480\"><rect x=\"5\" y=\"-15\" width=\"670\" height=\"450\" rx=\"12\" fill=\"#1A202C\" stroke=\"#4A5568\" stroke-width=\"1.5\"/><text x=\"340\" y=\"12\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"20\" font-weight=\"bold\" fill=\"#FFFFFF\">THE TURING MACHINE</text><rect x=\"275\" y=\"30\" width=\"130\" height=\"50\" rx=\"8\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"2\"/><text x=\"340\" y=\"52\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">STATE: \"B\"</text><text x=\"340\" y=\"68\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">current \"mood\"</text><line x1=\"340\" y1=\"80\" x2=\"340\" y2=\"105\" stroke=\"#805AD5\" stroke-width=\"2\" marker-end=\"url(#arrowPurple)\"/><defs><marker id=\"arrowPurple\" markerWidth=\"8\" markerHeight=\"6\" refX=\"8\" refY=\"3\" orient=\"auto\"><polygon points=\"0,0 8,3 0,6\" fill=\"#805AD5\"/></marker><marker id=\"arrowRed\" markerWidth=\"8\" markerHeight=\"6\" refX=\"8\" refY=\"3\" orient=\"auto\"><polygon points=\"0,0 8,3 0,6\" fill=\"#E53E3E\"/></marker></defs><rect x=\"250\" y=\"105\" width=\"180\" height=\"40\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><text x=\"340\" y=\"122\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">READ / WRITE HEAD</text><text x=\"340\" y=\"137\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\" textLength=\"156\" lengthAdjust=\"spacingAndGlyphs\">reads, writes, moves L/R</text><line x1=\"340\" y1=\"145\" x2=\"340\" y2=\"165\" stroke=\"#4A9BD9\" stroke-width=\"2\" marker-end=\"url(#arrowPurple)\"/><rect x=\"80\" y=\"170\" width=\"60\" height=\"40\" rx=\"4\" fill=\"#2D3748\" stroke=\"#718096\" stroke-width=\"1.5\"/><text x=\"110\" y=\"195\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" fill=\"#A0AEC0\"> </text><rect x=\"140\" y=\"170\" width=\"60\" height=\"40\" rx=\"4\" fill=\"#2D3748\" stroke=\"#718096\" stroke-width=\"1.5\"/><text x=\"170\" y=\"195\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" fill=\"#48BB78\">1</text><rect x=\"200\" y=\"170\" width=\"60\" height=\"40\" rx=\"4\" fill=\"#2D3748\" stroke=\"#718096\" stroke-width=\"1.5\"/><text x=\"230\" y=\"195\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" fill=\"#48BB78\">0</text><rect x=\"260\" y=\"170\" width=\"60\" height=\"40\" rx=\"4\" fill=\"#2D3748\" stroke=\"#718096\" stroke-width=\"1.5\"/><text x=\"290\" y=\"195\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" fill=\"#48BB78\">1</text><rect x=\"320\" y=\"170\" width=\"60\" height=\"40\" rx=\"4\" fill=\"#E53E3E\" stroke=\"#fff\" stroke-width=\"2\"/><text x=\"350\" y=\"195\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#fff\">1</text><rect x=\"380\" y=\"170\" width=\"60\" height=\"40\" rx=\"4\" fill=\"#2D3748\" stroke=\"#718096\" stroke-width=\"1.5\"/><text x=\"410\" y=\"195\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" fill=\"#A0AEC0\"> </text><rect x=\"440\" y=\"170\" width=\"60\" height=\"40\" rx=\"4\" fill=\"#2D3748\" stroke=\"#718096\" stroke-width=\"1.5\"/><text x=\"470\" y=\"195\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" fill=\"#48BB78\">0</text><rect x=\"500\" y=\"170\" width=\"60\" height=\"40\" rx=\"4\" fill=\"#2D3748\" stroke=\"#718096\" stroke-width=\"1.5\"/><text x=\"530\" y=\"195\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" fill=\"#A0AEC0\"> </text><text x=\"50\" y=\"195\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">...∞</text><text x=\"590\" y=\"195\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">∞...</text><text x=\"340\" y=\"230\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#A0AEC0\">INFINITE TAPE — each cell holds one symbol (0, 1, or blank)</text><rect x=\"140\" y=\"255\" width=\"400\" height=\"155\" rx=\"8\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text x=\"340\" y=\"278\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"15\" font-weight=\"bold\" fill=\"#1A202C\">RULE TABLE (example)</text><text x=\"175\" y=\"298\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#2D3748\">State</text><text x=\"240\" y=\"298\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#2D3748\">See</text><text x=\"300\" y=\"298\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#2D3748\">Write</text><text x=\"365\" y=\"298\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#2D3748\">Move</text><text x=\"435\" y=\"298\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#2D3748\">Next</text><line x1=\"155\" y1=\"303\" x2=\"525\" y2=\"303\" stroke=\"#D69E2E\" stroke-width=\"1\"/><text x=\"175\" y=\"322\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">A</text><text x=\"240\" y=\"322\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">0</text><text x=\"300\" y=\"322\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">1</text><text x=\"365\" y=\"322\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">R</text><text x=\"435\" y=\"322\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">B</text><text x=\"175\" y=\"344\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">A</text><text x=\"240\" y=\"344\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">1</text><text x=\"300\" y=\"344\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">0</text><text x=\"365\" y=\"344\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">L</text><text x=\"435\" y=\"344\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">A</text><text x=\"175\" y=\"366\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">B</text><text x=\"240\" y=\"366\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">0</text><text x=\"300\" y=\"366\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">1</text><text x=\"365\" y=\"366\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">L</text><text x=\"435\" y=\"366\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">A</text><text x=\"175\" y=\"388\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">B</text><text x=\"240\" y=\"388\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">1</text><text x=\"300\" y=\"388\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">1</text><text x=\"365\" y=\"388\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">R</text><text x=\"435\" y=\"388\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#2D3748\">B</text></svg>",
+      "caption": "A Turing Machine: tape, head, state register, and rule table"
+    },
+    {
+      "id": "p4_06_narration_parts",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>1. An infinite tape</strong> divided into cells. Each cell holds a single symbol — a 0, a 1, or blank. The tape stretches infinitely in both directions. This is the machine's memory.<br><br><strong>2. A read/write head</strong> that sits over one cell at a time. It reads the symbol, can erase it or write a new one, then moves one cell left or right.<br><br><strong>3. A rule table</strong> — the machine's \"brain.\" A finite list of instructions: \"If you're in <em>this</em> state and see <em>this</em> symbol, write <em>this</em>, move <em>this</em> direction, switch to <em>this</em> state.\"",
+      "style": "default"
+    },
+    {
+      "id": "p4_07_narration_thats_it",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "That's the whole machine. <strong>Tape. Head. Rules. State.</strong> Nothing else."
+    },
+    {
+      "id": "p4_08_scholar_tryit",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 384,
+      "gen_height": 384,
+      "prompt": "A small cute soft round robot wearing an oversized floppy graduation cap that keeps slipping over one big sparkly blue eye, holding a tiny pencil and a scrap of paper with a simple table drawn on it, leaning forward encouragingly toward the viewer, warm friendly expression, soft cream background with faint mathematical doodles. A white speech bubble with black outline above. Inside the bubble the text reads: \"Try it! Start in state A, reading a 0.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Try it! Start in state A, reading a 0.",
+      "speaker": "SCHOLAR"
+    },
+    {
+      "id": "p4_09_tryit_text",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "Imagine a very patient person sitting at an endlessly long scroll of paper, with a pencil, an eraser, and a very precise instruction booklet. They can only see one square at a time. They follow the booklet exactly. No creativity, no shortcuts. Just rules.",
+      "style": "default"
+    },
+    {
+      "id": "p4_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Okay, that's the machine in theory. But does it actually DO anything useful? Let's watch one work — step by step."
+    }
+  ]
+}

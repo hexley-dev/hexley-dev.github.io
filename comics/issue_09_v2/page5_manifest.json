@@ -1,0 +1,97 @@
+{
+  "issue": 9,
+  "page": 5,
+  "title": "Architecture 2 — The Constellation Pattern: True Isolation",
+  "accent": "#48BB78",
+  "panels": [
+    {
+      "id": "p5_01_sealed_rooms",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "Five separate sealed rooms viewed from a bird's eye cutaway perspective, each room containing a single AI agent working at its own terminal, no doors connecting the rooms, between the rooms a shared hallway with a table covered in neatly labeled folders, each agent can leave a folder and pick up folders left by others but they never meet, atmospheric lighting with emerald green accent glow on the folders, dark walls separating each room. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p5_02_narr_constellation_intro",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In early 2025, practitioners experimenting with Claude Code developed a distinct approach they called the <strong>Constellation Pattern</strong>, and it took multi-agent isolation to its logical extreme."
+    },
+    {
+      "id": "p5_03_robot_radical",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A small cute round midnight-blue robot with big bright silver eyes sparkling with a secret, leaning in conspiratorially toward the viewer, one hand cupped beside its mouth as if whispering, a tiny constellation star-map pattern glowing on its belly, a miniature telescope strapped to its back, mysterious and delighted expression. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"No shared memory. No group chat.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "No shared memory. No group chat.",
+      "speaker": "STARMAP"
+    },
+    {
+      "id": "p5_03b_robot_secret",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A small cute round pearlescent white robot with big sparkling pink eyes full of delight, stubby arms spread wide in a revelatory gesture, a tiny crown of glowing stars orbiting its head like a halo, translucent body shimmering with inner light, against a deep space background with constellation lines connecting stars. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"They NEVER meet. That is the secret to their power.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "They NEVER meet. That is the secret to their power.",
+      "speaker": "HALO"
+    },
+    {
+      "id": "p5_04_narr_how_it_works",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Each agent is a <strong>completely separate invocation</strong> of the AI model. Not a different persona within one conversation. A separate process, with its own fresh context window, that starts from zero."
+    },
+    {
+      "id": "p5_05_narr_file_communication",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The agents communicate through <strong>one channel only: files on the filesystem.</strong> Agent A writes its output to a markdown file. Agent B reads that file as input. Agent B has never \"been\" Agent A. It has no memory of Agent A's reasoning. When it reads Agent A's output, it processes it as external information — like a document written by a stranger."
+    },
+    {
+      "id": "p5_06_constellation_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-15 -35 710 450\"><rect x=\"0\" y=\"-20\" width=\"680\" height=\"420\" rx=\"12\" fill=\"#1A202C\"/><text x=\"340\" y=\"16\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"17\" font-weight=\"bold\">The Constellation Pattern Architecture</text><rect x=\"265\" y=\"35\" width=\"150\" height=\"36\" rx=\"8\" fill=\"#48BB78\" opacity=\"0.3\" stroke=\"#48BB78\" stroke-width=\"2\"/><text x=\"340\" y=\"58\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\">Orchestrator</text><rect x=\"30\" y=\"110\" width=\"110\" height=\"32\" rx=\"6\" fill=\"#4A9BD9\" opacity=\"0.25\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"85\" y=\"131\" text-anchor=\"middle\" fill=\"#BEE3F8\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Researcher</text><rect x=\"160\" y=\"110\" width=\"100\" height=\"32\" rx=\"6\" fill=\"#DD6B20\" opacity=\"0.25\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><text x=\"210\" y=\"131\" text-anchor=\"middle\" fill=\"#FFF5EB\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Writer</text><rect x=\"280\" y=\"110\" width=\"120\" height=\"32\" rx=\"6\" fill=\"#805AD5\" opacity=\"0.25\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"340\" y=\"131\" text-anchor=\"middle\" fill=\"#E9D8FD\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Illustrator</text><rect x=\"420\" y=\"110\" width=\"100\" height=\"32\" rx=\"6\" fill=\"#38A169\" opacity=\"0.25\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"470\" y=\"131\" text-anchor=\"middle\" fill=\"#C6F6D5\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Editor</text><rect x=\"540\" y=\"110\" width=\"110\" height=\"32\" rx=\"6\" fill=\"#E53E3E\" opacity=\"0.25\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"595\" y=\"131\" text-anchor=\"middle\" fill=\"#FED7D7\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Red Team</text><line x1=\"290\" y1=\"71\" x2=\"85\" y2=\"110\" stroke=\"#48BB78\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><line x1=\"310\" y1=\"71\" x2=\"210\" y2=\"110\" stroke=\"#48BB78\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><line x1=\"340\" y1=\"71\" x2=\"340\" y2=\"110\" stroke=\"#48BB78\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><line x1=\"370\" y1=\"71\" x2=\"470\" y2=\"110\" stroke=\"#48BB78\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><line x1=\"390\" y1=\"71\" x2=\"595\" y2=\"110\" stroke=\"#48BB78\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><line x1=\"85\" y1=\"142\" x2=\"85\" y2=\"175\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><line x1=\"210\" y1=\"142\" x2=\"210\" y2=\"175\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><line x1=\"340\" y1=\"142\" x2=\"340\" y2=\"175\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><line x1=\"470\" y1=\"142\" x2=\"470\" y2=\"175\" stroke=\"#38A169\" stroke-width=\"1.5\"/><line x1=\"595\" y1=\"142\" x2=\"595\" y2=\"175\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><polygon points=\"85,175 81,168 89,168\" fill=\"#4A9BD9\"/><polygon points=\"210,175 206,168 214,168\" fill=\"#DD6B20\"/><polygon points=\"340,175 336,168 344,168\" fill=\"#805AD5\"/><polygon points=\"470,175 466,168 474,168\" fill=\"#38A169\"/><polygon points=\"595,175 591,168 599,168\" fill=\"#E53E3E\"/><text x=\"85\" y=\"195\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">researcher_</text><text x=\"85\" y=\"207\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">issue9.md</text><text x=\"210\" y=\"195\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">writer_</text><text x=\"210\" y=\"207\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">issue9.md</text><text x=\"340\" y=\"195\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">illustrator_</text><text x=\"340\" y=\"207\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">issue9.md</text><text x=\"470\" y=\"195\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">editor_</text><text x=\"470\" y=\"207\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">issue9.md</text><text x=\"595\" y=\"195\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">redteam_</text><text x=\"595\" y=\"207\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">issue9.md</text><rect x=\"100\" y=\"230\" width=\"480\" height=\"30\" rx=\"6\" fill=\"#48BB78\" opacity=\"0.1\" stroke=\"#48BB78\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><text x=\"340\" y=\"250\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">shared filesystem (agent_outputs/)</text><text x=\"340\" y=\"290\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-style=\"italic\">Each agent reads from the shared folder and writes back to it.</text><text x=\"340\" y=\"310\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-style=\"italic\">The orchestrator spawns each agent in sequence.</text><text x=\"340\" y=\"340\" text-anchor=\"middle\" fill=\"#48BB78\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\">Stars that form a pattern, each shining independently</text><text x=\"340\" y=\"360\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">— connected only by the orchestrator reading their files</text></svg>",
+      "caption": "The Constellation Pattern: isolated agents, file-based communication"
+    },
+    {
+      "id": "p5_07_narr_guarantees",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "This design provides three powerful guarantees:<br><br><strong>1. True cognitive isolation.</strong> Agent B genuinely cannot be influenced by Agent A's reasoning — only by Agent A's written output. Fresh eyes, every time.<br><br><strong>2. Complete audit trail.</strong> Every piece of inter-agent communication is a file on disk. Nothing hidden, nothing lost.<br><br><strong>3. Perfect recoverability.</strong> If the system crashes, every completed agent's work is already saved. Restart from wherever you left off."
+    },
+    {
+      "id": "p5_08_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>\"True isolation is not a limitation. It is a superpower. When each agent thinks independently, you get genuine diversity of analysis — not an echo chamber wearing different hats.\"</strong>"
+    },
+    {
+      "id": "p5_09_lab_swarm",
+      "type": "lab_link",
+      "layout": "full-width",
+      "lab_filename": "swarm_simulator",
+      "lab_title": "Swarm Simulator",
+      "lab_description": "Try orchestrating a swarm yourself! Assign tasks to agents, watch them work in parallel, and see file-based communication in action. One of the project templates even mirrors the pipeline that produced THIS comic."
+    },
+    {
+      "id": "p5_10_narr_caveat",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "It is worth noting that the Constellation Pattern is one promising approach among several, not a universal standard. The multi-agent space is still young, and the best patterns may not have been discovered yet."
+    },
+    {
+      "id": "p5_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "But WHY does isolation matter so much? The answer has a name: the \"Same Brain\" problem. And it is the reason asking one AI to play two roles is fundamentally different from having two separate AIs."
+    }
+  ]
+}

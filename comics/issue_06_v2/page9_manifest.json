@@ -1,0 +1,82 @@
+{
+  "issue": 6,
+  "page": 9,
+  "title": "The Foundations Beneath the Revolution",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p9_01_convergence_timeline",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A dramatic wide timeline stretching across the full panel from left to right, showing the arc of computing history as a flowing river or path, key milestones marked as illuminated waypoints: a Turing machine symbol at 1936, early computers at 1940s, programming code at 1950s-60s, a Unix terminal at 1970s, a web browser at 1990s, and all these streams converging into a bright crimson starburst labeled 'Deep Learning' at 2012 on the right, the convergence is the visual climax, warm lighting gets brighter as it moves rightward, Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E glow at the convergence point",
+      "overlays": []
+    },
+    {
+      "id": "p9_02_robot_connector",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 448,
+      "prompt": "A small cute scholarly round robot with an oversized graduation cap that keeps slipping to one side, soft grey body, big thoughtful blue eyes behind tiny round spectacles, one stubby arm connecting two puzzle pieces together, the other arm holding a tiny chalkboard, sitting cross-legged in a warm library setting with tiny books stacked around it. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Every piece built on what came before.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm library tones with crimson #E53E3E accents",
+      "bubble_text": "Every piece built on what came before.",
+      "speaker": "SCHOLAR"
+    },
+    {
+      "id": "p9_03_narration_convergence",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "The deep learning revolution of the 2010s was not a single invention. It was a <strong>convergence</strong> — and every piece connects to the story we have been telling since Issue 1."
+    },
+    {
+      "id": "p9_04_connections_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-25 -25 810 480\" width=\"810\" height=\"480\"><style>.title{font-size:16px; font-weight:bold; } .issue{font-size:13px; font-weight:bold} .detail{font-size:12px; } .conn{font-size:13px; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" class=\"title\" x=\"340\" y=\"5\" text-anchor=\"middle\">The Convergence — Every Layer Enabled the Next</text><rect x=\"30\" y=\"22\" width=\"130\" height=\"40\" rx=\"6\" fill=\"#FED7D7\" opacity=\"0.3\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text class=\"issue\" x=\"95\" y=\"40\" text-anchor=\"middle\" fill=\"#E2E8F0\" textLength=\"106\" lengthAdjust=\"spacingAndGlyphs\">Issue 1: THEORY</text><text fill=\"#E2E8F0\" font-size=\"12\" class=\"detail\" x=\"95\" y=\"55\" text-anchor=\"middle\">Turing: \"Can machines think?\"</text><path d=\"M95,62 L95,75\" stroke=\"#E53E3E\" stroke-width=\"1.5\" marker-end=\"url(#a9)\"/><rect x=\"30\" y=\"75\" width=\"130\" height=\"40\" rx=\"6\" fill=\"#FFF5EB\" opacity=\"0.3\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><text class=\"issue\" x=\"95\" y=\"93\" text-anchor=\"middle\" fill=\"#E2E8F0\">Issue 2: HARDWARE</text><text fill=\"#E2E8F0\" font-size=\"12\" class=\"detail\" x=\"95\" y=\"108\" text-anchor=\"middle\">Von Neumann, transistors</text><path d=\"M95,115 L95,128\" stroke=\"#DD6B20\" stroke-width=\"1.5\" marker-end=\"url(#a9)\"/><rect x=\"30\" y=\"128\" width=\"130\" height=\"40\" rx=\"6\" fill=\"#C6F6D5\" opacity=\"0.3\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text class=\"issue\" x=\"95\" y=\"146\" text-anchor=\"middle\" fill=\"#E2E8F0\">Issue 3: LANGUAGES</text><text fill=\"#E2E8F0\" font-size=\"12\" class=\"detail\" x=\"95\" y=\"161\" text-anchor=\"middle\">LISP, compilers, abstraction</text><path d=\"M95,168 L95,181\" stroke=\"#38A169\" stroke-width=\"1.5\" marker-end=\"url(#a9)\"/><rect x=\"30\" y=\"181\" width=\"130\" height=\"40\" rx=\"6\" fill=\"#E9D8FD\" opacity=\"0.3\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text class=\"issue\" x=\"95\" y=\"199\" text-anchor=\"middle\" fill=\"#E2E8F0\">Issue 4: SYSTEMS</text><text fill=\"#E2E8F0\" font-size=\"12\" class=\"detail\" x=\"95\" y=\"214\" text-anchor=\"middle\">Unix, Bell Labs, CNNs</text><path d=\"M95,221 L95,234\" stroke=\"#805AD5\" stroke-width=\"1.5\" marker-end=\"url(#a9)\"/><rect x=\"30\" y=\"234\" width=\"130\" height=\"40\" rx=\"6\" fill=\"#FEFCBF\" opacity=\"0.3\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text class=\"issue\" x=\"95\" y=\"252\" text-anchor=\"middle\" fill=\"#E2E8F0\">Issue 5: DATA</text><text fill=\"#E2E8F0\" font-size=\"12\" class=\"detail\" x=\"95\" y=\"267\" text-anchor=\"middle\">Web, open source, ImageNet</text><path d=\"M95,274 L95,287\" stroke=\"#D69E2E\" stroke-width=\"1.5\" marker-end=\"url(#a9)\"/><rect x=\"30\" y=\"287\" width=\"130\" height=\"45\" rx=\"6\" fill=\"#FED7D7\" opacity=\"0.5\" stroke=\"#E53E3E\" stroke-width=\"2\"/><text class=\"issue\" x=\"95\" y=\"305\" text-anchor=\"middle\" fill=\"#2D3748\">Issue 6: LEARNING</text><text fill=\"#2D3748\" font-size=\"12\" class=\"detail\" x=\"95\" y=\"320\" text-anchor=\"middle\">Neural nets + data + GPUs</text><path d=\"M160,309 L210,309\" stroke=\"#E53E3E\" stroke-width=\"2\" marker-end=\"url(#a9)\"/><rect x=\"210\" y=\"287\" width=\"130\" height=\"45\" rx=\"6\" fill=\"#BEE3F8\" opacity=\"0.3\" stroke=\"#4A9BD9\" stroke-width=\"1.5\" stroke-dasharray=\"5,3\"/><text class=\"issue\" x=\"275\" y=\"305\" text-anchor=\"middle\" fill=\"#E2E8F0\">Issue 7: ???</text><text fill=\"#E2E8F0\" font-size=\"12\" class=\"detail\" x=\"275\" y=\"320\" text-anchor=\"middle\">Deep learning + language</text><rect x=\"380\" y=\"30\" width=\"270\" height=\"70\" rx=\"8\" fill=\"#FEFCBF\" opacity=\"0.3\" stroke=\"#D69E2E\" stroke-width=\"1.2\"/><text class=\"conn\" x=\"515\" y=\"50\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"#FFFFFF\">Turing (1950):</text><text fill=\"#E2E8F0\" class=\"conn\" x=\"515\" y=\"65\" text-anchor=\"middle\">\"Why not produce a programme</text><text fill=\"#E2E8F0\" class=\"conn\" x=\"515\" y=\"80\" text-anchor=\"middle\" textLength=\"242\" lengthAdjust=\"spacingAndGlyphs\">that simulates the child's mind?\"</text><path d=\"M160,42 L380,55\" stroke=\"#E53E3E\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><rect x=\"380\" y=\"115\" width=\"270\" height=\"55\" rx=\"8\" fill=\"#FFF5EB\" opacity=\"0.3\" stroke=\"#DD6B20\" stroke-width=\"1.2\"/><text class=\"conn\" x=\"515\" y=\"135\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"#FFFFFF\">McCulloch &amp; Pitts (1943):</text><text fill=\"#E2E8F0\" class=\"conn\" x=\"515\" y=\"150\" text-anchor=\"middle\">First mathematical neuron model</text><path d=\"M160,95 L380,130\" stroke=\"#DD6B20\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><rect x=\"380\" y=\"185\" width=\"270\" height=\"55\" rx=\"8\" fill=\"#E9D8FD\" opacity=\"0.3\" stroke=\"#805AD5\" stroke-width=\"1.2\"/><text class=\"conn\" x=\"515\" y=\"205\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"#FFFFFF\">LeCun at Bell Labs (1990s):</text><text fill=\"#E2E8F0\" class=\"conn\" x=\"515\" y=\"220\" text-anchor=\"middle\" textLength=\"242\" lengthAdjust=\"spacingAndGlyphs\">Practical CNNs reading bank checks</text><path d=\"M160,201 L380,205\" stroke=\"#805AD5\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><rect x=\"380\" y=\"255\" width=\"270\" height=\"55\" rx=\"8\" fill=\"#FEFCBF\" opacity=\"0.3\" stroke=\"#D69E2E\" stroke-width=\"1.2\"/><text class=\"conn\" x=\"515\" y=\"275\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"#FFFFFF\">ImageNet from the Web (2009):</text><text fill=\"#E2E8F0\" class=\"conn\" x=\"515\" y=\"290\" text-anchor=\"middle\">14M images from the connected world</text><path d=\"M160,254 L380,270\" stroke=\"#D69E2E\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><text x=\"340\" y=\"360\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">Every breakthrough stood on the shoulders of everything that came before.</text><defs><marker id=\"a9\" markerWidth=\"7\" markerHeight=\"7\" refX=\"6\" refY=\"3.5\" orient=\"auto\"><polygon points=\"0,0 7,3.5 0,7\" fill=\"#E53E3E\"/></marker></defs></svg>",
+      "caption": "From Turing's question to deep learning — each issue built the foundations for the next."
+    },
+    {
+      "id": "p9_05_narration_ilya",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The connections extend forward too. <strong>Ilya Sutskever</strong>, co-author of the AlexNet paper, went on to co-found OpenAI. Bengio's 2003 neural language model was a direct precursor to GPT. The path from \"a network that can recognize cats\" to \"a network that can write poetry\" was shorter than anyone expected."
+    },
+    {
+      "id": "p9_06_paradigm_shift",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A bold visual metaphor for the paradigm shift: on the left a human hand carefully writing rules on a chalkboard with precise mathematical notation flowing toward a computer, on the right the same computer but now being fed streams of colorful photographs and data examples flowing into it from a conveyor belt, a bold arrow labeled 'THE INVERSION' spans across the middle between the two approaches, warm clear lighting making the contrast intuitive and approachable, Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E accent on the arrow",
+      "overlays": []
+    },
+    {
+      "id": "p9_07_bigidea",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "style": "accent",
+      "text": "Machine learning inverts the fundamental relationship between humans and computers. For sixty years, humans told machines exactly what to do, step by step. Machine learning says: <strong>here are a million examples — figure out the pattern yourself.</strong> This is not just a new technique. It is a new paradigm."
+    },
+    {
+      "id": "p9_08_robot_forward",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A small cute round robot with a transparent dome head showing visible circuit boards and gears inside, soft glowing LED panels on its metal body, big warm hopeful eyes behind the dome glass, stubby mechanical arms with visible joints and bolts, and organized bundled cables trailing neatly from its lower chassis like cable management (not organic tendrils), hovering on visible anti-gravity discs under its body, floating peacefully against a warm sunset-colored background with a gentle hopeful expression. Comic book style, warm editorial illustration with ink lines and watercolor washes, warm crimson #E53E3E and golden sunset tones, emphasize mechanical and electronic construction with visible tech components, rivets, and metal panels",
+      "bubble_text": "From rules to learning. The biggest shift since Turing.",
+      "speaker": "JELLYBOT"
+    },
+    {
+      "id": "p9_09_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Neural networks learned to see. They surpassed humans at image recognition. But vision is only one kind of intelligence. Could a machine learn to read, write, and reason with words? The answer would come from a paper with one of the boldest titles in scientific history..."
+    }
+  ]
+}

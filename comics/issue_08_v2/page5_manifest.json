@@ -1,0 +1,91 @@
+{
+  "issue": 8,
+  "page": 5,
+  "title": "The ReAct Loop — Think, Act, Observe, Repeat",
+  "accent": "#9F7AEA",
+  "panels": [
+    {
+      "id": "p5_01_detective",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "A detective at a crime scene in a dimly lit room. She is examining a broken window from the inside, thinking deeply with a magnifying glass in hand. Thought bubbles float around her showing her reasoning process: 'Broken from inside...', a fingerprint dust kit on the windowsill, 'No prints on the glass...', 'Gloves. Check the back door.' The scene has noir lighting with violet accent highlights, atmospheric dust particles in shafts of light. Comic book style, warm editorial illustration with ink lines and watercolor washes, violet (#9F7AEA) accent in the thought bubbles",
+      "overlays": []
+    },
+    {
+      "id": "p5_02_robot_think",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute round green robot with a tiny plant growing from its head and leaf-shaped ears, big thoughtful emerald eyes, one finger raised in a eureka moment, surrounded by floating icons: a lightbulb (think), a wrench (act), an eye (observe), and a circular arrow (repeat). Warm violet background glow. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"Think. Try. Look. Repeat. That's how YOU solve problems too.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Think. Try. Look. Repeat. That's how YOU solve problems too.",
+      "speaker": "SPROUT"
+    },
+    {
+      "id": "p5_03_narration_detective",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Imagine a detective at a crime scene. She <strong>thinks</strong>: &ldquo;The window is broken from the inside.&rdquo; She <strong>acts</strong>: dusts for fingerprints. She <strong>observes</strong>: &ldquo;No prints on the glass.&rdquo; She <strong>thinks</strong> again: &ldquo;So the intruder wore gloves. Let me check the back door.&rdquo; <em>Think, act, observe, repeat.</em> That is how real problem-solving works."
+    },
+    {
+      "id": "p5_04_yao_portrait",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 476,
+      "gen_height": 384,
+      "prompt": "A young researcher at a university, sitting at a desk covered with papers and a laptop showing a research paper, the paper title 'ReAct: Synergizing Reasoning and Acting in Language Models' visible on screen, Princeton university spires visible through a window behind, academic atmosphere, warm natural light, focused and brilliant expression, scattered notes and diagrams on the desk. Comic book style, warm editorial illustration with ink lines and watercolor washes, violet and amber tones",
+      "overlays": []
+    },
+    {
+      "id": "p5_04b_narration_yao",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "On <strong>October 6, 2022</strong> &mdash; nearly two months <em>before</em> ChatGPT launched &mdash; <strong>Shunyu Yao</strong>, a PhD student at Princeton, published the blueprint for every AI agent that followed: <strong>&ldquo;ReAct: Synergizing Reasoning and Acting in Language Models.&rdquo;</strong>"
+    },
+    {
+      "id": "p5_05_narration_before_react",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Before ReAct, there were two separate approaches. <strong>Chain-of-thought</strong> asked the model to &ldquo;think step by step&rdquo; &mdash; good reasoning, but no real-world actions. <strong>Action-only</strong> had the model call tools directly without explaining its reasoning &mdash; things got done, but the model often took wrong turns. ReAct combined them."
+    },
+    {
+      "id": "p5_06_react_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-20 -20 750 380\" xmlns=\"http://www.w3.org/2000/svg\"><style>.mono{font-family:'JetBrains Mono',monospace; font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-size:12px; }</style><text x=\"340\" y=\"10\" text-anchor=\"middle\" font-size=\"18\" font-weight=\"bold\" fill=\"#9F7AEA\">The ReAct Loop</text><circle cx=\"170\" cy=\"80\" r=\"46\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"2.5\"/><text x=\"170\" y=\"76\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">THINK</text><text fill=\"#2D3748\" x=\"170\" y=\"92\" text-anchor=\"middle\" font-size=\"11\">Reason about it</text><circle cx=\"400\" cy=\"80\" r=\"40\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"2.5\"/><text x=\"400\" y=\"76\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">ACT</text><text fill=\"#2D3748\" x=\"400\" y=\"92\" text-anchor=\"middle\" font-size=\"12\">Call a tool</text><circle cx=\"510\" cy=\"200\" r=\"46\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"2.5\"/><text x=\"510\" y=\"196\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">OBSERVE</text><text fill=\"#2D3748\" x=\"510\" y=\"212\" text-anchor=\"middle\" font-size=\"11\">See the result</text><line x1=\"216\" y1=\"75\" x2=\"360\" y2=\"75\" stroke=\"#718096\" stroke-width=\"2\" marker-end=\"url(#arrowR)\"/><path d=\"M 430 105 Q 470 150 510 154\" fill=\"none\" stroke=\"#718096\" stroke-width=\"2\" marker-end=\"url(#arrowR)\"/><path d=\"M 475 230 Q 350 275 200 126\" fill=\"none\" stroke=\"#718096\" stroke-width=\"2\" marker-end=\"url(#arrowR)\"/><text x=\"290\" y=\"65\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">plan next step</text><text x=\"490\" y=\"130\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">execute</text><text x=\"310\" y=\"250\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">learn &amp; repeat</text><rect x=\"30\" y=\"280\" width=\"620\" height=\"65\" rx=\"6\" fill=\"#1A202C\"/><text x=\"50\" y=\"298\" class=\"mono\" fill=\"#C6F6D5\">Thought: \"Bug in login. Let me read auth.py.\"</text><text x=\"50\" y=\"312\" class=\"mono\" fill=\"#BEE3F8\">Action:  read_file(\"auth.py\")</text><text x=\"50\" y=\"326\" class=\"mono\" fill=\"#FEFCBF\">Obs:     [line 23: if password == stored_password]</text><text x=\"50\" y=\"340\" class=\"mono\" fill=\"#C6F6D5\">Thought: \"Wrong comparison. Should hash first.\"</text><defs><marker id=\"arrowR\" viewBox=\"0 0 10 30\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"#718096\"/></marker></defs></svg>",
+      "caption": "The ReAct loop: Think, Act, Observe — then think again with new information"
+    },
+    {
+      "id": "p5_07_comparison_table",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-10 -20 750 170\" xmlns=\"http://www.w3.org/2000/svg\"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x=\"360\" y=\"6\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#9F7AEA\">Chain-of-Thought vs. Action-Only vs. ReAct</text><rect x=\"30\" y=\"25\" width=\"210\" height=\"40\" rx=\"6\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"135\" y=\"42\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Chain-of-Thought</text><text fill=\"#2D3748\" x=\"135\" y=\"56\" text-anchor=\"middle\" font-size=\"12\">Thinks well. Cannot act.</text><rect x=\"255\" y=\"25\" width=\"195\" height=\"40\" rx=\"6\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"352\" y=\"42\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Action-Only</text><text fill=\"#2D3748\" x=\"352\" y=\"56\" text-anchor=\"middle\" font-size=\"12\">Acts fast. Often wrong.</text><rect x=\"465\" y=\"25\" width=\"240\" height=\"40\" rx=\"6\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"2\"/><text x=\"585\" y=\"42\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">ReAct</text><text x=\"585\" y=\"56\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" textLength=\"216\" lengthAdjust=\"spacingAndGlyphs\">Plans well AND acts effectively.</text><rect x=\"30\" y=\"80\" width=\"675\" height=\"45\" rx=\"6\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text fill=\"#2D3748\" x=\"367\" y=\"100\" text-anchor=\"middle\" font-size=\"12\" font-style=\"italic\" textLength=\"650\" lengthAdjust=\"spacingAndGlyphs\">\"Explicit reasoning helps plan better actions; action results ground reasoning in reality.\"</text><text fill=\"#2D3748\" x=\"367\" y=\"116\" text-anchor=\"middle\" font-size=\"12\">Thinking without acting is daydreaming. Acting without thinking is flailing.</text></svg>",
+      "caption": "Three approaches compared: only ReAct combines reasoning with real-world actions"
+    },
+    {
+      "id": "p5_08_lab_link",
+      "type": "lab_link",
+      "layout": "full-width",
+      "lab_filename": "agent_sandbox",
+      "lab_title": "Agent Sandbox",
+      "lab_description": "Watch an AI agent think, plan, and recover from mistakes using the ReAct loop — or play the agent yourself!"
+    },
+    {
+      "id": "p5_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The ReAct pattern is not an AI invention. It is the <strong>scientific method</strong>, applied to language models. Hypothesize, experiment, observe, revise. The oldest problem-solving strategy in human history, rediscovered in silicon."
+    },
+    {
+      "id": "p5_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "The ReAct loop was the recipe. Tool use was the kitchen. Now someone needed to build real, practical coding agents — ones that could sit in a developer's terminal and actually do the work."
+    }
+  ]
+}

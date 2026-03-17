@@ -1,0 +1,104 @@
+{
+  "issue": 7,
+  "page": 8,
+  "title": "RLHF -- Teaching AI Values",
+  "accent": "#4A9BD9",
+  "panels": [
+    {
+      "id": "p8_01_split_image",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A dramatic split image divided by a glowing blue line: on the left side a dark chaotic scene of swirling text fragments, some blurred and ominous, representing raw unfiltered AI output, messy and uncontrolled, on the right side a clean organized scene of helpful text flowing neatly, warm and well-structured, representing RLHF-aligned AI output, the dividing line is labeled 'RLHF' in bold blue, the contrast between chaos and order is striking, Comic book style, warm editorial illustration with ink lines and watercolor washes, dark reds on left transitioning through blue #4A9BD9 divider to warm greens on right",
+      "overlays": []
+    },
+    {
+      "id": "p8_02_narration_mirror",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "A raw language model is a mirror of its training data. The internet contains medical advice <em>and</em> misinformation, poetry <em>and</em> hate speech. A model trained to predict \"what comes next\" will produce all of it. Making models bigger made them more capable <strong>AND</strong> more dangerous."
+    },
+    {
+      "id": "p8_03_robot_rlhf",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 576,
+      "prompt": "A small cute puffy robot with a round dark-grey body covered in glowing white chalk doodles of hearts and check marks, big bright yellow LED eyes with a thoughtful warm expression, a tiny chalk stick tucked behind one ear, one hand holding a tiny 'thumbs up' sign and the other holding a 'thumbs down' sign, serious but kind demeanor, sitting cross-legged. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"RLHF is like a tutor showing a better way.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm lighting with blue #4A9BD9 chalk glow accents",
+      "bubble_text": "RLHF is like a tutor showing a better way.",
+      "speaker": "CHALKBOT"
+    },
+    {
+      "id": "p8_04_rlhf_pipeline",
+      "type": "svg_diagram",
+      "layout": "right",
+      "flex": 3,
+      "svg": "<svg viewBox=\"0 -20 449 340\"><style>.title{font-size:13px; font-weight:bold; } .step{font-size:12px; font-weight:bold} .desc{font-size:12px; } .small{font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" class=\"title\" x=\"210\" y=\"5\" text-anchor=\"middle\">The RLHF Pipeline (3 Steps)</text><rect x=\"20\" y=\"20\" width=\"380\" height=\"75\" rx=\"8\" fill=\"#FED7D7\" opacity=\"0.3\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><circle cx=\"40\" cy=\"42\" r=\"14\" fill=\"#E53E3E\" opacity=\"0.2\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"40\" y=\"47\" text-anchor=\"middle\" font-size=\"14\" fill=\"#FFFFFF\" font-weight=\"bold\">1</text><text class=\"step\" x=\"65\" y=\"42\" fill=\"#E2E8F0\">Supervised Fine-Tuning</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"65\" y=\"58\">Human writes ideal response</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"65\" y=\"72\">Model learns helpful style</text><text fill=\"#E2E8F0\" class=\"small\" x=\"65\" y=\"86\">\"When someone asks X, a good response looks like Y.\"</text><path d=\"M210,95 L210,115\" stroke=\"#4A9BD9\" stroke-width=\"1.5\" marker-end=\"url(#a8)\"/><rect x=\"20\" y=\"115\" width=\"380\" height=\"85\" rx=\"8\" fill=\"#C6F6D5\" opacity=\"0.3\" stroke=\"#38A169\" stroke-width=\"1.5\"/><circle cx=\"40\" cy=\"140\" r=\"14\" fill=\"#38A169\" opacity=\"0.2\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"40\" y=\"145\" text-anchor=\"middle\" font-size=\"14\" fill=\"#FFFFFF\" font-weight=\"bold\">2</text><text class=\"step\" x=\"65\" y=\"140\" fill=\"#E2E8F0\">Reward Model Training</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"65\" y=\"156\">Model writes 4 responses</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"65\" y=\"170\">Humans rank: A > B > C > D</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"65\" y=\"184\">Train a 'judge' model on preferences</text><path d=\"M210,200 L210,220\" stroke=\"#4A9BD9\" stroke-width=\"1.5\" marker-end=\"url(#a8)\"/><rect x=\"20\" y=\"220\" width=\"380\" height=\"75\" rx=\"8\" fill=\"#BEE3F8\" opacity=\"0.3\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><circle cx=\"40\" cy=\"245\" r=\"14\" fill=\"#4A9BD9\" opacity=\"0.2\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"40\" y=\"250\" text-anchor=\"middle\" font-size=\"14\" fill=\"#FFFFFF\" font-weight=\"bold\">3</text><text class=\"step\" x=\"65\" y=\"245\" fill=\"#E2E8F0\">Reinforcement Learning</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"65\" y=\"261\">Model generates -> reward model scores</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"65\" y=\"275\">Adjust to produce higher-scoring responses</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"65\" y=\"289\">Repeat thousands of times</text><defs><marker id=\"a8\" markerWidth=\"7\" markerHeight=\"7\" refX=\"6\" refY=\"3.5\" orient=\"auto\"><polygon points=\"0,0 7,3.5 0,7\" fill=\"#4A9BD9\"/></marker></defs></svg>",
+      "caption": "RLHF: Show examples, train a judge on human preferences, then optimize the model."
+    },
+    {
+      "id": "p8_05_narration_instructgpt",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In <strong>January 2022</strong>, OpenAI published InstructGPT: a 1.3-billion-parameter model fine-tuned with RLHF was <strong>preferred by humans over the raw 175-billion-parameter GPT-3</strong>. A smaller model with values beat a larger model without them."
+    },
+    {
+      "id": "p8_06_chatgpt_launch",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A dramatic scene of a chat interface launching into the world on November 30 2022, a simple text cursor blinking on a clean white screen that radiates outward in a massive explosion of colorful connection lines reaching out to millions of tiny glowing user icons around the globe, the chat window is center frame, continents visible in the background, the sense of something going viral at unprecedented speed, Comic book style, warm editorial illustration with ink lines and watercolor washes, bright blue #4A9BD9 radiating energy with warm global tones",
+      "overlays": []
+    },
+    {
+      "id": "p8_07_narration_chatgpt",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "On <strong>November 30, 2022</strong>, ChatGPT launched as a free research preview. It reached <strong>1 million users in 5 days</strong>. By January 2023, roughly <strong>100 million monthly active users</strong> -- the fastest-growing consumer application in history. For comparison, TikTok took ~9 months to reach the same milestone."
+    },
+    {
+      "id": "p8_08_workers",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A small cute soft round robot wearing an oversized floppy graduation cap, big sparkly blue eyes with a serious thoughtful expression, holding a tiny clipboard showing ranked responses A B C D, standing next to tiny silhouettes of diverse human workers at computer screens providing feedback, the robot looks grateful and respectful toward the workers. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Human labelers made alignment possible.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm respectful tones with blue #4A9BD9 accents",
+      "bubble_text": "Human labelers made alignment possible.",
+      "speaker": "SCHOLAR"
+    },
+    {
+      "id": "p8_09_narration_workers",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "These human evaluators -- often contract workers in Kenya, the Philippines, and other countries, paid far less than the engineers -- are an invisible but <strong>essential</strong> part of modern AI. Their judgments teach the model what \"good\" looks like."
+    },
+    {
+      "id": "p8_10_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "RLHF is not a complete solution. Models can still hallucinate, be tricked, and produce harmful outputs. But it represents a crucial insight: training a model to be <strong>capable</strong> and training it to be <strong>good</strong> are two different problems, and both require deliberate effort."
+    },
+    {
+      "id": "p8_10b_robot_workers",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round chrome-silver robot with a dome head and big amazed blue LED eyes, stubby arms directing tiny worker robots carrying data tokens into a giant transformer factory, antenna with a tiny gear on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Millions of workers, processing language in parallel.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Millions of workers, processing language in parallel.",
+      "speaker": "FACTORYBOT"
+    },
+    {
+      "id": "p8_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "RLHF was a breakthrough. But it depended on thousands of costly, inconsistent human judgments. What if the AI could learn values from a written set of principles instead -- a constitution?"
+    }
+  ]
+}

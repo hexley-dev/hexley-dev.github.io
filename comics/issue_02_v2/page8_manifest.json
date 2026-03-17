@@ -1,0 +1,123 @@
+{
+  "issue": 2,
+  "page": 8,
+  "title": "Smaller, Faster, Cooler",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p8_01_tube_vs_transistor",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A dramatic side-by-side comparison on a dark background with dramatic spotlighting. Left: a glowing orange vacuum tube the size of a human thumb, fragile clear glass envelope with visible filament inside, radiating heat waves, mounted on a metal base with pins. Right: a tiny 1947 point-contact transistor — a small dull silver metal cylinder can with THREE thin wire legs sticking out the bottom, no glass, no glow, completely solid and cold-looking. The transistor is much smaller than the tube. NOT another tube — the transistor is an opaque metal canister. A small label at the bottom reads 'Same job. 1/100th the size.' Comic book style, warm editorial illustration with ink lines and watercolor washes, orange glow on the vacuum tube side only",
+      "overlays": []
+    },
+    {
+      "id": "p8_02_robot_relieved",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute sleek silver robot with electric green eyes, a tiny lightning-bolt antenna on its head crackling with a spark, wiping its forehead with one stubby hand in a 'phew!' gesture, grinning with relief. Cool blue-silver sheen, compact and modern-looking compared to the warm orange machines of earlier pages. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Same job. Tiny. Cool. Almost indestructible.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Same job. Tiny. Cool. Almost indestructible.",
+      "speaker": "SPARK"
+    },
+    {
+      "id": "p8_03_narration_candles",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Vacuum tubes worked. But imagine running your house on candles when someone just invented the light bulb. Tubes were big, blazing hot, and burned out every few days. In <strong>1947</strong>, three physicists at Bell Labs invented a replacement that was smaller, cooler, faster, and almost never broke. They called it the <strong>transistor</strong>. It is arguably the most important invention of the 20th century."
+    },
+    {
+      "id": "p8_04_narration_problem",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "A single vacuum tube was thumb-sized, generated significant heat, consumed substantial power, and burned out unpredictably. ENIAC lost a tube roughly every two days &mdash; finding which one had failed was a painstaking job. To build bigger, faster computers, engineers needed a different kind of switch. Same function &mdash; ON/OFF, 1/0 &mdash; but smaller, cooler, more reliable, and cheaper."
+    },
+    {
+      "id": "p8_05_belllabs",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A Bell Telephone Laboratories workbench in 1947, cluttered with oscilloscopes, wires, and scientific instruments. Two physicists lean over a tiny crude device made from a slab of germanium with gold contacts pressed against it, held in place by a bent paper clip and gold foil strip. The device is tiny compared to the vacuum tubes visible on a shelf behind them. Dramatic close-up angle emphasizing the small scale of the transistor versus the large lab equipment. Warm lab lighting. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent highlights",
+      "overlays": []
+    },
+    {
+      "id": "p8_06_narration_invention",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "On <strong>December 23, 1947</strong>, at <strong>Bell Telephone Laboratories</strong>, <strong>John Bardeen</strong> and <strong>Walter Brattain</strong> demonstrated the first working <strong>transistor</strong> &mdash; a crude device made of germanium with gold contacts held in place by a bent paper clip. It was not beautiful. But it worked. A small signal at one terminal could control a much larger current between the other two. ON/OFF. 1/0. A switch &mdash; with no vacuum, no filament, no glass bulb, and almost no heat."
+    },
+    {
+      "id": "p8_07_narration_shockley",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>William Shockley</strong>, who had been researching a different approach, was reportedly furious that Bardeen and Brattain made the breakthrough without him. He checked into a hotel for several weeks and, driven partly by professional jealousy, developed the theory of the <strong>junction transistor</strong> &mdash; which proved superior and became the basis for mass production."
+    },
+    {
+      "id": "p8_08_comparison",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 300\"><defs><style>text{font-family:'JetBrains Mono',monospace;}</style></defs><text fill=\"#FFFFFF\" x=\"340\" y=\"5\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\" fill=\"#DD6B20\">VACUUM TUBE vs. TRANSISTOR</text><rect x=\"10\" y=\"20\" width=\"320\" height=\"230\" rx=\"10\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"170\" y=\"45\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">VACUUM TUBE (1940s)</text><text x=\"25\" y=\"70\" font-size=\"12\" fill=\"#2D3748\">Size: thumb-sized</text><text x=\"25\" y=\"90\" font-size=\"12\" fill=\"#2D3748\">Power: high (lots of heat)</text><text x=\"25\" y=\"110\" font-size=\"12\" fill=\"#2D3748\">Reliability: burns out in months</text><text x=\"25\" y=\"130\" font-size=\"12\" fill=\"#2D3748\">Speed: fast (for the era)</text><text x=\"25\" y=\"150\" font-size=\"12\" fill=\"#2D3748\">Cost: expensive</text><text x=\"25\" y=\"175\" font-size=\"12\" fill=\"#2D3748\">Contains: vacuum, glass,</text><text x=\"25\" y=\"192\" font-size=\"12\" fill=\"#2D3748\">heated filament</text><rect x=\"350\" y=\"20\" width=\"320\" height=\"230\" rx=\"10\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"510\" y=\"45\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">TRANSISTOR (1947+)</text><text x=\"365\" y=\"70\" font-size=\"12\" fill=\"#2D3748\">Size: tiny (eventually microscopic)</text><text x=\"365\" y=\"90\" font-size=\"12\" fill=\"#2D3748\">Power: very low (cool to touch)</text><text x=\"365\" y=\"110\" font-size=\"12\" fill=\"#2D3748\">Reliability: lasts essentially forever</text><text x=\"365\" y=\"130\" font-size=\"12\" fill=\"#2D3748\">Speed: faster (keeps getting faster)</text><text x=\"365\" y=\"150\" font-size=\"12\" fill=\"#2D3748\">Cost: drops rapidly with mass production</text><text x=\"365\" y=\"175\" font-size=\"12\" fill=\"#2D3748\">Contains: semiconductor material</text><text x=\"365\" y=\"192\" font-size=\"12\" fill=\"#2D3748\">(germanium, then silicon)</text><text fill=\"#FFFFFF\" x=\"340\" y=\"238\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#DD6B20\">Both do the same job: an electronic SWITCH (ON/OFF = 1/0)</text></svg>",
+      "caption": "Same function, vastly different engineering"
+    },
+    {
+      "id": "p8_09_narration_implications",
+      "type": "css_narration",
+      "layout": "left",
+      "flex": 2,
+      "text": "The implications were staggering:<br><br><strong>Size:</strong> Eventually microscopic.<br><strong>Power:</strong> A fraction of the energy. Less heat = denser packing.<br><strong>Reliability:</strong> No filament to burn out. Lasts essentially forever.<br><strong>Speed:</strong> Faster &mdash; and the smaller they got, the faster they switched."
+    },
+    {
+      "id": "p8_10_transistor_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "flex": 3,
+      "gen_width": 640,
+      "gen_height": 380,
+      "svg": "<svg viewBox=\"-15 -25 640 380\"><defs><style>text{font-family:'JetBrains Mono',monospace;}</style></defs><rect x=\"5\" y=\"0\" width=\"600\" height=\"330\" rx=\"12\" fill=\"#1A202C\" stroke=\"#DD6B20\" stroke-width=\"2\"/><text fill=\"#DD6B20\" x=\"305\" y=\"35\" text-anchor=\"middle\" font-size=\"18\" font-weight=\"bold\">A TRANSISTOR IS A TINY SWITCH</text><text fill=\"#E2E8F0\" x=\"100\" y=\"90\" font-size=\"15\">Source</text><line x1=\"130\" y1=\"100\" x2=\"130\" y2=\"160\" stroke=\"#A0AEC0\" stroke-width=\"2.5\"/><text fill=\"#48BB78\" x=\"305\" y=\"90\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\">Gate (control)</text><line x1=\"305\" y1=\"100\" x2=\"305\" y2=\"145\" stroke=\"#48BB78\" stroke-width=\"2.5\"/><rect x=\"170\" y=\"145\" width=\"270\" height=\"40\" rx=\"8\" fill=\"#4A9BD9\" opacity=\"0.3\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#FFFFFF\" x=\"305\" y=\"172\" text-anchor=\"middle\" font-size=\"15\">Semiconductor</text><text fill=\"#E2E8F0\" x=\"500\" y=\"90\" font-size=\"15\">Drain</text><line x1=\"490\" y1=\"100\" x2=\"490\" y2=\"160\" stroke=\"#A0AEC0\" stroke-width=\"2.5\"/><text fill=\"#48BB78\" x=\"30\" y=\"230\" font-size=\"15\">Gate ON  &rarr; current flows &rarr; \"1\"</text><text fill=\"#E2E8F0\" x=\"30\" y=\"258\" font-size=\"15\">Gate OFF &rarr; no current   &rarr; \"0\"</text><text fill=\"#F6AD55\" x=\"30\" y=\"305\" font-size=\"14\" font-style=\"italic\">Like a garden hose valve: a small twist</text><text fill=\"#F6AD55\" x=\"30\" y=\"325\" font-size=\"14\" font-style=\"italic\">controls a large flow.</text></svg>",
+      "caption": "How a transistor works (simplified)"
+    },
+    {
+      "id": "p8_11_narration_nobel",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Shockley, Bardeen, and Brattain received the <strong>Nobel Prize in Physics in 1956</strong>. By the late 1950s, transistors had begun replacing vacuum tubes in computers. The era of room-sized machines began to give way."
+    },
+    {
+      "id": "p8_12_note_shockley",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>Note for Readers:</strong> William Shockley's later life took a dark turn. After his Nobel Prize, he founded Shockley Semiconductor in Mountain View, California &mdash; a pivotal moment in the creation of Silicon Valley. But he also became a prominent advocate of <strong>eugenics</strong> &mdash; the discredited and racist pseudoscience claiming some races are genetically inferior. He promoted harmful ideas about racial hierarchy and campaigned for the sterilization of people with low IQs. His colleagues repudiated his views; Bardeen and Brattain distanced themselves. Brilliant scientific contributions do not erase personal failings."
+    },
+    {
+      "id": "p8_12b_robot_transistor",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round silver robot with a dome head and big thoughtful amber LED eyes, wearing a tiny lab coat, stubby arms holding a magnifying glass over a microscopic transistor chip, antenna with a tiny Nobel Prize medal dangling from it, sitting on a 1940s Bell Labs workbench surrounded by period-appropriate equipment: large vacuum tubes in racks, oscilloscopes with round analog dials and knobs, coiled wires, resistors, hand tools, paper schematics, slide rules, soldering irons — a cluttered 1940s electronics laboratory aesthetic. Comic book style, warm editorial illustration with ink lines and watercolor washes, warm orange #DD6B20 accent lighting",
+      "bubble_text": "Brilliant science does not erase personal failings.",
+      "speaker": "LABBOT"
+    },
+    {
+      "id": "p8_13_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>Big Idea:</strong> The transistor did not change what computers could compute &mdash; Turing had already defined that in 1936. It changed what was <em>physically possible to build</em>. Smaller switches meant smaller machines. Less heat meant more switches packed together. More switches meant more computation. The transistor turned computing from a room-sized activity into something that could eventually fit in your pocket."
+    },
+    {
+      "id": "p8_14_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Transistors were incredible. But by the late 1950s, engineers faced a new problem: connecting thousands of individual transistors with hand-soldered wires was its own kind of nightmare. What if you could put ALL the transistors \u2014 and all their connections \u2014 on a single tiny chip?"
+    }
+  ]
+}

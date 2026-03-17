@@ -1,0 +1,82 @@
+{
+  "issue": 3,
+  "page": 2,
+  "title": "Talking in Ones and Zeros",
+  "accent": "#38A169",
+  "panels": [
+    {
+      "id": "p2_01_robot_exasperated",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute puffy dark-grey robot covered in glowing white chalk doodles of equations and diagrams, big bright yellow LED eyes wide with exasperation, stubby arms spread wide palms-up in a 'can you BELIEVE this' gesture, standing in front of a towering wall of binary code etched in glowing green text, looking overwhelmed and incredulous. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"One mistake? Hours hunting through ones and zeros.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "One mistake? Hours hunting through ones and zeros.",
+      "speaker": "CHALKBOT"
+    },
+    {
+      "id": "p2_02_narration_native",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Machine code</strong> is the native language of a computer &mdash; the only thing it truly understands. Every instruction is a binary number. Every piece of data is a binary number. Every memory location is a binary number.",
+      "style": "default"
+    },
+    {
+      "id": "p2_03_programmer_desk",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 576,
+      "prompt": "A 1940s programmer at a cluttered desk covered with sheets of paper filled with columns of binary numbers, pencil in hand crossing out a sequence and rewriting it, reference cards pinned to a board behind showing opcode tables, a large vacuum-tube computer visible in the background through a doorway, expression of intense concentration and mild frustration, overhead desk lamp casting warm light, vintage sepia tones with green #38A169 accent on desk lamp shade, comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p2_04_narration_process",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "You wanted to add two numbers? First, <strong>memorize</strong> which binary pattern means \"add.\" Then figure out the binary address of where each number is stored. Then figure out where to put the result. Then encode all of that as a long stream of 0s and 1s.<br><br>The binary encodes everything: the <em>operation</em>, the <em>source</em>, and the <em>destination</em>. The programmer managed all of this <strong>by hand</strong>.",
+      "style": "default"
+    },
+    {
+      "id": "p2_05_machine_code_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 690 440\"><rect x=\"10\" y=\"0\" width=\"660\" height=\"380\" rx=\"12\" fill=\"#1A202C\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"340\" y=\"30\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"20\" font-weight=\"bold\" fill=\"#FFFFFF\">MACHINE CODE vs. HUMAN INTENT</text><rect x=\"30\" y=\"48\" width=\"615\" height=\"55\" rx=\"8\" fill=\"#C6F6D5\" opacity=\"0.15\"/><text x=\"50\" y=\"68\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#FFFFFF\">WHAT YOU WANT:</text><text x=\"50\" y=\"88\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#E2E8F0\" textLength=\"581\" lengthAdjust=\"spacingAndGlyphs\">\"Add the number in slot 5 to the number in slot 6, store result in slot 7.\"</text><text x=\"50\" y=\"128\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#FFFFFF\">IN MACHINE CODE:</text><text x=\"50\" y=\"148\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">(simplified example)</text><text x=\"70\" y=\"175\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">Instruction format: [OPCODE] [SOURCE/DEST]</text><text x=\"70\" y=\"200\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#48BB78\">LOAD  slot 5 &rarr; register A:</text><text x=\"430\" y=\"200\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#FFF\" font-weight=\"bold\">0001  00000101</text><text x=\"70\" y=\"222\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#48BB78\">ADD   slot 6 to register A:</text><text x=\"430\" y=\"222\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#FFF\" font-weight=\"bold\">0010  00000110</text><text x=\"70\" y=\"244\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#48BB78\">STORE register A &rarr; slot 7:</text><text x=\"430\" y=\"244\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#FFF\" font-weight=\"bold\">0011  00000111</text><line x1=\"50\" y1=\"262\" x2=\"630\" y2=\"262\" stroke=\"#38A169\" stroke-width=\"1\" opacity=\"0.4\"/><text x=\"50\" y=\"282\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#FED7D7\">WHAT THE PROGRAMMER ACTUALLY TYPED:</text><text x=\"70\" y=\"306\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#FFF\" font-weight=\"bold\">000100000101  001000000110  001100000111</text><text x=\"70\" y=\"332\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">&uarr; One wrong digit = wrong instruction. No labels. Every address by hand.</text><text x=\"70\" y=\"350\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">This is simplified &mdash; real architectures had dozens of instruction formats.</text></svg>",
+      "caption": "Machine code: the programmer had to manage every bit by hand"
+    },
+    {
+      "id": "p2_06_narration_errors",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "It was slow. It was agonizing. <strong>Error rates were staggering</strong> &mdash; early studies suggested programmers spent up to <strong>90%</strong> of their time finding and fixing errors, not writing new logic. The machine was fast, but the humans were the bottleneck.",
+      "style": "accent"
+    },
+    {
+      "id": "p2_07_robot_think",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute squat boxy retro toy robot with big round orange headlamp eyes full of thoughtfulness, tiny antenna ears with bobbles, a wind-up key on its back, pastel silver body with rounded edges, sitting cross-legged like a kid pondering a riddle, chin resting on one stubby mitten hand, a single glowing lightbulb hovers above its head, soft warm background. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"GPS needs coordinates. Humans need landmarks.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "GPS needs coordinates. Humans need landmarks.",
+      "speaker": "TINBOT"
+    },
+    {
+      "id": "p2_08_bigidea",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "<strong>Machine code</strong> is the language computers actually speak &mdash; raw binary instructions. It is precise, unforgiving, and almost impossible for humans to read. <em>The entire history of programming languages is the story of making machines meet us halfway.</em>",
+      "style": "accent"
+    },
+    {
+      "id": "p2_09_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "The first improvement was modest but revolutionary. What if, instead of binary codes, you could use short English-like words? What if <code>0010</code> could just be... <strong>ADD</strong>?"
+    }
+  ]
+}

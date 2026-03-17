@@ -1,0 +1,37 @@
+[
+  {
+    "id": "p10_01_ocean_establishing",
+    "label": "A vast ocean made of flowing text, code, and data stretching to the horizon, with a small robot on the shore looking out",
+    "filename": "p10_01_ocean_establishing.png",
+    "width": 768,
+    "height": 320
+  },
+  {
+    "id": "p10_02_robot_ocean",
+    "label": "",
+    "filename": "p10_02_robot_ocean.png",
+    "width": 288,
+    "height": 512
+  },
+  {
+    "id": "p10_05_openness_left",
+    "label": "A cascade of hands passing gifts: the Web, Linux, Wikipedia, and GitHub, each enabling the next",
+    "filename": "p10_05_openness_left.png",
+    "width": 432,
+    "height": 576
+  },
+  {
+    "id": "p10_08_question_scene",
+    "label": "A vast data ocean at night with a large mechanical shape rising on the horizon, suggesting something new emerging from the collected knowledge",
+    "filename": "p10_08_question_scene.png",
+    "width": 768,
+    "height": 256
+  },
+  {
+    "id": "p10_10b_robot_connected",
+    "label": "",
+    "filename": "p10_10b_robot_connected.png",
+    "width": 640,
+    "height": 384
+  }
+]

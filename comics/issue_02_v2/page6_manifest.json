@@ -1,0 +1,111 @@
+{
+  "issue": 2,
+  "page": 6,
+  "title": "The Blueprint Inside the Machine",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p6_01_vonneumann_hero",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "John von Neumann, an impeccably dressed man in a three-piece suit, mid-1940s, standing in front of a blackboard filled with diagrams of boxes and arrows \u2014 an early computer architecture sketch. He exudes confidence and rapid-fire intelligence, chalk in hand, mid-gesture. A small crowd of engineers in shirtsleeves watches him draw, some taking notes. Bright classroom lighting, green chalkboard, chalk dust in the air. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent highlights on the diagram 1940s props only \u2014 chalk, papers, slide rules, NO modern technology, NO laptops, NO flat screens.",
+      "overlays": []
+    },
+    {
+      "id": "p6_02_robot_eureka",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute bright yellow robot with sparkling blue eyes, a tiny lightbulb antenna glowing warmly on its head, one stubby finger raised in an excited 'aha!' gesture, leaning forward with eureka energy, eyes lit up with discovery. Warm golden glow around the lightbulb. Simple bright background. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Store the program IN memory. Change software, not cables.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Store the program IN memory. Change software, not cables.",
+      "speaker": "EUREKA"
+    },
+    {
+      "id": "p6_03_narration_utm_callback",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "Remember the Universal Turing Machine from Issue 1? One machine that can be ANY machine &mdash; because the program is just data on the tape? <strong>John von Neumann</strong> realized: <em>that's</em> how you should build a real computer. Don't rewire the hardware. Store the program <strong>in memory</strong>, alongside the data."
+    },
+    {
+      "id": "p6_04_narration_vonneumann_bio",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>John von Neumann</strong> was, by the mid-1940s, possibly the most brilliant mathematician alive. Born in Budapest in 1903, he made foundational contributions to quantum mechanics, game theory, set theory, and fluid dynamics &mdash; all before age 40. He was famous for his photographic memory, his ability to do complex arithmetic in his head, and his habit of telling jokes at scientific meetings."
+    },
+    {
+      "id": "p6_05_vonneumann_teaching",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A 1940s university lecture room scene. A brilliantly dressed man in a suit gestures at a chalkboard where a simple diagram shows a box labeled 'MEMORY' with arrows pointing to boxes labeled 'CPU' and 'I/O'. Engineers in rolled-up shirtsleeves sit around a table, some leaning forward with surprise and realization. Papers and coffee cups on the table. Warm academic lighting. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent on the diagram",
+      "overlays": []
+    },
+    {
+      "id": "p6_06_narration_insight",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "In 1944, von Neumann visited the ENIAC project. He immediately grasped both its power and its critical limitation: the machine was fast, but changing what it did was agonizingly slow. He had read Turing's 1936 paper. He understood the Universal Turing Machine. The insight was radical: <strong>store the program in the same memory as the data</strong>."
+    },
+    {
+      "id": "p6_07_before_after",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 726 360\"><defs><style>text{font-family:'JetBrains Mono',monospace;}</style></defs><rect x=\"10\" y=\"0\" width=\"320\" height=\"150\" rx=\"10\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"170\" y=\"24\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">BEFORE (ENIAC-style)</text><text x=\"25\" y=\"48\" font-size=\"12\" fill=\"#2D3748\">To change the program:</text><text x=\"25\" y=\"66\" font-size=\"13\" font-weight=\"bold\" fill=\"#1A202C\">REWIRE THE MACHINE</text><text x=\"25\" y=\"88\" font-size=\"12\" fill=\"#2D3748\">Plug cables, set switches, patch cords</text><text x=\"25\" y=\"110\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">Time to reprogram: DAYS to WEEKS</text><text x=\"25\" y=\"130\" font-size=\"12\" fill=\"#2D3748\">Time to run program: SECONDS</text><rect x=\"350\" y=\"0\" width=\"320\" height=\"150\" rx=\"10\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"510\" y=\"24\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">AFTER (stored-program)</text><text x=\"365\" y=\"48\" font-size=\"12\" fill=\"#2D3748\">To change the program:</text><text x=\"365\" y=\"66\" font-size=\"13\" font-weight=\"bold\" fill=\"#1A202C\">WRITE NEW NUMBERS INTO MEMORY</text><text x=\"365\" y=\"88\" font-size=\"12\" textLength=\"289\" lengthAdjust=\"spacingAndGlyphs\" fill=\"#2D3748\">Memory contains BOTH instructions and data</text><text x=\"365\" y=\"110\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">Time to reprogram: MINUTES</text><text x=\"365\" y=\"130\" font-size=\"12\" fill=\"#2D3748\">Time to run program: SECONDS</text><text fill=\"#FFFFFF\" x=\"340\" y=\"175\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#DD6B20\">Same hardware. Different software. Forever.</text><rect x=\"10\" y=\"195\" width=\"660\" height=\"125\" rx=\"10\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><text x=\"340\" y=\"218\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#DD6B20\">THE EDVAC REPORT (June 1945)</text><text x=\"25\" y=\"240\" font-size=\"12\" textLength=\"629\" lengthAdjust=\"spacingAndGlyphs\" fill=\"#2D3748\">Von Neumann wrote \"First Draft of a Report on the EDVAC\" &mdash; listed only his name as author.</text><text x=\"25\" y=\"258\" font-size=\"12\" fill=\"#2D3748\">Eckert and Mauchly felt their contributions were erased. A bitter, lasting dispute.</text><text x=\"25\" y=\"278\" font-size=\"12\" font-style=\"italic\" fill=\"#2D3748\">The stored-program idea likely had multiple independent origins: Turing (theory),</text><text x=\"25\" y=\"296\" font-size=\"12\" font-style=\"italic\" fill=\"#2D3748\">Eckert &amp; Mauchly (practical engineering), and von Neumann (formalization).</text></svg>",
+      "caption": "Before and after the stored-program concept"
+    },
+    {
+      "id": "p6_08_narration_collaborative",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The architecture is often called the <em>\"von Neumann architecture\"</em> because his name was on the published report, but history is messier than that name suggests. The collaborative reality &mdash; conversations among engineers and mathematicians, each contributing different pieces &mdash; is more accurate than any single-inventor story."
+    },
+    {
+      "id": "p6_09_manchester_edsac",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 576,
+      "prompt": "A split illustration showing two early stored-program computers. Top half: a large room-filling experimental machine with rows of cathode-ray tube monitors mounted on tall metal racks, occupying most of a cluttered university laboratory, label reads SSEM, 1948 \u2014 the Manchester Baby. Bottom half: a much larger machine with long rows of tall mercury delay-line tubes mounted on metal frames stretching along a wall in a Cambridge university lab, label reads EDSAC, 1949. Both machines have that hand-built, prototype quality with visible wires and components. No modern desktop monitors, no personal computers, no flat screens. All equipment should be large cabinet-style 1940s machines. Warm academic lighting. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent highlights",
+      "overlays": []
+    },
+    {
+      "id": "p6_10_narration_firstprograms",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "In Manchester, <strong>Frederic Williams</strong> and <strong>Tom Kilburn</strong> built the <strong>Manchester Baby (SSEM)</strong>, which ran the first stored program on <strong>June 21, 1948</strong>.<br><br>In Cambridge, <strong>Maurice Wilkes</strong> built <strong>EDSAC</strong> &mdash; the first practical stored-program computer in regular service, on <strong>May 6, 1949</strong>. On the flight home from the Moore School Lectures, Wilkes had a famous epiphany: <em>\"A good part of the remainder of my life was going to be spent in finding errors in my own programs.\"</em> The age of debugging had begun."
+    },
+    {
+      "id": "p6_11_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>Big Idea:</strong> The stored-program concept is the reason you can install new apps on your phone. The hardware doesn't change &mdash; the instructions in memory do. The idea emerged from collaborative work by Turing (theoretical foundation), Eckert and Mauchly (practical engineering), and von Neumann (formalization). Together, they turned computers from expensive, single-purpose calculators into general-purpose machines that could do anything, just by loading different software."
+    },
+    {
+      "id": "p6_10b_robot_storedprogram",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round cream-colored robot with a dome head and big warm amber LED eyes, wearing tiny round spectacles, stubby arms holding a miniature cathode-ray tube display showing a blinking cursor, antenna with a tiny light bulb on top, sitting on a workbench next to soldering tools and vacuum tubes. A white speech bubble with black outline above. Inside the bubble the text reads: \"Store the program in memory. Changed everything.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Store the program in memory. Changed everything.",
+      "speaker": "SPARKY"
+    },
+    {
+      "id": "p6_12_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Store the program in memory. Brilliant. But HOW do you organize the machine to make this work? Von Neumann drew a diagram \u2014 five boxes and some arrows \u2014 that still describes every computer you have ever used."
+    }
+  ]
+}

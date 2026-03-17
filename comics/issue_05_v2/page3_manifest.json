@@ -1,0 +1,142 @@
+{
+  "issue": 5,
+  "page": 3,
+  "title": "The Browser That Opened the Floodgates",
+  "accent": "#D69E2E",
+  "panels": [
+    {
+      "id": "p3_01_before_mosaic",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A dark austere computer screen showing a text-only web browser from 1992, plain monospaced white text on black background with blue underlined hyperlinks, no images, no graphics, just dense lines of text like a phone book, labeled CERN Line Mode Browser at top, a dull grey CRT monitor frame, warm editorial illustration with ink lines and watercolor washes, muted desaturated colors to convey plainness",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "bottom-span",
+          "max_width": "200px",
+          "text": "<strong>1992:</strong> Text only."
+        }
+      ]
+    },
+    {
+      "id": "p3_01b_after_mosaic",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A bright colorful computer screen showing the NCSA Mosaic web browser from 1993, images displayed inline alongside text, a photo and colorful graphics mixed with words, navigation buttons at top, the whole screen feels alive and inviting compared to text-only browsers, labeled NCSA Mosaic at top, a clean CRT monitor frame, warm editorial illustration with ink lines and watercolor washes, vibrant warm colors with gold highlights",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "bottom-span",
+          "max_width": "200px",
+          "text": "<strong>1993:</strong> Images inline."
+        }
+      ]
+    },
+    {
+      "id": "p3_02_robot_mosaic",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute chunky pixelated robot made of visible pastel-colored voxel blocks, big square LED eyes glowing with excitement, one blocky hand pointing eagerly at an invisible screen, the other hand raised in amazement, tiny antenna with a spinning globe on top, standing on a mosaic-tiled floor. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Two students added pictures to the web. Everything changed.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, gold accents",
+      "bubble_text": "Two students added pictures to the web. Everything changed.",
+      "speaker": "PIXELBOT"
+    },
+    {
+      "id": "p3_03_mosaic_story",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The first web browsers were functional but austere. They showed text and hyperlinks. Images opened in separate windows. Using the web felt like reading a phone book.<br><br>Then, in January 1993, <strong>Marc Andreessen</strong> and <strong>Eric Bina</strong> at NCSA at the University of Illinois released <strong>Mosaic</strong>. Andreessen, a 22-year-old undergrad earning $6.85 an hour, handled the interface and vision. Bina built the core rendering engine. Together, they created the browser that made inline images mainstream."
+    },
+    {
+      "id": "p3_04_mosaic_impact",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "Wide cinematic scene of ordinary people in the mid 1990s discovering the web for the first time, a family gathered around a bulky beige desktop computer with a CRT monitor showing a colorful web page, the room lit by warm lamplight, expressions of wonder and delight, a suburban living room with 90s decor, the glow of the screen reflecting on their faces, warm editorial illustration with ink lines and watercolor washes, gold and amber tones",
+      "overlays": []
+    },
+    {
+      "id": "p3_05_usable_narration",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Mosaic did not invent the web. But it made the web <em>usable</em>. Suddenly, ordinary people &mdash; not just researchers &mdash; could browse. And suddenly, anyone with basic HTML knowledge could publish. A personal website cost nothing. You did not need a printing press, a TV station, or a newspaper. You needed a text editor and something to say."
+    },
+    {
+      "id": "p3_06_public_domain",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "But none of this would have happened without a decision made four months later. On <strong>April 30, 1993</strong>, CERN officially released the World Wide Web software into the <strong>public domain</strong> &mdash; free, for everyone, forever. No licensing fees. No royalties. No corporate control.",
+      "style": "accent"
+    },
+    {
+      "id": "p3_07_tbl_quote",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 384,
+      "prompt": "Portrait of Tim Berners-Lee looking reflective and calm, a thoughtful man in a simple shirt, soft warm lighting, a gentle expression that conveys humility and conviction, slightly blurred office background with network cables, warm editorial illustration with ink lines and watercolor washes, gold ambient light",
+      "overlays": []
+    },
+    {
+      "id": "p3_07b_tbl_quote_text",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "Berners-Lee later reflected: <em>\"Had the technology been proprietary, and in my total control, it would probably not have taken off. You can't propose that something be a universal space and at the same time keep control of it.\"</em><br><br>He never became wealthy from his invention. He chose to give it away."
+    },
+    {
+      "id": "p3_08_netscape",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Andreessen and Bina received little credit or reward from NCSA. Andreessen left and co-founded <strong>Netscape Communications</strong> with Jim Clark in April 1994. Netscape Navigator polished the Mosaic concept into a commercial product. And on <strong>August 9, 1995</strong>, Netscape went public."
+    },
+    {
+      "id": "p3_09_ipo",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 256,
+      "prompt": "Dramatic stylized stock ticker scene showing the number $71 in huge bold gold numerals against a dark background, a rising stock chart line glowing gold shooting upward, dollar signs and confetti floating, a newspaper headline visible reading NETSCAPE WORTH 2.9 BILLION, the energy of a financial explosion, warm editorial illustration with ink lines and watercolor washes, gold #D69E2E accent",
+      "overlays": []
+    },
+    {
+      "id": "p3_10_ipo_narration",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Shares were priced at $28. They opened at <strong>$71</strong>. A 16-month-old company was worth <strong>$2.9 billion</strong> by the end of the day. The starting gun of the dot-com boom had fired.",
+      "style": "accent"
+    },
+    {
+      "id": "p3_11_think",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<em>Think About It:</em> Tim Berners-Lee gave away the web for free. He could have patented it, licensed it, controlled it. He chose not to. But who got to participate in the \"connected world\"? In the 1990s, internet access required a computer, a phone line, and monthly fees &mdash; creating a \"digital divide\" along lines of wealth, geography, race, and gender. By 2000, fewer than 7% of the world's population was online. This gap persists today.",
+      "style": "default"
+    },
+    {
+      "id": "p3_11b_robot_dotcom",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round gold-colored robot with a dome head and big wide amber LED eyes, stubby arms holding a deflating balloon shaped like a dollar sign, antenna drooping, surrounded by scattered stock certificates, looking bewildered. A white speech bubble with black outline above. Inside the bubble the text reads: \"The bubble burst. But the infrastructure survived.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "The bubble burst. But the infrastructure survived.",
+      "speaker": "DOTBOT"
+    },
+    {
+      "id": "p3_12_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "The web was free and open. Anyone could publish. But the software underneath -- the operating systems, the servers -- was still controlled by corporations. Then a 21-year-old Finnish student posted a message that started with \"just a hobby, won't be big...\""
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "issue": 10,
+  "page": 5,
+  "title": "What's Still Unsolved",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p5_01_timeline_modern",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-15 -30 730 945\"><style>text{font-family:'JetBrains Mono',monospace;} .yr{font-size:14px;font-weight:bold;fill:#DD6B20;} .nm{font-size:13px;font-weight:bold;fill:#E2E8F0;} .desc{font-size:13px;fill:#A0AEC0;}</style><rect x=\"0\" y=\"-15\" width=\"700\" height=\"915\" rx=\"12\" fill=\"#1A202C\"/><text x=\"350\" y=\"18\" text-anchor=\"middle\" font-size=\"18\" fill=\"#DD6B20\" font-weight=\"bold\">THE BUILDERS — A Timeline (1983-2025+)</text><line x1=\"50\" y1=\"38\" x2=\"50\" y2=\"870\" stroke=\"#DD6B20\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><g transform=\"translate(65,55)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#E9D8FD\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">1983</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Richard Stallman</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">GNU Project, free software</text><rect x=\"480\" y=\"-5\" width=\"70\" height=\"20\" rx=\"4\" fill=\"#E9D8FD\"/><text x=\"515\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">Culture</text></g><g transform=\"translate(65,95)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#FED7D7\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">1986</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Hinton, Rumelhart, Williams</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"290\" y=\"9\">Backpropagation</text><rect x=\"480\" y=\"-5\" width=\"44\" height=\"20\" rx=\"4\" fill=\"#FED7D7\"/><text x=\"502\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">ML</text></g><g transform=\"translate(65,135)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#BEE3F8\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">1989</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Tim Berners-Lee</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">The World Wide Web</text><rect x=\"480\" y=\"-5\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#BEE3F8\"/><text x=\"505\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">Web</text></g><g transform=\"translate(65,175)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#FED7D7\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">1989</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Yann LeCun</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">CNNs for handwriting (LeNet)</text><rect x=\"480\" y=\"-5\" width=\"44\" height=\"20\" rx=\"4\" fill=\"#FED7D7\"/><text x=\"502\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">ML</text></g><g transform=\"translate(65,215)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#E9D8FD\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">1991</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Linus Torvalds</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">Linux kernel released</text><rect x=\"480\" y=\"-5\" width=\"44\" height=\"20\" rx=\"4\" fill=\"#E9D8FD\"/><text x=\"502\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">OS</text></g><g transform=\"translate(65,255)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#BEE3F8\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">1993</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Marc Andreessen</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">Mosaic web browser</text><rect x=\"480\" y=\"-5\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#BEE3F8\"/><text x=\"505\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">Web</text></g><g transform=\"translate(65,295)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#FEFCBF\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">1995</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Brendan Eich</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">JavaScript (created in 10 days)</text><rect x=\"475\" y=\"-5\" width=\"84\" height=\"20\" rx=\"4\" fill=\"#FEFCBF\"/><text x=\"517\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">Languages</text></g><g transform=\"translate(65,335)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#BEE3F8\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">1998</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Page &amp; Brin</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">Google founded</text><rect x=\"480\" y=\"-5\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#BEE3F8\"/><text x=\"505\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">Web</text></g><g transform=\"translate(65,375)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#BEE3F8\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">2001</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Jimmy Wales</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">Wikipedia launched</text><rect x=\"480\" y=\"-5\" width=\"50\" height=\"20\" rx=\"4\" fill=\"#BEE3F8\"/><text x=\"505\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">Web</text></g><g transform=\"translate(65,415)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#C6F6D5\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">2005</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Linus Torvalds</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">Git — version control for all</text><rect x=\"480\" y=\"-5\" width=\"54\" height=\"20\" rx=\"4\" fill=\"#C6F6D5\"/><text x=\"507\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">Tools</text></g><g transform=\"translate(65,455)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#FED7D7\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">2009</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Fei-Fei Li</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">ImageNet — 14M+ labeled images</text><rect x=\"475\" y=\"-5\" width=\"64\" height=\"20\" rx=\"4\" fill=\"#FED7D7\"/><text x=\"507\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">ML/Data</text></g><g transform=\"translate(65,495)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#FED7D7\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">2012</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Krizhevsky, Sutskever, Hinton</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"310\" y=\"9\">AlexNet</text><rect x=\"480\" y=\"-5\" width=\"44\" height=\"20\" rx=\"4\" fill=\"#FED7D7\"/><text x=\"502\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">ML</text></g><g transform=\"translate(65,535)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#BEE3F8\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">2017</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Vaswani et al.</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">\"Attention Is All You Need\"</text><rect x=\"480\" y=\"-5\" width=\"54\" height=\"20\" rx=\"4\" fill=\"#BEE3F8\"/><text x=\"507\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#4A9BD9\" font-weight=\"bold\">LLMs</text></g><g transform=\"translate(65,575)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#BEE3F8\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">2018</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Alec Radford et al.</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">GPT-1 (117M parameters)</text><rect x=\"480\" y=\"-5\" width=\"54\" height=\"20\" rx=\"4\" fill=\"#BEE3F8\"/><text x=\"507\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#4A9BD9\" font-weight=\"bold\">LLMs</text></g><g transform=\"translate(65,615)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#48BB78\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">2021</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Dario &amp; Daniela Amodei</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"270\" y=\"9\">Anthropic founded</text><rect x=\"480\" y=\"-5\" width=\"60\" height=\"20\" rx=\"4\" fill=\"#C6F6D5\"/><text x=\"510\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">Safety</text></g><g transform=\"translate(65,655)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#48BB78\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">2022</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Yao et al.</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">ReAct pattern for agents</text><rect x=\"480\" y=\"-5\" width=\"64\" height=\"20\" rx=\"4\" fill=\"#E9D8FD\"/><text x=\"512\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#9F7AEA\" font-weight=\"bold\">Agents</text></g><g transform=\"translate(65,695)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#48BB78\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">2022</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Anthropic</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">Constitutional AI published</text><rect x=\"480\" y=\"-5\" width=\"60\" height=\"20\" rx=\"4\" fill=\"#C6F6D5\"/><text x=\"510\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#1A202C\" font-weight=\"bold\">Safety</text></g><g transform=\"translate(65,735)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#BEE3F8\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">2023</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Claude released</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">LLMs reach the public</text><rect x=\"480\" y=\"-5\" width=\"54\" height=\"20\" rx=\"4\" fill=\"#BEE3F8\"/><text x=\"507\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#4A9BD9\" font-weight=\"bold\">LLMs</text></g><g transform=\"translate(65,775)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#E9D8FD\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">2025</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Claude Code team</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">Agentic AI coding in terminal</text><rect x=\"480\" y=\"-5\" width=\"64\" height=\"20\" rx=\"4\" fill=\"#E9D8FD\"/><text x=\"512\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#9F7AEA\" font-weight=\"bold\">Agents</text></g><g transform=\"translate(65,815)\"><circle cx=\"-15\" cy=\"5\" r=\"5\" fill=\"#FFF5EB\"/><text fill=\"#E2E8F0\" class=\"yr\" y=\"9\">2025+</text><text fill=\"#E2E8F0\" class=\"nm\" x=\"55\" y=\"9\">Agent coordination</text><text fill=\"#E2E8F0\" class=\"desc\" x=\"225\" y=\"9\">File-based protocols, swarms</text><rect x=\"475\" y=\"-5\" width=\"70\" height=\"20\" rx=\"4\" fill=\"#FFF5EB\"/><text x=\"510\" y=\"10\" text-anchor=\"middle\" font-size=\"12\" fill=\"#DD6B20\" font-weight=\"bold\">Swarms</text></g></svg>",
+      "caption": "The builders of computing, 1983-2025+"
+    },
+    {
+      "id": "p5_02_lifetime",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "This timeline spans <strong>one long human lifetime</strong>. Someone born the year Turing published 'On Computable Numbers' (1936) would have been 86 when ChatGPT launched (2022). The entire history of computing — from an imaginary tape machine to agents that write code — fits within the span of a single life."
+    },
+    {
+      "id": "p5_03_robot_serious",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute round slate-grey robot with big thoughtful amber eyes, brow slightly furrowed in contemplation, hands folded in its lap, sitting on the edge of a glowing warm orange platform overlooking a vast digital landscape with storm clouds gathering on the horizon, the landscape below shows glowing circuit patterns and data streams, mood shifting from celebration to honest reflection. A white speech bubble with black outline near the top left. Inside the bubble the text reads: \"We've solved astonishing problems. We've also created new ones.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "We've solved astonishing problems. We've also created new ones.",
+      "speaker": "THINKER"
+    },
+    {
+      "id": "p5_04_intro_problems",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "For all its achievements, computing in 2026 faces a set of genuinely <strong>unsolved problems</strong>. These are not minor engineering bugs. They are deep, structural challenges that will shape how AI and computing evolve over the coming decades."
+    },
+    {
+      "id": "p5_05_alignment_card",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A clear conceptual illustration of a golden hand reaching toward a target, but the target keeps shifting position, with faded duplicate images of the target in wrong positions. A small worried robot watches from the corner. Text label at top reads '1. ALIGNMENT'. Warm orange and gold tones, dark moody background. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p5_05b_interpret_card",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A clear conceptual illustration of a translucent glowing brain made of circuit patterns with a tiny scientist robot holding a flashlight trying to peer inside through a small window. Question marks float around the brain. Text label at top reads '2. INTERPRETABILITY'. Blue and purple tones, dark background. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p5_06_problems_text",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>1. The Alignment Problem:</strong> How do we ensure AI does what we actually <em>want</em> — not just what we literally say? Stuart Russell's \"King Midas\" analogy: the genie gave Midas exactly what he asked for — and it was a disaster.<br><br><strong>2. Interpretability:</strong> We cannot fully explain WHY a large language model produces a specific output. Anthropic has made significant progress — identifying features inside Claude — but the field is far from guarantees."
+    },
+    {
+      "id": "p5_07_energy_card",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A clear conceptual illustration of a massive glowing server rack shaped like a factory smokestack, with golden lightning bolts of electricity flowing into it from all directions, a tiny green plant wilting nearby, and a small robot looking up with concern while holding a tiny solar panel. Text label at top reads '3. ENERGY'. Green and orange tones, industrial atmosphere. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p5_07b_bias_card",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A clear conceptual illustration of a large ornate mirror reflecting back only some of the diverse faces standing before it — other faces are dimmed or missing from the reflection. A small robot holds up a sign reading 'WHOSE FACE?' Text label at top reads '4. BIAS'. Warm skin tones contrasting with cold mirror silver, orange accents. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p5_08_problems_text2",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>3. Energy &amp; Compute Costs:</strong> Training a frontier AI model can use as much electricity as a small town consumes in a year. GPT-3's training used approximately 1,287 MWh (Patterson et al., 2021). Efficiency improvements are closing the gap, but the tension between capability and cost is not going away.<br><br><strong>4. Bias in Training Data:</strong> AI learns from data written by humans — and humans have biases. As Timnit Gebru documented in \"Stochastic Parrots\" (2021), larger models can <em>amplify</em> rather than neutralize biases. The AI is a mirror. The question is whose face the mirror reflects."
+    },
+    {
+      "id": "p5_09_debate",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<em>Not everyone agrees AI risk is urgent.</em> Yann LeCun (from Issue 6) has called existential AI risk concerns overblown. Others argue slowing AI progress is itself dangerous — that we need to accelerate to solve problems like climate change and disease. This debate is live and unsettled. Where do <strong>YOU</strong> stand?"
+    },
+    {
+      "id": "p5_09b_robot_debate",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round warm-copper robot with a dome head and big thoughtful amber LED eyes, stubby arms holding tiny weighing scales with OPPORTUNITY on one side and RISK on the other, both balanced, antenna with a tiny question mark on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"The hardest questions are not technical. They are human.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "The hardest questions are not technical. They are human.",
+      "speaker": "BALANCEBOT"
+    },
+    {
+      "id": "p5_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "These problems are real. But they are not hopeless. Some of the most promising approaches to AI safety come from the same principle that built the entire stack: abstraction."
+    }
+  ]
+}

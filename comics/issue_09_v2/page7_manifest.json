@@ -1,0 +1,90 @@
+{
+  "issue": 9,
+  "page": 7,
+  "title": "Git Worktrees — How Agents Work in Parallel Without Collisions",
+  "accent": "#48BB78",
+  "panels": [
+    {
+      "id": "p7_01_conflict",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "Two AI agent terminals reaching for the same glowing file icon simultaneously from opposite sides, the file flashing red with a CONFLICT warning, one terminal shows adding code at line 50, the other shows deleting lines 48-52, electric sparks and red lightning between them, sense of collision and chaos, dark background with dramatic red warning lighting. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p7_02_narr_file_conflicts",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Cognitive isolation solves the \"Same Brain\" problem. But there is a practical problem too: <strong>file conflicts</strong>. If two agents try to edit the same file at the same time, chaos ensues. One agent's changes overwrite the other's."
+    },
+    {
+      "id": "p7_03_robot_worktrees",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute round chrome-silver robot with big relieved lime-green eyes, wearing a tiny tool belt with a wrench and screwdriver, one hand giving a thumbs up, the other hand holding three small branching folder icons like a bouquet of flowers, problem-solving energy and satisfaction, standing in front of a simplified Git branch diagram on a dark background. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Git worktrees: multiple folders, one repo, zero collisions.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, emerald accent",
+      "bubble_text": "Git worktrees: multiple folders, one repo, zero collisions.",
+      "speaker": "TOOLBELT"
+    },
+    {
+      "id": "p7_04_narr_git",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Human developers solved this with <strong>Git</strong> (Issue 5). But standard Git assumes one working directory — you check out one branch at a time. Enter <strong>git worktrees</strong>, released in <strong>Git 2.5 in July 2015</strong>. Worktrees let you create multiple working directories from the same repository, each on a different branch."
+    },
+    {
+      "id": "p7_05_worktree_visual",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A wide visualization showing one central .git repository icon in the middle connected by lines to three separate folder workspaces arranged in a row below it — Folder A labeled feature-auth with Agent A working peacefully inside, Folder B labeled feature-database with Agent B working, Folder C labeled feature-tests with Agent C working — each folder is a separate glowing bubble with its own branch name, green checkmarks on each, the central repository connects them all, below the folders three branch arrows converge into a single merged branch with a green success icon. Dark background with emerald accents. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p7_06_diagram_worktrees",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-15 -35 710 390\"><rect x=\"0\" y=\"-20\" width=\"680\" height=\"360\" rx=\"12\" fill=\"#1A202C\"/><text x=\"340\" y=\"16\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"17\" font-weight=\"bold\">Git Worktrees for Multi-Agent Development</text><rect x=\"260\" y=\"40\" width=\"160\" height=\"36\" rx=\"8\" fill=\"#48BB78\" opacity=\"0.3\" stroke=\"#48BB78\" stroke-width=\"2\"/><text x=\"340\" y=\"63\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\">Main Repository (.git)</text><line x1=\"290\" y1=\"76\" x2=\"120\" y2=\"110\" stroke=\"#48BB78\" stroke-width=\"1.5\"/><line x1=\"340\" y1=\"76\" x2=\"340\" y2=\"110\" stroke=\"#48BB78\" stroke-width=\"1.5\"/><line x1=\"390\" y1=\"76\" x2=\"560\" y2=\"110\" stroke=\"#48BB78\" stroke-width=\"1.5\"/><rect x=\"40\" y=\"110\" width=\"160\" height=\"55\" rx=\"7\" fill=\"#4A9BD9\" opacity=\"0.15\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"120\" y=\"130\" text-anchor=\"middle\" fill=\"#BEE3F8\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">../agent-a/</text><text x=\"120\" y=\"147\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" textLength=\"134\" lengthAdjust=\"spacingAndGlyphs\">branch: feature-auth</text><rect x=\"260\" y=\"110\" width=\"160\" height=\"55\" rx=\"7\" fill=\"#DD6B20\" opacity=\"0.15\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><text x=\"340\" y=\"130\" text-anchor=\"middle\" fill=\"#FFF5EB\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">../agent-b/</text><text x=\"340\" y=\"147\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">branch: feature-db</text><rect x=\"480\" y=\"110\" width=\"160\" height=\"55\" rx=\"7\" fill=\"#38A169\" opacity=\"0.15\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"560\" y=\"130\" text-anchor=\"middle\" fill=\"#C6F6D5\" font-family=\"JetBrains Mono,monospace\" font-size=\"12\">../agent-c/</text><text x=\"560\" y=\"147\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">branch: feature-tests</text><text x=\"120\" y=\"190\" text-anchor=\"middle\" fill=\"#BEE3F8\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Agent A works here</text><text x=\"340\" y=\"190\" text-anchor=\"middle\" fill=\"#FFF5EB\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Agent B works here</text><text x=\"560\" y=\"190\" text-anchor=\"middle\" fill=\"#C6F6D5\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\">Agent C works here</text><line x1=\"120\" y1=\"200\" x2=\"290\" y2=\"240\" stroke=\"#718096\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><line x1=\"340\" y1=\"200\" x2=\"340\" y2=\"240\" stroke=\"#718096\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><line x1=\"560\" y1=\"200\" x2=\"390\" y2=\"240\" stroke=\"#718096\" stroke-width=\"1\" stroke-dasharray=\"4,3\"/><rect x=\"260\" y=\"240\" width=\"160\" height=\"36\" rx=\"8\" fill=\"#48BB78\" opacity=\"0.3\" stroke=\"#48BB78\" stroke-width=\"2\"/><text x=\"340\" y=\"263\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\">git merge</text><text x=\"340\" y=\"300\" text-anchor=\"middle\" fill=\"#48BB78\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\">(combine all work)</text></svg>",
+      "caption": "Shared history, separate workspaces — the missing piece for parallel agent development"
+    },
+    {
+      "id": "p7_07_narr_orchestrator_creates",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The orchestrator creates a worktree for each agent. Now Agent A works in its own folder on authentication. Agent B works on the database. Agent C writes tests. They <strong>cannot collide</strong> — each has its own filesystem space. When they finish, the orchestrator merges the branches, just as human teams do in pull requests."
+    },
+    {
+      "id": "p7_08_narr_elegance",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The elegance is in the layering. <strong>Cognitive isolation</strong> (separate contexts) ensures independent thinking. <strong>Filesystem isolation</strong> (git worktrees) ensures independent work. Together, they give multi-agent systems both the intellectual independence and the practical safety to work in parallel."
+    },
+    {
+      "id": "p7_08b_robot_orchestrator",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round gold-green robot with a dome head and big wise amber LED eyes, wearing a tiny conductor's tailcoat, stubby arms holding a baton, directing an orchestra of smaller specialized robots, antenna with a tiny star constellation on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"The orchestrator creates agents. They never meet.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "The orchestrator creates agents. They never meet.",
+      "speaker": "MAESTRO"
+    },
+    {
+      "id": "p7_09_thinkbox",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<em>\"Git worktrees were built in 2015 for human developers who wanted to work on multiple branches without constantly switching. Nobody imagined AI agents would need the same feature. What other technologies built for one purpose might be essential for AI in unexpected ways?\"</em>"
+    },
+    {
+      "id": "p7_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "We have the architecture. We have the isolation. We have the tools. But what does it actually look like when a team of agents builds something real? Let us watch a swarm in action."
+    }
+  ]
+}

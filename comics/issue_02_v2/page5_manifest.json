@@ -1,0 +1,122 @@
+{
+  "issue": 2,
+  "page": 5,
+  "title": "The Women Who Were Computers",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p5_01_eniac_women_hero",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "Six women standing together in front of ENIAC's enormous patch panels, dressed in professional 1940s attire — blouses, skirts, heels. They are confident and focused, clearly in their element. Each holds tools of their trade: cables, wiring diagrams, notebooks. The tone is vibrant and respectful, not sepia nostalgia — these are professionals. The massive ENIAC cabinets with glowing vacuum tubes loom behind them. Warm lighting, dignified composition. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent highlights on the vacuum tubes",
+      "overlays": []
+    },
+    {
+      "id": "p5_02_robot_passionate",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round rose-gold robot with big fierce violet eyes, wearing a tiny suffragette-style sash across its chest that reads 'REMEMBER', both stubby hands on hips, leaning forward with passionate conviction, eyebrows raised with insistence. Warm amber background glow. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Six women programmed ENIAC. History erased them.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Six women programmed ENIAC. History erased them.",
+      "speaker": "LIBERTY"
+    },
+    {
+      "id": "p5_03_narration_intro",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "Before <em>\"computer\"</em> meant a machine, it meant a <strong>person</strong>. And the people who programmed ENIAC &mdash; who figured out how to make this 30-ton machine actually solve problems &mdash; were six women mathematicians. They were brilliant. They were essential. And history nearly erased them."
+    },
+    {
+      "id": "p5_04_narration_context",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In the 1940s, the word <strong>\"computer\"</strong> referred to a person &mdash; usually a woman &mdash; who performed mathematical calculations by hand. The U.S. Army employed hundreds of women as human computers, calculating firing tables for artillery. When ENIAC was built, the Army needed people to program it. The engineering leadership considered hardware the <em>\"real\"</em> work. Programming was seen as clerical. So the job was given to six women from the Army's computing corps."
+    },
+    {
+      "id": "p5_05_bartik_portrait",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "Portrait of Jean Jennings Bartik, a young woman in her twenties with dark curly hair, wearing professional 1940s attire, standing confidently beside ENIAC's patch panels with a cable in one hand and a notebook in the other. Intelligent, determined expression. Warm lighting from vacuum tubes in the background casting an orange glow. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p5_06_narration_profiles",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "<strong>Jean Jennings Bartik</strong> &mdash; a mathematics graduate from Northwest Missouri State, one of only two women in her college math program.<br><br><strong>Kay McNulty</strong> &mdash; born in Creeslough, County Donegal, Ireland; one of the few women to earn a math degree from Chestnut Hill College in 1942.<br><br><strong>Betty Holberton</strong> &mdash; later helped develop UNIVAC, write the first sort-merge generator, and design COBOL. She chose beige as the standard computer housing color."
+    },
+    {
+      "id": "p5_07_narration_profiles2",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Marlyn Meltzer</strong>, <strong>Ruth Lichterman</strong>, and <strong>Frances Spence</strong> &mdash; all mathematicians who had been working as human computers.<br><br>These six women received <strong>no manual</strong> for ENIAC &mdash; because none existed. They were given only the machine's logical diagrams and told to figure it out. They studied ENIAC's wiring blueprints, understood its architecture from the ground up, and <em>invented programming techniques as they went</em>."
+    },
+    {
+      "id": "p5_08_programming",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "Two women in 1940s professional attire working intensely at ENIAC's patch panels, surrounded by wiring diagrams spread on a table. One woman traces connections on a blueprint while the other carefully plugs cables into a dense wall of connection points. Their expressions show deep concentration and problem-solving. Notebooks filled with calculations nearby. Warm orange glow from vacuum tubes. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p5_09_narration_work",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "They broke the trajectory calculation into discrete steps. They figured out which of ENIAC's 40 panels needed to be configured for each step. They determined the order of operations, managed data flow between accumulators, and debugged a machine with 17,468 vacuum tubes and no error messages. They were, by any definition, the world's <strong>first professional programmers</strong> of a general-purpose electronic computer."
+    },
+    {
+      "id": "p5_10_narration_erasure",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "When ENIAC was publicly demonstrated on <strong>February 14, 1946</strong> &mdash; Valentine's Day &mdash; the women were not introduced. Press photos showed the men. For decades, the six programmers were either uncredited or identified only as <em>\"refrigerator ladies\"</em> &mdash; assumed to be models posing next to the machine. It was not until the 1980s and 1990s &mdash; largely through the research of <strong>Kathryn Kleiman</strong> &mdash; that their contributions were recognized."
+    },
+    {
+      "id": "p5_11_programmers_table",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 690 320\"><defs><style>text{font-family:'JetBrains Mono',monospace;}</style></defs><rect x=\"10\" y=\"0\" width=\"660\" height=\"280\" rx=\"12\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"2\"/><text x=\"340\" y=\"28\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#DD6B20\">THE ENIAC PROGRAMMERS (1945-1946)</text><line x1=\"30\" y1=\"38\" x2=\"650\" y2=\"38\" stroke=\"#DD6B20\" stroke-width=\"1\" opacity=\"0.4\"/><text x=\"30\" y=\"62\" font-size=\"13\" font-weight=\"bold\" fill=\"#2D3748\">Jean Jennings Bartik</text><text x=\"250\" y=\"62\" font-size=\"12\" fill=\"#2D3748\">Led the team. Later: BINAC and UNIVAC.</text><text x=\"30\" y=\"84\" font-size=\"13\" font-weight=\"bold\" fill=\"#2D3748\">Kay McNulty (Mauchly)</text><text x=\"250\" y=\"84\" font-size=\"12\" fill=\"#2D3748\">Specialist in trajectory calculations.</text><text x=\"30\" y=\"106\" font-size=\"13\" font-weight=\"bold\" fill=\"#2D3748\">Betty Holberton</text><text x=\"250\" y=\"106\" font-size=\"12\" fill=\"#2D3748\">Later: key developer of COBOL and UNIVAC.</text><text x=\"30\" y=\"128\" font-size=\"13\" font-weight=\"bold\" fill=\"#2D3748\">Marlyn Meltzer</text><text x=\"250\" y=\"128\" font-size=\"12\" fill=\"#2D3748\">Computed ballistics trajectories.</text><text x=\"30\" y=\"150\" font-size=\"13\" font-weight=\"bold\" fill=\"#2D3748\">Ruth Lichterman</text><text x=\"250\" y=\"150\" font-size=\"12\" fill=\"#2D3748\">Later: trained next generation on ENIAC.</text><text x=\"30\" y=\"172\" font-size=\"13\" font-weight=\"bold\" fill=\"#2D3748\">Frances Spence</text><text x=\"250\" y=\"172\" font-size=\"12\" fill=\"#2D3748\">Specialist in the master programmer unit.</text><line x1=\"30\" y1=\"188\" x2=\"650\" y2=\"188\" stroke=\"#DD6B20\" stroke-width=\"1\" opacity=\"0.4\"/><text x=\"340\" y=\"212\" text-anchor=\"middle\" font-size=\"13\" fill=\"#4A5568\" font-style=\"italic\">\"We learned to program without a manual,</text><text x=\"340\" y=\"230\" text-anchor=\"middle\" font-size=\"13\" fill=\"#4A5568\" font-style=\"italic\">without a programming language, without any tools.</text><text x=\"340\" y=\"248\" text-anchor=\"middle\" font-size=\"13\" fill=\"#4A5568\" font-style=\"italic\">We had to understand the machine itself.\"</text><text x=\"340\" y=\"270\" text-anchor=\"middle\" font-size=\"12\" fill=\"#DD6B20\" font-weight=\"bold\">&mdash; Jean Jennings Bartik</text></svg>",
+      "caption": "The six ENIAC programmers"
+    },
+    {
+      "id": "p5_12_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>Big Idea:</strong> Programming was invented before it had a name. The ENIAC women didn't just follow instructions &mdash; they created the discipline of programming from scratch. They broke problems into steps, managed data flow, and debugged hardware failures. Every programmer today stands on their shoulders."
+    },
+    {
+      "id": "p5_13_think",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Think About It:</strong> The ENIAC women were left out of history for decades because their work was classified as \"clerical\" rather than \"engineering.\" Why do you think certain kinds of work get labeled as less important? How does that shape whose stories get told &mdash; and whose get forgotten?"
+    },
+    {
+      "id": "p5_12b_robot_shoulders",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round rose-gold robot with a dome head and big determined violet LED eyes, wearing a tiny sash reading REMEMBER, stubby arms raised triumphantly, antenna with a star on top, standing on a stack of old punch cards and wiring diagrams. A white speech bubble with black outline above. Inside the bubble the text reads: \"Every programmer today stands on their shoulders.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Every programmer today stands on their shoulders.",
+      "speaker": "TRIBUTE"
+    },
+    {
+      "id": "p5_14_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "ENIAC was powerful, but reprogramming it by hand took weeks. A mathematician visiting the project saw the problem — and had an idea that would change computing forever. His name was John von Neumann, and he had read a certain 1936 paper..."
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "issue": 1,
+  "page": 2,
+  "title": "The Long-Distance Thinker",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p2_01_cambridge",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "Wide cinematic watercolor illustration of King's College Cambridge in autumn 1936, gothic stone spires rising into a grey overcast English sky, golden and orange fallen leaves scattered along a riverbank path, a solitary young man in a rumpled tweed jacket walks along the River Cam with hands in pockets slightly hunched, his reflection visible in the still water, atmospheric misty morning light, warm editorial illustration with ink lines and watercolor washes in muted earth tones with red accent on scattered leaves",
+      "overlays": []
+    },
+    {
+      "id": "p2_02_narration_turing_intro",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Alan Mathison Turing</strong> was born on June 23, 1912, in London. By the time he arrived at King's College, Cambridge, he was already the kind of student who made other students slightly uneasy — not because he was arrogant, but because his mind simply worked differently.",
+      "style": "default"
+    },
+    {
+      "id": "p2_03_turing_portrait",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 384,
+      "gen_height": 512,
+      "prompt": "Portrait-style illustration of a young man in his early twenties with dark wavy hair and a thoughtful slightly shy expression, wearing a rumpled tweed jacket over a wrinkled shirt, no tie, looking slightly off-camera with intelligent eyes, soft golden light illuminating one side of his face, a Cambridge college window visible behind him with autumn light streaming in, warm editorial illustration with ink lines and watercolor washes, character card portrait style with a warm cream background border",
+      "overlays": []
+    },
+    {
+      "id": "p2_04_character_card",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Alan Turing</strong><br>Born: June 23, 1912 — London<br>Age in 1936: 23<br>Role: Fellow, King's College, Cambridge<br><br>Known for: Running. Building radios. Thinking about things that shouldn't be possible.<br><br><em>His marathon time (2h 46m) was only 11 minutes slower than the 1948 Olympic gold medalist.</em>",
+      "style": "accent"
+    },
+    {
+      "id": "p2_04c_robot_runner",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute bronze mechanical robot with a dome head and big determined green LED eyes, wearing tiny running shoes and a sweatband on its antenna, mid-stride in a running pose with stubby legs pumping and little piston arms swinging, a winding Cambridge riverbank path stretching behind it with autumn trees in watercolor wash, a tiny stopwatch bouncing on a chain around its neck, motion lines behind it suggesting speed, warm golden morning light. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"2 hours 46 minutes. Not bad for a thinker!\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "2 hours 46 minutes. Not bad for a thinker!",
+      "speaker": "RUNNER"
+    },
+    {
+      "id": "p2_05_narration_shy",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "He was shy. He stammered when he spoke. He ran — long, brutal distances, nearly Olympic-qualifying times — because something about the rhythm of running freed his thinking.",
+      "style": "default"
+    },
+    {
+      "id": "p2_06_sprout_admire",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 384,
+      "gen_height": 512,
+      "prompt": "A small cute round green robot with a tiny plant sprout growing from the top of its head, leaf-shaped ears, big warm brown eyes with an admiring soft expression, one stubby hand placed gently over its chest, standing in front of a blurry watercolor Cambridge background with autumn leaves. A white speech bubble with black outline above the robot. Inside the bubble the text reads: \"Not a statue. A real person.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Not a statue. A real person.",
+      "speaker": "SPROUT"
+    },
+    {
+      "id": "p2_07_newman_lecture",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 384,
+      "gen_height": 512,
+      "prompt": "Interior of a small Cambridge lecture room in the 1930s, a middle-aged professor with dark hair and glasses stands at a small blackboard writing mathematical notation, a few students sit in wooden chairs listening intently, one young man in the front row leans forward with intense focus — this is young Turing hearing Newman's challenge, warm golden light from a window, intimate scholarly atmosphere, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p2_08_narration_newman",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In 1935, Turing attended lectures on the foundations of mathematics given by <strong>Max Newman</strong> at Cambridge. Newman presented the Entscheidungsproblem and issued a challenge: the question couldn't be answered until someone gave a precise definition of what \"a mechanical process\" even <em>was</em>.",
+      "style": "default"
+    },
+    {
+      "id": "p2_09_narration_agenda",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Most students heard a remark about the state of the field. <strong>Turing heard a research agenda.</strong><br><br>He was twenty-three years old."
+    },
+    {
+      "id": "p2_09b_robot_lightbulb",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round tin robot with a boxy retro body in pastel silver, big round amber headlamp eyes wide with excitement, tiny antenna ears with red bobbles, a glowing lightbulb above its head like an idea forming, one stubby hand pointing upward at the lightbulb with the other hand on its hip in a confident pose, standing in a dim Cambridge hallway with stone arches and warm lamplight, the atmosphere of a moment of inspiration. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Most heard a lecture. Turing heard a MISSION.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Most heard a lecture. Turing heard a MISSION.",
+      "speaker": "SPARK"
+    },
+    {
+      "id": "p2_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "What was the problem with the very long German name? And why did the greatest mathematicians in the world think it could be solved?"
+    }
+  ]
+}

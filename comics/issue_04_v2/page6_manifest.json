@@ -1,0 +1,128 @@
+{
+  "issue": 4,
+  "page": 6,
+  "title": "The Personal Computer \u2014 From Altair to Apple to IBM PC",
+  "accent": "#805AD5",
+  "panels": [
+    {
+      "id": "p6_01_altair",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "The cover of Popular Electronics magazine January 1975 featuring the MITS Altair 8800, a boxy metal computer with rows of toggle switches and blinking red LED lights on the front panel, bold text reads ALTAIR 8800, the magazine held up against a warm yellow background, vintage print aesthetic, warm editorial illustration with ink lines and watercolor washes, purple accent on LED glow",
+      "overlays": [],
+      "label": "Popular Electronics, January 1975 \u2014 the Altair 8800 that ignited a revolution"
+    },
+    {
+      "id": "p6_02_robot_rooms",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round robot made of visible pastel-colored voxel blocks like a Minecraft character, big square pink pixel eyes wide with amazement, standing in a vast room filled with towering mainframe computers that dwarf it, arms spread in awe, dramatic scale contrast, purple and pink tones. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"In 1974, computers filled rooms.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "In 1974, computers filled rooms.",
+      "speaker": "PIXELBOT"
+    },
+    {
+      "id": "p6_02b_robot_desk",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round rocket-shaped robot with big bright lime-green eyes, a tiny lightning bolt antenna, zooming excitedly around a desk-sized personal computer from the early 1980s, motion lines showing speed and energy, warm office setting with purple and green accents. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"By 1981, one fit on your desk. Seven extraordinary years.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "By 1981, one fit on your desk.",
+      "speaker": "ROCKETBOT"
+    },
+    {
+      "id": "p6_03_narration_altair",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In January 1975, the <strong>MITS Altair 8800</strong> \u2014 a kit computer based on the Intel 8080, sold for $439 \u2014 had no keyboard, no screen, and was programmed by flipping toggle switches. It was, by any practical measure, nearly useless. <em>It changed everything.</em>"
+    },
+    {
+      "id": "p6_04_gates_allen",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "Two young men in their late teens hunched intensely over a large PDP-10 terminal at a university computer lab in the mid-1970s, one with glasses focused on the screen, the other pointing excitedly at code, pizza boxes and soda cans nearby, fluorescent lighting, vintage 1970s college atmosphere, warm editorial illustration with ink lines and watercolor washes, purple accent on terminal glow 1970s computing aesthetic only \u2014 green phosphor CRT terminal, NO modern flat screens, NO laptops.",
+      "overlays": [],
+      "label": "Bill Gates and Paul Allen writing Altair BASIC on a Harvard PDP-10"
+    },
+    {
+      "id": "p6_04b_narration_microsoft",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "<strong>Bill Gates</strong> and <strong>Paul Allen</strong> wrote a BASIC interpreter for the Altair on a Harvard PDP-10, using a homemade emulator \u2014 they had never touched an Altair. When Allen demonstrated it, the software ran on real hardware for the first time. It worked. They founded <strong>Microsoft</strong> in April 1975."
+    },
+    {
+      "id": "p6_05_narration_gates_letter",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In February 1976, Gates published an angry <strong>\"Open Letter to Hobbyists,\"</strong> arguing that copying software without paying was theft: <em>\"Who can afford to do professional work for nothing?\"</em> The hobbyist community was furious \u2014 many saw software as something to be freely shared. This letter is often cited as the opening shot in the free vs. commercial software debate."
+    },
+    {
+      "id": "p6_06_wozniak",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 384,
+      "prompt": "A young bearded engineer in the mid-1970s at the Homebrew Computer Club, holding up a hand-built circuit board with a wide proud grin, surrounded by other enthusiastic hobbyists in a garage-like meeting space, warm overhead lighting, energy of a community gathering, vintage feel, warm editorial illustration with ink lines and watercolor washes, purple accent on circuit board traces",
+      "overlays": [],
+      "label": "Steve Wozniak at the Homebrew Computer Club with the Apple I circuit board"
+    },
+    {
+      "id": "p6_06b_narration_apple",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "<strong>Steve Wozniak</strong> designed the <strong>Apple I</strong> single-handedly and gave away the schematics. His friend <strong>Steve Jobs</strong> convinced him the designs could be sold. They founded <strong>Apple Computer</strong> on April 1, 1976. The <strong>Apple II</strong> (1977) \u2014 with color graphics and eventually the <strong>VisiCalc</strong> spreadsheet (1979), the first \"killer app\" \u2014 made personal computing real for businesses."
+    },
+    {
+      "id": "p6_07_ibm_pc",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "An IBM PC from 1981 sitting on a clean office desk with a green phosphor monitor displaying a DOS prompt, a keyboard and beige system unit, a businessman in a suit looking at it with curiosity, wood-paneled office walls, the tagline A COMPUTER FOR EVERYONE visible on a poster, vintage corporate atmosphere, warm editorial illustration with ink lines and watercolor washes, purple accent highlights",
+      "overlays": [],
+      "screen_text": "C:\\>",
+      "label": "The IBM PC, August 1981 \u2014 computing goes corporate"
+    },
+    {
+      "id": "p6_08_narration_ibm",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "On August 12, 1981, the <strong>IBM PC</strong> launched with an open architecture. Microsoft supplied <strong>MS-DOS</strong>, acquired for around $50,000\u2013$75,000 \u2014 and crucially retained the right to sell DOS to other manufacturers. This single licensing decision would make Microsoft one of the most valuable companies on Earth."
+    },
+    {
+      "id": "p6_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The personal computer did not just shrink computing. It changed <em>who</em> could compute. Power shifted from institutions to individuals. From priests of the mainframe to anyone with a desk and a dream."
+    },
+    {
+      "id": "p6_09b_robot_desk",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round electric-blue robot with a dome head and big bright white LED eyes, stubby arms gesturing at a small personal computer on a desk, antenna with a tiny star on top, warm office background with posters on the wall. A white speech bubble with black outline above. Inside the bubble the text reads: \"Power shifted from institutions to individuals.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Power shifted from institutions to individuals.",
+      "speaker": "DESKBOT"
+    },
+    {
+      "id": "p6_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Computers were personal now. But they were islands \u2014 each one isolated, unable to talk to any other. Quietly, in the background, a network had been growing since 1969. And its first message was an accident."
+    }
+  ]
+}

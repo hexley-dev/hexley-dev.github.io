@@ -1,0 +1,104 @@
+{
+  "issue": 2,
+  "page": 3,
+  "title": "Cracking the Uncrackable",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p3_01_bletchley",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "Bletchley Park 1943, an English country estate in winter. A grand but faded manor house surrounded by hastily built wooden huts. People in civilian clothes and military uniforms hurry between buildings on muddy paths. Bare trees, overcast sky, frost on the ground. Everything feels secret and urgent, like a spy thriller. Muted greens, grays, and browns with cold blue atmosphere. A sense of tension in the air. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent highlights on windows and lanterns",
+      "overlays": []
+    },
+    {
+      "id": "p3_02_robot_secret",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round dark-green robot with big wide golden eyes, wearing a tiny trench coat and beret tilted at a rakish angle, leaning in conspiratorially with one stubby hand cupped beside its mouth as if sharing a secret, the other hand holding a rolled-up coded message. Hushed, secretive expression. Dark moody background with hints of old brick walls. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Theory meets desperation. People were dying.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Theory meets desperation. People were dying.",
+      "speaker": "SPYBOT"
+    },
+    {
+      "id": "p3_03_narration_context",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "Remember Turing from Issue 1? By 1939, he was at <strong>Bletchley Park</strong> &mdash; Britain's top-secret code-breaking center. The Germans were using encryption machines called Lorenz and Enigma, and cracking them by hand was too slow. People were dying while mathematicians did arithmetic."
+    },
+    {
+      "id": "p3_04_narration_poland",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "But this story starts before Britain. <strong>Polish mathematicians Marian Rejewski, Jerzy Rozycki, and Henryk Zygalski</strong> had broken earlier versions of Enigma in the early 1930s using mathematical group theory. They reconstructed the machine's internal wiring from intercepted ciphertexts alone. In 1938, Rejewski's team built the <em>bomba kryptologiczna</em>. In <strong>July 1939</strong>, just weeks before the German invasion, Polish intelligence shared their methods with Britain and France. Without this gift, the British effort would have started years behind."
+    },
+    {
+      "id": "p3_05_flowers_portrait",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "Portrait of a determined-looking man in his late thirties, 1940s Post Office engineer, wearing a white lab coat over a rumpled suit, standing in front of a workbench covered in vacuum tubes and soldering equipment. Tommy Flowers, confident but modest, intelligent eyes behind round glasses. Warm workshop lighting, vacuum tubes glowing orange in the background. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent glow",
+      "overlays": []
+    },
+    {
+      "id": "p3_06_narration_flowers",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "<strong>Tommy Flowers</strong>, a 38-year-old Post Office engineer, proposed a radical solution: build an electronic machine using <strong>vacuum tubes</strong> &mdash; glass bulbs switching electrical signals thousands of times per second. His bosses were skeptical. Flowers knew from telephone exchange work that tubes were reliable if left running continuously. He persisted, partly funding the work <em>out of his own pocket</em>."
+    },
+    {
+      "id": "p3_07_colossus",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A massive room-filling electronic machine circa 1944, racks of vacuum tubes glowing orange in orderly rows behind metal panels, a long paper tape racing through a reader mechanism at high speed, wheels spinning, two operators in civilian clothes monitoring dials and switches. The machine is Colossus at Bletchley Park — industrial, powerful, hissing with energy. Dramatic warm orange lighting from the tubes against dark metal frames. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p3_08_colossus_specs",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 690 260\"><defs><style>text{font-family:'JetBrains Mono',monospace;}</style></defs><rect x=\"10\" y=\"0\" width=\"660\" height=\"220\" rx=\"12\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"2\"/><text x=\"340\" y=\"28\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#DD6B20\">COLOSSUS (Bletchley Park, 1944-1945)</text><line x1=\"30\" y1=\"38\" x2=\"650\" y2=\"38\" stroke=\"#DD6B20\" stroke-width=\"1\" opacity=\"0.4\"/><text x=\"30\" y=\"62\" font-size=\"13\" fill=\"#2D3748\">Designer: Tommy Flowers (Post Office engineer)</text><text x=\"30\" y=\"82\" font-size=\"13\" fill=\"#2D3748\">Purpose: Breaking the Lorenz cipher (German high command)</text><text x=\"30\" y=\"102\" font-size=\"13\" fill=\"#2D3748\">Technology: ~1,500 vacuum tubes (Mk 1), 2,400 (Mk 2)</text><text x=\"30\" y=\"122\" font-size=\"13\" fill=\"#2D3748\">Speed: 5,000 characters/second (tape at 30 mph)</text><text x=\"30\" y=\"142\" font-size=\"13\" fill=\"#2D3748\">Mk 2 operational: June 1, 1944 — just before D-Day</text><text x=\"30\" y=\"162\" font-size=\"13\" fill=\"#2D3748\">Limitation: Special-purpose — only Lorenz cipher work</text><text x=\"30\" y=\"182\" font-size=\"13\" fill=\"#2D3748\">Total built: 10 Colossus machines by end of war</text><text x=\"30\" y=\"208\" font-size=\"12\" fill=\"#718096\" font-style=\"italic\">Classified after the war. Most dismantled. Secret until the 1970s.</text></svg>",
+      "caption": "Colossus specifications"
+    },
+    {
+      "id": "p3_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>Big Idea:</strong> Colossus proved that electronic computation could work at scale. Thousands of vacuum tubes, running together, doing in hours what humans needed weeks to accomplish. The machine was secret. The principle was not: <em>electronics could replace human calculation</em>."
+    },
+    {
+      "id": "p3_10_narration_secrecy",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "After the war, Churchill ordered most machines dismantled. Tommy Flowers was sworn to secrecy. He received a modest award of &pound;1,000 &mdash; not even enough to cover what he'd spent from his own savings. When he applied for a bank loan, he was denied &mdash; he couldn't tell the bank what he had accomplished."
+    },
+    {
+      "id": "p3_10b_robot_forgotten",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round dark-grey robot with a dome head and big sad blue LED eyes, wearing a tiny locked padlock pendant, stubby arms holding a framed certificate labeled TOP SECRET, antenna drooping, sitting on a dusty shelf next to old war medals and faded blueprints of vacuum tube circuits. No human faces or photographs anywhere in the scene. A white speech bubble with black outline above. Inside the bubble the text reads: \"A genius engineer. Sworn to silence for decades.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "A genius engineer. Sworn to silence for decades.",
+      "speaker": "DUSTY"
+    },
+    {
+      "id": "p3_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Colossus was special-purpose — it could do one thing. Across the Atlantic, American engineers were building something more ambitious: a machine that could be reprogrammed for any calculation. It would weigh 30 tons and fill an entire room."
+    }
+  ]
+}

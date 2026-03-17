@@ -1,0 +1,81 @@
+{
+  "issue": 3,
+  "page": 8,
+  "title": "The Language That Dreams of Thinking",
+  "accent": "#38A169",
+  "panels": [
+    {
+      "id": "p8_01_dartmouth",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "Dartmouth College seminar room in summer 1956, a small group of men in short-sleeved white shirts sitting casually around a large wooden table, papers and coffee cups scattered everywhere, ashtrays with cigarette smoke curling upward, a green chalkboard behind them reads DARTMOUTH SUMMER RESEARCH PROJECT ON ARTIFICIAL INTELLIGENCE in chalk, the mood is electric and informal, sunlight streaming through tall windows casting warm rectangles on the floor, ivy-covered brick visible through the windows, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on the chalkboard text",
+      "overlays": []
+    },
+    {
+      "id": "p8_02_narration_mccarthy_intro",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In the summer of 1956, a young mathematics professor named <strong>John McCarthy</strong> organized a now-legendary workshop at Dartmouth College. He invited some of the brightest minds &mdash; including Marvin Minsky and Claude Shannon &mdash; to spend the summer thinking about one question: <em>Can machines be made to think?</em>",
+      "style": "default"
+    },
+    {
+      "id": "p8_03_robot_dreamy",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 384,
+      "prompt": "A small cute translucent dome-headed translucent robot with a luminous round glass dome body glowing with soft green and blue inner light, big gentle dreamy eyes like tiny stars, cable-arms with small light-bulb tips, one arm resting on its chin in a thoughtful pose, head tilted slightly, floating above a pile of open books and mathematical papers, surrounded by glowing parentheses ( ) floating in the air like fireflies, warm dark background. A white speech bubble with black outline near the top right. Inside the bubble the text reads: \"Could a computer actually think?\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Could a computer actually think?",
+      "speaker": "STARLIGHT"
+    },
+    {
+      "id": "p8_04_mccarthy_card",
+      "type": "svg_diagram",
+      "layout": "right",
+      "flex": 3,
+      "svg": "<svg viewBox=\"-10 -20 429 310\"><rect x=\"5\" y=\"0\" width=\"390\" height=\"270\" rx=\"12\" fill=\"#F7FAFC\" stroke=\"#38A169\" stroke-width=\"2\"/><rect x=\"5\" y=\"0\" width=\"365\" height=\"36\" rx=\"12\" fill=\"#38A169\"/><rect x=\"5\" y=\"18\" width=\"365\" height=\"18\" fill=\"#38A169\"/><text x=\"200\" y=\"25\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"17\" font-weight=\"bold\" fill=\"#FFF\">JOHN McCARTHY</text><text x=\"20\" y=\"55\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Born: September 4, 1927 &mdash; Boston</text><text x=\"20\" y=\"73\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Died: October 24, 2011</text><text x=\"20\" y=\"91\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\" textLength=\"357\" lengthAdjust=\"spacingAndGlyphs\">Role: Mathematician, computer scientist, founder of AI</text><line x1=\"20\" y1=\"101\" x2=\"380\" y2=\"101\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"20\" y=\"121\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#38A169\">Known for:</text><text x=\"20\" y=\"139\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Coined \"artificial intelligence\" (1955)</text><text x=\"20\" y=\"155\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Created LISP (1958), Dartmouth Conference (1956)</text><text x=\"20\" y=\"171\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Turing Award (1971)</text><line x1=\"20\" y1=\"183\" x2=\"380\" y2=\"183\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"20\" y=\"203\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Also invented computer time-sharing &mdash;</text><text x=\"20\" y=\"219\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">the idea that many users could share one</text><text x=\"20\" y=\"235\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">computer, anticipating cloud computing.</text><line x1=\"20\" y1=\"247\" x2=\"380\" y2=\"247\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"20\" y=\"264\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-style=\"italic\" fill=\"#718096\" textLength=\"357\" lengthAdjust=\"spacingAndGlyphs\">McCarthy coined the term \"artificial intelligence.\"</text></svg>",
+      "caption": "John McCarthy character card"
+    },
+    {
+      "id": "p8_05_narration_lisp",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In 1958, McCarthy unveiled <strong>LISP</strong> (LISt Processing). It was unlike anything before. Where FORTRAN dealt with numbers and COBOL with business records, LISP dealt with <em>symbols and lists</em>. It could manipulate code as data. It introduced <strong>recursive functions</strong>, <strong>garbage collection</strong>, and <strong>dynamic typing</strong> &mdash; concepts that didn't become mainstream until the 2000s.",
+      "style": "default"
+    },
+    {
+      "id": "p8_06_lisp_code",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 690 300\"><rect x=\"10\" y=\"0\" width=\"660\" height=\"260\" rx=\"12\" fill=\"#1A202C\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"340\" y=\"28\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" font-weight=\"bold\" fill=\"#FFFFFF\">A TASTE OF LISP</text><text x=\"40\" y=\"55\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">; Add 2 and 3</text><text x=\"40\" y=\"72\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">(+ 2 3)</text><text x=\"150\" y=\"72\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">; &rarr; 5</text><text x=\"40\" y=\"100\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">; Define a function to square a number</text><text x=\"40\" y=\"117\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">(defun square (x)</text><text x=\"40\" y=\"134\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">  (* x x))</text><text x=\"40\" y=\"159\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">; Apply 'square' to every item in a list</text><text x=\"40\" y=\"176\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">(mapcar #'square '(1 2 3 4 5))</text><text x=\"40\" y=\"193\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">; &rarr; (1 4 9 16 25)</text><line x1=\"40\" y1=\"208\" x2=\"640\" y2=\"208\" stroke=\"#38A169\" stroke-width=\"1\" opacity=\"0.3\"/><text x=\"40\" y=\"230\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#C6F6D5\">ALL parentheses and lists. Code and data look the same.</text><text x=\"40\" y=\"250\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#C6F6D5\">A function can operate on other functions. Revolutionary in 1958.</text></svg>",
+      "caption": "LISP: all parentheses, code as data"
+    },
+    {
+      "id": "p8_07_lambda_connection",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "flex": 1,
+      "gen_width": 600,
+      "gen_height": 360,
+      "svg": "<svg viewBox=\"-10 -20 620 380\"><rect x=\"5\" y=\"0\" width=\"590\" height=\"340\" rx=\"12\" fill=\"#1A202C\" stroke=\"#805AD5\" stroke-width=\"2\"/><text x=\"300\" y=\"36\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"20\" font-weight=\"bold\" fill=\"#E9D8FD\">THE LAMBDA CONNECTION</text><text x=\"30\" y=\"80\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" fill=\"#A0AEC0\">Church's Lambda Calculus (1936):</text><text x=\"30\" y=\"115\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" fill=\"#E9D8FD\">&lambda;x. x * x</text><text x=\"30\" y=\"165\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" fill=\"#A0AEC0\">McCarthy's LISP (1958):</text><text x=\"30\" y=\"200\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" fill=\"#48BB78\">(lambda (x) (* x x))</text><line x1=\"30\" y1=\"240\" x2=\"570\" y2=\"240\" stroke=\"#805AD5\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"300\" y=\"280\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" font-weight=\"bold\" fill=\"#E9D8FD\">Theory became practice.</text><text x=\"300\" y=\"310\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" fill=\"#A0AEC0\">Math became software.</text></svg>",
+      "caption": "LISP was directly inspired by Church's lambda calculus"
+    },
+    {
+      "id": "p8_08_bigidea",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "LISP was the first language designed not for calculation or business, but for <em>reasoning</em>. It treated code as data and drew directly from Church's lambda calculus. LISP proved that programming languages could be built not just for what computers do well, but for what we <strong>want computers to learn to do</strong>.",
+      "style": "accent"
+    },
+    {
+      "id": "p8_09_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "The pioneers were reshaping what computers could do. But who got to <em>learn</em> these languages? In the early 1960s, one woman fought to make sure the answer was \"everyone.\""
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "issue": 1,
+  "page": 6,
+  "title": "A Machine That Can Be Any Machine",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p6_01_starlight_awe",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 384,
+      "gen_height": 512,
+      "prompt": "A tiny luminous dome-headed translucent robot glowing softly with warm inner light, translucent round glass dome body with visible circuitry like veins of light inside, big gentle glowing pale-blue eyes like tiny moons, cable-arms with small light-bulb tips pressed together in awe, floating against a deep indigo void with tiny golden particles. A white speech bubble with black outline above. Inside the bubble the text reads: \"This might be the most important idea ever.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "This might be the most important idea ever.",
+      "speaker": "STARLIGHT"
+    },
+    {
+      "id": "p6_02_narration_leap",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Here is the leap that separates Turing's work from everything that came before.<br><br>Every Turing Machine we've talked about so far is a <strong>specialist</strong>. One machine adds. A different machine multiplies. Another checks if a number is prime. You'd need a separate machine — with its own unique rule table — for every task.",
+      "style": "default"
+    },
+    {
+      "id": "p6_03_narration_question",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "But Turing asked a beautiful question: <em>What if the rule table itself was just data?</em><br><br>What if you could write a description of any Turing Machine — its states, its rules, its starting configuration — as a string of symbols on the tape? And what if there existed a single machine that could <em>read</em> that description and then <em>behave exactly as the described machine would</em>?",
+      "style": "default"
+    },
+    {
+      "id": "p6_04_utm_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-10 -30 700 440\"><rect x=\"5\" y=\"-15\" width=\"670\" height=\"410\" rx=\"12\" fill=\"#1A202C\" stroke=\"#4A5568\" stroke-width=\"1.5\"/><text x=\"340\" y=\"12\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" font-weight=\"bold\" fill=\"#FFFFFF\">THE UNIVERSAL TURING MACHINE</text><text x=\"340\" y=\"35\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">Specialized machines...</text><rect x=\"60\" y=\"45\" width=\"120\" height=\"40\" rx=\"6\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"120\" y=\"62\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">Adder</text><text x=\"120\" y=\"76\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">Machine</text><rect x=\"200\" y=\"45\" width=\"120\" height=\"40\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"260\" y=\"62\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">Multiplier</text><text x=\"260\" y=\"76\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">Machine</text><rect x=\"340\" y=\"45\" width=\"120\" height=\"40\" rx=\"6\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"400\" y=\"62\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">Sorter</text><text x=\"400\" y=\"76\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">Machine</text><rect x=\"480\" y=\"45\" width=\"120\" height=\"40\" rx=\"6\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"540\" y=\"62\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">Prime</text><text x=\"540\" y=\"76\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">Checker</text><line x1=\"120\" y1=\"85\" x2=\"340\" y2=\"110\" stroke=\"#718096\" stroke-width=\"1.5\"/><line x1=\"260\" y1=\"85\" x2=\"340\" y2=\"110\" stroke=\"#718096\" stroke-width=\"1.5\"/><line x1=\"400\" y1=\"85\" x2=\"340\" y2=\"110\" stroke=\"#718096\" stroke-width=\"1.5\"/><line x1=\"540\" y1=\"85\" x2=\"340\" y2=\"110\" stroke=\"#718096\" stroke-width=\"1.5\"/><polygon points=\"340,110 335,102 345,102\" fill=\"#718096\"/><rect x=\"100\" y=\"115\" width=\"480\" height=\"100\" rx=\"10\" fill=\"#2D3748\" stroke=\"#E53E3E\" stroke-width=\"2.5\"/><text x=\"340\" y=\"140\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" font-weight=\"bold\" fill=\"#FFFFFF\">UNIVERSAL TURING MACHINE (U)</text><rect x=\"140\" y=\"152\" width=\"200\" height=\"30\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1\"/><text x=\"240\" y=\"172\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">DESCRIPTION of M</text><rect x=\"345\" y=\"152\" width=\"200\" height=\"30\" rx=\"5\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1\"/><text x=\"445\" y=\"172\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">INPUT for M</text><text x=\"340\" y=\"204\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">U reads the description, then simulates M exactly.</text><text x=\"340\" y=\"240\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"15\" font-weight=\"bold\" fill=\"#D69E2E\">THE SAME IDEA, TODAY:</text><rect x=\"100\" y=\"255\" width=\"480\" height=\"90\" rx=\"10\" fill=\"#2D3748\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><text x=\"340\" y=\"278\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"15\" font-weight=\"bold\" fill=\"#4A9BD9\">YOUR COMPUTER (hardware) = Universal Machine</text><rect x=\"120\" y=\"290\" width=\"90\" height=\"30\" rx=\"5\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1\"/><text x=\"165\" y=\"310\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\" textLength=\"68\" lengthAdjust=\"spacingAndGlyphs\">Word Proc.</text><rect x=\"215\" y=\"290\" width=\"90\" height=\"30\" rx=\"5\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1\"/><text x=\"260\" y=\"310\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">Browser</text><rect x=\"310\" y=\"290\" width=\"90\" height=\"30\" rx=\"5\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1\"/><text x=\"355\" y=\"310\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">Spotify</text><rect x=\"405\" y=\"290\" width=\"90\" height=\"30\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1\"/><text x=\"450\" y=\"310\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">Games</text><rect x=\"500\" y=\"290\" width=\"70\" height=\"30\" rx=\"5\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1\"/><text x=\"535\" y=\"310\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#2D3748\">...</text><text x=\"340\" y=\"355\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">Programs = descriptions of specialized machines</text></svg>",
+      "caption": "The Universal Turing Machine: one machine that simulates any other"
+    },
+    {
+      "id": "p6_05_lantern_explain",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round lantern-shaped robot with a warm amber glow emanating from its round glass belly, big excited copper-colored eyes, tiny metal wings folded at its sides, leaning forward eagerly with one hand gesturing toward a glowing diagram of nested boxes in the background representing program-inside-machine. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"ONE machine that simulates ANY other machine.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm golden background tones",
+      "bubble_text": "ONE machine that simulates ANY other machine.",
+      "speaker": "LANTERN"
+    },
+    {
+      "id": "p6_06_narration_utm",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "This is the <strong>Universal Turing Machine</strong> (UTM). It takes two inputs on its tape:<br>1. A <strong>description</strong> of some other Turing Machine <em>M</em><br>2. The <strong>input</strong> that <em>M</em> is supposed to process<br><br>Then the Universal Machine simulates <em>M</em> running on that input, step by step. <strong>One machine. Any program. Any input.</strong>",
+      "style": "default"
+    },
+    {
+      "id": "p6_07_narration_familiar",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Does that sound familiar? It should. This is exactly what your computer does. The hardware is the Universal Machine. The software — every app, every program — is the description of a <em>specific</em> machine, loaded into memory. Turing described the fundamental architecture of all general-purpose computers <strong>in 1936</strong>, a full decade before the first electronic ones were built.",
+      "style": "default"
+    },
+    {
+      "id": "p6_07b_robot_devices",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round silver robot with a polished dome head and big amazed orange LED eyes, antenna tipped with a tiny satellite dish, standing triumphantly atop a pile of different electronic devices — a chunky 1980s desktop computer, a flip phone, a game console, a tablet, a smartwatch — all connected by a single glowing red thread that winds from device to device and leads back to the robot's chest, the robot holds one end of the thread proudly, warm bright background with subtle circuit board patterns. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"One idea powers ALL of these. Seriously!\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "One idea powers ALL of these. Seriously!",
+      "speaker": "RELAY"
+    },
+    {
+      "id": "p6_08_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The Universal Turing Machine is the idea behind every general-purpose computer. Hardware is the universal machine. Software is the description of a specialized machine. <strong>Turing separated the <em>machine</em> from the <em>instructions</em></strong> — and that separation is why you don't need a different device for every task."
+    },
+    {
+      "id": "p6_09_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "The Universal Machine can simulate any computation. But can it solve EVERY problem? Turing was about to prove that the answer is no — and the proof is as shocking as the machine is elegant."
+    }
+  ]
+}

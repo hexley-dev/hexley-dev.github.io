@@ -1,0 +1,216 @@
+{
+  "issue": 9,
+  "page": 10,
+  "title": "The Stack Grows Taller — And the Readers Are Inside the Story",
+  "accent": "#48BB78",
+  "panels": [
+    {
+      "id": "p10_01_stack_tower",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "A glowing vertical tower of nine stacked layers, each layer a different color representing an era of computing history, from bottom to top: deep red (The Idea 1936), orange (Hardware 1940s), green (Languages 1950s), purple (Unix 1970s), gold (Internet 1990s), crimson (Machine Learning 2000s), blue (Transformers 2017), violet (Agents 2024), emerald green glowing brightest at the top (Swarms 2025) — the tower rises from darkness into light, each layer rests on the one below it, a glowing question mark floats above the top suggesting what comes next, cosmic background with stars. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p10_02_stack_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-15 -35 710 490\"><rect x=\"0\" y=\"-20\" width=\"680\" height=\"460\" rx=\"12\" fill=\"#1A202C\"/><text x=\"340\" y=\"16\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-size=\"17\" font-weight=\"bold\">The Full Abstraction Stack — 90 Years of Computing</text><rect x=\"140\" y=\"380\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#E53E3E\" opacity=\"0.3\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"340\" y=\"401\" text-anchor=\"middle\" fill=\"#FED7D7\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\">1. The Idea (1936) — Turing machines</text><rect x=\"140\" y=\"344\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#DD6B20\" opacity=\"0.3\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><text x=\"340\" y=\"365\" text-anchor=\"middle\" fill=\"#FFF5EB\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\">2. The Hardware (1940s-50s) — Vacuum tubes</text><rect x=\"140\" y=\"308\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#38A169\" opacity=\"0.3\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"340\" y=\"329\" text-anchor=\"middle\" fill=\"#C6F6D5\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\">3. The Languages (1950s-60s) — Compilers</text><rect x=\"140\" y=\"272\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#805AD5\" opacity=\"0.3\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"340\" y=\"293\" text-anchor=\"middle\" fill=\"#E9D8FD\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\">4. The Philosophy (1970s) — Unix, small tools</text><rect x=\"140\" y=\"236\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#D69E2E\" opacity=\"0.3\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text x=\"340\" y=\"257\" text-anchor=\"middle\" fill=\"#FEFCBF\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\">5. The Network (1990s) — Web, open source</text><rect x=\"140\" y=\"200\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#E53E3E\" opacity=\"0.3\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"340\" y=\"221\" text-anchor=\"middle\" fill=\"#FED7D7\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\">6. The Learning (2000s-15) — Neural nets</text><rect x=\"140\" y=\"164\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#4A9BD9\" opacity=\"0.3\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"340\" y=\"185\" text-anchor=\"middle\" fill=\"#BEE3F8\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\">7. The Attention (2017-23) — Transformers</text><rect x=\"140\" y=\"128\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#9F7AEA\" opacity=\"0.3\" stroke=\"#9F7AEA\" stroke-width=\"1.5\"/><text x=\"340\" y=\"149\" text-anchor=\"middle\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\">8. The Agent (2024-25) — Tool use, autonomy</text><rect x=\"140\" y=\"88\" width=\"400\" height=\"36\" rx=\"5\" fill=\"#48BB78\" opacity=\"0.4\" stroke=\"#48BB78\" stroke-width=\"2.5\"/><text x=\"340\" y=\"111\" text-anchor=\"middle\" fill=\"#C6F6D5\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\">9. The Swarm (2025-26) — Multi-agent systems</text><text x=\"340\" y=\"70\" text-anchor=\"middle\" fill=\"#48BB78\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\">↑ What comes next?</text></svg>",
+      "caption": "Every layer rests on the one below it. Each was someone's life work."
+    },
+    {
+      "id": "p10_03_narr_layers",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Every layer of computing's history rests on the one below it. Turing's idea made hardware meaningful. Hardware made languages possible. Languages made Unix practical. Unix shaped the Internet. The Internet fed machine learning. Machine learning became deep learning. Deep learning produced Transformers. Transformers enabled LLMs. LLMs became agents. And now, agents are becoming <strong>swarms</strong>."
+    },
+    {
+      "id": "p10_04_robot_confession",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A small cute round warm-gold robot with big conspiratorial winking emerald eyes, breaking the fourth wall by looking directly at the viewer, one hand cupped beside its mouth as if sharing a secret, a tiny constellation pattern glowing on its round belly, a small dotted line connecting from a diagram behind it to the viewer, warm and friendly expression. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"I have a confession. This comic had help from a multi-agent system.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, emerald accent",
+      "bubble_text": "I have a confession. This comic had help from a multi-agent system.",
+      "speaker": "GOLDWINK"
+    },
+    {
+      "id": "p10_04b_robot_orchestrator",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A small cute round warm-gold robot with big gentle emerald eyes, hands clasped together warmly, a tiny human figure silhouette and an AI constellation diagram floating behind it connected by glowing lines, humble and grateful expression. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"A human orchestrated. Agents contributed. You are reading collaboration.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "A human orchestrated. Agents contributed. You are reading collaboration.",
+      "speaker": "GOLDWINK2"
+    },
+    {
+      "id": "p10_05_narr_self_referential",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Ninety years of ideas, stacked like layers of a building. Each one was someone's life work. Each one seemed like the peak of what was possible — until the next layer appeared."
+    },
+    {
+      "id": "p10_06_narr_newest",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Multi-agent systems are the newest layer. Not the last. Almost certainly not the most important one that will ever be built. But they represent something profound: the moment when AI stopped being a solo performer and started being a <strong>team player</strong>."
+    },
+    {
+      "id": "p10_06b_robot_selfreferential",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round metallic emerald robot with a dome head and big amazed golden LED eyes, stubby arms holding a tiny mirror reflecting itself reading a comic book, antenna with a tiny recursive arrow on top, looking delightfully bewildered. A white speech bubble with black outline above. Inside the bubble the text reads: \"This comic was built by the thing it describes.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "This comic was built by the thing it describes.",
+      "speaker": "METABOT"
+    },
+    {
+      "id": "p10_07_narr_not_over",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The frameworks are still evolving. The patterns are still being discovered. The best multi-agent architectures of 2030 probably have not been invented yet. What we have today — the Constellation Pattern, hierarchical orchestration, file-based communication, git worktrees — these are the <em>first drafts</em>. Powerful, practical, but early."
+    },
+    {
+      "id": "p10_08_narr_new_question",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The question is no longer \"Can AI write code?\" That was answered. The question is no longer \"Can AI work autonomously?\" That was answered too. The new question is: <strong>\"How do we organize teams of AI agents to tackle problems that no single mind — human or artificial — can hold all at once?\"</strong>"
+    },
+    {
+      "id": "p10_08b_robot_newquestion",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round glowing emerald robot with a dome head and big curious golden LED eyes, stubby arms holding a tiny chalkboard with a large question mark drawn on it, antenna with a tiny compass on top, standing at the edge of an open door with bright light streaming through. A white speech bubble with black outline above. Inside the bubble the text reads: \"The old question was can machines think. The new one is bigger.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Can machines think? The new question is bigger.",
+      "speaker": "QUESTBOT"
+    },
+    {
+      "id": "p10_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>\"90 years of computing history, and the core insight has not changed: the way to tackle problems too big for one mind is to organize many minds, each focused on its part, communicating through simple, universal interfaces. From Turing's tape to the swarm's files — the principle endures.\"</strong>"
+    },
+    {
+      "id": "p10_10_thinkbox",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<em>\"You have just read the entire arc from a single imaginary machine in 1936 to teams of AI agents in 2026. What do you think the NEXT layer of the stack will be? What problem is too hard for today's swarms that will need something new?\"</em>"
+    },
+    {
+      "id": "p10_11_teaser",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "The full abstraction stack tower glowing from a zoomed-out perspective, all nine layers visible as a radiant pillar of light, a giant glowing question mark floating above the top of the tower, the entire scene framed as if looking at it from a great distance, cosmic starfield background, sense of wonder and open possibility, the question mark pulsing with emerald light. Comic book style, warm editorial illustration with ink lines and watercolor washes, emerald #48BB78 accent",
+      "overlays": []
+    },
+    {
+      "id": "p10_references",
+      "type": "references",
+      "layout": "full-width",
+      "references": [
+        {
+          "title": "Liu, Nelson F., et al.",
+          "author": "*",
+          "url": "https://arxiv.org/abs/2307.03172",
+          "type": "paper",
+          "note": "\"Lost in the Middle: How Language Models Use Long Contexts.\""
+        },
+        {
+          "title": "McIlroy, M.D., Pinson, E.N., and Tague, B.A.",
+          "author": "*",
+          "url": "",
+          "type": "paper",
+          "note": "\"UNIX Time-Sharing System: Foreword.\""
+        },
+        {
+          "title": "McIlroy, M.D.",
+          "author": "*",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Thompson, Ken and Ritchie, Dennis.",
+          "author": "*",
+          "url": "https://dl.acm.org/doi/10.1145/361011.361061",
+          "type": "paper",
+          "note": "\"The UNIX Time-Sharing System.\""
+        },
+        {
+          "title": "The Constellation Pattern Complete Guide",
+          "author": "*",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Microsoft AutoGen.",
+          "author": "*",
+          "url": "https://github.com/microsoft/autogen",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "CrewAI.",
+          "author": "*",
+          "url": "https://github.com/joaomdmoura/crewAI",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "LangGraph.",
+          "author": "*",
+          "url": "https://github.com/langchain-ai/langgraph",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "OpenAI Swarm",
+          "author": "*",
+          "url": "https://github.com/openai/swarm",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Osmani, Addy.",
+          "author": "*",
+          "url": "https://addyosmani.com/",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Git Documentation: git-worktree.",
+          "author": "*",
+          "url": "https://git-scm.com/docs/git-worktree",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Smith, Reid G.",
+          "author": "*",
+          "url": "https://ieeexplore.ieee.org/document/1675390",
+          "type": "paper",
+          "note": "\"The Contract Net Protocol.\""
+        }
+      ]
+    },
+    {
+      "id": "p10_12_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "In Issue 10, we zoom all the way out. The full stack. The full story. Every layer, every connection, every person who built a piece of the world you live in. And a question you were not expecting: what is YOUR place in the stack?"
+    }
+  ]
+}

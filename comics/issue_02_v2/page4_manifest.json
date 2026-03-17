@@ -1,0 +1,86 @@
+{
+  "issue": 2,
+  "page": 4,
+  "title": "Seventeen Thousand Tubes",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p4_01_eniac_hero",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "ENIAC computer circa 1945 inside a basement room. Forty black metal cabinets about 8 feet tall arranged in a U-shape along three walls of the room, each cabinet 2 feet wide covered in cables, switches, and hundreds of glowing orange vacuum tubes. Two people stand inside the U \u2014 the cabinets reach just above their heads. The room is about 30 by 50 feet, ceiling visible above the cabinets. Warm orange glow from thousands of vacuum tubes illuminates the room. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p4_02_robot_awe",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute rounded copper-colored robot with enormous wide amber eyes reflecting orange glow, jaw dropped open in awe, head tilted back as if looking up at something immense, one stubby hand raised to shield its eyes from the glow, antenna wobbling. Warm orange vacuum-tube light washes over it from above. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Thirty tons. Seventeen thousand tubes. One room.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Thirty tons. Seventeen thousand tubes. One room.",
+      "speaker": "COPPER"
+    },
+    {
+      "id": "p4_03_narration_stats",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "ENIAC was <strong>80 feet long, 8 feet tall</strong>, and weighed <strong>30 tons</strong>. It had 17,468 vacuum tubes, 70,000 resistors, 10,000 capacitors, 6,000 switches, and 5 million hand-soldered joints. It consumed <strong>150 kilowatts</strong> of power. There's a myth it dimmed the lights of an entire Philadelphia neighborhood &mdash; almost certainly false. What IS true: it generated enough heat to warm the building in winter."
+    },
+    {
+      "id": "p4_04_narration_origin",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In 1943, the U.S. Army needed artillery firing tables &mdash; charts telling gunners how to aim. Human teams, mostly women mathematicians officially called <em>\"computers,\"</em> were doing this work by hand. They were months behind. <strong>J. Presper Eckert</strong> (24, engineering prodigy) and <strong>John Mauchly</strong> (36, visionary physicist) proposed building an electronic calculator. The Army, desperate, funded the project."
+    },
+    {
+      "id": "p4_05_eniac_specs",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 690 300\"><defs><style>text{font-family:'JetBrains Mono',monospace;}</style></defs><rect x=\"10\" y=\"0\" width=\"660\" height=\"260\" rx=\"12\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"2\"/><text x=\"340\" y=\"28\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#DD6B20\">ENIAC (University of Pennsylvania, 1945)</text><line x1=\"30\" y1=\"38\" x2=\"650\" y2=\"38\" stroke=\"#DD6B20\" stroke-width=\"1\" opacity=\"0.4\"/><text x=\"30\" y=\"62\" font-size=\"13\" fill=\"#2D3748\">Designers: J. Presper Eckert &amp; John Mauchly</text><text x=\"30\" y=\"82\" font-size=\"13\" fill=\"#2D3748\">Purpose: Artillery firing tables (later: general computation)</text><text x=\"30\" y=\"102\" font-size=\"13\" fill=\"#2D3748\">Technology: 17,468 vacuum tubes</text><text x=\"30\" y=\"122\" font-size=\"13\" fill=\"#2D3748\">Size: 80 feet long, 8 feet tall, 3 feet deep</text><text x=\"30\" y=\"142\" font-size=\"13\" fill=\"#2D3748\">Weight: ~30 tons (27,000 kg) | Power: 150 kilowatts</text><text x=\"30\" y=\"162\" font-size=\"13\" fill=\"#2D3748\">Speed: 5,000 additions/second</text><text x=\"30\" y=\"182\" font-size=\"13\" fill=\"#2D3748\">Cost: ~$500,000 (~$7 million today)</text><text x=\"30\" y=\"202\" font-size=\"13\" fill=\"#2D3748\">Programming: Physical rewiring (cables + switches)</text><text x=\"30\" y=\"222\" font-size=\"13\" fill=\"#DD6B20\" font-style=\"italic\">Changing the program: DAYS. Running the program: SECONDS.</text><text x=\"30\" y=\"248\" font-size=\"12\" fill=\"#718096\">Components: 70,000 resistors, 10,000 capacitors, 5 million solder joints</text></svg>",
+      "caption": "ENIAC specifications"
+    },
+    {
+      "id": "p4_06_rewiring",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "Close-up of hands plugging thick cables into a massive patch panel covered in hundreds of connection points, 1940s setting. A woman in professional 1940s attire is carefully rearranging cables and flipping switches on ENIAC's programming panels. The panel is a dense wall of sockets, cables, and switches. Focused, methodical work. Warm lighting, dramatic shadows. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent highlights",
+      "overlays": []
+    },
+    {
+      "id": "p4_07_narration_catch",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "But there was a catch. To <em>\"program\"</em> ENIAC, you didn't write code. You physically <strong>rewired the machine</strong>. Rearranging cables, setting switches, plugging connections &mdash; a process that could take days or weeks. The computation itself took seconds. Setting it up took forever."
+    },
+    {
+      "id": "p4_08_vacuum_tube",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 690 280\"><defs><style>text{font-family:'JetBrains Mono',monospace;}</style></defs><rect x=\"10\" y=\"0\" width=\"660\" height=\"240\" rx=\"12\" fill=\"#1A202C\" stroke=\"#DD6B20\" stroke-width=\"2\"/><text fill=\"#FFFFFF\" x=\"340\" y=\"28\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\" fill=\"#DD6B20\">HOW A VACUUM TUBE WORKS (simplified)</text><rect x=\"240\" y=\"45\" width=\"200\" height=\"150\" rx=\"20\" fill=\"none\" stroke=\"#A0AEC0\" stroke-width=\"2\" stroke-dasharray=\"6,3\"/><text fill=\"#E2E8F0\" x=\"340\" y=\"65\" text-anchor=\"middle\" font-size=\"12\" fill=\"#A0AEC0\">Glass envelope (vacuum inside)</text><rect x=\"310\" y=\"75\" width=\"60\" height=\"25\" rx=\"4\" fill=\"#DD6B20\" opacity=\"0.7\"/><text x=\"340\" y=\"92\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#fff\">Plate</text><text fill=\"#E2E8F0\" x=\"460\" y=\"92\" font-size=\"12\" fill=\"#E2E8F0\">collects electrons</text><rect x=\"310\" y=\"110\" width=\"60\" height=\"25\" rx=\"4\" fill=\"#48BB78\" opacity=\"0.7\"/><text x=\"340\" y=\"127\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#fff\">Grid</text><text fill=\"#E2E8F0\" x=\"460\" y=\"127\" font-size=\"12\" fill=\"#E2E8F0\">controls flow</text><rect x=\"310\" y=\"145\" width=\"60\" height=\"25\" rx=\"4\" fill=\"#E53E3E\" opacity=\"0.7\"/><text x=\"340\" y=\"162\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#fff\">Cathode</text><text fill=\"#E2E8F0\" x=\"460\" y=\"162\" font-size=\"12\" fill=\"#E2E8F0\">emits electrons (heated)</text><text fill=\"#E2E8F0\" x=\"30\" y=\"210\" font-size=\"12\" fill=\"#F6AD55\">Grid at cutoff voltage (negative) = no current = \"0\"</text><text fill=\"#E2E8F0\" x=\"30\" y=\"228\" font-size=\"12\" fill=\"#F6AD55\">Grid at less negative voltage = current flows = \"1\"</text></svg>",
+      "caption": "A vacuum tube is an electronic switch: current flows = 1, no current = 0. That's binary."
+    },
+    {
+      "id": "p4_09_lab_link",
+      "type": "lab_link",
+      "layout": "full-width",
+      "lab_filename": "logic_gates_lab",
+      "lab_title": "Logic Gates Lab",
+      "lab_description": "Switches can do math? See it for yourself \u2014 build a calculator from nothing but ON/OFF switches!"
+    },
+    {
+      "id": "p4_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "ENIAC was built by Eckert and Mauchly. But who PROGRAMMED it? Not the men. The job of making ENIAC actually work was given to six women \u2014 and then history forgot their names."
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "issue": 3,
+  "page": 5,
+  "title": "The Language of Science",
+  "accent": "#38A169",
+  "panels": [
+    {
+      "id": "p5_01_robot_impressed",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute cuboid robot made of visible pastel-colored voxel blocks, each block a different soft color, big confident rectangular pixel eyes, arms crossed in an impressed posture with slightly raised eyebrows, standing beside a vintage IBM mainframe with reels and indicator lights, a large equation Y=A*X+B glows in green neon above the mainframe, warm laboratory background. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"FORTRAN changed everything. Code that looked like math.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "FORTRAN changed everything. Code that looked like math.",
+      "speaker": "PIXEL"
+    },
+    {
+      "id": "p5_02_narration_backus",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>John Warner Backus</strong> was a 29-year-old programmer at IBM who hated programming. Not the problem-solving &mdash; he hated the <em>tedium</em>. In 1953, he proposed a radical project: build a language where scientists could write formulas that looked like actual mathematics. He called it <strong>FORTRAN</strong> &mdash; short for <strong>FORmula TRANslation</strong>.",
+      "style": "default"
+    },
+    {
+      "id": "p5_03_backus_portrait",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A young man in his late twenties with dark-rimmed glasses and a confident but slightly disheveled appearance, wearing a white dress shirt with sleeves rolled up, standing before a large IBM mainframe computer with spinning tape reels, holding a thick stack of papers marked FORTRAN in one hand, the other hand gesturing toward a whiteboard showing the equation Y=A*X+B, 1950s IBM research lab setting with fluorescent lighting, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent",
+      "overlays": []
+    },
+    {
+      "id": "p5_04_character_card",
+      "type": "svg_diagram",
+      "layout": "right",
+      "flex": 3,
+      "svg": "<svg viewBox=\"-10 -20 420 280\"><rect x=\"5\" y=\"0\" width=\"390\" height=\"240\" rx=\"12\" fill=\"#F7FAFC\" stroke=\"#38A169\" stroke-width=\"2\"/><rect x=\"5\" y=\"0\" width=\"365\" height=\"36\" rx=\"12\" fill=\"#38A169\"/><rect x=\"5\" y=\"18\" width=\"365\" height=\"18\" fill=\"#38A169\"/><text x=\"200\" y=\"25\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"17\" font-weight=\"bold\" fill=\"#FFF\">JOHN WARNER BACKUS</text><text x=\"20\" y=\"55\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Born: December 3, 1924 &mdash; Philadelphia</text><text x=\"20\" y=\"73\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Died: March 17, 2007</text><text x=\"20\" y=\"91\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Role: Lead designer of FORTRAN at IBM</text><line x1=\"20\" y1=\"101\" x2=\"380\" y2=\"101\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"20\" y=\"121\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#38A169\">Known for:</text><text x=\"20\" y=\"139\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">FORTRAN (1957), Backus-Naur Form (BNF)</text><text x=\"20\" y=\"155\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\" textLength=\"357\" lengthAdjust=\"spacingAndGlyphs\">for describing language grammars, Turing Award 1977</text><line x1=\"20\" y1=\"167\" x2=\"380\" y2=\"167\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"20\" y=\"187\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">Fun fact: Flunked out of UVA, found programming</text><text x=\"20\" y=\"203\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#4A5568\">by accident, won the Turing Award.</text></svg>",
+      "caption": "John Backus character card"
+    },
+    {
+      "id": "p5_05_abstraction_leap",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-56 -20 792 340\"><rect x=\"10\" y=\"0\" width=\"660\" height=\"300\" rx=\"12\" fill=\"#1A202C\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"340\" y=\"28\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#FFFFFF\">THE ABSTRACTION LEAP</text><rect x=\"30\" y=\"45\" width=\"145\" height=\"80\" rx=\"8\" fill=\"#E9D8FD\" opacity=\"0.2\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"102\" y=\"65\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#FFFFFF\">THE MATH</text><text x=\"102\" y=\"90\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" fill=\"#FFFFFF\" font-weight=\"bold\">y = ax + b</text><text x=\"102\" y=\"115\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">Pure algebra</text><rect x=\"195\" y=\"45\" width=\"175\" height=\"80\" rx=\"8\" fill=\"#C6F6D5\" opacity=\"0.2\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"282\" y=\"65\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#FFFFFF\">FORTRAN (1957)</text><text x=\"282\" y=\"90\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" fill=\"#FFFFFF\" font-weight=\"bold\">Y = A*X + B</text><text x=\"282\" y=\"115\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">1 line of code!</text><rect x=\"390\" y=\"45\" width=\"255\" height=\"110\" rx=\"8\" fill=\"#BEE3F8\" opacity=\"0.15\" stroke=\"#4A9BD9\" stroke-width=\"5\"/><text x=\"520\" y=\"65\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#FFFFFF\">ASSEMBLY (IBM 704)</text><text x=\"410\" y=\"87\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">CLA  A   ; Load A</text><text x=\"410\" y=\"103\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">FMP  X   ; Multiply by X</text><text x=\"410\" y=\"119\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">FAD  B   ; Add B</text><text x=\"410\" y=\"135\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">STO  Y   ; Store result</text><text x=\"520\" y=\"150\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">4 lines</text><path d=\"M175,85 L195,85\" stroke=\"#718096\" stroke-width=\"1.5\" marker-end=\"url(#arr5)\"/><path d=\"M370,85 L390,85\" stroke=\"#718096\" stroke-width=\"1.5\" marker-end=\"url(#arr5)\"/><defs><marker id=\"arr5\" markerWidth=\"7\" markerHeight=\"5\" refX=\"7\" refY=\"2.5\" orient=\"auto\"><polygon points=\"0,0 7,2.5 0,5\" fill=\"#718096\"/></marker></defs><rect x=\"30\" y=\"185\" width=\"615\" height=\"50\" rx=\"8\" fill=\"#38A169\" opacity=\"0.12\"/><text x=\"340\" y=\"207\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#C6F6D5\">1 FORTRAN line = many machine instructions</text><text x=\"340\" y=\"225\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">That's the power of a HIGH-LEVEL LANGUAGE.</text><rect x=\"30\" y=\"248\" width=\"615\" height=\"27\" rx=\"8\" fill=\"#38A169\" opacity=\"0.06\"/><text x=\"340\" y=\"272\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">According to IBM benchmarks, FORTRAN ran roughly as fast as hand-written assembly &mdash; often within 20%.</text></svg>",
+      "caption": "One FORTRAN line replaces many assembly instructions"
+    },
+    {
+      "id": "p5_06_narration_skeptics",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The skeptics were fierce. Assembly programmers argued no compiler could produce code as efficient as a skilled human. Backus and his team spent enormous effort on an <strong>optimizing compiler</strong> &mdash; one that translated <em>cleverly</em>. According to IBM's benchmarks, FORTRAN programs ran roughly as fast as hand-written assembly. Within two years, over half of all new IBM 704 code was written in FORTRAN.",
+      "style": "default"
+    },
+    {
+      "id": "p5_07_fortran_scene",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 256,
+      "prompt": "Wide panoramic view of a 1950s IBM research lab, several scientists and engineers gathered around a large printout, expressions of amazement and excitement, one scientist pointing at a short formula on the printout while gesturing at a massive stack of assembly code pages beside it, IBM 704 mainframe in the background with spinning tape reels, celebratory atmosphere, warm golden lighting, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on the printout highlight",
+      "overlays": []
+    },
+    {
+      "id": "p5_08_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "FORTRAN proved that you don't sacrifice power when you raise the level of abstraction. One line could generate dozens of machine instructions &mdash; almost as fast as hand-written code. This shattered the myth that high-level languages were toys. <strong>FORTRAN is still in use today</strong>, over 65 years later, in scientific computing and weather modeling.",
+      "style": "accent"
+    },
+    {
+      "id": "p5_09_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "FORTRAN spoke the language of science. But the business world &mdash; banks, insurance companies, the government &mdash; needed a language that spoke <em>English</em>. And Grace Hopper had a vision for exactly that."
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "issue": 10,
+  "page": 3,
+  "title": "Abstraction Is the Superpower",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p3_01_robot_analogy",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round lime-green robot with big bright orange eyes and leaf-shaped antenna ears, wearing a tiny racing helmet, one stubby hand pressing an oversized glowing gas pedal, the other hand gesturing excitedly, with a semi-transparent car engine visible behind it showing hidden gears and pistons. Warm orange background glow. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Press the gas pedal. Ignore the engine. That's abstraction.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Press the gas pedal. Ignore the engine. That's abstraction.",
+      "speaker": "SPROUT"
+    },
+    {
+      "id": "p3_01b_intro",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "Every layer in the computing stack does the same thing the gas pedal does: it <strong>hides overwhelming complexity</strong> and exposes a <strong>simple interface</strong>."
+    },
+    {
+      "id": "p3_02_analogy_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -26 740 406\"><style>text{font-family:'JetBrains Mono',monospace;}</style><text x=\"370\" y=\"0\" text-anchor=\"middle\" font-size=\"16\" fill=\"#DD6B20\" font-weight=\"bold\">The Abstraction Analogy</text><text x=\"170\" y=\"25\" text-anchor=\"middle\" font-size=\"14\" fill=\"#FFFFFF\" font-weight=\"bold\">DRIVING A CAR</text><text x=\"540\" y=\"25\" text-anchor=\"middle\" font-size=\"14\" fill=\"#FFFFFF\" font-weight=\"bold\">COMPUTING STACK</text><line x1=\"350\" y1=\"15\" x2=\"350\" y2=\"355\" stroke=\"#E2E8F0\" stroke-width=\"1.5\" stroke-dasharray=\"6\"/><g font-size=\"12.5\" fill=\"#4A5568\"><rect x=\"60\" y=\"40\" width=\"220\" height=\"32\" rx=\"6\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"1.2\"/><text x=\"170\" y=\"60\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"#DD6B20\">You press the gas pedal</text><rect x=\"390\" y=\"40\" width=\"280\" height=\"32\" rx=\"6\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"1.2\"/><text x=\"530\" y=\"60\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"#DD6B20\">You type a prompt</text><path d=\"M170,72 L170,92\" stroke=\"#A0AEC0\" stroke-width=\"1.5\" marker-end=\"none\"/><circle cx=\"170\" cy=\"92\" r=\"2\" fill=\"#A0AEC0\"/><path d=\"M530,72 L530,92\" stroke=\"#A0AEC0\" stroke-width=\"1.5\"/><circle cx=\"530\" cy=\"92\" r=\"2\" fill=\"#A0AEC0\"/><rect x=\"60\" y=\"95\" width=\"220\" height=\"32\" rx=\"6\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"170\" y=\"115\" text-anchor=\"middle\">Fuel injection fires</text><rect x=\"390\" y=\"95\" width=\"280\" height=\"32\" rx=\"6\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"530\" y=\"115\" text-anchor=\"middle\">LLM processes tokens</text><text x=\"320\" y=\"115\" font-size=\"12\" fill=\"#A0AEC0\" text-anchor=\"middle\">(hidden)</text><path d=\"M170,127 L170,147\" stroke=\"#A0AEC0\" stroke-width=\"1.5\"/><circle cx=\"170\" cy=\"147\" r=\"2\" fill=\"#A0AEC0\"/><path d=\"M530,127 L530,147\" stroke=\"#A0AEC0\" stroke-width=\"1.5\"/><circle cx=\"530\" cy=\"147\" r=\"2\" fill=\"#A0AEC0\"/><rect x=\"60\" y=\"150\" width=\"220\" height=\"32\" rx=\"6\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"170\" y=\"170\" text-anchor=\"middle\">Combustion ignites fuel</text><rect x=\"390\" y=\"150\" width=\"280\" height=\"32\" rx=\"6\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"530\" y=\"170\" text-anchor=\"middle\" font-size=\"12\">Neural net multiplies matrices</text><text x=\"320\" y=\"170\" font-size=\"12\" fill=\"#A0AEC0\" text-anchor=\"middle\">(hidden)</text><path d=\"M170,182 L170,202\" stroke=\"#A0AEC0\" stroke-width=\"1.5\"/><circle cx=\"170\" cy=\"202\" r=\"2\" fill=\"#A0AEC0\"/><path d=\"M530,182 L530,202\" stroke=\"#A0AEC0\" stroke-width=\"1.5\"/><circle cx=\"530\" cy=\"202\" r=\"2\" fill=\"#A0AEC0\"/><rect x=\"60\" y=\"205\" width=\"220\" height=\"32\" rx=\"6\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"170\" y=\"225\" text-anchor=\"middle\">Crankshaft turns wheels</text><rect x=\"390\" y=\"205\" width=\"280\" height=\"32\" rx=\"6\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"530\" y=\"225\" text-anchor=\"middle\">OS schedules GPU tasks</text><text x=\"320\" y=\"225\" font-size=\"12\" fill=\"#A0AEC0\" text-anchor=\"middle\">(hidden)</text><path d=\"M170,237 L170,257\" stroke=\"#A0AEC0\" stroke-width=\"1.5\"/><circle cx=\"170\" cy=\"257\" r=\"2\" fill=\"#A0AEC0\"/><path d=\"M530,237 L530,257\" stroke=\"#A0AEC0\" stroke-width=\"1.5\"/><circle cx=\"530\" cy=\"257\" r=\"2\" fill=\"#A0AEC0\"/><rect x=\"60\" y=\"260\" width=\"220\" height=\"32\" rx=\"6\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"170\" y=\"280\" text-anchor=\"middle\">Tires grip road via friction</text><rect x=\"390\" y=\"260\" width=\"280\" height=\"32\" rx=\"6\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text font-size=\"12\" x=\"530\" y=\"280\" text-anchor=\"middle\">Electrons flow thru transistors</text><text x=\"320\" y=\"280\" font-size=\"12\" fill=\"#A0AEC0\" text-anchor=\"middle\">(hidden)</text><path d=\"M170,292 L170,312\" stroke=\"#A0AEC0\" stroke-width=\"1.5\"/><circle cx=\"170\" cy=\"312\" r=\"2\" fill=\"#A0AEC0\"/><path d=\"M530,292 L530,312\" stroke=\"#A0AEC0\" stroke-width=\"1.5\"/><circle cx=\"530\" cy=\"312\" r=\"2\" fill=\"#A0AEC0\"/><rect x=\"60\" y=\"315\" width=\"220\" height=\"32\" rx=\"6\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.2\"/><text x=\"170\" y=\"335\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"#1A202C\">Car moves forward.</text><rect x=\"390\" y=\"315\" width=\"280\" height=\"32\" rx=\"6\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.2\"/><text x=\"530\" y=\"335\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"#1A202C\">Answer appears on screen.</text></g></svg>",
+      "caption": "Driving a car vs. the computing stack — same principle of hidden layers"
+    },
+    {
+      "id": "p3_03_hopper_history",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A warm split-screen triptych showing three moments of computing abstraction history: on the left, a woman in 1950s naval uniform at a room-sized computer writing on paper (Grace Hopper and the compiler, 1952); in the center, two young bearded men at a PDP-11 terminal in a cluttered 1969 office (Thompson and Ritchie building Unix); on the right, a modern Google conference room with researchers presenting a paper, a whiteboard showing 'Attention Is All You Need' (Vaswani et al., 2017). Each scene softly glows with its era's accent color. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p3_04_trust",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "When Grace Hopper built the first compiler in 1952, she created an abstraction. When Thompson and Ritchie built Unix in 1969, they created an abstraction. When Vaswani and colleagues published the Transformer in 2017, they created an abstraction.<br><br>Each abstraction is an act of <strong>trust</strong>. You trust that the layer below you works correctly. And mostly, that trust is justified. But not always."
+    },
+    {
+      "id": "p3_05_leaky",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A small cute origami-style robot made of folded paper with dot-matrix eyes, shaped like a tiny filing cabinet with stubby paper legs and arms, holding a magnifying glass up to a cracked glowing pipe that is leaking sparks and binary digits. Water droplets of code dripping from the cracks. Warm orange accent lighting. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Sometimes the layers below you leak through.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Sometimes the layers below you leak through.",
+      "speaker": "TAPE"
+    },
+    {
+      "id": "p3_05b_leaky_explain",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "In 2002, Joel Spolsky coined <strong>\"The Law of Leaky Abstractions\"</strong>: all non-trivial abstractions, to some degree, are leaky. A performance problem in your AI agent traces back to GPU architecture. A security vulnerability traces back to memory management in C."
+    },
+    {
+      "id": "p3_06_hopper_wire",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Grace Hopper used to hand out <strong>11.8-inch pieces of wire</strong> to admirals — representing the distance light travels in one nanosecond — to explain why satellite communication was slow. Understanding the full stack gives you <strong>diagnostic superpowers</strong>. When something breaks, you know where to look."
+    },
+    {
+      "id": "p3_06b_robot_leaky",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round rust-orange robot with a dome head and big knowing amber LED eyes, stubby arms holding a bucket with water leaking through tiny holes, each leak labeled LATENCY MEMORY BUGS, antenna with a tiny drip on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"All abstractions leak. The trick is knowing where.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "All abstractions leak. The trick is knowing where.",
+      "speaker": "LEAKBOT"
+    },
+    {
+      "id": "p3_07_think",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<em>Can you think of other abstractions in daily life?</em> A light switch hides the power grid. A restaurant menu hides the kitchen. Money hides a complex web of trust and accounting. Abstractions are everywhere — computing just made them the foundation of an entire technology stack."
+    },
+    {
+      "id": "p3_08_lab",
+      "type": "lab_link",
+      "layout": "full-width",
+      "lab_filename": "full_stack_elevator",
+      "lab_title": "Full Stack Elevator",
+      "lab_description": "Ride between all 8 floors of computing — each one has an interactive demo. Toggle a transistor. Wire a logic gate. Watch a swarm race. See abstraction in action."
+    },
+    {
+      "id": "p3_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Abstraction is not simplification. Simplification throws away detail. Abstraction <strong>HIDES</strong> detail behind a clean interface while keeping all the power underneath. It lets you be \"absolutely precise\" (Dijkstra) at your own level without drowning in every level below."
+    },
+    {
+      "id": "p3_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "We have seen the stack. We have understood its superpower. Now let's walk through the people who built it — every key figure from all nine previous issues — and see how their work connects into a single story."
+    }
+  ]
+}

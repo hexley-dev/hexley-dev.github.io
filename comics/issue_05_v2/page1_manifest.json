@@ -1,0 +1,106 @@
+{
+  "issue": 5,
+  "page": 1,
+  "title": "The Physicist Who Connected Humanity",
+  "accent": "#D69E2E",
+  "panels": [
+    {
+      "id": "p1_01_cern_office",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A cavernous dimly lit office at CERN 1989, cables snaking across the floor, a sleek black NeXT computer cube glowing on a cluttered desk covered in papers, on the wall behind the desk a hand-drawn diagram of interconnected nodes and arrows sprawling outward like a web drawn in marker, a sticky note on the NeXT cube reads DO NOT POWER DOWN, warm amber desk lamp light, atmospheric perspective, warm editorial illustration with ink lines and watercolor washes, gold #D69E2E accent highlights",
+      "overlays": []
+    },
+    {
+      "id": "p1_02_robot_secret",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute round golden robot with big wide amber eyes full of hushed amazement, polished brass body with tiny globe motif etched on its chest, sitting cross-legged on top of a stylized Earth globe with glowing golden network lines connecting continents, one stubby hand raised to its mouth in a shushing gesture sharing a secret, dark blue starry background. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"A physicist's filing problem accidentally connected all of humanity.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "A physicist's filing problem accidentally connected all of humanity.",
+      "speaker": "GLOBEBOT"
+    },
+    {
+      "id": "p1_03_internet_existed",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In <strong>1989</strong>, the <strong>internet</strong> already existed. It had been around since the 1970s &mdash; a network of networks, built on TCP/IP (from Issue 4), connecting universities and research labs worldwide. You could send email via SMTP. You could transfer files via FTP. You could log into remote computers via Telnet. You could discuss ideas on Usenet newsgroups.",
+      "style": "default"
+    },
+    {
+      "id": "p1_04_library_metaphor",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A vast dark library with towering bookshelves disappearing into shadow, books with no covers and no labels on the shelves, no card catalog visible, a single beam of light from above illuminating floating dust motes, a tiny figure standing lost in the middle looking up overwhelmed, atmospheric and moody, warm editorial illustration with ink lines and watercolor washes, gold and amber tones",
+      "overlays": []
+    },
+    {
+      "id": "p1_04b_library_narration",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "But finding <strong>information</strong> on it was another story. Imagine a vast library where every book exists but has no cover, the shelves have no labels, and there is no card catalog. You could navigate if you knew exactly where you were going, but browsing was nearly impossible. The highway worked. What was missing was a way to publish, link, and browse documents that anyone could read."
+    },
+    {
+      "id": "p1_05_perlman",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "None of this connectivity would have been possible without the invisible work of engineers like <strong>Radia Perlman</strong>, whose <strong>Spanning Tree Protocol</strong> (STP), developed in the 1980s, allowed network bridges to connect thousands of computers without creating catastrophic routing loops. Without STP, the scalable networks that carried the internet's traffic would have collapsed under their own complexity. Perlman, sometimes called \"Mother of the Internet,\" built the scaffolding that held the connected world together &mdash; yet her name rarely appears in popular histories.",
+      "style": "accent"
+    },
+    {
+      "id": "p1_06_perlman_portrait",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 512,
+      "prompt": "Portrait of a woman engineer in the 1980s working at a computer terminal with network diagrams visible on screen, cables and networking equipment surrounding her, confident and focused expression, warm lighting from the screen illuminating her face, network bridge diagrams and tree topology sketches on papers nearby, warm editorial illustration with ink lines and watercolor washes, gold accent highlights",
+      "overlays": []
+    },
+    {
+      "id": "p1_06b_memo_scene",
+      "type": "image",
+      "layout": "right",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 512,
+      "prompt": "Close-up of a document on a desk titled Information Management A Proposal with a handwritten annotation in blue ink reading Vague but exciting with dots at the end, the document has diagrams of interconnected nodes, a pen rests beside it, soft warm office lighting, slightly yellowed paper, warm editorial illustration with ink lines and watercolor washes, nostalgic 1989 atmosphere",
+      "overlays": []
+    },
+    {
+      "id": "p1_07_memo_narration",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Then a British physicist at a Swiss research lab wrote a memo. His supervisor, Mike Sendall, scribbled <em>\"Vague but exciting...\"</em> on the cover page. And within five years, the world would be unrecognizable."
+    },
+    {
+      "id": "p1_08_era_intro",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "This is the story of the 1990s and 2000s &mdash; the era when computers stopped being islands and became a single, connected world. An era built not by corporations or governments, but by people who believed the most powerful thing you can do with an idea is <strong>give it away</strong>. But \"giving it away\" was easier for some than others. The connected world would be shaped by who had access &mdash; and who did not.",
+      "style": "accent"
+    },
+    {
+      "id": "p1_09_connected_world",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "Epic wide cinematic shot of the Earth seen from space at night with golden glowing network lines connecting cities across continents like a web of light, data streams flowing along the connections, warm gold and amber tones against deep dark blue space, sense of connection and wonder, warm editorial illustration with ink lines and watercolor washes, gold #D69E2E accent",
+      "overlays": []
+    },
+    {
+      "id": "p1_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Who was this physicist? And what exactly did he build on that black cube?"
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "issue": 9,
+  "page": 3,
+  "title": "The Idea — What If We Had a TEAM of Agents?",
+  "accent": "#48BB78",
+  "panels": [
+    {
+      "id": "p3_01_office",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A busy software company office seen from above, desks arranged in clusters, a project manager stands at a whiteboard covered in colorful sticky notes breaking a large project into smaller tasks, developers at different desks each take a sticky note and get to work on their piece — one on database, one on frontend, one on testing — warm collaborative atmosphere, modern open office with plants and monitors. Comic book style, warm editorial illustration with ink lines and watercolor washes, emerald green #48BB78 accent on the sticky notes",
+      "overlays": []
+    },
+    {
+      "id": "p3_02_narr_insight",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The insight was not new. It was ancient. Every complex human project — a building, a film, a space mission — is built by <strong>teams of specialists</strong>. An architect does not also do the plumbing. A director does not also edit the film. Each person focuses on what they know best, and someone coordinates the whole effort."
+    },
+    {
+      "id": "p3_03_robot_aha",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute round sunshine-yellow robot with big bright emerald eyes sparkling with a lightbulb moment, a tiny lightbulb antenna on its head glowing brightly, one hand snapping its fingers in an aha gesture, round bouncy body with a friendly grin, standing between a miniature human office scene on the left and a row of tiny terminal screens on the right, connecting the two worlds. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Humans figured this out long ago. You build a team.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Humans figured this out long ago. You build a team.",
+      "speaker": "LIGHTBULB"
+    },
+    {
+      "id": "p3_04_orchestrator_plan",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "An orchestrator AI agent visualized as a glowing emerald terminal reading a task description document, the screen showing a neat plan being broken into three colored subtask cards — red, blue, yellow — with arrows pointing outward to separate file icons, organized and methodical, dark background with warm accent lighting. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p3_04b_specialists_spin",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "Three specialist AI agents spinning up simultaneously, each visualized as a small glowing terminal screen with a fresh clean context, each reading only its own assigned file — one file colored red, one blue, one yellow — the terminals are separate and isolated in their own glowing bubbles, dark background with emerald green connecting lines to a central orchestrator node above. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p3_05_narr_frameworks",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "By early 2025, engineers began applying this principle to AI agents. Instead of one agent drowning in a 200,000-token context, what if you had <strong>multiple agents</strong>, each with a clean, focused context, each handling one part of the job?"
+    },
+    {
+      "id": "p3_06_timeline",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-25 -15 740 360\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"-10\" y=\"0\" width=\"710\" height=\"330\" rx=\"12\" fill=\"#1A202C\" stroke=\"#4A5568\" stroke-width=\"1\"/><defs><style>text{font-family:'JetBrains Mono',monospace; }</style></defs><text x=\"345\" y=\"28\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#48BB78\">The Multi-Agent Framework Timeline</text><line x1=\"60\" y1=\"130\" x2=\"640\" y2=\"130\" stroke=\"#4A5568\" stroke-width=\"2\"/><circle cx=\"80\" cy=\"130\" r=\"7\" fill=\"#4A9BD9\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><line x1=\"80\" y1=\"123\" x2=\"80\" y2=\"96\" stroke=\"#4A9BD9\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"80\" y=\"86\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#4A9BD9\">~Sep 2023</text><text x=\"80\" y=\"70\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Microsoft</text><text x=\"80\" y=\"54\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">AutoGen</text><circle cx=\"220\" cy=\"130\" r=\"7\" fill=\"#DD6B20\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><line x1=\"220\" y1=\"137\" x2=\"220\" y2=\"158\" stroke=\"#DD6B20\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"220\" y=\"174\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#DD6B20\">Late 2023</text><text x=\"220\" y=\"192\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">CrewAI</text><text x=\"220\" y=\"208\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">Joao Moura</text><circle cx=\"360\" cy=\"130\" r=\"7\" fill=\"#38A169\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><line x1=\"360\" y1=\"123\" x2=\"360\" y2=\"96\" stroke=\"#38A169\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"360\" y=\"86\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#38A169\">Early 2024</text><text x=\"360\" y=\"70\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">LangGraph</text><text x=\"360\" y=\"54\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">LangChain</text><circle cx=\"500\" cy=\"130\" r=\"7\" fill=\"#805AD5\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><line x1=\"500\" y1=\"137\" x2=\"500\" y2=\"158\" stroke=\"#805AD5\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"500\" y=\"174\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#805AD5\">Oct 2024</text><text x=\"500\" y=\"192\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">OpenAI Swarm</text><text x=\"500\" y=\"208\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">Experimental</text><circle cx=\"630\" cy=\"130\" r=\"7\" fill=\"#48BB78\" stroke=\"#E2E8F0\" stroke-width=\"2\"/><line x1=\"630\" y1=\"123\" x2=\"630\" y2=\"96\" stroke=\"#48BB78\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"630\" y=\"86\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#48BB78\">2025</text><text x=\"630\" y=\"70\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Multi-agent</text><text x=\"630\" y=\"54\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">patterns refined</text><text x=\"345\" y=\"250\" text-anchor=\"middle\" font-size=\"12\" font-style=\"italic\" fill=\"#CBD5E0\">MetaGPT, ChatDev, and Addy Osmani's patterns also emerged in this period</text><text x=\"345\" y=\"280\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">The framework ecosystem was exploding — but beneath all the approaches,</text><text x=\"345\" y=\"296\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">a deeper question remained: what is the RIGHT way to organize agents?</text></svg>",
+      "caption": "The multi-agent framework explosion of 2023-2025"
+    },
+    {
+      "id": "p3_07_narr_autogen_crewai",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Microsoft Research</strong> released <strong>AutoGen</strong> (~September 2023) for multi-agent conversations. <strong>Joao Moura</strong> created <strong>CrewAI</strong> (late 2023) — role-based agent crews. <strong>LangChain</strong> released <strong>LangGraph</strong> (early 2024) using graph theory. In China, <strong>DeepWisdom</strong> released <strong>MetaGPT</strong> and Tsinghua built <strong>ChatDev</strong>. And in October 2024, <strong>OpenAI</strong> released <strong>Swarm</strong>, a lightweight experimental handoff framework."
+    },
+    {
+      "id": "p3_08_narr_osmani",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Meanwhile, <strong>Addy Osmani</strong> — an engineering leader at Google's Chrome team — explored practical patterns connecting traditional software engineering with multi-agent orchestration: code review, pair programming, and microservice architecture applied to AI agent teams."
+    },
+    {
+      "id": "p3_08b_robot_frameworks",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round teal robot with a dome head and big curious cyan LED eyes, stubby arms holding puzzle pieces labeled AUTOGEN CREWAI CLAUDE, trying to fit them together, antenna with a tiny question mark on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Many frameworks. Same question: how do agents talk?\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Many frameworks. Same question: how do agents talk?",
+      "speaker": "PUZZLEBOT"
+    },
+    {
+      "id": "p3_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>\"The oldest pattern in computing: when one thing hits its limit, use many things together. Single CPUs → multi-core. Single servers → distributed systems. Single agents → swarms.\"</strong>"
+    },
+    {
+      "id": "p3_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Three main architectures emerged for organizing agent teams. Each has strengths. Each has trade-offs. And one of them — the strangest-sounding of the three — turned out to be surprisingly effective."
+    }
+  ]
+}

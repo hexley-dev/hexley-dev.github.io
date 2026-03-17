@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Illustrations — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --hand: 'Caveat', 'Patrick Hand', cursive;
+  --body: 'Patrick Hand', cursive;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --bg: #FAF9F6;
+  --dark: #2D3748;
+  --muted: #718096;
+  --border: #E2E8F0;
+  --card: #F7FAFC;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  font-family: var(--body);
+  color: var(--dark);
+  min-height: 100vh;
+}
+.container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+h1 {
+  font-family: var(--hand);
+  font-size: 42px;
+  text-align: center;
+  margin-bottom: 4px;
+}
+.subtitle {
+  text-align: center;
+  font-size: 18px;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.intro {
+  text-align: center;
+  font-size: 16px;
+  color: var(--muted);
+  max-width: 620px;
+  margin: 0 auto 40px;
+  line-height: 1.5;
+}
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+@media (max-width: 600px) {
+  .cards { grid-template-columns: 1fr; }
+  h1 { font-size: 32px; }
+}
+.card {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  text-decoration: none;
+  color: var(--dark);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+.card .tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  width: fit-content;
+}
+.card h2 {
+  font-family: var(--hand);
+  font-size: 22px;
+  margin: 0;
+  line-height: 1.2;
+}
+.card .desc {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.card .type {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: auto;
+  padding-top: 6px;
+  border-top: 1px dashed var(--border);
+  font-family: var(--mono);
+}
+.footer {
+  text-align: center;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--muted);
+}
+.footer a {
+  color: var(--dark);
+  text-decoration: none;
+  font-weight: 600;
+}
+.footer a:hover { text-decoration: underline; }
+.nav-links {
+  text-align: center;
+  margin-bottom: 32px;
+  font-size: 14px;
+}
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  margin: 0 8px;
+}
+.nav-links a:hover { color: var(--dark); text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Illustrations</h1>
+<p class="subtitle">Detailed visual companions to "From Turing to Swarms"</p>
+<p class="intro">
+  Ten detailed illustrations — architectural blueprints, anatomy posters, portrait galleries, and concept maps
+  that go deeper than the comic panels. Print-friendly, poster-worthy, and beautiful.
+</p>
+<div class="nav-links">
+  <a href="../interactive/index.html">Interactive Labs</a> |
+  <a href="#" onclick="history.back();return false" style="text-decoration:none">&larr; Back</a>
+</div>
+
+<div class="cards">
+
+  <a href="halting_problem_proof.html" class="card" style="border-color: #E53E3E;">
+    <span class="tag" style="background:#FED7D7;color:#E53E3E;">Issue 1</span>
+    <h2 style="color:#E53E3E;">The Halting Problem</h2>
+    <p class="desc">A visual proof by contradiction in 6 panels. Watch the PARADOX machine create an impossible situation that proves some questions can never be answered.</p>
+    <p class="type">Visual proof | 6 panels | With Tera</p>
+  </a>
+
+  <a href="hardware_evolution.html" class="card" style="border-color: #DD6B20;">
+    <span class="tag" style="background:#FEEBC8;color:#DD6B20;">Issue 2</span>
+    <h2 style="color:#DD6B20;">Hardware Evolution: Room to Pocket</h2>
+    <p class="desc">From ENIAC's 30-meter wall of vacuum tubes to a 3nm FinFET transistor — all drawn to relative scale with a human figure for reference.</p>
+    <p class="type">Scale comparison | Cross-sections | By the numbers</p>
+  </a>
+
+  <a href="von_neumann_blueprint.html" class="card" style="border-color: #DD6B20;">
+    <span class="tag" style="background:#FEEBC8;color:#DD6B20;">Issue 2</span>
+    <h2 style="color:#DD6B20;">Von Neumann Architecture</h2>
+    <p class="desc">The blueprint inside every computer. CPU internals, memory layout, bus system, and the fetch-decode-execute cycle — in blueprint and light mode.</p>
+    <p class="type">Technical blueprint | Dark/light toggle | Memory hierarchy</p>
+  </a>
+
+  <a href="internet_physical_map.html" class="card" style="border-color: #D69E2E;">
+    <span class="tag" style="background:#FEFCBF;color:#975A16;">Issue 5</span>
+    <h2 style="color:#D69E2E;">The Physical Internet</h2>
+    <p class="desc">The cables, data centers, and ocean floors that connect the world. Includes a protocol stack envelope analogy and undersea cable cross-section.</p>
+    <p class="type">Infrastructure map | Protocol layers | Cable anatomy</p>
+  </a>
+
+  <a href="neural_network_anatomy.html" class="card" style="border-color: #E53E3E;">
+    <span class="tag" style="background:#FED7D7;color:#E53E3E;">Issue 6</span>
+    <h2 style="color:#E53E3E;">Neural Network Anatomy</h2>
+    <p class="desc">From a single perceptron to CNNs — every part labeled. Activation functions, the training loop, feature hierarchies, and a key terms glossary.</p>
+    <p class="type">Anatomy poster | 6 sections | Glossary</p>
+  </a>
+
+  <a href="transformer_blueprint.html" class="card" style="border-color: #4A9BD9;">
+    <span class="tag" style="background:#BEE3F8;color:#2B6CB0;">Issue 7</span>
+    <h2 style="color:#4A9BD9;">The Transformer Blueprint</h2>
+    <p class="desc">Every component of the architecture that changed AI. From tokenization through self-attention to next-token prediction, with a detailed QKV mechanism inset.</p>
+    <p class="type">Architecture diagram | QKV detail | Scale callout</p>
+  </a>
+
+  <a href="embedding_galaxy.html" class="card" style="border-color: #4A9BD9;">
+    <span class="tag" style="background:#BEE3F8;color:#2B6CB0;">Issue 7</span>
+    <h2 style="color:#4A9BD9;">The Embedding Galaxy</h2>
+    <p class="desc">67 words floating as glowing dots in semantic space. See why "king - man + woman = queen" and how similarity becomes distance.</p>
+    <p class="type">Galaxy map | Vector arithmetic | Similarity gauges</p>
+  </a>
+
+  <a href="agent_architecture.html" class="card" style="border-color: #9F7AEA;">
+    <span class="tag" style="background:#E9D8FD;color:#553C9A;">Issue 8</span>
+    <h2 style="color:#9F7AEA;">Agent Architecture Blueprint</h2>
+    <p class="desc">The full agent pipeline — from user prompt through ReAct loop to tool execution. Includes context window visualization and error recovery flow.</p>
+    <p class="type">System diagram | Tool anatomy | Agent comparison</p>
+  </a>
+
+  <a href="pioneers_gallery.html" class="card" style="border-color: #DD6B20;">
+    <span class="tag" style="background:#FEEBC8;color:#DD6B20;">All Issues</span>
+    <h2 style="color:#DD6B20;">The Pioneers</h2>
+    <p class="desc">19+ key figures as robot characters across 7 eras. From Hilbert and Turing to Fei-Fei Li and the Transformer authors — each with unique props.</p>
+    <p class="type">Portrait gallery | 7 eras | Robot characters</p>
+  </a>
+
+  <a href="computing_family_tree.html" class="card" style="border-color: #DD6B20;">
+    <span class="tag" style="background:#FEEBC8;color:#DD6B20;">All Issues</span>
+    <h2 style="color:#DD6B20;">The Computing Family Tree</h2>
+    <p class="desc">37 nodes spanning 90 years — how every idea connects. From the Turing Machine to Agent Swarms, with the "Unix Echo" highlighted.</p>
+    <p class="type">Concept map | 37 nodes | Interactive tooltips</p>
+  </a>
+
+</div>
+
+<div class="footer">
+</div>
+
+</div>
+</body>
+</html>

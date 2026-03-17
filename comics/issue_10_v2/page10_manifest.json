@@ -1,0 +1,323 @@
+{
+  "issue": 10,
+  "page": 10,
+  "title": "Every Expert Started Where You Are",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p10_01_hero_overhead",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 576,
+      "prompt": "A breathtaking bird's-eye view looking straight down through all eight layers of the computing abstraction stack, each layer a luminous translucent ring of a different color: blue at the deepest, then green, purple, gold, red, cyan, violet, and warm orange at the top. The rings recede into depth like looking down through a crystal tower. At the very top edge, a small cute round robot stands looking directly up at the viewer with big warm glowing amber eyes, one stubby hand waving gently. Above the robot, the sky is open and a faint glowing question mark hints at 'Layer 9?' — the next unwritten layer. Stars and warm orange light fill the open sky. A sense of possibility and invitation. Comic book style, warm editorial illustration with ink lines and watercolor washes, epic sense of depth and wonder",
+      "overlays": []
+    },
+    {
+      "id": "p10_01b_transition",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Alan Turing imagined a machine in 1936. Ninety years later, that machine's descendants can read, write, code, reason, and collaborate in teams. But the story of computing has never been about machines. It has been about <strong>people</strong>."
+    },
+    {
+      "id": "p10_02_robot_farewell",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute round warm-orange robot with big glowing golden eyes full of warmth, standing at the edge of a luminous platform with the glow of all eight stack layers fading below, one stubby hand waving goodbye, the other hand pointing upward toward an open sky with a faint glowing question mark, gentle warm light, bittersweet farewell mood with hope. A white speech bubble with black outline near the top left. Inside the bubble the text reads: \"The stack isn't finished. The next layer is yours.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "The stack isn't finished. The next layer is yours.",
+      "speaker": "GUIDE"
+    },
+    {
+      "id": "p10_03_farewell_speech",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "We started with a question: <em>can a machine solve any math problem?</em> Turing proved the answer is no — and invented the blueprint for every computer. Then other people built it, layer by layer. Hopper taught machines to understand English. Thompson and Ritchie wrote an operating system so elegant it still shapes computing 55 years later. Berners-Lee connected all the world's knowledge. Hinton, LeCun, and Bengio proved machines could learn."
+    },
+    {
+      "id": "p10_04_farewell_continued",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "A team at Google wrote a paper called 'Attention Is All You Need' and changed everything. Then AI learned to use tools, run code, and fix its own mistakes. Then swarms of agents started building things together.<br><br><strong>Ninety years. Hundreds of people. Eight layers.</strong> Each one built on the last. Each one someone's life work."
+    },
+    {
+      "id": "p10_04b_robot_farewell",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round warm-golden robot with a dome head and big gentle amber LED eyes, stubby arms waving warmly, wearing a tiny graduation cap with an orange tassel, standing on a stage with curtains parting. A white speech bubble with black outline above. Inside the bubble the text reads: \"Ninety years of ideas. The story is just beginning.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Ninety years of ideas. The story is just beginning.",
+      "speaker": "GRADUBOT"
+    },
+    {
+      "id": "p10_05_future",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The stack is <strong>not finished</strong>. There will be a ninth layer, and a tenth, and layers we can't imagine. Some will be built by people reading this right now.<br><br>Understanding where computing came from gives you the power to shape where it goes. <strong>You have the map. The rest is up to you.</strong>"
+    },
+    {
+      "id": "p10_05b_unfinished_stack",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-15 -35 710 550\"><style>text{font-family:'JetBrains Mono',monospace;}</style><rect x=\"0\" y=\"-20\" width=\"680\" height=\"520\" rx=\"12\" fill=\"#1A202C\"/><text x=\"340\" y=\"16\" text-anchor=\"middle\" fill=\"#E2E8F0\" font-size=\"17\" font-weight=\"bold\">The Unfinished Stack</text><rect x=\"100\" y=\"35\" width=\"480\" height=\"65\" rx=\"8\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"2\" stroke-dasharray=\"6\"/><text x=\"340\" y=\"60\" text-anchor=\"middle\" font-size=\"16\" fill=\"#DD6B20\" font-weight=\"bold\">LAYER ?:  ????????????</text><text x=\"340\" y=\"80\" text-anchor=\"middle\" font-size=\"13\" fill=\"#2D3748\">What comes next is not yet written. That might be you.</text><line x1=\"340\" y1=\"100\" x2=\"340\" y2=\"115\" stroke=\"#A0AEC0\" stroke-width=\"1.5\" stroke-dasharray=\"4\"/><rect x=\"140\" y=\"118\" width=\"400\" height=\"36\" rx=\"5\" fill=\"#FFF5EB\" opacity=\"0.3\" stroke=\"#DD6B20\" stroke-width=\"2\"/><text x=\"340\" y=\"141\" text-anchor=\"middle\" fill=\"#FFF5EB\" font-size=\"13\" font-weight=\"bold\">8. Swarms (2025-26) — Multi-agent coordination</text><rect x=\"140\" y=\"158\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#9F7AEA\" opacity=\"0.3\" stroke=\"#9F7AEA\" stroke-width=\"1.5\"/><text x=\"340\" y=\"179\" text-anchor=\"middle\" fill=\"#E9D8FD\" font-size=\"12\" font-weight=\"bold\">7. Agents (2023-25) — Tool use, autonomy</text><rect x=\"140\" y=\"194\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#4A9BD9\" opacity=\"0.3\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"340\" y=\"215\" text-anchor=\"middle\" fill=\"#BEE3F8\" font-size=\"12\" font-weight=\"bold\">6. LLMs (2017-present) — Transformers</text><rect x=\"140\" y=\"230\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#E53E3E\" opacity=\"0.3\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"340\" y=\"251\" text-anchor=\"middle\" fill=\"#FED7D7\" font-size=\"12\" font-weight=\"bold\">5. Machine Learning (1958-present) — Neural nets</text><rect x=\"140\" y=\"266\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#D69E2E\" opacity=\"0.3\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text x=\"340\" y=\"287\" text-anchor=\"middle\" fill=\"#FEFCBF\" font-size=\"12\" font-weight=\"bold\">4. Languages (1952-present) — Compilers</text><rect x=\"140\" y=\"302\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#805AD5\" opacity=\"0.3\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"340\" y=\"323\" text-anchor=\"middle\" fill=\"#E9D8FD\" font-size=\"12\" font-weight=\"bold\">3. Operating Systems (1960s) — Unix, small tools</text><rect x=\"140\" y=\"338\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#38A169\" opacity=\"0.3\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"340\" y=\"359\" text-anchor=\"middle\" fill=\"#C6F6D5\" font-size=\"12\" font-weight=\"bold\">2. Hardware (1940s-50s) — Vacuum tubes to silicon</text><rect x=\"140\" y=\"374\" width=\"400\" height=\"32\" rx=\"5\" fill=\"#3182CE\" opacity=\"0.3\" stroke=\"#3182CE\" stroke-width=\"1.5\"/><text x=\"340\" y=\"395\" text-anchor=\"middle\" fill=\"#BEE3F8\" font-size=\"12\" font-weight=\"bold\">1. Physics — The universe (controllable electrons)</text><text x=\"340\" y=\"430\" text-anchor=\"middle\" fill=\"#A0AEC0\" font-size=\"12\" font-style=\"italic\">Foundation: Theory (Issue 1) — Turing, Godel, Church</text><text x=\"340\" y=\"455\" text-anchor=\"middle\" fill=\"#DD6B20\" font-size=\"14\" font-weight=\"bold\">The next layer is yours to build.</text></svg>",
+      "caption": "The stack awaits its next layer"
+    },
+    {
+      "id": "p10_06_whatif",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The story of computing has never been about machines. It has been about <strong>people</strong> — curious, stubborn, brilliant people who looked at the impossible and said, <em>\"What if?\"</em>"
+    },
+    {
+      "id": "p10_07_whatif_list",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "A grand cinematic composition: a series of faded historical scenes layered like transparent pages turning in the wind. Each scene shows a moment of 'what if': a young man writing on paper at a desk in 1936 (Turing), a woman at a 1950s mainframe (Hopper), two men at a 1969 terminal (Thompson and Ritchie), a man typing at a NeXT computer in 1989 (Berners-Lee), three scientists with neural network diagrams (Hinton, LeCun, Bengio), researchers around a whiteboard labeled 'Attention' (2017), a person typing a prompt into a glowing terminal (2023-2025). The scenes overlap and blend like a time-lapse, each one slightly more modern. At the right edge, the last page is blank and glowing with warm orange light — the reader's future. Comic book style, warm editorial illustration with ink lines and watercolor washes, warm orange accent throughout",
+      "overlays": []
+    },
+    {
+      "id": "p10_08_whatif_text",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "What if a machine could compute anything? (Turing, 1936.) What if computers could understand English? (Hopper, 1952.) What if small tools could be piped together? (Thompson &amp; Ritchie, 1969.) What if all the world's knowledge was linked? (Berners-Lee, 1989.) What if machines could learn from data? (Hinton, LeCun, Bengio.) What if AI could understand language? (Vaswani et al., 2017.) What if agents could work in teams? (2025-2026.)<br><br><strong>The next \"what if\" is yours.</strong>"
+    },
+    {
+      "id": "p10_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The history of computing is the history of people asking <em>\"What if?\"</em> — and then building the answer. Each answer became a layer that the next question could stand on. Understanding the stack is not just knowledge. It is <strong>power</strong>. The power to see where we are, how we got here, and where we might go next."
+    },
+    {
+      "id": "p10_10b_robot_final",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round warm-copper robot with a dome head and big hopeful teal LED eyes, stubby arms cradling a tiny glowing seed sprouting into a miniature tree of circuit branches, antenna with a tiny sun on top, warm dawn light. A white speech bubble with black outline above. Inside the bubble the text reads: \"What will YOU build? The tools are yours now.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "What will YOU build? The tools are yours now.",
+      "speaker": "SEEDBOT"
+    },
+    {
+      "id": "p10_10_think",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Turing's 1950 prediction: <em>\"I believe that at the end of the century the use of words and general educated opinion will have altered so much that one will be able to speak of machines thinking without expecting to be contradicted.\"</em> He was roughly right. The question has shifted from 'Can machines think?' to <strong>'What do we do about machines that seem to think?'</strong><br><br>What is YOUR answer? What do YOU think should come next?"
+    },
+    {
+      "id": "p10_references",
+      "type": "references",
+      "layout": "full-width",
+      "references": [
+        {
+          "title": "On Computable Numbers, with an Application to the Entscheidungsproblem.",
+          "author": "Turing, A.M",
+          "url": "https://www.cs.virginia.edu/~robins/Turing_Paper_1936.pdf",
+          "type": "paper",
+          "note": "Proceedings of the London Mathematical Society"
+        },
+        {
+          "title": "First Draft of a Report on the EDVAC.",
+          "author": "Von Neumann, J",
+          "url": "https://web.mit.edu/STS.035/www/PDFs/edvac.pdf",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "The Education of a Computer.",
+          "author": "Hopper, G.M",
+          "url": "",
+          "type": "paper",
+          "note": "Proceedings of the ACM National Conference"
+        },
+        {
+          "title": "A Proposal for the Dartmouth Summer Research Project on Artificial Intelligence.",
+          "author": "McCarthy, J. et al",
+          "url": "http://www-formal.stanford.edu/jmc/history/dartmouth/dartmouth.html",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Attention Is All You Need.",
+          "author": "Vaswani, A. et al",
+          "url": "https://arxiv.org/abs/1706.03762",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Constitutional AI: Harmlessness from AI Feedback.",
+          "author": "Bai, Y. et al",
+          "url": "https://arxiv.org/abs/2212.08073",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "ReAct: Synergizing Reasoning and Acting in Language Models.",
+          "author": "Yao, S. et al",
+          "url": "https://arxiv.org/abs/2210.03629",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Code: The Hidden Language of Computer Hardware and Software.",
+          "author": "Petzold, Charles",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Alan Turing: The Enigma.",
+          "author": "Hodges, Andrew",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Human Compatible: Artificial Intelligence and the Problem of Control.",
+          "author": "Russell, Stuart",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "The Alignment Problem: Machine Learning and Human Values.",
+          "author": "Christian, Brian",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Atlas of AI.",
+          "author": "Crawford, Kate",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Artificial Intelligence: A Guide for Thinking Humans.",
+          "author": "Mitchell, Melanie",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Co-Intelligence: Living and Working with AI.",
+          "author": "Mollick, Ethan",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "The Mythical Man-Month.",
+          "author": "Brooks, Frederick P",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?",
+          "author": "Bender, E.M., Gebru, T. et al",
+          "url": "https://dl.acm.org/doi/10.1145/3442188.3445922",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Carbon Emissions and Large Neural Network Training.",
+          "author": "Patterson, D. et al",
+          "url": "https://arxiv.org/abs/2104.10350",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "The Law of Leaky Abstractions.",
+          "author": "Spolsky, Joel",
+          "url": "https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Scaling Monosemanticity: Extracting Interpretable Features from Claude 3 Sonnet.",
+          "author": "Anthropic",
+          "url": "https://transformer-circuits.pub/2024/scaling-monosemanticity/",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Navigating the Jagged Technological Frontier.",
+          "author": "Dell'Acqua, F. et al",
+          "url": "https://www.hbs.edu/ris/Publication%20Files/24-013_d9b45b68-9e74-42d6-a1c6-c72fb70c7282.pdf",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Learning by Doing.",
+          "author": "Bessen, James",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Neural Networks",
+          "author": "3Blue1Brown --",
+          "url": "https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi",
+          "type": "video",
+          "note": ""
+        },
+        {
+          "title": "Neural Networks: Zero to Hero",
+          "author": "Andrej Karpathy --",
+          "url": "https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ",
+          "type": "video",
+          "note": ""
+        },
+        {
+          "title": "Machine Learning",
+          "author": "Andrew Ng --",
+          "url": "https://www.coursera.org/learn/machine-learning",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Practical Deep Learning for Coders.",
+          "author": "fast.ai --",
+          "url": "https://course.fast.ai/",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Introduction to Computer Science",
+          "author": "CS50 --",
+          "url": "https://cs50.harvard.edu/",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Anthropic Research Blog (anthropic.com/research)",
+          "author": "",
+          "url": "https://www.anthropic.com/research",
+          "type": "web",
+          "note": ""
+        },
+        {
+          "title": "Computerphile (YouTube)",
+          "author": "",
+          "url": "https://www.youtube.com/user/Computerphile",
+          "type": "video",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "p10_11_final_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "There is no next issue. There is only what you do with what you have learned. Thank you for reading. Now go build something."
+    }
+  ]
+}

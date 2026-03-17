@@ -1,0 +1,112 @@
+{
+  "issue": 4,
+  "page": 3,
+  "title": "Ken Thompson, Dennis Ritchie, and the Birth of Unix",
+  "accent": "#805AD5",
+  "panels": [
+    {
+      "id": "p3_01_robot_meet",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute round golden robot with big warm amber eyes, wearing a tiny storyteller's cape and holding a miniature open book, sitting on a stack of vintage computer manuals, gentle spotlight illuminating it, warm purple and amber tones. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"Meet two people whose work runs in every device you own.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Meet two people whose work runs in every device you own.",
+      "speaker": "STORYTELLER"
+    },
+    {
+      "id": "p3_02_thompson",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "Portrait of Ken Thompson, a man in his early 30s with a full beard, intense focused expression, wearing a casual 1970s shirt, hands resting on a PDP-7 terminal keyboard, dim lab lighting with green terminal glow on his face, shelves of manuals behind him, warm editorial illustration with ink lines and watercolor washes, purple accent in shadows",
+      "overlays": [],
+      "label": "Ken Thompson — quiet, unassuming hacker"
+    },
+    {
+      "id": "p3_02b_ritchie",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "Portrait of Dennis Ritchie, a thoughtful man in his early 30s with neat hair and a quiet introspective expression, holding a printed code listing and studying it carefully, wearing a 1970s collared shirt, warm amber office lighting, papers and books on a desk behind him, warm editorial illustration with ink lines and watercolor washes, purple accent highlights",
+      "overlays": [],
+      "label": "Dennis Ritchie — the deliberate designer"
+    },
+    {
+      "id": "p3_03_narration_thompson",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Ken Thompson</strong> (born 1943, New Orleans) joined Bell Labs in 1966. He was a quiet, unassuming hacker — the kind of programmer who would think about a problem for days, then write the solution in a single explosive burst of coding."
+    },
+    {
+      "id": "p3_04_narration_ritchie",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Dennis Ritchie</strong> (1941–2011, Bronxville, New York) joined Bell Labs in 1967 with degrees in physics and applied mathematics from Harvard. Where Thompson was the rapid-fire builder, Ritchie was the deliberate designer — modest, self-effacing, someone who expressed himself more clearly in writing than in speech."
+    },
+    {
+      "id": "p3_05_robot_unheard",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 384,
+      "prompt": "A small cute translucent glass robot with big gentle blue eyes and a knowing smile, wearing a tiny old-fashioned detective hat, one hand cupped to the side of its mouth as if sharing a secret, soft purple and blue lighting, mysterious atmosphere. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"You have probably never heard of them.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "You have probably never heard of them.",
+      "speaker": "WHISPERBOT"
+    },
+    {
+      "id": "p3_05b_narration_multics",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "Both had worked on <strong>Multics</strong>, an ambitious time-sharing OS built by Bell Labs, MIT, and GE. But Multics was over-engineered and behind schedule. Bell Labs pulled out in early 1969. Thompson was frustrated — he liked the <em>ideas</em>, but thought they were buried under too much complexity."
+    },
+    {
+      "id": "p3_06_summer_coding",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "A man alone in a dim lab late at night, typing intensely at a PDP-7 minicomputer terminal, green text glowing on the screen, a wall calendar reads SUMMER 1969, a small pinned photo of a woman and baby on the wall nearby, empty coffee cups, stacks of printouts, concentrated atmosphere of creation, warm editorial illustration with ink lines and watercolor washes, purple and green ambient lighting",
+      "overlays": [],
+      "label": "Summer 1969 — Thompson alone with a PDP-7 and three weeks of uninterrupted time"
+    },
+    {
+      "id": "p3_07_narration_threeweeks",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "In the summer of 1969, Thompson's wife Bonnie took their infant son to California. Suddenly, Thompson had uninterrupted time and a barely-used PDP-7. In roughly <strong>three weeks</strong>, he wrote a working prototype: an OS kernel, a shell, an editor, and an assembler. <em>\"One week, one week, one week.\"</em>"
+    },
+    {
+      "id": "p3_08_narration_collaboration",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "But this initial burst was just the beginning. From 1970 onward, Ritchie was deeply involved. McIlroy contributed the pipe mechanism. Kernighan named it and helped document it. Joe Ossanna built text-processing tools. Lorinda Cherry developed mathematical typesetting. The name <strong>\"Unix\"</strong> was coined by Brian Kernighan as a pun on Multics: <em>uniplexed</em> versus <em>multiplexed</em>. Unix was Thompson's spark — but it was Bell Labs' fire."
+    },
+    {
+      "id": "p3_09_timeline",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-20 -7 735 242\" xmlns=\"http://www.w3.org/2000/svg\"><defs><style>text{font-family:'JetBrains Mono',monospace; }</style><marker id=\"arrow4\" markerWidth=\"8\" markerHeight=\"6\" refX=\"8\" refY=\"3\" orient=\"auto\"><polygon points=\"0 0, 8 3, 0 6\" fill=\"#805AD5\"/></marker></defs><text x=\"345\" y=\"18\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\" fill=\"#805AD5\">From Multics to Unix</text><line x1=\"55\" y1=\"110\" x2=\"650\" y2=\"110\" stroke=\"#805AD5\" stroke-width=\"3\" marker-end=\"url(#arrow4)\"/><circle cx=\"80\" cy=\"110\" r=\"7\" fill=\"#805AD5\"/><line x1=\"80\" y1=\"103\" x2=\"80\" y2=\"78\" stroke=\"#805AD5\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"80\" y=\"68\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#805AD5\">1964</text><text x=\"80\" y=\"52\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Multics begins</text><circle cx=\"220\" cy=\"110\" r=\"7\" fill=\"#805AD5\"/><line x1=\"220\" y1=\"117\" x2=\"220\" y2=\"142\" stroke=\"#805AD5\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"220\" y=\"158\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#805AD5\">Early 1969</text><text x=\"220\" y=\"176\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Bell Labs exits</text><circle cx=\"360\" cy=\"110\" r=\"8\" fill=\"#805AD5\" stroke=\"#E2E8F0\" stroke-width=\"2\"/><line x1=\"360\" y1=\"102\" x2=\"360\" y2=\"68\" stroke=\"#805AD5\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"360\" y=\"58\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#805AD5\">Summer 1969</text><text x=\"360\" y=\"42\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Thompson: 3-week</text><text x=\"360\" y=\"28\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">prototype on PDP-7</text><circle cx=\"500\" cy=\"110\" r=\"7\" fill=\"#805AD5\"/><line x1=\"500\" y1=\"117\" x2=\"500\" y2=\"142\" stroke=\"#805AD5\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"500\" y=\"158\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#805AD5\">1970–73</text><text x=\"500\" y=\"176\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Ritchie joins</text><text x=\"500\" y=\"192\" text-anchor=\"middle\" font-size=\"12\" fill=\"#CBD5E0\">C rewrite</text><circle cx=\"630\" cy=\"110\" r=\"7\" fill=\"#805AD5\"/><line x1=\"630\" y1=\"103\" x2=\"630\" y2=\"78\" stroke=\"#805AD5\" stroke-width=\"1.5\" opacity=\"0.4\"/><text x=\"630\" y=\"68\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#805AD5\">1973</text><text x=\"630\" y=\"52\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">Unix rewritten in C</text></svg>",
+      "caption": "From Multics to Unix: the timeline of a revolution"
+    },
+    {
+      "id": "p3_10_thinkbox",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Think About It:</strong> Thompson stripped Multics down to its essentials. Multics tried to do everything; Unix did a few things, simply and well. Have you ever noticed that the most useful tools in your life are often the simplest ones?"
+    },
+    {
+      "id": "p3_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Thompson had built a working prototype. But it was written in assembly language — locked to one machine, just like everything else. To truly set software free, they needed a new kind of language. And they needed a philosophy."
+    }
+  ]
+}

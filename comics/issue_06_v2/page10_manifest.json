@@ -1,0 +1,226 @@
+{
+  "issue": 6,
+  "page": 10,
+  "title": "Can They Read? Can They Write?",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p10_01_vision_to_language",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A sweeping epic composition flowing left to right: on the far left a trained neural network depicted as a clean organized system of connected nodes gazes at a photograph of a cat with a confident label 'cat 97 percent' floating nearby, in the center a long arrow stretches across labeled '2012 to 2017', on the far right an undefined shadowy but warm shape sits surrounded by flowing text from thousands of sources: encyclopedia pages, novel excerpts, lines of code, poetry fragments, conversation snippets, all swirling gently around the shape, the shape appears to be reading and absorbing, faintly visible at the bottom is the text 'Attention Is All You Need', warm lighting transitioning from clear on the left to warm anticipatory glow on the right, Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E and warm gold tones",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "top-left",
+          "max_width": "280px",
+          "text": "By 2015, deep learning had conquered <strong>vision</strong>. But <strong>language</strong> was a different beast."
+        }
+      ]
+    },
+    {
+      "id": "p10_02_narration_resnet",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>ResNet</strong> — a network with 152 layers using \"skip connections\" — achieved approximately <strong>3.57% top-5 error</strong> on ImageNet, surpassing trained human evaluators at ~5.1%. Vision was solved. But language was sequential, contextual, and full of ambiguity. The word \"bank\" means something different in \"river bank\" and \"bank account.\""
+    },
+    {
+      "id": "p10_03_rnn_struggle",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 320,
+      "prompt": "A visual metaphor for the limitations of recurrent neural networks processing language: a small determined robot reading a very long scroll of text word by word from left to right, the robot holds the current word clearly but the beginning of the scroll behind it has faded and become blurry representing forgotten context, the robot looks slightly strained and overwhelmed by trying to remember everything, warm tones with a sense of the challenge being depicted, Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E accents and warm paper tones",
+      "overlays": []
+    },
+    {
+      "id": "p10_04_narration_rnn_limits",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "Recurrent neural networks (RNNs) and <strong>LSTMs</strong> could process text one word at a time, maintaining a kind of memory. But they were slow, and they struggled with long passages. By the end of a paragraph, the network had often \"forgotten\" the beginning. Language AI needed something fundamentally new."
+    },
+    {
+      "id": "p10_05_robot_anticipation",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 448,
+      "prompt": "A small cute clockwork brass robot with big expressive crimson-tinted eyes, a tiny top hat, and a miniature pocket watch hanging from its body, standing at the edge of a warm glowing horizon looking into the distance with quiet anticipation, one stubby arm shading its eyes as if peering into the future, warm golden light washing over the scene from the right side. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"They learned to see. Next: what about language?\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm crimson #E53E3E and golden sunrise tones",
+      "bubble_text": "They learned to see. Next: what about language?",
+      "speaker": "CLOCKWORK"
+    },
+    {
+      "id": "p10_06_narration_transformer_tease",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "In 2017, a team of eight researchers at Google published a paper with one of the most confident titles in scientific history: <strong>\"Attention Is All You Need.\"</strong> What they described — the <strong>Transformer</strong> — would prove to be exactly as important as the title claimed."
+    },
+    {
+      "id": "p10_07_conquered_list",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 290\"><style>.title{font-size:14px; font-weight:bold; } .done{font-size:12px; } .todo{font-size:12px; } .check{font-size:14px; } .quest{font-size:14px; } .label{font-size:13px; font-weight:bold} .small{font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" class=\"title\" x=\"340\" y=\"5\" text-anchor=\"middle\">The Scoreboard After Issue 6</text><rect x=\"30\" y=\"20\" width=\"290\" height=\"170\" rx=\"8\" fill=\"#C6F6D5\" opacity=\"0.15\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text class=\"label\" x=\"175\" y=\"42\" text-anchor=\"middle\" fill=\"#E2E8F0\">CONQUERED (2012-2015)</text><text fill=\"#E2E8F0\" class=\"check\" x=\"55\" y=\"68\">&#10003;</text><text fill=\"#E2E8F0\" class=\"done\" x=\"75\" y=\"68\">Image recognition (beats humans)</text><text fill=\"#E2E8F0\" class=\"check\" x=\"55\" y=\"92\">&#10003;</text><text fill=\"#E2E8F0\" class=\"done\" x=\"75\" y=\"92\">Handwriting recognition</text><text fill=\"#E2E8F0\" class=\"check\" x=\"55\" y=\"116\">&#10003;</text><text fill=\"#E2E8F0\" class=\"done\" x=\"75\" y=\"116\">Speech recognition (improved)</text><text fill=\"#E2E8F0\" class=\"check\" x=\"55\" y=\"140\">&#10003;</text><text fill=\"#E2E8F0\" class=\"done\" x=\"75\" y=\"140\">Game playing (Atari, 2013)</text><text fill=\"#E2E8F0\" class=\"check\" x=\"55\" y=\"164\">&#10003;</text><text fill=\"#E2E8F0\" class=\"done\" x=\"75\" y=\"164\">Medical image analysis</text><rect x=\"360\" y=\"20\" width=\"290\" height=\"170\" rx=\"8\" fill=\"#FED7D7\" opacity=\"0.15\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text class=\"label\" x=\"505\" y=\"42\" text-anchor=\"middle\" fill=\"#E2E8F0\">UNSOLVED</text><text fill=\"#E2E8F0\" class=\"quest\" x=\"385\" y=\"68\">?</text><text fill=\"#E2E8F0\" class=\"todo\" x=\"405\" y=\"68\">Language understanding</text><text fill=\"#E2E8F0\" class=\"quest\" x=\"385\" y=\"92\">?</text><text fill=\"#E2E8F0\" class=\"todo\" x=\"405\" y=\"92\">Text generation</text><text fill=\"#E2E8F0\" class=\"quest\" x=\"385\" y=\"116\">?</text><text fill=\"#E2E8F0\" class=\"todo\" x=\"405\" y=\"116\">Reasoning and conversation</text><text fill=\"#E2E8F0\" class=\"quest\" x=\"385\" y=\"140\">?</text><text fill=\"#E2E8F0\" class=\"todo\" x=\"405\" y=\"140\">Code generation</text><text fill=\"#E2E8F0\" class=\"quest\" x=\"385\" y=\"164\">?</text><text fill=\"#E2E8F0\" class=\"todo\" x=\"405\" y=\"164\">Translation at human quality</text><rect x=\"120\" y=\"205\" width=\"440\" height=\"45\" rx=\"8\" fill=\"#4A9BD9\" opacity=\"0.1\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"340\" y=\"225\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">NEXT: Issue 7 — \"Attention Is All You Need\"</text><text x=\"340\" y=\"242\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">A single paper. Eight authors. The Transformer. The birth of the large language model.</text></svg>",
+      "caption": "Deep learning conquered vision. Language remained the frontier."
+    },
+    {
+      "id": "p10_08_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Machine learning is not just a technique. It is a philosophical revolution. For all of computing history, humans translated their understanding into explicit instructions. Machine learning asks: <strong>what if the machine could develop its own understanding, directly from experience?</strong> This question — first asked by Turing in 1950, pursued by Rosenblatt in 1958, kept alive through decades of doubt, and vindicated by AlexNet in 2012 — defines the future of computing."
+    },
+    {
+      "id": "p10_09_thinkit",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Remember the Language Alert from Page 3? When a neural network classifies an image as \"cat\" with 97% confidence, does it <em>understand</em> what a cat is? It has never touched fur, heard a purr, or been scratched. It has found statistical patterns in pixels. Is that understanding — or something else entirely? This question matters more than ever as we enter the age of language models."
+    },
+    {
+      "id": "p10_10_closing_scene",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A hopeful closing scene: on the left side warm glowing icons summarize the neural network revolution — a neural network diagram, a photograph being classified, GPU cards, three walking figures — on the right side these elements form a bridge or pathway stretching toward a new horizon where the silhouette of an open book and flowing text suggests the language revolution to come. NO TEXT, NO LABELS, NO WORDS anywhere in the image — just visual symbols and icons. Warm hopeful lighting with crimson transitioning to cool blue toward the horizon, Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E on the left transitioning to blue #4A9BD9 on the right",
+      "overlays": []
+    },
+    {
+      "id": "p10_references",
+      "type": "references",
+      "layout": "full-width",
+      "references": [
+        {
+          "title": "The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain.",
+          "author": "Rosenblatt, F",
+          "url": "https://psycnet.apa.org/record/1959-09865-001",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Perceptrons: An Introduction to Computational Geometry.",
+          "author": "Minsky, M. and Papert, S",
+          "url": "https://mitpress.mit.edu/9780262630221/perceptrons/",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "The representation of the cumulative rounding error of an algorithm as a Taylor expansion of the local rounding errors.",
+          "author": "Linnainmaa, S",
+          "url": "https://doi.org/10.1007/BF02165411",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Beyond Regression: New Tools for Prediction and Analysis in the Behavioral Sciences.",
+          "author": "Werbos, P",
+          "url": "https://books.google.com/books?id=z81XmgEACAAJ",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Neocognitron: A Self-Organizing Neural Network Model for a Mechanism of Pattern Recognition Unaffected by Shift in Position.",
+          "author": "Fukushima, K",
+          "url": "https://link.springer.com/article/10.1007/BF00344251",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Learning Representations by Back-Propagating Errors.",
+          "author": "Rumelhart, D.E., Hinton, G.E., and Williams, R.J",
+          "url": "https://www.nature.com/articles/323533a0",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Long Short-Term Memory.",
+          "author": "Hochreiter, S. and Schmidhuber, J",
+          "url": "https://www.bioinf.jku.at/publications/older/2604.pdf",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Gradient-Based Learning Applied to Document Recognition.",
+          "author": "LeCun, Y., Bottou, L., Bengio, Y., and Haffner, P",
+          "url": "http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf",
+          "type": "paper",
+          "note": "Proceedings of the IEEE"
+        },
+        {
+          "title": "A Neural Probabilistic Language Model.",
+          "author": "Bengio, Y., Ducharme, R., Vincent, P., and Jauvin, C",
+          "url": "https://www.jmlr.org/papers/v3/bengio03a.html",
+          "type": "paper",
+          "note": "Journal of Machine Learning Research"
+        },
+        {
+          "title": "A Fast Learning Algorithm for Deep Belief Nets.",
+          "author": "Hinton, G.E., Osindero, S., and Teh, Y.-W",
+          "url": "https://www.cs.toronto.edu/~hinton/absps/fastnc.pdf",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "ImageNet: A Large-Scale Hierarchical Image Database.",
+          "author": "Deng, J., Dong, W., Socher, R., Li, L.-J., Li, K., and Fei-Fei, L",
+          "url": "https://ieeexplore.ieee.org/document/5206848",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "ImageNet Classification with Deep Convolutional Neural Networks.",
+          "author": "Krizhevsky, A., Sutskever, I., and Hinton, G.E",
+          "url": "https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html",
+          "type": "paper",
+          "note": "Advances in Neural Information Processing Systems 25 (NIPS 2012)"
+        },
+        {
+          "title": "The Worlds I See: Curiosity, Exploration, and Discovery at the Dawn of AI.",
+          "author": "Li, Fei-Fei",
+          "url": "https://us.macmillan.com/books/9781250897916/theworldsisee",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Deep Learning.",
+          "author": "Goodfellow, I., Bengio, Y., and Courville, A",
+          "url": "https://www.deeplearningbook.org/",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Artificial Intelligence: A Guide for Thinking Humans.",
+          "author": "Mitchell, M",
+          "url": "https://us.macmillan.com/books/9780374257835/artificialintelligence",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Neural Networks",
+          "author": "3Blue1Brown (YouTube)",
+          "url": "https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi",
+          "type": "video",
+          "note": ""
+        },
+        {
+          "title": "ACM Turing Award Citation for Hinton, LeCun, and Bengio, 2018",
+          "author": "",
+          "url": "https://amturing.acm.org/award_winners/hinton_4791679.cfm",
+          "type": "web",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "p10_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Next issue: a paper called \"Attention Is All You Need\" introduces the Transformer — an architecture that lets neural networks process entire passages at once. Within six years, machines go from sentence completion to writing essays, generating code, and holding conversations. Issue 7: \"Attention Is All You Need.\""
+    }
+  ]
+}

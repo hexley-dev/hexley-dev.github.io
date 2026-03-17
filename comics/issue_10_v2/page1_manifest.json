@@ -1,0 +1,86 @@
+{
+  "issue": 10,
+  "page": 1,
+  "title": "Let's See It All at Once",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p1_01_stack_hero",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 576,
+      "prompt": "A vast vertical cross-section composition seen from the side, like a geological cutaway or towering city. At the very bottom deep underground, a tiny glowing blue-white electron orbits an atom. Above it, layers build upward: clusters of transistors and microchips on green circuit boards, a glowing green terminal screen with command text, cascading lines of colorful code in multiple programming languages (FORTRAN, C, Python), pulsing neural network nodes connected by light beams, a floating chat window with conversation text, and at the very top in open sky, a constellation of small glowing cute robots orbiting one another passing golden message trails. A small cute round robot sits on the topmost layer, stubby legs dangling over the edge, gazing downward at all the layers below with huge glowing wonder-filled eyes. Warm orange (#DD6B20) accent lighting throughout. Comic book style, warm editorial illustration with ink lines and watercolor washes, epic sense of scale",
+      "overlays": []
+    },
+    {
+      "id": "p1_02_robot_intro",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 576,
+      "prompt": "A small cute round copper-and-orange robot with big glowing amber eyes full of awe, a tiny telescope strapped to its back, sitting on the edge of a glowing layered tower looking down at luminous stacked rings below, stubby legs dangling, one hand on its chest in wonder, warm orange glow from below illuminates its face. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Ninety years. Let's see it all at once.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Ninety years. Let's see it all at once.",
+      "speaker": "COPPERBOT"
+    },
+    {
+      "id": "p1_02b_narration_voice",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "We've traveled ninety years together — from a mathematician's daydream to swarms of AI agents building software in parallel. We've met the people, followed the ideas, watched the machines get smaller and smarter.<br><br>But we've never stepped back and looked at the <strong>WHOLE thing</strong> at once. Until now.",
+      "style": "accent"
+    },
+    {
+      "id": "p1_03_electrons",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Somewhere beneath your feet, right now, <strong>electrons are moving</strong>. They are flowing through transistors — billions of them — switching on and off billions of times per second.",
+      "style": "default"
+    },
+    {
+      "id": "p1_04_layers_upper",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "Close-up of stacked glowing layers like translucent floors in a crystal building: at bottom a green circuit board with tiny transistors, above it a terminal screen with green text, above that colorful code scrolling, above that a web of neural network nodes pulsing with golden light. Each layer glows a different color. Warm orange highlights. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p1_04b_layers_narration",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "Above those transistors, an <strong>operating system</strong> is juggling thousands of tasks. Above the OS, a <strong>programming language</strong> is translating human ideas into machine instructions. Above that language, a <strong>neural network</strong> is predicting the next word you might want to read. And above that, an <strong>AI agent</strong> might be writing code, running tests, and fixing its own mistakes."
+    },
+    {
+      "id": "p1_05_abstraction_key",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Every layer depends on the one below it. Every layer hides the complexity beneath it and presents a simpler interface to the layer above. This idea — <strong>abstraction</strong> — is the single most powerful concept in the history of computing. It is the reason a 14-year-old can build a website without understanding quantum physics."
+    },
+    {
+      "id": "p1_06_stack_labels",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -31 680 451\"><defs><linearGradient id=\"stackGrad\" x1=\"0\" y1=\"1\" x2=\"0\" y2=\"0\"><stop offset=\"0%\" stop-color=\"#3182CE\" stop-opacity=\"0.15\"/><stop offset=\"100%\" stop-color=\"#DD6B20\" stop-opacity=\"0.15\"/></linearGradient></defs><rect x=\"40\" y=\"0\" width=\"600\" height=\"390\" rx=\"12\" fill=\"url(#stackGrad)\" stroke=\"#E2E8F0\" stroke-width=\"1.5\"/><g font-family=\"'JetBrains Mono', monospace\" font-size=\"14\" fill=\"#2D3748\"><rect x=\"80\" y=\"340\" width=\"520\" height=\"25\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#3182CE\" stroke-width=\"1.2\"/><text x=\"340\" y=\"364\" text-anchor=\"middle\" font-weight=\"bold\">Layer 1: Physics — electrons, semiconductors</text><rect x=\"80\" y=\"295\" width=\"520\" height=\"38\" rx=\"6\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.2\"/><text x=\"340\" y=\"319\" text-anchor=\"middle\" font-weight=\"bold\">Layer 2: Hardware — transistors, chips, processors</text><rect x=\"80\" y=\"250\" width=\"520\" height=\"38\" rx=\"6\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.2\"/><text x=\"340\" y=\"274\" text-anchor=\"middle\" font-weight=\"bold\">Layer 3: Operating Systems — Unix, Linux, macOS</text><rect x=\"80\" y=\"205\" width=\"520\" height=\"38\" rx=\"6\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.2\"/><text x=\"340\" y=\"229\" text-anchor=\"middle\" font-weight=\"bold\">Layer 4: Languages — FORTRAN, C, Python</text><rect x=\"80\" y=\"160\" width=\"520\" height=\"38\" rx=\"6\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.2\"/><text x=\"340\" y=\"184\" text-anchor=\"middle\" font-weight=\"bold\">Layer 5: Machine Learning — neural networks</text><rect x=\"80\" y=\"115\" width=\"520\" height=\"38\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.2\"/><text x=\"340\" y=\"139\" text-anchor=\"middle\" font-weight=\"bold\">Layer 6: LLMs — Transformers, GPT, Claude</text><rect x=\"80\" y=\"70\" width=\"520\" height=\"38\" rx=\"6\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"1.2\"/><text x=\"340\" y=\"94\" text-anchor=\"middle\" font-weight=\"bold\">Layer 7: Agents — tool use, ReAct loop</text><rect x=\"80\" y=\"25\" width=\"520\" height=\"38\" rx=\"6\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"1.8\"/><text x=\"340\" y=\"49\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"#DD6B20\">Layer 8: Swarms — multi-agent coordination</text></g><text x=\"340\" y=\"-5\" text-anchor=\"middle\" font-family=\"'JetBrains Mono', monospace\" font-size=\"16\" fill=\"#DD6B20\" font-weight=\"bold\">The Abstraction Stack — Physics to Your Prompt</text></svg>",
+      "caption": "Eight layers, ninety years of human ingenuity"
+    },
+    {
+      "id": "p1_07_final_narration",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In this final issue, we are going to see the whole stack. All of it. From physics to your prompt. And then we are going to look at what comes next — and what role <strong>you</strong> might play in it."
+    },
+    {
+      "id": "p1_08_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Every one of those layers was somebody's life work. Let's meet them all — one more time."
+    }
+  ]
+}

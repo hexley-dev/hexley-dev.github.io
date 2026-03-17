@@ -1,0 +1,120 @@
+{
+  "issue": 6,
+  "page": 4,
+  "title": "Crossing the Desert",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p4_01_desert_march",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A wide cinematic desert landscape stretching to the horizon under a blazing sun, three small determined figures walking through golden sand dunes casting long shadows, carrying briefcases and notebooks, behind them a weathered sign reads 'AI WINTER', in the far distance a faint green glow on the horizon hints at an oasis to come, vast empty expanse emphasizing isolation and perseverance, warm golden sand tones, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm golden and amber tones with crimson #E53E3E sun",
+      "overlays": []
+    },
+    {
+      "id": "p4_02_robot_winter",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round robot with a matte navy-blue body, big warm golden eyes, wearing a tiny scarf blowing in the wind, standing on cracked dry earth looking up at the viewer with deep admiration, one stubby arm pressed to its chest in a gesture of respect, warm golden light from the side. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"AI winter hit. Three researchers refused to quit.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm desert tones with crimson #E53E3E scarf",
+      "bubble_text": "AI winter hit. Three researchers refused to quit.",
+      "speaker": "NAVIGATOR"
+    },
+    {
+      "id": "p4_03_narration_winter",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "The <strong>second AI winter</strong> (roughly 1987-1993) was triggered by the collapse of expert systems. Companies spent millions on rule-based AI that proved brittle and expensive. Japan's Fifth Generation Computer Project failed. DARPA wound down. The word \"AI\" itself became <em>toxic in grant applications</em>.<br><br>Neural network researchers had it even worse. The dominant approach became <strong>Support Vector Machines</strong> -- mathematically elegant, with strong guarantees. Next to SVMs, neural networks looked sloppy."
+    },
+    {
+      "id": "p4_04_hinton",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "Portrait of a tall thoughtful British-Canadian man in his fifties with glasses and slightly thinning hair, standing at a standing desk in a modest university office filled with stacked papers and whiteboards covered in neural network diagrams, he stands because of chronic back problems and has not sat in a chair in years, expression of quiet determination and intellectual conviction, warm office lighting with afternoon sun through a window, University of Toronto setting, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm muted academic tones",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "bottom-left",
+          "max_width": "180px",
+          "text": "<strong>Geoffrey Hinton</strong><br>b. 1947, London"
+        }
+      ]
+    },
+    {
+      "id": "p4_05_lecun",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "Portrait of a sharp-eyed French man in his late thirties with dark hair, standing in a corporate research lab at Bell Labs in the 1990s, behind him a computer monitor shows handwritten digits being recognized in real-time, he holds a printout of a neural network architecture diagram, expression of pragmatic confidence and focus, clean lab environment with fluorescent lighting, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm tones with subtle blue-grey lab lighting",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "bottom-left",
+          "max_width": "180px",
+          "text": "<strong>Yann LeCun</strong><br>b. 1960, Paris"
+        }
+      ]
+    },
+    {
+      "id": "p4_06_narration_hinton_lecun",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Hinton</strong> -- a descendant of logician George Boole -- spent decades at the University of Toronto. He works standing up due to chronic back problems. <em>\"The brain doesn't use logical rules. Why should AI?\"</em><br><br><strong>LeCun</strong> developed <strong>convolutional neural networks (CNNs)</strong> at Bell Labs. By the late 1990s, his LeNet-5 was reading millions of handwritten checks at banks across America. A working, deployed neural network. And still, the field didn't notice."
+    },
+    {
+      "id": "p4_07_bengio",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "Portrait of a soft-spoken thoughtful French-Canadian man in his early forties with a warm gentle expression, sitting in a cluttered university office at the Universite de Montreal, bookshelves overflowing with academic texts and journals, a whiteboard behind him with equations and the words 'neural language model' circled, afternoon light through a window, atmosphere of quiet intellectual persistence, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm academic tones with subtle green accents",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "bottom-left",
+          "max_width": "180px",
+          "text": "<strong>Yoshua Bengio</strong><br>b. 1964, Paris"
+        }
+      ]
+    },
+    {
+      "id": "p4_08_narration_bengio",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "<strong>Bengio</strong>, at the Universite de Montreal, published \"A Neural Probabilistic Language Model\" in 2003 -- foundational for GPT and all later language models. He chose to stay in academia: <em>\"fundamental AI research should stay in public institutions.\"</em><br><br>Many others contributed: <strong>Schmidhuber &amp; Hochreiter</strong> (LSTM, 1997), <strong>Fukushima</strong> (Neocognitron, 1980), <strong>Hopfield</strong> (1982), <strong>Werbos</strong> (1974). The field was built by a community."
+    },
+    {
+      "id": "p4_09_turing_award",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The \"overnight breakthrough\" of 2012 was built on <strong>decades of persistence</strong>. Hinton started in the 1970s. LeCun had working CNNs in the 1980s. Bengio published foundational language work in 2003. In <strong>2018</strong>, all three received the <strong>ACM Turing Award</strong>. In <strong>2024</strong>, Hinton (with John Hopfield) received the <strong>Nobel Prize in Physics</strong>."
+    },
+    {
+      "id": "p4_10_lab_link",
+      "type": "lab_link",
+      "layout": "full-width",
+      "lab_filename": "neural_network_playground",
+      "lab_title": "Neural Network Playground",
+      "lab_description": "Want to see backpropagation in action? Place data points, configure layers, hit Train, and watch the decision boundary evolve as the network learns. It is gradient descent happening live."
+    },
+    {
+      "id": "p4_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Three researchers kept the algorithm alive. But an algorithm needs data -- vast amounts of it. The kind of data deep learning needed did not exist yet. It would take a junior professor with an unconventional idea."
+    }
+  ]
+}

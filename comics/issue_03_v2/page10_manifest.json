@@ -1,0 +1,196 @@
+{
+  "issue": 3,
+  "page": 10,
+  "title": "One Machine Is Not Enough",
+  "accent": "#38A169",
+  "panels": [
+    {
+      "id": "p10_01_isolated_labs",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A wide cinematic view of a late 1960s computer lab with three separate islands of computing: on the left an IBM mainframe with spinning tape reels surrounded by programmers in white shirts, in the center a UNIVAC system with its characteristic rounded console panels and magnetic tape units with its own team, on the right a DEC PDP-8 minicomputer in a tall blue rack cabinet with another group, each island is lit by its own pool of warm overhead light but there are NO cables or connections between them, dark gaps between the machines emphasize their isolation, No modern desktop monitors, no personal computers, no flat screens. All equipment should be large cabinet-style 1960s mainframes, the feeling is impressive but incomplete, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on indicator lights",
+      "overlays": []
+    },
+    {
+      "id": "p10_02_narration_transformed",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "By the late 1960s, the world of programming languages had been transformed. Scientists wrote in FORTRAN. Businesses ran on COBOL. AI researchers dreamed in LISP. Students learned in BASIC. And behind the scenes, ALGOL's ideas about formal grammar and block structure were quietly shaping every new language.",
+      "style": "default"
+    },
+    {
+      "id": "p10_03_robot_reflective",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 576,
+      "prompt": "A small cute round copper-colored robot with big warm amber eyes looking upward with a spark of anticipation, wearing a tiny explorer's scarf that flutters gently, one stubby arm resting on a globe of the Earth while the other points toward the stars, sitting on a vintage trunk covered in travel stickers, a few disconnected cables lie on the floor around it, warm twilight background with a sky shifting from sunset orange to deep blue. A white speech bubble with black outline near the top right. Inside the bubble the text reads: \"Each computer was a brilliant island.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Each computer was a brilliant island.",
+      "speaker": "NAVIGATOR"
+    },
+    {
+      "id": "p10_04_narration_missing",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "But step back and notice what's still missing. Every program runs on <strong>one machine</strong>. A FORTRAN program on an IBM computer won't run on a Burroughs or Honeywell without being rewritten. Programs are trapped &mdash; tied to specific hardware, specific operating systems, specific architectures.<br><br>And the machines themselves are <em>isolated</em>. No networks. No shared files. No way for a program on one computer to send data to another.",
+      "style": "default"
+    },
+    {
+      "id": "p10_05_narration_recap",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In fifteen years, humans went from writing raw binary to writing English-like sentences. Grace Hopper, John Backus, John McCarthy, Mary Kenneth Keller, Betty Holberton, Jean Sammet &mdash; they climbed the abstraction ladder, rung by rung. But every program they wrote ran on <strong>ONE machine</strong>. Code couldn't travel. Data couldn't travel.",
+      "style": "accent"
+    },
+    {
+      "id": "p10_06_isolation_scene",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A single massive 1960s mainframe computer sitting alone in a spotlight in the center of a vast dark empty room, thick power cables trailing off into the darkness but no network cables, the machine hums with power but is completely isolated, a few printouts spill from its printer but have nowhere to go, the mood is powerful but lonely, dramatic chiaroscuro lighting, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on indicator lights",
+      "overlays": []
+    },
+    {
+      "id": "p10_07_narration_revolution",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "Two revolutions are coming that will shatter this isolation.<br><br>The first is an <strong>operating system</strong> &mdash; Unix &mdash; built on the radical philosophy that small, simple tools should be chained together. It will make software <em>portable</em> for the first time.<br><br>The second is a <strong>programming language</strong> &mdash; C &mdash; designed with deep ALGOL influence. It will make it possible to write one program and run it on <em>almost any machine</em>.",
+      "style": "default"
+    },
+    {
+      "id": "p10_08_timeline_teaser",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-50 -20 780 400\"><rect x=\"10\" y=\"0\" width=\"660\" height=\"360\" rx=\"12\" fill=\"#1A202C\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"340\" y=\"28\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"20\" font-weight=\"bold\" fill=\"#FFFFFF\">THE JOURNEY SO FAR</text><rect x=\"40\" y=\"48\" width=\"280\" height=\"36\" rx=\"8\" fill=\"#E53E3E\" opacity=\"0.15\" stroke=\"#E53E3E\" stroke-width=\"1\"/><text x=\"55\" y=\"71\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#FED7D7\">Issue 1: The IDEA (Turing, 1936)</text><rect x=\"40\" y=\"92\" width=\"280\" height=\"36\" rx=\"8\" fill=\"#DD6B20\" opacity=\"0.15\" stroke=\"#DD6B20\" stroke-width=\"1\"/><text x=\"55\" y=\"115\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#FEFCBF\">Issue 2: The MACHINES (ENIAC, 1940s-50s)</text><rect x=\"40\" y=\"136\" width=\"280\" height=\"36\" rx=\"8\" fill=\"#38A169\" opacity=\"0.25\" stroke=\"#38A169\" stroke-width=\"2\"/><text x=\"55\" y=\"159\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\" fill=\"#C6F6D5\" textLength=\"251\" lengthAdjust=\"spacingAndGlyphs\">Issue 3: The LANGUAGES (1950s-60s)</text><text x=\"340\" y=\"159\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\">&larr; YOU ARE HERE</text><line x1=\"180\" y1=\"180\" x2=\"180\" y2=\"200\" stroke=\"#38A169\" stroke-width=\"2\" stroke-dasharray=\"4,3\"/><polygon points=\"175,200 185,200 180,208\" fill=\"#38A169\"/><rect x=\"40\" y=\"216\" width=\"600\" height=\"119\" rx=\"10\" fill=\"#805AD5\" opacity=\"0.1\" stroke=\"#805AD5\" stroke-width=\"1.5\" stroke-dasharray=\"8,4\"/><text x=\"55\" y=\"240\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#E9D8FD\">Issue 4: The FREEDOM</text><text x=\"55\" y=\"262\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">1969 &mdash; Unix is born at Bell Labs</text><text x=\"55\" y=\"280\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">1972 &mdash; The C programming language (ALGOL-influenced)</text><text x=\"55\" y=\"298\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">1975 &mdash; The personal computer arrives</text><text x=\"55\" y=\"316\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">1983 &mdash; Stallman: \"software should be free\"</text><text x=\"340\" y=\"345\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#FFFFFF\">Languages let us talk to one machine. Next: making software run on ANY machine.</text></svg>",
+      "caption": "The journey so far and what comes next in Issue 4"
+    },
+    {
+      "id": "p10_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The 1950s and 1960s gave us the fundamental insight that still drives all of software: human thought and machine execution are different, and the gap between them can be bridged by <strong>layers of translation</strong>. Compilers, high-level languages, and abstraction turned an impossible task &mdash; writing in binary &mdash; into something <em>anyone can learn</em>. But each language was a conversation with one machine. The next chapter is about making that conversation <strong>universal</strong>.",
+      "style": "accent"
+    },
+    {
+      "id": "p10_10_robot_next",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute round copper-colored robot with big warm amber eyes full of excitement, wearing a tiny explorer's scarf now billowing behind it, standing at the edge of a cliff looking out over a vast landscape where glowing green cables and connections begin to snake across the terrain linking distant computer buildings together, the horizon glows with the promise of dawn, the robot's posture is eager and forward-leaning, one stubby arm raised pointing toward the connecting future, dramatic wide panoramic composition, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 accent on the glowing connections",
+      "bubble_text": "Next: connecting them all together.",
+      "speaker": "NAVIGATOR"
+    },
+    {
+      "id": "p10_references",
+      "type": "references",
+      "layout": "full-width",
+      "references": [
+        {
+          "title": "The Education of a Computer.",
+          "author": "Hopper, Grace M",
+          "url": "https://dl.acm.org/doi/10.1145/609784.609818](https://dl.acm.org/doi/10.1145/609784.609818)",
+          "type": "paper",
+          "note": "Proceedings of the ACM National Conference"
+        },
+        {
+          "title": "The History of FORTRAN I, II, and III.",
+          "author": "Backus, John",
+          "url": "https://ieeexplore.ieee.org/document/4640489](https://ieeexplore.ieee.org/document/4640489)",
+          "type": "paper",
+          "note": "IEEE Annals of the History of Computing"
+        },
+        {
+          "title": "Recursive Functions of Symbolic Expressions and Their Computation by Machine, Part I.",
+          "author": "McCarthy, John",
+          "url": "https://dl.acm.org/doi/10.1145/367177.367199](https://dl.acm.org/doi/10.1145/367177.367199)",
+          "type": "paper",
+          "note": "Communications of the ACM"
+        },
+        {
+          "title": "Programming Languages: History and Fundamentals.",
+          "author": "Sammet, Jean E",
+          "url": "https://archive.org/details/programminglang00samm](https://archive.org/details/programminglang00samm)",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Grace Hopper and the Invention of the Information Age.",
+          "author": "Beyer, Kurt W",
+          "url": "https://mitpress.mit.edu/9780262517263/](https://mitpress.mit.edu/9780262517263/)",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "An Oral History of BASIC.",
+          "author": "Dartmouth College",
+          "url": "https://www.dartmouth.edu/basicfifty/](https://www.dartmouth.edu/basicfifty/)",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "A Proposal for the Dartmouth Summer Research Project on Artificial Intelligence.",
+          "author": "McCarthy, John, et al",
+          "url": "http://www-formal.stanford.edu/jmc/history/dartmouth/dartmouth.html](http://www-formal.stanford.edu/jmc/history/dartmouth/dartmouth.html)",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Pioneering Women in Computer Science.",
+          "author": "Gürer, Denise",
+          "url": "https://dl.acm.org/doi/10.1145/204865.204875](https://dl.acm.org/doi/10.1145/204865.204875)",
+          "type": "paper",
+          "note": "Communications of the ACM"
+        },
+        {
+          "title": "Recoding Gender: Women's Changing Participation in Computing.",
+          "author": "Abbate, Janet",
+          "url": "https://mitpress.mit.edu/9780262018067/](https://mitpress.mit.edu/9780262018067/)",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Revised Report on the Algorithmic Language ALGOL 60.",
+          "author": "Naur, Peter (ed.)",
+          "url": "https://dl.acm.org/doi/10.1145/366193.366201](https://dl.acm.org/doi/10.1145/366193.366201)",
+          "type": "paper",
+          "note": "Communications of the ACM"
+        },
+        {
+          "title": "Grace Hopper: 1982 NSA Lecture.",
+          "author": "Computer History Museum",
+          "url": "https://www.youtube.com/watch?v=1-vcErOPofQ](https://www.youtube.com/watch?v=1-vcErOPofQ)",
+          "type": "video",
+          "note": ""
+        },
+        {
+          "title": "FORTRAN: The First Programming Language.",
+          "author": "Numberphile (YouTube)",
+          "url": "https://www.youtube.com/watch?v=_7Pp0CiF5C4](https://www.youtube.com/watch?v=_7Pp0CiF5C4)",
+          "type": "video",
+          "note": ""
+        },
+        {
+          "title": "Grace Hopper's Compiler.",
+          "author": "Computerphile (YouTube)",
+          "url": "https://www.youtube.com/watch?v=Fg82iV-L8ZY](https://www.youtube.com/watch?v=Fg82iV-L8ZY)",
+          "type": "video",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "p10_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Next issue: two engineers at Bell Labs build an operating system in a closet-sized room &mdash; and create a philosophy that still drives software fifty-five years later. Plus: the personal computer revolution and the radical idea that software should be <strong>free</strong>. <em>Issue 4: \"Small Tools, Big Ideas.\"</em>"
+    }
+  ]
+}

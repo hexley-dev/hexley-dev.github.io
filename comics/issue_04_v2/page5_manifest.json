@@ -1,0 +1,144 @@
+{
+  "issue": 4,
+  "page": 5,
+  "title": "The C Language \u2014 Portable, Powerful, Dangerous",
+  "accent": "#805AD5",
+  "panels": [
+    {
+      "id": "p5_01_ritchie_desk",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "Dennis Ritchie at his wooden desk in a 1970s Bell Labs office, surrounded by tall stacks of paper printouts and handwritten notes covering the desk, writing with a pen on a yellow legal pad, a wall chart behind him showing BCPL to B to C with arrows, thick academic books on shelf, rotary dial telephone on corner of desk, mechanical pencils in a cup, focused scholarly expression, warm amber tungsten lighting with purple accent shadows, warm editorial illustration with ink lines and watercolor washes. 1970s university office aesthetic \u2014 wooden furniture, paper documents, analog tools only.",
+      "overlays": [],
+      "label": "Dennis Ritchie designing the C language \u2014 BCPL \u2192 B \u2192 C"
+    },
+    {
+      "id": "p5_02_robot_before",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A small cute flat rectangular robot made of folded punch-card paper in origami style, dot-matrix eyes glowing purple, one paper arm raised with a finger pointing up, vintage punch cards scattered around its feet, warm paper-toned background. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Before C, each OS spoke only one machine's language.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Before C, each OS spoke only one machine's language.",
+      "speaker": "PUNCHCARD"
+    },
+    {
+      "id": "p5_02b_robot_rosetta",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A small cute round pearlescent white robot with big satisfied violet eyes, wearing a tiny Rosetta Stone tablet like a backpack, arms crossed confidently, standing on a bridge connecting two different-colored platforms representing different computers, purple and gold tones. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"C was the Rosetta Stone. Write once, compile anywhere.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "C was the Rosetta Stone. Write once, compile anywhere.",
+      "speaker": "PEARLBOT"
+    },
+    {
+      "id": "p5_03_narration_evolution",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Thompson's B language (1969\u201370), derived from Martin Richards's BCPL (Cambridge, 1966), worked on the word-addressed PDP-7. But when Unix moved to the byte-addressed PDP-11, B's lack of a type system became a problem. Between 1971 and 1973, <strong>Dennis Ritchie</strong> transformed B into something new: <strong>C</strong> \u2014 named simply because it came after B."
+    },
+    {
+      "id": "p5_04_narration_position",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "C occupied a unique position. High-level enough that humans could read it. Low-level enough to replace assembly language. It gave you <strong>pointers</strong> \u2014 direct addresses into memory, like GPS coordinates to specific locations in the machine. Powerful, yes. But dangerous: point to the wrong address and your program crashes, or worse."
+    },
+    {
+      "id": "p5_04b_robot_clanguage",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round pearlescent robot with a dome head and big excited violet LED eyes, wearing a tiny backpack shaped like the letter C, stubby arms holding a key labeled PORTABILITY in one hand and a warning sign labeled DANGER in the other, antenna with a tiny padlock on top. A white speech bubble with black outline above. Inside the bubble the text reads: \"Powerful and dangerous. That was the tradeoff.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Powerful and dangerous. That was the tradeoff.",
+      "speaker": "CBOT"
+    },
+    {
+      "id": "p5_05_narration_rewrite",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "In 1973, Thompson and Ritchie <strong>rewrote Unix in C</strong>. For the first time in history, a production operating system was written in a high-level language instead of assembly. Unix was no longer locked to the PDP-11."
+    },
+    {
+      "id": "p5_06_portability",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 280\"><text x=\"340\" y=\"5\" text-anchor=\"middle\" font-size=\"14\" fill=\"#FFFFFF\" font-family=\"'JetBrains Mono',monospace\" font-weight=\"bold\">One source, many machines \u2014 if you have a compiler</text><rect x=\"240\" y=\"25\" width=\"200\" height=\"45\" rx=\"8\" fill=\"#805AD5\"/><text x=\"340\" y=\"53\" text-anchor=\"middle\" font-size=\"14\" fill=\"#fff\" font-family=\"JetBrains Mono, monospace\" font-weight=\"bold\">C Source Code</text><line x1=\"270\" y1=\"70\" x2=\"120\" y2=\"110\" stroke=\"#805AD5\" stroke-width=\"2\"/><line x1=\"340\" y1=\"70\" x2=\"340\" y2=\"110\" stroke=\"#805AD5\" stroke-width=\"2\"/><line x1=\"410\" y1=\"70\" x2=\"560\" y2=\"110\" stroke=\"#805AD5\" stroke-width=\"2\"/><rect x=\"50\" y=\"110\" width=\"140\" height=\"40\" rx=\"6\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"120\" y=\"135\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"JetBrains Mono, monospace\">PDP-11 Compiler</text><rect x=\"270\" y=\"110\" width=\"140\" height=\"40\" rx=\"6\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"340\" y=\"135\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"JetBrains Mono, monospace\">VAX Compiler</text><rect x=\"490\" y=\"110\" width=\"140\" height=\"40\" rx=\"6\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"560\" y=\"135\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"JetBrains Mono, monospace\">Intel Compiler</text><line x1=\"120\" y1=\"150\" x2=\"120\" y2=\"180\" stroke=\"#805AD5\" stroke-width=\"2\"/><line x1=\"340\" y1=\"150\" x2=\"340\" y2=\"180\" stroke=\"#805AD5\" stroke-width=\"2\"/><line x1=\"560\" y1=\"150\" x2=\"560\" y2=\"180\" stroke=\"#805AD5\" stroke-width=\"2\"/><rect x=\"50\" y=\"180\" width=\"140\" height=\"35\" rx=\"6\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"120\" y=\"202\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"JetBrains Mono, monospace\">PDP-11 Machine Code</text><rect x=\"270\" y=\"180\" width=\"140\" height=\"35\" rx=\"6\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"340\" y=\"202\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"JetBrains Mono, monospace\">VAX Machine Code</text><rect x=\"490\" y=\"180\" width=\"140\" height=\"35\" rx=\"6\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"560\" y=\"202\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\" font-family=\"JetBrains Mono, monospace\">Intel Machine Code</text><text x=\"340\" y=\"240\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-family=\"'JetBrains Mono',monospace\" font-style=\"italic\">\"One recipe, many kitchens \u2014 but each kitchen needs a chef who speaks C\"</text></svg>",
+      "caption": "The C portability model \u2014 write once, compile for each target"
+    },
+    {
+      "id": "p5_07_narration_compiler",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Portability did not mean <em>\"press a button.\"</em> Writing a C compiler was hard work \u2014 weeks or months of effort. But the savings compounded: every new program written in C could run on every platform with a C compiler. <strong>Write once, compile anywhere \u2014 if you had a compiler.</strong>"
+    },
+    {
+      "id": "p5_08_narration_spread",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "A legal quirk accelerated Unix's spread. AT&T was barred from selling software under a 1956 consent decree, so Unix was distributed to universities with source code included. At UC Berkeley, <strong>Bill Joy</strong> created the <strong>Berkeley Software Distribution (BSD)</strong>, an influential variant that would shape networking, free software, and eventually macOS."
+    },
+    {
+      "id": "p5_09_helloworld",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A vintage 1970s green phosphor terminal screen showing the famous hello world C program: main() { printf(hello world); } glowing in bright green text on a dark background, warm glow from the screen illuminating the edges of the frame, a copy of The C Programming Language book by Kernighan and Ritchie lying beside the terminal, vintage and iconic feeling, warm editorial illustration with ink lines and watercolor washes, purple accent on book spine",
+      "overlays": [],
+      "screen_text": "main() { printf(hello world); }",
+      "label": "hello, world \u2014 the most famous first program in history, from K&R 1978"
+    },
+    {
+      "id": "p5_09b_narration_kr",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "In 1978, Brian Kernighan and Ritchie published <em>The C Programming Language</em> (\"K&R\"), establishing the tradition of starting every programming tutorial with a simple <strong>\"hello, world\"</strong> program. Kernighan said the phrase came from a cartoon of a chick hatching from an egg."
+    },
+    {
+      "id": "p5_10_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "C's gift was portability. Before C, every operating system was a custom suit for one body. After C, an operating system was a <strong>sewing pattern</strong> \u2014 but adapting it for each new fabric still required a skilled tailor (the compiler writer). The revolution was not that porting was easy. It was that porting was <em>possible</em>."
+    },
+    {
+      "id": "p5_10b_robot_helloworld",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round warm-gold robot with a dome head and big happy amber LED eyes, stubby arms holding a tiny copy of The C Programming Language book, antenna with a tiny hatching chick on top, sitting on a desk next to a green-glowing terminal. A white speech bubble with black outline above. Inside the bubble the text reads: \"Hello, world. The most famous first program ever.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Hello, world. The most famous first program ever.",
+      "speaker": "HELLOBOT"
+    },
+    {
+      "id": "p5_11_thinkbox",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Think About It:</strong> C trusts the programmer completely \u2014 it will let you do anything, including things that crash the machine. Is it better for a tool to be safe or powerful? What are the tradeoffs?"
+    },
+    {
+      "id": "p5_12_lab",
+      "type": "lab_link",
+      "layout": "full-width",
+      "lab_filename": "unix_pipe_playground",
+      "lab_title": "Unix Pipe Playground",
+      "lab_description": "Build your own Unix pipelines! Chain small tools together and watch data flow through each stage. Try the \"Find the Most Common Name\" challenge \u2014 you will need at least three pipes."
+    },
+    {
+      "id": "p5_13_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Unix and C had set software free from specific hardware. But computing itself was still locked away in universities and corporations. To reach ordinary people, computers needed to escape the lab \u2014 and fit on a desk."
+    }
+  ]
+}

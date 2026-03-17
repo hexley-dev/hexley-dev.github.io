@@ -1,0 +1,113 @@
+{
+  "issue": 6,
+  "page": 3,
+  "title": "Learning by Flowing Downhill",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p3_01_gradient_landscape",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A wide cinematic landscape made of rolling mathematical hills and valleys, the surface textured with faint grid lines and contour markings like a topographic map, a bright red ball sitting at the top of a steep hill with a dotted arrow trail showing its path rolling downhill toward a valley labeled 'LOW ERROR' in clean white text, the landscape painted in warm earthy tones with the valleys in cool blue-green and the peaks in warm orange-red, a clear blue sky above, sense of a journey from high ground to low, Comic book style, warm editorial illustration with ink lines and watercolor washes, crimson #E53E3E for the ball and key accents",
+      "overlays": []
+    },
+    {
+      "id": "p3_02_robot_announce",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute cuboid robot made of visible pastel-colored voxel blocks, each block a different soft color, big bright pixelated eyes glowing with excitement, stubby block arms gesturing enthusiastically as if shaping something in the air, standing on a desk scattered with scientific papers and pencils, vibrant and energetic pose. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"1986. Three researchers proved Minsky wrong.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm paper background with crimson #E53E3E accents",
+      "bubble_text": "1986. Three researchers proved Minsky wrong.",
+      "speaker": "PIXEL"
+    },
+    {
+      "id": "p3_03_narration_backprop_history",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "The math behind <strong>backpropagation</strong> had appeared before -- Paul Werbos in 1974, Linnainmaa in 1970, earlier work in control theory. But the 1986 <em>Nature</em> paper by <strong>David Rumelhart</strong>, <strong>Geoffrey Hinton</strong>, and <strong>Ronald Williams</strong> proved something new: backprop could train multi-layer networks to learn meaningful internal representations -- the very thing Minsky doubted."
+    },
+    {
+      "id": "p3_04_mountain_analogy",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A person with a hiking backpack standing in thick fog on a mountainside, feet visible on sloping rocky ground, unable to see the valley below, one foot testing the slope of the ground to feel which direction is downhill, a faint dotted trail behind them showing the zigzag path they have already taken, fog swirling around them, the feeling of careful methodical progress despite uncertainty, warm earthy mountain tones, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm golden-brown tones with crimson #E53E3E dotted trail",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "top-left",
+          "max_width": "260px",
+          "text": "Lost in fog. Can't see the valley. But you CAN feel the slope under your feet."
+        }
+      ]
+    },
+    {
+      "id": "p3_05_narration_steps",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Step 1: Forward pass.</strong> Feed an input through the network. Each neuron multiplies inputs by weights, sums them, and passes the result through an activation function.<br><br><strong>Step 2: Measure the error.</strong> Compare the guess to the correct answer. The difference is the <strong>loss</strong>.<br><br><strong>Step 3: Backward pass.</strong> Work backwards using the chain rule. For every weight, ask: would nudging this up make the error go up or down?",
+      "style": "default"
+    },
+    {
+      "id": "p3_06_backprop_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -22 760 342\"><style>.title{font-size:15px; font-weight:bold; } .label{font-size:12px} .small{font-size:12px; } .step{font-size:12px; font-weight:bold} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" x=\"340\" y=\"5\" text-anchor=\"middle\" class=\"title\">Backpropagation -- Step by Step</text><g transform=\"translate(30,35)\"><text x=\"35\" y=\"0\" text-anchor=\"middle\" class=\"step\" fill=\"#4A9BD9\">INPUT</text><circle cx=\"35\" cy=\"25\" r=\"14\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><circle cx=\"35\" cy=\"60\" r=\"14\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><circle cx=\"35\" cy=\"95\" r=\"14\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"170\" y=\"0\" text-anchor=\"middle\" class=\"step\" fill=\"#E2E8F0\">HIDDEN 1</text><circle cx=\"170\" cy=\"25\" r=\"14\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><circle cx=\"170\" cy=\"60\" r=\"14\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><circle cx=\"170\" cy=\"95\" r=\"14\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><circle cx=\"170\" cy=\"130\" r=\"14\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"310\" y=\"0\" text-anchor=\"middle\" class=\"step\" fill=\"#E2E8F0\">HIDDEN 2</text><circle cx=\"310\" cy=\"25\" r=\"14\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><circle cx=\"310\" cy=\"60\" r=\"14\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><circle cx=\"310\" cy=\"95\" r=\"14\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"450\" y=\"0\" text-anchor=\"middle\" class=\"step\" fill=\"#E2E8F0\">OUTPUT</text><circle cx=\"450\" cy=\"45\" r=\"14\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><circle cx=\"450\" cy=\"80\" r=\"14\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><line x1=\"49\" y1=\"25\" x2=\"156\" y2=\"25\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"49\" y1=\"25\" x2=\"156\" y2=\"60\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"49\" y1=\"60\" x2=\"156\" y2=\"25\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"49\" y1=\"60\" x2=\"156\" y2=\"60\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"49\" y1=\"60\" x2=\"156\" y2=\"95\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"49\" y1=\"95\" x2=\"156\" y2=\"60\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"49\" y1=\"95\" x2=\"156\" y2=\"95\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"49\" y1=\"95\" x2=\"156\" y2=\"130\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"184\" y1=\"25\" x2=\"296\" y2=\"25\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"184\" y1=\"25\" x2=\"296\" y2=\"60\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"184\" y1=\"60\" x2=\"296\" y2=\"25\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"184\" y1=\"60\" x2=\"296\" y2=\"60\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"184\" y1=\"95\" x2=\"296\" y2=\"60\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"184\" y1=\"95\" x2=\"296\" y2=\"95\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"184\" y1=\"130\" x2=\"296\" y2=\"95\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"324\" y1=\"25\" x2=\"436\" y2=\"45\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"324\" y1=\"60\" x2=\"436\" y2=\"45\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"324\" y1=\"60\" x2=\"436\" y2=\"80\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><line x1=\"324\" y1=\"95\" x2=\"436\" y2=\"80\" stroke=\"#A0AEC0\" stroke-width=\"1\" opacity=\"0.5\"/><text x=\"450\" y=\"115\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">\"dog\"</text><text x=\"450\" y=\"130\" text-anchor=\"middle\" class=\"small\" fill=\"#E2E8F0\">(WRONG!)</text><rect x=\"510\" y=\"35\" width=\"80\" height=\"50\" rx=\"8\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"550\" y=\"55\" text-anchor=\"middle\" class=\"label\" fill=\"#1A202C\" font-weight=\"bold\">LOSS</text><text font-size=\"12\" x=\"550\" y=\"72\" text-anchor=\"middle\" class=\"small\" fill=\"#2D3748\">Correct: cat</text><line x1=\"464\" y1=\"62\" x2=\"510\" y2=\"62\" stroke=\"#E53E3E\" stroke-width=\"1.5\" stroke-dasharray=\"4,3\"/></g><g transform=\"translate(30,200)\"><line x1=\"50\" y1=\"10\" x2=\"560\" y2=\"10\" stroke=\"#38A169\" stroke-width=\"2.5\"/><polygon points=\"50,11 40,10 50,15\" fill=\"#38A169\"/><text x=\"305\" y=\"5\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#FFFFFF\">FORWARD PASS (signal flows right)</text><line x1=\"560\" y1=\"40\" x2=\"50\" y2=\"40\" stroke=\"#E53E3E\" stroke-width=\"2.5\" stroke-dasharray=\"6,4\"/><polygon points=\"50,35 40,40 50,45\" fill=\"#E53E3E\"/><text x=\"305\" y=\"58\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">BACKWARD PASS (gradients flow left)</text><text fill=\"#E2E8F0\" x=\"305\" y=\"80\" text-anchor=\"middle\" class=\"small\">Each weight is nudged to reduce the error. Repeat millions of times.</text></g></svg>",
+      "caption": "Forward pass computes a guess; backward pass traces which weights caused the error."
+    },
+    {
+      "id": "p3_07_narration_update",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Step 4: Update weights.</strong> Nudge each weight a tiny step in the direction that reduces the error. This is <strong>gradient descent</strong> -- rolling the ball downhill.<br><br><strong>Step 5: Repeat.</strong> Do this millions of times, with millions of examples. Gradually, the weights converge on values that produce correct answers."
+    },
+    {
+      "id": "p3_08_robot_knobs",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round purple robot with big sparkling violet eyes, wearing tiny round spectacles, standing in front of an enormous wall of tiny dials and knobs stretching in every direction like a massive mixing board, one stubby arm reaching up to carefully turn one tiny knob, expression of intense concentration and focus, warm workshop lighting. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"60 million knobs. Calculus turns each one.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, purple and warm tones with crimson #E53E3E highlights",
+      "bubble_text": "60 million knobs. Calculus turns each one.",
+      "speaker": "SPECTACLES"
+    },
+    {
+      "id": "p3_09_think_about_it",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "style": "accent",
+      "text": "A neural network with 60 million weights is like a radio with 60 million knobs. Backpropagation tells you which direction to turn each knob to make the music sound a little better. No human could tune 60 million knobs by hand. But <strong>calculus can</strong>."
+    },
+    {
+      "id": "p3_10_language_note",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Language Note:</strong> Throughout this issue, we say the network \"learns\" or \"sees\" -- but these are <em>metaphors</em>. Neural networks find statistical patterns in data. They do not understand meaning the way you do. When a network classifies an image as \"cat,\" it has found pixel patterns that correlate with that label. It has never touched fur or heard a purr.",
+      "style": "default"
+    },
+    {
+      "id": "p3_10b_robot_neuron",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round pale-pink robot with a dome head and big curious crimson LED eyes, stubby arms holding a tiny model of a neuron with dendrites and axon, antenna shaped like a synapse, sitting on a textbook. A white speech bubble with black outline above. Inside the bubble the text reads: \"Multiply, add, decide. Repeat millions of times.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Multiply, add, decide. Repeat millions of times.",
+      "speaker": "NEURONBOT"
+    },
+    {
+      "id": "p3_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Backpropagation worked. Multi-layer networks could learn. But the excitement was about to collide with a harsh reality: the second AI winter. For nearly twenty years, only a handful of researchers kept the flame alive."
+    }
+  ]
+}

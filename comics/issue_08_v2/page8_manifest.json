@@ -1,0 +1,93 @@
+{
+  "issue": 8,
+  "page": 8,
+  "title": "Error Recovery — Watching an Agent Debug Itself",
+  "accent": "#9F7AEA",
+  "panels": [
+    {
+      "id": "p8_01_split_debug",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "A dramatic split-screen composition. Left side: a terminal showing a failed test in angry red text, blurred lines of error output visible on screen, red glow pulsing from the screen, dramatic shadows. Right side: a translucent AI brain visualization with floating thought bubbles showing its internal reasoning process — reading the error, tracing to the code, identifying the root cause. A glowing connection line links the error on the left to the reasoning on the right. Dark background with crimson and violet lighting. Comic book style, warm editorial illustration with ink lines and watercolor washes, red (#E53E3E) on left, violet (#9F7AEA) on right",
+      "overlays": []
+    },
+    {
+      "id": "p8_02_robot_coach",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute round robot made of brushed copper with a whistle hanging around its neck, big determined emerald eyes, wearing a tiny coach's cap, standing on the sideline watching a glowing terminal screen intently with arms crossed and a focused expression, like a sports coach watching their player perform. Floating diagnostic icons orbit around it: a magnifying glass, a wrench, a green checkmark. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"When the code breaks, agents fix it themselves.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm copper and violet tones",
+      "bubble_text": "When the code breaks, agents fix it themselves.",
+      "speaker": "COACH"
+    },
+    {
+      "id": "p8_03_narration_separates",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Here is what separates an <strong>agent</strong> from a code generator. A code generator writes code. If it fails, <em>you</em> fix it. An agent writes code, runs it, sees it fail, reads the error, reasons about the cause, writes a fix, and runs it again. The AI is <strong>active</strong>. It fixes its own mistakes."
+    },
+    {
+      "id": "p8_04_error_loop_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 310\" xmlns=\"http://www.w3.org/2000/svg\"><style>.mono{font-family:'JetBrains Mono',monospace; font-size:12px} text{font-family:'JetBrains Mono',monospace; font-size:12px}</style><text x=\"340\" y=\"8\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#9F7AEA\">The Error Recovery Loop</text><rect x=\"50\" y=\"40\" width=\"120\" height=\"40\" rx=\"8\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"110\" y=\"65\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Write Code</text><rect x=\"230\" y=\"40\" width=\"120\" height=\"40\" rx=\"8\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><text fill=\"#1A202C\" x=\"290\" y=\"65\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Run Tests</text><rect x=\"420\" y=\"30\" width=\"100\" height=\"60\" rx=\"8\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"2.5\"/><text x=\"470\" y=\"55\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">PASS?</text><rect x=\"570\" y=\"40\" width=\"80\" height=\"40\" rx=\"8\" fill=\"#38A169\" stroke=\"#276749\" stroke-width=\"2\"/><text x=\"610\" y=\"65\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#fff\">Done!</text><line x1=\"170\" y1=\"60\" x2=\"230\" y2=\"60\" stroke=\"#718096\" stroke-width=\"2\" marker-end=\"url(#arrowP8)\"/><line x1=\"350\" y1=\"60\" x2=\"420\" y2=\"60\" stroke=\"#718096\" stroke-width=\"2\" marker-end=\"url(#arrowP8)\"/><line x1=\"520\" y1=\"60\" x2=\"570\" y2=\"60\" stroke=\"#38A169\" stroke-width=\"2\" marker-end=\"url(#arrowP8g)\"/><text x=\"545\" y=\"50\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">YES</text><line x1=\"470\" y1=\"90\" x2=\"470\" y2=\"120\" stroke=\"#E53E3E\" stroke-width=\"2\"/><text x=\"490\" y=\"110\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">NO</text><rect x=\"390\" y=\"120\" width=\"160\" height=\"35\" rx=\"6\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"470\" y=\"142\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">Read Error Message</text><rect x=\"390\" y=\"170\" width=\"160\" height=\"35\" rx=\"6\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"470\" y=\"192\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Reason About Cause</text><rect x=\"390\" y=\"220\" width=\"160\" height=\"35\" rx=\"6\" fill=\"#E9D8FD\" stroke=\"#9F7AEA\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"470\" y=\"242\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Write Targeted Fix</text><line x1=\"470\" y1=\"155\" x2=\"470\" y2=\"170\" stroke=\"#718096\" stroke-width=\"1.5\" marker-end=\"url(#arrowP8)\"/><line x1=\"470\" y1=\"205\" x2=\"470\" y2=\"220\" stroke=\"#718096\" stroke-width=\"1.5\" marker-end=\"url(#arrowP8)\"/><path d=\"M 390 237 L 290 237 L 290 80\" fill=\"none\" stroke=\"#9F7AEA\" stroke-width=\"2\" marker-end=\"url(#arrowP8v)\"/><text x=\"310\" y=\"270\" text-anchor=\"middle\" font-size=\"12\" font-style=\"italic\" fill=\"#E2E8F0\">loop back (with loop detection after N attempts)</text><defs><marker id=\"arrowP8\" viewBox=\"0 0 10 30\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"#718096\"/></marker><marker id=\"arrowP8g\" viewBox=\"0 0 10 30\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"#38A169\"/></marker><marker id=\"arrowP8v\" viewBox=\"0 0 10 30\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"#9F7AEA\"/></marker></defs></svg>",
+      "caption": "The error recovery loop: write, run, fail, read error, reason, fix, run again"
+    },
+    {
+      "id": "p8_05_debug_walkthrough",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A four-panel vertical comic strip showing autonomous AI debugging, each panel a step in the process. Panel 1: A dark terminal screen with red FAIL text glowing ominously, empty room with just the screen. Panel 2: The same terminal with code visible, a translucent AI brain visualization floating beside it, glowing lines connecting the brain to a highlighted bug at line 23 of the code file. Panel 3: The code file being edited with green revision marks appearing, autonomous cursor movement, soft violet glow indicating AI activity. Panel 4: The terminal showing bright green PASS text with triumphant glow and checkmarks. Each panel separated by thin violet lines, progression from red to green lighting. Comic book style, warm editorial illustration with ink lines and watercolor washes, violet #9F7AEA accent",
+      "screen_text": "FAIL / PASS",
+      "overlays": []
+    },
+    {
+      "id": "p8_05b_narration_walkthrough",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "<strong>Run 1:</strong> Tests fail &mdash; 401 Unauthorized.<br><strong>Agent thinks:</strong> &ldquo;Password comparison is wrong.&rdquo;<br><strong>Run 2:</strong> Fix introduced ImportError.<br><strong>Agent thinks:</strong> &ldquo;Missing import. Let me add it.&rdquo;<br><strong>Run 3:</strong> 4 tests passed, 0 failed.<br><br>Three tries. Two different errors. Both fixed <strong>without a human touching the keyboard.</strong>"
+    },
+    {
+      "id": "p8_06_error_thrashing",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 256,
+      "prompt": "A wide dramatic illustration showing two contrasting outcomes side by side. Left: a spinning hamster wheel with code fragments going in circles, labels reading 'Fix A introduces Bug B, Fix B re-introduces Bug A' in a dizzying loop, red frustrated energy, a 'STUCK' warning sign. Right: the same agent stepping back from the wheel, taking a deep breath, a lightbulb appearing above its head, text reading 'Let me try a completely different approach', calm violet glow of wisdom. A vertical dividing line separates the two outcomes. Comic book style, warm editorial illustration with ink lines and watercolor washes, red chaos on left, calm violet on right",
+      "overlays": []
+    },
+    {
+      "id": "p8_07_narration_thrashing",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "But error recovery is not unlimited. Agents can fall into <strong>repair loops</strong> &mdash; trying a fix that introduces a new error, fixing that but re-introducing the original, oscillating indefinitely. Good systems detect these loops: after three similar failed fixes, the agent steps back and tries a <strong>fundamentally different approach</strong>."
+    },
+    {
+      "id": "p8_08_success_table",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-10 -20 760 220\" xmlns=\"http://www.w3.org/2000/svg\"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x=\"360\" y=\"8\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#9F7AEA\">What Agents Can and Cannot Debug</text><rect x=\"40\" y=\"30\" width=\"200\" height=\"28\" rx=\"4\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"140\" y=\"49\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">Syntax errors</text><rect x=\"250\" y=\"30\" width=\"100\" height=\"28\" rx=\"4\" fill=\"#C6F6D5\"/><text x=\"300\" y=\"49\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Very High</text><rect x=\"360\" y=\"30\" width=\"340\" height=\"28\" rx=\"4\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text fill=\"#2D3748\" x=\"530\" y=\"49\" text-anchor=\"middle\" font-size=\"12\">Clear error message, mechanical fix</text><rect x=\"40\" y=\"66\" width=\"200\" height=\"28\" rx=\"4\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"140\" y=\"85\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">Missing imports</text><rect x=\"250\" y=\"66\" width=\"100\" height=\"28\" rx=\"4\" fill=\"#C6F6D5\"/><text x=\"300\" y=\"85\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Very High</text><rect x=\"360\" y=\"66\" width=\"340\" height=\"28\" rx=\"4\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text fill=\"#2D3748\" x=\"530\" y=\"85\" text-anchor=\"middle\" font-size=\"12\">Error names exactly what's missing</text><rect x=\"40\" y=\"102\" width=\"200\" height=\"28\" rx=\"4\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"140\" y=\"121\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Logic errors</text><rect x=\"250\" y=\"102\" width=\"100\" height=\"28\" rx=\"4\" fill=\"#FEFCBF\"/><text fill=\"#2D3748\" x=\"300\" y=\"121\" text-anchor=\"middle\" font-size=\"12\">Medium</text><rect x=\"360\" y=\"102\" width=\"340\" height=\"28\" rx=\"4\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text fill=\"#2D3748\" x=\"530\" y=\"121\" text-anchor=\"middle\" font-size=\"12\" textLength=\"320\" lengthAdjust=\"spacingAndGlyphs\">Requires understanding intent, not just syntax</text><rect x=\"40\" y=\"138\" width=\"200\" height=\"28\" rx=\"4\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"140\" y=\"157\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">Architectural issues</text><rect x=\"250\" y=\"138\" width=\"100\" height=\"28\" rx=\"4\" fill=\"#FED7D7\"/><text x=\"300\" y=\"157\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">Low</text><rect x=\"360\" y=\"138\" width=\"340\" height=\"28\" rx=\"4\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text fill=\"#2D3748\" x=\"530\" y=\"157\" text-anchor=\"middle\" font-size=\"12\">Requires seeing the big picture</text></svg>",
+      "caption": "Agent debugging success rates by error type — from very high (syntax) to low (architecture)"
+    },
+    {
+      "id": "p8_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The ability to fail, read the failure, reason about it, and try again is what transforms a code generator into a <strong>coding partner</strong>. Error recovery is not perfect. But it closes the loop that chat-based coding left open."
+    },
+    {
+      "id": "p8_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Error recovery, tool use, the ReAct loop — a single agent could do remarkable things. But there was a ceiling. And anyone who pushed hard enough hit it."
+    }
+  ]
+}

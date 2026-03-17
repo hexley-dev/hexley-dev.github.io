@@ -1,0 +1,82 @@
+{
+  "issue": 3,
+  "page": 3,
+  "title": "A Thin Veneer of Readability",
+  "accent": "#38A169",
+  "panels": [
+    {
+      "id": "p3_01_robot_cautious",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round green robot with big hopeful emerald eyes, a tiny sprout growing from a pot on its head with two small leaves, leaf-shaped ears, smooth soft body, one stubby hand making a tilting so-so gesture while half-smiling cautiously, standing on a stack of old computer manuals, warm sunny background. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Better, but still thinking like the machine.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Better, but still thinking like the machine.",
+      "speaker": "SPROUT"
+    },
+    {
+      "id": "p3_02_narration_shorthand",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "By the late 1940s, programmers began creating shorthand. Instead of writing binary for each instruction, they assigned short <strong>mnemonics</strong> &mdash; tiny abbreviations a human could remember. <code>ADD</code> instead of <code>0010</code>. <code>LOAD</code> instead of <code>0001</code>.",
+      "style": "default"
+    },
+    {
+      "id": "p3_03_assembly_scene",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A 1950s programmer at a desk writing on a coding form sheet by hand, a large printout from a line printer showing columns of short codes next to binary columns, a large room-sized computer visible in the background with switches and indicator lights, NO modern CRT monitors, NO desktop computers, only paper and a typewriter on the desk, NO READABLE TEXT ON PAPERS — all writing should be small squiggles or out of focus, dim lab environment, dramatic low-key lighting, comic book style, warm editorial illustration with ink lines and watercolor washes, green #38A169 tint on indicator lights",
+      "screen_text": "LOAD ADD STORE",
+      "overlays": []
+    },
+    {
+      "id": "p3_04_narration_improvement",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "This was <strong>assembly language</strong>. A simple program called an <strong>assembler</strong> translated these mnemonics back into binary. One line of assembly became one machine instruction. The translation was mechanical and direct.",
+      "style": "default"
+    },
+    {
+      "id": "p3_05_three_levels",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 690 380\"><rect x=\"10\" y=\"0\" width=\"660\" height=\"340\" rx=\"12\" fill=\"#1A202C\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"340\" y=\"28\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" font-weight=\"bold\" fill=\"#FFFFFF\">THE SAME TASK AT THREE LEVELS</text><rect x=\"30\" y=\"45\" width=\"200\" height=\"90\" rx=\"8\" fill=\"#C6F6D5\" opacity=\"0.2\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"130\" y=\"65\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"15\" font-weight=\"bold\" fill=\"#FFFFFF\">ENGLISH</text><text x=\"130\" y=\"85\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">\"Add values in slots</text><text x=\"130\" y=\"100\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">5 and 6, store in 7.\"</text><text x=\"130\" y=\"120\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">Human-readable</text><rect x=\"240\" y=\"45\" width=\"200\" height=\"90\" rx=\"8\" fill=\"#BEE3F8\" opacity=\"0.2\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"340\" y=\"65\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"15\" font-weight=\"bold\" fill=\"#FFFFFF\">ASSEMBLY</text><text x=\"340\" y=\"85\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">LOAD  R0, [5]</text><text x=\"340\" y=\"100\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">ADD   R0, [6]</text><text x=\"340\" y=\"115\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">STORE R0, [7]</text><text x=\"340\" y=\"130\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">Better names</text><rect x=\"450\" y=\"45\" width=\"195\" height=\"90\" rx=\"8\" fill=\"#FED7D7\" opacity=\"0.2\" stroke=\"#E53E3E\" stroke-width=\"5\"/><text x=\"550\" y=\"65\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"15\" font-weight=\"bold\" fill=\"#FFFFFF\">MACHINE CODE</text><text x=\"550\" y=\"85\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">000100000101</text><text x=\"550\" y=\"100\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">001000000110</text><text x=\"550\" y=\"115\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">001100000111</text><text x=\"550\" y=\"130\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">Raw binary</text><path d=\"M230,90 L240,90\" stroke=\"#718096\" stroke-width=\"1.5\" marker-end=\"url(#arr3)\"/><path d=\"M440,90 L450,90\" stroke=\"#718096\" stroke-width=\"1.5\" marker-end=\"url(#arr3)\"/><defs><marker id=\"arr3\" markerWidth=\"7\" markerHeight=\"5\" refX=\"7\" refY=\"2.5\" orient=\"auto\"><polygon points=\"0,0 7,2.5 0,5\" fill=\"#718096\"/></marker></defs><rect x=\"30\" y=\"155\" width=\"615\" height=\"95\" rx=\"8\" fill=\"#38A169\" opacity=\"0.08\"/><text x=\"50\" y=\"178\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\" fill=\"#FED7D7\">Limitations of Assembly:</text><text x=\"50\" y=\"198\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">1. Still one-to-one: each line = one machine instruction</text><text x=\"50\" y=\"215\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">2. Machine-specific: IBM 701 assembly &ne; UNIVAC assembly</text><text x=\"50\" y=\"232\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">3. Still tedious: hundreds of lines for simple tasks</text><rect x=\"30\" y=\"265\" width=\"615\" height=\"50\" rx=\"8\" fill=\"#38A169\" opacity=\"0.12\" stroke=\"#38A169\" stroke-width=\"5\" stroke-dasharray=\"6,4\"/><text x=\"340\" y=\"288\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\" fill=\"#C6F6D5\">Assembly was a Band-Aid on a broken arm.</text><text x=\"340\" y=\"308\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\">The real fix would require a much bolder idea.</text></svg>",
+      "caption": "The same task at three levels of abstraction"
+    },
+    {
+      "id": "p3_06_narration_holberton",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Betty Holberton</strong>, one of the original six ENIAC programmers, went on to design the instruction set for UNIVAC and wrote its foundational SORT/MERGE routines &mdash; making her one of the few people who programmed at the absolute lowest level, defining what the binary codes would <em>mean</em>. Her sort routine was so efficient it was used for decades.",
+      "style": "accent"
+    },
+    {
+      "id": "p3_07_holberton",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A woman in 1950s professional attire standing confidently beside the UNIVAC I computer, hands resting on a large ring binder of documentation, she has a determined expression and sharp intelligent eyes, the massive computer console fills the background with its characteristic rounded design and tape drives, warm amber lighting, historical documentary feel, comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p3_08_bigidea",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "Assembly language was the first <strong>abstraction</strong> over machine code &mdash; replacing binary codes with human-readable mnemonics. It didn't change what you could do, but it changed how painful it was to do it. And it introduced a crucial idea: <em>a program that translates human-friendly notation into machine-friendly binary</em>.",
+      "style": "accent"
+    },
+    {
+      "id": "p3_09_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Assembly helped. But what if a computer could understand something closer to actual <em>mathematics</em>? Or even actual <em>English</em>? One woman thought it could. Almost nobody believed her."
+    }
+  ]
+}

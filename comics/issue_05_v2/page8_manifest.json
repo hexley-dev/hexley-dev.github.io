@@ -1,0 +1,124 @@
+{
+  "issue": 5,
+  "page": 8,
+  "title": "The Encyclopedia Anyone Can Edit",
+  "accent": "#D69E2E",
+  "panels": [
+    {
+      "id": "p8_01_nupedia",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A stiff formal academic scene, a long pipeline with seven labeled gates, reviewers in academic robes inspecting a single piece of paper slowly passing through each gate, everything orderly rigid and painfully slow, muted grey and blue tones, a sign reading Nupedia at the top and 21 Articles in One Year at the bottom, the feeling of bureaucratic gridlock, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "bottom-span",
+          "max_width": "200px",
+          "text": "<strong>Nupedia:</strong> 21 articles in one year."
+        }
+      ]
+    },
+    {
+      "id": "p8_01b_wikipedia",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A chaotic energetic wiki page with EDIT buttons everywhere, dozens of diverse hands reaching in from all sides to contribute and write, text appearing and being revised in real time, colorful and alive, gold and warm tones, a sign reading Wikipedia at the top and 20000 Articles in One Year at the bottom, the feeling of collaborative energy, warm editorial illustration with ink lines and watercolor washes, gold #D69E2E accents",
+      "overlays": [
+        {
+          "type": "narration",
+          "position": "bottom-span",
+          "max_width": "200px",
+          "text": "<strong>Wikipedia:</strong> 20,000 in one year."
+        }
+      ]
+    },
+    {
+      "id": "p8_02_robot_amused",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 461,
+      "prompt": "A small cute round book-shaped robot with pages fanning out like wings, big round amused eyes shaking its head in disbelief, a tiny pair of reading glasses perched on its nose, one stubby hand gesturing toward two contrasting piles of paper one tiny and one enormous, standing on a library desk with scattered index cards, warm golden background. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Expert review: 21 articles. Open editing: 20,000. Messy won.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Expert review: 21 articles. Open editing: 20,000. Messy won.",
+      "speaker": "BOOKBOT"
+    },
+    {
+      "id": "p8_03_wales_intro",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Jimmy Wales</strong> (born August 7, 1966) was an unlikely encyclopedist. He was a former options trader influenced by economist Friedrich Hayek's idea that useful knowledge is dispersed among many individuals and cannot be centrally gathered. This philosophical conviction would lead him to one of the most consequential experiments in the history of information."
+    },
+    {
+      "id": "p8_04_nupedia_slow",
+      "type": "css_narration",
+      "layout": "left",
+      "flex": 2,
+      "text": "In March 2000, Wales founded <strong>Nupedia</strong> &mdash; a free online encyclopedia written by experts, subject to a rigorous seven-step peer review process. It was meant to be the open-source Encyclopedia Britannica.<br><br>The problem: it was painfully slow. In its first year, Nupedia produced exactly <strong>21 completed articles</strong>."
+    },
+    {
+      "id": "p8_04b_sanger_wiki",
+      "type": "image",
+      "layout": "right",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A split scene showing transformation: on the left a rigid pipeline with papers stuck in review, on the right a wiki page springing to life with an EDIT button glowing gold, the moment of epiphany, Larry Sanger pointing at the wiki concept with a lightbulb above his head, transition from rigid to dynamic, warm editorial illustration with ink lines and watercolor washes, gold accents",
+      "overlays": []
+    },
+    {
+      "id": "p8_05_wikipedia_launch",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Then <strong>Larry Sanger</strong>, Nupedia's editor-in-chief, proposed adding a <strong>wiki</strong> &mdash; a website anyone can edit, invented by Ward Cunningham in 1994-1995 &mdash; as a feeder system for Nupedia.<br><br>On <strong>January 15, 2001</strong>, <strong>Wikipedia</strong> launched. It was supposed to be the rough-draft stage. Instead, it immediately eclipsed Nupedia entirely. Wikipedia reached 20,000 articles in its first year. By January 2003, it had 100,000 English articles.",
+      "style": "accent"
+    },
+    {
+      "id": "p8_06_comparison_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 290\"><style>text{font-family:'JetBrains Mono',monospace; }</style><rect x=\"10\" y=\"0\" width=\"310\" height=\"170\" rx=\"10\" fill=\"#E2E8F0\" stroke=\"#718096\" stroke-width=\"2\"/><text x=\"165\" y=\"28\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\" fill=\"#1A202C\">NUPEDIA (2000)</text><text fill=\"#2D3748\" x=\"30\" y=\"52\" font-size=\"12\">Step 1: Assignment</text><text fill=\"#2D3748\" x=\"30\" y=\"68\" font-size=\"12\">Step 2: Finding a reviewer</text><text fill=\"#2D3748\" x=\"30\" y=\"84\" font-size=\"12\">Step 3: Lead review</text><text fill=\"#2D3748\" x=\"30\" y=\"100\" font-size=\"12\">Step 4: Open review</text><text fill=\"#2D3748\" x=\"30\" y=\"116\" font-size=\"12\">Step 5-7: Copyedit + final</text><text x=\"165\" y=\"145\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">Result: 21 articles/year</text><text x=\"165\" y=\"163\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">x---- CLOSED ----x</text><rect x=\"360\" y=\"0\" width=\"310\" height=\"170\" rx=\"10\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text x=\"515\" y=\"28\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\" fill=\"#D69E2E\">WIKIPEDIA (2001)</text><rect x=\"430\" y=\"45\" width=\"170\" height=\"40\" rx=\"8\" fill=\"#D69E2E\"/><text x=\"515\" y=\"70\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#fff\">[ EDIT ]</text><text fill=\"#2D3748\" x=\"515\" y=\"110\" text-anchor=\"middle\" font-size=\"13\">Anyone can edit. Right now.</text><text fill=\"#2D3748\" x=\"515\" y=\"128\" text-anchor=\"middle\" font-size=\"13\">No credentials required.</text><text x=\"515\" y=\"155\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#1A202C\">Result: 20,000 articles/year</text><text x=\"340\" y=\"200\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#D69E2E\">Ratio: ~1,000 to 1</text><text x=\"340\" y=\"225\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">\"Given enough eyeballs, all bugs are shallow.\"</text><text x=\"340\" y=\"248\" text-anchor=\"middle\" font-size=\"13\" fill=\"#E2E8F0\">\"Given enough editors, all articles get written.\"</text></svg>",
+      "caption": "Nupedia vs. Wikipedia: expert review vs. open editing"
+    },
+    {
+      "id": "p8_07_heretical",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The concept was heretical. Traditional encyclopedia publishing was a cathedral: slow, expert-driven, authoritative. Wikipedia was the ultimate bazaar: anyone could edit any article, at any time, with no credentials required. A 2005 study in <em>Nature</em> found Wikipedia's accuracy roughly comparable to Encyclopedia Britannica for scientific topics &mdash; though Britannica called the study \"fatally flawed,\" and it only covered science, not the history, politics, and biographical content where bias is most problematic."
+    },
+    {
+      "id": "p8_08_demographics",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Wikipedia remains a nonprofit, funded by donations and built by volunteers. But \"anyone can edit\" does not mean everyone does &mdash; Wikipedia's editor base skews heavily male, Western, and technically literate. A 2011 survey found that <strong>fewer than 13% of Wikipedia editors were women</strong>. Articles about notable women are shorter, more likely to be flagged for deletion, and less likely to exist in the first place. The openness is real. The equality is still a work in progress.",
+      "style": "accent"
+    },
+    {
+      "id": "p8_08b_robot_wikipedia",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round silver robot with a dome head and big amazed blue LED eyes, stubby arms holding a giant open book that unfolds endlessly, antenna with a tiny globe puzzle piece on top, standing in a vast library. A white speech bubble with black outline above. Inside the bubble the text reads: \"Sixty million articles. Volunteers. For free.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Sixty million articles. Volunteers. For free.",
+      "speaker": "WIKIBOT"
+    },
+    {
+      "id": "p8_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Big Idea:</strong> Wikipedia proved that a crowd of non-experts, given the right tools, could produce a knowledge resource that rivaled centuries-old institutions. But it also revealed the limits of openness: who shows up to edit shapes what gets written. An encyclopedia \"anyone\" can edit is still shaped by the demographics of who actually does."
+    },
+    {
+      "id": "p8_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "The web connected documents. Linux connected developers. Wikipedia connected knowledge. But all of these had a problem: how do you let thousands of people edit the same code -- at the same time -- without everything collapsing into chaos? The answer would come, once again, from Linus Torvalds. And he built it in two weeks."
+    }
+  ]
+}

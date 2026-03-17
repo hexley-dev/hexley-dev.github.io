@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Pioneers — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --hand: 'Caveat', 'Patrick Hand', cursive;
+  --body: 'Patrick Hand', cursive;
+  --mono: 'JetBrains Mono', monospace;
+  --bg: #FAF9F6;
+  --dark: #2D3748;
+  --muted: #718096;
+  --border: #E2E8F0;
+  --card: #F7FAFC;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--dark);
+  font-family: var(--body);
+  line-height: 1.5;
+  padding: 0 16px 60px;
+}
+.container { max-width: 900px; margin: 0 auto; }
+
+/* Header */
+.gallery-header {
+  text-align: center;
+  padding: 48px 0 32px;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 40px;
+}
+.gallery-header h1 {
+  font-family: var(--hand);
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 8px;
+}
+.gallery-header .subtitle {
+  font-family: var(--body);
+  font-size: 18px;
+  color: #4A5568;
+  max-width: 600px;
+  margin: 0 auto 12px;
+}
+.gallery-header .note {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+/* Era Sections */
+.era-section { margin-bottom: 48px; }
+.era-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  position: relative;
+}
+.era-bar {
+  width: 5px;
+  height: 48px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.era-header h2 {
+  font-family: var(--hand);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--dark);
+}
+.era-header .era-dates {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+.era-timeline {
+  flex-grow: 1;
+  height: 2px;
+  background: var(--border);
+  border-radius: 1px;
+  margin-left: 8px;
+}
+.era-timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  float: right;
+  margin-top: -3px;
+}
+
+/* Card Grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+.card-grid.wide-cards {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+/* Cards */
+.pioneer-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px 16px 16px;
+  border-left: 4px solid var(--border);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.pioneer-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.pioneer-card .portrait {
+  margin-bottom: 12px;
+}
+.pioneer-card .name {
+  font-family: var(--hand);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.2;
+}
+.pioneer-card .dates {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin: 2px 0 6px;
+}
+.pioneer-card .contribution {
+  font-family: var(--body);
+  font-size: 14px;
+  color: #4A5568;
+  line-height: 1.3;
+}
+
+/* Group card (ENIAC Six, Transformer team, trio) */
+.pioneer-card.group-card {
+  grid-column: span 2;
+}
+
+/* Print styles */
+@media print {
+  body { padding: 0; }
+  .pioneer-card { break-inside: avoid; box-shadow: none; border: 1px solid #eee; }
+  .era-section { break-inside: avoid; }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .card-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .pioneer-card.group-card { grid-column: span 2; }
+  .gallery-header h1 { font-size: 34px; }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .pioneer-card.group-card { grid-column: span 1; }
+  .gallery-header h1 { font-size: 28px; }
+  .gallery-header .subtitle { font-size: 16px; }
+  .era-header h2 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<header class="gallery-header">
+  <h1>The Pioneers</h1>
+  <p class="subtitle">The people who built computing — from Hilbert's question to agent swarms</p>
+  <p class="note">Illustration companion to From Turing to Swarms</p>
+</header>
+
+<!-- ERA 1: The Idea -->
+<section class="era-section">
+  <div class="era-header">
+    <div class="era-bar" style="background:#E53E3E"></div>
+    <div>
+      <h2>The Idea</h2>
+      <span class="era-dates">1930s</span>
+    </div>
+    <div class="era-timeline"><div class="era-timeline-dot" style="background:#E53E3E"></div></div>
+  </div>
+  <div class="card-grid">
+
+    <!-- Alan Turing -->
+    <div class="pioneer-card" style="border-left-color:#E53E3E">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -60 100 150">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#E53E3E" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#E53E3E"/><circle cx="6" cy="-16" r="4.8" fill="#E53E3E"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <circle cx="4" cy="-7" r="3" fill="none" stroke="#E53E3E" stroke-width="2"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: tape strip in right hand -->
+            <rect x="30" y="28" width="22" height="6" rx="1.5" fill="#FEFCBF" stroke="#2D3748" stroke-width="1.2"/>
+            <line x1="35" y1="28" x2="35" y2="34" stroke="#2D3748" stroke-width="0.8"/>
+            <line x1="40" y1="28" x2="40" y2="34" stroke="#2D3748" stroke-width="0.8"/>
+            <line x1="45" y1="28" x2="45" y2="34" stroke="#2D3748" stroke-width="0.8"/>
+          </g>
+        </svg>
+      </div>
+      <div class="name">Alan Turing</div>
+      <div class="dates">1912 – 1954</div>
+      <div class="contribution">Defined computation itself</div>
+    </div>
+
+    <!-- Alonzo Church -->
+    <div class="pioneer-card" style="border-left-color:#805AD5">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -60 100 150">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#805AD5" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#805AD5"/><circle cx="6" cy="-16" r="4.8" fill="#805AD5"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#805AD5" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: lambda symbol floating near right hand -->
+            <text x="34" y="30" font-family="serif" font-size="18" font-weight="bold" fill="#805AD5" stroke="#2D3748" stroke-width="0.5">&#955;</text>
+          </g>
+        </svg>
+      </div>
+      <div class="name">Alonzo Church</div>
+      <div class="dates">1903 – 1995</div>
+      <div class="contribution">Lambda calculus — computation through functions</div>
+    </div>
+
+    <!-- Kurt Gödel -->
+    <div class="pioneer-card" style="border-left-color:#D69E2E">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -65 100 155">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#D69E2E" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#D69E2E"/><circle cx="6" cy="-16" r="4.8" fill="#D69E2E"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <circle cx="4" cy="-7" r="3" fill="none" stroke="#D69E2E" stroke-width="2"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: question mark floating above antenna -->
+            <text x="0" y="-58" text-anchor="middle" font-family="'Caveat', cursive" font-size="18" font-weight="700" fill="#D69E2E">?</text>
+          </g>
+        </svg>
+      </div>
+      <div class="name">Kurt G&ouml;del</div>
+      <div class="dates">1906 – 1978</div>
+      <div class="contribution">Proved mathematics has limits</div>
+    </div>
+
+    <!-- David Hilbert -->
+    <div class="pioneer-card" style="border-left-color:#718096">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -60 100 150">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#718096" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#718096"/><circle cx="6" cy="-16" r="4.8" fill="#718096"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-5,-7 L5,-7" fill="none" stroke="#718096" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: spectacles around eyes -->
+            <circle cx="-6" cy="-16" r="8" fill="none" stroke="#718096" stroke-width="1.5"/>
+            <circle cx="6" cy="-16" r="8" fill="none" stroke="#718096" stroke-width="1.5"/>
+            <line x1="2" y1="-16" x2="-2" y2="-16" stroke="#718096" stroke-width="1.2"/>
+            <line x1="-14" y1="-16" x2="-18" y2="-18" stroke="#718096" stroke-width="1.2"/>
+            <line x1="14" y1="-16" x2="18" y2="-18" stroke="#718096" stroke-width="1.2"/>
+          </g>
+        </svg>
+      </div>
+      <div class="name">David Hilbert</div>
+      <div class="dates">1862 – 1943</div>
+      <div class="contribution">Posed the question that started it all</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ERA 2: Building the Machines -->
+<section class="era-section">
+  <div class="era-header">
+    <div class="era-bar" style="background:#DD6B20"></div>
+    <div>
+      <h2>Building the Machines</h2>
+      <span class="era-dates">1940s – 1950s</span>
+    </div>
+    <div class="era-timeline"><div class="era-timeline-dot" style="background:#DD6B20"></div></div>
+  </div>
+  <div class="card-grid wide-cards">
+
+    <!-- John von Neumann -->
+    <div class="pioneer-card" style="border-left-color:#DD6B20">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -60 100 150">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#DD6B20" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#DD6B20"/><circle cx="6" cy="-16" r="4.8" fill="#DD6B20"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#DD6B20" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: clipboard in left hand -->
+            <rect x="-46" y="22" width="14" height="18" rx="2" fill="#FEFCBF" stroke="#2D3748" stroke-width="1.2"/>
+            <rect x="-43" y="20" width="8" height="4" rx="1" fill="#2D3748"/>
+            <line x1="-43" y1="28" x2="-35" y2="28" stroke="#A0AEC0" stroke-width="1"/>
+            <line x1="-43" y1="31" x2="-35" y2="31" stroke="#A0AEC0" stroke-width="1"/>
+            <line x1="-43" y1="34" x2="-38" y2="34" stroke="#A0AEC0" stroke-width="1"/>
+          </g>
+        </svg>
+      </div>
+      <div class="name">John von Neumann</div>
+      <div class="dates">1903 – 1957</div>
+      <div class="contribution">The architecture inside every computer</div>
+    </div>
+
+    <!-- Konrad Zuse -->
+    <div class="pioneer-card" style="border-left-color:#38A169">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -60 100 150">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#38A169" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#38A169"/><circle cx="6" cy="-16" r="4.8" fill="#38A169"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#38A169" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: gear/cog near right hand -->
+            <circle cx="38" cy="30" r="7" fill="none" stroke="#38A169" stroke-width="2"/>
+            <circle cx="38" cy="30" r="3" fill="#38A169"/>
+            <line x1="38" y1="22" x2="38" y2="24" stroke="#38A169" stroke-width="2" stroke-linecap="round"/>
+            <line x1="38" y1="36" x2="38" y2="38" stroke="#38A169" stroke-width="2" stroke-linecap="round"/>
+            <line x1="31" y1="30" x2="33" y2="30" stroke="#38A169" stroke-width="2" stroke-linecap="round"/>
+            <line x1="43" y1="30" x2="45" y2="30" stroke="#38A169" stroke-width="2" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+      <div class="name">Konrad Zuse</div>
+      <div class="dates">1910 – 1995</div>
+      <div class="contribution">Built the first programmable computer</div>
+    </div>
+
+    <!-- Tommy Flowers -->
+    <div class="pioneer-card" style="border-left-color:#4A9BD9">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -60 100 150">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-5,-7 L5,-7" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: vacuum tube in right hand -->
+            <ellipse cx="38" cy="26" rx="4" ry="8" fill="#BEE3F8" stroke="#2D3748" stroke-width="1.2" opacity="0.8"/>
+            <rect x="35" y="33" width="6" height="4" rx="1" fill="#A0AEC0" stroke="#2D3748" stroke-width="1"/>
+            <line x1="36" y1="37" x2="36" y2="40" stroke="#2D3748" stroke-width="0.8"/>
+            <line x1="40" y1="37" x2="40" y2="40" stroke="#2D3748" stroke-width="0.8"/>
+          </g>
+        </svg>
+      </div>
+      <div class="name">Tommy Flowers</div>
+      <div class="dates">1905 – 1998</div>
+      <div class="contribution">Built Colossus to crack Nazi codes</div>
+    </div>
+
+    <!-- ENIAC Six -->
+    <div class="pioneer-card group-card" style="border-left-color:#E53E3E">
+      <div class="portrait">
+        <svg width="280" height="140" viewBox="-10 -60 280 150">
+          <!-- Six small robots in a row -->
+          <g transform="translate(20,0) scale(0.55)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#E53E3E" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#E53E3E"/><circle cx="6" cy="-16" r="4.8" fill="#E53E3E"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#E53E3E" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+          </g>
+          <g transform="translate(68,0) scale(0.55)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#DD6B20" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#DD6B20"/><circle cx="6" cy="-16" r="4.8" fill="#DD6B20"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#DD6B20" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+          </g>
+          <g transform="translate(116,0) scale(0.55)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#D69E2E" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#D69E2E"/><circle cx="6" cy="-16" r="4.8" fill="#D69E2E"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#D69E2E" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+          </g>
+          <g transform="translate(164,0) scale(0.55)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#805AD5" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#805AD5"/><circle cx="6" cy="-16" r="4.8" fill="#805AD5"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#805AD5" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+          </g>
+          <g transform="translate(212,0) scale(0.55)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#38A169" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#38A169"/><circle cx="6" cy="-16" r="4.8" fill="#38A169"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#38A169" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+          </g>
+          <g transform="translate(260,0) scale(0.55)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+          </g>
+        </svg>
+      </div>
+      <div class="name">The ENIAC Six</div>
+      <div class="dates" style="font-size:10px">Kay McNulty, Betty Jennings, Betty Snyder, Marlyn Meltzer, Fran Bilas, Ruth Lichterman</div>
+      <div class="contribution">The original programmers</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ERA 3: Teaching Machines -->
+<section class="era-section">
+  <div class="era-header">
+    <div class="era-bar" style="background:#38A169"></div>
+    <div>
+      <h2>Teaching Machines</h2>
+      <span class="era-dates">1950s – 1960s</span>
+    </div>
+    <div class="era-timeline"><div class="era-timeline-dot" style="background:#38A169"></div></div>
+  </div>
+  <div class="card-grid">
+
+    <!-- Grace Hopper -->
+    <div class="pioneer-card" style="border-left-color:#38A169">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -60 100 150">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#38A169" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#38A169"/><circle cx="6" cy="-16" r="4.8" fill="#38A169"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <ellipse cx="0" cy="-6" rx="5" ry="4" fill="none" stroke="#38A169" stroke-width="2" opacity="0.5"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: admiral hat on head -->
+            <rect x="-16" y="-40" width="32" height="4" rx="1" fill="#2D3748"/>
+            <rect x="-10" y="-48" width="20" height="9" rx="2" fill="#2D3748"/>
+            <rect x="-6" y="-46" width="12" height="2" rx="1" fill="#D69E2E"/>
+          </g>
+        </svg>
+      </div>
+      <div class="name">Grace Hopper</div>
+      <div class="dates">1906 – 1992</div>
+      <div class="contribution">Invented the compiler</div>
+    </div>
+
+    <!-- John Backus -->
+    <div class="pioneer-card" style="border-left-color:#4A9BD9">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -60 100 150">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: FORTRAN text badge near body -->
+            <rect x="26" y="14" width="18" height="10" rx="2" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1"/>
+            <text x="35" y="22" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="5.5" fill="#2D3748" font-weight="500">F77</text>
+          </g>
+        </svg>
+      </div>
+      <div class="name">John Backus</div>
+      <div class="dates">1924 – 2007</div>
+      <div class="contribution">Created FORTRAN, the first high-level language</div>
+    </div>
+
+    <!-- John McCarthy -->
+    <div class="pioneer-card" style="border-left-color:#805AD5">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -60 100 150">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#805AD5" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#805AD5"/><circle cx="6" cy="-16" r="4.8" fill="#805AD5"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <circle cx="4" cy="-7" r="3" fill="none" stroke="#805AD5" stroke-width="2"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: parentheses (LISP) floating near hands -->
+            <text x="-38" y="30" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="700" fill="#805AD5">(</text>
+            <text x="36" y="30" font-family="'JetBrains Mono', monospace" font-size="16" font-weight="700" fill="#805AD5">)</text>
+          </g>
+        </svg>
+      </div>
+      <div class="name">John McCarthy</div>
+      <div class="dates">1927 – 2011</div>
+      <div class="contribution">Named AI, created LISP</div>
+    </div>
+
+    <!-- Mary Kenneth Keller -->
+    <div class="pioneer-card" style="border-left-color:#D69E2E">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -60 100 150">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#D69E2E" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#D69E2E"/><circle cx="6" cy="-16" r="4.8" fill="#D69E2E"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#D69E2E" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: graduation cap on head -->
+            <rect x="-14" y="-42" width="28" height="3" rx="1" fill="#2D3748"/>
+            <polygon points="-18,-40 18,-40 0,-45" fill="#2D3748"/>
+            <line x1="14" y1="-40" x2="18" y2="-34" stroke="#D69E2E" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="18" cy="-33" r="2" fill="#D69E2E"/>
+          </g>
+        </svg>
+      </div>
+      <div class="name">Mary Kenneth Keller</div>
+      <div class="dates">1913 – 1985</div>
+      <div class="contribution">First woman to earn a CS PhD in the US</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ERA 4: The Software Revolution -->
+<section class="era-section">
+  <div class="era-header">
+    <div class="era-bar" style="background:#805AD5"></div>
+    <div>
+      <h2>The Software Revolution</h2>
+      <span class="era-dates">1970s – 1980s</span>
+    </div>
+    <div class="era-timeline"><div class="era-timeline-dot" style="background:#805AD5"></div></div>
+  </div>
+  <div class="card-grid">
+
+    <!-- Thompson & Ritchie (pair) -->
+    <div class="pioneer-card group-card" style="border-left-color:#805AD5">
+      <div class="portrait">
+        <svg width="200" height="140" viewBox="-30 -60 180 150">
+          <!-- Ken Thompson -->
+          <g transform="translate(30,0) scale(0.8)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#805AD5" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#805AD5"/><circle cx="6" cy="-16" r="4.8" fill="#805AD5"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#805AD5" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: pipe character | in right hand -->
+            <text x="36" y="36" font-family="'JetBrains Mono', monospace" font-size="20" font-weight="700" fill="#805AD5">|</text>
+            <text y="80" text-anchor="middle" style="font-family:'Caveat',cursive;font-size:11px;fill:#2D3748;font-weight:700">Ken</text>
+          </g>
+          <!-- Dennis Ritchie -->
+          <g transform="translate(100,0) scale(0.8)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#805AD5" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#805AD5"/><circle cx="6" cy="-16" r="4.8" fill="#805AD5"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#805AD5" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: pipe character | in left hand -->
+            <text x="-40" y="36" font-family="'JetBrains Mono', monospace" font-size="20" font-weight="700" fill="#805AD5">|</text>
+            <text y="80" text-anchor="middle" style="font-family:'Caveat',cursive;font-size:11px;fill:#2D3748;font-weight:700">Dennis</text>
+          </g>
+        </svg>
+      </div>
+      <div class="name">Ken Thompson &amp; Dennis Ritchie</div>
+      <div class="dates" style="font-size:10px">Ken b. 1943 &nbsp;|&nbsp; Dennis 1941 – 2011</div>
+      <div class="contribution">Co-created Unix; Dennis created C</div>
+    </div>
+
+    <!-- Richard Stallman -->
+    <div class="pioneer-card" style="border-left-color:#E53E3E">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -60 100 150">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#E53E3E" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#E53E3E"/><circle cx="6" cy="-16" r="4.8" fill="#E53E3E"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-5,-7 L5,-7" fill="none" stroke="#E53E3E" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: GNU/freedom banner in right hand -->
+            <rect x="28" y="22" width="18" height="14" rx="2" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.2"/>
+            <text x="37" y="31" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="5" fill="#E53E3E" font-weight="700">GNU</text>
+            <line x1="28" y1="22" x2="28" y2="40" stroke="#2D3748" stroke-width="1.2"/>
+          </g>
+        </svg>
+      </div>
+      <div class="name">Richard Stallman</div>
+      <div class="dates">b. 1953</div>
+      <div class="contribution">Free software — free as in freedom</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ERA 5: The Connected World -->
+<section class="era-section">
+  <div class="era-header">
+    <div class="era-bar" style="background:#D69E2E"></div>
+    <div>
+      <h2>The Connected World</h2>
+      <span class="era-dates">1990s – 2000s</span>
+    </div>
+    <div class="era-timeline"><div class="era-timeline-dot" style="background:#D69E2E"></div></div>
+  </div>
+  <div class="card-grid">
+
+    <!-- Tim Berners-Lee -->
+    <div class="pioneer-card" style="border-left-color:#D69E2E">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -60 100 150">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#D69E2E" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#D69E2E"/><circle cx="6" cy="-16" r="4.8" fill="#D69E2E"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#D69E2E" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: globe in right hand -->
+            <circle cx="38" cy="30" r="9" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/>
+            <ellipse cx="38" cy="30" rx="9" ry="4" fill="none" stroke="#4A9BD9" stroke-width="0.8"/>
+            <ellipse cx="38" cy="30" rx="4" ry="9" fill="none" stroke="#4A9BD9" stroke-width="0.8"/>
+            <line x1="29" y1="30" x2="47" y2="30" stroke="#4A9BD9" stroke-width="0.8"/>
+          </g>
+        </svg>
+      </div>
+      <div class="name">Tim Berners-Lee</div>
+      <div class="dates">b. 1955</div>
+      <div class="contribution">Invented the World Wide Web</div>
+    </div>
+
+    <!-- Linus Torvalds -->
+    <div class="pioneer-card" style="border-left-color:#D69E2E">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -60 100 150">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#D69E2E" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#D69E2E"/><circle cx="6" cy="-16" r="4.8" fill="#D69E2E"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <ellipse cx="0" cy="-6" rx="5" ry="4" fill="none" stroke="#D69E2E" stroke-width="2" opacity="0.5"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: penguin (Tux) silhouette near right hand -->
+            <ellipse cx="38" cy="28" rx="6" ry="8" fill="#2D3748"/>
+            <ellipse cx="38" cy="28" rx="4" ry="6" fill="white"/>
+            <circle cx="36" cy="25" r="1" fill="#2D3748"/>
+            <circle cx="40" cy="25" r="1" fill="#2D3748"/>
+            <polygon points="37,27 39,27 38,29" fill="#D69E2E"/>
+          </g>
+        </svg>
+      </div>
+      <div class="name">Linus Torvalds</div>
+      <div class="dates">b. 1969</div>
+      <div class="contribution">Created Linux and Git</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ERA 6: Machines That Learn -->
+<section class="era-section">
+  <div class="era-header">
+    <div class="era-bar" style="background:#E53E3E"></div>
+    <div>
+      <h2>Machines That Learn</h2>
+      <span class="era-dates">2000s – 2020s</span>
+    </div>
+    <div class="era-timeline"><div class="era-timeline-dot" style="background:#E53E3E"></div></div>
+  </div>
+  <div class="card-grid wide-cards">
+
+    <!-- Hinton, LeCun, Bengio (trio) -->
+    <div class="pioneer-card group-card" style="border-left-color:#E53E3E">
+      <div class="portrait">
+        <svg width="240" height="140" viewBox="-10 -60 230 150">
+          <!-- Hinton -->
+          <g transform="translate(30,0) scale(0.7)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#E53E3E" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#E53E3E"/><circle cx="6" cy="-16" r="4.8" fill="#E53E3E"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#E53E3E" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <text y="80" text-anchor="middle" style="font-family:'Caveat',cursive;font-size:12px;fill:#2D3748;font-weight:700">Hinton</text>
+          </g>
+          <!-- Neural network lines connecting the three -->
+          <line x1="55" y1="10" x2="85" y2="10" stroke="#E53E3E" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.5"/>
+          <line x1="130" y1="10" x2="160" y2="10" stroke="#E53E3E" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.5"/>
+          <!-- LeCun -->
+          <g transform="translate(110,0) scale(0.7)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#E53E3E" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#E53E3E"/><circle cx="6" cy="-16" r="4.8" fill="#E53E3E"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <circle cx="4" cy="-7" r="3" fill="none" stroke="#E53E3E" stroke-width="2"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <text y="80" text-anchor="middle" style="font-family:'Caveat',cursive;font-size:12px;fill:#2D3748;font-weight:700">LeCun</text>
+          </g>
+          <!-- Bengio -->
+          <g transform="translate(190,0) scale(0.7)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#E53E3E" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#E53E3E"/><circle cx="6" cy="-16" r="4.8" fill="#E53E3E"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <circle cx="4" cy="-7" r="3" fill="none" stroke="#E53E3E" stroke-width="2"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <text y="80" text-anchor="middle" style="font-family:'Caveat',cursive;font-size:12px;fill:#2D3748;font-weight:700">Bengio</text>
+          </g>
+          <!-- Small neural net decoration above -->
+          <circle cx="70" cy="-48" r="3" fill="#FED7D7" stroke="#E53E3E" stroke-width="0.8"/>
+          <circle cx="110" cy="-52" r="3" fill="#FED7D7" stroke="#E53E3E" stroke-width="0.8"/>
+          <circle cx="150" cy="-48" r="3" fill="#FED7D7" stroke="#E53E3E" stroke-width="0.8"/>
+          <line x1="70" y1="-48" x2="110" y2="-52" stroke="#E53E3E" stroke-width="0.6" opacity="0.4"/>
+          <line x1="110" y1="-52" x2="150" y2="-48" stroke="#E53E3E" stroke-width="0.6" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="name">Geoffrey Hinton, Yann LeCun &amp; Yoshua Bengio</div>
+      <div class="dates" style="font-size:10px">Hinton b. 1947 &nbsp;|&nbsp; LeCun b. 1960 &nbsp;|&nbsp; Bengio b. 1964</div>
+      <div class="contribution">The three godfathers of deep learning</div>
+    </div>
+
+    <!-- Fei-Fei Li -->
+    <div class="pioneer-card" style="border-left-color:#E53E3E">
+      <div class="portrait">
+        <svg width="120" height="140" viewBox="-50 -60 100 150">
+          <g transform="translate(0,0) scale(0.9)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#E53E3E" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#E53E3E"/><circle cx="6" cy="-16" r="4.8" fill="#E53E3E"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#E53E3E" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <!-- Prop: camera/image frame in right hand -->
+            <rect x="28" y="22" width="16" height="12" rx="2" fill="#1A202C" stroke="#2D3748" stroke-width="1.2"/>
+            <circle cx="36" cy="28" r="4" fill="none" stroke="#E53E3E" stroke-width="1.2"/>
+            <circle cx="36" cy="28" r="1.5" fill="#E53E3E"/>
+            <rect x="30" y="22" width="4" height="3" rx="1" fill="#A0AEC0"/>
+          </g>
+        </svg>
+      </div>
+      <div class="name">Fei-Fei Li</div>
+      <div class="dates">b. 1976</div>
+      <div class="contribution">ImageNet — the dataset that changed everything</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ERA 7: The Transformer Age -->
+<section class="era-section">
+  <div class="era-header">
+    <div class="era-bar" style="background:#4A9BD9"></div>
+    <div>
+      <h2>The Transformer Age</h2>
+      <span class="era-dates">2017 +</span>
+    </div>
+    <div class="era-timeline"><div class="era-timeline-dot" style="background:#4A9BD9"></div></div>
+  </div>
+  <div class="card-grid wide-cards">
+
+    <!-- Vaswani et al. -->
+    <div class="pioneer-card group-card" style="border-left-color:#4A9BD9">
+      <div class="portrait">
+        <svg width="240" height="140" viewBox="-10 -65 230 155">
+          <!-- Decorative attention arrows above -->
+          <path d="M30,-55 Q110,-70 190,-55" fill="none" stroke="#4A9BD9" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.4"/>
+          <path d="M50,-50 Q110,-60 170,-50" fill="none" stroke="#4A9BD9" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
+          <!-- Central robot (representing the team) -->
+          <g transform="translate(70,0) scale(0.75)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <ellipse cx="0" cy="-6" rx="5" ry="4" fill="none" stroke="#4A9BD9" stroke-width="2" opacity="0.5"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+          </g>
+          <!-- Second robot -->
+          <g transform="translate(150,0) scale(0.75)">
+            <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+            <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+            <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+            <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+            <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+            <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+            <ellipse cx="0" cy="-6" rx="5" ry="4" fill="none" stroke="#4A9BD9" stroke-width="2" opacity="0.5"/>
+            <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+            <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+            <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+            <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+          </g>
+          <!-- Connecting attention line between robots -->
+          <line x1="95" y1="8" x2="125" y2="8" stroke="#4A9BD9" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.6"/>
+          <!-- Paper title below -->
+          <text x="110" y="78" text-anchor="middle" font-family="'JetBrains Mono', monospace" font-size="7" fill="#4A9BD9" opacity="0.7">"Attention Is All You Need"</text>
+        </svg>
+      </div>
+      <div class="name">Ashish Vaswani et al.</div>
+      <div class="dates">Google Brain, 2017</div>
+      <div class="contribution">"Attention Is All You Need" — the Transformer architecture</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer style="text-align:center; padding:32px 0 16px; border-top:2px solid var(--border); margin-top:24px;">
+  <p style="font-family:var(--body); font-size:16px; color:var(--muted);">
+    Every layer was someone's life work. Understanding the stack gives you power to shape what comes next.
+  </p>
+  <p style="font-family:var(--mono); font-size:10px; color:#718096; margin-top:8px;">
+    From Turing to Swarms &mdash; A 10-Issue Educational Comic Series
+  </p>
+</footer>
+
+</div>
+</body>
+</html>

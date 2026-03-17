@@ -1,0 +1,63 @@
+{
+  "issue": 7,
+  "page": 6,
+  "title": "The Transformer Architecture",
+  "accent": "#4A9BD9",
+  "panels": [
+    {
+      "id": "p6_01_robot_guide",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A small cute round brass robot with big curious green clock-face eyes, a tiny gear on its back and a miniature top hat, standing confidently at the base of two tall glowing blue architectural tower diagrams, pointing upward like a museum tour guide with one stubby arm extended, the towers represent the Encoder and Decoder of the Transformer, glowing bridges connect them, blueprint grid lines in the background. A white speech bubble with black outline near the top right. Inside the bubble the text reads: \"Let me walk you through it, floor by floor.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, blueprint blue #4A9BD9 tones with warm brass robot accents",
+      "bubble_text": "Let me walk you through it, floor by floor.",
+      "speaker": "CLOCKWORK"
+    },
+    {
+      "id": "p6_02_narration_overview",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The original Transformer has two halves: an <strong>encoder</strong> (which reads the input) and a <strong>decoder</strong> (which generates the output). For translation, the encoder reads the French sentence, and the decoder writes the English version."
+    },
+    {
+      "id": "p6_03_architecture_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "gen_width": 900,
+      "gen_height": 720,
+      "svg": "<svg viewBox=\"-20 -30 740 560\"><style>.title{font-size:18px; font-weight:bold; } .tower{font-size:16px; font-weight:bold} .layer{font-size:14px} .small{font-size:13px; } .io{font-size:14px; font-weight:bold} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" class=\"title\" x=\"340\" y=\"0\" text-anchor=\"middle\">The Transformer Blueprint</text><rect x=\"40\" y=\"15\" width=\"260\" height=\"430\" rx=\"12\" fill=\"#BEE3F8\" opacity=\"0.15\" stroke=\"#4A9BD9\" stroke-width=\"2\" stroke-dasharray=\"6,3\"/><text class=\"tower\" x=\"170\" y=\"38\" text-anchor=\"middle\" fill=\"#E2E8F0\">ENCODER (left tower)</text><rect x=\"380\" y=\"15\" width=\"260\" height=\"430\" rx=\"12\" fill=\"#C6F6D5\" opacity=\"0.15\" stroke=\"#38A169\" stroke-width=\"2\" stroke-dasharray=\"6,3\"/><text class=\"tower\" x=\"510\" y=\"38\" text-anchor=\"middle\" fill=\"#E2E8F0\">DECODER (right tower)</text><rect x=\"65\" y=\"52\" width=\"210\" height=\"34\" rx=\"6\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.2\"/><text class=\"io\" x=\"170\" y=\"73\" text-anchor=\"middle\" fill=\"#D69E2E\">Input: \"Le chat est sur le tapis\"</text><path d=\"M170,86 L170,105\" stroke=\"#D69E2E\" stroke-width=\"1.5\" marker-end=\"url(#a6)\"/><rect x=\"70\" y=\"105\" width=\"200\" height=\"28\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.2\"/><text class=\"layer\" x=\"170\" y=\"124\" text-anchor=\"middle\" fill=\"#2D3748\">Token Embedding + Position</text><path d=\"M170,133 L170,152\" stroke=\"#805AD5\" stroke-width=\"1.5\" marker-end=\"url(#a6)\"/><rect x=\"60\" y=\"152\" width=\"220\" height=\"110\" rx=\"8\" fill=\"white\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text class=\"layer\" x=\"170\" y=\"172\" text-anchor=\"middle\" fill=\"#4A9BD9\" font-weight=\"bold\">Self-Attention</text><text fill=\"#2D3748\" class=\"small\" x=\"170\" y=\"188\" text-anchor=\"middle\">Every word attends to every word</text><line x1=\"70\" y1=\"196\" x2=\"270\" y2=\"196\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text class=\"layer\" x=\"170\" y=\"214\" text-anchor=\"middle\" fill=\"#4A9BD9\">Add &amp; Normalize</text><line x1=\"70\" y1=\"222\" x2=\"270\" y2=\"222\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text class=\"layer\" x=\"170\" y=\"240\" text-anchor=\"middle\" fill=\"#4A9BD9\">Feed-Forward Network</text><text fill=\"#2D3748\" class=\"small\" x=\"170\" y=\"256\" text-anchor=\"middle\">Each token \"thinks\" independently</text><text x=\"285\" y=\"215\" font-size=\"16\" fill=\"#FFFFFF\" font-weight=\"bold\">x6</text><text class=\"small\" x=\"285\" y=\"230\" fill=\"#E2E8F0\">layers</text><path d=\"M170,262 L170,280\" stroke=\"#4A9BD9\" stroke-width=\"1.5\" marker-end=\"url(#a6)\"/><rect x=\"90\" y=\"280\" width=\"160\" height=\"28\" rx=\"5\" fill=\"#4A9BD9\" opacity=\"0.2\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text class=\"layer\" x=\"170\" y=\"299\" text-anchor=\"middle\" fill=\"#FFFFFF\" font-weight=\"bold\">Encoder Output</text><rect x=\"405\" y=\"52\" width=\"210\" height=\"34\" rx=\"6\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"1.2\"/><text class=\"io\" x=\"510\" y=\"73\" text-anchor=\"middle\" fill=\"#D69E2E\">Output so far: \"The cat is on\"</text><path d=\"M510,86 L510,105\" stroke=\"#D69E2E\" stroke-width=\"1.5\" marker-end=\"url(#a6g)\"/><rect x=\"410\" y=\"105\" width=\"200\" height=\"28\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.2\"/><text class=\"layer\" x=\"510\" y=\"124\" text-anchor=\"middle\" fill=\"#2D3748\">Token Embedding + Position</text><path d=\"M510,133 L510,152\" stroke=\"#805AD5\" stroke-width=\"1.5\" marker-end=\"url(#a6g)\"/><rect x=\"400\" y=\"152\" width=\"220\" height=\"190\" rx=\"8\" fill=\"white\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text class=\"layer\" x=\"510\" y=\"172\" text-anchor=\"middle\" fill=\"#1A202C\" font-weight=\"bold\">Masked Self-Attention</text><text fill=\"#2D3748\" class=\"small\" x=\"510\" y=\"188\" text-anchor=\"middle\" textLength=\"192\" lengthAdjust=\"spacingAndGlyphs\">Can only see earlier tokens</text><line x1=\"410\" y1=\"196\" x2=\"610\" y2=\"196\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text class=\"layer\" x=\"510\" y=\"214\" text-anchor=\"middle\" fill=\"#1A202C\" font-weight=\"bold\">Cross-Attention</text><text fill=\"#2D3748\" class=\"small\" x=\"510\" y=\"230\" text-anchor=\"middle\" textLength=\"192\" lengthAdjust=\"spacingAndGlyphs\">Reads from encoder output</text><line x1=\"410\" y1=\"240\" x2=\"610\" y2=\"240\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text class=\"layer\" x=\"510\" y=\"258\" text-anchor=\"middle\" fill=\"#2D3748\">Add &amp; Normalize</text><line x1=\"410\" y1=\"266\" x2=\"610\" y2=\"266\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text class=\"layer\" x=\"510\" y=\"284\" text-anchor=\"middle\" fill=\"#2D3748\">Feed-Forward Network</text><text fill=\"#2D3748\" class=\"small\" x=\"510\" y=\"300\" text-anchor=\"middle\">Each token \"thinks\" independently</text><line x1=\"410\" y1=\"308\" x2=\"610\" y2=\"308\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text class=\"layer\" x=\"510\" y=\"326\" text-anchor=\"middle\" fill=\"#2D3748\">Add &amp; Normalize</text><text x=\"625\" y=\"260\" font-size=\"16\" fill=\"#FFFFFF\" font-weight=\"bold\">x6</text><text class=\"small\" x=\"625\" y=\"275\" fill=\"#E2E8F0\">layers</text><path d=\"M510,342 L510,360\" stroke=\"#38A169\" stroke-width=\"1.5\" marker-end=\"url(#a6g)\"/><rect x=\"420\" y=\"360\" width=\"180\" height=\"28\" rx=\"5\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text class=\"layer\" x=\"510\" y=\"379\" text-anchor=\"middle\" fill=\"#1A202C\" font-weight=\"bold\">Linear + Softmax</text><path d=\"M510,388 L510,405\" stroke=\"#38A169\" stroke-width=\"1.5\" marker-end=\"url(#a6g)\"/><rect x=\"430\" y=\"405\" width=\"160\" height=\"28\" rx=\"6\" fill=\"#38A169\" stroke=\"#2D3748\" stroke-width=\"1.5\"/><text class=\"io\" x=\"510\" y=\"424\" text-anchor=\"middle\" fill=\"white\">Next word: \"the\"</text><path d=\"M270,294 L400,222\" stroke=\"#E53E3E\" stroke-width=\"2.5\" stroke-dasharray=\"5,3\" marker-end=\"url(#a6r)\"/><text x=\"330\" y=\"244\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\" transform=\"rotate(-15,330,244)\">Cross-Attention</text><text x=\"340\" y=\"475\" text-anchor=\"middle\" font-size=\"12\" fill=\"#4A9BD9\" font-weight=\"bold\">Every component can be computed in parallel. No sequential waiting.</text><rect x=\"100\" y=\"485\" width=\"480\" height=\"22\" rx=\"4\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"340\" y=\"500\" text-anchor=\"middle\" font-size=\"12\" fill=\"#2D3748\">This is why Transformers train so much faster than RNNs.</text><defs><marker id=\"a6\" markerWidth=\"7\" markerHeight=\"7\" refX=\"6\" refY=\"3.5\" orient=\"auto\"><polygon points=\"0,0 7,3.5 0,7\" fill=\"#4A9BD9\"/></marker><marker id=\"a6g\" markerWidth=\"7\" markerHeight=\"7\" refX=\"6\" refY=\"3.5\" orient=\"auto\"><polygon points=\"0,0 7,3.5 0,7\" fill=\"#38A169\"/></marker><marker id=\"a6r\" markerWidth=\"7\" markerHeight=\"7\" refX=\"6\" refY=\"3.5\" orient=\"auto\"><polygon points=\"0,0 7,3.5 0,7\" fill=\"#E53E3E\"/></marker></defs></svg>",
+      "caption": "The Transformer: Encoder reads input, Decoder generates output, Cross-Attention bridges them."
+    },
+    {
+      "id": "p6_04_narration_components",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The architecture stacks a small set of ideas -- attention, feed-forward networks, residual connections, normalization -- into a repeating pattern. Later models used it differently: <strong>BERT</strong> (2018) used only the encoder. <strong>GPT</strong> (2018) used only the decoder. But all are descendants of this paper."
+    },
+    {
+      "id": "p6_05_parallel_scene",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A dramatic close-up of a modern GPU processor chip glowing with blue energy, thousands of tiny parallel processing cores visible like a city grid lit up at night, streams of data flowing through all cores simultaneously, the chip is immense and powerful, circuit traces glow with blue #4A9BD9 light, Comic book style, warm editorial illustration with ink lines and watercolor washes, dark background with vibrant blue technological glow",
+      "overlays": []
+    },
+    {
+      "id": "p6_06_bigidea",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "style": "accent",
+      "text": "The breakthrough is not that any single component is revolutionary. It's that these ingredients, combined in this specific way, produce something far greater than the sum of their parts. And everything can run <strong>in parallel</strong> on GPUs."
+    },
+    {
+      "id": "p6_07_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "The Transformer was designed for translation. But a small team at OpenAI had a different idea: what if you threw away the encoder, kept only the decoder, and just kept making it bigger?"
+    }
+  ]
+}

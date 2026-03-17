@@ -1,0 +1,95 @@
+{
+  "issue": 7,
+  "page": 1,
+  "title": "Before 2017, Language AI Read One Word at a Time",
+  "accent": "#4A9BD9",
+  "panels": [
+    {
+      "id": "p1_01_dark_library",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A vast dark infinite library stretching into darkness, endless shelves packed with books in every language, a tiny lone figure sits at a desk reading a book through a narrow cone of flashlight illuminating only one word at a time, the rest of the page and library swallowed in deep shadow, moody and atmospheric, sense of immense knowledge just out of reach, Comic book style, warm editorial illustration with ink lines and watercolor washes, deep navy and indigo tones with a single warm yellow spotlight cone",
+      "overlays": []
+    },
+    {
+      "id": "p1_02_narration_intro",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In Issue 6, we watched neural networks learn to <strong>see</strong>. They could look at a photograph and say <em>\"that's a cat.\"</em> Vision was conquered. But <strong>language</strong>? Language was a different beast."
+    },
+    {
+      "id": "p1_03_rnn_explain",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 512,
+      "prompt": "A small cute flat rectangular robot made of old punch-card paper, folded origami-style with dot-matrix eyes glowing amber, holding a tiny scroll that trails behind it showing fading words, sitting on a stack of old computer manuals, one stubby paper-fold arm pointing at fading text behind it, looking slightly frustrated. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"RNNs read one word at a time. Left to right.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm paper-tone background with blue #4A9BD9 accents",
+      "bubble_text": "RNNs read one word at a time. Left to right.",
+      "speaker": "TAPE"
+    },
+    {
+      "id": "p1_04_narration_hidden_state",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Each word updated a small bundle of numbers called a <strong>hidden state</strong> -- the model's attempt to remember everything it had read so far. Like rewriting a summary after every chapter. By chapter 20, the details from chapter 1 have <em>faded</em>."
+    },
+    {
+      "id": "p1_05_radiance_library",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "The same vast infinite library but now transformed: every book is open, every word glowing with golden light, brilliant golden threads of light connecting related words across different books and different shelves, the entire room radiating with interconnected knowledge, a web of luminous connections spanning the whole space, breathtaking transformation from darkness to radiance, Comic book style, warm editorial illustration with ink lines and watercolor washes, warm golden tones with blue #4A9BD9 thread highlights",
+      "overlays": []
+    },
+    {
+      "id": "p1_06_robot_changed",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round brass robot with big wide curious green clock-face eyes, a single gear on its back and a tiny top hat, standing in the glowing golden library looking up in awe with stubby arms spread wide, bright golden threads of light reflecting in its eyes, excited body language. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Then eight researchers changed everything.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, golden and blue tones",
+      "bubble_text": "Then eight researchers changed everything.",
+      "speaker": "CLOCKWORK"
+    },
+    {
+      "id": "p1_07_attention_thread",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "Close-up of two glowing words 'it' and 'cat' floating in dark space, connected by a bright luminous blue thread labeled 'attention' in small clean white text, the thread pulses with energy like a fiber optic cable, surrounding dimmer threads connect to other faded words in the background, a date stamp 'June 12, 2017' glows in the bottom corner, Comic book style, warm editorial illustration with ink lines and watercolor washes, deep navy background with bright blue #4A9BD9 thread",
+      "overlays": []
+    },
+    {
+      "id": "p1_08_narration_lstm",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "An improvement called <strong>LSTM</strong> (Long Short-Term Memory, 1997) added special \"gates\" to choose what to remember and forget. But the fundamental problem remained: one word at a time, everything compressed into a fixed-size memory, and <em>no way to go back</em>."
+    },
+    {
+      "id": "p1_09_rnn_bottleneck",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 280\"><style>.word{font-size:13px; font-weight:bold} .label{font-size:12px; } .fade1{opacity:1} .fade2{opacity:0.7} .fade3{opacity:0.45} .fade4{opacity:0.25} text{font-family:'JetBrains Mono',monospace; font-weight:bold}</style><text x=\"340\" y=\"8\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\" fill=\"#4A9BD9\">The RNN Bottleneck</text><g transform=\"translate(30,50)\"><rect class=\"fade1\" x=\"0\" y=\"0\" width=\"64\" height=\"36\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" class=\"word fade1\" x=\"32\" y=\"23\" text-anchor=\"middle\">The</text><rect class=\"fade1\" x=\"80\" y=\"0\" width=\"64\" height=\"36\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" class=\"word fade1\" x=\"112\" y=\"23\" text-anchor=\"middle\">cat</text><rect class=\"fade2\" x=\"160\" y=\"0\" width=\"64\" height=\"36\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" class=\"word fade2\" x=\"192\" y=\"23\" text-anchor=\"middle\">sat</text><rect class=\"fade2\" x=\"240\" y=\"0\" width=\"64\" height=\"36\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" class=\"word fade2\" x=\"272\" y=\"23\" text-anchor=\"middle\">on</text><rect class=\"fade3\" x=\"320\" y=\"0\" width=\"64\" height=\"36\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" class=\"word fade3\" x=\"352\" y=\"23\" text-anchor=\"middle\">the</text><rect class=\"fade3\" x=\"400\" y=\"0\" width=\"64\" height=\"36\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" class=\"word fade3\" x=\"432\" y=\"23\" text-anchor=\"middle\">mat</text><rect class=\"fade4\" x=\"480\" y=\"0\" width=\"64\" height=\"36\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#2D3748\" font-size=\"12\" class=\"word fade4\" x=\"512\" y=\"23\" text-anchor=\"middle\">because</text><rect x=\"560\" y=\"0\" width=\"52\" height=\"36\" rx=\"6\" fill=\"#FEFCBF\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text class=\"word\" x=\"586\" y=\"23\" text-anchor=\"middle\" fill=\"#2D3748\">it</text></g><g transform=\"translate(30,110)\"><rect class=\"fade1\" x=\"0\" y=\"0\" width=\"44\" height=\"28\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.2\"/><text class=\"label\" x=\"22\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\" font-size=\"12\">h1</text><line x1=\"44\" y1=\"14\" x2=\"80\" y2=\"14\" stroke=\"#805AD5\" stroke-width=\"1.5\" marker-end=\"url(#arr)\"/><rect class=\"fade2\" x=\"80\" y=\"0\" width=\"44\" height=\"28\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.2\"/><text class=\"label\" x=\"102\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\" font-size=\"12\">h2</text><line x1=\"124\" y1=\"14\" x2=\"160\" y2=\"14\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><rect class=\"fade2\" x=\"160\" y=\"0\" width=\"44\" height=\"28\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.2\"/><text class=\"label\" x=\"182\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\" font-size=\"12\">h3</text><line x1=\"204\" y1=\"14\" x2=\"240\" y2=\"14\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><rect class=\"fade3\" x=\"240\" y=\"0\" width=\"44\" height=\"28\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.2\"/><text class=\"label\" x=\"262\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\" font-size=\"12\">h4</text><line x1=\"284\" y1=\"14\" x2=\"320\" y2=\"14\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><rect class=\"fade3\" x=\"320\" y=\"0\" width=\"44\" height=\"28\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.2\"/><text class=\"label\" x=\"342\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\" font-size=\"12\">h5</text><line x1=\"364\" y1=\"14\" x2=\"400\" y2=\"14\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><rect class=\"fade4\" x=\"400\" y=\"0\" width=\"44\" height=\"28\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.2\"/><text class=\"label\" x=\"422\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\" font-size=\"12\">h6</text><line x1=\"444\" y1=\"14\" x2=\"480\" y2=\"14\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><rect class=\"fade4\" x=\"480\" y=\"0\" width=\"44\" height=\"28\" rx=\"5\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.2\"/><text class=\"label\" x=\"502\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\" font-size=\"12\">h7</text><line x1=\"524\" y1=\"14\" x2=\"560\" y2=\"14\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><rect x=\"560\" y=\"0\" width=\"52\" height=\"28\" rx=\"5\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text class=\"label\" x=\"586\" y=\"18\" text-anchor=\"middle\" fill=\"#2D3748\" font-size=\"12\">h8</text></g><path d=\"M586,110 C586,90 112,90 112,86\" stroke=\"#E53E3E\" stroke-width=\"1.5\" stroke-dasharray=\"4,3\" fill=\"none\" opacity=\"0.5\"/><text x=\"350\" y=\"90\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" opacity=\"0.7\">memory of 'cat' has faded by the time we reach 'it'</text><g transform=\"translate(30,170)\"><text x=\"310\" y=\"10\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#FFFFFF\">What if every word could see every other word at once?</text><line x1=\"80\" y1=\"30\" x2=\"200\" y2=\"30\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><line x1=\"80\" y1=\"30\" x2=\"350\" y2=\"30\" stroke=\"#4A9BD9\" stroke-width=\"1.2\" opacity=\"0.5\"/><line x1=\"80\" y1=\"30\" x2=\"500\" y2=\"30\" stroke=\"#4A9BD9\" stroke-width=\"3\" opacity=\"0.9\"/><circle cx=\"80\" cy=\"30\" r=\"4\" fill=\"#4A9BD9\"/><circle cx=\"200\" cy=\"30\" r=\"3\" fill=\"#4A9BD9\" opacity=\"0.5\"/><circle cx=\"350\" cy=\"30\" r=\"3\" fill=\"#4A9BD9\" opacity=\"0.4\"/><circle cx=\"500\" cy=\"30\" r=\"5\" fill=\"#4A9BD9\"/><text x=\"80\" y=\"55\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">it</text><text x=\"200\" y=\"55\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">sat</text><text x=\"350\" y=\"55\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">the</text><text x=\"500\" y=\"55\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">mat</text><text x=\"290\" y=\"25\" text-anchor=\"middle\" font-size=\"12\" fill=\"#4A9BD9\">strong attention</text></g><defs><marker id=\"arr\" markerWidth=\"6\" markerHeight=\"6\" refX=\"5\" refY=\"3\" orient=\"auto\"><polygon points=\"0,0 6,3 0,6\" fill=\"#805AD5\"/></marker></defs></svg>",
+      "caption": "RNNs process one word at a time -- memory degrades. Self-attention connects every word directly."
+    },
+    {
+      "id": "p1_10_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "RNNs read language like someone peering through a keyhole -- one word at a time, trying to remember everything on a tiny scrap of memory. The model could not go back. It could not look ahead. And the longer the text, the more old information <strong>degraded</strong>."
+    },
+    {
+      "id": "p1_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "In June 2017, eight researchers at Google would propose a radical answer: throw away the entire sequential machinery. Let every word see every other word, all at once."
+    }
+  ]
+}

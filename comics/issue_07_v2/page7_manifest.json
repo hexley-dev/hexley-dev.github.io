@@ -1,0 +1,105 @@
+{
+  "issue": 7,
+  "page": 7,
+  "title": "Scaling -- GPT-1, GPT-2, GPT-3",
+  "accent": "#4A9BD9",
+  "panels": [
+    {
+      "id": "p7_01_scaling_buildings",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 384,
+      "prompt": "A dramatic scaling visualization showing four structures of vastly increasing height side by side, from left to right: a small cottage labeled 'GPT-1' with '117M' below it, a tall office building labeled 'GPT-2' with '1.5B', a massive skyscraper labeled 'GPT-3' with '175B' that dwarfs the others and reaches into the clouds, each building connected by glowing lines showing the exponential jump in scale, a tiny human figure at the base for scale comparison, dramatic perspective looking upward, Comic book style, warm editorial illustration with ink lines and watercolor washes, progressive blue #4A9BD9 glow intensifying with each building",
+      "overlays": []
+    },
+    {
+      "id": "p7_02_robot_wild",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute round green robot with a tiny plant growing from its head growing even taller with excitement, leaf-shaped ears perked straight up, big bright eyes wide with amazement, stubby arms gesturing frantically upward at something enormously tall above, slightly breathless pose leaning back looking up. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"The answer shook the world.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, dramatic upward lighting with blue #4A9BD9 glow from above",
+      "bubble_text": "The answer shook the world.",
+      "speaker": "SPROUT"
+    },
+    {
+      "id": "p7_03_narration_radford",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "In <strong>June 2018</strong>, OpenAI researcher <strong>Alec Radford</strong> published GPT-1: the Transformer's decoder trained to predict the next word. <strong>117 million parameters</strong>, 12 layers, trained on ~7,000 books. It worked well. Not spectacularly. But enough to ask: <em>what if the only limit was scale?</em>"
+    },
+    {
+      "id": "p7_04_gpt2_controversy",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A dramatic split scene: on the left a researcher quietly releasing a paper with a small shrug, calm and understated atmosphere, on the right the same scene but erupting into chaos with swirling newspaper headlines, camera flashes, social media icons, reporters crowding around, a large bold stamp or seal reading 'TOO DANGEROUS' in red, the contrast between quiet and explosive. NO OTHER TEXT besides TOO DANGEROUS — no dates, no model names, no fine print. Comic book style, warm editorial illustration with ink lines and watercolor washes, calm grey tones on left transitioning to bright red and blue #4A9BD9 energy on right",
+      "overlays": []
+    },
+    {
+      "id": "p7_05_narration_gpt2",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In <strong>February 2019</strong>, GPT-2 arrived: <strong>1.5 billion parameters</strong>, 48 layers. Ten times larger. Then OpenAI announced it was <strong>withholding the full model</strong> due to misuse concerns. Critics called it publicity-seeking. Supporters called it responsible foresight. Either way, the public was paying attention to language AI for the first time."
+    },
+    {
+      "id": "p7_06_gpt3_fewshot",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 384,
+      "prompt": "A small cute cuboid robot made of visible colorful pastel voxel blocks, big pixel-art eyes glowing with wonder, holding a tiny glowing prompt card that shows a few lines of text turning into a translation, bright sparks flying from the card, the robot looking astonished at its own capability. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"GPT-3 did tasks it was never trained for!\" Comic book style, warm editorial illustration with ink lines and watercolor washes, bright blue #4A9BD9 sparkle effects",
+      "bubble_text": "GPT-3 did tasks it was never trained for!",
+      "speaker": "PIXEL"
+    },
+    {
+      "id": "p7_07_fewshot_example",
+      "type": "svg_diagram",
+      "layout": "right",
+      "flex": 2,
+      "svg": "<svg viewBox=\"-13 -20 366 240\"><style>.title{font-size:13px; font-weight:bold; } .code{font-family:'JetBrains Mono',monospace; font-size:12px; } .label{font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" class=\"title\" x=\"170\" y=\"5\" text-anchor=\"middle\">Few-Shot Learning</text><rect x=\"15\" y=\"15\" width=\"310\" height=\"130\" rx=\"8\" fill=\"#1A202C\"/><text class=\"label\" x=\"25\" y=\"35\" fill=\"#E2E8F0\">Prompt given to GPT-3:</text><text fill=\"#E2E8F0\" class=\"code\" x=\"25\" y=\"55\">Translate English to French:</text><text fill=\"#E2E8F0\" class=\"code\" x=\"25\" y=\"73\">sea otter => loutre de mer</text><text fill=\"#E2E8F0\" class=\"code\" x=\"25\" y=\"91\">cheese => fromage</text><text fill=\"#E2E8F0\" class=\"code\" x=\"25\" y=\"109\">hello =></text><text x=\"25\" y=\"135\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#48BB78\" font-weight=\"bold\">GPT-3: bonjour</text><rect x=\"15\" y=\"155\" width=\"310\" height=\"40\" rx=\"6\" fill=\"#C6F6D5\" opacity=\"0.2\" stroke=\"#38A169\" stroke-width=\"1.2\"/><text x=\"170\" y=\"175\" text-anchor=\"middle\" font-size=\"12\" fill=\"#FFFFFF\" font-weight=\"bold\">Never trained as a translator.</text><text x=\"170\" y=\"189\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\">Learned the pattern from examples in the prompt.</text></svg>",
+      "caption": "GPT-3 could learn new tasks from just a few examples in the prompt."
+    },
+    {
+      "id": "p7_08_scaling_table",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -20 680 180\"><style>.title{font-size:13px; font-weight:bold; } .head{font-size:12px; font-weight:bold; } .cell{font-size:12px} .cap{font-size:12px; font-weight:bold} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill=\"#E2E8F0\" class=\"title\" x=\"340\" y=\"5\" text-anchor=\"middle\">The Scaling Ladder</text><rect x=\"40\" y=\"18\" width=\"600\" height=\"24\" rx=\"4\" fill=\"#4A9BD9\" opacity=\"0.12\"/><text fill=\"#E2E8F0\" class=\"head\" x=\"120\" y=\"34\" text-anchor=\"middle\">Model</text><text fill=\"#E2E8F0\" class=\"head\" x=\"230\" y=\"34\" text-anchor=\"middle\">Date</text><text fill=\"#E2E8F0\" class=\"head\" x=\"320\" y=\"34\" text-anchor=\"middle\">Parameters</text><text fill=\"#E2E8F0\" class=\"head\" x=\"430\" y=\"34\" text-anchor=\"middle\">Training Data</text><text fill=\"#E2E8F0\" class=\"head\" x=\"560\" y=\"34\" text-anchor=\"middle\">Key Capability</text><line x1=\"40\" y1=\"44\" x2=\"640\" y2=\"44\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text fill=\"#E2E8F0\" class=\"cell\" x=\"120\" y=\"64\" text-anchor=\"middle\">GPT-1</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"230\" y=\"64\" text-anchor=\"middle\">Jun 2018</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"320\" y=\"64\" text-anchor=\"middle\">117M</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"430\" y=\"64\" text-anchor=\"middle\">~800M words</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"560\" y=\"64\" text-anchor=\"middle\" font-size=\"12\">Basic understanding</text><line x1=\"40\" y1=\"74\" x2=\"640\" y2=\"74\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text fill=\"#E2E8F0\" class=\"cell\" x=\"120\" y=\"94\" text-anchor=\"middle\">GPT-2</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"230\" y=\"94\" text-anchor=\"middle\">Feb 2019</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"320\" y=\"94\" text-anchor=\"middle\">1.5B</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"430\" y=\"94\" text-anchor=\"middle\">40GB web text</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"560\" y=\"94\" text-anchor=\"middle\" font-size=\"12\">Coherent paragraphs</text><line x1=\"40\" y1=\"104\" x2=\"640\" y2=\"104\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><rect x=\"40\" y=\"108\" width=\"600\" height=\"24\" rx=\"4\" fill=\"#C6F6D5\" opacity=\"0.3\"/><text class=\"cell\" x=\"120\" y=\"124\" text-anchor=\"middle\" font-weight=\"bold\" fill=\"#FFFFFF\">GPT-3</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"230\" y=\"124\" text-anchor=\"middle\">Jun 2020</text><text fill=\"#FFFFFF\" class=\"cell\" x=\"320\" y=\"124\" text-anchor=\"middle\" font-weight=\"bold\">175B</text><text fill=\"#E2E8F0\" class=\"cell\" x=\"430\" y=\"124\" text-anchor=\"middle\">570GB</text><text fill=\"#E2E8F0\" class=\"cap\" x=\"560\" y=\"124\" text-anchor=\"middle\" font-size=\"12\">Few-shot learning</text></svg>",
+      "caption": "Each generation was roughly 10x larger -- and each unlocked qualitatively new abilities."
+    },
+    {
+      "id": "p7_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Scaling revealed a strange law: make a model 10x bigger, and it does not just get 10% better. It sometimes learns <strong>entirely new skills</strong> the smaller version could not do at all. Nobody programmed these abilities in. They <em>emerged</em> from sheer scale."
+    },
+    {
+      "id": "p7_10_thinkit",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "GPT-3 was trained <em>only</em> to predict the next word. Yet it learned grammar, facts, translation, coding, and reasoning. Is \"predict the next word\" really a simple task? Or is it secretly the hardest task there is -- because to predict perfectly, you would need to understand <strong>everything</strong>?"
+    },
+    {
+      "id": "p7_10b_robot_scale",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round dark-blue robot with a dome head and big wide sapphire LED eyes, stubby arms holding a tiny chart showing an exponential curve climbing steeply, antenna with a tiny rocket on top, standing on a server rack. A white speech bubble with black outline above. Inside the bubble the text reads: \"More data plus more compute equals emergent abilities.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "More data plus more compute equals emergent abilities.",
+      "speaker": "SCALEBOT"
+    },
+    {
+      "id": "p7_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Scaling was working. But raw next-word prediction had a problem: the model would generate toxic content, fabricate facts, and follow harmful instructions. Someone needed to teach it values."
+    }
+  ]
+}

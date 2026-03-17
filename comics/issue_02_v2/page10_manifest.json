@@ -1,0 +1,284 @@
+{
+  "issue": 2,
+  "page": 10,
+  "title": "A Nightmare in Binary",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p10_01_binary_nightmare",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "A late 1950s programmer sitting at a desk, surrounded by tall stacks of punched cards and reams of paper covered in columns of binary digits \u2014 0s and 1s, page after page. The programmer's expression is pure exhaustion and frustration, rubbing their eyes, hair disheveled. A half-empty coffee cup sits nearby. On one sheet in the foreground, a single misplaced 0 is circled in red ink \u2014 the bug that has taken three days to find. 1950s office equipment ONLY -- desk lamp, typewriter, paper, pencils, NO computer monitors, NO screens, NO modern technology. Warm desk lamp light, shadows under the eyes. The room feels claustrophobic with paper. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent on the desk lamp",
+      "overlays": []
+    },
+    {
+      "id": "p10_02_robot_sympathetic",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A small cute half-and-half robot \u2014 the left half of its body is covered in binary digits (0s and 1s) in dark text, the right half is colorful with warm orange and gold paint. Big thoughtful amber eyes, one hand on its chin in a contemplative gesture, one eyebrow raised with sympathetic amusement and a spark of anticipation. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Hardware solved. Now the human problem begins.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Hardware solved. Now the human problem begins.",
+      "speaker": "BRIDGE"
+    },
+    {
+      "id": "p10_03_narration_recap",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "We did it. We built the machines. We went from pure mathematics in 1936 to room-sized vacuum-tube computers, to transistors, to integrated circuits &mdash; all in about twenty years. Extraordinary. But here's the thing nobody talks about: these machines were almost <strong>impossible to use</strong>."
+    },
+    {
+      "id": "p10_04_narration_binary",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Programming meant writing in raw binary &mdash; endless strings of 1s and 0s. One wrong digit and your program crashes, and good luck finding which zero should have been a one. The hardware problem was solved. The <em>human</em> problem was just beginning."
+    },
+    {
+      "id": "p10_04b_robot_binary",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round half-black half-white robot with a dome head and big frustrated orange LED eyes, stubby arms tangled in long strips of paper tape covered in binary digits, antenna spinning with stress, surrounded by crumpled paper covered in 0s and 1s. A white speech bubble with black outline above. Inside the bubble the text reads: \"One wrong zero. Three days debugging. This had to change.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "One wrong zero. Three days debugging. Had to change.",
+      "speaker": "BITBOT"
+    },
+    {
+      "id": "p10_05_narration_revolution",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "By the late 1950s, computing had undergone a revolution in hardware. Turing's imaginary machine had become real. The von Neumann architecture gave computers a universal structure. The stored-program concept meant they could be reprogrammed without rewiring. The transistor made them reliable. The integrated circuit would make them scalable. But the people who used these machines faced a brutal reality: <strong>talking to a computer meant speaking its language &mdash; binary.</strong>"
+    },
+    {
+      "id": "p10_06_binary_code",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 702 300\"><defs><style>text{font-family:'JetBrains Mono',monospace;}</style></defs><rect x=\"10\" y=\"0\" width=\"660\" height=\"260\" rx=\"12\" fill=\"#1A202C\" stroke=\"#DD6B20\" stroke-width=\"2\"/><text fill=\"#FFFFFF\" x=\"340\" y=\"28\" text-anchor=\"middle\" font-size=\"15\" font-weight=\"bold\" fill=\"#DD6B20\">PROGRAMMING IN BINARY (machine code)</text><text fill=\"#E2E8F0\" x=\"30\" y=\"55\" font-size=\"12\" fill=\"#E2E8F0\">To add two numbers at addresses 12 and 13, store result at 14:</text><text fill=\"#E2E8F0\" x=\"50\" y=\"85\" font-size=\"16\" font-family=\"'JetBrains Mono','Fira Code',monospace\" fill=\"#48BB78\">00010001 00001100</text><text fill=\"#E2E8F0\" x=\"370\" y=\"85\" font-size=\"12\" fill=\"#E2E8F0\">&larr; LOAD from address 12 into accumulator</text><text fill=\"#E2E8F0\" x=\"50\" y=\"110\" font-size=\"16\" font-family=\"'JetBrains Mono','Fira Code',monospace\" fill=\"#48BB78\">00010010 00001101</text><text fill=\"#E2E8F0\" x=\"370\" y=\"110\" font-size=\"12\" fill=\"#E2E8F0\">&larr; ADD address 13 to accumulator</text><text fill=\"#E2E8F0\" x=\"50\" y=\"135\" font-size=\"16\" font-family=\"'JetBrains Mono','Fira Code',monospace\" fill=\"#48BB78\">00010011 00001110</text><text fill=\"#E2E8F0\" x=\"370\" y=\"135\" font-size=\"12\" fill=\"#E2E8F0\">&larr; STORE accumulator to address 14</text><text fill=\"#E2E8F0\" x=\"30\" y=\"162\" font-size=\"12\" font-style=\"italic\" fill=\"#F6AD55\">Three lines. Incomprehensible. One mistyped bit = broken program.</text><line x1=\"30\" y1=\"175\" x2=\"650\" y2=\"175\" stroke=\"#DD6B20\" stroke-width=\"1\" opacity=\"0.3\"/><text fill=\"#FFFFFF\" x=\"340\" y=\"198\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#DD6B20\">THE SAME PROGRAM, in a language humans can read:</text><text fill=\"#FFFFFF\" x=\"250\" y=\"225\" font-size=\"20\" font-family=\"'JetBrains Mono','Fira Code',monospace\" font-weight=\"bold\" fill=\"#48BB78\">RESULT = A + B</text><text fill=\"#E2E8F0\" x=\"30\" y=\"252\" font-size=\"12\" fill=\"#E2E8F0\">One line. Crystal clear. A \"compiler\" translates it into binary for you.</text></svg>",
+      "caption": "The gap between machine code and human thought"
+    },
+    {
+      "id": "p10_07_narration_accumulator",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Note:</strong> This uses <em>accumulator architecture</em> &mdash; the CPU has a special register called the accumulator that holds intermediate results. LOAD copies a value from memory into it. ADD adds another memory value to whatever is already there. STORE writes it back to memory. Each instruction is two bytes: one opcode, one address. Other architectures exist, but this was the most common in early computers."
+    },
+    {
+      "id": "p10_08_narration_debugging",
+      "type": "css_narration",
+      "layout": "left",
+      "flex": 2,
+      "text": "One wrong bit &mdash; a single 0 where there should be a 1 &mdash; and the program fails. Debugging meant staring at sheets of binary, searching for invisible errors. Writing a program was tedious. Reading someone else's program was nearly impossible."
+    },
+    {
+      "id": "p10_09_punched_cards",
+      "type": "image",
+      "layout": "right",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "Close-up of a person's hands holding a stack of punched cards, 1950s setting. Each card has rows of tiny rectangular holes punched in patterns. The person is carefully sorting through them, looking frustrated. Behind them, more stacks of cards are piled on a desk alongside reams of paper covered in handwritten binary digits. A red pencil sits nearby. Warm desk lamp lighting. Comic book style, warm editorial illustration with ink lines and watercolor washes, orange accent highlights",
+      "overlays": []
+    },
+    {
+      "id": "p10_10_narration_bridge_needed",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The machines were ready. The human interface was not. What computing needed was not faster hardware &mdash; it needed a way for humans and machines to <em>communicate</em>. A bridge between human thought and machine code. A way to write instructions that made sense to people, and then automatically translate them into the binary that made sense to machines."
+    },
+    {
+      "id": "p10_11_narration_preview",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "That bridge was about to be built &mdash; by a Navy officer who was told it was impossible, a team at IBM who invented a new language for science, and a generation of pioneers who realized the real bottleneck in computing was not the machine. It was the space between the machine and the human mind."
+    },
+    {
+      "id": "p10_12_journey_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-5 -20 690 280\"><defs><style>text{font-family:'JetBrains Mono',monospace;}</style></defs><rect x=\"10\" y=\"0\" width=\"660\" height=\"240\" rx=\"12\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"2\"/><text x=\"340\" y=\"28\" text-anchor=\"middle\" font-size=\"16\" font-weight=\"bold\" fill=\"#DD6B20\">THE JOURNEY SO FAR &amp; WHAT'S NEXT</text><line x1=\"30\" y1=\"42\" x2=\"650\" y2=\"42\" stroke=\"#DD6B20\" stroke-width=\"1\" opacity=\"0.4\"/><line x1=\"60\" y1=\"60\" x2=\"60\" y2=\"220\" stroke=\"#DD6B20\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><circle cx=\"60\" cy=\"65\" r=\"5\" fill=\"#E53E3E\"/><text x=\"80\" y=\"69\" font-size=\"12\" font-weight=\"bold\" fill=\"#2D3748\">1936 &mdash; Turing's Paper (Issue 1)</text><text x=\"500\" y=\"69\" font-size=\"12\" fill=\"#718096\">Theory</text><circle cx=\"60\" cy=\"95\" r=\"5\" fill=\"#DD6B20\"/><text x=\"80\" y=\"99\" font-size=\"12\" font-weight=\"bold\" fill=\"#DD6B20\">1941-58 &mdash; Building the Machines (Issue 2 &mdash; YOU ARE HERE)</text><text x=\"80\" y=\"115\" font-size=\"12\" fill=\"#718096\" textLength=\"572\" lengthAdjust=\"spacingAndGlyphs\">Zuse &rarr; Colossus &rarr; ENIAC &rarr; von Neumann &rarr; Transistors &rarr; ICs</text><circle cx=\"60\" cy=\"140\" r=\"5\" fill=\"#A0AEC0\"/><text x=\"80\" y=\"144\" font-size=\"12\" font-weight=\"bold\" fill=\"#4A5568\">1950s &mdash; The Language Problem (Issue 3)</text><text x=\"80\" y=\"162\" font-size=\"12\" fill=\"#718096\">Grace Hopper invents the compiler</text><text x=\"80\" y=\"178\" font-size=\"12\" fill=\"#718096\">FORTRAN gives scientists a language</text><text x=\"80\" y=\"194\" font-size=\"12\" fill=\"#718096\">COBOL makes programming almost English</text><text x=\"80\" y=\"210\" font-size=\"12\" fill=\"#718096\">LISP dreams of artificial intelligence</text><text x=\"340\" y=\"236\" text-anchor=\"middle\" font-size=\"13\" font-weight=\"bold\" fill=\"#DD6B20\">Issue 3: \"Teaching Machines to Understand Us\" &mdash; COMING NEXT</text></svg>",
+      "caption": "The journey ahead: from binary to human language"
+    },
+    {
+      "id": "p10_13_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>Big Idea:</strong> In twenty years (1936-1958), computing went from a theoretical idea on paper to physical machines with millions of components on a chip. The hardware pioneers solved three fundamental problems: they made electronic computation work (vacuum tubes), they designed a universal architecture (von Neumann), and they made the components small and reliable (transistors and ICs). But the hardest problem &mdash; making computers usable by ordinary humans &mdash; was still ahead."
+    },
+    {
+      "id": "p10_14_think",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Think About It:</strong> Every layer of computing technology solved one problem and revealed the next. Vacuum tubes proved electronics could compute but were unreliable. Transistors fixed reliability but created wiring complexity. ICs fixed wiring but computing was still locked in binary. Why do you think progress often works this way &mdash; solving one problem only to uncover a deeper one?"
+    },
+    {
+      "id": "p10_14b_robot_bridge",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round warm-copper robot with a dome head and big hopeful teal LED eyes, stubby arms building a small bridge out of wooden blocks between a tiny brain model and a miniature 1950s computer cabinet (dark metal box with visible vacuum tubes glowing orange, switches and dials on the front panel), antenna with a question mark on top, sitting on a desk scattered with punched cards and reels of paper tape. The computer should look like a miniature version of ENIAC-era equipment with toggle switches and indicator lights. Comic book style, warm editorial illustration with ink lines and watercolor washes, warm orange #DD6B20 accent",
+      "bubble_text": "Next: building a bridge between human and machine.",
+      "speaker": "BRIDGEBOT"
+    },
+    {
+      "id": "p10_references",
+      "type": "references",
+      "layout": "full-width",
+      "references": [
+        {
+          "title": "The Computer \u2014 My Life.",
+          "author": "Zuse, Konrad",
+          "url": "https://link.springer.com/book/10.1007/978-3-642-08151-4",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Konrad Zuse's Legacy: The Architecture of the Z1 and Z3.",
+          "author": "Rojas, Raul",
+          "url": "https://doi.org/10.1109/85.586067",
+          "type": "paper",
+          "note": "IEEE Annals of the History of Computing"
+        },
+        {
+          "title": "How to Make Zuse's Z3 a Universal Computer.",
+          "author": "Rojas, Raul",
+          "url": "https://doi.org/10.1109/85.707574",
+          "type": "paper",
+          "note": "IEEE Annals of the History of Computing"
+        },
+        {
+          "title": "Colossus: The Secrets of Bletchley Park's Code-Breaking Computers.",
+          "author": "Copeland, B. Jack, ed",
+          "url": "https://global.oup.com/academic/product/colossus-9780199578146",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Alan Turing: The Enigma.",
+          "author": "Hodges, Andrew",
+          "url": "https://press.princeton.edu/books/paperback/9780691164724/alan-turing-the-enigma",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "How Polish Mathematicians Deciphered the Enigma.",
+          "author": "Rejewski, Marian",
+          "url": "https://doi.org/10.1109/MAHC.1981.10033",
+          "type": "paper",
+          "note": "IEEE Annals of the History of Computing"
+        },
+        {
+          "title": "ENIAC: The Triumphs and Tragedies of the World's First Computer.",
+          "author": "McCartney, Scott",
+          "url": "https://www.hachettebookgroup.com/titles/scott-mccartney/eniac/9780425176443/",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "When Computers Were Women.",
+          "author": "Light, Jennifer S",
+          "url": "https://doi.org/10.1353/tech.1999.0128",
+          "type": "paper",
+          "note": "Technology and Culture"
+        },
+        {
+          "title": "Proving Ground: The Untold Story of the Six Women Who Programmed the World's First Modern Computer.",
+          "author": "Kleiman, Kathryn",
+          "url": "https://www.hachettebookgroup.com/titles/kathy-kleiman/proving-ground/9781538715963/",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "First Draft of a Report on the EDVAC.",
+          "author": "Von Neumann, John",
+          "url": "https://web.mit.edu/STS.035/www/PDFs/edvac.pdf",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Memoirs of a Computer Pioneer.",
+          "author": "Wilkes, Maurice V",
+          "url": "https://mitpress.mit.edu/9780262231220/memoirs-of-a-computer-pioneer/",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "A History of Modern Computing.",
+          "author": "Ceruzzi, Paul E",
+          "url": "https://mitpress.mit.edu/9780262532037/a-history-of-modern-computing/",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Crystal Fire: The Invention of the Transistor and the Birth of the Information Age.",
+          "author": "Riordan, Michael, and Lillian Hoddeson",
+          "url": "https://wwnorton.com/books/9780393318517",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Invention of the Integrated Circuit.",
+          "author": "Kilby, Jack",
+          "url": "https://doi.org/10.1109/T-ED.1976.18467",
+          "type": "paper",
+          "note": "IEEE Transactions on Electron Devices"
+        },
+        {
+          "title": "The Innovators: How a Group of Hackers, Geniuses, and Geeks Created the Digital Revolution.",
+          "author": "Isaacson, Walter",
+          "url": "https://www.simonandschuster.com/books/The-Innovators/Walter-Isaacson/9781476708706",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Can Programming Be Liberated from the von Neumann Style?",
+          "author": "Backus, John",
+          "url": "https://doi.org/10.1145/359576.359579",
+          "type": "paper",
+          "note": "Communications of the ACM"
+        },
+        {
+          "title": "ENIAC.",
+          "author": "Computer History Museum",
+          "url": "https://www.computerhistory.org/revolution/birth-of-the-computer/4/78",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Colossus.",
+          "author": "The National Museum of Computing, Bletchley Park",
+          "url": "https://www.tnmoc.org/colossus",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "ENIAC Programming.",
+          "author": "Computerphile (YouTube)",
+          "url": "https://www.youtube.com/user/Computerphile",
+          "type": "video",
+          "note": ""
+        },
+        {
+          "title": "Vacuum Tubes & Early Computers.",
+          "author": "Numberphile (YouTube)",
+          "url": "https://www.youtube.com/user/numberphile",
+          "type": "video",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "p10_15_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Next issue: the quest to make machines understand us. From binary to English, from machine code to programming languages \u2014 the story of the people who built a bridge between human thought and machine logic. Issue 3: \"Teaching Machines to Understand Us.\""
+    }
+  ]
+}

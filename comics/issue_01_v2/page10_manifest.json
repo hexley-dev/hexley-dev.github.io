@@ -1,0 +1,181 @@
+{
+  "issue": 1,
+  "page": 10,
+  "title": "Now Build It",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p10_01_princeton_window",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "A young man with dark wavy hair in a white shirt stands at a tall window in a Princeton university office, 1937, looking out pensively with hands clasped behind his back, through the window you can see the darkening world — newspaper headlines about rising tensions in Europe scattered on a desk behind him, the golden afternoon light creates long shadows across the room, mathematical papers and books stacked on the desk, atmosphere of transition between thought and action, pensive and momentous mood, warm editorial illustration with ink lines and watercolor washes, warm amber and deep shadow tones with red accent in the sunset visible through the window",
+      "overlays": []
+    },
+    {
+      "id": "p10_02_bubble_reflect",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 384,
+      "gen_height": 384,
+      "prompt": "A small cute round cloud-shaped robot made of soft fluffy white material like cotton, big gentle silver eyes with a reflective quality, one soft hand resting on the edge of a page as if about to turn it, warm golden backlight creating a halo effect around the fluffy body, serene peaceful expression, floating slightly above a surface. A white speech bubble with black outline above. Inside the bubble the text reads: \"In 1936, all of this was pure imagination.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, warm sunset tones",
+      "bubble_text": "In 1936, all of this was pure imagination.",
+      "speaker": "NIMBUS"
+    },
+    {
+      "id": "p10_03_bubble_needed",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 384,
+      "gen_height": 384,
+      "prompt": "A small cute angular robot with a polished bronze body and riveted panels, big bright amber eyes blazing with anticipation, tiny propeller on top spinning slightly, leaning forward with one fist clenched in determination, sparks of energy crackling around it, dark dramatic background with faint outlines of factory smokestacks and machinery. A white speech bubble with black outline above. Inside the bubble the text reads: \"But the world needed machines. Fast.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, dramatic warm lighting",
+      "bubble_text": "But the world needed machines. Fast.",
+      "speaker": "RIVET"
+    },
+    {
+      "id": "p10_04_narration_return",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Alan Turing returned to Cambridge from Princeton in 1938. Within a year, Britain was at war. Turing was recruited to <strong>Bletchley Park</strong> — the top-secret code-breaking center — where the abstract ideas from his 1936 paper would collide with brutal, urgent reality.",
+      "style": "default"
+    },
+    {
+      "id": "p10_05_narration_others",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "But Turing was not the only one thinking about building machines. In Berlin, <strong>Konrad Zuse</strong> was already constructing a programmable computer in his parents' living room. In the United States, engineers would soon begin designing <strong>ENIAC</strong> — a 30-ton vacuum-tube behemoth. And <strong>John von Neumann</strong> would read Turing's paper and realize: the Universal Turing Machine wasn't just a mathematical abstraction. It was a <em>blueprint</em>.",
+      "style": "default"
+    },
+    {
+      "id": "p10_06_timeline_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-10 -30 700 370\"><rect x=\"5\" y=\"-15\" width=\"670\" height=\"340\" rx=\"12\" fill=\"#1A202C\" stroke=\"#4A5568\" stroke-width=\"1.5\"/><text x=\"340\" y=\"12\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" font-weight=\"bold\" fill=\"#D69E2E\">THE JOURNEY AHEAD</text><line x1=\"100\" y1=\"45\" x2=\"100\" y2=\"245\" stroke=\"#E53E3E\" stroke-width=\"3\"/><circle cx=\"100\" cy=\"50\" r=\"8\" fill=\"#E53E3E\" stroke=\"#fff\" stroke-width=\"2\"/><text x=\"120\" y=\"48\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#FFFFFF\">1936</text><text x=\"120\" y=\"63\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#fff\">Turing's Paper</text><rect x=\"300\" y=\"38\" width=\"130\" height=\"24\" rx=\"6\" fill=\"#E53E3E\" stroke=\"#fff\" stroke-width=\"1\"/><text x=\"365\" y=\"55\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#fff\">YOU ARE HERE</text><line x1=\"285\" y1=\"50\" x2=\"300\" y2=\"50\" stroke=\"#E53E3E\" stroke-width=\"1.5\" stroke-dasharray=\"3,2\"/><circle cx=\"100\" cy=\"95\" r=\"6\" fill=\"#DD6B20\" stroke=\"#fff\" stroke-width=\"1.5\"/><text x=\"120\" y=\"93\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#DD6B20\">1941</text><text x=\"120\" y=\"108\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#CBD5E0\">Zuse's Z3 (Germany) — first programmable computer</text><circle cx=\"100\" cy=\"135\" r=\"6\" fill=\"#DD6B20\" stroke=\"#fff\" stroke-width=\"1.5\"/><text x=\"120\" y=\"133\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#DD6B20\">1943</text><text x=\"120\" y=\"148\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#CBD5E0\">Colossus (Bletchley Park) — code-breaking</text><circle cx=\"100\" cy=\"175\" r=\"6\" fill=\"#DD6B20\" stroke=\"#fff\" stroke-width=\"1.5\"/><text x=\"120\" y=\"173\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#DD6B20\">1945</text><text x=\"120\" y=\"188\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#CBD5E0\">ENIAC (Philadelphia) — 17,468 vacuum tubes</text><circle cx=\"100\" cy=\"215\" r=\"6\" fill=\"#DD6B20\" stroke=\"#fff\" stroke-width=\"1.5\"/><text x=\"120\" y=\"213\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#DD6B20\">1945</text><text x=\"120\" y=\"228\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#CBD5E0\">Von Neumann Architecture — the blueprint that STILL powers your computer</text><polygon points=\"100,245 94,238 106,238\" fill=\"#DD6B20\"/><text x=\"120\" y=\"258\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#DD6B20\">ISSUE 2: \"Building the First Brains\" — COMING NEXT</text></svg>",
+      "caption": "From idea to machine: the timeline continues in Issue 2"
+    },
+    {
+      "id": "p10_07_narration_born",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "default",
+      "text": "The idea that started everything was about to become a machine.<br><br>And then many machines.<br><br>And then a revolution that hasn't stopped yet."
+    },
+    {
+      "id": "p10_08_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "In 1936, Alan Turing defined what computation is, invented the concept of a universal programmable machine, and proved that some problems are forever beyond the reach of any computer. He did it with nothing but pencil, paper, and relentless thinking. <strong>Every computer, every phone, every server, every AI system is a descendant of the machine he imagined.</strong> The idea came first. The machines came later."
+    },
+    {
+      "id": "p10_08b_robot_blueprint",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute mechanical robot with a warm copper body and big gentle amber LED eyes, wearing a tiny hard hat, kneeling on the ground carefully unrolling a large glowing blueprint scroll that shows the schematic of a Turing machine tape and head mechanism, tiny sparks of light rising from the blueprint as if the diagram is coming to life, tools scattered around — a miniature wrench, a soldering iron, a pencil — transition from idea to reality, warm workshop lighting with wood and metal textures in the background. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"First you imagine it. Then you build it. Always.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "First you imagine it. Then you build it. Always.",
+      "speaker": "BUILDER"
+    },
+    {
+      "id": "p10_09_narration_think",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Think about it:</strong> Turing's machine was imaginary — but the ideas were real. Einstein's elevator (general relativity), Schrodinger's cat (quantum mechanics), Turing's machine (computation). Why do you think <em>imagining</em> something precisely can be just as powerful as <em>building</em> it?",
+      "style": "default"
+    },
+    {
+      "id": "p10_references",
+      "type": "references",
+      "layout": "full-width",
+      "references": [
+        {
+          "title": "On Computable Numbers, with an Application to the Entscheidungsproblem.",
+          "author": "Turing, A.M",
+          "url": "https://www.cs.virginia.edu/~robins/Turing_Paper_1936.pdf",
+          "type": "paper",
+          "note": "Proceedings of the London Mathematical Society"
+        },
+        {
+          "title": "Alan Turing: The Enigma.",
+          "author": "Hodges, Andrew",
+          "url": "https://www.turing.org.uk/publications/dnb.html",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "The Annotated Turing.",
+          "author": "Petzold, Charles",
+          "url": "https://www.charlespetzold.com/AnnotatedTuring/",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "The Church-Turing Thesis.",
+          "author": "Copeland, B. Jack",
+          "url": "https://plato.stanford.edu/entries/church-turing/",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "On Formally Undecidable Propositions of Principia Mathematica and Related Systems.",
+          "author": "Godel, Kurt",
+          "url": "https://monoskop.org/images/9/93/Kurt_G%C3%B6del_On_Formally_Undecidable_Propositions_of_Principia_Mathematica_and_Related_Systems_1992.pdf",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "The Confluence of Ideas in 1936.",
+          "author": "Gandy, Robin",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Turing Machines Explained",
+          "author": "Numberphile (YouTube)",
+          "url": "https://www.youtube.com/watch?v=dNRDvLACg5Q",
+          "type": "video",
+          "note": ""
+        },
+        {
+          "title": "Turing Machines",
+          "author": "Computerphile (YouTube)",
+          "url": "https://www.youtube.com/watch?v=DILF8usqp7M",
+          "type": "video",
+          "note": ""
+        },
+        {
+          "title": "An Unsolvable Problem of Elementary Number Theory.",
+          "author": "Church, Alonzo",
+          "url": "",
+          "type": "paper",
+          "note": "American Journal of Mathematics"
+        },
+        {
+          "title": "The Universal Computer: The Road from Leibniz to Turing.",
+          "author": "Davis, Martin",
+          "url": "",
+          "type": "book",
+          "note": ""
+        },
+        {
+          "title": "Turing Machines.",
+          "author": "De Mol, Liesbeth",
+          "url": "https://plato.stanford.edu/entries/turing-machine/",
+          "type": "book",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "p10_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Next issue: the machines become real. From living rooms to war rooms to laboratories — the race to build the first electronic brains. Issue 2: \"Building the First Brains.\""
+    }
+  ]
+}

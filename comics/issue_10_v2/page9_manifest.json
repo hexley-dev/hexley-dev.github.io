@@ -1,0 +1,85 @@
+{
+  "issue": 10,
+  "page": 9,
+  "title": "Where to Go from Here",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p9_01_robot_mentor",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute round lavender-colored robot with big warm violet eyes and a generous smile, arms overflowing with tiny books, tablets, and glowing screens that it's handing toward the viewer, a tiny reading lamp on its head, surrounded by floating book covers and video play buttons, warm library-like amber glow in background with bookshelves. A white speech bubble with black outline near the top left. Inside the bubble the text reads: \"Pick one resource. Just one. And start.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Pick one resource. Just one. And start.",
+      "speaker": "LIBRARIAN"
+    },
+    {
+      "id": "p9_02_intro",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "We have covered ninety years in ten issues. Every topic deserves a deeper dive. Here is where to go next, organized by what you want to explore."
+    },
+    {
+      "id": "p9_03_books",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -30 720 483\"><style>text{font-family:'JetBrains Mono',monospace;}</style><text x=\"360\" y=\"0\" text-anchor=\"middle\" font-size=\"17\" fill=\"#DD6B20\" font-weight=\"bold\">BOOKS — The Essential Shelf</text><rect x=\"40\" y=\"18\" width=\"640\" height=\"420\" rx=\"8\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1.2\"/><g font-size=\"13\" fill=\"#4A5568\"><text x=\"55\" y=\"46\" font-weight=\"bold\" fill=\"#2D3748\" font-size=\"14\">Code</text><text x=\"105\" y=\"46\">— Charles Petzold (1999/2022)</text><text x=\"490\" y=\"46\" font-size=\"13\" fill=\"#DD6B20\">Issues 1-4</text><text x=\"55\" y=\"66\" font-size=\"12\" fill=\"#718096\" font-style=\"italic\">The best book for understanding how computers work from first principles.</text><line x1=\"55\" y1=\"76\" x2=\"665\" y2=\"76\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text x=\"55\" y=\"98\" font-weight=\"bold\" fill=\"#2D3748\" font-size=\"14\">The Annotated Turing</text><text x=\"220\" y=\"98\">— Charles Petzold (2008)</text><text x=\"490\" y=\"98\" font-size=\"13\" fill=\"#DD6B20\">Issue 1</text><text x=\"55\" y=\"118\" font-size=\"12\" fill=\"#718096\" font-style=\"italic\">Line-by-line walkthrough of Turing's 1936 paper. For the deep dive.</text><line x1=\"55\" y1=\"128\" x2=\"665\" y2=\"128\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text x=\"55\" y=\"150\" font-weight=\"bold\" fill=\"#2D3748\" font-size=\"14\">Alan Turing: The Enigma</text><text x=\"240\" y=\"150\">— Andrew Hodges (1983/2014)</text><text x=\"490\" y=\"150\" font-size=\"13\" fill=\"#DD6B20\">Issue 1</text><text x=\"55\" y=\"170\" font-size=\"12\" fill=\"#718096\" font-style=\"italic\">The definitive biography. Makes Turing feel like a real person.</text><line x1=\"55\" y1=\"180\" x2=\"665\" y2=\"180\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text x=\"55\" y=\"202\" font-weight=\"bold\" fill=\"#2D3748\" font-size=\"14\">The Mythical Man-Month</text><text x=\"245\" y=\"202\">— Frederick P. Brooks Jr. (1975/1995)</text><text x=\"490\" y=\"202\" font-size=\"13\" fill=\"#DD6B20\">Issues 4-5</text><text x=\"55\" y=\"222\" font-size=\"12\" fill=\"#718096\" font-style=\"italic\">Classic on software engineering. Still relevant 50 years later.</text><line x1=\"55\" y1=\"232\" x2=\"665\" y2=\"232\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text x=\"55\" y=\"254\" font-weight=\"bold\" fill=\"#2D3748\" font-size=\"14\">Human Compatible</text><text x=\"195\" y=\"254\">— Stuart Russell (2019)</text><text x=\"490\" y=\"254\" font-size=\"13\" fill=\"#DD6B20\">Issue 10</text><text x=\"55\" y=\"274\" font-size=\"12\" fill=\"#718096\" font-style=\"italic\">The alignment problem, explained accessibly.</text><line x1=\"55\" y1=\"284\" x2=\"665\" y2=\"284\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text x=\"55\" y=\"306\" font-weight=\"bold\" fill=\"#2D3748\" font-size=\"14\">The Alignment Problem</text><text x=\"230\" y=\"306\">— Brian Christian (2020)</text><text x=\"490\" y=\"306\" font-size=\"13\" fill=\"#DD6B20\">Issues 6-10</text><text x=\"55\" y=\"326\" font-size=\"12\" fill=\"#718096\" font-style=\"italic\">Comprehensive overview of bias, fairness, and alignment in AI.</text><line x1=\"55\" y1=\"336\" x2=\"665\" y2=\"336\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text x=\"55\" y=\"358\" font-weight=\"bold\" fill=\"#2D3748\" font-size=\"14\">Atlas of AI</text><text x=\"145\" y=\"358\">— Kate Crawford (2021)</text><text x=\"490\" y=\"358\" font-size=\"13\" fill=\"#DD6B20\">Issues 6-10</text><text x=\"55\" y=\"378\" font-size=\"12\" fill=\"#718096\" font-style=\"italic\">The material, social, and political costs behind AI systems.</text></g></svg>",
+      "caption": "Seven essential books for going deeper"
+    },
+    {
+      "id": "p9_04_courses",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"0 -25 750 245\"><style>text{font-family:'JetBrains Mono',monospace;}</style><text x=\"375\" y=\"0\" text-anchor=\"middle\" font-size=\"15\" fill=\"#DD6B20\" font-weight=\"bold\">FREE ONLINE COURSES</text><rect x=\"40\" y=\"15\" width=\"670\" height=\"190\" rx=\"8\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1.2\"/><g font-size=\"12\" fill=\"#4A5568\"><text x=\"55\" y=\"38\" font-weight=\"bold\" fill=\"#2D3748\">3Blue1Brown — \"Neural Networks\"</text><text x=\"320\" y=\"38\">YouTube, free</text><text x=\"490\" y=\"38\" font-size=\"12\" fill=\"#718096\">Visual learners (Issue 6)</text><line x1=\"55\" y1=\"46\" x2=\"695\" y2=\"46\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text x=\"55\" y=\"63\" font-weight=\"bold\" fill=\"#2D3748\">Karpathy — \"Zero to Hero\"</text><text x=\"280\" y=\"63\">YouTube, free</text><text x=\"490\" y=\"63\" font-size=\"12\" fill=\"#718096\" textLength=\"206\" lengthAdjust=\"spacingAndGlyphs\">Build from scratch (Issues 6-7)</text><line x1=\"55\" y1=\"71\" x2=\"695\" y2=\"71\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text x=\"55\" y=\"88\" font-weight=\"bold\" fill=\"#2D3748\">Andrew Ng — \"Machine Learning\"</text><text x=\"305\" y=\"88\">Coursera, free</text><text x=\"490\" y=\"88\" font-size=\"12\" fill=\"#718096\">Classic ML intro (Issue 6)</text><line x1=\"55\" y1=\"96\" x2=\"695\" y2=\"96\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text x=\"55\" y=\"113\" font-weight=\"bold\" fill=\"#2D3748\">fast.ai — \"Practical Deep Learning\"</text><text x=\"310\" y=\"113\">fast.ai, free</text><text x=\"490\" y=\"113\" font-size=\"12\" fill=\"#718096\" textLength=\"206\" lengthAdjust=\"spacingAndGlyphs\">Build first, theory later (6-7)</text><line x1=\"55\" y1=\"121\" x2=\"695\" y2=\"121\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text x=\"55\" y=\"138\" font-weight=\"bold\" fill=\"#2D3748\">CS50 — \"Intro to CS\"</text><text x=\"230\" y=\"138\">Harvard/edX, free</text><text x=\"490\" y=\"138\" font-size=\"12\" fill=\"#718096\">Computing fundamentals (1-5)</text><line x1=\"55\" y1=\"146\" x2=\"695\" y2=\"146\" stroke=\"#E2E8F0\" stroke-width=\"0.8\"/><text x=\"55\" y=\"163\" font-weight=\"bold\" fill=\"#2D3748\">Anthropic Research Blog</text><text x=\"250\" y=\"163\">anthropic.com/research</text><text x=\"490\" y=\"163\" font-size=\"12\" fill=\"#718096\" textLength=\"206\" lengthAdjust=\"spacingAndGlyphs\">Safety research (Issues 7-10)</text></g></svg>",
+      "caption": "Six free online courses to continue your journey"
+    },
+    {
+      "id": "p9_05_projects_scene",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 512,
+      "prompt": "A warm illustrated workspace showing seven numbered floating cards arranged in a gentle spiral, each card showing a tiny icon: (1) a web page with HTML tags, (2) a Python terminal talking to a robot, (3) a tiny neural network diagram, (4) a GitHub octocat logo, (5) a chat prompt with magnifying glass, (6) a terminal with a robot, (7) a pencil writing for an audience. The cards glow with warm orange edges. Below them a curious hand reaches up to grab the first card. Light warm background. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p9_05b_projects_text",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "<strong>HANDS-ON PROJECTS</strong> (no experience required):<br><br>1. Build a personal website with HTML/CSS/JS<br>2. Try the Claude API — write a Python script<br>3. Train a tiny neural network from scratch<br>4. Contribute to an open-source project on GitHub<br>5. Experiment with prompt engineering<br>6. Try Claude Code or a similar agentic tool<br>7. Write about AI for your community"
+    },
+    {
+      "id": "p9_06_labs",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>INTERACTIVE LABS FROM THIS SERIES:</strong><br><br>Turing Machine Sandbox (Issue 1) &middot; Logic Gates Lab (Issue 2) &middot; Compiler Explorer (Issue 3) &middot; Unix Pipe Playground (Issue 4) &middot; Neural Network Playground (Issue 6) &middot; Attention Visualizer (Issue 7) &middot; Agent Sandbox (Issue 8) &middot; Swarm Simulator (Issue 9) &middot; Full Stack Elevator (Issue 10)"
+    },
+    {
+      "id": "p9_06b_robot_projects",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round bright-orange robot with a dome head and big excited amber LED eyes, stubby arms holding a tiny blueprint showing PROJECT IDEAS, antenna with a tiny rocket on top, surrounded by floating lab equipment icons. A white speech bubble with black outline above. Inside the bubble the text reads: \"Theory is great. Building something? That is learning.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Theory is great. Building something? That is learning.",
+      "speaker": "BUILDBOT"
+    },
+    {
+      "id": "p9_07_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Every expert in every field started exactly where you are: knowing nothing, but curious enough to begin. The distance between 'I know nothing about computing' and 'I am building something' is <strong>smaller than it has ever been</strong>. The stack is taller than ever — and that means you can stand on more shoulders than any previous generation."
+    },
+    {
+      "id": "p9_08_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "One more page. A robot guide has something to say."
+    }
+  ]
+}

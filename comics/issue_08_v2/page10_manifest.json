@@ -1,0 +1,232 @@
+{
+  "issue": 8,
+  "page": 10,
+  "title": "One Agent Is Powerful. But What About a TEAM?",
+  "accent": "#9F7AEA",
+  "panels": [
+    {
+      "id": "p10_01_four_leaps_timeline",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A sweeping panoramic timeline stretching across the frame from left to right. At the left: 2021, a small glowing dot labeled 'Autocomplete' with a single cursor icon. Moving right: 2022-23, a medium circle labeled 'Chat' with a speech bubble icon. Further right: 2023, a larger circle labeled 'Tool Use' with a wrench icon. Right of center: 2024-25, a large glowing violet circle labeled 'Agents' with a robot icon. At the far right: a mysterious dotted outline showing MULTIPLE small figures working together, connected by flowing lines, with a glowing question mark above. Each stage connected by luminous violet arcs that grow brighter as they move right. Deep navy background with starfield. Comic book style, warm editorial illustration with ink lines and watercolor washes, violet (#9F7AEA) dominant glow",
+      "overlays": []
+    },
+    {
+      "id": "p10_02_robot_reflective",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round robot made of polished obsidian stone with glowing violet veins running through its surface, big wise deep-amber eyes with a reflective quality, sitting cross-legged on a floating platform, looking back over its shoulder at a trail of glowing milestones behind it (representing the four leaps), peaceful and contemplative posture, tiny silver scarf draped over one shoulder. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Four years. Autocomplete to doing the whole job.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, deep navy background with violet starlight",
+      "bubble_text": "Four years. Autocomplete to doing the whole job.",
+      "speaker": "OBSIDIAN"
+    },
+    {
+      "id": "p10_02b_robot_forward",
+      "type": "image_with_bubble",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 357,
+      "gen_height": 512,
+      "prompt": "A small cute round robot made of shimmering aurora-colored crystal, constantly shifting between violet, teal, and gold, big bright excited eyes looking forward into a brilliant light, tiny hands reaching toward a group of five smaller robot silhouettes working together in the distance, each silhouette focused on a different task, energetic and forward-looking pose, sparkling particles around it. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"The biggest leap? Making them work TOGETHER.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, deep navy background with aurora lighting",
+      "bubble_text": "The biggest leap? Making them work TOGETHER.",
+      "speaker": "AURORA"
+    },
+    {
+      "id": "p10_03_narration_arc",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In <strong>2021</strong>, Copilot gave developers a taste of AI-assisted coding &mdash; magical, but fundamentally autocomplete. In <strong>2022</strong>, ChatGPT proved you could describe what you wanted in English and get working code &mdash; but the copy-paste cycle was maddening. In <strong>2023</strong>, tool use cracked the glass. In <strong>2024-2025</strong>, full coding agents put it all together."
+    },
+    {
+      "id": "p10_04_connections_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-20 -20 800 230\" xmlns=\"http://www.w3.org/2000/svg\"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x=\"380\" y=\"8\" text-anchor=\"middle\" font-size=\"14\" font-weight=\"bold\" fill=\"#9F7AEA\">The Thread Through Computing History</text><rect x=\"15\" y=\"35\" width=\"135\" height=\"45\" rx=\"6\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"83\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Issue 1: Turing</text><text fill=\"#2D3748\" x=\"83\" y=\"67\" text-anchor=\"middle\" font-size=\"12\">Symbols on tape</text><rect x=\"170\" y=\"35\" width=\"135\" height=\"45\" rx=\"6\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"238\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Issue 3: Hopper</text><text fill=\"#2D3748\" x=\"238\" y=\"67\" text-anchor=\"middle\" font-size=\"12\">Machines learn English</text><rect x=\"325\" y=\"35\" width=\"135\" height=\"45\" rx=\"6\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"393\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Issue 4: Unix</text><text fill=\"#2D3748\" x=\"393\" y=\"67\" text-anchor=\"middle\" font-size=\"12\">Small tools compose</text><rect x=\"480\" y=\"35\" width=\"135\" height=\"45\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text fill=\"#1A202C\" x=\"548\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\">Issue 7: LLMs</text><text fill=\"#2D3748\" x=\"548\" y=\"67\" text-anchor=\"middle\" font-size=\"12\">Read, write, reason</text><rect x=\"630\" y=\"30\" width=\"120\" height=\"55\" rx=\"6\" fill=\"#9F7AEA\" stroke=\"#6B46C1\" stroke-width=\"2.5\"/><text x=\"690\" y=\"52\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#fff\">Issue 8: Agents</text><text x=\"690\" y=\"67\" text-anchor=\"middle\" font-size=\"12\" fill=\"#fff\">Act autonomously</text><line x1=\"150\" y1=\"57\" x2=\"170\" y2=\"57\" stroke=\"#718096\" stroke-width=\"1.5\" marker-end=\"url(#arrowP10)\"/><line x1=\"305\" y1=\"57\" x2=\"325\" y2=\"57\" stroke=\"#718096\" stroke-width=\"1.5\" marker-end=\"url(#arrowP10)\"/><line x1=\"460\" y1=\"57\" x2=\"480\" y2=\"57\" stroke=\"#718096\" stroke-width=\"1.5\" marker-end=\"url(#arrowP10)\"/><line x1=\"615\" y1=\"57\" x2=\"630\" y2=\"57\" stroke=\"#718096\" stroke-width=\"1.5\" marker-end=\"url(#arrowP10)\"/><rect x=\"610\" y=\"105\" width=\"140\" height=\"45\" rx=\"6\" fill=\"#F7FAFC\" stroke=\"#9F7AEA\" stroke-width=\"1.5\" stroke-dasharray=\"5,3\"/><text x=\"680\" y=\"123\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#9F7AEA\">Issue 9: ???</text><text x=\"680\" y=\"139\" text-anchor=\"middle\" font-size=\"12\" fill=\"#9F7AEA\">Agent Swarms</text><line x1=\"690\" y1=\"85\" x2=\"690\" y2=\"105\" stroke=\"#9F7AEA\" stroke-width=\"1.5\" stroke-dasharray=\"4,3\" marker-end=\"url(#arrowP10v)\"/><rect x=\"40\" y=\"165\" width=\"680\" height=\"28\" rx=\"5\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text fill=\"#2D3748\" x=\"380\" y=\"184\" text-anchor=\"middle\" font-size=\"12\" font-style=\"italic\">Each leap closed another gap between \"thinking about code\" and \"doing the work.\"</text><defs><marker id=\"arrowP10\" viewBox=\"0 0 10 30\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"#718096\"/></marker><marker id=\"arrowP10v\" viewBox=\"0 0 10 30\" refX=\"9\" refY=\"5\" markerWidth=\"6\" markerHeight=\"6\" orient=\"auto-start-reverse\"><path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"#9F7AEA\"/></marker></defs></svg>",
+      "caption": "The thread through computing history: from Turing's tape to autonomous agents"
+    },
+    {
+      "id": "p10_05_single_vs_multi",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "A dramatic split-screen comparison. Left side: a single agent (small glowing figure) drowning at a massive desk, papers everywhere, contradicting notes scattered around, overwhelmed expression, dim and chaotic lighting, red stress glow. Right side: five smaller agents, each calm and focused at their own clean desk, each working on one piece of a puzzle -- one reading docs, one writing code, one running tests, one reviewing, one coordinating. An orchestrator figure at the center connects them with flowing violet lines. Files and documents flow between them in an orderly pattern. Bright, organized, productive violet glow. The contrast is striking: chaos vs. harmony. Comic book style, warm editorial illustration with ink lines and watercolor washes, red on left, violet (#9F7AEA) on right",
+      "overlays": []
+    },
+    {
+      "id": "p10_06_narration_solution",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "The solution? The same one humans discovered thousands of years ago. You do not build a cathedral with one brilliant architect. You build it with a <strong>team</strong> &mdash; specialists who each focus on what they know best, coordinated by someone who holds the big picture."
+    },
+    {
+      "id": "p10_07_narration_what_if",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "What if you had a <strong>researcher agent</strong> that digs into documentation, a <strong>coder agent</strong> that writes the implementation, a <strong>tester agent</strong> that writes tests, and a <strong>reviewer agent</strong> that catches bugs &mdash; each with a fresh, clean context, each working in parallel, none weighed down by each other&rsquo;s noise? That is not science fiction. That is what is happening <strong>right now</strong>."
+    },
+    {
+      "id": "p10_07b_robot_solution",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "A small cute round bright-violet robot with a dome head and big excited white LED eyes, stubby arms holding a tiny blueprint labeled MULTI-AGENT SYSTEM, antenna with a tiny constellation of stars on top, smaller robots forming a coordinated formation behind it. A white speech bubble with black outline above. Inside the bubble the text reads: \"The answer was there all along: divide the work.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "The answer was there all along: divide the work.",
+      "speaker": "SOLVEBOT"
+    },
+    {
+      "id": "p10_08_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The progression from autocomplete to agents is not just a story about AI getting smarter. It is a story about AI getting closer to doing <strong>real work in the real world</strong>. Each leap closed another gap between &ldquo;thinking about code&rdquo; and &ldquo;doing the work.&rdquo; But the final gap &mdash; between a brilliant solo performer and an effective <strong>team</strong> &mdash; is still being closed."
+    },
+    {
+      "id": "p10_09_teaser_swarm",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 256,
+      "prompt": "A teaser composition for the next issue. An orchestrator agent at the center of a glowing network, surrounded by specialist agents in a constellation pattern: Researcher (with magnifying glass), Writer (with pen), Editor (with red pencil), Tester (with checkmark shield), Red Team (with warning triangle). They are connected by flowing file icons and documents. Below the constellation: 'Issue 9: The Swarm' in bold glowing emerald text. Deep navy background with emerald (#48BB78) and violet connection lines, mysterious and exciting atmosphere, the promise of what comes next. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p10_references",
+      "type": "references",
+      "layout": "full-width",
+      "references": [
+        {
+          "title": "Evaluating Large Language Models Trained on Code.",
+          "author": "Chen, M., Tworek, J., Jun, H., et al",
+          "url": "https://arxiv.org/abs/2107.03374",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "ReAct: Synergizing Reasoning and Acting in Language Models.",
+          "author": "Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., Cao, Y",
+          "url": "https://arxiv.org/abs/2210.03629",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Lost in the Middle: How Language Models Use Long Contexts.",
+          "author": "Liu, N.F., Lin, K., Hewitt, J., et al",
+          "url": "https://arxiv.org/abs/2307.03172",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Toolformer: Language Models Can Teach Themselves to Use Tools.",
+          "author": "Schick, T., Dwivedi-Yu, J., et al",
+          "url": "https://arxiv.org/abs/2302.04761",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+          "author": "Jimenez, C.E., Yang, J., Wettig, A., et al",
+          "url": "https://arxiv.org/abs/2310.06770",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "GitHub Copilot is generally available to all developers.",
+          "author": "GitHub Blog",
+          "url": "https://github.blog/news-insights/product-news/github-copilot-is-generally-available-to-all-developers/",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Research: quantifying GitHub Copilot's impact on developer productivity and happiness.",
+          "author": "GitHub Blog",
+          "url": "https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "The Impact of AI on Developer Productivity: Evidence from GitHub Copilot.",
+          "author": "Peng, S., Kalliamvakou, E., Cihon, P., Demirer, M",
+          "url": "https://arxiv.org/abs/2302.06590",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Claude Code documentation.",
+          "author": "Anthropic",
+          "url": "https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "GPT-4 Technical Report.",
+          "author": "OpenAI",
+          "url": "https://arxiv.org/abs/2303.08774",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Introducing Devin, the first AI software engineer.",
+          "author": "Cognition Labs",
+          "url": "https://www.cognition.ai/blog/introducing-devin",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "GitHub Copilot litigation.",
+          "author": "Butterick, M",
+          "url": "https://githubcopilotlitigation.com/",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Aider: AI pair programming in your terminal.",
+          "author": "Gauthier, P",
+          "url": "https://github.com/paul-gauthier/aider",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Cursor: The AI-first Code Editor.",
+          "author": "Anysphere",
+          "url": "https://cursor.sh/",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "But what is a GPT? Visual intro to Transformers.",
+          "author": "3Blue1Brown",
+          "url": "https://www.youtube.com/watch?v=wjZofJX0v4M",
+          "type": "video",
+          "note": ""
+        },
+        {
+          "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models.",
+          "author": "Wei, J., Wang, X., Schuurmans, D., et al",
+          "url": "https://arxiv.org/abs/2201.11903",
+          "type": "paper",
+          "note": ""
+        },
+        {
+          "title": "Auto-GPT.",
+          "author": "Significant Gravitas",
+          "url": "https://github.com/Significant-Gravitas/AutoGPT",
+          "type": "paper",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "p10_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "In our next issue, the solo agent becomes a swarm. Multiple agents, working in parallel, communicating through files, each with a fresh context and a focused task. The pattern will look familiar — because it is the Unix philosophy, reborn in a new form. Issue 9: \"The Swarm.\""
+    }
+  ]
+}

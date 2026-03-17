@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Issue 07: Code That Writes Code — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Patrick+Hand&family=Source+Serif+4:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --comic: 'Bangers', 'Impact', sans-serif;
+  --hand: 'Patrick Hand', cursive;
+  --body: 'Source Serif 4', Georgia, serif;
+  --mono: 'JetBrains Mono', monospace;
+  --accent: #4A9BD9;
+  --accent-dark: color-mix(in srgb, #4A9BD9 80%, black);
+  --ink: #1A202C;
+  --gutter: 6px;
+  --narration-bg: #FFF9C4;
+  --narration-border: #E8B931;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #F0EBE1;
+  font-family: var(--hand);
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.comic-page {
+  width: 100%;
+  max-width: 720px;
+  background: #fff;
+  border: 3px solid var(--ink);
+  border-radius: 2px;
+  padding: var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter);
+  box-shadow: 5px 5px 0 rgba(0,0,0,0.12);
+}
+
+.page-header {
+  text-align: center;
+  padding: 6px 12px 8px;
+  background: var(--ink);
+  border-radius: 2px;
+  border-bottom: 3px solid var(--accent);
+}
+.page-header .issue-label {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+.page-header .page-title {
+  font-family: var(--comic);
+  font-size: 34px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+}
+
+/* Panels */
+.panel {
+  position: relative;
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #1a1a2e 25%, #252540 50%, #1a1a2e 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.panel.img-loaded {
+  animation: none;
+  background: #1a1a2e;
+}
+.panel:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.panel img.loaded {
+  opacity: 1;
+}
+.panel--bubble img {
+  object-fit: contain;
+  object-position: center;
+}
+.panel-row {
+  display: flex;
+  gap: var(--gutter);
+}
+.panel-row > * {
+  min-width: 0;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Narration overlay (on image panels) */
+.narration-overlay {
+  position: absolute;
+  background: var(--narration-bg);
+  border: 2px solid var(--narration-border);
+  padding: 10px 14px;
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4A3728;
+  z-index: 10;
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.05);
+}
+.narration-overlay strong { color: var(--accent); }
+
+/* CSS narration panel (standalone) */
+.css-narration {
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  background: var(--narration-bg);
+  border-color: var(--narration-border);
+  padding: 18px 22px;
+  font-family: var(--body);
+  font-size: 17.5px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #4A3728;
+}
+.css-narration strong { color: var(--accent); }
+.css-narration em { font-style: italic; }
+.css-narration--accent {
+  background: #FFF5F5;
+  border-color: var(--accent);
+}
+
+/* Page-turn hook */
+.css-hook {
+  text-align: center;
+  padding: 14px 20px;
+  font-family: var(--body);
+  font-size: 18px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--accent);
+  border-top: 1px dashed var(--narration-border);
+}
+
+/* OCR proof marker (hidden, for proofreader) */
+.ocr-expected {
+  display: none;
+}
+
+/* Lab link callout */
+.lab-link {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 0;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, rgba(229,62,62,0.06), rgba(229,62,62,0.02));
+  border: 2.5px solid var(--accent);
+  border-radius: 2px;
+  font-family: var(--body);
+}
+.lab-link-icon { color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.lab-link-title { font-size: 16px; color: var(--ink); }
+.lab-link-desc { font-size: 14px; color: #4A5568; margin: 4px 0 8px; line-height: 1.5; }
+.lab-link-btn {
+  display: inline-block;
+  padding: 5px 14px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 4px;
+  font-family: var(--hand);
+  font-size: 14px;
+  text-decoration: none;
+}
+.lab-link-btn:hover { opacity: 0.85; }
+
+/* Portrait image capped (when no adjacent narration) */
+.portrait-capped {
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+/* Narration in flex rows — vertically centered, compact text */
+.panel-row .css-narration {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.panel-row .css-narration p {
+  margin: 0;
+}
+
+/* SVG diagram */
+.svg-diagram {
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  overflow: hidden;
+  background: #1A202C;
+  padding: 12px;
+}
+.svg-diagram svg { width: 100%; height: auto; }
+.diagram-caption {
+  text-align: center;
+  font-family: var(--body);
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 8px;
+}
+
+/* Robot speech (placeholder for svg_robot panels) */
+.svg-robot {
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  padding: 16px;
+  background: #F7FAFC;
+  text-align: center;
+}
+.robot-speech {
+  font-family: var(--hand);
+  font-size: 15px;
+  color: var(--ink);
+  margin-top: 8px;
+}
+
+/* References (collapsible) */
+.references-section {
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  background: #F7FAFC;
+}
+.references-section summary {
+  font-family: var(--hand);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 14px 18px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.references-section summary::-webkit-details-marker { display: none; }
+.references-section summary::before {
+  content: '\25B6';
+  font-size: 12px;
+  color: var(--accent);
+  transition: transform 0.2s;
+}
+.references-section[open] summary::before {
+  transform: rotate(90deg);
+}
+.references-section .ref-list {
+  padding: 0 18px 16px;
+  list-style: none;
+}
+.references-section .ref-list li {
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4A5568;
+  padding: 6px 0;
+  border-top: 1px solid #E2E8F0;
+}
+.references-section .ref-list li:first-child {
+  border-top: 1px solid #CBD5E0;
+}
+.references-section .ref-list a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.references-section .ref-list a:hover {
+  text-decoration: underline;
+}
+.references-section .ref-list .ref-type {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(0,0,0,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 6px;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Print */
+@media print {
+  body { background: #fff; padding: 0; }
+  .comic-page { border: none; box-shadow: none; max-width: 100%; }
+  .page-nav { display: none !important; }
+  .page-section { display: block !important; page-break-after: always; }
+  .page-section:last-of-type { page-break-after: avoid; }
+  .panel { animation: none; background: #1a1a2e; transform: none; }
+  .panel img { opacity: 1; }
+  .panel:hover { transform: none; box-shadow: none; }
+  .lab-link-btn { background: none !important; color: var(--accent) !important; border: 1px solid var(--accent); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .page-section.active { animation: none; }
+  .panel { animation: none !important; transition: none !important; background: #1a1a2e; }
+  .panel img { transition: none !important; opacity: 1 !important; }
+  .progress-dot { transition: none; }
+  .references-section summary::before { transition: none; }
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  body { padding: 8px; }
+  .comic-page { padding: 3px; gap: 3px; }
+  .narration-overlay { font-size: 13px; padding: 6px 10px; }
+  .css-narration { font-size: 15px; padding: 12px 14px; }
+  .page-header .page-title { font-size: 20px; }
+  .panel-row { flex-direction: column; }
+  .progress-dots { gap: 3px; }
+  .progress-dot { width: 6px; height: 6px; }
+}
+
+
+/* Multi-page navigation */
+.page-section { display: none; }
+.page-section.active { display: block; animation: pageIn 0.3s ease-out; }
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--ink);
+  border-radius: 2px;
+  margin-top: 4px;
+}
+.page-nav > button {
+  font-family: var(--hand);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+.page-nav button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+.page-nav button:active:not(:disabled) {
+  transform: translateY(0);
+}
+.page-nav button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.page-nav-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.page-nav .page-indicator {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+}
+.progress-dots {
+  display: flex;
+  gap: 10px;
+}
+.progress-dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  min-width: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  font-size: 0;
+  line-height: 0;
+}
+.progress-dot:hover {
+  background: rgba(255,255,255,0.45);
+}
+.progress-dot.visited {
+  background: var(--accent);
+  opacity: 0.7;
+}
+.progress-dot.active {
+  background: var(--accent);
+  transform: scale(1.4);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+</style>
+</head>
+<body>
+<div class="comic-page">
+  <section class="page-section" data-page="1">
+    <div class="page-header">
+      <div class="issue-label">Issue 07 · Page 1</div>
+      <div class="page-title">Before 2017, Language AI Read One Word at a Time</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p1_01_dark_library.png" alt="p1_01_dark_library">
+</div>
+
+    <div class="css-narration"><p>In Issue 6, we watched neural networks learn to <strong>see</strong>. They could look at a photograph and say <em>"that's a cat."</em> Vision was conquered. But <strong>language</strong>? Language was a different beast.</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 768/512;">
+  <img src="images/p1_03_rnn_explain.png" alt="TAPE: RNNs read one word at a time. Left to right.">
+  <span class="ocr-expected" data-speaker="TAPE">RNNs read one word at a time. Left to right.</span>
+</div>
+
+    <div class="css-narration"><p>Each word updated a small bundle of numbers called a <strong>hidden state</strong> -- the model's attempt to remember everything it had read so far. Like rewriting a summary after every chapter. By chapter 20, the details from chapter 1 have <em>faded</em>.</p></div>
+
+  <div class="panel" style="aspect-ratio: 768/384;">
+  <img src="images/p1_05_radiance_library.png" alt="p1_05_radiance_library">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 1; aspect-ratio: 357/512;">
+  <img src="images/p1_06_robot_changed.png" alt="CLOCKWORK: Then eight researchers changed everything.">
+  <span class="ocr-expected" data-speaker="CLOCKWORK">Then eight researchers changed everything.</span>
+</div>
+<div class="panel" style="flex: 1; aspect-ratio: 357/512;">
+  <img src="images/p1_07_attention_thread.png" alt="p1_07_attention_thread">
+</div>
+    </div>
+
+    <div class="css-narration"><p>An improvement called <strong>LSTM</strong> (Long Short-Term Memory, 1997) added special "gates" to choose what to remember and forget. But the fundamental problem remained: one word at a time, everything compressed into a fixed-size memory, and <em>no way to go back</em>.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 280"><style>.word{font-size:13px; font-weight:bold} .label{font-size:12px; } .fade1{opacity:1} .fade2{opacity:0.7} .fade3{opacity:0.45} .fade4{opacity:0.25} text{font-family:'JetBrains Mono',monospace; font-weight:bold}</style><text x="340" y="8" text-anchor="middle" font-size="15" font-weight="bold" fill="#4A9BD9">The RNN Bottleneck</text><g transform="translate(30,50)"><rect class="fade1" x="0" y="0" width="64" height="36" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#2D3748" class="word fade1" x="32" y="23" text-anchor="middle">The</text><rect class="fade1" x="80" y="0" width="64" height="36" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#2D3748" class="word fade1" x="112" y="23" text-anchor="middle">cat</text><rect class="fade2" x="160" y="0" width="64" height="36" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#2D3748" class="word fade2" x="192" y="23" text-anchor="middle">sat</text><rect class="fade2" x="240" y="0" width="64" height="36" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#2D3748" class="word fade2" x="272" y="23" text-anchor="middle">on</text><rect class="fade3" x="320" y="0" width="64" height="36" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#2D3748" class="word fade3" x="352" y="23" text-anchor="middle">the</text><rect class="fade3" x="400" y="0" width="64" height="36" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#2D3748" class="word fade3" x="432" y="23" text-anchor="middle">mat</text><rect class="fade4" x="480" y="0" width="64" height="36" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#2D3748" font-size="12" class="word fade4" x="512" y="23" text-anchor="middle">because</text><rect x="560" y="0" width="52" height="36" rx="6" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text class="word" x="586" y="23" text-anchor="middle" fill="#2D3748">it</text></g><g transform="translate(30,110)"><rect class="fade1" x="0" y="0" width="44" height="28" rx="5" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.2"/><text class="label" x="22" y="18" text-anchor="middle" fill="#2D3748" font-size="12">h1</text><line x1="44" y1="14" x2="80" y2="14" stroke="#805AD5" stroke-width="1.5" marker-end="url(#arr)"/><rect class="fade2" x="80" y="0" width="44" height="28" rx="5" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.2"/><text class="label" x="102" y="18" text-anchor="middle" fill="#2D3748" font-size="12">h2</text><line x1="124" y1="14" x2="160" y2="14" stroke="#805AD5" stroke-width="1.5"/><rect class="fade2" x="160" y="0" width="44" height="28" rx="5" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.2"/><text class="label" x="182" y="18" text-anchor="middle" fill="#2D3748" font-size="12">h3</text><line x1="204" y1="14" x2="240" y2="14" stroke="#805AD5" stroke-width="1.5"/><rect class="fade3" x="240" y="0" width="44" height="28" rx="5" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.2"/><text class="label" x="262" y="18" text-anchor="middle" fill="#2D3748" font-size="12">h4</text><line x1="284" y1="14" x2="320" y2="14" stroke="#805AD5" stroke-width="1.5"/><rect class="fade3" x="320" y="0" width="44" height="28" rx="5" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.2"/><text class="label" x="342" y="18" text-anchor="middle" fill="#2D3748" font-size="12">h5</text><line x1="364" y1="14" x2="400" y2="14" stroke="#805AD5" stroke-width="1.5"/><rect class="fade4" x="400" y="0" width="44" height="28" rx="5" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.2"/><text class="label" x="422" y="18" text-anchor="middle" fill="#2D3748" font-size="12">h6</text><line x1="444" y1="14" x2="480" y2="14" stroke="#805AD5" stroke-width="1.5"/><rect class="fade4" x="480" y="0" width="44" height="28" rx="5" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.2"/><text class="label" x="502" y="18" text-anchor="middle" fill="#2D3748" font-size="12">h7</text><line x1="524" y1="14" x2="560" y2="14" stroke="#805AD5" stroke-width="1.5"/><rect x="560" y="0" width="52" height="28" rx="5" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/><text class="label" x="586" y="18" text-anchor="middle" fill="#2D3748" font-size="12">h8</text></g><path d="M586,110 C586,90 112,90 112,86" stroke="#E53E3E" stroke-width="1.5" stroke-dasharray="4,3" fill="none" opacity="0.5"/><text x="350" y="90" text-anchor="middle" font-size="12" fill="#E2E8F0" opacity="0.7">memory of 'cat' has faded by the time we reach 'it'</text><g transform="translate(30,170)"><text x="310" y="10" text-anchor="middle" font-size="13" font-weight="bold" fill="#FFFFFF">What if every word could see every other word at once?</text><line x1="80" y1="30" x2="200" y2="30" stroke="#4A9BD9" stroke-width="2"/><line x1="80" y1="30" x2="350" y2="30" stroke="#4A9BD9" stroke-width="1.2" opacity="0.5"/><line x1="80" y1="30" x2="500" y2="30" stroke="#4A9BD9" stroke-width="3" opacity="0.9"/><circle cx="80" cy="30" r="4" fill="#4A9BD9"/><circle cx="200" cy="30" r="3" fill="#4A9BD9" opacity="0.5"/><circle cx="350" cy="30" r="3" fill="#4A9BD9" opacity="0.4"/><circle cx="500" cy="30" r="5" fill="#4A9BD9"/><text x="80" y="55" text-anchor="middle" font-size="12" fill="#E2E8F0">it</text><text x="200" y="55" text-anchor="middle" font-size="12" fill="#E2E8F0">sat</text><text x="350" y="55" text-anchor="middle" font-size="12" fill="#E2E8F0">the</text><text x="500" y="55" text-anchor="middle" font-size="12" fill="#FFFFFF" font-weight="bold">mat</text><text x="290" y="25" text-anchor="middle" font-size="12" fill="#4A9BD9">strong attention</text></g><defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><polygon points="0,0 6,3 0,6" fill="#805AD5"/></marker></defs></svg>
+    <p class="diagram-caption">RNNs process one word at a time -- memory degrades. Self-attention connects every word directly.</p>
+  </div>
+
+    <div class="css-narration css-narration--accent"><p>RNNs read language like someone peering through a keyhole -- one word at a time, trying to remember everything on a tiny scrap of memory. The model could not go back. It could not look ahead. And the longer the text, the more old information <strong>degraded</strong>.</p></div>
+
+    <div class="css-hook">In June 2017, eight researchers at Google would propose a radical answer: throw away the entire sequential machinery. Let every word see every other word, all at once. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="2">
+    <div class="page-header">
+      <div class="issue-label">Issue 07 · Page 2</div>
+      <div class="page-title">The Problem Was Real -- and Getting Worse</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p2_01_google_hq.png" alt="p2_01_google_hq">
+</div>
+
+    <div class="css-narration"><p>In <strong>November 2016</strong>, Google deployed neural machine translation for Google Translate, replacing a decades-old phrase-based approach. Millions of people used it daily. Even small improvements mattered at that scale.</p></div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 286/576;">
+  <img src="images/p2_03_robot_attention.png" alt="PIXEL: Attention helped. But it was chained to the bottleneck.">
+  <span class="ocr-expected" data-speaker="PIXEL">Attention helped. But it was chained to the bottleneck.</span>
+</div>
+  <div class="css-narration" style="flex: 3;"><p>The fix was called <strong>attention</strong> -- published in 2014 by <strong>Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio</strong>. Instead of compressing the entire input into one vector, attention let the decoder "look back" at different parts of the input for each output word. It worked. But the underlying architecture was still an RNN.</p></div>
+    </div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-2 -20 682 320"><style>.title{font-size:14px; font-weight:bold; } .label{font-size:12px} .small{font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill="#2D3748" class="title" x="170" y="5" text-anchor="middle">BEFORE: Basic RNN</text><text fill="#E2E8F0" class="title" x="510" y="5" text-anchor="middle">AFTER: RNN + Attention</text><line x1="340" y1="-15" x2="340" y2="280" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="6,4"/><g transform="translate(40,30)"><rect x="0" y="0" width="260" height="40" rx="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#2D3748" class="label" x="130" y="25" text-anchor="middle" textLength="232" lengthAdjust="spacingAndGlyphs">Source: "Le chat est sur le tapis"</text><path d="M130,40 L130,70" stroke="#4A9BD9" stroke-width="2" marker-end="url(#arrowB)"/><rect x="80" y="72" width="100" height="32" rx="6" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/><text class="small" x="130" y="93" text-anchor="middle" fill="#1A202C" font-weight="bold">Single Vector</text><text fill="#E2E8F0" class="small" x="130" y="118" text-anchor="middle">Everything squeezed</text><text fill="#E2E8F0" class="small" x="130" y="130" text-anchor="middle">through a straw</text><path d="M130,104 L130,148" stroke="#E53E3E" stroke-width="2" marker-end="url(#arrowB)"/><rect x="0" y="150" width="260" height="40" rx="8" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text fill="#2D3748" class="label" x="130" y="175" text-anchor="middle">Decoder tries to reconstruct</text><text class="small" x="130" y="210" text-anchor="middle" fill="#E2E8F0">Lost details. Degraded memory.</text></g><g transform="translate(380,30)"><rect x="0" y="0" width="260" height="40" rx="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#2D3748" class="label" x="130" y="25" text-anchor="middle" textLength="232" lengthAdjust="spacingAndGlyphs">Source: "Le chat est sur le tapis"</text><line x1="45" y1="40" x2="45" y2="72" stroke="#4A9BD9" stroke-width="1.5"/><line x1="90" y1="40" x2="90" y2="72" stroke="#4A9BD9" stroke-width="1.5"/><line x1="130" y1="40" x2="130" y2="72" stroke="#4A9BD9" stroke-width="1.5"/><line x1="170" y1="40" x2="170" y2="72" stroke="#4A9BD9" stroke-width="1.5"/><line x1="215" y1="40" x2="215" y2="72" stroke="#4A9BD9" stroke-width="1.5"/><circle cx="45" cy="80" r="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.2"/><circle cx="90" cy="80" r="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.2"/><circle cx="130" cy="80" r="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.2"/><circle cx="170" cy="80" r="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.2"/><circle cx="215" cy="80" r="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.2"/><line x1="45" y1="88" x2="130" y2="148" stroke="#4A9BD9" stroke-width="1" opacity="0.3"/><line x1="90" y1="88" x2="130" y2="148" stroke="#4A9BD9" stroke-width="3" opacity="0.9"/><line x1="130" y1="88" x2="130" y2="148" stroke="#4A9BD9" stroke-width="1.5" opacity="0.5"/><line x1="170" y1="88" x2="130" y2="148" stroke="#4A9BD9" stroke-width="1" opacity="0.3"/><line x1="215" y1="88" x2="130" y2="148" stroke="#4A9BD9" stroke-width="2" opacity="0.7"/><rect x="0" y="150" width="260" height="40" rx="8" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text fill="#2D3748" class="label" x="130" y="175" text-anchor="middle" textLength="232" lengthAdjust="spacingAndGlyphs">Decoder focuses on relevant words</text><text class="small" x="130" y="210" text-anchor="middle" fill="#FFFFFF" font-weight="bold">Direct access. Much better!</text></g><text fill="#E2E8F0" class="small" x="340" y="255" text-anchor="middle">Bahdanau, Cho &amp; Bengio (2014) -- Attention as an add-on to RNNs</text><text x="340" y="275" text-anchor="middle" font-size="12" fill="#4A9BD9" font-weight="bold">"But the RNN backbone was still the bottleneck."</text><defs><marker id="arrowB" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 8,4 0,8" fill="#4A9BD9"/></marker></defs></svg>
+    <p class="diagram-caption">Attention (2014) let the decoder look back at source words -- but was still bolted onto a slow RNN.</p>
+  </div>
+
+    <div class="css-narration"><p>Several researchers at Google were growing frustrated. The attention mechanism was the <strong>best part</strong>. The RNN backbone was the <strong>bottleneck</strong>. What if you kept the attention and threw away everything else?</p></div>
+
+    <div class="panel-row">
+<div class="panel" style="flex: 3; aspect-ratio: 428/384;">
+  <img src="images/p2_07_vaswani.png" alt="p2_07_vaswani">
+</div>
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 428/384;">
+  <img src="images/p2_08_robot_radical.png" alt="SPROUT: What if attention was ALL you needed?">
+  <span class="ocr-expected" data-speaker="SPROUT">What if attention was ALL you needed?</span>
+</div>
+    </div>
+
+    <div class="css-narration css-narration--accent"><p>Think about how <em>you</em> read a complicated sentence. Do you read it one word at a time, left to right, never going back? Or do your eyes jump around -- rereading the beginning, skipping ahead, connecting words that are far apart? Which approach sounds more like how understanding actually works?</p></div>
+
+    <div class="css-hook">On June 12, 2017, the team uploaded their paper to arXiv. They gave it a title that was either brilliantly confident or recklessly bold. It was both. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="3">
+    <div class="page-header">
+      <div class="issue-label">Issue 07 · Page 3</div>
+      <div class="page-title">Attention Is All You Need</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/384;">
+  <img src="images/p3_01_arxiv_paper.png" alt="p3_01_arxiv_paper">
+</div>
+
+    <div class="css-narration"><p>Eight authors. Twelve pages. One audacious claim: you could throw away the <strong>entire</strong> recurrent framework and replace it with a single mechanism -- <strong>attention alone</strong>. They called the architecture the <strong>Transformer</strong>.</p></div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 286/576;">
+  <img src="images/p3_03_robot_micdrop.png" alt="CHALKBOT: They titled the paper like a mic drop.">
+  <span class="ocr-expected" data-speaker="CHALKBOT">They titled the paper like a mic drop.</span>
+</div>
+  <div class="svg-diagram" style="flex: 3;">
+    <svg viewBox="0 -20 411 220"><style>.title{font-size:14px; font-weight:bold; } .head{font-size:12px; font-weight:bold; } .cell{font-size:12px} .win{font-weight:bold} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill="#E2E8F0" class="title" x="200" y="5" text-anchor="middle">The Paper's Key Results</text><rect x="15" y="20" width="370" height="30" rx="4" fill="#4A9BD9" opacity="0.15"/><text fill="#E2E8F0" class="head" x="100" y="40" text-anchor="middle">Model</text><text fill="#E2E8F0" class="head" x="230" y="40" text-anchor="middle">BLEU (EN-DE)</text><text fill="#E2E8F0" class="head" x="340" y="40" text-anchor="middle">Training</text><line x1="15" y1="52" x2="385" y2="52" stroke="#E2E8F0" stroke-width="1"/><text fill="#E2E8F0" class="cell" x="100" y="74" text-anchor="middle">Previous Best (RNN)</text><text fill="#E2E8F0" class="cell" x="230" y="74" text-anchor="middle">~26</text><text fill="#E2E8F0" class="cell" x="340" y="74" text-anchor="middle">Days to weeks</text><line x1="15" y1="84" x2="385" y2="84" stroke="#E2E8F0" stroke-width="1"/><rect x="15" y="88" width="370" height="28" rx="4" fill="#C6F6D5" opacity="0.4"/><text fill="#E2E8F0" class="cell win" x="100" y="108" text-anchor="middle">Transformer (base)</text><text fill="#E2E8F0" class="cell win" x="230" y="108" text-anchor="middle">28.4</text><text fill="#E2E8F0" class="cell win" x="340" y="108" text-anchor="middle">12 hours (8 GPUs)</text><text x="200" y="145" text-anchor="middle" font-size="13" font-weight="bold" fill="#FFFFFF">Better results. A fraction of the time.</text><text x="200" y="172" text-anchor="middle" font-size="12" fill="#E2E8F0">As of 2024: over 130,000 citations</text></svg>
+    <p class="diagram-caption">The Transformer beat previous translation models in quality AND training speed.</p>
+  </div>
+    </div>
+
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p3_05_neurips.png" alt="p3_05_neurips">
+</div>
+
+    <div class="css-narration"><p>The speed improvement was even more dramatic. Because every word could attend to every other word <strong>simultaneously</strong>, the entire computation could be spread across GPU cores in parallel. No more waiting for word five to finish before starting word six.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 260"><style>.title{font-size:14px; font-weight:bold; } .name{font-size:12px; font-weight:bold} .dest{font-size:12px; } .tag{font-size:12px; font-weight:bold} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill="#E2E8F0" class="title" x="340" y="5" text-anchor="middle">The Diaspora: One Paper, Eight Authors, At Least Six Companies</text><rect x="240" y="22" width="200" height="30" rx="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="2"/><text fill="#2D3748" class="tag" x="340" y="43" text-anchor="middle">"Attention Is All You Need"</text><g><line x1="280" y1="52" x2="65" y2="90" stroke="#4A9BD9" stroke-width="1.2" opacity="0.6"/><rect x="10" y="90" width="110" height="42" rx="6" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.2"/><text fill="#2D3748" class="name" x="65" y="107" text-anchor="middle">Vaswani</text><text fill="#2D3748" class="dest" x="65" y="122" text-anchor="middle">Essential AI</text></g><g><line x1="300" y1="52" x2="195" y2="90" stroke="#4A9BD9" stroke-width="1.2" opacity="0.6"/><rect x="140" y="90" width="110" height="42" rx="6" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.2"/><text fill="#2D3748" class="name" x="195" y="107" text-anchor="middle">Shazeer</text><text fill="#2D3748" class="dest" x="195" y="122" text-anchor="middle">Character.AI</text></g><g><line x1="340" y1="52" x2="340" y2="90" stroke="#4A9BD9" stroke-width="1.2" opacity="0.6"/><rect x="285" y="90" width="110" height="42" rx="6" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.2"/><text fill="#2D3748" class="name" x="340" y="107" text-anchor="middle">Gomez</text><text fill="#2D3748" class="dest" x="340" y="122" text-anchor="middle">Cohere</text></g><g><line x1="380" y1="52" x2="485" y2="90" stroke="#4A9BD9" stroke-width="1.2" opacity="0.6"/><rect x="430" y="90" width="110" height="42" rx="6" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.2"/><text fill="#2D3748" class="name" x="485" y="107" text-anchor="middle">Polosukhin</text><text fill="#2D3748" class="dest" x="485" y="122" text-anchor="middle" textLength="86" lengthAdjust="spacingAndGlyphs">NEAR Protocol</text></g><g><line x1="420" y1="52" x2="615" y2="90" stroke="#4A9BD9" stroke-width="1.2" opacity="0.6"/><rect x="560" y="90" width="110" height="42" rx="6" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.2"/><text fill="#2D3748" class="name" x="615" y="107" text-anchor="middle">Parmar</text><text fill="#2D3748" class="dest" x="615" y="122" text-anchor="middle">Adept AI</text></g><g><line x1="280" y1="52" x2="65" y2="160" stroke="#4A9BD9" stroke-width="1.2" opacity="0.4"/><rect x="10" y="155" width="110" height="42" rx="6" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.2"/><text fill="#2D3748" class="name" x="65" y="172" text-anchor="middle">Jones</text><text fill="#2D3748" class="dest" x="65" y="187" text-anchor="middle">Sakana AI</text></g><g><rect x="140" y="155" width="110" height="42" rx="6" fill="#E2E8F0" stroke="#A0AEC0" stroke-width="1.2"/><text class="name" x="195" y="172" text-anchor="middle" fill="#2D3748">Kaiser</text><text fill="#2D3748" class="dest" x="195" y="187" text-anchor="middle">Research</text></g><g><rect x="285" y="155" width="110" height="42" rx="6" fill="#E2E8F0" stroke="#A0AEC0" stroke-width="1.2"/><text class="name" x="340" y="172" text-anchor="middle" fill="#2D3748">Uszkoreit</text><text fill="#2D3748" class="dest" x="340" y="187" text-anchor="middle">Research</text></g><text x="340" y="222" text-anchor="middle" font-size="12" fill="#E2E8F0" font-style="italic">"The paper's greatest product was not the Transformer -- it was the startup founders."</text></svg>
+    <p class="diagram-caption">Most of the eight authors eventually left Google to found AI companies.</p>
+  </div>
+
+    <div class="css-narration css-narration--accent"><p>The Transformer paper was written to solve machine translation. Its authors did not set out to create the foundation of ChatGPT, Claude, or the entire modern AI industry. But the architecture was so powerful and so general that it became exactly that. <strong>Great inventions often outgrow their inventors' intentions.</strong></p></div>
+
+    <div class="css-hook">The Transformer worked. But what was it, exactly? How does "attention" actually function? Time to open the hood. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="4">
+    <div class="page-header">
+      <div class="issue-label">Issue 07 · Page 4</div>
+      <div class="page-title">Self-Attention Explained</div>
+    </div>
+  <div class="panel panel--bubble" style="aspect-ratio: 768/384;">
+  <img src="images/p4_01_robot_teacher.png" alt="SCHOLAR: I'll use an analogy, then the real thing. Ready?">
+  <span class="ocr-expected" data-speaker="SCHOLAR">I'll use an analogy, then the real thing. Ready?</span>
+</div>
+
+    <div class="css-narration"><p>Imagine you are at a party. Fifty people, all talking. An RNN listens to <strong>one person at a time</strong>, in order. By person 30, person 1 is a blur. <strong>Self-attention</strong> works differently: you can hear everyone simultaneously and instantly decide who is most relevant to what you need to understand <em>right now</em>.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-50 -20 760 380"><style>.title{font-size:14px; font-weight:bold; } .word{font-size:13px; font-weight:bold} .small{font-size:12px; } .qkv{font-size:12px; font-weight:bold} .analogy{font-size:12px; font-style:italic} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill="#2D3748" class="title" x="340" y="5" text-anchor="middle">Self-Attention: Query, Key, Value</text><g transform="translate(40,30)"><rect x="0" y="0" width="180" height="60" rx="10" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/><text font-size="12" class="qkv" x="90" y="22" text-anchor="middle" fill="#2D3748">Query (Q)</text><text fill="#2D3748" class="analogy" x="90" y="40" text-anchor="middle">"What am I looking for?"</text><text fill="#2D3748" class="small" x="90" y="55" text-anchor="middle">Raising your hand to ask</text></g><g transform="translate(250,30)"><rect x="0" y="0" width="180" height="60" rx="10" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text font-size="12" class="qkv" x="90" y="22" text-anchor="middle" fill="#2D3748">Key (K)</text><text fill="#2D3748" class="analogy" x="90" y="40" text-anchor="middle">"What do I have to offer?"</text><text fill="#2D3748" class="small" x="90" y="55" text-anchor="middle">Wearing a name tag</text></g><g transform="translate(460,30)"><rect x="0" y="0" width="180" height="60" rx="10" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text font-size="12" class="qkv" x="90" y="22" text-anchor="middle" fill="#4A9BD9">Value (V)</text><text fill="#2D3748" class="analogy" x="90" y="40" text-anchor="middle">"Here is my information"</text><text fill="#2D3748" class="small" x="90" y="55" text-anchor="middle">The actual content itself</text></g><text fill="#FFFFFF" class="title" x="340" y="120" text-anchor="middle">Example: "The cat sat on the mat because it was soft."</text><g transform="translate(20,140)"><rect x="0" y="0" width="46" height="28" rx="5" fill="#E2E8F0" stroke="#A0AEC0" stroke-width="1"/><text class="word" x="23" y="19" text-anchor="middle" font-size="12" fill="#2D3748">The</text><rect x="54" y="0" width="46" height="28" rx="5" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#2D3748" class="word" x="77" y="19" text-anchor="middle" font-size="12">cat</text><rect x="108" y="0" width="46" height="28" rx="5" fill="#E2E8F0" stroke="#A0AEC0" stroke-width="1"/><text class="word" x="131" y="19" text-anchor="middle" font-size="12" fill="#2D3748">sat</text><rect x="162" y="0" width="38" height="28" rx="5" fill="#E2E8F0" stroke="#A0AEC0" stroke-width="1"/><text class="word" x="181" y="19" text-anchor="middle" font-size="12" fill="#2D3748">on</text><rect x="208" y="0" width="46" height="28" rx="5" fill="#E2E8F0" stroke="#A0AEC0" stroke-width="1"/><text class="word" x="231" y="19" text-anchor="middle" font-size="12" fill="#2D3748">the</text><rect x="262" y="0" width="50" height="28" rx="5" fill="#4A9BD9" stroke="#2D3748" stroke-width="1.5"/><text class="word" x="287" y="19" text-anchor="middle" font-size="12" fill="white">mat</text><rect x="320" y="0" width="70" height="28" rx="5" fill="#E2E8F0" stroke="#A0AEC0" stroke-width="1"/><text class="word" x="355" y="19" text-anchor="middle" font-size="12" fill="#2D3748" textLength="48" lengthAdjust="spacingAndGlyphs">because</text><rect x="398" y="0" width="36" height="28" rx="5" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text class="word" x="416" y="19" text-anchor="middle" font-size="12" fill="#D69E2E">it</text><rect x="442" y="0" width="46" height="28" rx="5" fill="#E2E8F0" stroke="#A0AEC0" stroke-width="1"/><text class="word" x="465" y="19" text-anchor="middle" font-size="12" fill="#2D3748">was</text><rect x="496" y="0" width="50" height="28" rx="5" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.2"/><text fill="#2D3748" class="word" x="521" y="19" text-anchor="middle" font-size="12">soft</text></g><g transform="translate(20,140)"><text x="416" y="50" text-anchor="middle" font-size="12" fill="#D69E2E" font-weight="bold">Query from "it":</text><text x="416" y="62" text-anchor="middle" font-size="12" fill="#E2E8F0">"What noun am I?"</text><line x1="416" y1="28" x2="77" y2="80" stroke="#4A9BD9" stroke-width="1.5" opacity="0.4"/><line x1="416" y1="28" x2="287" y2="80" stroke="#4A9BD9" stroke-width="3.5" opacity="0.9"/><line x1="416" y1="28" x2="521" y2="80" stroke="#805AD5" stroke-width="1" opacity="0.3"/><text x="77" y="95" text-anchor="middle" font-size="12" fill="#4A9BD9">medium</text><text x="287" y="95" text-anchor="middle" font-size="12" fill="#4A9BD9" font-weight="bold">HIGH</text><text x="521" y="95" text-anchor="middle" font-size="12" fill="#E2E8F0">low</text></g><text x="340" y="270" text-anchor="middle" font-size="12" fill="#FFFFFF" font-weight="bold">Result: "it" now carries information mostly from "mat"</text><rect x="60" y="283" width="560" height="36" rx="8" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.2"/><text x="340" y="305" text-anchor="middle" font-size="12" fill="#2D3748" font-family="'JetBrains Mono',monospace">Attention(Q, K, V) = softmax(Q * K^T / sqrt(d)) * V</text></svg>
+    <p class="diagram-caption">Each word computes Query, Key, Value. Queries match against Keys to determine attention weights.</p>
+  </div>
+
+    <div class="css-narration"><p>Now here is the clever part: <strong>multi-head attention</strong>. Instead of doing this once, the Transformer runs <strong>multiple attention operations in parallel</strong> (the original paper used 8 "heads"). Each head learns to focus on different kinds of relationships.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -23 680 283"><style>.title{font-size:13px; font-weight:bold; } .word{font-size:12px} .small{font-size:12px; } .head{font-size:12px; font-weight:bold} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill="#E2E8F0" class="title" x="340" y="5" text-anchor="middle">Multi-Head Attention: Different Heads, Different Relationships</text><g transform="translate(20,30)"><text class="head" x="100" y="0" text-anchor="middle" fill="#E2E8F0">Head 1: Coreference</text><rect x="0" y="10" width="200" height="55" rx="6" fill="#FED7D7" opacity="0.3" stroke="#E53E3E" stroke-width="1"/><text font-size="12" class="word" x="20" y="32" fill="#2D3748">The cat sat on the</text><text class="word" x="20" y="50" fill="#2D3748">mat because <tspan fill="#D69E2E" font-weight="bold">it</tspan> was soft</text><line x1="115" y1="45" x2="160" y2="30" stroke="#E53E3E" stroke-width="2.5" opacity="0.8"/><text class="small" x="150" y="22" fill="#2D3748">mat</text></g><g transform="translate(240,30)"><text class="head" x="100" y="0" text-anchor="middle" fill="#E2E8F0">Head 2: Adjective-Noun</text><rect x="0" y="10" width="200" height="55" rx="6" fill="#C6F6D5" opacity="0.3" stroke="#38A169" stroke-width="1"/><text font-size="12" class="word" x="20" y="32" fill="#2D3748">The cat sat on the</text><text class="word" x="20" y="50" fill="#2D3748">mat because it was <tspan fill="#805AD5" font-weight="bold">soft</tspan></text><line x1="160" y1="45" x2="140" y2="30" stroke="#38A169" stroke-width="2.5" opacity="0.8"/><text class="small" x="128" y="22" fill="#2D3748">mat</text></g><g transform="translate(460,30)"><text class="head" x="100" y="0" text-anchor="middle" fill="#E2E8F0">Head 3: Subject-Verb</text><rect x="0" y="10" width="200" height="55" rx="6" fill="#E9D8FD" opacity="0.3" stroke="#805AD5" stroke-width="1"/><text font-size="12" class="word" x="20" y="32" fill="#2D3748">The <tspan fill="#4A9BD9" font-weight="bold">cat</tspan> <tspan fill="#805AD5" font-weight="bold">sat</tspan> on the</text><text class="word" x="20" y="50" fill="#2D3748">mat because it was soft</text><line x1="68" y1="27" x2="96" y2="27" stroke="#805AD5" stroke-width="2.5" opacity="0.8"/></g><rect x="40" y="110" width="600" height="40" rx="8" fill="#BEE3F8" opacity="0.2" stroke="#4A9BD9" stroke-width="1.5"/><text x="340" y="135" text-anchor="middle" font-size="12" fill="#FFFFFF" font-weight="bold" textLength="572" lengthAdjust="spacingAndGlyphs">Different heads learn different relationships. Together, they capture the full picture.</text><g transform="translate(40,170)"><text fill="#E2E8F0" class="title" x="300" y="0" text-anchor="middle">The Formula (Simplified)</text><rect x="80" y="10" width="440" height="32" rx="6" fill="#1A202C"/><text x="300" y="32" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" fill="#48BB78">Attention(Q,K,V) = softmax(Q*K^T / sqrt(d)) * V</text><text fill="#E2E8F0" class="small" x="300" y="60" text-anchor="middle">Match Queries to Keys, scale, turn into percentages, then weight the Values.</text></g></svg>
+    <p class="diagram-caption">Each attention head captures a different type of relationship between words.</p>
+  </div>
+
+  <div class="lab-link">
+  <div class="lab-link-icon">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+    </svg>
+  </div>
+  <div class="lab-link-content">
+    <strong class="lab-link-title">Try It Yourself</strong>
+    <p class="lab-link-desc">Type your own sentence and see which words pay attention to which -- try pronoun resolution, word sense disambiguation, or write your own examples.</p>
+    <a href="../../interactive/attention_visualizer.html" class="lab-link-btn">Open Attention Visualizer &rarr;</a>
+  </div>
+</div>
+
+    <div class="css-narration css-narration--accent"><p>Self-attention lets every word in a sentence look at every other word <strong>simultaneously</strong>. Instead of reading left to right and hoping to remember, the model builds a complete web of relationships in a single step. This is why Transformers are so powerful -- and why they can be trained in parallel on modern GPUs.</p></div>
+
+    <div class="css-hook">But wait. If every word looks at every other word simultaneously, how does the model know what ORDER the words are in? "The cat ate the fish" and "The fish ate the cat" have the same words. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="5">
+    <div class="page-header">
+      <div class="issue-label">Issue 07 · Page 5</div>
+      <div class="page-title">Tokenization -- How Words Become Numbers</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p5_01_text_machine.png" alt="p5_01_text_machine">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 286/512;">
+  <img src="images/p5_02_robot_tokenize.png" alt="TINBOT: We cut words into smart pieces.">
+  <span class="ocr-expected" data-speaker="TINBOT">We cut words into smart pieces.</span>
+</div>
+  <div class="css-narration" style="flex: 3;"><p>How many words are in English? Between 170,000 and over a million. Add every language, typos, slang, URLs, emoji -- the number is <strong>effectively infinite</strong>. We can't give every word its own number. But individual letters carry almost no meaning. The solution: <strong>tokenization</strong> -- splitting text into <strong>subword pieces</strong>.</p></div>
+    </div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-10 -20 690 300"><style>.title{font-size:14px; font-weight:bold; } .step{font-size:12px; font-weight:bold; } .tok{font-size:13px; font-weight:bold; font-family:'JetBrains Mono',monospace} .merge{font-size:12px; font-weight:bold} .small{font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill="#E2E8F0" class="title" x="340" y="5" text-anchor="middle">Byte-Pair Encoding (BPE) in Action</text><g transform="translate(60,25)"><text fill="#E2E8F0" class="step" x="0" y="15">Start:</text><rect x="80" y="0" width="28" height="26" rx="4" fill="#FED7D7" stroke="#E53E3E" stroke-width="1"/><text class="tok" x="94" y="18" text-anchor="middle" fill="#2D3748">l</text><rect x="114" y="0" width="28" height="26" rx="4" fill="#FED7D7" stroke="#E53E3E" stroke-width="1"/><text class="tok" x="128" y="18" text-anchor="middle" fill="#2D3748">o</text><rect x="148" y="0" width="28" height="26" rx="4" fill="#FED7D7" stroke="#E53E3E" stroke-width="1"/><text class="tok" x="162" y="18" text-anchor="middle" fill="#2D3748">w</text><rect x="182" y="0" width="28" height="26" rx="4" fill="#FED7D7" stroke="#E53E3E" stroke-width="1"/><text class="tok" x="196" y="18" text-anchor="middle" fill="#2D3748">e</text><rect x="216" y="0" width="28" height="26" rx="4" fill="#FED7D7" stroke="#E53E3E" stroke-width="1"/><text class="tok" x="230" y="18" text-anchor="middle" fill="#2D3748">r</text><text fill="#E2E8F0" class="small" x="300" y="18">(5 tokens)</text></g><g transform="translate(60,65)"><text fill="#E2E8F0" class="step" x="0" y="15">Step 1:</text><rect x="80" y="0" width="28" height="26" rx="4" fill="#FED7D7" stroke="#E53E3E" stroke-width="1"/><text fill="#2D3748" class="tok" x="94" y="18" text-anchor="middle">l</text><rect x="114" y="0" width="28" height="26" rx="4" fill="#FED7D7" stroke="#E53E3E" stroke-width="1"/><text fill="#2D3748" class="tok" x="128" y="18" text-anchor="middle">o</text><rect x="148" y="0" width="28" height="26" rx="4" fill="#FED7D7" stroke="#E53E3E" stroke-width="1"/><text fill="#2D3748" class="tok" x="162" y="18" text-anchor="middle">w</text><rect x="182" y="0" width="44" height="26" rx="4" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text font-size="12" class="tok" x="204" y="18" text-anchor="middle" fill="#2D3748">er</text><text fill="#E2E8F0" class="merge" x="300" y="18">e+r merged!</text></g><g transform="translate(60,105)"><text fill="#E2E8F0" class="step" x="0" y="15">Step 2:</text><rect x="80" y="0" width="38" height="26" rx="4" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text font-size="12" class="tok" x="99" y="18" text-anchor="middle" fill="#2D3748">lo</text><rect x="124" y="0" width="28" height="26" rx="4" fill="#FED7D7" stroke="#E53E3E" stroke-width="1"/><text fill="#2D3748" class="tok" x="138" y="18" text-anchor="middle">w</text><rect x="158" y="0" width="44" height="26" rx="4" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text class="tok" x="180" y="18" text-anchor="middle" fill="#2D3748">er</text><text fill="#E2E8F0" class="merge" x="300" y="18">l+o merged!</text></g><g transform="translate(60,145)"><text fill="#E2E8F0" class="step" x="0" y="15">Step 3:</text><rect x="80" y="0" width="54" height="26" rx="4" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text font-size="12" class="tok" x="107" y="18" text-anchor="middle" fill="#4A9BD9">low</text><rect x="140" y="0" width="44" height="26" rx="4" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text font-size="12" class="tok" x="162" y="18" text-anchor="middle" fill="#2D3748">er</text><text fill="#E2E8F0" class="merge" x="300" y="18">lo+w merged!</text></g><g transform="translate(60,185)"><text fill="#E2E8F0" class="step" x="0" y="15">Final:</text><rect x="80" y="0" width="80" height="30" rx="6" fill="#4A9BD9" stroke="#2D3748" stroke-width="2"/><text class="tok" x="120" y="20" text-anchor="middle" fill="#2D3748" font-size="12">lower</text><text x="300" y="20" font-size="12" fill="#FFFFFF" font-weight="bold">1 token!</text></g><line x1="55" y1="30" x2="55" y2="210" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="4,3"/><g transform="translate(60,230)"><text fill="#E2E8F0" class="title" x="280" y="5" text-anchor="middle">How Different Words Get Tokenized</text><text fill="#E2E8F0" class="tok" x="30" y="28" font-size="12">"the"</text><text x="100" y="28" font-size="12" fill="#E2E8F0">[the] = 1 token</text><text fill="#E2E8F0" class="tok" x="240" y="28" font-size="12">"unhappiness"</text><text x="370" y="28" font-size="12" fill="#DD6B20">[un][happi][ness] = 3 tokens</text></g></svg>
+    <p class="diagram-caption">BPE merges frequent character pairs until common words become single tokens.</p>
+  </div>
+
+    <div class="css-narration"><p>The result is elegant. Common words like "the" are single tokens. Rare words get split: <strong>"unhappiness"</strong> becomes [un][happi][ness]. The model handles <em>any</em> word, even one it has never seen before, by breaking it into familiar fragments.</p></div>
+
+    <div class="panel-row">
+<div class="panel" style="flex: 3; aspect-ratio: 428/384;">
+  <img src="images/p5_06_position_encoding.png" alt="p5_06_position_encoding">
+</div>
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 428/384;">
+  <img src="images/p5_07_robot_position.png" alt="STARLIGHT: Positional encoding stamps each token with its address.">
+  <span class="ocr-expected" data-speaker="STARLIGHT">Positional encoding stamps each token with its address.</span>
+</div>
+    </div>
+
+    <div class="css-narration"><p>Since the Transformer processes all tokens in <strong>parallel</strong>, it has no idea what order they are in. "Dog bites man" and "Man bites dog" would look identical. The solution: <strong>positional encoding</strong> -- stamping each token with a unique mathematical pattern. Think of it like putting an address on each puzzle piece: <em>"I am token number 7 in this sequence."</em></p></div>
+
+    <div class="css-narration css-narration--accent"><p>Try tokenizing a word yourself! The word <strong>"unbreakable"</strong> would probably become [un][break][able]. Now try "antidisestablishmentarianism" -- how many pieces do you think that becomes? The model handles <em>any</em> word, even one it has never seen, by breaking it into familiar fragments.</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p5_09b_robot_position.png" alt="POSBOT: Where a word sits changes its meaning entirely.">
+  <span class="ocr-expected" data-speaker="POSBOT">Where a word sits changes its meaning entirely.</span>
+</div>
+
+    <div class="css-hook">Now we have all the ingredients: self-attention to find relationships, tokenization to turn text into numbers, and positional encoding to preserve word order. Time to put it all together. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="6">
+    <div class="page-header">
+      <div class="issue-label">Issue 07 · Page 6</div>
+      <div class="page-title">The Transformer Architecture</div>
+    </div>
+  <div class="panel panel--bubble" style="aspect-ratio: 768/384;">
+  <img src="images/p6_01_robot_guide.png" alt="CLOCKWORK: Let me walk you through it, floor by floor.">
+  <span class="ocr-expected" data-speaker="CLOCKWORK">Let me walk you through it, floor by floor.</span>
+</div>
+
+    <div class="css-narration"><p>The original Transformer has two halves: an <strong>encoder</strong> (which reads the input) and a <strong>decoder</strong> (which generates the output). For translation, the encoder reads the French sentence, and the decoder writes the English version.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-20 -30 740 560"><style>.title{font-size:18px; font-weight:bold; } .tower{font-size:16px; font-weight:bold} .layer{font-size:14px} .small{font-size:13px; } .io{font-size:14px; font-weight:bold} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill="#E2E8F0" class="title" x="340" y="0" text-anchor="middle">The Transformer Blueprint</text><rect x="40" y="15" width="260" height="430" rx="12" fill="#BEE3F8" opacity="0.15" stroke="#4A9BD9" stroke-width="2" stroke-dasharray="6,3"/><text class="tower" x="170" y="38" text-anchor="middle" fill="#E2E8F0">ENCODER (left tower)</text><rect x="380" y="15" width="260" height="430" rx="12" fill="#C6F6D5" opacity="0.15" stroke="#38A169" stroke-width="2" stroke-dasharray="6,3"/><text class="tower" x="510" y="38" text-anchor="middle" fill="#E2E8F0">DECODER (right tower)</text><rect x="65" y="52" width="210" height="34" rx="6" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.2"/><text class="io" x="170" y="73" text-anchor="middle" fill="#D69E2E">Input: "Le chat est sur le tapis"</text><path d="M170,86 L170,105" stroke="#D69E2E" stroke-width="1.5" marker-end="url(#a6)"/><rect x="70" y="105" width="200" height="28" rx="5" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.2"/><text class="layer" x="170" y="124" text-anchor="middle" fill="#2D3748">Token Embedding + Position</text><path d="M170,133 L170,152" stroke="#805AD5" stroke-width="1.5" marker-end="url(#a6)"/><rect x="60" y="152" width="220" height="110" rx="8" fill="white" stroke="#4A9BD9" stroke-width="1.5"/><text class="layer" x="170" y="172" text-anchor="middle" fill="#4A9BD9" font-weight="bold">Self-Attention</text><text fill="#2D3748" class="small" x="170" y="188" text-anchor="middle">Every word attends to every word</text><line x1="70" y1="196" x2="270" y2="196" stroke="#E2E8F0" stroke-width="1"/><text class="layer" x="170" y="214" text-anchor="middle" fill="#4A9BD9">Add &amp; Normalize</text><line x1="70" y1="222" x2="270" y2="222" stroke="#E2E8F0" stroke-width="1"/><text class="layer" x="170" y="240" text-anchor="middle" fill="#4A9BD9">Feed-Forward Network</text><text fill="#2D3748" class="small" x="170" y="256" text-anchor="middle">Each token "thinks" independently</text><text x="285" y="215" font-size="16" fill="#FFFFFF" font-weight="bold">x6</text><text class="small" x="285" y="230" fill="#E2E8F0">layers</text><path d="M170,262 L170,280" stroke="#4A9BD9" stroke-width="1.5" marker-end="url(#a6)"/><rect x="90" y="280" width="160" height="28" rx="5" fill="#4A9BD9" opacity="0.2" stroke="#4A9BD9" stroke-width="1.5"/><text class="layer" x="170" y="299" text-anchor="middle" fill="#FFFFFF" font-weight="bold">Encoder Output</text><rect x="405" y="52" width="210" height="34" rx="6" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.2"/><text class="io" x="510" y="73" text-anchor="middle" fill="#D69E2E">Output so far: "The cat is on"</text><path d="M510,86 L510,105" stroke="#D69E2E" stroke-width="1.5" marker-end="url(#a6g)"/><rect x="410" y="105" width="200" height="28" rx="5" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.2"/><text class="layer" x="510" y="124" text-anchor="middle" fill="#2D3748">Token Embedding + Position</text><path d="M510,133 L510,152" stroke="#805AD5" stroke-width="1.5" marker-end="url(#a6g)"/><rect x="400" y="152" width="220" height="190" rx="8" fill="white" stroke="#38A169" stroke-width="1.5"/><text class="layer" x="510" y="172" text-anchor="middle" fill="#1A202C" font-weight="bold">Masked Self-Attention</text><text fill="#2D3748" class="small" x="510" y="188" text-anchor="middle" textLength="192" lengthAdjust="spacingAndGlyphs">Can only see earlier tokens</text><line x1="410" y1="196" x2="610" y2="196" stroke="#E2E8F0" stroke-width="1"/><text class="layer" x="510" y="214" text-anchor="middle" fill="#1A202C" font-weight="bold">Cross-Attention</text><text fill="#2D3748" class="small" x="510" y="230" text-anchor="middle" textLength="192" lengthAdjust="spacingAndGlyphs">Reads from encoder output</text><line x1="410" y1="240" x2="610" y2="240" stroke="#E2E8F0" stroke-width="1"/><text class="layer" x="510" y="258" text-anchor="middle" fill="#2D3748">Add &amp; Normalize</text><line x1="410" y1="266" x2="610" y2="266" stroke="#E2E8F0" stroke-width="1"/><text class="layer" x="510" y="284" text-anchor="middle" fill="#2D3748">Feed-Forward Network</text><text fill="#2D3748" class="small" x="510" y="300" text-anchor="middle">Each token "thinks" independently</text><line x1="410" y1="308" x2="610" y2="308" stroke="#E2E8F0" stroke-width="1"/><text class="layer" x="510" y="326" text-anchor="middle" fill="#2D3748">Add &amp; Normalize</text><text x="625" y="260" font-size="16" fill="#FFFFFF" font-weight="bold">x6</text><text class="small" x="625" y="275" fill="#E2E8F0">layers</text><path d="M510,342 L510,360" stroke="#38A169" stroke-width="1.5" marker-end="url(#a6g)"/><rect x="420" y="360" width="180" height="28" rx="5" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text class="layer" x="510" y="379" text-anchor="middle" fill="#1A202C" font-weight="bold">Linear + Softmax</text><path d="M510,388 L510,405" stroke="#38A169" stroke-width="1.5" marker-end="url(#a6g)"/><rect x="430" y="405" width="160" height="28" rx="6" fill="#38A169" stroke="#2D3748" stroke-width="1.5"/><text class="io" x="510" y="424" text-anchor="middle" fill="white">Next word: "the"</text><path d="M270,294 L400,222" stroke="#E53E3E" stroke-width="2.5" stroke-dasharray="5,3" marker-end="url(#a6r)"/><text x="330" y="244" font-size="12" fill="#FFFFFF" font-weight="bold" transform="rotate(-15,330,244)">Cross-Attention</text><text x="340" y="475" text-anchor="middle" font-size="12" fill="#4A9BD9" font-weight="bold">Every component can be computed in parallel. No sequential waiting.</text><rect x="100" y="485" width="480" height="22" rx="4" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/><text x="340" y="500" text-anchor="middle" font-size="12" fill="#2D3748">This is why Transformers train so much faster than RNNs.</text><defs><marker id="a6" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0,0 7,3.5 0,7" fill="#4A9BD9"/></marker><marker id="a6g" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0,0 7,3.5 0,7" fill="#38A169"/></marker><marker id="a6r" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0,0 7,3.5 0,7" fill="#E53E3E"/></marker></defs></svg>
+    <p class="diagram-caption">The Transformer: Encoder reads input, Decoder generates output, Cross-Attention bridges them.</p>
+  </div>
+
+    <div class="css-narration"><p>The architecture stacks a small set of ideas -- attention, feed-forward networks, residual connections, normalization -- into a repeating pattern. Later models used it differently: <strong>BERT</strong> (2018) used only the encoder. <strong>GPT</strong> (2018) used only the decoder. But all are descendants of this paper.</p></div>
+
+    <div class="panel-row">
+<div class="panel" style="flex: 1; aspect-ratio: 357/384;">
+  <img src="images/p6_05_parallel_scene.png" alt="p6_05_parallel_scene">
+</div>
+  <div class="css-narration css-narration--accent" style="flex: 1;"><p>The breakthrough is not that any single component is revolutionary. It's that these ingredients, combined in this specific way, produce something far greater than the sum of their parts. And everything can run <strong>in parallel</strong> on GPUs.</p></div>
+    </div>
+
+    <div class="css-hook">The Transformer was designed for translation. But a small team at OpenAI had a different idea: what if you threw away the encoder, kept only the decoder, and just kept making it bigger? &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="7">
+    <div class="page-header">
+      <div class="issue-label">Issue 07 · Page 7</div>
+      <div class="page-title">Scaling -- GPT-1, GPT-2, GPT-3</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/384;">
+  <img src="images/p7_01_scaling_buildings.png" alt="p7_01_scaling_buildings">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 286/512;">
+  <img src="images/p7_02_robot_wild.png" alt="SPROUT: The answer shook the world.">
+  <span class="ocr-expected" data-speaker="SPROUT">The answer shook the world.</span>
+</div>
+  <div class="css-narration" style="flex: 3;"><p>In <strong>June 2018</strong>, OpenAI researcher <strong>Alec Radford</strong> published GPT-1: the Transformer's decoder trained to predict the next word. <strong>117 million parameters</strong>, 12 layers, trained on ~7,000 books. It worked well. Not spectacularly. But enough to ask: <em>what if the only limit was scale?</em></p></div>
+    </div>
+
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p7_04_gpt2_controversy.png" alt="p7_04_gpt2_controversy">
+</div>
+
+    <div class="css-narration"><p>In <strong>February 2019</strong>, GPT-2 arrived: <strong>1.5 billion parameters</strong>, 48 layers. Ten times larger. Then OpenAI announced it was <strong>withholding the full model</strong> due to misuse concerns. Critics called it publicity-seeking. Supporters called it responsible foresight. Either way, the public was paying attention to language AI for the first time.</p></div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 1; aspect-ratio: 357/384;">
+  <img src="images/p7_06_gpt3_fewshot.png" alt="PIXEL: GPT-3 did tasks it was never trained for!">
+  <span class="ocr-expected" data-speaker="PIXEL">GPT-3 did tasks it was never trained for!</span>
+</div>
+  <div class="svg-diagram" style="flex: 2;">
+    <svg viewBox="-13 -20 366 240"><style>.title{font-size:13px; font-weight:bold; } .code{font-family:'JetBrains Mono',monospace; font-size:12px; } .label{font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill="#E2E8F0" class="title" x="170" y="5" text-anchor="middle">Few-Shot Learning</text><rect x="15" y="15" width="310" height="130" rx="8" fill="#1A202C"/><text class="label" x="25" y="35" fill="#E2E8F0">Prompt given to GPT-3:</text><text fill="#E2E8F0" class="code" x="25" y="55">Translate English to French:</text><text fill="#E2E8F0" class="code" x="25" y="73">sea otter => loutre de mer</text><text fill="#E2E8F0" class="code" x="25" y="91">cheese => fromage</text><text fill="#E2E8F0" class="code" x="25" y="109">hello =></text><text x="25" y="135" font-family="'JetBrains Mono',monospace" font-size="12" fill="#48BB78" font-weight="bold">GPT-3: bonjour</text><rect x="15" y="155" width="310" height="40" rx="6" fill="#C6F6D5" opacity="0.2" stroke="#38A169" stroke-width="1.2"/><text x="170" y="175" text-anchor="middle" font-size="12" fill="#FFFFFF" font-weight="bold">Never trained as a translator.</text><text x="170" y="189" text-anchor="middle" font-size="12" fill="#E2E8F0">Learned the pattern from examples in the prompt.</text></svg>
+    <p class="diagram-caption">GPT-3 could learn new tasks from just a few examples in the prompt.</p>
+  </div>
+    </div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 180"><style>.title{font-size:13px; font-weight:bold; } .head{font-size:12px; font-weight:bold; } .cell{font-size:12px} .cap{font-size:12px; font-weight:bold} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill="#E2E8F0" class="title" x="340" y="5" text-anchor="middle">The Scaling Ladder</text><rect x="40" y="18" width="600" height="24" rx="4" fill="#4A9BD9" opacity="0.12"/><text fill="#E2E8F0" class="head" x="120" y="34" text-anchor="middle">Model</text><text fill="#E2E8F0" class="head" x="230" y="34" text-anchor="middle">Date</text><text fill="#E2E8F0" class="head" x="320" y="34" text-anchor="middle">Parameters</text><text fill="#E2E8F0" class="head" x="430" y="34" text-anchor="middle">Training Data</text><text fill="#E2E8F0" class="head" x="560" y="34" text-anchor="middle">Key Capability</text><line x1="40" y1="44" x2="640" y2="44" stroke="#E2E8F0" stroke-width="1"/><text fill="#E2E8F0" class="cell" x="120" y="64" text-anchor="middle">GPT-1</text><text fill="#E2E8F0" class="cell" x="230" y="64" text-anchor="middle">Jun 2018</text><text fill="#E2E8F0" class="cell" x="320" y="64" text-anchor="middle">117M</text><text fill="#E2E8F0" class="cell" x="430" y="64" text-anchor="middle">~800M words</text><text fill="#E2E8F0" class="cell" x="560" y="64" text-anchor="middle" font-size="12">Basic understanding</text><line x1="40" y1="74" x2="640" y2="74" stroke="#E2E8F0" stroke-width="0.8"/><text fill="#E2E8F0" class="cell" x="120" y="94" text-anchor="middle">GPT-2</text><text fill="#E2E8F0" class="cell" x="230" y="94" text-anchor="middle">Feb 2019</text><text fill="#E2E8F0" class="cell" x="320" y="94" text-anchor="middle">1.5B</text><text fill="#E2E8F0" class="cell" x="430" y="94" text-anchor="middle">40GB web text</text><text fill="#E2E8F0" class="cell" x="560" y="94" text-anchor="middle" font-size="12">Coherent paragraphs</text><line x1="40" y1="104" x2="640" y2="104" stroke="#E2E8F0" stroke-width="0.8"/><rect x="40" y="108" width="600" height="24" rx="4" fill="#C6F6D5" opacity="0.3"/><text class="cell" x="120" y="124" text-anchor="middle" font-weight="bold" fill="#FFFFFF">GPT-3</text><text fill="#E2E8F0" class="cell" x="230" y="124" text-anchor="middle">Jun 2020</text><text fill="#FFFFFF" class="cell" x="320" y="124" text-anchor="middle" font-weight="bold">175B</text><text fill="#E2E8F0" class="cell" x="430" y="124" text-anchor="middle">570GB</text><text fill="#E2E8F0" class="cap" x="560" y="124" text-anchor="middle" font-size="12">Few-shot learning</text></svg>
+    <p class="diagram-caption">Each generation was roughly 10x larger -- and each unlocked qualitatively new abilities.</p>
+  </div>
+
+    <div class="css-narration css-narration--accent"><p>Scaling revealed a strange law: make a model 10x bigger, and it does not just get 10% better. It sometimes learns <strong>entirely new skills</strong> the smaller version could not do at all. Nobody programmed these abilities in. They <em>emerged</em> from sheer scale.</p></div>
+
+    <div class="css-narration"><p>GPT-3 was trained <em>only</em> to predict the next word. Yet it learned grammar, facts, translation, coding, and reasoning. Is "predict the next word" really a simple task? Or is it secretly the hardest task there is -- because to predict perfectly, you would need to understand <strong>everything</strong>?</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p7_10b_robot_scale.png" alt="SCALEBOT: More data plus more compute equals emergent abilities.">
+  <span class="ocr-expected" data-speaker="SCALEBOT">More data plus more compute equals emergent abilities.</span>
+</div>
+
+    <div class="css-hook">Scaling was working. But raw next-word prediction had a problem: the model would generate toxic content, fabricate facts, and follow harmful instructions. Someone needed to teach it values. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="8">
+    <div class="page-header">
+      <div class="issue-label">Issue 07 · Page 8</div>
+      <div class="page-title">RLHF -- Teaching AI Values</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/384;">
+  <img src="images/p8_01_split_image.png" alt="p8_01_split_image">
+</div>
+
+    <div class="css-narration"><p>A raw language model is a mirror of its training data. The internet contains medical advice <em>and</em> misinformation, poetry <em>and</em> hate speech. A model trained to predict "what comes next" will produce all of it. Making models bigger made them more capable <strong>AND</strong> more dangerous.</p></div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 286/576;">
+  <img src="images/p8_03_robot_rlhf.png" alt="CHALKBOT: RLHF is like a tutor showing a better way.">
+  <span class="ocr-expected" data-speaker="CHALKBOT">RLHF is like a tutor showing a better way.</span>
+</div>
+  <div class="svg-diagram" style="flex: 3;">
+    <svg viewBox="0 -20 449 340"><style>.title{font-size:13px; font-weight:bold; } .step{font-size:12px; font-weight:bold} .desc{font-size:12px; } .small{font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill="#E2E8F0" class="title" x="210" y="5" text-anchor="middle">The RLHF Pipeline (3 Steps)</text><rect x="20" y="20" width="380" height="75" rx="8" fill="#FED7D7" opacity="0.3" stroke="#E53E3E" stroke-width="1.5"/><circle cx="40" cy="42" r="14" fill="#E53E3E" opacity="0.2" stroke="#E53E3E" stroke-width="1.5"/><text x="40" y="47" text-anchor="middle" font-size="14" fill="#FFFFFF" font-weight="bold">1</text><text class="step" x="65" y="42" fill="#E2E8F0">Supervised Fine-Tuning</text><text fill="#E2E8F0" class="desc" x="65" y="58">Human writes ideal response</text><text fill="#E2E8F0" class="desc" x="65" y="72">Model learns helpful style</text><text fill="#E2E8F0" class="small" x="65" y="86">"When someone asks X, a good response looks like Y."</text><path d="M210,95 L210,115" stroke="#4A9BD9" stroke-width="1.5" marker-end="url(#a8)"/><rect x="20" y="115" width="380" height="85" rx="8" fill="#C6F6D5" opacity="0.3" stroke="#38A169" stroke-width="1.5"/><circle cx="40" cy="140" r="14" fill="#38A169" opacity="0.2" stroke="#38A169" stroke-width="1.5"/><text x="40" y="145" text-anchor="middle" font-size="14" fill="#FFFFFF" font-weight="bold">2</text><text class="step" x="65" y="140" fill="#E2E8F0">Reward Model Training</text><text fill="#E2E8F0" class="desc" x="65" y="156">Model writes 4 responses</text><text fill="#E2E8F0" class="desc" x="65" y="170">Humans rank: A > B > C > D</text><text fill="#E2E8F0" class="desc" x="65" y="184">Train a 'judge' model on preferences</text><path d="M210,200 L210,220" stroke="#4A9BD9" stroke-width="1.5" marker-end="url(#a8)"/><rect x="20" y="220" width="380" height="75" rx="8" fill="#BEE3F8" opacity="0.3" stroke="#4A9BD9" stroke-width="1.5"/><circle cx="40" cy="245" r="14" fill="#4A9BD9" opacity="0.2" stroke="#4A9BD9" stroke-width="1.5"/><text x="40" y="250" text-anchor="middle" font-size="14" fill="#FFFFFF" font-weight="bold">3</text><text class="step" x="65" y="245" fill="#E2E8F0">Reinforcement Learning</text><text fill="#E2E8F0" class="desc" x="65" y="261">Model generates -> reward model scores</text><text fill="#E2E8F0" class="desc" x="65" y="275">Adjust to produce higher-scoring responses</text><text fill="#E2E8F0" class="desc" x="65" y="289">Repeat thousands of times</text><defs><marker id="a8" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><polygon points="0,0 7,3.5 0,7" fill="#4A9BD9"/></marker></defs></svg>
+    <p class="diagram-caption">RLHF: Show examples, train a judge on human preferences, then optimize the model.</p>
+  </div>
+    </div>
+
+    <div class="css-narration"><p>In <strong>January 2022</strong>, OpenAI published InstructGPT: a 1.3-billion-parameter model fine-tuned with RLHF was <strong>preferred by humans over the raw 175-billion-parameter GPT-3</strong>. A smaller model with values beat a larger model without them.</p></div>
+
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p8_06_chatgpt_launch.png" alt="p8_06_chatgpt_launch">
+</div>
+
+    <div class="css-narration"><p>On <strong>November 30, 2022</strong>, ChatGPT launched as a free research preview. It reached <strong>1 million users in 5 days</strong>. By January 2023, roughly <strong>100 million monthly active users</strong> -- the fastest-growing consumer application in history. For comparison, TikTok took ~9 months to reach the same milestone.</p></div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 1; aspect-ratio: 357/384;">
+  <img src="images/p8_08_workers.png" alt="SCHOLAR: Human labelers made alignment possible.">
+  <span class="ocr-expected" data-speaker="SCHOLAR">Human labelers made alignment possible.</span>
+</div>
+  <div class="css-narration" style="flex: 1;"><p>These human evaluators -- often contract workers in Kenya, the Philippines, and other countries, paid far less than the engineers -- are an invisible but <strong>essential</strong> part of modern AI. Their judgments teach the model what "good" looks like.</p></div>
+    </div>
+
+    <div class="css-narration css-narration--accent"><p>RLHF is not a complete solution. Models can still hallucinate, be tricked, and produce harmful outputs. But it represents a crucial insight: training a model to be <strong>capable</strong> and training it to be <strong>good</strong> are two different problems, and both require deliberate effort.</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p8_10b_robot_workers.png" alt="FACTORYBOT: Millions of workers, processing language in parallel.">
+  <span class="ocr-expected" data-speaker="FACTORYBOT">Millions of workers, processing language in parallel.</span>
+</div>
+
+    <div class="css-hook">RLHF was a breakthrough. But it depended on thousands of costly, inconsistent human judgments. What if the AI could learn values from a written set of principles instead -- a constitution? &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="9">
+    <div class="page-header">
+      <div class="issue-label">Issue 07 · Page 9</div>
+      <div class="page-title">Constitutional AI and Claude</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/384;">
+  <img src="images/p9_01_founding.png" alt="p9_01_founding">
+</div>
+
+    <div class="css-narration"><p>In <strong>2021</strong>, <strong>Dario Amodei</strong> and <strong>Daniela Amodei</strong> left OpenAI and founded <strong>Anthropic</strong>. Dario -- PhD in computational neuroscience, former VP of Research at OpenAI -- believed AI safety could not be an afterthought. It needed to be the <em>mission</em>.</p></div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 286/576;">
+  <img src="images/p9_03_robot_constitution.png" alt="STARLIGHT: What if the AI could judge itself using written rules?">
+  <span class="ocr-expected" data-speaker="STARLIGHT">What if the AI could judge itself using written rules?</span>
+</div>
+  <div class="css-narration" style="flex: 3;"><p>In <strong>December 2022</strong>, Anthropic published <strong>Constitutional AI (CAI)</strong>. The core idea: instead of relying on case-by-case human judgments, write a <strong>constitution</strong> -- a set of explicit principles -- and use it to guide behavior. Like how human societies work.</p></div>
+    </div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 295"><style>.title{font-size:14px; font-weight:bold; } .step{font-size:12px; font-weight:bold} .desc{font-size:12px; } .num{font-size:13px; font-weight:bold; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill="#E2E8F0" class="title" x="340" y="5" text-anchor="middle">The Constitutional AI Loop</text><g transform="translate(30,25)"><circle cx="25" cy="22" r="16" fill="#4A9BD9"/><text fill="#E2E8F0" class="num" x="25" y="28" text-anchor="middle">1</text><text class="step" x="50" y="20" fill="#4A9BD9">Model generates response</text><text fill="#E2E8F0" class="desc" x="50" y="36">(including to tricky prompts)</text></g><path d="M340,55 L340,65" stroke="#E2E8F0" stroke-width="1.5"/><g transform="translate(30,70)"><circle cx="25" cy="22" r="16" fill="#38A169"/><text fill="#E2E8F0" class="num" x="25" y="28" text-anchor="middle">2</text><text class="step" x="50" y="20" fill="#E2E8F0">Model reads constitutional principle</text><rect x="50" y="30" width="550" height="24" rx="5" fill="#C6F6D5" opacity="0.3" stroke="#38A169" stroke-width="1"/><text fill="#E2E8F0" class="desc" x="60" y="46" textLength="529" lengthAdjust="spacingAndGlyphs">"Is this response honest about uncertainty? Is it helpful? Could it cause harm?"</text></g><path d="M340,120 L340,130" stroke="#E2E8F0" stroke-width="1.5"/><g transform="translate(30,135)"><circle cx="25" cy="22" r="16" fill="#DD6B20"/><text fill="#E2E8F0" class="num" x="25" y="28" text-anchor="middle">3</text><text class="step" x="50" y="20" fill="#DD6B20">Model critiques its own response</text><text fill="#E2E8F0" class="desc" x="50" y="36">"No, I stated a guess as a fact."</text></g><path d="M340,177 L340,187" stroke="#E2E8F0" stroke-width="1.5"/><g transform="translate(30,192)"><circle cx="25" cy="22" r="16" fill="#805AD5"/><text fill="#E2E8F0" class="num" x="25" y="28" text-anchor="middle">4</text><text class="step" x="50" y="20" fill="#E2E8F0">Model revises its response</text><text fill="#E2E8F0" class="desc" x="50" y="36">Adds hedging language, acknowledges limitations</text></g><path d="M340,235 L340,245" stroke="#E2E8F0" stroke-width="1.5"/><rect x="180" y="245" width="320" height="22" rx="5" fill="#4A9BD9" opacity="0.15" stroke="#4A9BD9" stroke-width="1.2"/><text x="340" y="261" text-anchor="middle" font-size="12" fill="#FFFFFF" font-weight="bold">Revised response becomes training data</text></svg>
+    <p class="diagram-caption">Constitutional AI: the model critiques and revises its own responses based on written principles.</p>
+  </div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 200"><style>.title{font-size:13px; font-weight:bold; } .head{font-size:12px; font-weight:bold; } .cell{font-size:12px} text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill="#E2E8F0" class="title" x="340" y="5" text-anchor="middle">RLHF vs. Constitutional AI</text><rect x="40" y="18" width="600" height="22" rx="4" fill="#4A9BD9" opacity="0.12"/><text fill="#E2E8F0" class="head" x="120" y="33" text-anchor="middle"></text><text fill="#E2E8F0" class="head" x="300" y="33" text-anchor="middle">RLHF</text><text fill="#E2E8F0" class="head" x="510" y="33" text-anchor="middle">Constitutional AI</text><line x1="40" y1="42" x2="640" y2="42" stroke="#E2E8F0" stroke-width="1"/><text fill="#FFFFFF" class="cell" x="120" y="60" text-anchor="middle" font-weight="bold">Who judges?</text><text fill="#E2E8F0" class="cell" x="300" y="60" text-anchor="middle">Human evaluators</text><text fill="#E2E8F0" class="cell" x="510" y="60" text-anchor="middle">AI + written principles</text><line x1="40" y1="70" x2="640" y2="70" stroke="#E2E8F0" stroke-width="0.8"/><text fill="#FFFFFF" class="cell" x="120" y="88" text-anchor="middle" font-weight="bold">Scalability</text><text fill="#E2E8F0" class="cell" x="300" y="88" text-anchor="middle">Limited by human labor</text><text fill="#E2E8F0" class="cell" x="510" y="88" text-anchor="middle">Reduced human labor</text><line x1="40" y1="98" x2="640" y2="98" stroke="#E2E8F0" stroke-width="0.8"/><text fill="#FFFFFF" class="cell" x="120" y="116" text-anchor="middle" font-weight="bold">Transparency</text><text fill="#E2E8F0" class="cell" x="300" y="116" text-anchor="middle">Implicit in preferences</text><text fill="#E2E8F0" class="cell" x="510" y="116" text-anchor="middle">Explicit, written down</text><line x1="40" y1="126" x2="640" y2="126" stroke="#E2E8F0" stroke-width="0.8"/><text fill="#FFFFFF" class="cell" x="120" y="144" text-anchor="middle" font-weight="bold">Consistency</text><text fill="#E2E8F0" class="cell" x="300" y="144" text-anchor="middle">Varies between judges</text><text fill="#E2E8F0" class="cell" x="510" y="144" text-anchor="middle">Same principles every time</text><line x1="220" y1="18" x2="220" y2="155" stroke="#E2E8F0" stroke-width="1"/><line x1="400" y1="18" x2="400" y2="155" stroke="#E2E8F0" stroke-width="1"/></svg>
+    <p class="diagram-caption">Constitutional AI front-loads human judgment into written principles rather than case-by-case rankings.</p>
+  </div>
+
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p9_07_landscape.png" alt="p9_07_landscape">
+</div>
+
+    <div class="css-narration"><p><strong>Claude 1</strong> launched in <strong>March 2023</strong>. <strong>Claude 2</strong> followed in <strong>July 2023</strong> with a 100,000-token context window -- enough to process entire books. Meanwhile, Google released PaLM, Meta released <strong>Llama 2</strong> as open source, and <strong>GPT-4</strong> added multimodal capability.</p></div>
+
+    <div class="css-narration css-narration--accent"><p>Human societies use constitutions to encode values that outlast any individual leader. Could AI constitutions serve the same purpose? If you could write the rules that govern an AI's behavior, <strong>what principles would YOU include?</strong></p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p9_09b_robot_claude.png" alt="ETHICSBOT: Helpful, harmless, honest. That is the goal.">
+  <span class="ocr-expected" data-speaker="ETHICSBOT">Helpful, harmless, honest. That is the goal.</span>
+</div>
+
+    <div class="css-hook">From a single translation paper to a global industry in six years. But every layer connects to something deeper. Let's zoom out and see how it all fits together. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="10">
+    <div class="page-header">
+      <div class="issue-label">Issue 07 · Page 10</div>
+      <div class="page-title">The Longest Thread -- and What Comes Next</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/384;">
+  <img src="images/p10_01_thread_timeline.png" alt="p10_01_thread_timeline">
+</div>
+
+    <div class="css-narration"><p>Turing imagined a machine that could follow any instruction. Von Neumann built one. Hopper taught it to understand English. The internet connected them all. Neural networks learned to see. And now Transformers have learned to <strong>read, write, and reason</strong>.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-20 -20 860 260"><style>.title{font-size:14px; font-weight:bold; } .issue{font-size:12px; font-weight:bold} .conn{font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text fill="#E2E8F0" class="title" x="410" y="5" text-anchor="middle">Key Connections Across All Issues</text><g transform="translate(20,25)"><rect x="0" y="0" width="380" height="36" rx="6" fill="#FED7D7" opacity="0.3" stroke="#E53E3E" stroke-width="1.2"/><text class="issue" x="10" y="22" fill="#2D3748">Issue 6: Backprop</text><text fill="#2D3748" class="conn" x="155" y="22" textLength="213" lengthAdjust="spacingAndGlyphs">still trains every Transformer</text></g><g transform="translate(420,25)"><rect x="0" y="0" width="380" height="36" rx="6" fill="#FED7D7" opacity="0.3" stroke="#E53E3E" stroke-width="1.2"/><text class="issue" x="10" y="22" fill="#2D3748">Issue 6: GPUs</text><text fill="#2D3748" class="conn" x="110" y="22">are the essential hardware</text></g><g transform="translate(20,72)"><rect x="0" y="0" width="380" height="36" rx="6" fill="#C6F6D5" opacity="0.3" stroke="#38A169" stroke-width="1.2"/><text class="issue" x="10" y="22" fill="#2D3748">Issue 5: The Web</text><text fill="#2D3748" class="conn" x="130" y="22">provides the training data</text></g><g transform="translate(420,72)"><rect x="0" y="0" width="380" height="36" rx="6" fill="#E9D8FD" opacity="0.3" stroke="#805AD5" stroke-width="1.2"/><text class="issue" x="10" y="22" fill="#2D3748">Issues 4-5: Open Source</text><text fill="#2D3748" class="conn" x="185" y="22">accelerates development</text></g><g transform="translate(20,119)"><rect x="0" y="0" width="780" height="36" rx="6" fill="#BEE3F8" opacity="0.3" stroke="#4A9BD9" stroke-width="1.2"/><text class="issue" x="10" y="22" fill="#2D3748">Issue 4: Composable tools</text><text fill="#2D3748" class="conn" x="195" y="22">return as AI agents piping data via tools (Issues 8-9)</text></g><rect x="130" y="172" width="560" height="40" rx="8" fill="#4A9BD9" opacity="0.1" stroke="#4A9BD9" stroke-width="1.5"/><text x="410" y="196" text-anchor="middle" font-size="12" fill="#FFFFFF" font-weight="bold" textLength="532" lengthAdjust="spacingAndGlyphs">Every revolution builds a new layer of abstraction on top of everything before.</text></svg>
+    <p class="diagram-caption">The Transformer did not replace neural networks, backpropagation, or GPUs. It stood on all of them.</p>
+  </div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 286/576;">
+  <img src="images/p10_04_robot_reflect.png" alt="TAPE: But they're still trapped in a text box.">
+  <span class="ocr-expected" data-speaker="TAPE">But they're still trapped in a text box.</span>
+</div>
+  <div class="css-narration" style="flex: 3;"><p>In 2021, <strong>Timnit Gebru, Emily Bender, Margaret Mitchell</strong>, and Angelina McMillan-Major asked: are LLMs actually understanding language, or just mimicking patterns like a sophisticated parrot? They raised critical questions about environmental cost, biased training data, and whether the race to scale is outpacing our ability to control what we are building.</p></div>
+    </div>
+
+    <div class="css-narration"><p>The "Stochastic Parrots" paper argued that: (1) LLMs do not truly "understand" language; (2) training massive models has enormous environmental cost; (3) biases in training data get amplified at scale; (4) the race to scale is driven by corporate incentives, not just science. These are not fringe concerns -- they are <strong>central tensions</strong> in the story of modern AI.</p></div>
+
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p10_07_trapped_textbox.png" alt="p10_07_trapped_textbox">
+</div>
+
+    <div class="css-narration"><p>Here is where we are in early 2023: language models can write essays, code, poetry, and analysis. But they are still <strong>trapped</strong>. An LLM lives in a text box. It can write a Python function, but it cannot <em>run</em> it. It can describe a plan, but it cannot <em>execute</em> it.</p></div>
+
+    <div class="css-narration css-narration--accent"><p>Every revolution in computing follows the same pattern: someone builds a <strong>new layer of abstraction</strong> on top of everything that came before. The Transformer did not replace neural networks, backpropagation, or GPUs. It stood on all of them.</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p10_09b_robot_trapped.png" alt="WINDOWBOT: So smart, but trapped in a chat window. Familiar?">
+  <span class="ocr-expected" data-speaker="WINDOWBOT">So smart, but trapped in a chat window. Familiar?</span>
+</div>
+
+  <details class="references-section">
+  <summary>References &amp; Further Reading</summary>
+  <ul class="ref-list">
+    <li><span class="ref-type">book</span> <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener">Attention Is All You Need.</a> &mdash; Vaswani, A., et al. (2017)</li>
+    <li><span class="ref-type">paper</span> <a href="https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf" target="_blank" rel="noopener">Improving Language Understanding by Generative Pre-Training.</a> &mdash; Radford, A., et al. (2018)</li>
+    <li><span class="ref-type">paper</span> <a href="https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf" target="_blank" rel="noopener">Language Models are Unsupervised Multitask Learners.</a> &mdash; Radford, A., et al. (2019)</li>
+    <li><span class="ref-type">book</span> <a href="https://arxiv.org/abs/2005.14165" target="_blank" rel="noopener">Language Models are Few-Shot Learners.</a> &mdash; Brown, T. B., et al. (2020)</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/1810.04805" target="_blank" rel="noopener">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding.</a> &mdash; Devlin, J., et al. (2018)</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/2203.02155" target="_blank" rel="noopener">Training language models to follow instructions with human feedback.</a> &mdash; Ouyang, L., et al. (2022)</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/2212.08073" target="_blank" rel="noopener">Constitutional AI: Harmlessness from AI Feedback.</a> &mdash; Bai, Y., et al. (2022)</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/2001.08361" target="_blank" rel="noopener">Scaling Laws for Neural Language Models.</a> &mdash; Kaplan, J., et al. (2020)</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/2203.15556" target="_blank" rel="noopener">Training Compute-Optimal Large Language Models.</a> &mdash; Hoffmann, J., et al. (2022)</li>
+    <li><span class="ref-type">paper</span> <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">The Illustrated Transformer.</a> &mdash; Alammar, J</li>
+    <li><span class="ref-type">video</span> <a href="https://www.youtube.com/watch?v=wjZofJX0v4M" target="_blank" rel="noopener">But what is a GPT? Visual intro to Transformers.</a> &mdash; 3Blue1Brown</li>
+    <li><span class="ref-type">book</span> <a href="https://dl.acm.org/doi/10.1145/3442188.3445922" target="_blank" rel="noopener">On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?</a> &mdash; Bender, E. M., Gebru, T., et al. (2021)</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/1409.0473" target="_blank" rel="noopener">Neural Machine Translation by Jointly Learning to Align and Translate.</a> &mdash; Bahdanau, D., Cho, K., & Bengio, Y. (2014)</li>
+    <li><span class="ref-type">book</span> <a href="https://www.bioinf.jku.at/publications/older/2604.pdf" target="_blank" rel="noopener">Long Short-Term Memory.</a> &mdash; Hochreiter, S., & Schmidhuber, J. (1997)</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/1508.07909" target="_blank" rel="noopener">Neural Machine Translation of Rare Words with Subword Units.</a> &mdash; Sennrich, R., Haddow, B., & Birch, A. (2016)</li>
+    <li><span class="ref-type">paper</span> <a href="https://arxiv.org/abs/2009.01325" target="_blank" rel="noopener">Learning to summarize from human feedback.</a> &mdash; Stiennon, N., et al. (2020)</li>
+  </ul>
+</details>
+
+    <div class="css-hook">In our next issue, the text box shatters. LLMs learn to use tools -- to run code, read files, browse the web, and take real-world actions. The age of AI agents begins. Issue 8: "The Agent Awakens." &#x25B6;</div>
+  </section>
+
+  <div id="page-announce" class="sr-only" aria-live="polite" role="status"></div>
+  <div class="page-nav" role="navigation" aria-label="Page navigation">
+    <button id="prevBtn" onclick="navigate(-1)" aria-label="Previous page">&larr; Previous</button>
+    <div class="page-nav-center">
+      <span class="page-indicator">
+        Page <span id="pageNum">1</span> of 10
+      </span>
+      <div class="progress-dots" id="progressDots" role="tablist" aria-label="Pages"></div>
+    </div>
+    <button id="nextBtn" onclick="navigate(1)" aria-label="Next page">Next &rarr;</button>
+  </div>
+</div>
+
+<script>
+let currentPage = 1;
+const totalPages = 10;
+const sections = document.querySelectorAll('.page-section');
+const prevIssueUrl = '../issue_06_v2/index.html#page-10';
+const nextIssueUrl = '../issue_08_v2/index.html';
+const liveRegion = document.getElementById('page-announce');
+
+/* Generate progress dots */
+const dotsContainer = document.getElementById('progressDots');
+for (let i = 1; i <= totalPages; i++) {
+  const dot = document.createElement('button');
+  dot.className = 'progress-dot' + (i === 1 ? ' active' : '');
+  dot.setAttribute('aria-label', 'Page ' + i);
+  dot.setAttribute('role', 'tab');
+  dot.setAttribute('aria-selected', i === 1 ? 'true' : 'false');
+  (function(page) { dot.addEventListener('click', function() { showPage(page); }); })(i);
+  dotsContainer.appendChild(dot);
+}
+
+function showPage(n, updateHash) {
+  sections.forEach(s => s.classList.remove('active'));
+  const target = document.querySelector('[data-page="' + n + '"]');
+  if (target) {
+    target.classList.add('active');
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll: true});
+  }
+  currentPage = n;
+  document.getElementById('pageNum').textContent = n;
+  document.getElementById('prevBtn').disabled = (n <= 1 && !prevIssueUrl);
+  document.getElementById('nextBtn').disabled = (n >= totalPages && !nextIssueUrl);
+
+  /* Update progress dots */
+  document.querySelectorAll('.progress-dot').forEach(function(d, idx) {
+    var page = idx + 1;
+    d.classList.toggle('active', page === n);
+    d.classList.toggle('visited', page < n);
+    d.setAttribute('aria-selected', page === n ? 'true' : 'false');
+  });
+
+  /* Announce page change for screen readers */
+  if (liveRegion) liveRegion.textContent = 'Page ' + n + ' of ' + totalPages;
+
+  if (updateHash !== false) history.replaceState(null, '', '#page-' + n);
+  window.scrollTo(0, 0);
+}
+
+function navigate(dir) {
+  const next = currentPage + dir;
+  if (next >= 1 && next <= totalPages) {
+    showPage(next);
+  } else if (next < 1 && prevIssueUrl) {
+    window.location.href = prevIssueUrl;
+  } else if (next > totalPages && nextIssueUrl) {
+    window.location.href = nextIssueUrl;
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+});
+
+/* Image loading: shimmer → fade in */
+document.querySelectorAll('.panel img').forEach(function(img) {
+  function onLoad() {
+    img.classList.add('loaded');
+    var panel = img.closest('.panel');
+    if (panel) panel.classList.add('img-loaded');
+  }
+  if (img.complete && img.naturalWidth > 0) {
+    onLoad();
+  } else {
+    img.addEventListener('load', onLoad);
+    img.addEventListener('error', function() {
+      img.style.opacity = '1';
+      var panel = img.closest('.panel');
+      if (panel) panel.classList.add('img-loaded');
+    });
+  }
+});
+
+function pageFromHash() {
+  const m = location.hash.match(/^#page-(\d+)$/);
+  return m ? Math.max(1, Math.min(totalPages, parseInt(m[1]))) : 1;
+}
+window.addEventListener('hashchange', function() { showPage(pageFromHash()); });
+showPage(pageFromHash(), false);
+</script>
+</body>
+</html>

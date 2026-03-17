@@ -1,0 +1,112 @@
+{
+  "issue": 10,
+  "page": 7,
+  "title": "Human + AI — Collaboration, Not Replacement",
+  "accent": "#DD6B20",
+  "panels": [
+    {
+      "id": "p7_01_robot_warm",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A small cute round pastel-pink robot with big warm hazel eyes, one stubby hand open palm-up as if offering perspective and the other hand gesturing as if weighing evidence on a scale, sitting on a park bench next to a human silhouette, a warm sunset glow behind them, trees and cityscape in background, mood of honest friendly conversation. A white speech bubble with black outline near the top left. Inside the bubble the text reads: \"Will AI replace us? Here's what history actually says.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Will AI replace us? Here's what history actually says.",
+      "speaker": "ROSIE"
+    },
+    {
+      "id": "p7_02_fear_intro",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Every major technology shift triggers the same fear: <em>\"This will make us obsolete.\"</em> And every time, the answer is more complicated than either side wants to admit."
+    },
+    {
+      "id": "p7_03_atm_scene",
+      "type": "image",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A warm 1970s bank interior with wood paneling and orange carpet. On the left side, a shiny new ATM machine with a 'NEW!' sticker. On the right side, a friendly bank teller behind a counter talking with a customer, the teller is smiling and has relationship management materials on their desk instead of cash stacks. An upward arrow graph on the wall shows 'Branches: UP'. Retro 1970s warm color palette. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p7_03b_atm_text",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "When <strong>ATMs</strong> arrived in the 1970s, many predicted bank tellers would vanish. What actually happened? ATMs reduced branch costs. Banks opened MORE branches. US teller employment <em>rose</em> from ~300,000 to ~600,000 by 2010. But the job changed completely: less cash counting, more relationship management. After 2010, tellers declined as mobile banking grew."
+    },
+    {
+      "id": "p7_04_spreadsheet_photo",
+      "type": "image",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A split illustration: top half shows a 1980s office scene with a person working on an early Macintosh computer displaying a spreadsheet (VisiCalc/Lotus 1-2-3), bottom half shows the same desk multiplied into many desks with many people all doing financial analysis, representing how spreadsheets created MORE accounting jobs, not fewer. Warm amber office lighting, retro 1980s aesthetic. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p7_04b_photo_art",
+      "type": "image",
+      "layout": "right",
+      "flex": 3,
+      "gen_width": 428,
+      "gen_height": 384,
+      "prompt": "A split illustration: top half shows an 1840s photography studio with a large box camera on a tripod and a painted portrait on an easel, bottom half shows an explosion of Impressionist, Expressionist, and Abstract art in vivid colors bursting forth from the camera frame, showing how photography freed painters from realism and led to the most creative period in art history. Rich warm palette. Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "overlays": []
+    },
+    {
+      "id": "p7_05_patterns",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "When <strong>spreadsheets</strong> automated calculations in the 1980s, accountant jobs <em>increased</em>. When <strong>photography</strong> arrived in the 1840s, it freed painters from realism — leading to Impressionism and Abstract art.<br><br>But the pattern is not always benign. The <strong>Luddites</strong> of the 1810s destroyed textile machinery because automation genuinely eliminated their skilled jobs. History's lesson: the long-term outcome can be positive while the short-term transition is painful."
+    },
+    {
+      "id": "p7_06_evidence",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "A 2022 GitHub study: developers using Copilot completed tasks <strong>55% faster</strong> — but spent more time on design and code review. A 2023 Harvard/BCG study: consultants using GPT-4 produced <strong>40% higher-quality work</strong> — but only within the model's capability frontier. Outside it, they performed <em>worse</em>, over-relying on confident but incorrect output."
+    },
+    {
+      "id": "p7_07_jagged",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 2,
+      "gen_width": 286,
+      "gen_height": 384,
+      "prompt": "A small cute cuboid robot made of visible pastel-colored voxel blocks, each block a different color, standing at the edge of a jagged cliff face that looks like an irregular zigzag line — some parts are very high (superhuman), some very low (below average). The robot is pointing at the jagged edge with one stubby hand. Warm orange accents, light background. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"The 'jagged frontier' — AI is superhuman here, average there.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "The 'jagged frontier' — AI is superhuman here, average there.",
+      "speaker": "PIXEL"
+    },
+    {
+      "id": "p7_07b_jagged_text",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "Ethan Mollick calls this the <strong>\"jagged frontier\"</strong>: AI capabilities are not a smooth line. AI is superhuman at some tasks and below average at others, and the boundary is hard to predict. Human judgment about <em>when</em> to use AI — and when to override it — is one of the most valuable skills of the coming decade."
+    },
+    {
+      "id": "p7_08_spectrum",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-12 -25 840 245\"><style>text{font-family:'JetBrains Mono',monospace;}</style><text x=\"390\" y=\"0\" text-anchor=\"middle\" font-size=\"15\" fill=\"#DD6B20\" font-weight=\"bold\">The AI Autonomy Spectrum</text><defs><linearGradient id=\"autoGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"0\"><stop offset=\"0%\" stop-color=\"#BEE3F8\"/><stop offset=\"100%\" stop-color=\"#FFF5EB\"/></linearGradient></defs><rect x=\"30\" y=\"15\" width=\"720\" height=\"8\" rx=\"4\" fill=\"url(#autoGrad)\" stroke=\"#E2E8F0\" stroke-width=\"1\"/><text x=\"30\" y=\"12\" font-size=\"12\" fill=\"#E2E8F0\">LESS AUTONOMY</text><text x=\"750\" y=\"12\" text-anchor=\"end\" font-size=\"12\" fill=\"#E2E8F0\">MORE AUTONOMY</text><g><rect x=\"30\" y=\"30\" width=\"120\" height=\"90\" rx=\"6\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1.2\"/><text x=\"90\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">TOOL</text><text x=\"90\" y=\"64\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">Calculator,</text><text x=\"90\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">spell-check</text><text x=\"90\" y=\"92\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">Human decides</text><text x=\"90\" y=\"104\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">everything</text><text x=\"90\" y=\"128\" text-anchor=\"middle\" font-size=\"12\" fill=\"#DD6B20\">Issues 1-5</text></g><g><rect x=\"162\" y=\"30\" width=\"126\" height=\"90\" rx=\"6\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1.2\"/><text x=\"225\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">ASSISTANT</text><text x=\"225\" y=\"64\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">Autocomplete,</text><text x=\"225\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">Grammarly</text><text x=\"225\" y=\"92\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">Human decides,</text><text x=\"225\" y=\"104\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">AI suggests</text><text x=\"225\" y=\"128\" text-anchor=\"middle\" font-size=\"12\" fill=\"#DD6B20\">Issue 8</text></g><g><rect x=\"300\" y=\"30\" width=\"130\" height=\"90\" rx=\"6\" fill=\"#F7FAFC\" stroke=\"#E2E8F0\" stroke-width=\"1.2\"/><text x=\"365\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">PARTNER</text><text x=\"365\" y=\"64\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">ChatGPT,</text><text x=\"365\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">Copilot</text><text x=\"365\" y=\"92\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\" textLength=\"106\" lengthAdjust=\"spacingAndGlyphs\">Human sets goals,</text><text x=\"365\" y=\"104\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">reviews outputs</text><text x=\"365\" y=\"128\" text-anchor=\"middle\" font-size=\"12\" fill=\"#DD6B20\">Issues 7-8</text></g><g><rect x=\"442\" y=\"30\" width=\"140\" height=\"90\" rx=\"6\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"1.2\"/><text x=\"512\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#1A202C\">SUPERVISED</text><text x=\"512\" y=\"64\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">Claude Code:</text><text x=\"512\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\" textLength=\"116\" lengthAdjust=\"spacingAndGlyphs\">reads, runs, fixes</text><text x=\"512\" y=\"92\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">Human can</text><text x=\"512\" y=\"104\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">intervene</text><text x=\"512\" y=\"128\" text-anchor=\"middle\" font-size=\"12\" fill=\"#DD6B20\">Issues 8-9</text></g><g><rect x=\"594\" y=\"30\" width=\"150\" height=\"90\" rx=\"6\" fill=\"#FFF5EB\" stroke=\"#DD6B20\" stroke-width=\"1.5\"/><text x=\"669\" y=\"48\" text-anchor=\"middle\" font-size=\"12\" font-weight=\"bold\" fill=\"#DD6B20\">AUTONOMOUS</text><text x=\"669\" y=\"64\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">Agent swarms</text><text x=\"669\" y=\"76\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">building software</text><text x=\"669\" y=\"92\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">Human sets</text><text x=\"669\" y=\"104\" text-anchor=\"middle\" font-size=\"11\" fill=\"#2D3748\">high-level goals</text><text x=\"669\" y=\"128\" text-anchor=\"middle\" font-size=\"12\" fill=\"#DD6B20\">Issue 9+</text></g><text x=\"400\" y=\"155\" text-anchor=\"middle\" font-size=\"12\" fill=\"#E2E8F0\" font-style=\"italic\">More autonomy = more productivity, but less oversight. The right balance depends on the stakes.</text></svg>",
+      "caption": "The AI autonomy spectrum — from tools to autonomous swarms"
+    },
+    {
+      "id": "p7_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "The strongest evidence suggests AI is most powerful as an <strong>augmentation tool</strong> — it raises the floor more than it raises the ceiling. It helps less-experienced workers perform closer to expert level. The pattern is the same one the entire series has documented: new tools do not replace thinking. They elevate it to a <strong>higher layer of abstraction</strong>."
+    },
+    {
+      "id": "p7_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "AI and humans, together, are more powerful than either alone. But that raises a question: where does the stack go from here?"
+    }
+  ]
+}
