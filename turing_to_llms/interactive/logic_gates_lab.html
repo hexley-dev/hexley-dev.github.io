@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logic Gates Lab — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS Variables — matches Issue 2 palette
+   ============================================================ */
+:root {
+  --hand: 'Caveat', 'Patrick Hand', cursive;
+  --body: 'Patrick Hand', cursive;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --accent: #DD6B20;
+  --bg: #FAF9F6;
+  --dark: #2D3748;
+  --mid: #4A5568;
+  --muted: #718096;
+  --border: #E2E8F0;
+  --card: #F7FAFC;
+  --dark-panel: #1A202C;
+  --on: #48BB78;
+  --off: #4A5568;
+  --wire-on: #48BB78;
+  --wire-off: #A0AEC0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+*:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--dark);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(221,107,32,.03) 0%, transparent 55%),
+    radial-gradient(circle at 75% 75%, rgba(246,173,85,.03) 0%, transparent 55%);
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 16px 60px;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.lab-header {
+  text-align: center;
+  padding: 32px 16px 20px;
+}
+.lab-header .back-link {
+font-family: var(--hand);
+  font-size: 14px;
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.lab-header .back-link:hover { opacity: 0.7; transition: opacity 0.15s; }
+.lab-header h1 {
+  font-family: var(--hand);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--dark-panel);
+  margin: 8px 0 4px;
+}
+.lab-header .subtitle {
+  font-family: var(--body);
+  font-size: 17px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.lab-header .companion-note {
+  font-family: var(--body);
+  font-size: 13px;
+  color: var(--mid);
+  font-style: italic;
+}
+.title-bar {
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 10px auto 0;
+}
+
+/* ============================================================
+   Section headings
+   ============================================================ */
+.section-heading {
+  font-family: var(--hand);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--dark-panel);
+  text-align: center;
+  margin: 40px 0 6px;
+}
+.section-subheading {
+  font-family: var(--body);
+  font-size: 15px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ============================================================
+   Gate Explorer Grid
+   ============================================================ */
+.gates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+@media (max-width: 720px) {
+  .gates-grid { grid-template-columns: 1fr; }
+}
+
+.gate-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  transition: box-shadow 0.2s;
+}
+.gate-card:hover {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.gate-card h3 {
+  font-family: var(--hand);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+.gate-card .gate-desc {
+  font-size: 13.5px;
+  color: var(--mid);
+  margin-bottom: 10px;
+}
+
+.gate-interactive {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.gate-svg-wrap {
+  flex-shrink: 0;
+}
+.gate-svg-wrap svg {
+  display: block;
+}
+
+/* Truth table */
+.truth-table {
+  font-family: var(--mono);
+  font-size: 12px;
+  border-collapse: collapse;
+  flex: 1;
+  min-width: 0;
+}
+.truth-table th {
+  background: var(--dark-panel);
+  color: #F6AD55;
+  padding: 4px 8px;
+  text-align: center;
+  font-weight: 500;
+}
+.truth-table td {
+  padding: 4px 8px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s, color 0.2s;
+}
+.truth-table tr.active-row td {
+  background: rgba(72,187,120,0.15);
+  font-weight: 700;
+  color: var(--dark-panel);
+}
+
+/* ============================================================
+   Toggle switch
+   ============================================================ */
+.toggle-btn {
+  width: 38px;
+  height: 22px;
+  border-radius: 11px;
+  border: 2px solid var(--off);
+  background: var(--off);
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s, border-color 0.2s;
+  display: inline-block;
+  vertical-align: middle;
+}
+.toggle-btn.on {
+  background: var(--on);
+  border-color: var(--on);
+}
+.toggle-btn::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+}
+.toggle-btn.on::after {
+  transform: translateX(16px);
+}
+.toggle-label {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--dark);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 3px 0;
+  cursor: pointer;
+  user-select: none;
+}
+.toggle-label .val {
+  font-weight: 700;
+  min-width: 12px;
+  transition: color 0.2s;
+}
+.toggle-label .val.on { color: var(--on); }
+.toggle-label .val.off { color: var(--off); }
+
+.output-display {
+  font-family: var(--mono);
+  font-size: 14px;
+  margin-top: 4px;
+}
+.output-display .val {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* ============================================================
+   Circuit sections (half-adder, full-adder, calculator)
+   ============================================================ */
+.circuit-section {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.circuit-section h3 {
+  font-family: var(--hand);
+  font-size: 22px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.circuit-section .desc {
+  font-size: 14px;
+  color: var(--mid);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+.circuit-section svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.result-box {
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: var(--dark-panel);
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: #F6AD55;
+  text-align: center;
+  line-height: 1.6;
+}
+.result-box .highlight {
+  color: var(--on);
+  font-weight: 700;
+}
+
+.challenge-box {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border: 2px dashed #CBD5E0;
+  border-radius: 10px;
+  background: rgba(221,107,32,0.04);
+  font-size: 14.5px;
+  color: var(--mid);
+  line-height: 1.5;
+  text-align: center;
+}
+.challenge-box strong { color: var(--accent); }
+
+/* ============================================================
+   Binary Calculator
+   ============================================================ */
+.calc-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.bit-group {
+  text-align: center;
+}
+.bit-group .label {
+  font-family: var(--hand);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.bit-group .decimal {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.bit-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+.bit-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 2px solid var(--off);
+  background: var(--card);
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--off);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bit-btn.on {
+  border-color: var(--on);
+  background: rgba(72,187,120,0.12);
+  color: var(--on);
+}
+.bit-btn:hover {
+  transform: scale(1.08);
+}
+.bit-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ============================================================
+   Signal pulse animation
+   ============================================================ */
+@keyframes pulseDot {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.signal-dot {
+  fill: var(--on);
+  opacity: 0;
+}
+.signal-dot.active {
+  animation: pulseDot 0.6s ease-out;
+}
+
+/* Wire glow for active signals */
+.wire { transition: stroke 0.25s, filter 0.25s; }
+.wire.on {
+  stroke: var(--wire-on);
+  filter: drop-shadow(0 0 3px rgba(72,187,120,0.5));
+}
+.wire.off {
+  stroke: var(--wire-off);
+  filter: none;
+}
+
+/* Gate body highlight */
+.gate-body { transition: stroke 0.2s; }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.lab-footer {
+  text-align: center;
+  padding: 30px 16px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.lab-footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.lab-footer a:hover { text-decoration: underline; }
+
+/* ============================================================
+   Responsive tweaks
+   ============================================================ */
+@media (max-width: 500px) {
+  .lab-header h1 { font-size: 28px; }
+  .gate-interactive { flex-direction: column; align-items: center; }
+  .calc-inputs { gap: 20px; }
+  .bit-btn { width: 32px; height: 32px; font-size: 14px; }
+}
+
+/* Accessibility: respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<div class="container">
+  <div class="lab-header">
+    <a class="back-link" href="../issues/v2/issue_02/index.html">&larr; Back to Issue 2</a>
+    <h1>Logic Gates Lab</h1>
+    <p class="subtitle">From switches to circuits &mdash; build a computer from scratch</p>
+    <p class="companion-note">Interactive companion to Issue 2: Building the First Brains</p>
+    <div class="title-bar"></div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 1: GATE EXPLORER
+       ============================================================ -->
+  <h2 class="section-heading">1. Meet the Gates</h2>
+  <p class="section-subheading">Click the switches to toggle inputs. Watch the output change instantly.</p>
+
+  <div class="gates-grid" id="gatesGrid">
+    <!-- Gate cards are built by JavaScript -->
+  </div>
+
+  <!-- ============================================================
+       SECTION 2: HALF-ADDER
+       ============================================================ -->
+  <h2 class="section-heading">2. The Half-Adder</h2>
+  <p class="section-subheading">Two gates, one addition. This is how computers add.</p>
+
+  <div class="circuit-section" id="halfAdderSection">
+    <h3>XOR + AND = Half-Adder</h3>
+    <p class="desc">A single XOR gate computes the <strong>sum</strong> bit, and a single AND gate computes the <strong>carry</strong> bit. Toggle A and B to add two single-bit numbers.</p>
+
+    <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:12px">
+      <label class="toggle-label" id="ha-toggleA" onclick="haToggle('A')">
+        A: <span class="toggle-btn" id="ha-swA" tabindex="0" role="switch" aria-checked="false" aria-label="Half-adder input A"></span> <span class="val off" id="ha-valA">0</span>
+      </label>
+      <label class="toggle-label" id="ha-toggleB" onclick="haToggle('B')">
+        B: <span class="toggle-btn" id="ha-swB" tabindex="0" role="switch" aria-checked="false" aria-label="Half-adder input B"></span> <span class="val off" id="ha-valB">0</span>
+      </label>
+    </div>
+
+    <svg id="halfAdderSvg" viewBox="0 0 580 220" width="580" role="img" aria-label="Half-adder circuit diagram showing XOR producing Sum and AND producing Carry">
+      <!-- Built by JS -->
+    </svg>
+
+    <div class="result-box" id="ha-result">
+      A + B &nbsp;=&nbsp; <span class="highlight" id="ha-carry">0</span><span class="highlight" id="ha-sum">0</span>
+      &nbsp;&nbsp;(decimal: <span class="highlight" id="ha-dec">0</span>)
+    </div>
+
+    <div class="challenge-box">
+      <strong>This is how a computer adds!</strong> Two gates = one addition.
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 3: FULL-ADDER
+       ============================================================ -->
+  <h2 class="section-heading">3. The Full-Adder</h2>
+  <p class="section-subheading">Add a carry-in and you can chain adders together.</p>
+
+  <div class="circuit-section" id="fullAdderSection">
+    <h3>Two Half-Adders + OR = Full-Adder</h3>
+    <p class="desc">A full-adder takes <strong>three</strong> inputs: A, B, and a Carry-In from the previous column. It produces a Sum and a Carry-Out, which feeds into the next column.</p>
+
+    <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:12px">
+      <label class="toggle-label" onclick="faToggle('A')">
+        A: <span class="toggle-btn" id="fa-swA" tabindex="0" role="switch" aria-checked="false" aria-label="Full-adder input A"></span> <span class="val off" id="fa-valA">0</span>
+      </label>
+      <label class="toggle-label" onclick="faToggle('B')">
+        B: <span class="toggle-btn" id="fa-swB" tabindex="0" role="switch" aria-checked="false" aria-label="Full-adder input B"></span> <span class="val off" id="fa-valB">0</span>
+      </label>
+      <label class="toggle-label" onclick="faToggle('Cin')">
+        C<sub>in</sub>: <span class="toggle-btn" id="fa-swCin" tabindex="0" role="switch" aria-checked="false" aria-label="Full-adder carry-in"></span> <span class="val off" id="fa-valCin">0</span>
+      </label>
+    </div>
+
+    <svg id="fullAdderSvg" viewBox="0 0 680 290" width="680" role="img" aria-label="Full-adder circuit with two half-adders and an OR gate">
+      <!-- Built by JS -->
+    </svg>
+
+    <div class="result-box" id="fa-result">
+      A + B + C<sub>in</sub> &nbsp;=&nbsp; Carry-Out: <span class="highlight" id="fa-cout">0</span> &nbsp; Sum: <span class="highlight" id="fa-sum">0</span>
+      &nbsp;&nbsp;(decimal: <span class="highlight" id="fa-dec">0</span>)
+    </div>
+
+    <div class="challenge-box">
+      <strong>Chain 8 of these together</strong> and you can add any number from 0&ndash;255!
+    </div>
+  </div>
+
+  <!-- ============================================================
+       SECTION 4: 4-BIT BINARY CALCULATOR
+       ============================================================ -->
+  <h2 class="section-heading">4. Binary Calculator</h2>
+  <p class="section-subheading">Toggle any bit. Watch the result ripple through four full-adders.</p>
+
+  <div class="circuit-section" id="calcSection">
+    <h3>4-Bit Ripple-Carry Adder</h3>
+    <p class="desc">Each column feeds its carry-out into the next column's carry-in, just like carrying in decimal addition. Toggle the bits below to add two 4-bit numbers.</p>
+
+    <div class="calc-inputs">
+      <div class="bit-group">
+        <div class="label">Number A</div>
+        <div style="display:flex;gap:2px;justify-content:center;margin-bottom:2px">
+          <span class="bit-label">8</span>
+          <span class="bit-label">4</span>
+          <span class="bit-label">2</span>
+          <span class="bit-label">1</span>
+        </div>
+        <div class="bit-row" id="calc-bitsA">
+          <button class="bit-btn" data-idx="3" onclick="calcToggle('A',3)" aria-label="Number A bit 3 (value 8)">0</button>
+          <button class="bit-btn" data-idx="2" onclick="calcToggle('A',2)" aria-label="Number A bit 2 (value 4)">0</button>
+          <button class="bit-btn" data-idx="1" onclick="calcToggle('A',1)" aria-label="Number A bit 1 (value 2)">0</button>
+          <button class="bit-btn" data-idx="0" onclick="calcToggle('A',0)" aria-label="Number A bit 0 (value 1)">0</button>
+        </div>
+        <div class="decimal" id="calc-decA">= 0</div>
+      </div>
+      <div style="font-family:var(--hand);font-size:28px;color:var(--accent);align-self:center;padding-top:20px">+</div>
+      <div class="bit-group">
+        <div class="label">Number B</div>
+        <div style="display:flex;gap:2px;justify-content:center;margin-bottom:2px">
+          <span class="bit-label">8</span>
+          <span class="bit-label">4</span>
+          <span class="bit-label">2</span>
+          <span class="bit-label">1</span>
+        </div>
+        <div class="bit-row" id="calc-bitsB">
+          <button class="bit-btn" data-idx="3" onclick="calcToggle('B',3)" aria-label="Number B bit 3 (value 8)">0</button>
+          <button class="bit-btn" data-idx="2" onclick="calcToggle('B',2)" aria-label="Number B bit 2 (value 4)">0</button>
+          <button class="bit-btn" data-idx="1" onclick="calcToggle('B',1)" aria-label="Number B bit 1 (value 2)">0</button>
+          <button class="bit-btn" data-idx="0" onclick="calcToggle('B',0)" aria-label="Number B bit 0 (value 1)">0</button>
+        </div>
+        <div class="decimal" id="calc-decB">= 0</div>
+      </div>
+    </div>
+
+    <svg id="calcSvg" viewBox="0 0 680 200" width="680" role="img" aria-label="4-bit ripple-carry adder showing four full-adder stages chained together">
+      <!-- Built by JS -->
+    </svg>
+
+    <div class="result-box" id="calc-result">
+      Result: <span class="highlight" id="calc-bits">00000</span>
+      &nbsp;=&nbsp; <span class="highlight" id="calc-decResult">0</span> (decimal)
+    </div>
+
+    <div class="challenge-box">
+      <strong>Try it:</strong> Set A = 0111 (7) and B = 0101 (5). The carry ripples all the way through to give 01100 (12)!
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <div class="lab-footer">
+    <a href="../issues/v2/issue_02/index.html">&larr; Back to Issue 2: Building the First Brains</a>
+    <br><br>
+    From Turing to Swarms &mdash; an interactive comic series about computing history
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT — All logic, rendering, and interactivity
+     ============================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  /* ==========================================================
+     COLOR CONSTANTS
+     ========================================================== */
+  const ON  = '#48BB78';
+  const OFF = '#A0AEC0';
+  const ON_FILL  = 'rgba(72,187,120,0.10)';
+  const OFF_FILL = '#F7FAFC';
+  const DARK = '#2D3748';
+  const ACCENT = '#DD6B20';
+
+  /* ==========================================================
+     GATE DEFINITIONS
+     ========================================================== */
+  const GATES = [
+    {
+      id: 'AND',
+      name: 'AND Gate',
+      desc: 'Output is 1 only when BOTH inputs are 1.',
+      fn: (a, b) => a & b,
+      inputs: 2,
+    },
+    {
+      id: 'OR',
+      name: 'OR Gate',
+      desc: 'Output is 1 when EITHER input is 1.',
+      fn: (a, b) => a | b,
+      inputs: 2,
+    },
+    {
+      id: 'NOT',
+      name: 'NOT Gate',
+      desc: 'Flips the input. 1 becomes 0, 0 becomes 1.',
+      fn: (a) => a ? 0 : 1,
+      inputs: 1,
+    },
+    {
+      id: 'XOR',
+      name: 'XOR Gate',
+      desc: 'Output is 1 when inputs are DIFFERENT.',
+      fn: (a, b) => a ^ b,
+      inputs: 2,
+    },
+    {
+      id: 'NAND',
+      name: 'NAND Gate',
+      desc: 'NOT-AND: output is 0 only when both inputs are 1.',
+      fn: (a, b) => (a & b) ? 0 : 1,
+      inputs: 2,
+    },
+    {
+      id: 'NOR',
+      name: 'NOR Gate',
+      desc: 'NOT-OR: output is 1 only when both inputs are 0.',
+      fn: (a, b) => (a | b) ? 0 : 1,
+      inputs: 2,
+    },
+  ];
+
+  /* Gate state: each gate has input values */
+  const gateState = {};
+  GATES.forEach(g => {
+    gateState[g.id] = { a: 0, b: 0 };
+  });
+
+  /* ==========================================================
+     SVG GATE SYMBOL GENERATORS (hand-drawn style with slight
+     irregularity via filter)
+     ========================================================== */
+
+  /**
+   * Draw a standard gate symbol in SVG at a given position.
+   * Returns SVG string. The gate body is 60px wide, 50px tall.
+   * Origin (ox, oy) is the top-left of the gate body.
+   */
+  function gateSymbolSvg(type, ox, oy, aVal, bVal, outVal, singleInput) {
+    const w = 60, h = 50;
+    const onStroke = ON;
+    const offStroke = OFF;
+    const bodyStroke = outVal ? onStroke : DARK;
+    const bodyFill = outVal ? ON_FILL : OFF_FILL;
+    const inputAColor = aVal ? onStroke : offStroke;
+    const inputBColor = bVal ? onStroke : offStroke;
+    const outColor = outVal ? onStroke : offStroke;
+    let shape = '';
+
+    // Gate body shapes
+    switch (type) {
+      case 'AND':
+        shape = `<path d="M${ox},${oy+2} L${ox},${oy+h-2} L${ox+30},${oy+h-2} Q${ox+w+8},${oy+h/2} ${ox+30},${oy+2} Z"
+                   fill="${bodyFill}" stroke="${bodyStroke}" stroke-width="2.2" stroke-linejoin="round"/>`;
+        break;
+      case 'OR':
+        shape = `<path d="M${ox+2},${oy} Q${ox+15},${oy+h/2} ${ox+2},${oy+h}
+                   Q${ox+35},${oy+h} ${ox+w+4},${oy+h/2}
+                   Q${ox+35},${oy} ${ox+2},${oy} Z"
+                   fill="${bodyFill}" stroke="${bodyStroke}" stroke-width="2.2" stroke-linejoin="round"/>`;
+        break;
+      case 'NOT':
+        shape = `<path d="M${ox},${oy} L${ox},${oy+h} L${ox+w-4},${oy+h/2} Z"
+                   fill="${bodyFill}" stroke="${bodyStroke}" stroke-width="2.2" stroke-linejoin="round"/>
+                 <circle cx="${ox+w+1}" cy="${oy+h/2}" r="5" fill="${bodyFill}" stroke="${bodyStroke}" stroke-width="2"/>`;
+        break;
+      case 'XOR':
+        shape = `<path d="M${ox+2},${oy} Q${ox+15},${oy+h/2} ${ox+2},${oy+h}
+                   Q${ox+35},${oy+h} ${ox+w+4},${oy+h/2}
+                   Q${ox+35},${oy} ${ox+2},${oy} Z"
+                   fill="${bodyFill}" stroke="${bodyStroke}" stroke-width="2.2" stroke-linejoin="round"/>
+                 <path d="M${ox-5},${oy-2} Q${ox+8},${oy+h/2} ${ox-5},${oy+h+2}"
+                   fill="none" stroke="${bodyStroke}" stroke-width="2"/>`;
+        break;
+      case 'NAND':
+        shape = `<path d="M${ox},${oy+2} L${ox},${oy+h-2} L${ox+30},${oy+h-2} Q${ox+w+4},${oy+h/2} ${ox+30},${oy+2} Z"
+                   fill="${bodyFill}" stroke="${bodyStroke}" stroke-width="2.2" stroke-linejoin="round"/>
+                 <circle cx="${ox+w+8}" cy="${oy+h/2}" r="5" fill="${bodyFill}" stroke="${bodyStroke}" stroke-width="2"/>`;
+        break;
+      case 'NOR':
+        shape = `<path d="M${ox+2},${oy} Q${ox+15},${oy+h/2} ${ox+2},${oy+h}
+                   Q${ox+35},${oy+h} ${ox+w+4},${oy+h/2}
+                   Q${ox+35},${oy} ${ox+2},${oy} Z"
+                   fill="${bodyFill}" stroke="${bodyStroke}" stroke-width="2.2" stroke-linejoin="round"/>
+                 <circle cx="${ox+w+8}" cy="${oy+h/2}" r="5" fill="${bodyFill}" stroke="${bodyStroke}" stroke-width="2"/>`;
+        break;
+    }
+
+    // Input wires
+    let wires = '';
+    const extraTipOffset = (type === 'NAND' || type === 'NOR' || type === 'NOT') ? 13 : 6;
+    if (singleInput) {
+      // NOT gate: single input, centered
+      wires += `<line x1="${ox-26}" y1="${oy+h/2}" x2="${ox}" y2="${oy+h/2}"
+                  stroke="${inputAColor}" stroke-width="2.5" class="wire ${aVal?'on':'off'}"/>`;
+    } else {
+      // Two inputs
+      const inY1 = oy + 13;
+      const inY2 = oy + h - 13;
+      const inX = (type === 'OR' || type === 'XOR' || type === 'NOR') ? ox + 8 : ox;
+      wires += `<line x1="${ox-26}" y1="${inY1}" x2="${inX}" y2="${inY1}"
+                  stroke="${inputAColor}" stroke-width="2.5" class="wire ${aVal?'on':'off'}"/>`;
+      wires += `<line x1="${ox-26}" y1="${inY2}" x2="${inX}" y2="${inY2}"
+                  stroke="${inputBColor}" stroke-width="2.5" class="wire ${bVal?'on':'off'}"/>`;
+    }
+
+    // Output wire
+    wires += `<line x1="${ox+w+extraTipOffset}" y1="${oy+h/2}" x2="${ox+w+32}" y2="${oy+h/2}"
+                stroke="${outColor}" stroke-width="2.5" class="wire ${outVal?'on':'off'}"/>`;
+
+    // Output value label
+    const outLabel = `<text x="${ox+w+38}" y="${oy+h/2+5}"
+                        style="font-family:var(--mono);font-size:14px;font-weight:700;fill:${outVal?ON:OFF}">${outVal}</text>`;
+
+    // Gate type label (inside gate)
+    const labelX = (type === 'NOT') ? ox + 18 : ox + 26;
+    const gateLabel = `<text x="${labelX}" y="${oy+h/2+5}"
+                         text-anchor="middle"
+                         style="font-family:var(--mono);font-size:11px;font-weight:700;fill:${DARK}">${type}</text>`;
+
+    return wires + shape + gateLabel + outLabel;
+  }
+
+  /* ==========================================================
+     BUILD GATE EXPLORER CARDS
+     ========================================================== */
+  function buildGateCards() {
+    const grid = document.getElementById('gatesGrid');
+    grid.innerHTML = '';
+
+    GATES.forEach(gate => {
+      const card = document.createElement('div');
+      card.className = 'gate-card';
+      card.id = 'card-' + gate.id;
+
+      // Title and description
+      let html = `<h3>${gate.name}</h3><p class="gate-desc">${gate.desc}</p>`;
+
+      // Controls row
+      html += '<div class="gate-interactive">';
+
+      // Left side: SVG + toggles
+      html += '<div>';
+
+      // Toggle A
+      const aState = gateState[gate.id].a;
+      const bState = gateState[gate.id].b;
+      html += `<label class="toggle-label" onclick="gateToggle('${gate.id}','a')">
+                 A: <span class="toggle-btn${aState?' on':''}" id="sw-${gate.id}-a" tabindex="0" role="switch" aria-checked="${aState ? 'true' : 'false'}" aria-label="${gate.name} input A"></span>
+                 <span class="val ${aState?'on':'off'}" id="val-${gate.id}-a">${aState}</span>
+               </label><br>`;
+
+      if (gate.inputs === 2) {
+        html += `<label class="toggle-label" onclick="gateToggle('${gate.id}','b')">
+                   B: <span class="toggle-btn${bState?' on':''}" id="sw-${gate.id}-b" tabindex="0" role="switch" aria-checked="${bState ? 'true' : 'false'}" aria-label="${gate.name} input B"></span>
+                   <span class="val ${bState?'on':'off'}" id="val-${gate.id}-b">${bState}</span>
+                 </label><br>`;
+      }
+
+      const outVal = gate.inputs === 1 ? gate.fn(aState) : gate.fn(aState, bState);
+      html += `<div class="output-display">Out: <span class="val ${outVal?'on':'off'}" id="out-${gate.id}" style="color:${outVal?ON:OFF}">${outVal}</span></div>`;
+
+      // SVG
+      html += `<div class="gate-svg-wrap"><svg id="svg-${gate.id}" viewBox="0 0 160 70" width="160" height="70">`;
+      html += gateSymbolSvg(gate.id, 44, 10, aState, bState, outVal, gate.inputs === 1);
+      html += '</svg></div>';
+      html += '</div>';
+
+      // Right side: truth table
+      html += '<div style="flex:1;min-width:0">';
+      html += buildTruthTable(gate);
+      html += '</div>';
+
+      html += '</div>'; // end gate-interactive
+
+      card.innerHTML = html;
+      grid.appendChild(card);
+    });
+  }
+
+  /* Build truth table HTML */
+  function buildTruthTable(gate) {
+    const aVal = gateState[gate.id].a;
+    const bVal = gateState[gate.id].b;
+    let html = '<table class="truth-table" id="tt-' + gate.id + '">';
+
+    if (gate.inputs === 1) {
+      html += '<tr><th>A</th><th>Out</th></tr>';
+      for (let a = 0; a <= 1; a++) {
+        const out = gate.fn(a);
+        const active = (a === aVal) ? ' class="active-row"' : '';
+        html += `<tr${active}><td>${a}</td><td>${out}</td></tr>`;
+      }
+    } else {
+      html += '<tr><th>A</th><th>B</th><th>Out</th></tr>';
+      for (let a = 0; a <= 1; a++) {
+        for (let b = 0; b <= 1; b++) {
+          const out = gate.fn(a, b);
+          const active = (a === aVal && b === bVal) ? ' class="active-row"' : '';
+          html += `<tr${active}><td>${a}</td><td>${b}</td><td>${out}</td></tr>`;
+        }
+      }
+    }
+
+    html += '</table>';
+    return html;
+  }
+
+  /* Toggle a gate input */
+  window.gateToggle = function(gateId, input) {
+    gateState[gateId][input] = gateState[gateId][input] ? 0 : 1;
+    updateGateCard(gateId);
+  };
+
+  /* Update a single gate card */
+  function updateGateCard(gateId) {
+    const gate = GATES.find(g => g.id === gateId);
+    const a = gateState[gateId].a;
+    const b = gateState[gateId].b;
+    const out = gate.inputs === 1 ? gate.fn(a) : gate.fn(a, b);
+
+    // Update toggle switches
+    const swA = document.getElementById('sw-' + gateId + '-a');
+    const valA = document.getElementById('val-' + gateId + '-a');
+    swA.className = 'toggle-btn' + (a ? ' on' : '');
+    swA.setAttribute('aria-checked', a ? 'true' : 'false');
+    valA.textContent = a;
+    valA.className = 'val ' + (a ? 'on' : 'off');
+
+    if (gate.inputs === 2) {
+      const swB = document.getElementById('sw-' + gateId + '-b');
+      const valB = document.getElementById('val-' + gateId + '-b');
+      swB.className = 'toggle-btn' + (b ? ' on' : '');
+      swB.setAttribute('aria-checked', b ? 'true' : 'false');
+      valB.textContent = b;
+      valB.className = 'val ' + (b ? 'on' : 'off');
+    }
+
+    // Update output
+    const outEl = document.getElementById('out-' + gateId);
+    outEl.textContent = out;
+    outEl.className = 'val ' + (out ? 'on' : 'off');
+    outEl.style.color = out ? ON : OFF;
+
+    // Update SVG
+    const svg = document.getElementById('svg-' + gateId);
+    svg.innerHTML = gateSymbolSvg(gateId, 44, 10, a, b, out, gate.inputs === 1);
+
+    // Update truth table
+    const tt = document.getElementById('tt-' + gateId);
+    tt.outerHTML = buildTruthTable(gate);
+  }
+
+  /* ==========================================================
+     HALF-ADDER
+     ========================================================== */
+  const haState = { a: 0, b: 0 };
+
+  window.haToggle = function(input) {
+    if (input === 'A') haState.a = haState.a ? 0 : 1;
+    else haState.b = haState.b ? 0 : 1;
+    updateHalfAdder();
+  };
+
+  function updateHalfAdder() {
+    const a = haState.a, b = haState.b;
+    const sum = a ^ b;
+    const carry = a & b;
+
+    // Update toggles
+    document.getElementById('ha-swA').className = 'toggle-btn' + (a ? ' on' : '');
+    document.getElementById('ha-swA').setAttribute('aria-checked', a ? 'true' : 'false');
+    document.getElementById('ha-valA').textContent = a;
+    document.getElementById('ha-valA').className = 'val ' + (a ? 'on' : 'off');
+    document.getElementById('ha-swB').className = 'toggle-btn' + (b ? ' on' : '');
+    document.getElementById('ha-swB').setAttribute('aria-checked', b ? 'true' : 'false');
+    document.getElementById('ha-valB').textContent = b;
+    document.getElementById('ha-valB').className = 'val ' + (b ? 'on' : 'off');
+
+    // Update result
+    document.getElementById('ha-sum').textContent = sum;
+    document.getElementById('ha-carry').textContent = carry;
+    document.getElementById('ha-dec').textContent = carry * 2 + sum;
+
+    // Draw circuit
+    drawHalfAdder(a, b, sum, carry);
+  }
+
+  function drawHalfAdder(a, b, sum, carry) {
+    const svg = document.getElementById('halfAdderSvg');
+    const aColor = a ? ON : OFF;
+    const bColor = b ? ON : OFF;
+    const sumColor = sum ? ON : OFF;
+    const carryColor = carry ? ON : OFF;
+    const xorOut = a ^ b;
+    const andOut = a & b;
+
+    let s = '';
+
+    // --- Input labels ---
+    s += `<text x="20" y="65" style="font-family:var(--mono);font-size:16px;font-weight:700;fill:${aColor}">A = ${a}</text>`;
+    s += `<text x="20" y="165" style="font-family:var(--mono);font-size:16px;font-weight:700;fill:${bColor}">B = ${b}</text>`;
+
+    // --- Wire: A to split point ---
+    s += `<line x1="75" y1="60" x2="140" y2="60" stroke="${aColor}" stroke-width="2.5"/>`;
+
+    // --- Split A down to AND gate ---
+    s += `<line x1="140" y1="60" x2="140" y2="160" stroke="${aColor}" stroke-width="2.5"/>`;
+
+    // --- A to XOR input top ---
+    s += `<line x1="140" y1="60" x2="180" y2="60" stroke="${aColor}" stroke-width="2.5"/>`;
+
+    // --- A to AND input top ---
+    s += `<line x1="140" y1="160" x2="180" y2="160" stroke="${aColor}" stroke-width="2.5"/>`;
+
+    // --- Wire: B to split point ---
+    s += `<line x1="75" y1="160" x2="110" y2="160" stroke="${bColor}" stroke-width="2.5"/>`;
+
+    // --- Split B up to XOR gate ---
+    s += `<line x1="110" y1="160" x2="110" y2="86" stroke="${bColor}" stroke-width="2.5"/>`;
+
+    // --- B to XOR input bottom ---
+    s += `<line x1="110" y1="86" x2="180" y2="86" stroke="${bColor}" stroke-width="2.5"/>`;
+
+    // --- B to AND input bottom ---
+    s += `<line x1="110" y1="160" x2="110" y2="186" stroke="${bColor}" stroke-width="2.5"/>`;
+    s += `<line x1="110" y1="186" x2="180" y2="186" stroke="${bColor}" stroke-width="2.5"/>`;
+
+    // --- Split dots ---
+    s += `<circle cx="140" cy="60" r="4" fill="${aColor}"/>`;
+    s += `<circle cx="110" cy="160" r="4" fill="${bColor}"/>`;
+
+    // --- XOR Gate (top) ---
+    s += drawGateShape('XOR', 180, 48, xorOut);
+    s += `<text x="206" y="78" text-anchor="middle" style="font-family:var(--mono);font-size:10px;font-weight:700;fill:${DARK}">XOR</text>`;
+
+    // --- AND Gate (bottom) ---
+    s += drawGateShape('AND', 180, 148, andOut);
+    s += `<text x="206" y="178" text-anchor="middle" style="font-family:var(--mono);font-size:10px;font-weight:700;fill:${DARK}">AND</text>`;
+
+    // --- Output wires ---
+    // XOR -> Sum
+    s += `<line x1="250" y1="73" x2="380" y2="73" stroke="${sumColor}" stroke-width="2.5"/>`;
+    // AND -> Carry
+    s += `<line x1="250" y1="173" x2="380" y2="173" stroke="${carryColor}" stroke-width="2.5"/>`;
+
+    // --- Animated signal dots ---
+    const dotId1 = 'ha-dot-sum-' + Date.now();
+    const dotId2 = 'ha-dot-carry-' + Date.now();
+    if (sum) {
+      s += `<circle r="5" fill="${ON}" opacity="0.9">
+              <animateMotion dur="0.5s" fill="freeze" path="M250,73 L380,73"/>
+              <animate attributeName="opacity" values="0.9;0" dur="0.5s" fill="freeze"/>
+            </circle>`;
+    }
+    if (carry) {
+      s += `<circle r="5" fill="${ON}" opacity="0.9">
+              <animateMotion dur="0.5s" fill="freeze" path="M250,173 L380,173"/>
+              <animate attributeName="opacity" values="0.9;0" dur="0.5s" fill="freeze"/>
+            </circle>`;
+    }
+
+    // --- Output labels ---
+    s += `<text x="390" y="68" style="font-family:var(--body);font-size:14px;fill:${DARK}">Sum</text>`;
+    s += `<rect x="390" y="72" width="60" height="28" rx="6" fill="${sum ? ON_FILL : OFF_FILL}" stroke="${sumColor}" stroke-width="2"/>`;
+    s += `<text x="420" y="92" text-anchor="middle" style="font-family:var(--mono);font-size:18px;font-weight:700;fill:${sumColor}">${sum}</text>`;
+
+    s += `<text x="390" y="168" style="font-family:var(--body);font-size:14px;fill:${DARK}">Carry</text>`;
+    s += `<rect x="390" y="172" width="60" height="28" rx="6" fill="${carry ? ON_FILL : OFF_FILL}" stroke="${carryColor}" stroke-width="2"/>`;
+    s += `<text x="420" y="192" text-anchor="middle" style="font-family:var(--mono);font-size:18px;font-weight:700;fill:${carryColor}">${carry}</text>`;
+
+    // Section labels
+    s += `<text x="290" y="22" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:${ACCENT};font-weight:700">Half-Adder</text>`;
+    s += `<rect x="160" y="30" width="220" height="185" rx="10" fill="none" stroke="${ACCENT}" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.3"/>`;
+
+    svg.innerHTML = s;
+  }
+
+  /* Draw a gate shape only (used in circuits) */
+  function drawGateShape(type, ox, oy, outVal) {
+    const w = 60, h = 50;
+    const bodyStroke = outVal ? ON : DARK;
+    const bodyFill = outVal ? ON_FILL : OFF_FILL;
+    let shape = '';
+    switch (type) {
+      case 'AND':
+        shape = `<path d="M${ox},${oy+2} L${ox},${oy+h-2} L${ox+30},${oy+h-2} Q${ox+w+8},${oy+h/2} ${ox+30},${oy+2} Z"
+                   fill="${bodyFill}" stroke="${bodyStroke}" stroke-width="2" stroke-linejoin="round"/>`;
+        break;
+      case 'OR':
+        shape = `<path d="M${ox+2},${oy} Q${ox+15},${oy+h/2} ${ox+2},${oy+h}
+                   Q${ox+35},${oy+h} ${ox+w+4},${oy+h/2}
+                   Q${ox+35},${oy} ${ox+2},${oy} Z"
+                   fill="${bodyFill}" stroke="${bodyStroke}" stroke-width="2" stroke-linejoin="round"/>`;
+        break;
+      case 'XOR':
+        shape = `<path d="M${ox+2},${oy} Q${ox+15},${oy+h/2} ${ox+2},${oy+h}
+                   Q${ox+35},${oy+h} ${ox+w+4},${oy+h/2}
+                   Q${ox+35},${oy} ${ox+2},${oy} Z"
+                   fill="${bodyFill}" stroke="${bodyStroke}" stroke-width="2" stroke-linejoin="round"/>
+                 <path d="M${ox-5},${oy-2} Q${ox+8},${oy+h/2} ${ox-5},${oy+h+2}"
+                   fill="none" stroke="${bodyStroke}" stroke-width="2"/>`;
+        break;
+    }
+    return shape;
+  }
+
+  /* ==========================================================
+     FULL-ADDER
+     ========================================================== */
+  const faState = { a: 0, b: 0, cin: 0 };
+
+  window.faToggle = function(input) {
+    if (input === 'A') faState.a = faState.a ? 0 : 1;
+    else if (input === 'B') faState.b = faState.b ? 0 : 1;
+    else faState.cin = faState.cin ? 0 : 1;
+    updateFullAdder();
+  };
+
+  function updateFullAdder() {
+    const a = faState.a, b = faState.b, cin = faState.cin;
+
+    // Half-adder 1: A XOR B, A AND B
+    const ha1_sum = a ^ b;
+    const ha1_carry = a & b;
+
+    // Half-adder 2: ha1_sum XOR cin, ha1_sum AND cin
+    const ha2_sum = ha1_sum ^ cin;
+    const ha2_carry = ha1_sum & cin;
+
+    // Final: sum = ha2_sum, cout = ha1_carry OR ha2_carry
+    const sum = ha2_sum;
+    const cout = ha1_carry | ha2_carry;
+
+    // Update toggles
+    document.getElementById('fa-swA').className = 'toggle-btn' + (a ? ' on' : '');
+    document.getElementById('fa-swA').setAttribute('aria-checked', a ? 'true' : 'false');
+    document.getElementById('fa-valA').textContent = a;
+    document.getElementById('fa-valA').className = 'val ' + (a ? 'on' : 'off');
+    document.getElementById('fa-swB').className = 'toggle-btn' + (b ? ' on' : '');
+    document.getElementById('fa-swB').setAttribute('aria-checked', b ? 'true' : 'false');
+    document.getElementById('fa-valB').textContent = b;
+    document.getElementById('fa-valB').className = 'val ' + (b ? 'on' : 'off');
+    document.getElementById('fa-swCin').className = 'toggle-btn' + (cin ? ' on' : '');
+    document.getElementById('fa-swCin').setAttribute('aria-checked', cin ? 'true' : 'false');
+    document.getElementById('fa-valCin').textContent = cin;
+    document.getElementById('fa-valCin').className = 'val ' + (cin ? 'on' : 'off');
+
+    // Update result
+    document.getElementById('fa-sum').textContent = sum;
+    document.getElementById('fa-cout').textContent = cout;
+    document.getElementById('fa-dec').textContent = cout * 2 + sum;
+
+    drawFullAdder(a, b, cin, ha1_sum, ha1_carry, ha2_sum, ha2_carry, sum, cout);
+  }
+
+  function drawFullAdder(a, b, cin, ha1s, ha1c, ha2s, ha2c, sum, cout) {
+    const svg = document.getElementById('fullAdderSvg');
+    const aColor = a ? ON : OFF;
+    const bColor = b ? ON : OFF;
+    const cinColor = cin ? ON : OFF;
+    const ha1sColor = ha1s ? ON : OFF;
+    const ha1cColor = ha1c ? ON : OFF;
+    const sumColor = sum ? ON : OFF;
+    const coutColor = cout ? ON : OFF;
+
+    let s = '';
+
+    // ---- Dashed outlines for the two half-adders and OR ----
+    s += `<rect x="140" y="15" width="170" height="120" rx="8" fill="none" stroke="${ACCENT}" stroke-width="1.2" stroke-dasharray="5,3" opacity="0.3"/>`;
+    s += `<text x="225" y="12" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:${ACCENT};font-weight:700">Half-Adder 1</text>`;
+
+    s += `<rect x="320" y="80" width="170" height="120" rx="8" fill="none" stroke="${ACCENT}" stroke-width="1.2" stroke-dasharray="5,3" opacity="0.3"/>`;
+    s += `<text x="405" y="77" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:${ACCENT};font-weight:700">Half-Adder 2</text>`;
+
+    // ---- Input labels ----
+    s += `<text x="16" y="50" style="font-family:var(--mono);font-size:14px;font-weight:700;fill:${aColor}">A=${a}</text>`;
+    s += `<text x="16" y="105" style="font-family:var(--mono);font-size:14px;font-weight:700;fill:${bColor}">B=${b}</text>`;
+    s += `<text x="280" y="220" style="font-family:var(--mono);font-size:14px;font-weight:700;fill:${cinColor}">C_in=${cin}</text>`;
+
+    // ---- Wires: A splits to XOR1 and AND1 ----
+    // A horizontal
+    s += `<line x1="65" y1="45" x2="120" y2="45" stroke="${aColor}" stroke-width="2.5"/>`;
+    // A split down
+    s += `<line x1="120" y1="45" x2="120" y2="105" stroke="${aColor}" stroke-width="2.5"/>`;
+    s += `<circle cx="120" cy="45" r="3" fill="${aColor}"/>`;
+    // A to XOR1 top
+    s += `<line x1="120" y1="45" x2="155" y2="45" stroke="${aColor}" stroke-width="2.5"/>`;
+    // A to AND1 top
+    s += `<line x1="120" y1="105" x2="155" y2="105" stroke="${aColor}" stroke-width="2.5"/>`;
+
+    // ---- Wires: B splits to XOR1 and AND1 ----
+    s += `<line x1="65" y1="100" x2="95" y2="100" stroke="${bColor}" stroke-width="2.5"/>`;
+    s += `<line x1="95" y1="100" x2="95" y2="70" stroke="${bColor}" stroke-width="2.5"/>`;
+    s += `<circle cx="95" cy="100" r="3" fill="${bColor}"/>`;
+    // B to XOR1 bottom
+    s += `<line x1="95" y1="70" x2="155" y2="70" stroke="${bColor}" stroke-width="2.5"/>`;
+    // B to AND1 bottom
+    s += `<line x1="95" y1="100" x2="95" y2="125" stroke="${bColor}" stroke-width="2.5"/>`;
+    s += `<line x1="95" y1="125" x2="155" y2="125" stroke="${bColor}" stroke-width="2.5"/>`;
+
+    // ---- XOR1 Gate ----
+    s += drawGateShape('XOR', 155, 30, ha1s);
+    s += `<text x="182" y="60" text-anchor="middle" style="font-family:var(--mono);font-size:9px;font-weight:700;fill:${DARK}">XOR</text>`;
+
+    // ---- AND1 Gate ----
+    s += drawGateShape('AND', 155, 90, ha1c);
+    s += `<text x="182" y="120" text-anchor="middle" style="font-family:var(--mono);font-size:9px;font-weight:700;fill:${DARK}">AND</text>`;
+
+    // ---- XOR1 output -> splits to XOR2 and AND2 ----
+    s += `<line x1="225" y1="55" x2="300" y2="55" stroke="${ha1sColor}" stroke-width="2.5"/>`;
+    s += `<line x1="300" y1="55" x2="300" y2="165" stroke="${ha1sColor}" stroke-width="2.5"/>`;
+    s += `<circle cx="300" cy="55" r="3" fill="${ha1sColor}"/>`;
+    // To XOR2 top
+    s += `<line x1="300" y1="105" x2="335" y2="105" stroke="${ha1sColor}" stroke-width="2.5"/>`;
+    // To AND2 top
+    s += `<line x1="300" y1="165" x2="335" y2="165" stroke="${ha1sColor}" stroke-width="2.5"/>`;
+
+    // ---- AND1 output -> down to OR ----
+    s += `<line x1="225" y1="115" x2="260" y2="115" stroke="${ha1cColor}" stroke-width="2.5"/>`;
+    s += `<line x1="260" y1="115" x2="260" y2="248" stroke="${ha1cColor}" stroke-width="2.5"/>`;
+    s += `<line x1="260" y1="248" x2="520" y2="248" stroke="${ha1cColor}" stroke-width="2.5"/>`;
+    s += `<line x1="520" y1="248" x2="520" y2="225" stroke="${ha1cColor}" stroke-width="2.5"/>`;
+
+    // ---- Cin wire -> splits to XOR2 and AND2 ----
+    s += `<line x1="340" y1="200" x2="335" y2="200" stroke="${cinColor}" stroke-width="2.5"/>`;
+    // Cin up to XOR2 bottom
+    s += `<line x1="310" y1="200" x2="310" y2="130" stroke="${cinColor}" stroke-width="2.5"/>`;
+    s += `<line x1="310" y1="130" x2="335" y2="130" stroke="${cinColor}" stroke-width="2.5"/>`;
+    s += `<circle cx="310" cy="200" r="3" fill="${cinColor}"/>`;
+    // Cin to AND2 bottom
+    s += `<line x1="310" y1="200" x2="335" y2="185" stroke="${cinColor}" stroke-width="2.5"/>`;
+
+    // ---- XOR2 Gate ----
+    s += drawGateShape('XOR', 335, 90, sum);
+    s += `<text x="362" y="120" text-anchor="middle" style="font-family:var(--mono);font-size:9px;font-weight:700;fill:${DARK}">XOR</text>`;
+
+    // ---- AND2 Gate ----
+    s += drawGateShape('AND', 335, 150, ha2c);
+    s += `<text x="362" y="180" text-anchor="middle" style="font-family:var(--mono);font-size:9px;font-weight:700;fill:${DARK}">AND</text>`;
+
+    // ---- XOR2 output -> Sum ----
+    s += `<line x1="405" y1="115" x2="550" y2="115" stroke="${sumColor}" stroke-width="2.5"/>`;
+
+    // ---- AND2 output -> OR ----
+    const ha2cColor = ha2c ? ON : OFF;
+    s += `<line x1="405" y1="175" x2="440" y2="175" stroke="${ha2cColor}" stroke-width="2.5"/>`;
+    s += `<line x1="440" y1="175" x2="440" y2="210" stroke="${ha2cColor}" stroke-width="2.5"/>`;
+    s += `<line x1="440" y1="210" x2="510" y2="210" stroke="${ha2cColor}" stroke-width="2.5"/>`;
+
+    // ---- OR Gate ----
+    s += drawGateShape('OR', 510, 195, cout);
+    s += `<text x="537" y="225" text-anchor="middle" style="font-family:var(--mono);font-size:9px;font-weight:700;fill:${DARK}">OR</text>`;
+
+    // ---- OR output -> Carry-Out ----
+    s += `<line x1="580" y1="220" x2="620" y2="220" stroke="${coutColor}" stroke-width="2.5"/>`;
+
+    // ---- Output labels ----
+    s += `<text x="555" y="108" style="font-family:var(--body);font-size:14px;fill:${DARK}">Sum</text>`;
+    s += `<rect x="555" y="112" width="50" height="24" rx="6" fill="${sum ? ON_FILL : OFF_FILL}" stroke="${sumColor}" stroke-width="2"/>`;
+    s += `<text x="580" y="130" text-anchor="middle" style="font-family:var(--mono);font-size:16px;font-weight:700;fill:${sumColor}">${sum}</text>`;
+
+    s += `<text x="625" y="213" style="font-family:var(--body);font-size:14px;fill:${DARK}">C_out</text>`;
+    s += `<rect x="625" y="217" width="50" height="24" rx="6" fill="${cout ? ON_FILL : OFF_FILL}" stroke="${coutColor}" stroke-width="2"/>`;
+    s += `<text x="650" y="235" text-anchor="middle" style="font-family:var(--mono);font-size:16px;font-weight:700;fill:${coutColor}">${cout}</text>`;
+
+    // Animated signal dots
+    if (sum) {
+      s += `<circle r="4" fill="${ON}" opacity="0.9">
+              <animateMotion dur="0.4s" fill="freeze" path="M405,115 L550,115"/>
+              <animate attributeName="opacity" values="0.9;0" dur="0.4s" fill="freeze"/>
+            </circle>`;
+    }
+    if (cout) {
+      s += `<circle r="4" fill="${ON}" opacity="0.9">
+              <animateMotion dur="0.4s" fill="freeze" path="M580,220 L620,220"/>
+              <animate attributeName="opacity" values="0.9;0" dur="0.4s" fill="freeze"/>
+            </circle>`;
+    }
+
+    svg.innerHTML = s;
+  }
+
+  /* ==========================================================
+     4-BIT BINARY CALCULATOR
+     ========================================================== */
+  const calcState = {
+    a: [0, 0, 0, 0], // bits 3,2,1,0 (MSB first in array index 0)
+    b: [0, 0, 0, 0],
+  };
+
+  window.calcToggle = function(which, idx) {
+    const arr = which === 'A' ? calcState.a : calcState.b;
+    const arrIdx = 3 - idx; // idx 0 = LSB = array[3]
+    arr[arrIdx] = arr[arrIdx] ? 0 : 1;
+    updateCalc();
+  };
+
+  function updateCalc() {
+    const a = calcState.a;
+    const b = calcState.b;
+
+    // Update button displays
+    const bitsAEl = document.getElementById('calc-bitsA');
+    const bitsBEl = document.getElementById('calc-bitsB');
+    for (let i = 0; i < 4; i++) {
+      const btnA = bitsAEl.children[i];
+      const btnB = bitsBEl.children[i];
+      btnA.textContent = a[i];
+      btnA.className = 'bit-btn' + (a[i] ? ' on' : '');
+      btnB.textContent = b[i];
+      btnB.className = 'bit-btn' + (b[i] ? ' on' : '');
+    }
+
+    // Compute decimal
+    const decA = a[0]*8 + a[1]*4 + a[2]*2 + a[3]*1;
+    const decB = b[0]*8 + b[1]*4 + b[2]*2 + b[3]*1;
+    document.getElementById('calc-decA').textContent = '= ' + decA;
+    document.getElementById('calc-decB').textContent = '= ' + decB;
+
+    // Ripple-carry addition (LSB first: index 3 is bit 0)
+    let carry = 0;
+    const sumBits = [0, 0, 0, 0];
+    const carries = [0, 0, 0, 0, 0]; // carries[0] is initial carry-in (0), carries[i+1] is carry-out of stage i
+    carries[0] = 0;
+    for (let i = 3; i >= 0; i--) {
+      const bitA = a[i];
+      const bitB = b[i];
+      const s = bitA ^ bitB ^ carry;
+      const c = (bitA & bitB) | ((bitA ^ bitB) & carry);
+      sumBits[i] = s;
+      carry = c;
+      carries[4 - i] = c; // carries[1] = carry out of bit 0, etc.
+    }
+    const carryOut = carry;
+    const decResult = decA + decB;
+
+    // Update result display
+    document.getElementById('calc-bits').textContent = carryOut.toString() + sumBits.join('');
+    document.getElementById('calc-decResult').textContent = decResult;
+
+    // Draw the ripple-carry adder SVG
+    drawCalcSvg(a, b, sumBits, carries, carryOut);
+  }
+
+  function drawCalcSvg(a, b, sumBits, carries, carryOut) {
+    const svg = document.getElementById('calcSvg');
+    let s = '';
+
+    // Layout: 4 full-adder boxes from right (bit 0) to left (bit 3)
+    // Each box is 120px wide with 30px gap
+    const boxW = 120, boxH = 130, gap = 25;
+    const startX = 580; // right edge of rightmost box
+    const topY = 30;
+
+    for (let bit = 0; bit < 4; bit++) {
+      const arrIdx = 3 - bit; // bit 0 = array index 3
+      const x = startX - (bit + 1) * (boxW + gap) + gap;
+      const y = topY;
+
+      const bitA = a[arrIdx];
+      const bitB = b[arrIdx];
+      const bitSum = sumBits[arrIdx];
+      const cIn = (bit === 0) ? 0 : carries[bit];
+      const cOut = carries[bit + 1];
+
+      const aColor = bitA ? ON : OFF;
+      const bColor = bitB ? ON : OFF;
+      const cinColor = cIn ? ON : OFF;
+      const sumColor = bitSum ? ON : OFF;
+      const coutColor = cOut ? ON : OFF;
+
+      // Box
+      s += `<rect x="${x}" y="${y}" width="${boxW}" height="${boxH}" rx="8"
+              fill="${(bitSum || cOut) ? ON_FILL : OFF_FILL}"
+              stroke="${(bitSum || cOut) ? ON : '#CBD5E0'}" stroke-width="2"/>`;
+
+      // Label
+      s += `<text x="${x + boxW/2}" y="${y + 18}" text-anchor="middle"
+              style="font-family:var(--hand);font-size:14px;font-weight:700;fill:${ACCENT}">FA (bit ${bit})</text>`;
+
+      // Input A arrow
+      s += `<text x="${x + 25}" y="${y - 6}" text-anchor="middle"
+              style="font-family:var(--mono);font-size:11px;font-weight:700;fill:${aColor}">A${bit}</text>`;
+      s += `<line x1="${x + 25}" y1="${y - 2}" x2="${x + 25}" y2="${y}" stroke="${aColor}" stroke-width="2"/>`;
+      s += `<text x="${x + 25}" y="${y + 38}" text-anchor="middle"
+              style="font-family:var(--mono);font-size:13px;font-weight:700;fill:${aColor}">${bitA}</text>`;
+
+      // Input B arrow
+      s += `<text x="${x + boxW - 25}" y="${y - 6}" text-anchor="middle"
+              style="font-family:var(--mono);font-size:11px;font-weight:700;fill:${bColor}">B${bit}</text>`;
+      s += `<line x1="${x + boxW - 25}" y1="${y - 2}" x2="${x + boxW - 25}" y2="${y}" stroke="${bColor}" stroke-width="2"/>`;
+      s += `<text x="${x + boxW - 25}" y="${y + 38}" text-anchor="middle"
+              style="font-family:var(--mono);font-size:13px;font-weight:700;fill:${bColor}">${bitB}</text>`;
+
+      // Sum output (bottom)
+      s += `<line x1="${x + boxW/2}" y1="${y + boxH}" x2="${x + boxW/2}" y2="${y + boxH + 22}" stroke="${sumColor}" stroke-width="2.5"/>`;
+      s += `<text x="${x + boxW/2}" y="${y + boxH + 38}" text-anchor="middle"
+              style="font-family:var(--mono);font-size:16px;font-weight:700;fill:${sumColor}">S${bit}=${bitSum}</text>`;
+
+      // Carry-in (right side for bit > 0)
+      if (bit > 0) {
+        s += `<text x="${x + boxW + 2}" y="${y + boxH/2 + 4}" text-anchor="start"
+                style="font-family:var(--mono);font-size:10px;fill:${cinColor}">C_in</text>`;
+      }
+
+      // Carry-out (left side)
+      if (bit < 3) {
+        // Wire to next FA
+        const nextX = x - gap;
+        s += `<line x1="${x}" y1="${y + boxH/2}" x2="${nextX}" y2="${y + boxH/2}" stroke="${coutColor}" stroke-width="2.5"/>`;
+        // Animated carry propagation
+        if (cOut) {
+          s += `<circle r="4" fill="${ON}" opacity="0.8">
+                  <animateMotion dur="0.3s" begin="${bit * 0.15}s" fill="freeze" path="M${x},${y + boxH/2} L${nextX},${y + boxH/2}"/>
+                  <animate attributeName="opacity" values="0.8;0" dur="0.3s" begin="${bit * 0.15}s" fill="freeze"/>
+                </circle>`;
+        }
+      } else {
+        // Final carry-out (leftmost)
+        s += `<line x1="${x}" y1="${y + boxH/2}" x2="${x - 30}" y2="${y + boxH/2}" stroke="${coutColor}" stroke-width="2.5"/>`;
+        s += `<text x="${x - 35}" y="${y + boxH/2 + 5}" text-anchor="end"
+                style="font-family:var(--mono);font-size:16px;font-weight:700;fill:${coutColor}">C=${carryOut}</text>`;
+        if (carryOut) {
+          s += `<circle r="4" fill="${ON}" opacity="0.8">
+                  <animateMotion dur="0.3s" begin="0.45s" fill="freeze" path="M${x},${y + boxH/2} L${x - 30},${y + boxH/2}"/>
+                  <animate attributeName="opacity" values="0.8;0" dur="0.3s" begin="0.45s" fill="freeze"/>
+                </circle>`;
+        }
+      }
+
+      // Internal label: Sum and Carry calculation
+      s += `<text x="${x + boxW/2}" y="${y + 62}" text-anchor="middle"
+              style="font-family:var(--mono);font-size:10px;fill:${DARK}">S = A^B^Cin</text>`;
+      s += `<text x="${x + boxW/2}" y="${y + 78}" text-anchor="middle"
+              style="font-family:var(--mono);font-size:10px;fill:${DARK}">C = maj(A,B,Cin)</text>`;
+
+      // Carry-in value label (right side)
+      s += `<text x="${x + boxW/2}" y="${y + 100}" text-anchor="middle"
+              style="font-family:var(--mono);font-size:11px;fill:${cinColor}">Cin=${cIn}</text>`;
+      s += `<text x="${x + boxW/2}" y="${y + 118}" text-anchor="middle"
+              style="font-family:var(--mono);font-size:11px;fill:${coutColor}">Cout=${cOut}</text>`;
+    }
+
+    // Title
+    s += `<text x="340" y="18" text-anchor="middle"
+            style="font-family:var(--hand);font-size:16px;fill:${ACCENT};font-weight:700">Carry ripples from right to left &rarr;</text>`;
+
+    svg.innerHTML = s;
+  }
+
+  /* ==========================================================
+     KEYBOARD ACCESSIBILITY — Toggle switches
+     ========================================================== */
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const el = e.target;
+    if (!el.classList.contains('toggle-btn')) return;
+    e.preventDefault();
+    // Find the parent toggle-label and trigger its onclick
+    const label = el.closest('.toggle-label');
+    if (label) label.click();
+  });
+
+  /* ==========================================================
+     INITIALIZATION
+     ========================================================== */
+  buildGateCards();
+  updateHalfAdder();
+  updateFullAdder();
+  updateCalc();
+
+})();
+</script>
+
+</body>
+</html>

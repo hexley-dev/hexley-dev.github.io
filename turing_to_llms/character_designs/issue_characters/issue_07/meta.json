@@ -1,0 +1,13 @@
+{
+  "name": "Attn",
+  "era": "2017\u20132023 \u2014 Attention Is All You Need",
+  "theme": "Transformers, self-attention, tokenization, LLMs, scaling",
+  "designs": [
+    "attention_beam",
+    "token_mosaic",
+    "paper_origami",
+    "scaling_tower",
+    "holographic",
+    "transformer_block"
+  ]
+}

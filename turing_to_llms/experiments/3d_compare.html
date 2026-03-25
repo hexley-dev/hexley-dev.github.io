@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Style A/B Comparison — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Source Serif 4', Georgia, serif; background: #1a1a2e; color: #e0e0e0; }
+
+  header { text-align: center; padding: 2.5rem 1rem 1.5rem; background: linear-gradient(135deg, #16213e, #0f3460); border-bottom: 3px solid #E53E3E; }
+  header h1 { font-family: 'Bangers', cursive; font-size: 2.4rem; color: #E53E3E; letter-spacing: 2px; }
+  header p { color: #a0a0c0; max-width: 700px; margin: 0.5rem auto 0; line-height: 1.5; font-size: 0.95rem; }
+
+  .labels { display: flex; max-width: 1400px; margin: 0 auto; padding: 1rem 1rem 0; gap: 1rem; }
+  .labels .label { flex: 1; text-align: center; font-family: 'Bangers', cursive; font-size: 1.2rem; padding: 0.6rem; border-radius: 8px 8px 0 0; }
+  .label-a { background: #2a1a3e; color: #c084fc; }
+  .label-b { background: #1a2a1e; color: #86efac; }
+
+  .compare { max-width: 1400px; margin: 0 auto; padding: 0 1rem 2rem; }
+
+  .pair { display: flex; gap: 1rem; margin-bottom: 2rem; }
+  .pair > div { flex: 1; }
+  .pair .card {
+    background: #16213e; border-radius: 10px; overflow: hidden;
+    border: 2px solid transparent; transition: border-color 0.2s;
+  }
+  .pair .card:hover { border-color: #4a4a6e; }
+  .pair .card img { width: 100%; height: auto; display: block; cursor: zoom-in; }
+  .pair .card-label {
+    padding: 0.6rem 1rem;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.9rem;
+    color: #808090;
+  }
+  .pair .scene-title {
+    text-align: center;
+    font-family: 'Bangers', cursive;
+    font-size: 1.1rem;
+    color: #E53E3E;
+    padding: 0.5rem 0 0.3rem;
+    grid-column: 1 / -1;
+  }
+
+  .scene-header {
+    text-align: center;
+    font-family: 'Bangers', cursive;
+    font-size: 1.3rem;
+    color: #E53E3E;
+    padding: 1rem 0 0.5rem;
+    border-top: 1px solid #2a2a4e;
+    margin-top: 0.5rem;
+  }
+
+  .lightbox { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:100; align-items:center; justify-content:center; cursor:zoom-out; }
+  .lightbox.active { display:flex; }
+  .lightbox img { max-width:90vw; max-height:90vh; border-radius:8px; }
+
+  footer { text-align: center; padding: 2rem; color: #505068; font-size: 0.8rem; }
+
+  @media (max-width: 700px) {
+    .pair { flex-direction: column; }
+    .labels { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>3D Style A/B Comparison</h1>
+  <p>Same 8 key panels, two different stylized 3D approaches. Click any image to zoom.</p>
+</header>
+
+<div class="labels">
+  <div class="label label-a">Direction A: 3D Scribble + Watercolor World</div>
+  <div class="label label-b">Direction B: Full stylized 3D — 1930s Palette</div>
+</div>
+
+<div class="compare" id="compare"></div>
+
+<div class="lightbox" id="lb" onclick="this.classList.remove('active')">
+  <img id="lb-img" src="">
+</div>
+
+<footer>From Turing to Swarms — 3D Art Direction Exploration</footer>
+
+<script>
+const SCENES = [
+  { id: '01_scribble_hero', title: 'Scribble — Hero Shot' },
+  { id: '02_cambridge', title: 'Cambridge — Establishing Shot' },
+  { id: '03_turing', title: 'Alan Turing — Portrait' },
+  { id: '04_hilbert', title: 'Hilbert — Lecturing' },
+  { id: '05_scribble_tape', title: 'Scribble — Teaching the Tape' },
+  { id: '06_meta_moment', title: 'The Meta Moment — "I AM a Turing Machine!"' },
+  { id: '07_vienna_cafe', title: 'Vienna Café — Gödel' },
+  { id: '08_scribble_ride', title: 'Closing Shot — Riding into the Future' },
+];
+
+const el = document.getElementById('compare');
+SCENES.forEach(s => {
+  el.innerHTML += `
+    <div class="scene-header">${s.title}</div>
+    <div class="pair">
+      <div>
+        <div class="card">
+          <img src="stylized_3d/images/${s.id}.png" alt="A: ${s.title}" loading="lazy"
+               onclick="openLB(this.src)">
+          <div class="card-label">A: 3D Character + Watercolor World</div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <img src="full_3d/images/${s.id}.png" alt="B: ${s.title}" loading="lazy"
+               onclick="openLB(this.src)">
+          <div class="card-label">B: Full stylized 3D — 1930s Era</div>
+        </div>
+      </div>
+    </div>
+  `;
+});
+
+function openLB(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb').classList.add('active');
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('lb').classList.remove('active');
+});
+</script>
+</body>
+</html>

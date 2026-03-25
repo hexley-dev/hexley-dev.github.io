@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Idea That Started Everything — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Caveat:wght@500;600;700&family=Patrick+Hand&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   DESIGN SYSTEM — Printed Graphic Novel Reader
+
+   FLUX2-dev image dimensions (all multiples of 64):
+     Full-width:  768×256, 768×384, 768×448, 768×512
+     Half-width:  384×384, 384×512
+     Third-width: 256×256
+
+   Layout container: 720px, content: 688px (16px pad)
+   Gutter: 8px between panels
+   ═══════════════════════════════════════════════ */
+
+:root {
+  /* Stylized 3D — warmer, softer, more dimensional */
+  --paper: #F7F2E8;
+  --paper-dark: #EFE8DA;
+  --ink: #3D2F24;
+  --ink-light: #5C4A3A;
+  --ink-muted: #8B7A6B;
+  --accent: #D94F3E;
+  --accent-dark: #B83A2E;
+  --accent-rgb: 217, 79, 62;
+  --cream: #FFF8E1;
+  --cream-border: #E4D5B8;
+  --warm-glow: #F5E6C8;
+  --gutter: 10px;
+  --panel-radius: 8px;
+  --panel-border: none;
+  --panel-shadow: 0 2px 8px rgba(61,47,36,0.1), 0 0 0 1px rgba(61,47,36,0.06);
+  --font-title: 'Bangers', 'Impact', sans-serif;
+  --font-hand: 'Source Serif 4', Georgia, serif;
+  --font-body: 'Source Serif 4', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+.book { max-width: 768px; margin: 0 auto; background: var(--paper); min-height: 100vh; }
+
+/* Cover */
+.cover {
+  position: relative;
+  padding: 3rem 2rem 2.5rem;
+  text-align: center;
+  background: linear-gradient(135deg, #2C1810 0%, #4A2C1A 40%, #6B3A20 80%, #8B5E3C 100%);
+  color: white;
+  overflow: hidden;
+}
+.cover::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: var(--accent); }
+.cover .issue-num { font-family: var(--font-hand); font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; opacity: 0.7; margin-bottom: 0.5rem; }
+.cover h1 { font-family: var(--font-title); font-size: 2.4rem; letter-spacing: 2px; line-height: 1.15; margin-bottom: 0.4rem; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+.cover .series { font-family: var(--font-hand); font-size: 1.1rem; font-weight: 600; opacity: 0.8; }
+
+/* Navigation */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  padding: 10px 16px;
+  background: rgba(247, 242, 232, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--cream-border);
+}
+.nav-btn {
+  background: none; border: 1.5px solid var(--ink); color: var(--ink);
+  padding: 5px 14px; border-radius: 4px;
+  font-family: var(--font-body); font-size: 0.9rem; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+}
+.nav-btn:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
+.nav-btn:disabled { opacity: 0.2; cursor: default; }
+.dots { display: flex; gap: 5px; }
+.dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  border: 1.5px solid var(--ink-muted); background: transparent;
+  cursor: pointer; padding: 0; transition: all 0.2s;
+}
+.dot.active { background: var(--accent); border-color: var(--accent); transform: scale(1.2); }
+
+/* Pages */
+.page { padding: 0 16px 2rem; display: none; }
+.page.active { display: block; animation: pageIn 0.35s ease-out; }
+@keyframes pageIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.page-title { text-align: center; padding: 1.5rem 0 1.2rem; }
+.page-title .num { font-family: var(--font-hand); font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; color: var(--ink-muted); }
+.page-title h2 { font-family: var(--font-title); font-size: 1.7rem; color: var(--accent); letter-spacing: 1px; margin-top: 2px; }
+
+.panels { display: flex; flex-direction: column; gap: var(--gutter); }
+
+/* Panel — every image panel */
+.panel {
+  border: none; border-radius: var(--panel-radius);
+  overflow: hidden; box-shadow: var(--panel-shadow); background: #fff;
+  /* Soft watercolor-wash edge effect */
+  outline: 1px solid rgba(61,47,36,0.08);
+  outline-offset: -1px;
+}
+.panel img { width: 100%; height: auto; display: block; }
+
+/* Splash — full bleed */
+.panel-splash {
+  border-radius: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Row layouts */
+.row { display: flex; gap: var(--gutter); }
+.row > * { flex: 1; min-width: 0; }
+
+/* Narration — comic caption box */
+.narration {
+  background: var(--cream); border: 1px solid var(--cream-border);
+  border-radius: var(--panel-radius); padding: 16px 22px;
+  font-size: 17px; line-height: 1.75; position: relative;
+}
+.narration::before {
+  content: ''; position: absolute; top: -1px; left: 16px;
+  width: 32px; height: 3px; background: var(--accent);
+  border-radius: 0 0 3px 3px;
+  opacity: 0.8;
+}
+.narration strong { color: var(--ink); font-weight: 600; }
+.narration em { color: var(--ink-light); }
+.narration code {
+  font-family: var(--font-mono); background: rgba(0,0,0,0.05);
+  padding: 1px 5px; border-radius: 3px; font-size: 0.88em;
+}
+
+/* Accent narration */
+.narration-accent {
+  background: rgba(var(--accent-rgb), 0.04);
+  border: 1px solid rgba(var(--accent-rgb), 0.15);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--panel-radius) var(--panel-radius) 0;
+  padding: 16px 22px; font-size: 17px; line-height: 1.75;
+}
+.narration-accent strong { color: var(--accent-dark); }
+
+/* Hook */
+.hook {
+  text-align: center; padding: 20px 16px;
+  font-family: var(--font-body); font-size: 1.1rem; font-weight: 600; font-style: italic;
+  color: var(--accent); border-top: 1px solid var(--cream-border);
+  margin-top: 8px; line-height: 1.45;
+}
+
+/* Lab link */
+.lab-link {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 14px 18px; background: rgba(var(--accent-rgb), 0.04);
+  border: 1.5px solid var(--accent); border-radius: 8px;
+}
+.lab-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+.lab-content { font-size: 0.92rem; line-height: 1.5; }
+.lab-btn {
+  display: inline-block; margin-top: 6px; padding: 5px 14px;
+  background: var(--accent); color: white; border-radius: 5px;
+  font-family: var(--font-hand); font-size: 0.9rem; text-decoration: none;
+}
+.lab-btn:hover { background: var(--accent-dark); }
+
+/* References */
+.refs { border: 1px solid var(--cream-border); border-radius: var(--panel-radius); overflow: hidden; font-size: 0.85rem; }
+.refs summary { padding: 10px 16px; background: var(--cream); font-family: var(--font-hand); font-size: 0.95rem; cursor: pointer; color: var(--ink-light); }
+.refs ul { list-style: none; padding: 10px 16px; }
+.refs li { padding: 5px 0; line-height: 1.5; border-bottom: 1px solid var(--cream-border); }
+.refs li:last-child { border-bottom: none; }
+.refs a { color: var(--accent); }
+.ref-note { color: var(--ink-muted); font-size: 0.9em; }
+
+/* Footer */
+.colophon { text-align: center; padding: 2rem 1rem; font-family: var(--font-hand); font-size: 1.1rem; font-weight: 600; color: var(--ink); border-top: 1px solid var(--cream-border); }
+
+/* Mobile */
+@media (max-width: 500px) {
+  .cover h1 { font-size: 1.7rem; }
+  .page-title h2 { font-size: 1.3rem; }
+  .row { flex-direction: column; }
+  .narration, .narration-accent { font-size: 14px; padding: 12px 16px; }
+  .panel-splash { border-radius: 0; }
+}
+@media print { .nav { display: none; } .page { display: block !important; page-break-after: always; } }
+@media (prefers-reduced-motion: reduce) { .page.active { animation: none; } }
+</style>
+</head>
+<body>
+
+<div class="book">
+  <header class="cover">
+    <div class="issue-num">Issue 1 of 10</div>
+    <h1>The Idea That<br>Started Everything</h1>
+    <div class="series">From Turing to Swarms</div>
+  </header>
+
+  <nav class="nav" id="nav">
+    <button class="nav-btn" id="prev" disabled>← Prev</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav-btn" id="next">Next →</button>
+  </nav>
+
+  <!-- PAGE 1 -->
+  <section class="page active" data-page="1">
+    <div class="page-title"><div class="num">Page 1</div><h2>Can a Machine Think?</h2></div>
+    <div class="panels">
+      <div class="panel"><img src="images/p1_01_cosmos.png" alt="Mathematical cosmos"></div>
+      <div class="panel"><img src="images/p1_02_scribble_cosmos.png" alt="Scribble in the cosmos"></div>
+      <div class="narration">It sounds like the kind of question a kid asks at 2&nbsp;AM. The kind adults smile at and say, <em>"That's very interesting, dear."</em></div>
+      <div class="narration">But in <strong>1928</strong>, one of the most famous mathematicians alive asked this question <em>seriously</em>. And he expected the answer to be <strong>yes</strong>.</div>
+      <div class="panel"><img src="images/p1_03_hilbert_podium.png" alt="Hilbert at the podium"></div>
+      <div class="panel"><img src="images/p1_04_shatter.png" alt="Shattering equations"></div>
+      <div class="narration-accent">Spectacularly, beautifully, <em>world-changingly</em> wrong.<br><br>The story of how we found that out is the story of how <strong>computing was born</strong>. Not in a lab. Not in a factory. In the mind of a mathematician who liked to run long distances and think about impossible things.</div>
+      <div class="panel"><img src="images/p1_05_turing_running.png" alt="Turing running"></div>
+      <div class="panel"><img src="images/p1_06_scribble_intrigued.png" alt="Scribble watches"></div>
+      <div class="hook">His name was Alan Turing. And he was only 23 years old.</div>
+    </div>
+  </section>
+
+  <!-- PAGE 2 -->
+  <section class="page" data-page="2">
+    <div class="page-title"><div class="num">Page 2</div><h2>The Long-Distance Thinker</h2></div>
+    <div class="panels">
+      <div class="panel"><img src="images/p2_01_cambridge.png" alt="Cambridge in autumn"></div>
+      <div class="narration"><strong>King's College, Cambridge. 1936.</strong><br><br>Alan Turing was 23, shy, and brilliant. He stammered when he talked. He ran long distances — not to compete, but to think.</div>
+      <div class="row">
+        <div class="panel"><img src="images/p2_02_turing_portrait.png" alt="Alan Turing"></div>
+        <div class="narration" style="display:flex;align-items:center"><div><strong>ALAN TURING</strong><br>Born: June 23, 1912, London<br>Age in 1936: 23<br><br><em>"Sometimes it is the people no one imagines anything of who do the things that no one can imagine."</em></div></div>
+      </div>
+      <div class="panel"><img src="images/p2_03_turing_room.png" alt="Turing in his study"></div>
+      <div class="panel"><img src="images/p2_04_scribble_sympathy.png" alt="Scribble empathizes"></div>
+      <div class="narration">That year, <strong>Max Newman</strong> lectured on the foundations of mathematics. One question seized Turing's imagination — a challenge posed by David Hilbert.</div>
+      <div class="panel"><img src="images/p2_05_newman_lecture.png" alt="Newman lectures"></div>
+      <div class="panel"><img src="images/p2_06_scribble_eureka.png" alt="Eureka"></div>
+      <div class="hook">The question was called the <em>Entscheidungsproblem</em>. And it would change everything.</div>
+    </div>
+  </section>
+
+  <!-- PAGE 3 -->
+  <section class="page" data-page="3">
+    <div class="page-title"><div class="num">Page 3</div><h2>The Decision Problem</h2></div>
+    <div class="panels">
+      <div class="panel"><img src="images/p3_01_hilbert_bologna.png" alt="Hilbert at Bologna"></div>
+      <div class="narration"><strong>Bologna, Italy. 1928.</strong><br><br>David Hilbert issued a grand challenge: a <em>universal mechanical procedure</em> — an algorithm that could settle <strong>any</strong> mathematical question.</div>
+      <div class="panel"><img src="images/p3_02_hilbert_quote.png" alt="Wir müssen wissen"></div>
+      <div class="panel"><img src="images/p3_03_scribble_chalkboard.png" alt="Entscheidungsproblem"></div>
+      <div class="narration">Hilbert's dream: feed <em>any</em> mathematical statement into a machine and get back <strong>TRUE</strong> or <strong>FALSE</strong>. Pure mechanical certainty.</div>
+      <div class="narration-accent">But in <strong>1931</strong>, a quiet logician in Vienna had already begun pulling at the threads.</div>
+      <div class="row">
+        <div class="panel"><img src="images/p3_04_godel_shadow.png" alt="Young Gödel"></div>
+        <div class="narration" style="display:flex;align-items:center"><div><strong>Kurt Gödel</strong> showed that any consistent formal system powerful enough to describe arithmetic must contain truths it <em>cannot prove</em>. Hilbert's program was already cracking.</div></div>
+      </div>
+      <div class="panel"><img src="images/p3_06_scribble_limits.png" alt="Dreams have limits"></div>
+      <div class="row">
+        <div class="panel"><img src="images/p3_05_lovelace.png" alt="Ada Lovelace"></div>
+        <div class="narration" style="display:flex;align-items:center"><div>Nearly a century earlier, <strong>Ada Lovelace</strong> had glimpsed the idea of a programmable machine — writing what many consider the first algorithm in 1843.</div></div>
+      </div>
+      <div class="hook">Turing's stroke of genius: instead of attacking the problem with logic, he imagined the <em>simplest possible machine</em>...</div>
+    </div>
+  </section>
+
+  <!-- PAGE 4 ★ CENTERPIECE -->
+  <section class="page" data-page="4">
+    <div class="page-title"><div class="num">Page 4</div><h2>The Simplest Possible Machine</h2></div>
+    <div class="panels">
+      <div class="panel"><img src="images/p4_01_turing_insight.png" alt="Turing's breakthrough"></div>
+      <div class="narration-accent">Turing asked: <em>What does it actually mean to "compute" something?</em> Not with a fancy machine — with the <strong>simplest possible</strong> one.</div>
+      <div class="panel"><img src="images/p4_02_scribble_intro.png" alt="Three things"></div>
+      <div class="narration">He called it an <strong>a-machine</strong> — we call it a <em>Turing Machine</em>. It needs only:</div>
+      <div class="panel"><img src="images/p4_03_tape_closeup.png" alt="The tape"></div>
+      <div class="narration"><strong>1. An infinite tape</strong> divided into squares, each holding a symbol.</div>
+      <div class="panel"><img src="images/p4_04_read_head.png" alt="Read head"></div>
+      <div class="panel"><img src="images/p4_05_write_head.png" alt="Write head"></div>
+      <div class="panel"><img src="images/p4_06_rule_table.png" alt="Rule table"></div>
+      <div class="panel"><img src="images/p4_07_complete_machine.png" alt="Complete machine"></div>
+      <div class="panel"><img src="images/p4_08_meta_realization.png" alt="Wait..."></div>
+      <div class="panel"><img src="images/p4_09_meta_payoff.png" alt="I AM a Turing Machine!"></div>
+      <div class="hook">But can this absurdly simple machine actually <em>compute</em> anything? Let's watch it work...</div>
+    </div>
+  </section>
+
+  <!-- PAGE 5 -->
+  <section class="page" data-page="5">
+    <div class="page-title"><div class="num">Page 5</div><h2>Watch It Compute</h2></div>
+    <div class="panels">
+      <div class="panel"><img src="images/p5_01_scribble_setup.png" alt="Setting up"></div>
+      <div class="narration">In <strong>unary notation</strong>: 1 = one mark, 2 = two marks. To add 1+1, the tape reads <code>1 0 1</code> — one mark, separator, one mark. The machine merges them by replacing the separator, then erases one extra mark to get the correct count: <code>1 1</code> (two marks = 2).</div>
+      <div class="panel"><img src="images/p5_02_step1.png" alt="Step 1: see a 1, move right"></div>
+      <div class="panel"><img src="images/p5_03_step2.png" alt="Step 2: see 0 separator, write 1"></div>
+      <div class="panel"><img src="images/p5_04_step3.png" alt="Step 3: see a 1, move right"></div>
+      <div class="panel"><img src="images/p5_05_step4.png" alt="Step 4: see blank, move left"></div>
+      <div class="panel"><img src="images/p5_05b_step5.png" alt="Step 5: erase last 1, done!"></div>
+      <div class="panel"><img src="images/p5_06_celebration.png" alt="It computed!"></div>
+      <div class="narration-accent"><strong>The big idea:</strong> This absurdly simple machine can be <em>programmed</em>. Change the rules, compute something different. That's the foundation everything else is built on.</div>
+      <div class="lab-link">
+        <div class="lab-icon">🧪</div>
+        <div class="lab-content"><strong>Turing Machine Sandbox</strong><br><span>Build your own — write rules, load a tape, watch it compute!</span><br><a href="../../interactive/turing_machine_sandbox.html" class="lab-btn" target="_blank">Try it →</a></div>
+      </div>
+      <div class="hook">But you'd need a DIFFERENT machine for each task. What if ONE could do them all?</div>
+    </div>
+  </section>
+
+  <!-- PAGE 6 -->
+  <section class="page" data-page="6">
+    <div class="page-title"><div class="num">Page 6</div><h2>A Machine That Can Be Any Machine</h2></div>
+    <div class="panels">
+      <div class="panel"><img src="images/p6_01_scribble_awe.png" alt="Scribble in awe"></div>
+      <div class="narration">Each task needs its own machine. Turing's question: <em>what if one machine could simulate any other?</em></div>
+      <div class="panel"><img src="images/p6_02_many_machines.png" alt="Many machines"></div>
+      <div class="panel"><img src="images/p6_03_scribble_question.png" alt="What if ONE?"></div>
+      <div class="panel"><img src="images/p6_04_universal.png" alt="Universal Machine"></div>
+      <div class="narration-accent">Turing's leap: <em>the rule table itself could be written on the tape</em>. A <strong>Universal Turing Machine</strong> takes a description of any machine M + input for M, then perfectly simulates M.</div>
+      <div class="panel"><img src="images/p6_05_scribble_explain.png" alt="Feed it a description"></div>
+      <div class="narration">That's exactly what a modern computer does. <strong>Hardware</strong> = Universal Machine. <strong>Software</strong> = machine descriptions. Turing invented software — in 1936, on paper.</div>
+      <div class="panel"><img src="images/p6_06_scribble_devices.png" alt="Your phone is a UTM"></div>
+      <div class="hook">A machine that can do anything. But are there things even it <em>can't</em> do?</div>
+    </div>
+  </section>
+
+  <!-- PAGE 7 -->
+  <section class="page" data-page="7">
+    <div class="page-title"><div class="num">Page 7</div><h2>The Thing That Cannot Be Done</h2></div>
+    <div class="panels">
+      <div class="panel"><img src="images/p7_01_scribble_serious.png" alt="Scribble gets serious"></div>
+      <div class="narration">Can you always determine whether a program will halt or run forever?</div>
+      <div class="panel"><img src="images/p7_02_halt_question.png" alt="Halts vs loops"></div>
+      <div class="panel"><img src="images/p7_03_detector.png" alt="Magic detector"></div>
+      <div class="narration">Turing proved this detector <strong>cannot exist</strong>. Assume detector H exists. Build program D that does the <em>opposite</em> of H's prediction. Run D on itself. If H says halt, D loops. If H says loop, D halts. <strong>Contradiction.</strong></div>
+      <div class="panel"><img src="images/p7_04_paradox.png" alt="Paradox"></div>
+      <div class="panel"><img src="images/p7_05_scribble_wall.png" alt="Proved impossible"></div>
+      <div class="narration-accent"><strong>The big idea:</strong> Some problems are <em>provably unsolvable</em>. Not because we're not smart enough — mathematics itself has boundaries.</div>
+      <div class="panel"><img src="images/p7_06_scribble_hope.png" alt="Where the map begins"></div>
+      <div class="hook">Turing wasn't the first to find limits. A few years earlier, in a Vienna coffee house...</div>
+    </div>
+  </section>
+
+  <!-- PAGE 8 -->
+  <section class="page" data-page="8">
+    <div class="page-title"><div class="num">Page 8</div><h2>The Man Who Broke Mathematics</h2></div>
+    <div class="panels">
+      <div class="panel"><img src="images/p8_01_godel_cafe.png" alt="Gödel in Vienna"></div>
+      <div class="narration"><strong>Vienna, 1931.</strong> Kurt Gödel — quiet, intense, 25 — published two theorems that shattered the foundations of mathematics.</div>
+      <div class="panel"><img src="images/p8_02_scribble_godel.png" alt="Scribble on Gödel"></div>
+      <div class="narration"><strong>First Incompleteness:</strong> Any consistent system powerful enough to describe arithmetic contains truths that are <em>true but unprovable</em>.<br><br><strong>Second Incompleteness:</strong> Such a system cannot prove its own consistency.</div>
+      <div class="panel"><img src="images/p8_03_library.png" alt="Infinite library"></div>
+      <div class="narration">Imagine an infinite library of mathematical truths. Gödel showed there will always be <em>glowing gaps</em> — truths that exist but can never be catalogued.</div>
+      <div class="panel"><img src="images/p8_04_scribble_connection.png" alt="Same wall, different doors"></div>
+      <div class="narration-accent">Gödel showed <em>truth outruns proof</em>. Turing showed <em>computation has boundaries</em>. Together: formal systems have permanent, provable limits. But mathematics as a living discipline is far richer than any formal system.</div>
+      <div class="panel"><img src="images/p8_05_scribble_horizon.png" alt="Mathematics is alive"></div>
+      <div class="hook">Meanwhile, across the Atlantic, someone else reached the same conclusion by a completely different path...</div>
+    </div>
+  </section>
+
+  <!-- PAGE 9 -->
+  <section class="page" data-page="9">
+    <div class="page-title"><div class="num">Page 9</div><h2>The Thesis That Defines Computing</h2></div>
+    <div class="panels">
+      <div class="row">
+        <div class="panel"><img src="images/p9_01_turing_writing.png" alt="Turing in Cambridge"></div>
+        <div class="panel"><img src="images/p9_02_church_desk.png" alt="Church in Princeton"></div>
+      </div>
+      <div class="narration"><strong>1936.</strong> Two mathematicians, two continents, same problem. Turing built his imaginary machine. <strong>Alonzo Church</strong> invented <strong>lambda calculus</strong>. Different methods. <strong>Same answer.</strong></div>
+      <div class="panel"><img src="images/p9_03_convergence.png" alt="Two paths converge"></div>
+      <div class="narration-accent">The <strong>Church-Turing Thesis</strong>: <em>any function computable by a reasonable mechanical process is computable by a Turing Machine.</em> Not a theorem — a thesis. In 90 years, no counterexample.</div>
+      <div class="panel"><img src="images/p9_04_scribble_evidence.png" alt="All compute the same"></div>
+      <div class="narration">Quantum computers may solve certain problems <em>exponentially faster</em>, but cannot solve undecidable problems. Speed differs. Capability does not.</div>
+      <div class="panel"><img src="images/p9_05_scribble_chess.png" alt="Same game"></div>
+      <div class="hook">In 1936, this was all pure thought. But the world was about to need real machines — desperately.</div>
+    </div>
+  </section>
+
+  <!-- PAGE 10 -->
+  <section class="page" data-page="10">
+    <div class="page-title"><div class="num">Page 10</div><h2>Now Build It</h2></div>
+    <div class="panels">
+      <div class="panel"><img src="images/p10_01_turing_princeton.png" alt="Turing at Princeton"></div>
+      <div class="narration"><strong>Princeton, 1937.</strong> Turing completed his PhD under Church. <em>"On Computable Numbers"</em> was published. But outside the windows, the world was darkening.</div>
+      <div class="row">
+        <div class="panel"><img src="images/p10_02_scribble_reflect.png" alt="Pure imagination"></div>
+        <div class="panel"><img src="images/p10_03_scribble_urgency.png" alt="Needed machines"></div>
+      </div>
+      <div class="narration">• <strong>Konrad Zuse</strong> built the Z3 (1941) — first programmable computer<br>• <strong>Colossus</strong> cracked Nazi codes at Bletchley Park — with Turing<br>• <strong>ENIAC</strong> (1945) — 30 tons, 17,468 vacuum tubes<br>• <strong>Von Neumann</strong> read Turing's paper and saw a <em>blueprint</em></div>
+      <div class="panel"><img src="images/p10_04_preview.png" alt="Computing milestones"></div>
+      <div class="narration-accent">Every computer ever built is a physical realization of Turing's imaginary machine. He didn't predict computing. He <em>defined</em> it.</div>
+      <div class="panel"><img src="images/p10_05_scribble_blueprint.png" alt="First imagine, then build"></div>
+      <div class="panel"><img src="images/p10_06_scribble_ride.png" alt="The ride continues"></div>
+      <details class="refs">
+        <summary>References &amp; Further Reading</summary>
+        <ul>
+          <li>📄 <strong>Turing, A.M.</strong>: <em>On Computable Numbers</em> <a href="https://www.cs.virginia.edu/~robins/Turing_Paper_1936.pdf" target="_blank">↗</a> <span class="ref-note">— 1936</span></li>
+          <li>📕 <strong>Petzold</strong>: <em>The Annotated Turing</em> <span class="ref-note">— Wiley, 2008</span></li>
+          <li>📕 <strong>Hodges</strong>: <em>Alan Turing: The Enigma</em> <span class="ref-note">— Princeton, 2014</span></li>
+          <li>🌐 <strong>Copeland</strong>: <em>The Church-Turing Thesis</em> <a href="https://plato.stanford.edu/entries/church-turing/" target="_blank">↗</a></li>
+          <li>🎬 <strong>Computerphile</strong>: <em>Turing Machines</em> <a href="https://www.youtube.com/watch?v=dNRDvLACg5Q" target="_blank">↗</a></li>
+        </ul>
+      </details>
+      <div class="hook">Turing imagined it. Now someone has to <strong>build</strong> it.<br><em>Next: Issue 2 — Building the First Brains</em></div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const pages=document.querySelectorAll('.page'),total=pages.length;let current=1;
+const dotsEl=document.getElementById('dots');
+for(let i=1;i<=total;i++){const d=document.createElement('button');d.className='dot'+(i===1?' active':'');d.dataset.page=i;d.setAttribute('aria-label',`Page ${i}`);d.onclick=()=>go(i);dotsEl.appendChild(d)}
+function go(n){if(n<1||n>total||n===current)return;pages[current-1].classList.remove('active');dotsEl.children[current-1].classList.remove('active');current=n;pages[current-1].classList.add('active');dotsEl.children[current-1].classList.add('active');document.getElementById('prev').disabled=(current===1);document.getElementById('next').disabled=(current===total);window.scrollTo({top:0,behavior:'smooth'});history.replaceState(null,'',`#page-${current}`)}
+document.getElementById('prev').onclick=()=>go(current-1);document.getElementById('next').onclick=()=>go(current+1);
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(current+1);if(e.key==='ArrowLeft')go(current-1)});
+if(location.hash){const m=location.hash.match(/page-(\d+)/);if(m)go(+m[1])}
+</script>
+</body>
+</html>

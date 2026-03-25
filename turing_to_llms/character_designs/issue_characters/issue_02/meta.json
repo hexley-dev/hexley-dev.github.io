@@ -1,0 +1,13 @@
+{
+  "name": "Valvie",
+  "era": "1940s\u20131950s \u2014 Building the First Brains",
+  "theme": "Vacuum tubes, wartime computing, von Neumann architecture",
+  "designs": [
+    "vacuum_tube",
+    "military_surplus",
+    "bakelite",
+    "nixie_tube",
+    "eniac_panel",
+    "relay_switch"
+  ]
+}

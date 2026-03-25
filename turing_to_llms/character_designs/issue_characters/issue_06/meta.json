@@ -1,0 +1,13 @@
+{
+  "name": "Neuron",
+  "era": "2000s\u20132015 \u2014 Machines That Learn",
+  "theme": "Neural networks, deep learning, ImageNet, GPUs, backpropagation",
+  "designs": [
+    "neural_glow",
+    "gpu_silicon",
+    "imagenet_mosaic",
+    "gradient_descent",
+    "lab_coat_white",
+    "backprop_layers"
+  ]
+}

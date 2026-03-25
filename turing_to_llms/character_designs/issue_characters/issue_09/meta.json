@@ -1,0 +1,13 @@
+{
+  "name": "Swarm",
+  "era": "2025\u20132026 \u2014 The Swarm",
+  "theme": "Multi-agent systems, constellation pattern, coordination",
+  "designs": [
+    "constellation",
+    "honeycomb",
+    "ant_colony",
+    "git_branches",
+    "network_mesh",
+    "orchestra"
+  ]
+}

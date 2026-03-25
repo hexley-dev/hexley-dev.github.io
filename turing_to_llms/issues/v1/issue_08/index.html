@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Turing to Swarms — Issue 8: The Agent Awakens</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#9F7AEA;--bg:#FAF9F6;--dark:#2D3748;--mid:#4A5568;--light:#718096;--muted:#A0AEC0;--border:#E2E8F0;--card:#F7FAFC;--panel:#1A202C;--hand:'Caveat','Patrick Hand',cursive;--body:'Patrick Hand',cursive;--mono:'JetBrains Mono','Fira Code','SF Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--bg);color:var(--dark);min-height:100vh;background-image:radial-gradient(circle at 25% 25%,rgba(159,122,234,.03) 0%,transparent 55%),radial-gradient(circle at 75% 75%,rgba(246,173,85,.03) 0%,transparent 55%)}
+.page{display:none;max-width:740px;margin:0 auto;padding:12px 8px 40px;animation:fadeUp .35s ease-out}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,249,246,.92);backdrop-filter:blur(8px);border-bottom:2px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;max-width:740px;margin:0 auto}
+.nav button{font-family:var(--hand);font-size:18px;background:none;border:none;color:var(--accent);cursor:pointer;padding:4px 10px}
+.nav button:disabled{color:#CBD5E0;cursor:default}
+.dots{display:flex;gap:4px;justify-content:center;margin-top:3px}
+.dot{width:8px;height:8px;border-radius:4px;background:var(--border);border:none;cursor:pointer;padding:0;transition:all .2s}
+.dot.active{width:18px;background:var(--accent)}
+.dot.past{background:rgba(159,122,234,.33)}
+.page-num{font-family:var(--hand);font-size:12px;color:var(--muted);text-align:center}
+
+/* Header */
+.issue-header{text-align:center;padding:24px 16px 8px}
+.issue-label{font-family:var(--hand);font-size:14px;color:var(--accent);text-transform:uppercase;letter-spacing:2px;font-weight:700}
+.issue-title{font-family:'Caveat',cursive;font-size:30px;color:var(--panel);margin:6px 0 0;line-height:1.2;padding:0 16px}
+.title-bar{width:60px;height:3px;background:var(--accent);border-radius:2px;margin:10px auto 0}
+
+/* Content */
+.narrative{padding:0 24px;font-size:16.5px;line-height:1.65;max-width:680px;margin:0 auto}
+.narrative p{margin:10px 0}
+.narrative strong{color:var(--panel)}
+.narrative em{color:var(--accent);font-style:italic}
+.bigidea{margin:16px auto;padding:16px 20px;border-left:4px solid var(--accent);background:rgba(159,122,234,.07);border-radius:0 10px 10px 0;font-size:15.5px;line-height:1.6;max-width:640px}
+.tryit{margin:16px auto;padding:16px 20px;border:2px dashed #CBD5E0;border-radius:10px;background:var(--card);font-size:15px;line-height:1.6;color:var(--mid);max-width:640px}
+.diagram-box{margin:14px auto;padding:8px;max-width:700px}
+.code-box{margin:8px auto;padding:12px 18px;background:var(--panel);color:#48BB78;border-radius:8px;font-family:var(--mono);font-size:14px;white-space:pre;max-width:640px;overflow-x:auto;line-height:1.5}
+
+/* References */
+.refs{margin:20px auto 0;padding:14px 18px;background:var(--card);border-radius:10px;border:1px solid var(--border);max-width:640px}
+.refs h3{font-family:var(--hand);font-size:14px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.refs ul{list-style:none;padding:0}
+.refs li{padding:3px 0;font-size:12.5px;color:var(--light)}
+.refs li::before{content:"📄 "}
+
+/* Bottom nav */
+.bot-nav{display:flex;justify-content:space-between;padding:24px 24px 0;max-width:640px;margin:0 auto}
+.bot-nav button{font-family:var(--hand);font-size:16px;border-radius:8px;padding:8px 18px;cursor:pointer}
+.bot-prev{background:rgba(159,122,234,.1);border:1.5px solid var(--accent);color:var(--accent)}
+.bot-next{background:var(--accent);border:none;color:#fff}
+
+/* SVG helpers */
+svg text{user-select:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+/* Series header */
+.series-banner{text-align:center;padding:18px 16px 4px;font-family:var(--hand);font-size:12px;color:var(--muted);letter-spacing:3px;text-transform:uppercase}
+
+/* Page title */
+.page-title{font-family:var(--hand);font-size:22px;color:var(--accent);text-align:center;margin:10px 16px 6px;font-weight:700}
+</style>
+</head>
+<body>
+
+<div class="series-banner">From Turing to Swarms · Issue 8 of 10</div>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+<button id="prevBtn" onclick="go(-1)">← Prev</button>
+<div style="text-align:center">
+  <div class="page-num" id="pageNum">1 / 10</div>
+  <div class="dots" id="dots"></div>
+</div>
+<button id="nextBtn" onclick="go(1)">Next →</button>
+</nav>
+
+<!-- ISSUE HEADER -->
+<div class="issue-header">
+<div class="issue-label">Issue 8 · 2021–2025</div>
+<h1 class="issue-title">The Agent Awakens</h1>
+<div class="title-bar"></div>
+</div>
+
+<!-- ===== PAGE 1 ===== -->
+<section class="page" data-page="1">
+<p style="text-align:center;margin:4px 0 0"><a href="../issue_07/index.html" style="color:var(--accent);font-family:var(--hand);font-size:14px;text-decoration:none">← Previous Issue: Attention Is All You Need</a></p>
+
+<svg viewBox="0 -20 680 220" style="width:100%">
+  <!-- Speech bubble (drawn first so robot renders on top) -->
+  <rect x="180" y="10" width="470" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M200,88 L170,103 L218,88" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="201" y1="88" x2="217" y2="88" stroke="#fff" stroke-width="2.5"/>
+  <text x="415" y="33" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">For years, AI was the world's most well-read</text>
+  <text x="415" y="51" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">backseat driver. It could suggest the next turn,</text>
+  <text x="415" y="69" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">but YOU still had to steer. Then, leap by leap, it took the wheel.</text>
+  <!-- Tera robot -->
+  <g transform="translate(100,115) scale(1)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <ellipse cx="0" cy="-6" rx="5" ry="4" fill="#4A9BD9" opacity="0.5"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>In Issue 7, we watched language models learn to write code. You could type a question into a chat window, and an LLM would hand you a function, a class, an entire module. It was extraordinary.</p>
+  <p>But there was a catch.</p>
+  <p>You still had to copy the code into your project. You still had to run it yourself. When it failed — and it often did — you had to read the error, go back to the chat, paste the error message, and ask for a fix. Then copy THAT code, run it again, hit a different error, go back to the chat...</p>
+  <p>Between 2021 and 2025, that wall came down. AI went from <em>suggesting</em> code to <em>writing, running, testing, debugging, and fixing</em> code — all on its own.</p>
+  <p>This is the story of how AI learned to be not just a writer of code, but a <strong>doer</strong> of code. And it happened in four distinct leaps.</p>
+</div>
+
+<!-- The Four Leaps timeline -->
+<div class="diagram-box">
+  <svg viewBox="0 -20 680 165" style="width:100%">
+    <line x1="60" y1="40" x2="620" y2="40" stroke="#9F7AEA" stroke-width="2.5" opacity="0.4"/>
+    <!-- Leap 1 -->
+    <circle cx="60" cy="40" r="12" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/>
+    <text x="60" y="44" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#553C9A;font-weight:700">1</text>
+    <text x="60" y="18" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#9F7AEA;font-weight:700">2021</text>
+    <text x="60" y="68" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">Autocomplete</text>
+    <text x="60" y="82" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">AI predicts</text>
+    <text x="60" y="94" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">your next line</text>
+    <!-- Leap 2 -->
+    <circle cx="247" cy="40" r="18" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/>
+    <text x="247" y="45" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#553C9A;font-weight:700">2</text>
+    <text x="247" y="15" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#9F7AEA;font-weight:700">2022–23</text>
+    <text x="247" y="72" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">Chat</text>
+    <text x="247" y="86" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">AI writes code</text>
+    <text x="247" y="98" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">from description</text>
+    <!-- Leap 3 -->
+    <circle cx="433" cy="40" r="24" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/>
+    <text x="433" y="45" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#553C9A;font-weight:700">3</text>
+    <text x="433" y="10" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#9F7AEA;font-weight:700">2023</text>
+    <text x="433" y="78" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">Tool Use</text>
+    <text x="433" y="92" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">AI runs commands</text>
+    <text x="433" y="104" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">and reads files</text>
+    <!-- Leap 4 -->
+    <circle cx="620" cy="40" r="30" fill="#9F7AEA" stroke="#553C9A" stroke-width="2"/>
+    <text x="620" y="45" text-anchor="middle" style="font-family:var(--hand);font-size:17px;fill:#fff;font-weight:700">4</text>
+    <text x="620" y="4" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#9F7AEA;font-weight:700">2024–25</text>
+    <text x="620" y="84" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">Agents</text>
+    <text x="620" y="98" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">AI plans, acts,</text>
+    <text x="620" y="110" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">observes, iterates</text>
+    <!-- Summary -->
+    <text x="340" y="130" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Each leap: the human does less, the AI does more.</text>
+  </svg>
+</div>
+
+<div class="bigidea">
+  For eighty years, we made computers easier for humans to use. Now we were making computers that used themselves.
+</div>
+</section>
+
+<!-- ===== PAGE 2 ===== -->
+<section class="page" data-page="2">
+<p class="page-title">GitHub Copilot — The First Taste of AI Coding</p>
+
+<svg viewBox="0 -20 680 210" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="205" y="8" width="410" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M220,86 L190,101 L238,86" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="221" y1="86" x2="237" y2="86" stroke="#fff" stroke-width="2.5"/>
+  <text x="410" y="31" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Imagine typing a sentence and having someone</text>
+  <text x="410" y="49" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">finish it for you — not with a random guess,</text>
+  <text x="410" y="67" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">but with exactly what you were thinking. For code.</text>
+  <!-- Tera robot -->
+  <g transform="translate(95,110) scale(0.85)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <ellipse cx="0" cy="-6" rx="5" ry="4" fill="#4A9BD9" opacity="0.5"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>On <strong>June 29, 2021</strong>, GitHub announced <strong>Copilot</strong> as a technical preview. It was built on <strong>OpenAI Codex</strong>, a 12-billion-parameter language model fine-tuned on billions of lines of publicly available code.</p>
+  <p>Copilot was a VS Code extension. As you typed, it predicted what came next — not just the next word, but often entire functions. Type a comment describing what you wanted, and Copilot would write the implementation.</p>
+  <p>Under GitHub CEO <strong>Nat Friedman</strong> — an open-source advocate who co-founded a Linux desktop company before joining Microsoft — GitHub bet that AI-assisted coding was the future.</p>
+  <p>Copilot became generally available on <strong>June 21, 2022</strong>, at $10/month. By February 2023, it had over <strong>one million paying subscribers</strong>. An internal study claimed developers completed tasks <strong>55% faster</strong> — though critics noted the study used a simple task and was conducted by GitHub itself.</p>
+  <p>But Copilot also sparked controversy. In November 2022, programmer <strong>Matthew Butterick</strong> filed a class-action lawsuit against GitHub, Microsoft, and OpenAI, arguing that training on copyleft-licensed code without attribution amounted to "software piracy at an unprecedented scale." The legal question — where does "learning from" end and "reproducing" begin? — remains unresolved.</p>
+</div>
+
+<!-- How Copilot Works diagram -->
+<div class="diagram-box">
+  <svg viewBox="0 -20 680 120" style="width:100%">
+    <rect x="20" y="15" width="120" height="50" rx="8" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/>
+    <text x="80" y="35" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#553C9A;font-weight:700">You Type</text>
+    <text x="80" y="52" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">// find common word</text>
+    <line x1="140" y1="40" x2="170" y2="40" stroke="#718096" stroke-width="2"/>
+    <polygon points="170,35 182,40 170,45" fill="#718096"/>
+    <rect x="182" y="15" width="140" height="50" rx="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/>
+    <text x="252" y="35" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#2B6CB0;font-weight:700">Codex Model</text>
+    <text x="252" y="52" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">12B parameters</text>
+    <line x1="322" y1="40" x2="352" y2="40" stroke="#718096" stroke-width="2"/>
+    <polygon points="352,35 364,40 352,45" fill="#718096"/>
+    <rect x="364" y="15" width="140" height="50" rx="8" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/>
+    <text x="434" y="35" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#276749;font-weight:700">Predict Tokens</text>
+    <text x="434" y="52" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">most likely next code</text>
+    <line x1="504" y1="40" x2="534" y2="40" stroke="#718096" stroke-width="2"/>
+    <polygon points="534,35 546,40 534,45" fill="#718096"/>
+    <rect x="546" y="15" width="116" height="50" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+    <text x="604" y="35" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#975A16;font-weight:700">Ghost Text</text>
+    <text x="604" y="52" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">press Tab to accept</text>
+    <text x="340" y="95" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">You type a comment → Copilot writes the function.</text>
+  </svg>
+</div>
+
+<div class="tryit">
+  <strong>Think About It:</strong> "If you read a thousand cookbooks and then write your own recipe, is that copying? What if your recipe matches someone else's word for word? At what point does 'learning from' become 'copying'?"
+</div>
+</section>
+
+<!-- ===== PAGE 3 ===== -->
+<section class="page" data-page="3">
+<p class="page-title">Chat-Based Coding — "Just Describe What You Want"</p>
+
+<svg viewBox="0 -20 680 210" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="200" y="8" width="420" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M218,86 L190,101 L236,86" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="219" y1="86" x2="235" y2="86" stroke="#fff" stroke-width="2.5"/>
+  <text x="410" y="31" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Autocomplete finishes what you started. Chat is</text>
+  <text x="410" y="49" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">different — you describe the DESTINATION,</text>
+  <text x="410" y="67" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">and the AI draws you a map. Just say what you need.</text>
+  <!-- Tera robot -->
+  <g transform="translate(95,110) scale(0.85)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>On <strong>November 30, 2022</strong>, OpenAI launched <strong>ChatGPT</strong>. It reached <strong>100 million monthly active users</strong> by January 2023 — roughly two months — the fastest-growing consumer application in history at the time.</p>
+  <p>Developers discovered it was shockingly good at coding. Describe a problem in plain English, and ChatGPT would hand you working code. Paste in an error message and ask "What went wrong?" — it would explain and fix it.</p>
+  <p>When <strong>GPT-4</strong> arrived on <strong>March 14, 2023</strong>, the leap in code quality was dramatic. <strong>Claude</strong>, from Anthropic, entered the space in March 2023, followed by Claude 2 in July with a 100,000-token context window.</p>
+  <p>But there was a maddening problem. The AI could write code — but it could not <em>run</em> code. Every interaction followed the same exhausting loop:</p>
+</div>
+
+<!-- The Copy-Paste Hamster Wheel -->
+<div class="diagram-box">
+  <svg viewBox="0 -20 680 230" style="width:100%">
+    <text x="340" y="5" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#2D3748;font-weight:700">The Copy-Paste Hamster Wheel</text>
+    <!-- Circle path -->
+    <ellipse cx="270" cy="125" rx="140" ry="85" fill="none" stroke="#E2E8F0" stroke-width="2" stroke-dasharray="6,4"/>
+    <!-- Steps around the circle -->
+    <rect x="212" y="22" width="116" height="28" rx="6" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.2"/>
+    <text x="270" y="41" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#553C9A">1. Describe problem</text>
+    <rect x="370" y="52" width="110" height="28" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.2"/>
+    <text x="425" y="71" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#2B6CB0">2. AI writes code</text>
+    <rect x="388" y="105" width="110" height="28" rx="6" fill="#C6F6D5" stroke="#38A169" stroke-width="1.2"/>
+    <text x="443" y="124" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#276749">3. Copy to project</text>
+    <rect x="370" y="158" width="110" height="28" rx="6" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.2"/>
+    <text x="425" y="177" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#975A16">4. Run code</text>
+    <rect x="212" y="188" width="116" height="28" rx="6" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.2"/>
+    <text x="270" y="207" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#E53E3E">5. Code fails!</text>
+    <rect x="88" y="158" width="118" height="28" rx="6" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.2"/>
+    <text x="147" y="177" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#DD6B20">6. Copy error back</text>
+    <rect x="78" y="105" width="118" height="28" rx="6" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.2"/>
+    <text x="137" y="124" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#553C9A">7. AI generates fix</text>
+    <rect x="88" y="52" width="118" height="28" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.2"/>
+    <text x="147" y="71" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#2B6CB0">8. Go to step 3...</text>
+    <!-- Breakout arrow -->
+    <line x1="498" y1="118" x2="555" y2="118" stroke="#9F7AEA" stroke-width="2.5"/>
+    <polygon points="555,112 570,118 555,124" fill="#9F7AEA"/>
+    <text x="580" y="108" style="font-family:var(--hand);font-size:12px;fill:#9F7AEA;font-weight:700">What if AI</text>
+    <text x="580" y="124" style="font-family:var(--hand);font-size:12px;fill:#9F7AEA;font-weight:700">could do</text>
+    <text x="580" y="140" style="font-family:var(--hand);font-size:12px;fill:#9F7AEA;font-weight:700">3–6 itself?</text>
+  </svg>
+</div>
+
+<div class="code-box"><span style="color:#A0AEC0">Human:</span> Write a function that checks if a string is a palindrome.
+
+<span style="color:#9F7AEA">AI:</span> <span style="color:#48BB78">def</span> is_palindrome(s):
+        s = s.lower().replace(<span style="color:#F6AD55">" "</span>, <span style="color:#F6AD55">""</span>)
+        <span style="color:#48BB78">return</span> s == s[::-1]</div>
+
+<div class="bigidea">
+  The AI was brilliant — but locked in a soundproof room. It could write you a plan and slip it under the door, but it could never see your project, run your code, or read your errors. The human was the bottleneck.
+</div>
+</section>
+
+<!-- ===== PAGE 4 ===== -->
+<section class="page" data-page="4">
+<p class="page-title">The Tool-Use Revolution — AI Learns to Use a Computer</p>
+
+<svg viewBox="0 -20 680 210" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="170" y="8" width="480" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M190,86 L165,101 L208,86" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="191" y1="86" x2="207" y2="86" stroke="#fff" stroke-width="2.5"/>
+  <text x="410" y="31" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Imagine the AI locked in a room. Now give it</text>
+  <text x="410" y="49" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">a telephone with numbers for "run code," "read file,"</text>
+  <text x="410" y="67" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">and "search the web." The wall just came down.</text>
+  <!-- Tera robot -->
+  <g transform="translate(95,110) scale(0.85)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <circle cx="0" cy="-7" r="4" fill="none" stroke="#4A9BD9" stroke-width="1.8"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>In <strong>June 2023</strong>, OpenAI introduced <strong>function calling</strong> for GPT-3.5 and GPT-4. Instead of just generating text, a model could now output structured JSON saying: "Call this function with these arguments."</p>
+  <p>The concept traced back to the <strong>Toolformer</strong> paper (Schick et al., February 2023), which showed LLMs could learn to use tools — calculators, search engines, translators — by themselves.</p>
+  <p>In <strong>July 2023</strong>, ChatGPT's <strong>Code Interpreter</strong> was released. For the first time, a mainstream AI could write Python code AND run it in a sandbox, see the output, and iterate. The AI could finally touch the real world.</p>
+  <p>Anthropic introduced <strong>tool use</strong> for Claude models in early 2024, making it generally available with the Claude 3 family. Google's Gemini and Meta's LLaMA-based models followed — tool use became a universal pattern.</p>
+  <p>In March 2023, <strong>Auto-GPT</strong> went explosively viral on GitHub — the first attempt at a fully autonomous AI agent. It frequently got stuck in loops and burned through API credits, but it captured the public imagination about what AI agents could become.</p>
+</div>
+
+<!-- Tool Use diagram: LLM + Tools -->
+<div class="diagram-box">
+  <svg viewBox="0 -20 680 220" style="width:100%">
+    <text x="340" y="5" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#2D3748;font-weight:700">How Tool Use Works</text>
+    <!-- Central LLM box -->
+    <rect x="240" y="25" width="200" height="60" rx="10" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="2"/>
+    <text x="340" y="52" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#553C9A;font-weight:700">LLM Brain</text>
+    <text x="340" y="72" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">"I need to check something..."</text>
+    <!-- Tool boxes around it -->
+    <rect x="30" y="115" width="120" height="45" rx="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/>
+    <text x="90" y="135" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#2B6CB0;font-weight:500">Read File</text>
+    <text x="90" y="150" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">see your code</text>
+    <rect x="170" y="115" width="120" height="45" rx="8" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/>
+    <text x="230" y="135" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#276749;font-weight:500">Run Command</text>
+    <text x="230" y="150" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">execute code</text>
+    <rect x="310" y="115" width="120" height="45" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+    <text x="370" y="135" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#975A16;font-weight:500">Write File</text>
+    <text x="370" y="150" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">edit your code</text>
+    <rect x="450" y="115" width="120" height="45" rx="8" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/>
+    <text x="510" y="135" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#E53E3E;font-weight:500">Web Search</text>
+    <text x="510" y="150" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">find answers</text>
+    <!-- Connecting lines from LLM to tools -->
+    <line x1="270" y1="85" x2="90" y2="115" stroke="#9F7AEA" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="310" y1="85" x2="230" y2="115" stroke="#9F7AEA" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="370" y1="85" x2="370" y2="115" stroke="#9F7AEA" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="410" y1="85" x2="510" y2="115" stroke="#9F7AEA" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="340" y="182" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">The model says "call this tool" → the system runs it → result fed back.</text>
+  </svg>
+</div>
+
+<div class="bigidea">
+  Tool use was the key that unlocked the door. An LLM with tools isn't just a text generator — it's an entity that can interact with the real world. Read files. Run programs. Search the internet. The wall between "thinking about code" and "doing code" was dissolving.
+</div>
+</section>
+
+<!-- ===== PAGE 5 ===== -->
+<section class="page" data-page="5">
+<p class="page-title">The ReAct Loop — Think, Act, Observe, Repeat</p>
+
+<svg viewBox="0 -20 680 210" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="200" y="8" width="420" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M218,86 L190,101 L236,86" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="219" y1="86" x2="235" y2="86" stroke="#fff" stroke-width="2.5"/>
+  <text x="410" y="31" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Think about how YOU solve a problem. You think.</text>
+  <text x="410" y="49" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">You try something. You see what happened. You think</text>
+  <text x="410" y="67" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">again. ReAct taught AI to do the same thing.</text>
+  <!-- Tera robot - thinking -->
+  <g transform="translate(95,110) scale(0.85)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <circle cx="4" cy="-7" r="3" fill="none" stroke="#4A9BD9" stroke-width="1.8"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>In <strong>October 2022</strong>, Princeton PhD student <strong>Shunyu Yao</strong> and colleagues published the <strong>ReAct</strong> paper — "Synergizing Reasoning and Acting in Language Models." It established the foundational pattern for all LLM-based agents.</p>
+  <p>Before ReAct, there were two separate approaches: <em>chain-of-thought</em> (reasoning without actions) and <em>action-only</em> (tool use without reasoning). ReAct combined them — and outperformed both.</p>
+  <p>The pattern is deceptively simple: <strong>Think</strong> about what to do. <strong>Act</strong> — use a tool. <strong>Observe</strong> the result. <strong>Repeat</strong> until done. It is essentially the scientific method applied to AI.</p>
+</div>
+
+<!-- Interactive ReAct Loop Animation -->
+<div id="react-anim" style="background:#1A202C;border-radius:10px;padding:20px;margin:8px auto;max-width:640px">
+  <svg id="react-svg" viewBox="0 -20 640 210" style="width:100%"></svg>
+  <p id="react-desc" style="font-family:var(--body);font-size:15px;color:#E2E8F0;text-align:center;margin:8px 0 0;min-height:40px"></p>
+  <div style="display:flex;justify-content:center;gap:10px;margin-top:8px">
+    <button onclick="reactPrev()" id="react-prev" style="font-family:var(--body);font-size:14px;padding:6px 16px;border-radius:6px;border:none;background:#4A5568;color:#E2E8F0;cursor:pointer">&#8592; Prev</button>
+    <span id="react-counter" style="font-family:var(--mono);font-size:13px;color:#A0AEC0;display:flex;align-items:center">Step 0 / 7</span>
+    <button onclick="reactNext()" id="react-next" style="font-family:var(--body);font-size:14px;padding:6px 16px;border-radius:6px;border:none;background:#9F7AEA;color:#fff;cursor:pointer">Next &#8594;</button>
+    <button onclick="reactReset()" style="font-family:var(--body);font-size:14px;padding:6px 16px;border-radius:6px;border:none;background:#4A5568;color:#E2E8F0;cursor:pointer">Reset</button>
+  </div>
+</div>
+<script>
+(function(){
+  var a='#9F7AEA',steps=[
+    {active:'task',thought:'Task: "Fix the login bug in auth.py"',desc:'The agent receives a task from the human. It needs to find and fix a login bug.'},
+    {active:'think',thought:'Think: "I should read auth.py to understand the code first."',desc:'THINK — The agent reasons about its approach. It decides to read the file before making changes.'},
+    {active:'act',thought:'Act: read_file("auth.py")',desc:'ACT — The agent uses the "read file" tool to look at auth.py. It can now see the actual code.'},
+    {active:'observe',thought:'Observe: Line 42 checks password == None instead of password is None',desc:'OBSERVE — The agent reads the tool result. It spots the bug: wrong comparison operator on line 42.'},
+    {active:'think',thought:'Think: "I should change == None to is None and run the tests."',desc:'THINK — The agent reasons about the fix. It plans to make the change and verify with tests.'},
+    {active:'act',thought:'Act: edit_file("auth.py", line 42, "if password is None:")',desc:'ACT — The agent uses the "edit file" tool to fix line 42. Then it runs the test suite.'},
+    {active:'observe',thought:'Observe: All 14 tests passing. \u2713',desc:'OBSERVE — The test results come back: all 14 tests pass. The bug is fixed!'},
+    {active:'done',thought:'Done! The login bug is fixed. All tests pass.',desc:'COMPLETE — The agent verified its own work. No human had to copy-paste code or read error messages.'}
+  ];
+  var cur=0;
+  var boxes=[
+    {id:'task',label:'TASK',x:245,y:5,w:150,h:34,fill:'#E9D8FD',stroke:'#9F7AEA',text:'#553C9A'},
+    {id:'think',label:'THINK',x:60,y:70,w:130,h:34,fill:'#BEE3F8',stroke:'#4A9BD9',text:'#2B6CB0'},
+    {id:'act',label:'ACT',x:255,y:120,w:130,h:34,fill:'#C6F6D5',stroke:'#38A169',text:'#276749'},
+    {id:'observe',label:'OBSERVE',x:450,y:70,w:130,h:34,fill:'#FEFCBF',stroke:'#D69E2E',text:'#975A16'}
+  ];
+  function render(){
+    var s=steps[cur],svg='';
+    // Draw boxes
+    for(var i=0;i<boxes.length;i++){
+      var b=boxes[i],isActive=b.id===s.active;
+      svg+='<rect x="'+b.x+'" y="'+b.y+'" width="'+b.w+'" height="'+b.h+'" rx="8" fill="'+(isActive?b.stroke:b.fill)+'" stroke="'+b.stroke+'" stroke-width="'+(isActive?2.5:1.5)+'"/>';
+      svg+='<text x="'+(b.x+b.w/2)+'" y="'+(b.y+b.h/2+5)+'" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:'+(isActive?'#fff':b.text)+';font-weight:700">'+b.label+'</text>';
+    }
+    // Arrows: TASK→THINK
+    svg+='<line x1="245" y1="30" x2="190" y2="70" stroke="#718096" stroke-width="1.5"/>';
+    svg+='<polygon points="190,65 186,75 195,72" fill="#718096"/>';
+    // THINK→ACT
+    svg+='<line x1="190" y1="104" x2="255" y2="120" stroke="#718096" stroke-width="1.5"/>';
+    svg+='<polygon points="255,115 250,125 260,122" fill="#718096"/>';
+    // ACT→OBSERVE
+    svg+='<line x1="385" y1="130" x2="450" y2="104" stroke="#718096" stroke-width="1.5"/>';
+    svg+='<polygon points="450,99 445,109 455,106" fill="#718096"/>';
+    // OBSERVE→THINK (loop back) using right-angle lines
+    svg+='<line x1="515" y1="60" x2="515" y2="50" stroke="#718096" stroke-width="1.5"/>';
+    svg+='<line x1="515" y1="50" x2="125" y2="50" stroke="#718096" stroke-width="1.5"/>';
+    svg+='<line x1="125" y1="50" x2="125" y2="70" stroke="#718096" stroke-width="1.5"/>';
+    svg+='<polygon points="120,70 125,80 130,70" fill="#718096"/>';
+    svg+='<text x="320" y="47" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#A0AEC0">Repeat</text>';
+    // Current thought/action display
+    svg+='<rect x="40" y="160" width="560" height="24" rx="4" fill="#2D3748"/>';
+    svg+='<text x="320" y="177" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:'+(s.active==='done'?'#48BB78':a)+'">'+s.thought+'</text>';
+    document.getElementById('react-svg').innerHTML=svg;
+    document.getElementById('react-desc').textContent=s.desc;
+    document.getElementById('react-counter').textContent='Step '+cur+' / '+(steps.length-1);
+    document.getElementById('react-prev').disabled=cur===0;
+    document.getElementById('react-next').disabled=cur===steps.length-1;
+  }
+  window.reactNext=function(){if(cur<steps.length-1){cur++;render();}};
+  window.reactPrev=function(){if(cur>0){cur--;render();}};
+  window.reactReset=function(){cur=0;render();};
+  render();
+})();
+</script>
+
+<div class="bigidea">
+  The ReAct pattern — Think, Act, Observe, Repeat — became the beating heart of every AI agent. It is the scientific method, the OODA loop, and the debugging process all rolled into one. A graduate student at Princeton and his collaborators gave AI its operating system.
+</div>
+</section>
+
+<!-- ===== PAGE 6 ===== -->
+<section class="page" data-page="6">
+<p class="page-title">AI Moves Into the Terminal</p>
+
+<svg viewBox="0 -20 680 210" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="200" y="8" width="420" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M218,86 L190,101 L236,86" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="219" y1="86" x2="235" y2="86" stroke="#fff" stroke-width="2.5"/>
+  <text x="410" y="31" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Chat-based AI lived in a browser window. But a new</text>
+  <text x="410" y="49" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">generation of tools moved into the developer's terminal</text>
+  <text x="410" y="67" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">— where the REAL work happens.</text>
+  <!-- Tera robot - excited -->
+  <g transform="translate(95,110) scale(0.85)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <ellipse cx="0" cy="-6" rx="5" ry="4" fill="#4A9BD9" opacity="0.5"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p><strong>Paul Gauthier</strong>'s <strong>Aider</strong> pioneered the open-source terminal-agent approach, demonstrating that an AI could work directly in a developer's command line. <strong>Cursor</strong> (by Anysphere) offered an AI-native code editor. In early 2025, Anthropic — co-founded by <strong>Dario Amodei</strong> and <strong>Daniela Amodei</strong>, who serves as President — released <strong>Claude Code</strong>, an agentic coding tool that operates in the terminal. The terminal was becoming the new frontier for AI-assisted development.</p>
+  <p>Unlike chat-based coding (where you copy-paste between windows), Claude Code acts <em>autonomously</em> within a plan-execute-observe loop. It can read your codebase, edit files, run shell commands, execute tests, interact with git, and iterate on errors — all without human intervention.</p>
+  <p>The shift was fundamental: from <em>AI as oracle</em> (you ask questions, it gives answers) to <em>AI as worker</em> (you describe a task, it performs the task). You can see every action the agent takes and interrupt or redirect it at any time.</p>
+</div>
+
+<!-- Claude Code terminal simulation -->
+<div class="code-box" style="font-size:13px;line-height:1.7"><span style="color:#9F7AEA;font-weight:700">$</span> <span style="color:#A0AEC0">claude "Fix the login bug in auth.py"</span>
+
+<span style="color:#718096">Reading project structure...</span>
+<span style="color:#9F7AEA">Think:</span> I'll read auth.py to understand the login flow.
+<span style="color:#48BB78">Act:</span>  read_file("src/auth.py")
+<span style="color:#F6AD55">Obs:</span>  Line 42: if password == None:  # bug!
+
+<span style="color:#9F7AEA">Think:</span> Should use "is None" not "== None". Let me fix and test.
+<span style="color:#48BB78">Act:</span>  edit_file("src/auth.py", line=42, new="if password is None:")
+<span style="color:#48BB78">Act:</span>  run("pytest tests/test_auth.py")
+<span style="color:#F6AD55">Obs:</span>  <span style="color:#48BB78">14 passed</span>, 0 failed
+
+<span style="color:#9F7AEA">Done.</span> Fixed identity comparison on line 42. All tests pass.</div>
+
+<div class="narrative">
+  <p>The competitive landscape was exploding. <strong>Windsurf</strong> (by Codeium) combined chat with agentic "Cascade" flows. Amazon, Google, and others all launched their own AI coding tools. The roots of this wave stretched back to early 2023, when <strong>Auto-GPT</strong> became the fastest-growing GitHub repository of its time — a crude but visionary experiment in chaining GPT-4 into an autonomous loop. It burned through API credits and frequently got stuck, but it proved the concept that captured millions of imaginations: an AI that acts on its own.</p>
+  <p>The market evolved from autocomplete (2021) to chat-in-IDE (2023) to AI-native IDEs (2024) to autonomous agents (2025) — each wave building on the last.</p>
+</div>
+
+<div class="bigidea">
+  Terminal agents didn't just write code — they <em>did the work</em>. Read files. Run tests. Fix bugs. Commit changes. The advisor had left the soundproof room, sat down at the keyboard, and started typing.
+</div>
+</section>
+
+<!-- ===== PAGE 7 ===== -->
+<section class="page" data-page="7">
+<p class="page-title">The Context Window Problem — Why Agents "Forget"</p>
+
+<svg viewBox="0 -20 680 210" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="198" y="8" width="425" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M216,86 L190,101 L234,86" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="217" y1="86" x2="233" y2="86" stroke="#fff" stroke-width="2.5"/>
+  <text x="410" y="31" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Think of the context window as a desk. A bigger desk</text>
+  <text x="410" y="49" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">lets you spread out more documents. But you still</text>
+  <text x="410" y="67" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">can't see the whole filing cabinet at once.</text>
+  <!-- Tera robot - worried -->
+  <g transform="translate(95,110) scale(0.85)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-5,-5 Q0,-9 5,-5" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>A <strong>context window</strong> is the maximum amount of text an LLM can process at once — its working memory. Everything the agent has read, written, and thought about in a session must fit inside this window.</p>
+  <p>Context windows have grown dramatically:</p>
+</div>
+
+<!-- Context window growth chart -->
+<div class="diagram-box">
+  <svg viewBox="0 -20 680 215" style="width:100%">
+    <text x="340" y="5" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#2D3748;font-weight:700">Context Window Growth (tokens)</text>
+    <!-- Bars -->
+    <text x="160" y="38" text-anchor="end" style="font-family:var(--body);font-size:12px;fill:#2D3748">GPT-3 (2020)</text>
+    <rect x="170" y="25" width="8" height="20" rx="3" fill="#9F7AEA"/>
+    <text x="185" y="39" style="font-family:var(--mono);font-size:10px;fill:#718096">2K</text>
+
+    <text x="160" y="68" text-anchor="end" style="font-family:var(--body);font-size:12px;fill:#2D3748">GPT-3.5 (2022)</text>
+    <rect x="170" y="55" width="16" height="20" rx="3" fill="#9F7AEA"/>
+    <text x="193" y="69" style="font-family:var(--mono);font-size:10px;fill:#718096">4K</text>
+
+    <text x="160" y="98" text-anchor="end" style="font-family:var(--body);font-size:12px;fill:#2D3748">GPT-4 (2023)</text>
+    <rect x="170" y="85" width="50" height="20" rx="3" fill="#9F7AEA"/>
+    <text x="227" y="99" style="font-family:var(--mono);font-size:10px;fill:#718096">32K</text>
+
+    <text x="160" y="128" text-anchor="end" style="font-family:var(--body);font-size:12px;fill:#2D3748">Claude 2 (2023)</text>
+    <rect x="170" y="115" width="155" height="20" rx="3" fill="#9F7AEA"/>
+    <text x="332" y="129" style="font-family:var(--mono);font-size:10px;fill:#718096">100K</text>
+
+    <text x="160" y="158" text-anchor="end" style="font-family:var(--body);font-size:12px;fill:#2D3748">Claude 3 (2024)</text>
+    <rect x="170" y="145" width="310" height="20" rx="3" fill="#9F7AEA"/>
+    <text x="487" y="159" style="font-family:var(--mono);font-size:10px;fill:#718096">200K (~150K words, ~3 novels)</text>
+
+    <text x="340" y="185" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#718096">Even 200K tokens is only a fraction of a large codebase (millions of lines).</text>
+  </svg>
+</div>
+
+<div class="narrative">
+  <p>But bigger is not a cure-all. Research by Liu et al. (2023) revealed the <strong>"Lost in the Middle"</strong> phenomenon: models pay more attention to information at the <em>beginning</em> and <em>end</em> of the context, with degraded recall of information in the <em>middle</em>.</p>
+  <p>For coding agents, this means: over long sessions, early decisions and constraints get effectively "forgotten." Critical project structure information fades. The agent's reasoning quality degrades as the conversation grows.</p>
+  <p>Developers have found workarounds — summarizing earlier context, pulling in relevant code on demand (retrieval-augmented generation), and breaking tasks into smaller sub-tasks — but none fully solve the problem.</p>
+</div>
+
+<!-- Lost in the Middle visualization -->
+<div class="diagram-box">
+  <svg viewBox="0 -20 680 140" style="width:100%">
+    <text x="340" y="5" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">"Lost in the Middle" — Attention Across the Context Window</text>
+    <!-- Attention curve: high at start, low in middle, high at end -->
+    <line x1="80" y1="90" x2="600" y2="90" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="80" y="103" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">Start</text>
+    <text x="340" y="103" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">Middle</text>
+    <text x="600" y="103" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">End</text>
+    <path d="M80,30 Q160,35 210,60 Q290,85 340,82 Q390,85 470,60 Q520,35 600,30" fill="none" stroke="#9F7AEA" stroke-width="2.5"/>
+    <text x="80" y="25" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#48BB78;font-weight:700">High recall</text>
+    <text x="340" y="74" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#E53E3E;font-weight:700">Low recall</text>
+    <text x="600" y="25" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#48BB78;font-weight:700">High recall</text>
+  </svg>
+</div>
+
+<div class="tryit">
+  <strong>Think About It:</strong> "Your brain can hold about 7 things in short-term memory at once. An AI agent's context window is vastly larger — but the principle is the same. Even with 200K tokens, you can't read a whole library with a flashlight. What matters is not just size, but what you point the light at."
+</div>
+</section>
+
+<!-- ===== PAGE 8 ===== -->
+<section class="page" data-page="8">
+<p class="page-title">Error Recovery — Watching an Agent Debug Itself</p>
+
+<svg viewBox="0 -20 680 210" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="170" y="8" width="480" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M190,86 L165,101 L208,86" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="191" y1="86" x2="207" y2="86" stroke="#fff" stroke-width="2.5"/>
+  <text x="410" y="31" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">When you write code and it breaks, you read the error,</text>
+  <text x="410" y="49" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">think about what went wrong, and try a fix. AI agents</text>
+  <text x="410" y="67" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">do exactly the same thing — sometimes several times.</text>
+  <!-- Tera robot - determined -->
+  <g transform="translate(95,110) scale(0.85)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-5,-7 L5,-7" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>A key capability that separates agents from simple code generators is <strong>error recovery</strong>. When a solution fails — a test breaks, code does not compile, a command returns an error — the agent can read the error message, reason about the cause, and attempt a fix.</p>
+  <p>Good error recovery requires:</p>
+  <p><strong>1. Error classification</strong> — is it a syntax error, a logic error, or an environment issue?</p>
+  <p><strong>2. Root cause analysis</strong> — the error says line 15, but maybe the real problem is on line 8.</p>
+  <p><strong>3. Targeted fix</strong> — change only what is necessary, do not rewrite everything.</p>
+  <p><strong>4. Loop detection</strong> — recognize when repeated attempts are not converging on a solution.</p>
+</div>
+
+<!-- Error recovery: good vs bad pattern -->
+<div class="diagram-box">
+  <svg viewBox="0 -20 680 215" style="width:100%">
+    <!-- Good pattern -->
+    <rect x="20" y="0" width="300" height="34" rx="8" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/>
+    <text x="170" y="22" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#276749;font-weight:700">GOOD: Converging Recovery</text>
+    <rect x="30" y="44" width="110" height="26" rx="5" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+    <text x="85" y="62" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#2D3748">Write code</text>
+    <line x1="140" y1="57" x2="155" y2="57" stroke="#718096" stroke-width="1.5"/>
+    <polygon points="155,53 163,57 155,61" fill="#718096"/>
+    <rect x="163" y="44" width="70" height="26" rx="5" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.2"/>
+    <text x="198" y="62" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#E53E3E">Error!</text>
+    <line x1="233" y1="57" x2="248" y2="57" stroke="#718096" stroke-width="1.5"/>
+    <polygon points="248,53 256,57 248,61" fill="#718096"/>
+    <rect x="256" y="44" width="55" height="26" rx="5" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.2"/>
+    <text x="283" y="62" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#2B6CB0">Fix A</text>
+    <rect x="30" y="80" width="110" height="26" rx="5" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+    <text x="85" y="98" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#2D3748">Run tests</text>
+    <line x1="140" y1="93" x2="155" y2="93" stroke="#718096" stroke-width="1.5"/>
+    <polygon points="155,89 163,93 155,97" fill="#718096"/>
+    <rect x="163" y="80" width="70" height="26" rx="5" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.2"/>
+    <text x="198" y="98" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#975A16">New err</text>
+    <line x1="233" y1="93" x2="248" y2="93" stroke="#718096" stroke-width="1.5"/>
+    <polygon points="248,89 256,93 248,97" fill="#718096"/>
+    <rect x="256" y="80" width="55" height="26" rx="5" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.2"/>
+    <text x="283" y="98" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#2B6CB0">Fix B</text>
+    <rect x="30" y="116" width="110" height="26" rx="5" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+    <text x="85" y="134" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#2D3748">Run tests</text>
+    <line x1="140" y1="129" x2="155" y2="129" stroke="#718096" stroke-width="1.5"/>
+    <polygon points="155,125 163,129 155,133" fill="#718096"/>
+    <rect x="163" y="116" width="148" height="26" rx="5" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/>
+    <text x="237" y="134" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#276749;font-weight:700">All tests pass!</text>
+
+    <!-- Bad pattern -->
+    <rect x="360" y="0" width="300" height="34" rx="8" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/>
+    <text x="510" y="22" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#E53E3E;font-weight:700">BAD: Error Thrashing</text>
+    <rect x="370" y="44" width="100" height="26" rx="5" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.2"/>
+    <text x="420" y="62" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#E53E3E">Error A</text>
+    <line x1="470" y1="57" x2="485" y2="57" stroke="#718096" stroke-width="1.5"/>
+    <polygon points="485,53 493,57 485,61" fill="#718096"/>
+    <rect x="493" y="44" width="55" height="26" rx="5" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.2"/>
+    <text x="520" y="62" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#2B6CB0">Fix A</text>
+    <rect x="370" y="80" width="100" height="26" rx="5" fill="#FEFCBF" stroke="#DD6B20" stroke-width="1.2"/>
+    <text x="420" y="98" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#DD6B20">Error B</text>
+    <line x1="470" y1="93" x2="485" y2="93" stroke="#718096" stroke-width="1.5"/>
+    <polygon points="485,89 493,93 485,97" fill="#718096"/>
+    <rect x="493" y="80" width="55" height="26" rx="5" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.2"/>
+    <text x="520" y="98" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#2B6CB0">Fix B</text>
+    <rect x="370" y="116" width="100" height="26" rx="5" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.2"/>
+    <text x="420" y="134" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#E53E3E">Error A again!</text>
+    <line x1="470" y1="129" x2="485" y2="129" stroke="#718096" stroke-width="1.5"/>
+    <polygon points="485,125 493,129 485,133" fill="#718096"/>
+    <rect x="493" y="116" width="55" height="26" rx="5" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.2"/>
+    <text x="520" y="134" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#2B6CB0">Fix A...</text>
+    <!-- Infinity loop -->
+    <text x="510" y="160" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#E53E3E;font-weight:700">Stuck in a loop forever</text>
+    <!-- Summary -->
+    <text x="340" y="192" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Good agents converge on a solution. Bad agents oscillate between the same errors.</text>
+  </svg>
+</div>
+
+<div class="bigidea">
+  Error recovery is what makes agents useful in the real world. A code generator hands you an answer and walks away. An agent checks its own work, notices when something breaks, and tries again. The best agents know when to try a completely different approach — and when to ask the human for help.
+</div>
+</section>
+
+<!-- ===== PAGE 9 ===== -->
+<section class="page" data-page="9">
+<p class="page-title">The Limits of a Single Agent — When One Brain Isn't Enough</p>
+
+<svg viewBox="0 -20 680 210" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="170" y="8" width="480" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M190,86 L165,101 L208,86" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="191" y1="86" x2="207" y2="86" stroke="#fff" stroke-width="2.5"/>
+  <text x="410" y="31" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">One agent is powerful. But every agent has limits.</text>
+  <text x="410" y="49" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Its context fills up. Its errors compound. It can only</text>
+  <text x="410" y="67" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">work on one thing at a time. Sound familiar?</text>
+  <!-- Tera robot - worried -->
+  <g transform="translate(95,110) scale(0.85)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-5,-5 Q0,-9 5,-5" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>By 2025, single-agent coding was genuinely impressive. But honest observers — including the teams building these agents — recognized hard limits:</p>
+</div>
+
+<!-- Three-column limits diagram -->
+<div class="diagram-box">
+  <svg viewBox="0 -20 680 240" style="width:100%">
+    <text x="340" y="5" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#2D3748;font-weight:700">The Three Walls of a Single Agent</text>
+
+    <!-- Wall 1: Context -->
+    <rect x="20" y="25" width="200" height="180" rx="10" fill="#F7FAFC" stroke="#9F7AEA" stroke-width="1.5"/>
+    <rect x="20" y="25" width="200" height="36" rx="10" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/>
+    <rect x="20" y="50" width="200" height="11" rx="0" fill="#E9D8FD"/>
+    <text x="120" y="49" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#553C9A;font-weight:700">Context Degradation</text>
+    <text x="120" y="80" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">As conversations grow,</text>
+    <text x="120" y="95" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">earlier decisions fade.</text>
+    <text x="120" y="115" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">The agent "forgets" its</text>
+    <text x="120" y="130" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">own plan. Quality drops</text>
+    <text x="120" y="145" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">over long sessions.</text>
+    <!-- Visual: fading bars -->
+    <rect x="50" y="162" width="40" height="10" rx="2" fill="#9F7AEA"/>
+    <rect x="95" y="162" width="40" height="10" rx="2" fill="#9F7AEA" opacity="0.6"/>
+    <rect x="140" y="162" width="40" height="10" rx="2" fill="#9F7AEA" opacity="0.2"/>
+    <text x="120" y="190" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">memory fading →</text>
+
+    <!-- Wall 2: Sequential -->
+    <rect x="240" y="25" width="200" height="180" rx="10" fill="#F7FAFC" stroke="#DD6B20" stroke-width="1.5"/>
+    <rect x="240" y="25" width="200" height="36" rx="10" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.5"/>
+    <rect x="240" y="50" width="200" height="11" rx="0" fill="#FFF5EB"/>
+    <text x="340" y="49" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#DD6B20;font-weight:700">Single-Thread Bottleneck</text>
+    <text x="340" y="80" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">One agent works on one</text>
+    <text x="340" y="95" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">thing at a time. It cannot</text>
+    <text x="340" y="115" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">parallelize. A project with</text>
+    <text x="340" y="130" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">20 independent tasks takes</text>
+    <text x="340" y="145" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">20x longer than needed.</text>
+    <!-- Visual: single thread -->
+    <rect x="275" y="162" width="130" height="10" rx="2" fill="#DD6B20" opacity="0.7"/>
+    <text x="340" y="190" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">one task at a time</text>
+
+    <!-- Wall 3: Compounding -->
+    <rect x="460" y="25" width="200" height="180" rx="10" fill="#F7FAFC" stroke="#E53E3E" stroke-width="1.5"/>
+    <rect x="460" y="25" width="200" height="36" rx="10" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/>
+    <rect x="460" y="50" width="200" height="11" rx="0" fill="#FED7D7"/>
+    <text x="560" y="49" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#E53E3E;font-weight:700">Compounding Errors</text>
+    <text x="560" y="80" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">A small mistake early</text>
+    <text x="560" y="95" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">cascades. Later code builds</text>
+    <text x="560" y="115" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">on the wrong foundation.</text>
+    <text x="560" y="130" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">No second opinion. No</text>
+    <text x="560" y="145" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">one checks its work.</text>
+    <!-- Visual: cascading error -->
+    <rect x="520" y="162" width="15" height="8" rx="2" fill="#E53E3E" opacity="0.4"/>
+    <rect x="540" y="160" width="18" height="12" rx="2" fill="#E53E3E" opacity="0.6"/>
+    <rect x="563" y="157" width="22" height="16" rx="2" fill="#E53E3E" opacity="0.8"/>
+    <rect x="590" y="153" width="26" height="20" rx="2" fill="#E53E3E"/>
+    <text x="560" y="190" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">errors snowball →</text>
+  </svg>
+</div>
+
+<div class="narrative">
+  <p>The <strong>SWE-bench</strong> benchmark — created by researchers at Princeton to evaluate coding agents on 2,294 real GitHub issues from 12 popular Python repositories — provided a sobering reality check. Even the best agents could solve only a fraction of these issues fully autonomously.</p>
+  <p>In March 2024, <strong>Cognition Labs</strong> — founded by <strong>Scott Wu</strong>, an IOI gold medalist — announced <strong>Devin</strong>, marketed as "the first AI software engineer." The demo generated enormous excitement — and then backlash when independent developers found some claims were overstated. The episode taught the field a critical lesson: agents need rigorous benchmarks, not curated demos.</p>
+</div>
+
+<div class="bigidea">
+  One agent is like one person. Brilliant, but limited. It can only focus on one thing. It eventually forgets. Its mistakes compound without a second pair of eyes. What if, instead of one agent, you had a whole team?
+</div>
+</section>
+
+<!-- ===== PAGE 10 ===== -->
+<section class="page" data-page="10">
+<p class="page-title">Bridge: One Agent Is Powerful. But What About a Team?</p>
+
+<svg viewBox="0 -20 680 260" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="105" y="5" width="470" height="58" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M330,63 L340,78 L350,63" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="331" y1="63" x2="349" y2="63" stroke="#fff" stroke-width="2.5"/>
+  <text x="340" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">What if you didn't just have ONE agent — but a whole team?</text>
+  <text x="340" y="48" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">A researcher, a writer, an editor, a reviewer. A SWARM.</text>
+  <!-- Tera robot (drawn after bubble) -->
+  <g transform="translate(340,140) scale(1)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <ellipse cx="0" cy="-6" rx="5" ry="4" fill="#4A9BD9" opacity="0.5"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>In just four years — from Copilot's autocomplete in 2021 to autonomous agents in 2025 — AI went from whispering suggestions to doing the work. The progression was breathtaking:</p>
+  <p><strong>Autocomplete</strong> finished your sentences. <strong>Chat</strong> wrote whole solutions. <strong>Tool use</strong> gave AI hands to interact with the world. <strong>Agents</strong> combined thinking and doing into a self-directed loop.</p>
+  <p>But the story is not over. A single agent hits walls: context fills up, errors compound, parallelization is impossible. The same walls that limit a single person on a team.</p>
+  <p>And humans solved that problem thousands of years ago. We do not tackle big projects alone. We form <em>teams</em>. We specialize. We divide the work. We check each other.</p>
+  <p>What if AI could do the same?</p>
+</div>
+
+<div class="bigidea" style="border-color:#48BB78">
+  <strong>The Leap:</strong> From autocomplete to chat to tools to agents — AI learned to code, then to act, then to think while acting. But one agent is still one brain. The next frontier is not smarter individuals — it is coordinated teams. Multiple agents, each with a role, communicating through shared files, checking each other's work. A swarm.
+</div>
+
+<div class="tryit" style="cursor:pointer" onclick="window.location.href='../issue_09/index.html'">
+  <strong>Next Issue:</strong> From one agent to many. Researchers, writers, reviewers, critics — each specialized, each independent, all working together. This is the future of AI.
+  <a href="../issue_09/index.html" style="color:var(--accent);font-weight:700;text-decoration:underline">Issue 9: "The Swarm" →</a>
+</div>
+
+<!-- References -->
+<div class="refs">
+  <h3>References &amp; Further Reading</h3>
+  <ul>
+    <li><a href="https://arxiv.org/abs/2107.03374" style="color:var(--accent)">Chen, M. et al. "Evaluating Large Language Models Trained on Code." arXiv, July 2021.</a> (The Codex paper behind GitHub Copilot.)</li>
+    <li><a href="https://arxiv.org/abs/2210.03629" style="color:var(--accent)">Yao, S. et al. "ReAct: Synergizing Reasoning and Acting in Language Models." ICLR 2023.</a> (The foundational agent pattern.)</li>
+    <li><a href="https://arxiv.org/abs/2307.03172" style="color:var(--accent)">Liu, N.F. et al. "Lost in the Middle: How Language Models Use Long Contexts." arXiv, July 2023.</a></li>
+    <li><a href="https://arxiv.org/abs/2302.04761" style="color:var(--accent)">Schick, T. et al. "Toolformer: Language Models Can Teach Themselves to Use Tools." arXiv, Feb 2023.</a></li>
+    <li><a href="https://arxiv.org/abs/2310.06770" style="color:var(--accent)">Jimenez, C.E. et al. "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?" arXiv, Oct 2023.</a></li>
+    <li><a href="https://github.blog/news-insights/product-news/github-copilot-is-generally-available-to-all-developers/" style="color:var(--accent)">GitHub Blog. "GitHub Copilot is generally available." June 2022.</a></li>
+    <li><a href="https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview" style="color:var(--accent)">Anthropic. "Claude Code documentation."</a></li>
+    <li><a href="https://arxiv.org/abs/2303.08774" style="color:var(--accent)">OpenAI. "GPT-4 Technical Report." arXiv, March 2023.</a></li>
+    <li><a href="https://www.cognition.ai/blog/introducing-devin" style="color:var(--accent)">Cognition Labs. "Introducing Devin." Blog post, March 2024.</a></li>
+    <li><a href="https://githubcopilotlitigation.com/" style="color:var(--accent)">Butterick, M. "GitHub Copilot Litigation."</a> (Copyright controversy documentation.)</li>
+    <li><a href="https://github.com/paul-gauthier/aider" style="color:var(--accent)">Gauthier, P. "Aider: AI pair programming in your terminal." GitHub.</a></li>
+    <li><a href="https://cursor.sh/" style="color:var(--accent)">Anysphere. "Cursor: The AI-first Code Editor."</a></li>
+  </ul>
+</div>
+</section>
+
+<script>
+const pages=document.querySelectorAll('.page');
+const total=pages.length;
+let cur=0;
+const dotsC=document.getElementById('dots');
+const pageNum=document.getElementById('pageNum');
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
+
+for(let i=0;i<total;i++){
+  const d=document.createElement('button');
+  d.className='dot';
+  d.onclick=()=>show(i);
+  dotsC.appendChild(d);
+}
+
+function show(n){
+  cur=Math.max(0,Math.min(total-1,n));
+  pages.forEach((p,i)=>{p.classList.toggle('active',i===cur);});
+  document.querySelectorAll('.dot').forEach((d,i)=>{
+    d.className='dot'+(i===cur?' active':i<cur?' past':'');
+  });
+  pageNum.textContent=(cur+1)+' / '+total;
+  prevBtn.disabled=cur===0;
+  nextBtn.disabled=cur===total-1;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function go(d){show(cur+d);}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);
+});
+
+show(0);
+</script>
+</body>
+</html>

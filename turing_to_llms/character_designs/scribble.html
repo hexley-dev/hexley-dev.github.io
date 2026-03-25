@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scribble — Character Variations</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Source Serif 4', Georgia, serif; background: #1a1a2e; color: #e0e0e0; min-height: 100vh; }
+
+  header { text-align: center; padding: 2.5rem 1rem 1.5rem; background: linear-gradient(135deg, #16213e 0%, #2a1a0e 50%, #1a1a2e 100%); border-bottom: 3px solid #D4A04A; }
+  header h1 { font-family: 'Bangers', cursive; font-size: 3rem; color: #D4A04A; letter-spacing: 3px; margin-bottom: 0.3rem; }
+  header .subtitle { font-family: 'Patrick Hand', cursive; font-size: 1.3rem; color: #a08050; }
+  header p { font-size: 0.95rem; color: #a0a0c0; max-width: 650px; margin: 0.8rem auto 0; line-height: 1.5; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.8rem; padding: 2rem; max-width: 1400px; margin: 0 auto; }
+
+  .card { background: #16213e; border-radius: 12px; overflow: hidden; border: 2px solid transparent; transition: all 0.2s; cursor: pointer; position: relative; }
+  .card:hover { border-color: #D4A04A; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(212,160,74,0.2); }
+  .card.selected { border-color: #48bb78; box-shadow: 0 0 20px rgba(72,187,120,0.3); }
+  .card.selected::after { content: '★ THIS ONE'; position: absolute; top: 10px; right: 10px; background: #48bb78; color: #1a1a2e; font-family: 'Patrick Hand', cursive; font-size: 0.9rem; font-weight: bold; padding: 4px 12px; border-radius: 16px; z-index: 2; }
+
+  .card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: #0f0f1e; }
+  .card-body { padding: 1rem 1.2rem; }
+  .card-body h2 { font-family: 'Bangers', cursive; font-size: 1.4rem; color: #D4A04A; letter-spacing: 1px; margin-bottom: 0.2rem; }
+  .card-body .mood { font-family: 'Patrick Hand', cursive; font-style: italic; color: #a08050; font-size: 1rem; margin-bottom: 0.4rem; }
+  .card-body .desc { font-size: 0.85rem; line-height: 1.5; color: #9090a8; }
+
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 100; align-items: center; justify-content: center; cursor: zoom-out; }
+  .lightbox.active { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; }
+
+  .ref { max-width: 1400px; margin: 0 auto; padding: 0 2rem 1rem; }
+  .ref h3 { font-family: 'Bangers', cursive; color: #D4A04A; font-size: 1.2rem; margin-bottom: 0.5rem; }
+  .ref .ref-img { display: inline-block; width: 120px; border-radius: 8px; border: 2px solid #2a2a4e; }
+
+  footer { text-align: center; padding: 2rem 1rem 3rem; color: #505068; font-size: 0.8rem; }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; padding: 1rem; } header h1 { font-size: 2.2rem; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SCRIBBLE</h1>
+  <div class="subtitle">Tiny brass robot. Onewheel. Paper tape. Pencil. Monocle. Legend.</div>
+  <p>10 variations of Scribble riding a onewheel along paper tape — each captures a different mood and moment. Pick the one that makes you feel it.</p>
+</header>
+
+<div class="ref">
+  <h3>Original Scribble (reference)</h3>
+  <img class="ref-img" src="images/I01v2_scribble.png" alt="Original Scribble">
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lb-img" src="" alt="">
+</div>
+
+<footer>From Turing to Swarms — Scribble Character Exploration<br>"Let's be legends."</footer>
+
+<script>
+const CHARS = [
+  { id: '01_cruiser', name: 'The Cruiser', mood: 'Cool & confident',
+    desc: 'Casual surf stance, one arm out for balance. Tape scarf streaming behind. Relaxed grin. The paper tape road stretches ahead.' },
+  { id: '02_explorer', name: 'The Explorer', mood: 'Adventure & discovery',
+    desc: 'Leaning forward pointing pencil at something it found. Explorer satchel. Monocle glinting. The tape trail winds into the unknown.' },
+  { id: '03_thinker', name: 'The Thinker', mood: 'Quiet contemplation',
+    desc: 'Perfectly still and balanced, hand on chin. Pencil tapping head. Thought bubbles with binary floating above. Deep in thought while riding.' },
+  { id: '04_speedster', name: 'The Speedster', mood: 'Pure velocity',
+    desc: 'Deep crouch, leaning hard. Tape scarf fully horizontal from speed. Pencil pointed like a sword. Motion blur. Red racing stripe.' },
+  { id: '05_reader', name: 'The Reader', mood: 'Absorbed & studious',
+    desc: 'Rolling slowly, holding tape up to monocle, reading symbols carefully. Making notes with pencil. Tongue out in concentration.' },
+  { id: '06_dancer', name: 'The Dancer', mood: 'Joy & grace',
+    desc: 'Doing a spin trick, arms wide. Tape scarf twirling in a beautiful spiral. Pencil conducting the air. Pure delight.' },
+  { id: '07_nightrider', name: 'The Nightrider', mood: 'Brave & determined',
+    desc: 'Riding through darkness. Monocle projects a golden spotlight. Pencil leaves a glowing trail. Luminescent tape symbols. Starry blue background.' },
+  { id: '08_writer', name: 'The Writer', mood: 'Creation in motion',
+    desc: 'Writing NEW symbols onto blank tape as it rides. Behind: fresh symbols. Ahead: blank possibility. Ink-stained fingers. The act of creation.' },
+  { id: '09_teacher', name: 'The Teacher', mood: 'Warm & inviting',
+    desc: 'Stopped, turned to face you. Pointing at tape with pencil like a teacher. Monocle raised on forehead. Tiny bow tie. "Come learn with me."' },
+  { id: '10_legend', name: 'The Legend', mood: 'Epic & inspiring',
+    desc: 'Heroic pose. Tape scarf billowing like a superhero cape. Pencil raised high. Dramatic backlighting. Legendary — but still tiny and cute.' },
+];
+
+let picked = null;
+const grid = document.getElementById('grid');
+
+CHARS.forEach(c => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.id = `card-${c.id}`;
+  card.innerHTML = `
+    <img src="images/scribble_${c.id}.png" alt="${c.name}" loading="lazy"
+         onclick="event.stopPropagation(); openLB('images/scribble_${c.id}.png')">
+    <div class="card-body">
+      <h2>${c.name}</h2>
+      <div class="mood">${c.mood}</div>
+      <div class="desc">${c.desc}</div>
+    </div>
+  `;
+  card.addEventListener('click', () => pick(c.id));
+  grid.appendChild(card);
+});
+
+function pick(id) {
+  if (picked) document.getElementById(`card-${picked}`)?.classList.remove('selected');
+  picked = picked === id ? null : id;
+  if (picked) document.getElementById(`card-${id}`).classList.add('selected');
+}
+
+function openLB(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('active'); });
+</script>
+</body>
+</html>

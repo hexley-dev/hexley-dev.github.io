@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Turing to Swarms — Issue 3: Teaching Machines to Understand Us</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#38A169;--bg:#FAF9F6;--dark:#2D3748;--mid:#4A5568;--light:#718096;--muted:#A0AEC0;--border:#E2E8F0;--card:#F7FAFC;--panel:#1A202C;--hand:'Caveat','Patrick Hand',cursive;--body:'Patrick Hand',cursive;--mono:'JetBrains Mono','Fira Code','SF Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--bg);color:var(--dark);min-height:100vh;background-image:radial-gradient(circle at 25% 25%,rgba(56,161,105,.03) 0%,transparent 55%),radial-gradient(circle at 75% 75%,rgba(198,246,213,.04) 0%,transparent 55%)}
+.page{display:none;max-width:740px;margin:0 auto;padding:12px 8px 40px;animation:fadeUp .35s ease-out}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,249,246,.92);backdrop-filter:blur(8px);border-bottom:2px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;max-width:740px;margin:0 auto}
+.nav button{font-family:var(--hand);font-size:18px;background:none;border:none;color:var(--accent);cursor:pointer;padding:4px 10px}
+.nav button:disabled{color:#CBD5E0;cursor:default}
+.dots{display:flex;gap:4px;justify-content:center;margin-top:3px}
+.dot{width:8px;height:8px;border-radius:4px;background:var(--border);border:none;cursor:pointer;padding:0;transition:all .2s}
+.dot.active{width:18px;background:var(--accent)}
+.dot.past{background:rgba(56,161,105,.33)}
+.page-num{font-family:var(--hand);font-size:12px;color:var(--muted);text-align:center}
+.issue-header{text-align:center;padding:24px 16px 8px}
+.issue-label{font-family:var(--hand);font-size:14px;color:var(--accent);text-transform:uppercase;letter-spacing:2px;font-weight:700}
+.issue-title{font-family:'Caveat',cursive;font-size:30px;color:var(--panel);margin:6px 0 0;line-height:1.2;padding:0 16px}
+.title-bar{width:60px;height:3px;background:var(--accent);border-radius:2px;margin:10px auto 0}
+.narrative{padding:0 24px;font-size:16.5px;line-height:1.65;max-width:680px;margin:0 auto}
+.narrative p{margin:10px 0}
+.narrative strong{color:var(--panel)}
+.narrative em{color:var(--accent);font-style:italic}
+.bigidea{margin:16px auto;padding:16px 20px;border-left:4px solid var(--accent);background:rgba(56,161,105,.07);border-radius:0 10px 10px 0;font-size:15.5px;line-height:1.6;max-width:640px}
+.tryit{margin:16px auto;padding:16px 20px;border:2px dashed #CBD5E0;border-radius:10px;background:var(--card);font-size:15px;line-height:1.6;color:var(--mid);max-width:640px}
+.diagram-box{margin:14px auto;padding:8px;max-width:700px}
+.code-box{margin:8px auto;padding:12px 18px;background:var(--panel);color:#48BB78;border-radius:8px;font-family:var(--mono);font-size:13px;white-space:pre;max-width:640px;overflow-x:auto;line-height:1.5}
+.char-card{margin:16px auto;padding:16px 20px;background:var(--card);border:1.5px solid var(--border);border-radius:10px;max-width:640px}
+.char-card h4{font-family:var(--hand);color:var(--accent);font-size:18px;margin-bottom:6px}
+.char-card p{font-size:14.5px;line-height:1.55;margin:3px 0}
+.spec-box{margin:12px auto;padding:14px 18px;background:var(--card);border:1.5px solid var(--border);border-radius:10px;max-width:640px;font-family:var(--mono);font-size:12.5px;white-space:pre;line-height:1.55;overflow-x:auto}
+.refs{margin:20px auto 0;padding:14px 18px;background:var(--card);border-radius:10px;border:1px solid var(--border);max-width:640px}
+.refs h3{font-family:var(--hand);font-size:14px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.refs ul{list-style:none;padding:0}
+.refs li{padding:3px 0;font-size:12.5px;color:var(--light)}
+.refs li::before{content:"📄 "}
+.bot-nav{display:flex;justify-content:space-between;padding:24px 24px 0;max-width:640px;margin:0 auto}
+.bot-nav button{font-family:var(--hand);font-size:16px;border-radius:8px;padding:8px 18px;cursor:pointer}
+.bot-prev{background:rgba(56,161,105,.1);border:1.5px solid var(--accent);color:var(--accent)}
+.bot-next{background:var(--accent);border:none;color:#fff}
+svg text{user-select:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.series-banner{text-align:center;padding:18px 16px 4px;font-family:var(--hand);font-size:12px;color:var(--muted);letter-spacing:3px;text-transform:uppercase}
+.page-title{font-family:'Caveat',cursive;font-size:22px;color:var(--accent);text-align:center;margin:8px 0 12px;font-weight:700}
+</style>
+</head>
+<body>
+
+<div class="series-banner">From Turing to Swarms · Issue 3 of 10</div>
+<nav class="nav" id="nav">
+<button id="prevBtn" onclick="go(-1)">← Prev</button>
+<div style="text-align:center">
+  <div class="page-num" id="pageNum">1 / 10</div>
+  <div class="dots" id="dots"></div>
+</div>
+<button id="nextBtn" onclick="go(1)">Next →</button>
+</nav>
+
+<div class="issue-header">
+<div class="issue-label">Issue 3 · 1950s–1960s</div>
+<h1 class="issue-title">Teaching Machines to Understand Us</h1>
+<div class="title-bar"></div>
+</div>
+
+<!-- ===== PAGE 1: Morse Code Essays ===== -->
+<section class="page" data-page="1">
+<p style="text-align:center;margin:4px 0 0"><a href="../issue_02/index.html" style="color:var(--accent);font-family:var(--hand);font-size:14px;text-decoration:none">← Previous Issue: Building the First Brains</a></p>
+<div class="page-title">Morse Code Essays</div>
+<svg viewBox="0 -20 680 220" style="width:100%" role="img" aria-label="Tera explains how programming in binary was like writing essays in Morse code">
+  <rect x="160" y="5" width="495" height="105" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M175,110 L165,127 L195,110" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="176" y1="110" x2="194" y2="110" stroke="#fff" stroke-width="2.5"/>
+  <text x="407" y="26" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">Imagine you want to write an essay — a really good one.</text>
+  <text x="407" y="44" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">Now imagine you have to write it entirely in Morse code.</text>
+  <text x="407" y="62" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">You COULD do it. But you'd spend so much time translating</text>
+  <text x="407" y="80" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">that you'd forget what you were trying to say.</text>
+  <text x="407" y="98" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">That's what programming felt like in the early 1950s.</text>
+  <g transform="translate(90,105) scale(0.95)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-5,-5 Q0,-9 5,-5" stroke="#4A9BD9" stroke-width="2" fill="none"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>By the early 1950s, the machines from Issue 2 existed — rooms full of humming metal and blinking lights, capable of thousands of calculations per second.</p>
+  <p>There was just one problem: <strong>talking to them was a nightmare</strong>.</p>
+  <p>These machines spoke only one language — <strong>machine code</strong>. Raw sequences of binary digits. To tell the machine "add these two numbers," you wrote something like <code>00010110 01010000 01100001</code>. And you had to get every single bit right.</p>
+</div>
+
+<!-- The Communication Gap -->
+<svg viewBox="0 -20 680 160" style="width:100%;margin:8px 0" role="img" aria-label="Visual showing the gap between human language and machine code">
+  <rect x="20" y="10" width="290" height="55" rx="8" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/>
+  <text x="165" y="30" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#38A169;font-weight:700">WHAT THE HUMAN WANTS TO SAY:</text>
+  <text x="165" y="50" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#2D3748">"Add the employee's salary to the total."</text>
+
+  <rect x="370" y="10" width="290" height="55" rx="8" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/>
+  <text x="515" y="30" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#E53E3E;font-weight:700">WHAT THE MACHINE NEEDS:</text>
+  <text x="515" y="50" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#2D3748">00010110 01010000 01100001 00001010</text>
+
+  <text x="340" y="95" text-anchor="middle" style="font-family:var(--hand);font-size:20px;fill:#38A169;font-weight:700">← THE GAP →</text>
+  <text x="340" y="118" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#718096">This issue is about closing it.</text>
+</svg>
+
+<div class="narrative">
+  <p>Programming was translation work. Humans think in words and concepts. Machines think in electrical signals — on or off, 1 or 0. Somebody had to bridge that gap.</p>
+  <p><em>Just how bad was programming in binary? Let's look at what it actually took to tell an early computer to do one simple thing.</em></p>
+</div>
+</section>
+
+<!-- ===== PAGE 2: Talking in Ones and Zeros ===== -->
+<section class="page" data-page="2">
+<div class="page-title">Talking in Ones and Zeros</div>
+<svg viewBox="0 -20 680 190" style="width:100%" role="img" aria-label="Tera shows how absurd binary programming was">
+  <rect x="160" y="5" width="495" height="90" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M175,95 L165,110 L195,95" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="176" y1="95" x2="194" y2="95" stroke="#fff" stroke-width="2.5"/>
+  <text x="407" y="26" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">You wanted to add two numbers? Sure. First, memorize which</text>
+  <text x="407" y="44" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">binary pattern means 'add.' Then figure out the binary address</text>
+  <text x="407" y="62" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">of where each number lives. Then encode ALL of that as 0s</text>
+  <text x="407" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">and 1s. And if you made ONE mistake? Hours of hunting.</text>
+  <g transform="translate(90,90) scale(0.9)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <ellipse cx="0" cy="-6" rx="5" ry="4" fill="#4A9BD9" opacity="0.5"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="code-box">WHAT YOU WANT:
+  "Add the values in slots 5 and 6, store in slot 7."
+
+IN MACHINE CODE:
+  LOAD  slot 5 → register A:    0001  0000  0101
+  LOAD  slot 6 → register B:    0001  0001  0110
+  ADD   register A + B:         0010  0000  0001
+  STORE register A → slot 7:    0011  0000  0111
+
+WHAT THE PROGRAMMER TYPED:
+  000100000101
+  000100010110
+  001000000001
+  001100000111
+
+  ↑ One wrong digit = wrong instruction.
+  ↑ No labels, no names, no hints.
+  ↑ Every address tracked by hand, on paper.</div>
+
+<div class="narrative">
+  <p>Programmers spent up to <strong>90% of their time</strong> finding and fixing errors, not writing new logic. The machine was fast, but the humans were the bottleneck.</p>
+</div>
+
+<div class="bigidea">
+  <strong>Machine code is the language computers actually speak</strong> — raw binary instructions. It is precise, unforgiving, and almost impossible for humans to read. The entire history of programming languages is the story of making machines meet us halfway.
+</div>
+
+<div class="tryit">
+  <strong>Think About It:</strong> Think about how you give directions to a friend versus to a GPS. You'd say "turn left at the coffee shop." The GPS needs exact coordinates. Machine code is like giving directions in latitude and longitude. What would you invent to make it easier?
+</div>
+</section>
+
+<!-- ===== PAGE 3 ===== -->
+<section class="page" data-page="3">
+<div class="page-title">A Thin Veneer of Readability</div>
+<svg viewBox="0 -20 680 190" style="width:100%" role="img" aria-label="Tera introduces assembly language as the first step up from binary">
+  <rect x="160" y="5" width="495" height="90" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M175,95 L165,110 L195,95" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="176" y1="95" x2="194" y2="95" stroke="#fff" stroke-width="2.5"/>
+  <text x="407" y="26" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">Assembly language was the first step up from binary. Instead</text>
+  <text x="407" y="44" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">of 0010 0000 0001, you could write ADD R0, R1. Not English,</text>
+  <text x="407" y="62" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">but not a wall of ones and zeros either. A thin veneer of</text>
+  <text x="407" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">readability — just enough to keep programmers sane. Mostly.</text>
+  <g transform="translate(90,90) scale(0.9)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-6,-8 Q0,-2 6,-8" stroke="#4A9BD9" stroke-width="2" fill="none"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>By the late 1940s, programmers created shorthand. Instead of binary codes, they assigned short <strong>mnemonics</strong> — tiny abbreviations a human could remember. <code>ADD</code> instead of <code>0010</code>. <code>LOAD</code> instead of <code>0001</code>.</p>
+  <p>This was <strong>assembly language</strong>. A simple program called an <strong>assembler</strong> translated these mnemonics back into binary. One line of assembly = one machine instruction.</p>
+</div>
+
+<div class="code-box">THE SAME TASK AT THREE LEVELS:
+
+ENGLISH:
+  "Add the values in slots 5 and 6, store in slot 7."
+
+ASSEMBLY LANGUAGE:
+  LOAD  R0, [5]    ; Load value from slot 5
+  LOAD  R1, [6]    ; Load value from slot 6
+  ADD   R0, R1     ; Add them together
+  STORE R0, [7]    ; Store result in slot 7
+
+MACHINE CODE:
+  000100000101
+  000100010110
+  001000000001
+  001100000111
+
+  ↑ Assembly is MORE READABLE, but still one
+    instruction per machine instruction.</div>
+
+<div class="narrative">
+  <p>But assembly had serious limitations: it was <strong>machine-specific</strong> (code for one computer was gibberish to another), and still tedious — even simple tasks required hundreds of instructions.</p>
+  <p>Assembly was a Band-Aid on a broken arm. The real fix would require a much bolder idea.</p>
+</div>
+
+<div class="bigidea">
+  <strong>Assembly language was the first abstraction over machine code</strong> — replacing binary codes with human-readable mnemonics. It introduced a crucial idea: a program (the assembler) that translates human-friendly notation into machine-friendly binary.
+</div>
+
+<div class="narrative">
+  <p><em>What if a computer could understand something closer to actual English? One woman thought it could. Almost nobody believed her.</em></p>
+</div>
+</section>
+
+<!-- ===== PAGE 4 ===== -->
+<section class="page" data-page="4">
+<div class="page-title">The Woman Who Taught Machines to Read</div>
+<!-- Grace robot panel -->
+<svg viewBox="0 -20 680 220" style="width:100%" role="img" aria-label="Tera introduces Grace Hopper, inventor of the compiler">
+  <rect x="160" y="5" width="495" height="105" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M175,110 L165,127 L195,110" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="176" y1="110" x2="194" y2="110" stroke="#fff" stroke-width="2.5"/>
+  <text x="407" y="26" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">Grace Hopper was a Navy officer, a mathematician, and one</text>
+  <text x="407" y="44" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">of the most stubborn visionaries in computing. When she told</text>
+  <text x="407" y="62" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">people computers should understand English-like commands,</text>
+  <text x="407" y="80" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">they said it was impossible. They said computers could only</text>
+  <text x="407" y="98" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">do arithmetic. She built the thing anyway.</text>
+  <g transform="translate(90,105) scale(0.95)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#38A169" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#38A169"/><circle cx="6" cy="-16" r="4.8" fill="#38A169"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-6,-8 Q0,-2 6,-8" stroke="#38A169" stroke-width="2" fill="none"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Grace</text>
+  </g>
+</svg>
+
+<div class="char-card">
+  <h4>Grace Brewster Murray Hopper (1906–1992)</h4>
+  <p><strong>Education:</strong> PhD in Mathematics, Yale University (1934)</p>
+  <p><strong>Rank:</strong> Retired as Rear Admiral, US Navy</p>
+  <p><strong>Known for:</strong> Pioneer of compilers; coined the term "compiler" (A-0, 1952), FLOW-MATIC, key architect of COBOL, popularizing "debugging"</p>
+  <p><strong>Famous quote:</strong> "It's easier to ask forgiveness than it is to get permission."</p>
+</div>
+
+<div class="narrative">
+  <p>In 1952, Hopper wrote what is widely regarded as the first <strong>compiler</strong> — a program called A-0 that translated mathematical notation into machine code. Instead of a human translating each instruction by hand, a <em>program</em> would do it automatically.</p>
+  <p>"I had a running compiler," Hopper later recalled, "and nobody would touch it. They told me a computer could only do arithmetic."</p>
+  <p>Hopper kept building. A-0 led to A-2, then to B-0 (FLOW-MATIC), which could understand commands like: <code>MULTIPLY PRICE BY QUANTITY GIVING TOTAL</code>.</p>
+  <p>Hopper was also famous for handing out 11.8-inch pieces of wire during lectures — the distance light travels in one nanosecond — to make abstract computing concepts tangible.</p>
+</div>
+
+<!-- Compiler diagram -->
+<svg viewBox="0 -20 680 160" style="width:100%;margin:8px 0" role="img" aria-label="Before and after compilers">
+  <rect x="20" y="10" width="300" height="115" rx="10" fill="#FED7D7" stroke="#E53E3E" stroke-width="1" opacity="0.5"/>
+  <text x="170" y="32" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#E53E3E;font-weight:700">BEFORE COMPILERS</text>
+  <text x="170" y="52" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">Human writes formula</text>
+  <text x="170" y="68" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#E53E3E">↓ Human MANUALLY translates</text>
+  <text x="170" y="84" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">Assembly code</text>
+  <text x="170" y="100" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#E53E3E">↓ Assembler converts</text>
+  <text x="170" y="116" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">Machine code → executes</text>
+
+  <rect x="360" y="10" width="300" height="115" rx="10" fill="#C6F6D5" stroke="#38A169" stroke-width="1" opacity="0.5"/>
+  <text x="510" y="32" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#38A169;font-weight:700">AFTER COMPILERS</text>
+  <text x="510" y="55" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">Human writes readable code</text>
+  <text x="510" y="75" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#38A169;font-weight:700">↓ COMPILER auto-translates</text>
+  <text x="510" y="95" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">Machine code → executes</text>
+  <text x="510" y="116" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#38A169">Seconds instead of hours!</text>
+</svg>
+
+<div class="bigidea">
+  <strong>A compiler is a program that translates human-readable code into machine code.</strong> Hopper's insight was profound: if a computer can manipulate symbols, it can manipulate words just as easily as numbers. The compiler is the bridge between human thought and machine execution — and it's still how most software is built today.
+</div>
+</section>
+
+<!-- ===== PAGE 5 ===== -->
+<section class="page" data-page="5">
+<div class="page-title">The Language of Science</div>
+<svg viewBox="0 -20 680 190" style="width:100%" role="img" aria-label="Tera explains how FORTRAN let scientists write code that looked like math">
+  <rect x="160" y="5" width="495" height="90" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M175,95 L165,110 L195,95" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="176" y1="95" x2="194" y2="95" stroke="#fff" stroke-width="2.5"/>
+  <text x="407" y="26" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">FORTRAN changed everything. For the first time, a scientist</text>
+  <text x="407" y="44" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">could write code that looked like math: Y = A*X + B.</text>
+  <text x="407" y="62" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">No binary, no memory addresses, no registers. John Backus</text>
+  <text x="407" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">and his IBM team proved high-level programming was practical.</text>
+  <g transform="translate(90,90) scale(0.9)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-6,-8 Q0,-2 6,-8" stroke="#4A9BD9" stroke-width="2" fill="none"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="char-card">
+  <h4>John Warner Backus (1924–2007)</h4>
+  <p><strong>Role:</strong> Lead designer of FORTRAN at IBM</p>
+  <p><strong>Known for:</strong> FORTRAN (1957), Backus-Naur Form (BNF) for describing language grammars</p>
+  <p><strong>Fun fact:</strong> Backus flunked out of the University of Virginia, found programming almost by accident, and won the Turing Award in 1977.</p>
+</div>
+
+<div class="code-box">THE ABSTRACTION LEAP:
+
+THE MATH:       y = ax + b
+
+FORTRAN (1957): Y = A*X + B
+
+ASSEMBLY (IBM 704):
+  CLA  A      ; Clear and load A
+  FMP  X      ; Floating-point multiply by X
+  FAD  B      ; Floating-point add B
+  STO  Y      ; Store result in Y
+
+MACHINE CODE:
+  0101 0000 0000 1010 0110 ...
+
+  FORTRAN: 1 line
+  Assembly: 4 lines
+  Machine code: dozens of bits per instruction
+
+  That's the power of a HIGH-LEVEL LANGUAGE.</div>
+
+<div class="narrative">
+  <p><strong>John Backus</strong> hated the tedium of programming. In 1953, he proposed to IBM: build a language where scientists could write formulas that looked like actual math. <strong>FORTRAN</strong> — FORmula TRANslation — was released in April 1957.</p>
+  <p>Skeptics said no automatic translator could match hand-optimized code. Backus's team proved them wrong: FORTRAN programs ran within 10-20% of hand-written assembly speed. Within a year of release, over half of all new IBM code was in FORTRAN.</p>
+</div>
+
+<div class="bigidea">
+  <strong>FORTRAN proved you don't sacrifice power when you raise the level of abstraction.</strong> One line of FORTRAN could generate dozens of machine instructions — and the compiler made them nearly as fast as hand-written code. FORTRAN is still in use today, over 65 years later, in scientific computing and weather modeling.
+</div>
+</section>
+
+<!-- ===== PAGE 6 ===== -->
+<section class="page" data-page="6">
+<div class="page-title">Programming in Almost-English</div>
+<svg viewBox="0 -20 680 190" style="width:100%" role="img" aria-label="Tera marvels at COBOL's English-like syntax">
+  <rect x="160" y="5" width="495" height="90" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M175,95 L165,110 L195,95" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="176" y1="95" x2="194" y2="95" stroke="#fff" stroke-width="2.5"/>
+  <text x="407" y="26" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">Look at this code. MULTIPLY HOURS-WORKED BY PAY-RATE</text>
+  <text x="407" y="44" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">GIVING GROSS-PAY. That's a working program! Not pseudocode</text>
+  <text x="407" y="62" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">— an actual instruction a computer executes. Hopper's dream</text>
+  <text x="407" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">of programming in English was becoming real.</text>
+  <g transform="translate(90,90) scale(0.9)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <ellipse cx="0" cy="-6" rx="5" ry="4" fill="#4A9BD9" opacity="0.5"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>In May 1959, the <strong>CODASYL</strong> committee at the Pentagon — organized by Mary Hawes and including key contributors like Jean Sammet (IBM) — designed a single language for business computing. The result was <strong>COBOL</strong> — the COmmon Business-Oriented Language. Hopper's FLOW-MATIC was a primary influence.</p>
+  <p>COBOL was designed so <strong>programs should be readable by managers, not just programmers</strong>.</p>
+</div>
+
+<div class="code-box" style="color:#38A169">IDENTIFICATION DIVISION.
+PROGRAM-ID. PAYROLL.
+
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+01 HOURS-WORKED     PIC 99V9.
+01 PAY-RATE         PIC 999V99.
+01 GROSS-PAY        PIC 9999V99.
+
+PROCEDURE DIVISION.
+COMPUTE-PAY.
+    MULTIPLY HOURS-WORKED BY PAY-RATE
+        GIVING GROSS-PAY.
+    DISPLAY "GROSS PAY IS: " GROSS-PAY.
+    STOP RUN.</div>
+
+<div class="narrative">
+  <p>Critics called COBOL verbose and inelegant. But that verbosity was the point — COBOL was designed to be <em>clear</em>, not clever.</p>
+  <p>A critical factor in COBOL's rise: the U.S. Department of Defense told computer manufacturers that to sell machines to the government — the world's largest computer buyer — they had to provide a COBOL compiler. This mandate drove COBOL from specification to dominance virtually overnight.</p>
+  <p>By the mid-1960s, COBOL was the most widely used language in the world. By some estimates, there are still over <strong>200 billion lines of COBOL</strong> in active production, processing an estimated 95% of ATM transactions.</p>
+</div>
+
+<div class="bigidea">
+  <strong>COBOL proved that programming languages don't have to look like math</strong> — they can look like English. By making code readable to non-specialists, COBOL opened computing to an entirely new audience: business professionals.
+</div>
+
+<div class="tryit">
+  <strong>Think About It:</strong> COBOL was designed to be readable, FORTRAN to be mathematical. Today we have hundreds of languages, each with a different personality. Why haven't we settled on just one? What's the advantage of having many languages, each for different purposes?
+</div>
+</section>
+
+<!-- ===== PAGE 7 ===== -->
+<section class="page" data-page="7">
+<div class="page-title">The Abstraction Ladder</div>
+<svg viewBox="0 -20 680 190" style="width:100%" role="img" aria-label="Tera presents the concept of abstraction">
+  <rect x="160" y="5" width="495" height="90" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M175,95 L165,110 L195,95" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="176" y1="95" x2="194" y2="95" stroke="#fff" stroke-width="2.5"/>
+  <text x="407" y="26" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">Step back and see the pattern. Every advance is the same</text>
+  <text x="407" y="44" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">trick: ABSTRACTION. Each layer hides the messy details of</text>
+  <text x="407" y="62" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">the layer below. Each time we climb a rung, the human can</text>
+  <text x="407" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">think bigger thoughts — the machine handles the small ones.</text>
+  <g transform="translate(90,90) scale(0.9)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <ellipse cx="0" cy="-6" rx="5" ry="4" fill="#4A9BD9" opacity="0.5"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<!-- The Abstraction Ladder diagram -->
+<svg viewBox="0 -20 680 360" style="width:100%;margin:4px 0" role="img" aria-label="The abstraction ladder from electrical signals up to natural language">
+  <rect x="10" y="5" width="660" height="330" rx="12" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="340" y="28" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#38A169;font-weight:700">THE ABSTRACTION LADDER</text>
+  <text x="340" y="46" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">Each rung hides the complexity of the ones below</text>
+
+  <!-- Arrow indicators -->
+  <text x="45" y="100" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#38A169">↑ HUMAN</text>
+  <text x="45" y="280" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#E53E3E">↓ MACHINE</text>
+
+  <!-- Rung 6: Natural Language -->
+  <rect x="80" y="58" width="570" height="38" rx="6" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/>
+  <text x="100" y="82" style="font-family:var(--hand);font-size:13px;fill:#38A169;font-weight:700">NATURAL LANGUAGE</text>
+  <text x="350" y="82" style="font-family:var(--body);font-size:11px;fill:#4A5568">"Build me a website with a contact form"</text>
+  <text x="560" y="82" style="font-family:var(--mono);font-size:9px;fill:#718096">AI/LLMs</text>
+
+  <!-- Rung 5: Modern High-Level -->
+  <rect x="80" y="102" width="570" height="38" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/>
+  <text x="100" y="126" style="font-family:var(--hand);font-size:13px;fill:#4A9BD9;font-weight:700">MODERN HIGH-LEVEL</text>
+  <text x="350" y="126" style="font-family:var(--mono);font-size:11px;fill:#4A5568">total = sum(prices)</text>
+  <text x="560" y="126" style="font-family:var(--mono);font-size:9px;fill:#718096">Python, JS</text>
+
+  <!-- Rung 4: Early High-Level -->
+  <rect x="80" y="146" width="570" height="38" rx="6" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+  <text x="100" y="170" style="font-family:var(--hand);font-size:13px;fill:#D69E2E;font-weight:700">EARLY HIGH-LEVEL</text>
+  <text x="350" y="170" style="font-family:var(--mono);font-size:11px;fill:#4A5568">Y = A*X + B</text>
+  <text x="560" y="170" style="font-family:var(--mono);font-size:9px;fill:#718096">FORTRAN, COBOL</text>
+
+  <!-- Rung 3: Assembly -->
+  <rect x="80" y="190" width="570" height="38" rx="6" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.5"/>
+  <text x="100" y="214" style="font-family:var(--hand);font-size:13px;fill:#805AD5;font-weight:700">ASSEMBLY</text>
+  <text x="350" y="214" style="font-family:var(--mono);font-size:11px;fill:#4A5568">LOAD R0, [5] / ADD R0, R1</text>
+  <text x="560" y="214" style="font-family:var(--mono);font-size:9px;fill:#718096">late 1940s</text>
+
+  <!-- Rung 2: Machine Code -->
+  <rect x="80" y="234" width="570" height="38" rx="6" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/>
+  <text x="100" y="258" style="font-family:var(--hand);font-size:13px;fill:#E53E3E;font-weight:700">MACHINE CODE</text>
+  <text x="350" y="258" style="font-family:var(--mono);font-size:11px;fill:#4A5568">00010110 01010000 01100001</text>
+  <text x="560" y="258" style="font-family:var(--mono);font-size:9px;fill:#718096">binary</text>
+
+  <!-- Rung 1: Electrical Signals -->
+  <rect x="80" y="278" width="570" height="38" rx="6" fill="#1A202C"/>
+  <text x="100" y="302" style="font-family:var(--hand);font-size:13px;fill:#F6AD55;font-weight:700">ELECTRICAL SIGNALS</text>
+  <text x="350" y="302" style="font-family:var(--body);font-size:11px;fill:#A0AEC0">High voltage = 1, Low voltage = 0</text>
+  <text x="560" y="302" style="font-family:var(--mono);font-size:9px;fill:#718096">hardware</text>
+</svg>
+
+<div class="narrative">
+  <p><strong>Abstraction</strong> means hiding complexity behind a simpler interface. You don't need to understand how an engine works to drive a car. Each layer of programming technology abstracts away the details beneath it.</p>
+  <p>The essential insight: <strong>no rung replaces the ones below it.</strong> Your browser still runs on machine code. The abstraction ladder is not a replacement chain — it's a stack.</p>
+</div>
+
+<div class="bigidea">
+  <strong>Abstraction is the superpower of computing.</strong> Each layer hides complexity and lets humans think at a higher level. But no layer works alone — they all rest on the layers beneath. The entire history of programming is building this ladder, one rung at a time.
+</div>
+</section>
+
+<!-- ===== PAGE 8 ===== -->
+<section class="page" data-page="8">
+<div class="page-title">The Language That Dreams of Thinking</div>
+<svg viewBox="0 -20 680 190" style="width:100%" role="img" aria-label="Tera tells the story of LISP and John McCarthy">
+  <rect x="160" y="5" width="495" height="90" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M175,95 L165,110 L195,95" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="176" y1="95" x2="194" y2="95" stroke="#fff" stroke-width="2.5"/>
+  <text x="407" y="26" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">While Backus made computers speak math and Hopper made</text>
+  <text x="407" y="44" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">them speak English, John McCarthy asked: could a computer</text>
+  <text x="407" y="62" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">actually THINK? The language he built — LISP — is one of</text>
+  <text x="407" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">the strangest and most beautiful ever created.</text>
+  <g transform="translate(90,90) scale(0.9)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <circle cx="4" cy="-7" r="3" fill="none" stroke="#4A9BD9" stroke-width="1.8"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="char-card">
+  <h4>John McCarthy (1927–2011)</h4>
+  <p><strong>Role:</strong> Mathematician, computer scientist, founder of AI as a field</p>
+  <p><strong>Known for:</strong> Coined "artificial intelligence" (1955), created LISP (1958), Dartmouth Conference (1956), Turing Award (1971)</p>
+  <p><strong>Fun fact:</strong> McCarthy also invented the concept of computer time-sharing — anticipating cloud computing by decades.</p>
+</div>
+
+<div class="narrative">
+  <p>In the summer of 1956, McCarthy organized a workshop at <strong>Dartmouth College</strong> — the <strong>Dartmouth Summer Research Project on Artificial Intelligence</strong>. The gathering was informal: researchers came and went over the summer, with no single eureka moment. But it gave the field its name and brought together the people who would define it.</p>
+  <p>In 1958, McCarthy unveiled <strong>LISP</strong> (LISt Processing). Where FORTRAN dealt with numbers and COBOL dealt with records, LISP dealt with <em>symbols and lists</em>. It could manipulate code as data — and introduced garbage collection, dynamic typing, and recursive functions, ideas decades ahead of their time.</p>
+  <p>Here's a remarkable twist: when McCarthy published LISP's theoretical definition, he intended it as pure mathematics — not something to actually build. His graduate student Steve Russell looked at it and said, "Why don't I just program this?" McCarthy was skeptical. Russell built it anyway. Theory became working software.</p>
+</div>
+
+<div class="code-box">; LISP: "Add 2 and 3"
+(+ 2 3)                        ; → 5
+
+; Define a function to square a number
+(defun square (x)
+  (* x x))
+
+; Square the number 7
+(square 7)                     ; → 49
+
+; Apply 'square' to every item in a list
+(mapcar #'square '(1 2 3 4 5))
+                               ; → (1 4 9 16 25)
+
+; THE LAMBDA CALCULUS CONNECTION:
+; Church (1936):  λx. x * x
+; McCarthy (1958): (lambda (x) (* x x))
+; Theory became practice. Math became software.</div>
+
+<div class="bigidea">
+  <strong>LISP was the first language designed for reasoning, not calculation.</strong> It treated code as data, introduced ideas decades ahead of its time, and drew directly from Church's lambda calculus. LISP proved that programming languages could be built for what we want computers to <em>learn to do</em>.
+</div>
+</section>
+
+<!-- ===== PAGE 9 ===== -->
+<section class="page" data-page="9">
+<div class="page-title">The First of Her Kind</div>
+<svg viewBox="0 -20 680 190" style="width:100%" role="img" aria-label="Tera introduces Sister Mary Kenneth Keller">
+  <rect x="160" y="5" width="495" height="90" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M175,95 L165,110 L195,95" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="176" y1="95" x2="194" y2="95" stroke="#fff" stroke-width="2.5"/>
+  <text x="407" y="26" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">Sister Mary Kenneth Keller was a Catholic nun, a</text>
+  <text x="407" y="44" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">mathematician, and in 1965, became one of the first people</text>
+  <text x="407" y="62" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">— and the first woman — to earn a PhD in computer science</text>
+  <text x="407" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">in the United States. She believed computers belonged to everyone.</text>
+  <g transform="translate(90,90) scale(0.9)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-6,-8 Q0,-2 6,-8" stroke="#4A9BD9" stroke-width="2" fill="none"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="char-card">
+  <h4>Sister Mary Kenneth Keller, BVM (1913–1985)</h4>
+  <p><strong>Education:</strong> PhD in Computer Science, University of Washington (1965)</p>
+  <p><strong>Known for:</strong> One of the first two people to earn a CS PhD in the US, contributed to BASIC, founded and chaired the CS department at Clarke College for twenty years</p>
+  <p><strong>Lifelong mission:</strong> Making computing accessible to everyone</p>
+</div>
+
+<div class="narrative">
+  <p>Keller worked at <strong>Dartmouth College</strong> — which at the time did not normally admit women — where an exception was made for her in recognition of her talent. There she contributed to the development of <strong>BASIC</strong> (Beginner's All-purpose Symbolic Instruction Code), created by Kemeny and Kurtz in 1964. BASIC was designed to give students who were <em>not</em> science majors a way to use computers.</p>
+</div>
+
+<div class="code-box" style="color:#38A169">10 PRINT "WHAT IS YOUR NAME?"
+20 INPUT N$
+30 PRINT "HELLO, "; N$; "!"
+40 PRINT "LET'S DO SOME MATH."
+50 PRINT "WHAT IS 7 + 5?"
+60 INPUT A
+70 IF A = 12 THEN PRINT "CORRECT!"
+80 END
+
+BASIC: designed so a college freshman with
+NO technical background could write a program
+on their first day. The language that brought
+computing to the people.</div>
+
+<div class="narrative">
+  <p>BASIC was the language that would later power the personal computer revolution of the 1970s and 1980s, putting programming within reach of millions.</p>
+  <p>Keller once said: <em>"We're having an information explosion, and it's certainly obvious that information is of no use unless it's available."</em></p>
+</div>
+
+<div class="bigidea">
+  <strong>Computing has always been shaped by people who believed it should be for everyone.</strong> Hopper wanted programmers who weren't mathematicians. COBOL was for business managers. BASIC was for students. Keller dedicated her career to this principle: the power of computers means nothing if it's locked away from the people who need it.
+</div>
+
+<div class="tryit">
+  <strong>Think About It:</strong> In the 1960s, most programmers were men with advanced degrees. Keller believed computing should be accessible to all. Today there are hundreds of "learn to code" platforms. Is programming a basic skill like reading, or a specialized trade? What changes when MORE people can talk to machines?
+</div>
+</section>
+
+<!-- ===== PAGE 10 ===== -->
+<section class="page" data-page="10">
+<div class="page-title">One Machine Is Not Enough</div>
+<svg viewBox="0 -20 680 220" style="width:100%" role="img" aria-label="Tera reflects on the journey and looks ahead to connecting isolated computers">
+  <rect x="160" y="5" width="495" height="105" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M175,110 L165,127 L195,110" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="176" y1="110" x2="194" y2="110" stroke="#fff" stroke-width="2.5"/>
+  <text x="407" y="26" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">In fifteen years, humans went from raw binary to English-like</text>
+  <text x="407" y="44" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">sentences that machines could execute. Hopper, Backus,</text>
+  <text x="407" y="62" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">McCarthy, Keller — they climbed the abstraction ladder, rung</text>
+  <text x="407" y="80" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">by rung. But every program ran on ONE machine. Code couldn't</text>
+  <text x="407" y="98" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2D3748">travel. Each computer was a brilliant, powerful island.</text>
+  <g transform="translate(90,105) scale(0.95)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <circle cx="4" cy="-7" r="3" fill="none" stroke="#4A9BD9" stroke-width="1.8"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>By the late 1960s, scientists wrote in FORTRAN, businesses ran on COBOL, AI researchers dreamed in LISP, students learned in BASIC. Meanwhile, an international committee designed <strong>ALGOL</strong> — a language that was never commercially dominant but whose innovations (block structure, formal grammar, lexical scoping) would influence virtually every programming language that followed, including C, Java, and Python.</p>
+  <p>But every program ran on one machine. Code for an IBM was gibberish to a UNIVAC. Two revolutions were coming: an <strong>operating system</strong> called Unix, built on the philosophy that small tools should chain together for complex tasks, and a <strong>programming language</strong> called C that would make software portable for the first time.</p>
+</div>
+
+<!-- Journey so far -->
+<svg viewBox="0 -20 680 190" style="width:100%;margin:8px 0" role="img" aria-label="Timeline showing the journey from Issue 1 through Issue 4">
+  <rect x="20" y="10" width="640" height="150" rx="10" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="340" y="35" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#38A169;font-weight:700">THE JOURNEY SO FAR</text>
+
+  <rect x="40" y="48" width="170" height="25" rx="5" fill="#FED7D7"/><text x="125" y="65" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#E53E3E">Issue 1: The IDEA (1936)</text>
+  <rect x="40" y="78" width="170" height="25" rx="5" fill="#FFF5EB"/><text x="125" y="95" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#DD6B20">Issue 2: The MACHINES (1940s-50s)</text>
+  <rect x="40" y="108" width="170" height="25" rx="5" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/><text x="125" y="125" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#38A169;font-weight:700">Issue 3: The LANGUAGES ← HERE</text>
+
+  <text x="280" y="65" style="font-family:var(--body);font-size:11px;fill:#718096">→</text>
+  <rect x="300" y="48" width="330" height="95" rx="8" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.2" opacity="0.5"/>
+  <text x="465" y="68" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#805AD5;font-weight:700">Issue 4: The FREEDOM</text>
+  <text x="465" y="86" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">1969 — Unix born at Bell Labs</text>
+  <text x="465" y="101" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">1972 — The C programming language</text>
+  <text x="465" y="116" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#4A5568">1983 — "Software should be free"</text>
+  <text x="465" y="131" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#805AD5;font-weight:700">"Small Tools, Big Ideas" → COMING NEXT</text>
+</svg>
+
+<div class="bigidea">
+  <strong>The 1950s and 1960s gave us the fundamental insight that still drives all of software:</strong> human thought and machine execution are different, and the gap between them can be bridged by layers of translation. Compilers, high-level languages, and abstraction turned an impossible task — writing in binary — into something anyone can learn.
+</div>
+
+<div class="tryit">
+  <strong>Think About It:</strong> Every language in this issue was born from frustration. Machine code was too hard → assembly. Assembly too tedious → FORTRAN. FORTRAN didn't speak English → COBOL. None could reason → LISP. What frustration will drive the NEXT generation of programming? What's still too hard about telling computers what to do?
+</div>
+
+<div class="narrative" style="margin-top:12px">
+  <p><em>Next: two engineers at Bell Labs build an operating system in a closet-sized room — and create a philosophy that still drives software fifty-five years later. <a href="../issue_04/index.html" style="color:var(--accent);font-weight:700"><strong>Issue 4: "Small Tools, Big Ideas."</strong></a></em></p>
+</div>
+
+<!-- References -->
+<div class="refs">
+  <h3>References &amp; Further Reading</h3>
+  <ul>
+    <li><a href="https://doi.org/10.1145/609784.609818" target="_blank" rel="noopener" style="color:var(--accent)">Hopper, Grace M. "The Education of a Computer." Proceedings of the ACM National Conference, 1952.</a></li>
+    <li><a href="https://doi.org/10.1109/MAHC.1979.10016" target="_blank" rel="noopener" style="color:var(--accent)">Backus, John. "The History of FORTRAN I, II, and III." IEEE Annals of the History of Computing, 1979.</a></li>
+    <li><a href="https://doi.org/10.1145/367177.367199" target="_blank" rel="noopener" style="color:var(--accent)">McCarthy, John. "Recursive Functions of Symbolic Expressions." Communications of the ACM, 1960.</a></li>
+    <li><a href="https://doi.org/10.1145/204865.204875" target="_blank" rel="noopener" style="color:var(--accent)">Sammet, Jean E. Programming Languages: History and Fundamentals. Prentice-Hall, 1969.</a></li>
+    <li><a href="https://mitpress.mit.edu/9780262517263/grace-hopper-and-the-invention-of-the-information-age/" target="_blank" rel="noopener" style="color:var(--accent)">Beyer, Kurt W. Grace Hopper and the Invention of the Information Age. MIT Press, 2009.</a></li>
+    <li><a href="http://jmc.stanford.edu/articles/dartmouth/dartmouth.pdf" target="_blank" rel="noopener" style="color:var(--accent)">McCarthy et al. "A Proposal for the Dartmouth Summer Research Project on Artificial Intelligence." 1955.</a></li>
+    <li><a href="https://doi.org/10.1145/204865.204875" target="_blank" rel="noopener" style="color:var(--accent)">G&uuml;rer, Denise. "Pioneering Women in Computer Science." Communications of the ACM, 1995.</a></li>
+    <li><a href="https://www.youtube.com/@Computerphile" target="_blank" rel="noopener" style="color:var(--accent)">Computerphile (YouTube). "Compilers &amp; Assembly" and "Grace Hopper's Compiler."</a></li>
+  </ul>
+</div>
+</section>
+
+<script>
+const pages=document.querySelectorAll('.page');
+const total=pages.length;
+let cur=0;
+const dotsC=document.getElementById('dots');
+const pageNum=document.getElementById('pageNum');
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
+for(let i=0;i<total;i++){const d=document.createElement('button');d.className='dot';d.onclick=()=>show(i);dotsC.appendChild(d);}
+function show(n){cur=Math.max(0,Math.min(total-1,n));pages.forEach((p,i)=>{p.classList.toggle('active',i===cur);});document.querySelectorAll('.dot').forEach((d,i)=>{d.className='dot'+(i===cur?' active':i<cur?' past':'');});pageNum.textContent=(cur+1)+' / '+total;prevBtn.disabled=cur===0;nextBtn.disabled=cur===total-1;window.scrollTo({top:0,behavior:'smooth'});}
+function go(d){show(cur+d);}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);});
+show(0);
+</script>
+</body>
+</html>

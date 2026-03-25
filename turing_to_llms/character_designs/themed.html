@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Era-Themed Robot Guides — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    min-height: 100vh;
+  }
+
+  header {
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    background: linear-gradient(135deg, #16213e 0%, #0f3460 50%, #1a1a2e 100%);
+    border-bottom: 3px solid #e94560;
+  }
+
+  header h1 {
+    font-family: 'Bangers', cursive;
+    font-size: 2.8rem;
+    color: #e94560;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+  }
+
+  header p {
+    font-size: 1.1rem;
+    color: #a0a0c0;
+    max-width: 750px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .timeline {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .era-card {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 0;
+    background: #16213e;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    border: 2px solid transparent;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .era-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  }
+
+  .era-card.selected {
+    border-color: #48bb78;
+    box-shadow: 0 0 20px rgba(72, 187, 120, 0.3);
+  }
+
+  .era-card.selected::before {
+    content: 'APPROVED';
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #48bb78;
+    color: #1a1a2e;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 20px;
+    z-index: 2;
+  }
+
+  .era-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: #0f0f1e;
+    cursor: zoom-in;
+  }
+
+  .era-info {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .era-badge {
+    display: inline-block;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.85rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #1a1a2e;
+    width: fit-content;
+    margin-bottom: 0.6rem;
+  }
+
+  .era-info h2 {
+    font-family: 'Bangers', cursive;
+    font-size: 1.8rem;
+    color: var(--accent);
+    letter-spacing: 1px;
+    margin-bottom: 0.2rem;
+  }
+
+  .era-info .period {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1rem;
+    color: #808090;
+    margin-bottom: 0.5rem;
+  }
+
+  .era-info .vibe {
+    font-style: italic;
+    color: #a0a0c0;
+    font-size: 0.95rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .era-info .description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #b0b0c8;
+  }
+
+  .era-info .issue-title {
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    color: #707088;
+    border-top: 1px solid #2a2a4e;
+    padding-top: 0.6rem;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 8px;
+  }
+
+  .summary {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0f3460;
+    border-top: 2px solid #e94560;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.1rem;
+    z-index: 10;
+    transition: transform 0.3s;
+  }
+  .summary.hidden { transform: translateY(100%); }
+  .summary span { color: #c0c0d8; }
+  .summary .count { color: #48bb78; font-weight: bold; }
+
+  footer {
+    text-align: center;
+    padding: 2rem 1rem 5rem;
+    color: #606080;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 750px) {
+    .era-card { grid-template-columns: 1fr; }
+    .era-card img { max-height: 350px; }
+    header h1 { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Era-Themed Robot Guides</h1>
+  <p>Each issue gets a robot guide built from the technology of its era. Click to approve designs you like. Click images to zoom.</p>
+</header>
+
+<div class="timeline" id="timeline"></div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="Zoomed character design">
+</div>
+
+<div class="summary hidden" id="summary">
+  <span>Approved: <span class="count" id="approved-count">0</span> / 10 designs</span>
+</div>
+
+<footer>
+  From Turing to Swarms — Era-Themed Character Design Phase<br>
+  Generated via Sparky Image Gen API
+</footer>
+
+<script>
+const ISSUES = [
+  {
+    num: 1, file: "T01_ticker", name: "Ticker", accent: "#E53E3E",
+    period: "1936 — The Turing Machine",
+    issueTitle: "Issue 1: The Idea That Started Everything",
+    vibe: "A walking Turing machine",
+    desc: "Made of punched paper tape and brass. Body is a reel of tape, read/write head as its eye, mechanical typewriter key fingers. Literally IS the invention it's teaching you about."
+  },
+  {
+    num: 2, file: "T02_valvie", name: "Valvie", accent: "#DD6B20",
+    period: "1940s\u201350s — First Computers",
+    issueTitle: "Issue 2: Building the First Brains",
+    vibe: "ENIAC shrunk to pocket size",
+    desc: "Built from glowing vacuum tubes and patch cables. Glass tube chest with warm orange filaments, rotary telephone dial face, thick rubber cable arms with plug-connector hands."
+  },
+  {
+    num: 3, file: "T03_punchy", name: "Punchy", accent: "#38A169",
+    period: "1950s\u201360s — Programming Languages",
+    issueTitle: "Issue 3: Teaching Machines to Understand Us",
+    vibe: "Grace Hopper's little helper",
+    desc: "A walking punch card. Rectangular body with actual hole patterns, ink-stamped face, carries a stack of cards. Wears a tiny Navy cap in tribute to Admiral Hopper."
+  },
+  {
+    num: 4, file: "T04_shell", name: "Shell", accent: "#805AD5",
+    period: "1970s\u201380s — Unix & PCs",
+    issueTitle: "Issue 4: Small Tools, Big Ideas",
+    vibe: "Your friendly command line",
+    desc: "Green-on-black CRT monitor head with >_ cursor as its smile. Beige plastic keyboard body, floppy disk hands. Pure 80s personal computing nostalgia."
+  },
+  {
+    num: 5, file: "T05_dotcom", name: "Dotcom", accent: "#D69E2E",
+    period: "1990s\u20132000s — The World Wide Web",
+    issueTitle: "Issue 5: The Connected World",
+    vibe: "The internet in robot form",
+    desc: "Body is a Netscape-era browser window frame. Spinning globe head (the old loading animation), blue hyperlink text across its surface, HTML tag antennas. Peak 90s web energy."
+  },
+  {
+    num: 6, file: "T06_neuron", name: "Neuron", accent: "#E53E3E",
+    period: "2000s\u20132015 — Deep Learning",
+    issueTitle: "Issue 6: Machines That Learn",
+    vibe: "A neural network come alive",
+    desc: "Translucent glass body showing a glowing neural network inside — bright nodes and pulsing connections. Gets brighter when it learns. Bioluminescent blue-purple glow."
+  },
+  {
+    num: 7, file: "T07_attn", name: "Attn", accent: "#4A9BD9",
+    period: "2017\u20132023 — Transformers & LLMs",
+    issueTitle: "Issue 7: Attention Is All You Need",
+    vibe: "Attention mechanism embodied",
+    desc: "Geometric head with colored attention beams radiating outward. Matrix-patterned skin, token blocks orbiting like electrons. Electric blue and orange. Every word looks at every other word."
+  },
+  {
+    num: 8, file: "T08_cursor", name: "Cursor", accent: "#9F7AEA",
+    period: "2024\u20132025 — AI Agents",
+    issueTitle: "Issue 8: The Agent Awakens",
+    vibe: "A terminal prompt with legs",
+    desc: "Dark terminal window body with live scrolling code. One eye is a blinking cursor. Tool belt with tiny browser, file, and database icons. Hands that type. Dark mode color scheme."
+  },
+  {
+    num: 9, file: "T09_hivemind", name: "Hivemind", accent: "#48BB78",
+    period: "2025\u20132026 — Multi-Agent Swarms",
+    issueTitle: "Issue 9: The Swarm",
+    vibe: "Many become one",
+    desc: "Not one robot but a cluster of 5\u20137 tiny identical bots in formation, with glowing network connections between them. Can merge into a larger composite form. Git branch diagrams glow in the gaps."
+  },
+  {
+    num: 10, file: "T10_stack", name: "Stack", accent: "#DD6B20",
+    period: "1936\u20132026 — The Full Arc",
+    issueTitle: "Issue 10: The Whole Stack",
+    vibe: "A walking timeline of computing",
+    desc: "Layered like geological strata \u2014 paper tape base, vacuum tube legs, punch card torso, CRT chest, web shoulders, neural network head, attention beams crown. Each layer in its era's palette."
+  }
+];
+
+const approved = new Set();
+const timeline = document.getElementById('timeline');
+const summary = document.getElementById('summary');
+const countEl = document.getElementById('approved-count');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+
+ISSUES.forEach(issue => {
+  const card = document.createElement('div');
+  card.className = 'era-card';
+  card.id = `card-${issue.num}`;
+  card.style.setProperty('--accent', issue.accent);
+  card.innerHTML = `
+    <img src="images_3d_renders/${issue.file}.png" alt="${issue.name} character design"
+         loading="lazy" onclick="event.stopPropagation(); openLightbox('images_3d_renders/${issue.file}.png')">
+    <div class="era-info">
+      <div class="era-badge">Issue ${issue.num}</div>
+      <h2>${issue.name}</h2>
+      <div class="period">${issue.period}</div>
+      <div class="vibe">${issue.vibe}</div>
+      <div class="description">${issue.desc}</div>
+      <div class="issue-title">${issue.issueTitle}</div>
+    </div>
+  `;
+  card.addEventListener('click', () => toggleApprove(issue.num));
+  timeline.appendChild(card);
+});
+
+function toggleApprove(num) {
+  const card = document.getElementById(`card-${num}`);
+  if (approved.has(num)) {
+    approved.delete(num);
+    card.classList.remove('selected');
+  } else {
+    approved.add(num);
+    card.classList.add('selected');
+  }
+  updateSummary();
+}
+
+function updateSummary() {
+  if (approved.size === 0) {
+    summary.classList.add('hidden');
+    return;
+  }
+  summary.classList.remove('hidden');
+  countEl.textContent = approved.size;
+}
+
+function openLightbox(src) {
+  lightboxImg.src = src;
+  lightbox.classList.add('active');
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') lightbox.classList.remove('active');
+});
+</script>
+
+</body>
+</html>

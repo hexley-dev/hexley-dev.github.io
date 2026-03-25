@@ -1,0 +1,13 @@
+{
+  "name": "Agent",
+  "era": "2024\u20132025 \u2014 The Agent Awakens",
+  "theme": "Tool use, autonomous coding, ReAct loop, Claude Code",
+  "designs": [
+    "terminal_green",
+    "toolbox",
+    "react_loop",
+    "ide_dark",
+    "cursor_bot",
+    "error_recovery"
+  ]
+}

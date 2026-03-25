@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Issue 1 Robot Guide — Adorable Turing Machine Characters</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Source Serif 4', Georgia, serif; background: #1a1a2e; color: #e0e0e0; min-height: 100vh; }
+
+  header { text-align: center; padding: 2.5rem 1rem 1.5rem; background: linear-gradient(135deg, #16213e 0%, #0f3460 50%, #1a1a2e 100%); border-bottom: 3px solid #E53E3E; }
+  header h1 { font-family: 'Bangers', cursive; font-size: 2.6rem; color: #E53E3E; letter-spacing: 2px; margin-bottom: 0.4rem; }
+  header p { font-size: 1rem; color: #a0a0c0; max-width: 700px; margin: 0 auto; line-height: 1.5; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; padding: 2rem; max-width: 1400px; margin: 0 auto; }
+
+  .card { background: #16213e; border-radius: 12px; overflow: hidden; border: 2px solid transparent; transition: all 0.2s; cursor: pointer; position: relative; }
+  .card:hover { border-color: #E53E3E; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(229,62,62,0.2); }
+  .card.selected { border-color: #48bb78; box-shadow: 0 0 20px rgba(72,187,120,0.3); }
+  .card.selected::after { content: '★ FAVORITE'; position: absolute; top: 10px; right: 10px; background: #48bb78; color: #1a1a2e; font-family: 'Patrick Hand', cursive; font-size: 0.85rem; font-weight: bold; padding: 3px 10px; border-radius: 16px; z-index: 2; }
+
+  .card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: #0f0f1e; }
+  .card-body { padding: 1rem; }
+  .card-body h2 { font-family: 'Bangers', cursive; font-size: 1.4rem; color: #E53E3E; letter-spacing: 1px; margin-bottom: 0.2rem; }
+  .card-body .concept { font-style: italic; color: #a0a0c0; font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .card-body .desc { font-size: 0.85rem; line-height: 1.5; color: #9090a8; }
+
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 100; align-items: center; justify-content: center; cursor: zoom-out; }
+  .lightbox.active { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; }
+
+  .summary { position: fixed; bottom: 0; left: 0; right: 0; background: #0f3460; border-top: 2px solid #E53E3E; padding: 0.8rem 1.5rem; display: flex; align-items: center; justify-content: space-between; font-family: 'Patrick Hand', cursive; font-size: 1.1rem; z-index: 10; transition: transform 0.3s; }
+  .summary.hidden { transform: translateY(100%); }
+  .summary span { color: #c0c0d8; }
+  .summary .pick { color: #48bb78; font-weight: bold; }
+
+  footer { text-align: center; padding: 2rem 1rem 5rem; color: #505068; font-size: 0.8rem; }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; padding: 1rem; } header h1 { font-size: 2rem; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Issue 1: Turing Machine Guide</h1>
+  <p>10 adorable character concepts that embody a Turing machine. The Turing elements are accessories and personality — the cuteness comes first. Click to pick your favorite.</p>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lb-img" src="" alt="Zoomed view">
+</div>
+
+<div class="summary hidden" id="summary">
+  <span>Your pick: <span class="pick" id="pick-name">—</span></span>
+</div>
+
+<footer>From Turing to Swarms — Issue 1 Character Design v2<br>Comic style: ink lines + watercolor washes</footer>
+
+<script>
+const CHARS = [
+  { id: 'scribble', name: 'Scribble', concept: 'Paper tape scarf + pencil + monocle',
+    desc: 'Tiny round bot with a long paper tape scarf trailing like a kite tail. Magnifying glass monocle (= read head), clutching a tiny pencil (= write head). Curious toddler energy.' },
+  { id: 'ticker', name: 'Ticker', concept: 'Sitting inside a tape reel like a hamster wheel',
+    desc: 'Small bot peeking over the edge of a tape reel it lives inside. The reel is its cozy home and vehicle. Like a kid in a cardboard box fort.' },
+  { id: 'peeka', name: 'Peeka', concept: 'Porthole belly showing tape scrolling inside',
+    desc: 'Round bot whose belly has a window showing tape symbols scrolling past. Antenna lightbulb lights up when it reads something. Fascinated by its own inner workings.' },
+  { id: 'zippy', name: 'Zippy', concept: 'Surfing on a tape strip like a skateboard',
+    desc: 'Tiny bot riding paper tape like a skateboard, aviator goggles, reading symbols as it zooms. Speed, adventure, and discovery.' },
+  { id: 'nibble', name: 'Nibble', concept: 'Typewriter eating tape like spaghetti',
+    desc: 'Tiny typewriter bot feeding tape into its mouth, outputting from the other side. Chad confetti scattered like cookie crumbs. Happy munching baby energy.' },
+  { id: 'spool', name: 'Spool', concept: 'Baby swaddled in paper tape',
+    desc: 'Baby bot wrapped snugly in paper tape, peeking out with enormous eyes, one tiny hand reaching to touch a binary symbol. Newborn wonder.' },
+  { id: 'stampy', name: 'Stampy', concept: 'Rubber stamp feet leaving symbol trails',
+    desc: 'Pudgy bot whose feet stamp 0s and 1s wherever it walks. Paper tape ribbon bow on head, ink-smudged cheeks, proud of its marks.' },
+  { id: 'reely', name: 'Reely', concept: 'Oversized tape reel backpack',
+    desc: 'Tiny bot wearing a comically huge tape reel as a backpack. Leaning forward under the weight, determined and happy. Like a kid with a parent\'s hiking pack.' },
+  { id: 'blinky', name: 'Blinky', concept: 'Single eye is a read-head spotlight',
+    desc: 'Bot whose big eye IS the read head — projecting a golden spotlight onto tape symbols, studying each one. Lighthouse meets firefly.' },
+  { id: 'munch', name: 'Munch', concept: 'Caterpillar inching along tape',
+    desc: 'Caterpillar-shaped bot with colored segments (= states), crawling along a tape strip reading symbols. Cute inchworm energy, the tape is its happy little road.' },
+];
+
+let picked = null;
+const grid = document.getElementById('grid');
+const summary = document.getElementById('summary');
+const pickName = document.getElementById('pick-name');
+
+CHARS.forEach(c => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.id = `card-${c.id}`;
+  card.innerHTML = `
+    <img src="images/I01v2_${c.id}.png" alt="${c.name}" loading="lazy"
+         onclick="event.stopPropagation(); openLB('images/I01v2_${c.id}.png')">
+    <div class="card-body">
+      <h2>${c.name}</h2>
+      <div class="concept">${c.concept}</div>
+      <div class="desc">${c.desc}</div>
+    </div>
+  `;
+  card.addEventListener('click', () => pick(c.id, c.name));
+  grid.appendChild(card);
+});
+
+function pick(id, name) {
+  if (picked) document.getElementById(`card-${picked}`)?.classList.remove('selected');
+  if (picked === id) { picked = null; summary.classList.add('hidden'); return; }
+  picked = id;
+  document.getElementById(`card-${id}`).classList.add('selected');
+  pickName.textContent = name;
+  summary.classList.remove('hidden');
+}
+
+function openLB(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('active'); });
+</script>
+</body>
+</html>

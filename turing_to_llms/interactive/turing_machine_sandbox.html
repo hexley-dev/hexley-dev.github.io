@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turing Machine Sandbox — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS Variables — match the comic series visual identity
+   ============================================================ */
+:root {
+  --hand: 'Caveat', 'Patrick Hand', cursive;
+  --body: 'Patrick Hand', cursive;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --accent: #E53E3E;
+  --accent-light: rgba(229, 62, 62, 0.12);
+  --accent-glow: rgba(229, 62, 62, 0.4);
+  --bg: #FAF9F6;
+  --dark: #2D3748;
+  --muted: #718096;
+  --border: #E2E8F0;
+  --card: #F7FAFC;
+  --dark-panel: #1A202C;
+  --green: #48BB78;
+  --green-glow: rgba(72, 187, 120, 0.5);
+  --yellow: #ECC94B;
+  --blue: #4A9BD9;
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--dark);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(229,62,62,.03) 0%, transparent 55%),
+    radial-gradient(circle at 75% 75%, rgba(246,173,85,.03) 0%, transparent 55%);
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 16px 16px 60px;
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.header {
+  text-align: center;
+  padding: 24px 0 20px;
+}
+
+.back-link {
+font-family: var(--hand);
+  font-size: 15px;
+  color: var(--accent);
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 12px;
+  transition: opacity 0.15s;
+}
+.back-link:hover { opacity: 0.7; transition: opacity 0.15s; }
+
+.header h1 {
+  font-family: 'Bangers', cursive;
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--dark-panel);
+  line-height: 1.1;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+}
+
+.header .subtitle {
+  font-family: var(--body);
+  font-size: 17px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.header .companion-note {
+  font-family: var(--body);
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
+  opacity: 0.7;
+}
+
+.title-bar {
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 12px auto 0;
+}
+
+/* ============================================================
+   Section headings
+   ============================================================ */
+.section-label {
+  font-family: var(--hand);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--dark-panel);
+  margin: 24px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-label .icon {
+  font-size: 18px;
+  width: 28px;
+  height: 28px;
+  background: var(--accent-light);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================================
+   Tape Visualization (SVG area)
+   ============================================================ */
+.tape-container {
+  background: var(--dark-panel);
+  border-radius: 12px;
+  padding: 20px 12px 16px;
+  margin: 16px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.tape-container svg {
+  display: block;
+  width: 100%;
+}
+
+/* ============================================================
+   State Display
+   ============================================================ */
+.state-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 14px 16px;
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+
+.state-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--body);
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.state-value {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--dark);
+  background: var(--bg);
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1.5px solid var(--border);
+  min-width: 48px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.state-value.highlight {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px var(--accent-glow);
+  color: var(--accent);
+}
+
+.state-value.halted {
+  border-color: var(--green);
+  box-shadow: 0 0 14px var(--green-glow);
+  color: var(--green);
+  background: rgba(72, 187, 120, 0.08);
+}
+
+/* ============================================================
+   Controls
+   ============================================================ */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn {
+  font-family: var(--hand);
+  font-size: 17px;
+  font-weight: 700;
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: 2px solid var(--accent);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: #fff;
+  color: var(--accent);
+}
+.btn:hover { background: var(--accent-light); }
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover { background: #C53030; }
+.btn-primary:disabled { background: var(--accent); }
+
+.btn-small {
+  font-size: 14px;
+  padding: 5px 12px;
+}
+
+.speed-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--body);
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.speed-control input[type="range"] {
+  width: 100px;
+  accent-color: var(--accent);
+}
+
+/* ============================================================
+   Tape Input Row
+   ============================================================ */
+.input-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.input-group label {
+  font-family: var(--body);
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.input-group input,
+.input-group select {
+  font-family: var(--mono);
+  font-size: 15px;
+  padding: 7px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--dark);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  border-color: var(--accent);
+}
+
+.input-group input.tape-input {
+  width: 240px;
+  letter-spacing: 2px;
+}
+
+.input-group input.head-input {
+  width: 60px;
+  text-align: center;
+}
+
+/* ============================================================
+   Examples Dropdown
+   ============================================================ */
+.examples-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+  flex-wrap: wrap;
+}
+
+.examples-row select {
+  font-family: var(--body);
+  font-size: 15px;
+  padding: 8px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--dark);
+  cursor: pointer;
+  outline: none;
+}
+.examples-row select:focus { border-color: var(--accent); }
+
+/* ============================================================
+   Transition Rule Table
+   ============================================================ */
+.rules-table-wrap {
+  overflow-x: auto;
+  margin: 12px 0;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.rules-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+.rules-table th {
+  font-family: var(--hand);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--muted);
+  background: var(--card);
+  padding: 10px 8px;
+  border-bottom: 1.5px solid var(--border);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.rules-table td {
+  padding: 6px 4px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.rules-table tr:last-child td {
+  border-bottom: none;
+}
+
+.rules-table tr.active-rule {
+  background: var(--accent-light);
+}
+
+.rules-table tr.active-rule td {
+  border-bottom-color: rgba(229, 62, 62, 0.2);
+}
+
+.rules-table input {
+  font-family: var(--mono);
+  font-size: 14px;
+  width: 56px;
+  padding: 5px 6px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  text-align: center;
+  background: var(--bg);
+  color: var(--dark);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.rules-table input:focus {
+  border-color: var(--accent);
+}
+
+.rules-table input.dir-input {
+  width: 40px;
+}
+
+.rules-table .arrow-cell {
+  font-family: var(--hand);
+  font-size: 20px;
+  color: var(--accent);
+  padding: 0 2px;
+}
+
+.rule-actions {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+.rule-btn {
+  font-family: var(--hand);
+  font-size: 18px;
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  transition: all 0.15s;
+  padding: 0;
+  line-height: 1;
+}
+
+.rule-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.rule-btn.delete:hover {
+  border-color: #E53E3E;
+  color: #E53E3E;
+  background: rgba(229, 62, 62, 0.08);
+}
+
+.add-rule-row {
+  text-align: center;
+  padding: 10px;
+}
+
+/* ============================================================
+   Explanation Panel
+   ============================================================ */
+.explanation {
+  margin: 14px 0;
+  padding: 14px 18px;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-light);
+  border-radius: 0 10px 10px 0;
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--dark);
+  min-height: 48px;
+  transition: all 0.3s ease;
+}
+
+.explanation.halted-msg {
+  border-left-color: var(--green);
+  background: rgba(72, 187, 120, 0.1);
+}
+
+.explanation.error-msg {
+  border-left-color: var(--yellow);
+  background: rgba(236, 201, 75, 0.12);
+}
+
+.explanation code {
+  font-family: var(--mono);
+  font-size: 14px;
+  background: rgba(0,0,0,0.06);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   Warning Banner (infinite loop)
+   ============================================================ */
+.warning-banner {
+  display: none;
+  margin: 12px 0;
+  padding: 12px 18px;
+  background: rgba(236, 201, 75, 0.15);
+  border: 1.5px solid var(--yellow);
+  border-radius: 10px;
+  font-family: var(--body);
+  font-size: 15px;
+  color: var(--dark);
+  text-align: center;
+}
+
+.warning-banner.visible { display: block; }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 600px) {
+  .container { padding: 10px 8px 40px; }
+  .header h1 { font-size: 28px; }
+  .controls { gap: 6px; }
+  .btn { padding: 7px 14px; font-size: 15px; }
+  .input-group input.tape-input { width: 180px; }
+  .rules-table input { width: 48px; font-size: 13px; }
+  .rules-table input.dir-input { width: 36px; }
+  .state-bar { gap: 12px; padding: 10px 12px; }
+}
+
+/* ============================================================
+   Animations
+   ============================================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.fade-in { animation: fadeIn 0.35s ease-out; }
+
+/* ============================================================
+   Focus-Visible — keyboard accessibility
+   ============================================================ */
+*:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Accessibility: respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ====== HEADER ====== -->
+  <div class="header">
+    <a class="back-link" href="../issues/v2/issue_01/index.html">&larr; Back to Issue 1</a>
+    <h1>Turing Machine Sandbox</h1>
+    <p class="subtitle">Build your own rules. Watch computation happen.</p>
+    <p class="companion-note">Interactive companion to Issue 1: The Idea That Started Everything</p>
+    <div class="title-bar"></div>
+  </div>
+
+  <!-- ====== EXAMPLES ====== -->
+  <div class="examples-row">
+    <span class="section-label" style="margin:0; font-size:17px;">Load Example:</span>
+    <select id="exampleSelect" onchange="loadExample(this.value)">
+      <option value="">-- Choose a program --</option>
+      <option value="unary_add">Unary Addition (2+2=4)</option>
+      <option value="binary_inc">Binary Increment</option>
+      <option value="palindrome">Palindrome Checker</option>
+      <option value="busy_beaver">Busy Beaver (3-state)</option>
+    </select>
+  </div>
+
+  <!-- ====== TAPE VISUALIZATION ====== -->
+  <div class="tape-container">
+    <svg id="tapeSvg" viewBox="0 0 750 110" aria-label="Turing machine tape visualization">
+      <!-- Tape cells and head rendered by JS -->
+    </svg>
+  </div>
+
+  <!-- ====== STATE DISPLAY ====== -->
+  <div class="state-bar">
+    <div class="state-item">
+      State: <span class="state-value" id="stateDisplay">q0</span>
+    </div>
+    <div class="state-item">
+      Steps: <span class="state-value" id="stepDisplay">0</span>
+    </div>
+    <div class="state-item">
+      Status: <span class="state-value" id="statusDisplay">Ready</span>
+    </div>
+  </div>
+
+  <!-- ====== CONTROLS ====== -->
+  <div class="controls">
+    <button class="btn" id="stepBtn" onclick="stepOnce()">Step</button>
+    <button class="btn btn-primary" id="runBtn" onclick="startRun()">Run</button>
+    <button class="btn" id="pauseBtn" onclick="pauseRun()" disabled>Pause</button>
+    <button class="btn" id="resetBtn" onclick="resetMachine()">Reset</button>
+    <div class="speed-control">
+      <label for="speedSlider">Speed:</label>
+      <input type="range" id="speedSlider" min="50" max="1000" value="300" step="50" aria-label="Execution speed">
+      <span id="speedLabel">300ms</span>
+    </div>
+  </div>
+
+  <!-- ====== WARNING BANNER ====== -->
+  <div class="warning-banner" id="warningBanner">
+    Auto-halted after 10,000 steps. This program may have an infinite loop!
+  </div>
+
+  <!-- ====== EXPLANATION PANEL ====== -->
+  <div class="explanation" id="explanation">
+    Load an example or set up your own tape and rules, then press <strong>Step</strong> or <strong>Run</strong>.
+  </div>
+
+  <!-- ====== TAPE INPUT ====== -->
+  <div class="section-label"><span class="icon">T</span> Tape Setup</div>
+  <div class="input-row">
+    <div class="input-group">
+      <label for="tapeInput">Initial Tape</label>
+      <input type="text" id="tapeInput" class="tape-input" placeholder="e.g. 1011_101" value="11_11" spellcheck="false">
+    </div>
+    <div class="input-group">
+      <label for="headInput">Head Position</label>
+      <input type="number" id="headInput" class="head-input" value="0" min="0">
+    </div>
+    <div class="input-group">
+      <label for="startState">Start State</label>
+      <input type="text" id="startState" style="width:70px; font-family:var(--mono); font-size:15px; padding:7px 10px; border:1.5px solid var(--border); border-radius:8px; text-align:center; background:#fff; color:var(--dark);" value="q0" spellcheck="false">
+    </div>
+    <button class="btn btn-small" onclick="applyTapeSetup()">Apply</button>
+  </div>
+
+  <!-- ====== TRANSITION RULES ====== -->
+  <div class="section-label"><span class="icon">R</span> Transition Rules</div>
+  <div class="rules-table-wrap">
+    <table class="rules-table" id="rulesTable">
+      <thead>
+        <tr>
+          <th>State</th>
+          <th>Read</th>
+          <th></th>
+          <th>Write</th>
+          <th>Move</th>
+          <th>Next State</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="rulesBody">
+        <!-- Rows rendered by JS -->
+      </tbody>
+    </table>
+    <div class="add-rule-row">
+      <button class="btn btn-small" onclick="addRuleRow()">+ Add Rule</button>
+    </div>
+  </div>
+
+</div><!-- /.container -->
+
+<script>
+/* ================================================================
+   TURING MACHINE SANDBOX — JavaScript Engine
+   ================================================================
+   A fully programmable Turing Machine simulator with SVG tape
+   visualization. Users define transition rules, set the initial
+   tape, and watch the machine step through computation.
+   ================================================================ */
+
+// ----------------------------------------------------------------
+// Machine State
+// ----------------------------------------------------------------
+let tape = {};          // Object mapping position -> symbol
+let headPos = 0;        // Current head position
+let currentState = 'q0';
+let stepCount = 0;
+let rules = [];         // Array of {state, read, write, move, next}
+let isRunning = false;
+let runTimer = null;
+let isHalted = false;
+let activeRuleIndex = -1;
+
+// Initial tape/state for reset
+let initialTape = {};
+let initialHead = 0;
+let initialState = 'q0';
+
+const BLANK = '_';
+const MAX_STEPS = 10000;
+const VISIBLE_CELLS = 17; // Odd number so head is centered
+
+// ----------------------------------------------------------------
+// Pre-loaded Examples
+// ----------------------------------------------------------------
+const EXAMPLES = {
+  unary_add: {
+    name: 'Unary Addition (2+2=4)',
+    tape: '11_11',
+    head: 0,
+    startState: 'q0',
+    rules: [
+      { state: 'q0', read: '1', write: '1', move: 'R', next: 'q0' },
+      { state: 'q0', read: '_', write: '1', move: 'R', next: 'q1' },
+      { state: 'q1', read: '1', write: '1', move: 'R', next: 'q1' },
+      { state: 'q1', read: '_', write: '_', move: 'L', next: 'q2' },
+      { state: 'q2', read: '1', write: '_', move: 'L', next: 'q3' },
+      { state: 'q3', read: '1', write: '1', move: 'L', next: 'q3' },
+      { state: 'q3', read: '_', write: '_', move: 'R', next: 'HALT' },
+    ],
+    description: 'Adds two unary numbers separated by a blank. "11" + "11" (2+2 in unary) should produce "1111" (4 in unary). This is the same idea from the comic!'
+  },
+
+  binary_inc: {
+    name: 'Binary Increment',
+    tape: '1011',
+    head: 3,
+    startState: 'q0',
+    rules: [
+      // q0: move right to find the end
+      { state: 'q0', read: '0', write: '0', move: 'R', next: 'q0' },
+      { state: 'q0', read: '1', write: '1', move: 'R', next: 'q0' },
+      { state: 'q0', read: '_', write: '_', move: 'L', next: 'q1' },
+      // q1: add 1 — flip bits while carrying
+      { state: 'q1', read: '1', write: '0', move: 'L', next: 'q1' },
+      { state: 'q1', read: '0', write: '1', move: 'L', next: 'q2' },
+      { state: 'q1', read: '_', write: '1', move: 'S', next: 'HALT' },
+      // q2: done, move back to start
+      { state: 'q2', read: '0', write: '0', move: 'L', next: 'q2' },
+      { state: 'q2', read: '1', write: '1', move: 'L', next: 'q2' },
+      { state: 'q2', read: '_', write: '_', move: 'R', next: 'HALT' },
+    ],
+    description: 'Adds 1 to a binary number. Starting with 1011 (decimal 11), the result should be 1100 (decimal 12). The head starts at the rightmost digit.'
+  },
+
+  palindrome: {
+    name: 'Palindrome Checker',
+    tape: '10101',
+    head: 0,
+    startState: 'q0',
+    rules: [
+      // q0: check first symbol
+      { state: 'q0', read: '0', write: '_', move: 'R', next: 'got0' },
+      { state: 'q0', read: '1', write: '_', move: 'R', next: 'got1' },
+      { state: 'q0', read: '_', write: 'Y', move: 'S', next: 'HALT' },
+      // got0: scan right to end
+      { state: 'got0', read: '0', write: '0', move: 'R', next: 'got0' },
+      { state: 'got0', read: '1', write: '1', move: 'R', next: 'got0' },
+      { state: 'got0', read: '_', write: '_', move: 'L', next: 'chk0' },
+      // chk0: check last symbol matches 0
+      { state: 'chk0', read: '0', write: '_', move: 'L', next: 'back' },
+      { state: 'chk0', read: '1', write: '1', move: 'S', next: 'no' },
+      { state: 'chk0', read: '_', write: 'Y', move: 'S', next: 'HALT' },
+      // got1: scan right to end
+      { state: 'got1', read: '0', write: '0', move: 'R', next: 'got1' },
+      { state: 'got1', read: '1', write: '1', move: 'R', next: 'got1' },
+      { state: 'got1', read: '_', write: '_', move: 'L', next: 'chk1' },
+      // chk1: check last symbol matches 1
+      { state: 'chk1', read: '1', write: '_', move: 'L', next: 'back' },
+      { state: 'chk1', read: '0', write: '0', move: 'S', next: 'no' },
+      { state: 'chk1', read: '_', write: 'Y', move: 'S', next: 'HALT' },
+      // back: go back to start
+      { state: 'back', read: '0', write: '0', move: 'L', next: 'back' },
+      { state: 'back', read: '1', write: '1', move: 'L', next: 'back' },
+      { state: 'back', read: '_', write: '_', move: 'R', next: 'q0' },
+      // no: not a palindrome
+      { state: 'no', read: '0', write: 'N', move: 'S', next: 'HALT' },
+      { state: 'no', read: '1', write: 'N', move: 'S', next: 'HALT' },
+    ],
+    description: 'Checks if a binary string is a palindrome. Strips matching symbols from both ends. If everything matches, writes "Y" (yes). If a mismatch is found, writes "N" (no). Try "10101" (palindrome) or "1010" (not).'
+  },
+
+  busy_beaver: {
+    name: 'Busy Beaver (3-state)',
+    tape: '_',
+    head: 0,
+    startState: 'A',
+    rules: [
+      { state: 'A', read: '_', write: '1', move: 'R', next: 'B' },
+      { state: 'A', read: '1', write: '1', move: 'L', next: 'C' },
+      { state: 'B', read: '_', write: '1', move: 'L', next: 'A' },
+      { state: 'B', read: '1', write: '1', move: 'R', next: 'B' },
+      { state: 'C', read: '_', write: '1', move: 'L', next: 'B' },
+      { state: 'C', read: '1', write: '1', move: 'R', next: 'HALT' },
+    ],
+    description: 'The famous 3-state Busy Beaver! It writes the maximum number of 1s possible for a 3-state Turing Machine (six 1s) before halting. It runs for 21 steps — a tiny program with surprisingly long behavior.'
+  }
+};
+
+// ----------------------------------------------------------------
+// Initialization
+// ----------------------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+  // Speed slider label
+  const slider = document.getElementById('speedSlider');
+  const label = document.getElementById('speedLabel');
+  slider.addEventListener('input', () => {
+    label.textContent = slider.value + 'ms';
+  });
+
+  // Load the unary addition example by default
+  loadExample('unary_add');
+});
+
+// ----------------------------------------------------------------
+// Load an example program
+// ----------------------------------------------------------------
+function loadExample(key) {
+  if (!key || !EXAMPLES[key]) return;
+
+  const ex = EXAMPLES[key];
+  document.getElementById('tapeInput').value = ex.tape;
+  document.getElementById('headInput').value = ex.head;
+  document.getElementById('startState').value = ex.startState;
+
+  // Set rules
+  rules = ex.rules.map(r => ({ ...r }));
+  renderRulesTable();
+
+  // Apply tape setup
+  applyTapeSetup();
+
+  // Set description
+  const expl = document.getElementById('explanation');
+  expl.className = 'explanation';
+  expl.innerHTML = '<strong>' + ex.name + ':</strong> ' + ex.description;
+
+  // Update select
+  document.getElementById('exampleSelect').value = key;
+}
+
+// ----------------------------------------------------------------
+// Apply tape setup from inputs
+// ----------------------------------------------------------------
+function applyTapeSetup() {
+  pauseRun();
+
+  const tapeStr = document.getElementById('tapeInput').value || BLANK;
+  const headVal = parseInt(document.getElementById('headInput').value) || 0;
+  const stateVal = document.getElementById('startState').value.trim() || 'q0';
+
+  // Build tape object
+  tape = {};
+  for (let i = 0; i < tapeStr.length; i++) {
+    tape[i] = tapeStr[i];
+  }
+
+  headPos = headVal;
+  currentState = stateVal;
+  stepCount = 0;
+  isHalted = false;
+  activeRuleIndex = -1;
+
+  // Save initial state for reset
+  initialTape = { ...tape };
+  initialHead = headPos;
+  initialState = currentState;
+
+  // Update displays
+  updateStateDisplay();
+  renderTape();
+  hideWarning();
+  updateButtons();
+  clearActiveRule();
+}
+
+// ----------------------------------------------------------------
+// Reset to initial state
+// ----------------------------------------------------------------
+function resetMachine() {
+  pauseRun();
+
+  tape = { ...initialTape };
+  headPos = initialHead;
+  currentState = initialState;
+  stepCount = 0;
+  isHalted = false;
+  activeRuleIndex = -1;
+
+  updateStateDisplay();
+  renderTape();
+  hideWarning();
+  updateButtons();
+  clearActiveRule();
+
+  const expl = document.getElementById('explanation');
+  expl.className = 'explanation';
+  expl.innerHTML = 'Machine reset. Press <strong>Step</strong> or <strong>Run</strong> to begin.';
+}
+
+// ----------------------------------------------------------------
+// Read the tape at a position (returns BLANK if undefined)
+// ----------------------------------------------------------------
+function readTape(pos) {
+  return tape[pos] !== undefined ? tape[pos] : BLANK;
+}
+
+// ----------------------------------------------------------------
+// Find a matching rule
+// ----------------------------------------------------------------
+function findRule(state, symbol) {
+  for (let i = 0; i < rules.length; i++) {
+    if (rules[i].state === state && rules[i].read === symbol) {
+      return { rule: rules[i], index: i };
+    }
+  }
+  return null;
+}
+
+// ----------------------------------------------------------------
+// Execute one step
+// ----------------------------------------------------------------
+function stepOnce() {
+  if (isHalted) return;
+
+  const symbol = readTape(headPos);
+  const match = findRule(currentState, symbol);
+
+  if (!match) {
+    // No matching rule — halt with error
+    isHalted = true;
+    activeRuleIndex = -1;
+    clearActiveRule();
+    updateStateDisplay();
+    updateButtons();
+
+    const expl = document.getElementById('explanation');
+    expl.className = 'explanation error-msg';
+    expl.innerHTML = 'No rule found for state <code>' + currentState + '</code> reading <code>' + symbol + '</code>. Machine halted (undefined transition).';
+    return;
+  }
+
+  const { rule, index } = match;
+
+  // Highlight the active rule
+  activeRuleIndex = index;
+  highlightActiveRule();
+
+  // Apply the transition
+  const prevState = currentState;
+  const prevSymbol = symbol;
+
+  tape[headPos] = rule.write;
+  currentState = rule.next;
+
+  if (rule.move === 'L') headPos--;
+  else if (rule.move === 'R') headPos++;
+  // 'S' = stay
+
+  stepCount++;
+
+  // Check for HALT
+  if (currentState === 'HALT') {
+    isHalted = true;
+  }
+
+  // Check for infinite loop protection
+  if (stepCount >= MAX_STEPS && !isHalted) {
+    isHalted = true;
+    pauseRun();
+    showWarning();
+  }
+
+  // Update visuals
+  updateStateDisplay();
+  renderTape();
+  updateButtons();
+
+  // Explanation
+  const expl = document.getElementById('explanation');
+  if (isHalted && stepCount >= MAX_STEPS) {
+    expl.className = 'explanation error-msg';
+    expl.innerHTML = 'Auto-halted after ' + MAX_STEPS.toLocaleString() + ' steps to prevent an infinite loop.';
+  } else if (isHalted) {
+    expl.className = 'explanation halted-msg';
+    expl.innerHTML = 'Machine <strong>HALTED</strong> after ' + stepCount + ' step' + (stepCount === 1 ? '' : 's') + '. '
+      + 'Last action: in state <code>' + prevState + '</code>, read <code>' + prevSymbol + '</code>, '
+      + 'wrote <code>' + rule.write + '</code>, moved ' + dirName(rule.move) + '.';
+  } else {
+    expl.className = 'explanation';
+    expl.innerHTML = 'Step ' + stepCount + ': in state <code>' + prevState + '</code>, read <code>' + prevSymbol + '</code>, '
+      + 'wrote <code>' + rule.write + '</code>, moved <strong>' + dirName(rule.move) + '</strong>, '
+      + 'entered state <code>' + currentState + '</code>.';
+  }
+}
+
+function dirName(d) {
+  if (d === 'L') return 'LEFT';
+  if (d === 'R') return 'RIGHT';
+  return 'STAY';
+}
+
+// ----------------------------------------------------------------
+// Run / Pause
+// ----------------------------------------------------------------
+function startRun() {
+  if (isHalted || isRunning) return;
+  isRunning = true;
+  updateButtons();
+  runStep();
+}
+
+function runStep() {
+  if (!isRunning || isHalted) {
+    isRunning = false;
+    updateButtons();
+    return;
+  }
+  stepOnce();
+  if (isHalted) {
+    isRunning = false;
+    updateButtons();
+    return;
+  }
+  const speed = parseInt(document.getElementById('speedSlider').value);
+  runTimer = setTimeout(runStep, speed);
+}
+
+function pauseRun() {
+  isRunning = false;
+  if (runTimer) {
+    clearTimeout(runTimer);
+    runTimer = null;
+  }
+  updateButtons();
+}
+
+// ----------------------------------------------------------------
+// Button state management
+// ----------------------------------------------------------------
+function updateButtons() {
+  document.getElementById('stepBtn').disabled = isHalted;
+  document.getElementById('runBtn').disabled = isHalted || isRunning;
+  document.getElementById('pauseBtn').disabled = !isRunning;
+}
+
+// ----------------------------------------------------------------
+// State display updates
+// ----------------------------------------------------------------
+function updateStateDisplay() {
+  const stateEl = document.getElementById('stateDisplay');
+  const stepEl = document.getElementById('stepDisplay');
+  const statusEl = document.getElementById('statusDisplay');
+
+  stateEl.textContent = currentState;
+  stepEl.textContent = stepCount;
+
+  // Clear previous classes
+  stateEl.className = 'state-value';
+  statusEl.className = 'state-value';
+
+  if (isHalted) {
+    if (stepCount >= MAX_STEPS) {
+      statusEl.textContent = 'Loop!';
+      statusEl.className = 'state-value highlight';
+      stateEl.className = 'state-value highlight';
+    } else {
+      statusEl.textContent = 'Halted';
+      statusEl.className = 'state-value halted';
+      stateEl.className = 'state-value halted';
+    }
+  } else if (isRunning) {
+    statusEl.textContent = 'Running';
+    stateEl.className = 'state-value highlight';
+  } else {
+    statusEl.textContent = 'Ready';
+  }
+}
+
+// ----------------------------------------------------------------
+// Warning banner
+// ----------------------------------------------------------------
+function showWarning() {
+  document.getElementById('warningBanner').classList.add('visible');
+}
+function hideWarning() {
+  document.getElementById('warningBanner').classList.remove('visible');
+}
+
+// ----------------------------------------------------------------
+// SVG Tape Rendering
+// ----------------------------------------------------------------
+function renderTape() {
+  const svg = document.getElementById('tapeSvg');
+  const svgWidth = 750;
+  const cellWidth = 44;
+  const cellHeight = 48;
+  const cellGap = 2;
+  const totalCellWidth = cellWidth + cellGap;
+  const tapeY = 38;
+  const halfVisible = Math.floor(VISIBLE_CELLS / 2);
+
+  // Calculate which cells to show — center on the head
+  const startCell = headPos - halfVisible;
+  const endCell = headPos + halfVisible;
+
+  // Determine the x offset to center cells in the SVG
+  const totalWidth = VISIBLE_CELLS * totalCellWidth - cellGap;
+  const offsetX = (svgWidth - totalWidth) / 2;
+
+  let html = '';
+
+  // Subtle "tape extends" indicators
+  html += '<text x="' + (offsetX - 16) + '" y="' + (tapeY + cellHeight / 2 + 5) + '" '
+    + 'style="font-family:var(--mono);font-size:18px;fill:#4A5568;" text-anchor="middle">...</text>';
+  html += '<text x="' + (offsetX + totalWidth + 16) + '" y="' + (tapeY + cellHeight / 2 + 5) + '" '
+    + 'style="font-family:var(--mono);font-size:18px;fill:#4A5568;" text-anchor="middle">...</text>';
+
+  // Draw cells
+  for (let i = startCell; i <= endCell; i++) {
+    const idx = i - startCell;
+    const x = offsetX + idx * totalCellWidth;
+    const symbol = readTape(i);
+    const isHead = (i === headPos);
+
+    if (isHead) {
+      // Head highlight glow
+      html += '<rect x="' + (x - 3) + '" y="' + (tapeY - 3) + '" width="' + (cellWidth + 6) + '" height="' + (cellHeight + 6) + '" rx="8" '
+        + 'fill="none" stroke="' + (isHalted && stepCount < MAX_STEPS ? 'var(--green)' : 'var(--accent)') + '" stroke-width="2.5" '
+        + 'opacity="0.6">'
+        + '<animate attributeName="opacity" values="0.3;0.8;0.3" dur="1.5s" repeatCount="indefinite"/>'
+        + '</rect>';
+    }
+
+    // Cell background
+    const fillColor = isHead
+      ? (isHalted && stepCount < MAX_STEPS ? 'rgba(72,187,120,0.15)' : 'rgba(229,62,62,0.12)')
+      : 'rgba(255,255,255,0.05)';
+    const strokeColor = isHead
+      ? (isHalted && stepCount < MAX_STEPS ? 'var(--green)' : 'var(--accent)')
+      : '#4A5568';
+    const strokeWidth = isHead ? '2.2' : '1.2';
+
+    // Wrap each cell in a focusable <g> for keyboard selection
+    html += '<g tabindex="0" role="button" aria-label="Tape cell ' + i + ': ' + escapeHtml(symbol) + (isHead ? ' (head position)' : '') + '" data-cell-pos="' + i + '" style="cursor:pointer;">';
+
+    html += '<rect x="' + x + '" y="' + tapeY + '" width="' + cellWidth + '" height="' + cellHeight + '" rx="5" '
+      + 'fill="' + fillColor + '" stroke="' + strokeColor + '" stroke-width="' + strokeWidth + '"/>';
+
+    // Symbol text
+    const textColor = isHead
+      ? (isHalted && stepCount < MAX_STEPS ? 'var(--green)' : 'var(--accent)')
+      : '#E2E8F0';
+    const fontSize = isHead ? '22' : '18';
+    const fontWeight = isHead ? '700' : '400';
+
+    html += '<text x="' + (x + cellWidth / 2) + '" y="' + (tapeY + cellHeight / 2 + 6) + '" '
+      + 'text-anchor="middle" '
+      + 'style="font-family:var(--mono);font-size:' + fontSize + 'px;font-weight:' + fontWeight + ';fill:' + textColor + ';">'
+      + escapeHtml(symbol) + '</text>';
+
+    // Position number below cell
+    html += '<text x="' + (x + cellWidth / 2) + '" y="' + (tapeY + cellHeight + 14) + '" '
+      + 'text-anchor="middle" '
+      + 'style="font-family:var(--mono);font-size:9px;fill:#4A5568;">'
+      + i + '</text>';
+
+    html += '</g>';
+  }
+
+  // Head pointer (triangle above)
+  const headX = offsetX + halfVisible * totalCellWidth + cellWidth / 2;
+  const arrowY = tapeY - 8;
+  const headColor = isHalted && stepCount < MAX_STEPS ? 'var(--green)' : 'var(--accent)';
+  html += '<polygon points="' + (headX - 8) + ',' + (arrowY - 14) + ' ' + (headX + 8) + ',' + (arrowY - 14) + ' ' + headX + ',' + arrowY + '" '
+    + 'fill="' + headColor + '"/>';
+  html += '<text x="' + headX + '" y="' + (arrowY - 18) + '" text-anchor="middle" '
+    + 'style="font-family:var(--hand);font-size:13px;font-weight:700;fill:' + headColor + ';">HEAD</text>';
+
+  svg.innerHTML = html;
+
+  // Attach keyboard handlers to tape cells for Enter-to-edit
+  svg.querySelectorAll('g[data-cell-pos]').forEach(function(cellGroup) {
+    cellGroup.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        var pos = parseInt(this.dataset.cellPos);
+        var currentSymbol = readTape(pos);
+        var newSymbol = prompt('Enter new symbol for cell ' + pos + ' (current: ' + currentSymbol + '):', currentSymbol);
+        if (newSymbol !== null && newSymbol.length > 0) {
+          tape[pos] = newSymbol[0];
+          renderTape();
+        }
+      }
+    });
+  });
+}
+
+function escapeHtml(str) {
+  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  return String(str).replace(/[&<>"']/g, c => map[c]);
+}
+
+// ----------------------------------------------------------------
+// Rules Table Rendering
+// ----------------------------------------------------------------
+function renderRulesTable() {
+  const tbody = document.getElementById('rulesBody');
+  let html = '';
+
+  for (let i = 0; i < rules.length; i++) {
+    const r = rules[i];
+    html += '<tr id="rule-row-' + i + '">'
+      + '<td><input type="text" value="' + escapeAttr(r.state) + '" onchange="updateRule(' + i + ',\'state\',this.value)" spellcheck="false" aria-label="Rule ' + (i + 1) + ' current state"></td>'
+      + '<td><input type="text" value="' + escapeAttr(r.read) + '" onchange="updateRule(' + i + ',\'read\',this.value)" maxlength="1" spellcheck="false" aria-label="Rule ' + (i + 1) + ' read symbol"></td>'
+      + '<td class="arrow-cell">&rarr;</td>'
+      + '<td><input type="text" value="' + escapeAttr(r.write) + '" onchange="updateRule(' + i + ',\'write\',this.value)" maxlength="1" spellcheck="false" aria-label="Rule ' + (i + 1) + ' write symbol"></td>'
+      + '<td><input type="text" class="dir-input" value="' + escapeAttr(r.move) + '" onchange="updateRule(' + i + ',\'move\',this.value.toUpperCase())" maxlength="1" spellcheck="false" aria-label="Rule ' + (i + 1) + ' move direction"></td>'
+      + '<td><input type="text" value="' + escapeAttr(r.next) + '" onchange="updateRule(' + i + ',\'next\',this.value)" spellcheck="false" aria-label="Rule ' + (i + 1) + ' next state"></td>'
+      + '<td><div class="rule-actions">'
+      + '<button class="rule-btn delete" onclick="removeRule(' + i + ')" title="Delete rule" aria-label="Delete rule ' + (i + 1) + '">&times;</button>'
+      + '</div></td>'
+      + '</tr>';
+  }
+
+  tbody.innerHTML = html;
+}
+
+function escapeAttr(str) {
+  return String(str).replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function updateRule(index, field, value) {
+  if (index >= 0 && index < rules.length) {
+    rules[index][field] = value;
+  }
+}
+
+function addRuleRow() {
+  rules.push({ state: '', read: '', write: '', move: 'R', next: '' });
+  renderRulesTable();
+  // Focus the first input of the new row
+  const tbody = document.getElementById('rulesBody');
+  const lastRow = tbody.lastElementChild;
+  if (lastRow) {
+    const firstInput = lastRow.querySelector('input');
+    if (firstInput) firstInput.focus();
+  }
+}
+
+function removeRule(index) {
+  rules.splice(index, 1);
+  renderRulesTable();
+}
+
+// ----------------------------------------------------------------
+// Active Rule Highlighting
+// ----------------------------------------------------------------
+function highlightActiveRule() {
+  clearActiveRule();
+  if (activeRuleIndex >= 0 && activeRuleIndex < rules.length) {
+    const row = document.getElementById('rule-row-' + activeRuleIndex);
+    if (row) row.classList.add('active-rule');
+  }
+}
+
+function clearActiveRule() {
+  const rows = document.querySelectorAll('.rules-table tr.active-rule');
+  rows.forEach(r => r.classList.remove('active-rule'));
+}
+
+// ----------------------------------------------------------------
+// Collect rules from table (re-read all inputs before running)
+// ----------------------------------------------------------------
+function syncRulesFromTable() {
+  const tbody = document.getElementById('rulesBody');
+  const rows = tbody.querySelectorAll('tr');
+  rules = [];
+  rows.forEach(row => {
+    const inputs = row.querySelectorAll('input');
+    if (inputs.length >= 5) {
+      rules.push({
+        state: inputs[0].value.trim(),
+        read: inputs[1].value.trim() || BLANK,
+        write: inputs[2].value.trim() || BLANK,
+        move: (inputs[3].value.trim().toUpperCase() || 'R'),
+        next: inputs[4].value.trim()
+      });
+    }
+  });
+}
+
+// Override step/run to sync rules first
+const _origStepOnce = stepOnce;
+stepOnce = function() {
+  syncRulesFromTable();
+  _origStepOnce();
+};
+
+</script>
+</body>
+</html>

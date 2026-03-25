@@ -1,0 +1,96 @@
+{
+  "issue": 1,
+  "page": 9,
+  "title": "The Thesis That Defines Computing",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p9_01_turing_cambridge",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 384,
+      "gen_height": 512,
+      "prompt": "A young man with dark wavy hair in a rumpled tweed jacket sits at a desk in a dim Cambridge study, writing intensely on sheets of paper, stacks of handwritten pages around him, soft grey light from a leaded window, autumn trees visible outside, a cup of tea beside him, the atmosphere of concentrated intellectual effort, England 1936, warm editorial illustration with ink lines and watercolor washes in cool grey and warm amber tones",
+      "overlays": []
+    },
+    {
+      "id": "p9_02_church_princeton",
+      "type": "image",
+      "layout": "right",
+      "flex": 1,
+      "gen_width": 384,
+      "gen_height": 512,
+      "prompt": "An American professor in his thirties with a neat appearance and serious expression sits at a large oak desk in a bright 1936 Princeton office, writing with a fountain pen on sheets of white paper covered in handwritten mathematical notation, a brass inkwell and a stack of leather-bound books on the desk, a porcelain coffee cup on a saucer, blackboard behind him covered in lambda calculus notation with Greek letters and function arrows, he wears a pressed white shirt and tie, sunlight streams through large windows with ivy-covered walls visible outside, 1930s academic American atmosphere, the desk contains ONLY a fountain pen inkwell papers books and coffee cup, absolutely no modern technology no electronics no screens no keyboards, warm editorial illustration with ink lines and watercolor washes in warm golden and cream tones",
+      "overlays": []
+    },
+    {
+      "id": "p9_03_narration_church",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "In 1936, while Turing was writing at Cambridge, <strong>Alonzo Church</strong> at Princeton published his own answer to the Entscheidungsproblem using the <strong>lambda calculus</strong> — a completely different formalism. He reached the same conclusion: <em>unsolvable</em>.",
+      "style": "default"
+    },
+    {
+      "id": "p9_04_narration_scooped",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "When Turing learned of Church's work, he was initially devastated — he'd been scooped. But his advisor, Max Newman, pointed out that Turing's approach was different enough to deserve publication. Turing published <em>\"On Computable Numbers\"</em> in November 1936, then traveled to Princeton to complete his PhD under Church.",
+      "style": "default"
+    },
+    {
+      "id": "p9_05_convergence_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-30 -30 740 396\"><rect x=\"-15\" y=\"-15\" width=\"710\" height=\"366\" rx=\"12\" fill=\"#1A202C\" stroke=\"#4A5568\" stroke-width=\"1.5\"/><text x=\"340\" y=\"12\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" font-weight=\"bold\" fill=\"#FFFFFF\">DIFFERENT PATHS, SAME DESTINATION</text><rect x=\"40\" y=\"35\" width=\"260\" height=\"32\" rx=\"6\" fill=\"#FED7D7\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"170\" y=\"56\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\" fill=\"#1A202C\" textLength=\"236\" lengthAdjust=\"spacingAndGlyphs\">Turing Machines (Turing, 1936)</text><rect x=\"40\" y=\"78\" width=\"260\" height=\"32\" rx=\"6\" fill=\"#BEE3F8\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"170\" y=\"99\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\" fill=\"#1A202C\" textLength=\"236\" lengthAdjust=\"spacingAndGlyphs\">Lambda Calculus (Church, 1936)</text><rect x=\"40\" y=\"121\" width=\"260\" height=\"32\" rx=\"6\" fill=\"#C6F6D5\" stroke=\"#38A169\" stroke-width=\"1.5\"/><text x=\"170\" y=\"142\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\" fill=\"#1A202C\" textLength=\"236\" lengthAdjust=\"spacingAndGlyphs\">Recursive Funcs (Godel, 1934)</text><rect x=\"40\" y=\"164\" width=\"260\" height=\"32\" rx=\"6\" fill=\"#E9D8FD\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"170\" y=\"185\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\" fill=\"#1A202C\" textLength=\"236\" lengthAdjust=\"spacingAndGlyphs\">Post Machines (Post, 1936)</text><line x1=\"300\" y1=\"51\" x2=\"400\" y2=\"115\" stroke=\"#718096\" stroke-width=\"1.5\"/><line x1=\"300\" y1=\"94\" x2=\"400\" y2=\"115\" stroke=\"#718096\" stroke-width=\"1.5\"/><line x1=\"300\" y1=\"137\" x2=\"400\" y2=\"115\" stroke=\"#718096\" stroke-width=\"1.5\"/><line x1=\"300\" y1=\"180\" x2=\"400\" y2=\"115\" stroke=\"#718096\" stroke-width=\"1.5\"/><polygon points=\"400,115 393,109 393,121\" fill=\"#718096\"/><rect x=\"400\" y=\"90\" width=\"240\" height=\"50\" rx=\"10\" fill=\"#E53E3E\" fill-opacity=\"0.15\" stroke=\"#E53E3E\" stroke-width=\"2\"/><text x=\"520\" y=\"112\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#FFFFFF\">THE SAME CLASS OF</text><text x=\"520\" y=\"130\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#FFFFFF\">COMPUTABLE FUNCTIONS</text><rect x=\"80\" y=\"215\" width=\"520\" height=\"35\" rx=\"8\" fill=\"#D69E2E\" fill-opacity=\"0.15\" stroke=\"#D69E2E\" stroke-width=\"2\"/><text x=\"340\" y=\"237\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#FFFFFF\">THE CHURCH-TURING THESIS (a thesis, not a theorem):</text><text x=\"340\" y=\"268\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#fff\">If it can be computed at all, a Turing Machine can compute it.</text><rect x=\"120\" y=\"278\" width=\"440\" height=\"44\" rx=\"6\" fill=\"#2D3748\" stroke=\"#718096\" stroke-width=\"1\"/><text x=\"340\" y=\"297\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">Python = C = JavaScript = your laptop</text><text x=\"340\" y=\"313\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">= a supercomputer = a Turing Machine (just slower)</text></svg>",
+      "caption": "Multiple formalisms, one destination: the Church-Turing Thesis"
+    },
+    {
+      "id": "p9_06_narration_thesis",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "This convergence led to the <strong>Church-Turing Thesis</strong>: any function that can be computed by <em>any</em> reasonable mechanical process can be computed by a Turing Machine.<br><br><strong>This is not a mathematical theorem</strong> — it cannot be proved, because \"reasonable mechanical process\" is an informal concept. It's called a <em>thesis</em> precisely because you can't formally prove a claim about an intuitive idea. But for nearly 90 years, the evidence has been overwhelming. Nobody has found a counterexample.",
+      "style": "default"
+    },
+    {
+      "id": "p9_07_scribble_evidence",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "Scribble, a small cute robot, tiny faceted arms spread wide in amazement, standing on a glowing platform surrounded by floating logos and symbols representing different programming languages — Python snake, curly braces, lambda symbol, gears — all connected by thin glowing lines to a central point. A white speech bubble with black outline at the top. Inside the bubble the text reads: \"In 90 years, nobody's found a counterexample.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "In 90 years, nobody's found a counterexample.",
+      "speaker": "SCRIBBLE"
+    },
+    {
+      "id": "p9_08_narration_quantum",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>What about quantum computers?</strong> The Church-Turing thesis says they can't solve <em>undecidable</em> problems. But they might solve certain problems exponentially <em>faster</em> — Shor's algorithm can factor large numbers far faster than any known classical method. Whether \"faster\" counts as \"more powerful\" is an active, ongoing debate. The thesis is about what's computable <em>in principle</em>, not how efficiently.",
+      "style": "default"
+    },
+    {
+      "id": "p9_09_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "<strong>The Church-Turing Thesis:</strong> anything computable by any mechanical process can be computed by a Turing Machine. Every computer — from a 1940s room-sized vacuum-tube monster to the phone in your pocket — is doing something a Turing Machine could do. <strong>Turing defined the playing field that all of computing lives on.</strong>"
+    },
+    {
+      "id": "p9_10_scribble_chess",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "Scribble, a small cute robot, standing on a giant chessboard where the chess pieces have been replaced by miniature computing devices — a tiny Turing machine tape reel as a rook, a lambda symbol as a bishop, a recursive loop as a knight — the robot gestures grandly across the board like a chess master surveying a won game, warm spotlight from above, golden background tones. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Different pieces, same game. That's the whole point!\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Different pieces, same game. That's the whole point!",
+      "speaker": "SCRIBBLE"
+    },
+    {
+      "id": "p9_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Turing had defined what computation IS. He had shown what it CAN'T do. He had imagined the universal machine. All of it was pure thought — marks on paper. But the world was about to need real machines, desperately. War was coming."
+    }
+  ]
+}

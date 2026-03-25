@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Issue 05: The Network Is the Computer — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Patrick+Hand&family=Source+Serif+4:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --comic: 'Bangers', 'Impact', sans-serif;
+  --hand: 'Patrick Hand', cursive;
+  --body: 'Source Serif 4', Georgia, serif;
+  --mono: 'JetBrains Mono', monospace;
+  --accent: #D69E2E;
+  --accent-dark: color-mix(in srgb, #D69E2E 80%, black);
+  --ink: #1A202C;
+  --gutter: 6px;
+  --narration-bg: #FFF9C4;
+  --narration-border: #E8B931;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #F0EBE1;
+  font-family: var(--hand);
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.comic-page {
+  width: 100%;
+  max-width: 720px;
+  background: #fff;
+  border: 3px solid var(--ink);
+  border-radius: 2px;
+  padding: var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter);
+  box-shadow: 5px 5px 0 rgba(0,0,0,0.12);
+}
+
+.page-header {
+  text-align: center;
+  padding: 6px 12px 8px;
+  background: var(--ink);
+  border-radius: 2px;
+  border-bottom: 3px solid var(--accent);
+}
+.page-header .issue-label {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+}
+.page-header .page-title {
+  font-family: var(--comic);
+  font-size: 34px;
+  letter-spacing: 2px;
+  color: var(--accent);
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+}
+
+/* Panels */
+.panel {
+  position: relative;
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #1a1a2e 25%, #252540 50%, #1a1a2e 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.panel.img-loaded {
+  animation: none;
+  background: #1a1a2e;
+}
+.panel:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.panel img.loaded {
+  opacity: 1;
+}
+.panel--bubble img {
+  object-fit: contain;
+  object-position: center;
+}
+.panel-row {
+  display: flex;
+  gap: var(--gutter);
+}
+.panel-row > * {
+  min-width: 0;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Narration overlay (on image panels) */
+.narration-overlay {
+  position: absolute;
+  background: var(--narration-bg);
+  border: 2px solid var(--narration-border);
+  padding: 10px 14px;
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4A3728;
+  z-index: 10;
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.05);
+}
+.narration-overlay strong { color: var(--accent); }
+
+/* CSS narration panel (standalone) */
+.css-narration {
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  background: var(--narration-bg);
+  border-color: var(--narration-border);
+  padding: 18px 22px;
+  font-family: var(--body);
+  font-size: 17.5px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #4A3728;
+}
+.css-narration strong { color: var(--accent); }
+.css-narration em { font-style: italic; }
+.css-narration--accent {
+  background: #FFF5F5;
+  border-color: var(--accent);
+}
+
+/* Page-turn hook */
+.css-hook {
+  text-align: center;
+  padding: 14px 20px;
+  font-family: var(--body);
+  font-size: 18px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--accent);
+  border-top: 1px dashed var(--narration-border);
+}
+
+/* OCR proof marker (hidden, for proofreader) */
+.ocr-expected {
+  display: none;
+}
+
+/* Lab link callout */
+.lab-link {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 0;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, rgba(229,62,62,0.06), rgba(229,62,62,0.02));
+  border: 2.5px solid var(--accent);
+  border-radius: 2px;
+  font-family: var(--body);
+}
+.lab-link-icon { color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+.lab-link-title { font-size: 16px; color: var(--ink); }
+.lab-link-desc { font-size: 14px; color: #4A5568; margin: 4px 0 8px; line-height: 1.5; }
+.lab-link-btn {
+  display: inline-block;
+  padding: 5px 14px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 4px;
+  font-family: var(--hand);
+  font-size: 14px;
+  text-decoration: none;
+}
+.lab-link-btn:hover { opacity: 0.85; }
+
+/* Portrait image capped (when no adjacent narration) */
+.portrait-capped {
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+/* Narration in flex rows — vertically centered, compact text */
+.panel-row .css-narration {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.panel-row .css-narration p {
+  margin: 0;
+}
+
+/* SVG diagram */
+.svg-diagram {
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  overflow: hidden;
+  background: #1A202C;
+  padding: 12px;
+}
+.svg-diagram svg { width: 100%; height: auto; }
+.diagram-caption {
+  text-align: center;
+  font-family: var(--body);
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 8px;
+}
+
+/* Robot speech (placeholder for svg_robot panels) */
+.svg-robot {
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  padding: 16px;
+  background: #F7FAFC;
+  text-align: center;
+}
+.robot-speech {
+  font-family: var(--hand);
+  font-size: 15px;
+  color: var(--ink);
+  margin-top: 8px;
+}
+
+/* References (collapsible) */
+.references-section {
+  border: 2.5px solid var(--ink);
+  border-radius: 2px;
+  background: #F7FAFC;
+}
+.references-section summary {
+  font-family: var(--hand);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 14px 18px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.references-section summary::-webkit-details-marker { display: none; }
+.references-section summary::before {
+  content: '\25B6';
+  font-size: 12px;
+  color: var(--accent);
+  transition: transform 0.2s;
+}
+.references-section[open] summary::before {
+  transform: rotate(90deg);
+}
+.references-section .ref-list {
+  padding: 0 18px 16px;
+  list-style: none;
+}
+.references-section .ref-list li {
+  font-family: var(--body);
+  font-size: 14px;
+  line-height: 1.6;
+  color: #4A5568;
+  padding: 6px 0;
+  border-top: 1px solid #E2E8F0;
+}
+.references-section .ref-list li:first-child {
+  border-top: 1px solid #CBD5E0;
+}
+.references-section .ref-list a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.references-section .ref-list a:hover {
+  text-decoration: underline;
+}
+.references-section .ref-list .ref-type {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: rgba(0,0,0,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 6px;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Print */
+@media print {
+  body { background: #fff; padding: 0; }
+  .comic-page { border: none; box-shadow: none; max-width: 100%; }
+  .page-nav { display: none !important; }
+  .page-section { display: block !important; page-break-after: always; }
+  .page-section:last-of-type { page-break-after: avoid; }
+  .panel { animation: none; background: #1a1a2e; transform: none; }
+  .panel img { opacity: 1; }
+  .panel:hover { transform: none; box-shadow: none; }
+  .lab-link-btn { background: none !important; color: var(--accent) !important; border: 1px solid var(--accent); }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .page-section.active { animation: none; }
+  .panel { animation: none !important; transition: none !important; background: #1a1a2e; }
+  .panel img { transition: none !important; opacity: 1 !important; }
+  .progress-dot { transition: none; }
+  .references-section summary::before { transition: none; }
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  body { padding: 8px; }
+  .comic-page { padding: 3px; gap: 3px; }
+  .narration-overlay { font-size: 13px; padding: 6px 10px; }
+  .css-narration { font-size: 15px; padding: 12px 14px; }
+  .page-header .page-title { font-size: 20px; }
+  .panel-row { flex-direction: column; }
+  .progress-dots { gap: 3px; }
+  .progress-dot { width: 6px; height: 6px; }
+}
+
+
+/* Multi-page navigation */
+.page-section { display: none; }
+.page-section.active { display: block; animation: pageIn 0.3s ease-out; }
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--ink);
+  border-radius: 2px;
+  margin-top: 4px;
+}
+.page-nav > button {
+  font-family: var(--hand);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+.page-nav button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+.page-nav button:active:not(:disabled) {
+  transform: translateY(0);
+}
+.page-nav button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.page-nav-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.page-nav .page-indicator {
+  font-family: var(--mono);
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+}
+.progress-dots {
+  display: flex;
+  gap: 10px;
+}
+.progress-dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  min-width: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  font-size: 0;
+  line-height: 0;
+}
+.progress-dot:hover {
+  background: rgba(255,255,255,0.45);
+}
+.progress-dot.visited {
+  background: var(--accent);
+  opacity: 0.7;
+}
+.progress-dot.active {
+  background: var(--accent);
+  transform: scale(1.4);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+</style>
+</head>
+<body>
+<div class="comic-page">
+  <section class="page-section" data-page="1">
+    <div class="page-header">
+      <div class="issue-label">Issue 05 · Page 1</div>
+      <div class="page-title">The Physicist Who Connected Humanity</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p1_01_cern_office.png" alt="p1_01_cern_office">
+</div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 768/461;">
+  <img src="images/p1_02_robot_secret.png" alt="GLOBEBOT: A physicist's filing problem accidentally connected all of humanity.">
+  <span class="ocr-expected" data-speaker="GLOBEBOT">A physicist's filing problem accidentally connected all of humanity.</span>
+</div>
+
+    <div class="css-narration"><p>In <strong>1989</strong>, the <strong>internet</strong> already existed. It had been around since the 1970s &mdash; a network of networks, built on TCP/IP (from Issue 4), connecting universities and research labs worldwide. You could send email via SMTP. You could transfer files via FTP. You could log into remote computers via Telnet. You could discuss ideas on Usenet newsgroups.</p></div>
+
+    <div class="panel-row">
+<div class="panel" style="flex: 3; aspect-ratio: 428/576;">
+  <img src="images/p1_04_library_metaphor.png" alt="p1_04_library_metaphor">
+</div>
+  <div class="css-narration" style="flex: 2;"><p>But finding <strong>information</strong> on it was another story. Imagine a vast library where every book exists but has no cover, the shelves have no labels, and there is no card catalog. You could navigate if you knew exactly where you were going, but browsing was nearly impossible. The highway worked. What was missing was a way to publish, link, and browse documents that anyone could read.</p></div>
+    </div>
+
+    <div class="css-narration css-narration--accent"><p>None of this connectivity would have been possible without the invisible work of engineers like <strong>Radia Perlman</strong>, whose <strong>Spanning Tree Protocol</strong> (STP), developed in the 1980s, allowed network bridges to connect thousands of computers without creating catastrophic routing loops. Without STP, the scalable networks that carried the internet's traffic would have collapsed under their own complexity. Perlman, sometimes called "Mother of the Internet," built the scaffolding that held the connected world together &mdash; yet her name rarely appears in popular histories.</p></div>
+
+    <div class="panel-row">
+<div class="panel" style="flex: 2; aspect-ratio: 428/512;">
+  <img src="images/p1_06_perlman_portrait.png" alt="p1_06_perlman_portrait">
+</div>
+<div class="panel" style="flex: 3; aspect-ratio: 428/512;">
+  <img src="images/p1_06b_memo_scene.png" alt="p1_06b_memo_scene">
+</div>
+    </div>
+
+    <div class="css-narration"><p>Then a British physicist at a Swiss research lab wrote a memo. His supervisor, Mike Sendall, scribbled <em>"Vague but exciting..."</em> on the cover page. And within five years, the world would be unrecognizable.</p></div>
+
+    <div class="css-narration css-narration--accent"><p>This is the story of the 1990s and 2000s &mdash; the era when computers stopped being islands and became a single, connected world. An era built not by corporations or governments, but by people who believed the most powerful thing you can do with an idea is <strong>give it away</strong>. But "giving it away" was easier for some than others. The connected world would be shaped by who had access &mdash; and who did not.</p></div>
+
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p1_09_connected_world.png" alt="p1_09_connected_world">
+</div>
+
+    <div class="css-hook">Who was this physicist? And what exactly did he build on that black cube? &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="2">
+    <div class="page-header">
+      <div class="issue-label">Issue 05 · Page 2</div>
+      <div class="page-title">Three Inventions That Changed Everything</div>
+    </div>
+    <div class="panel-row">
+<div class="panel" style="flex: 2; aspect-ratio: 428/512;">
+  <img src="images/p2_01_tbl_portrait.png" alt="p2_01_tbl_portrait">
+</div>
+<div class="panel panel--bubble" style="flex: 3; aspect-ratio: 428/512;">
+  <img src="images/p2_01b_robot_intro.png" alt="COPPERBOT: Meet Tim Berners-Lee. Computing was in his blood.">
+  <span class="ocr-expected" data-speaker="COPPERBOT">Meet Tim Berners-Lee. Computing was in his blood.</span>
+</div>
+    </div>
+
+    <div class="css-narration"><p><strong>Tim Berners-Lee</strong> was not trying to build a publishing empire or a social network. He had a practical problem: CERN employed over 10,000 researchers, using dozens of different computer systems, and they could not easily share documents with each other. Information was trapped in silos.<br><br>Born in London in 1955, both his parents worked on the Ferranti Mark 1, one of the earliest commercial computers. He studied physics at Oxford, then ended up at CERN, the European particle physics laboratory in Geneva.</p></div>
+
+    <div class="css-narration css-narration--accent"><p>On <strong>March 12, 1989</strong>, Berners-Lee submitted a proposal titled <em>"Information Management: A Proposal."</em> Sendall's response &mdash; <em>"Vague but exciting..."</em> &mdash; was enough to let the project proceed, though CERN never made it a priority. Berners-Lee essentially built the <strong>World Wide Web</strong> in his spare time, with help from colleague <strong>Robert Cailliau</strong>, who contributed to the proposal and championed the project within CERN.</p></div>
+
+    <div class="panel-row">
+<div class="panel" style="flex: 1; aspect-ratio: 236/384;">
+  <img src="images/p2_04_html.png" alt="p2_04_html">
+  <div class="narration-overlay" style="bottom: 10px; left: 10px; right: 10px;"><strong>HTML</strong> &mdash; The skeleton of every web page.</div>
+</div>
+<div class="panel" style="flex: 1; aspect-ratio: 236/384;">
+  <img src="images/p2_04b_http.png" alt="p2_04b_http">
+  <div class="narration-overlay" style="bottom: 10px; left: 10px; right: 10px;"><strong>HTTP</strong> &mdash; The language between browser and server.</div>
+</div>
+<div class="panel" style="flex: 1; aspect-ratio: 236/384;">
+  <img src="images/p2_04c_url.png" alt="p2_04c_url">
+  <div class="narration-overlay" style="bottom: 10px; left: 10px; right: 10px;"><strong>URLs</strong> &mdash; An address for anything on the web.</div>
+</div>
+    </div>
+
+    <div class="css-narration"><p>By late 1990, working on a NeXT computer, Berners-Lee had created three inventions that became the foundation of the web:<br><br><strong>HTML</strong> (HyperText Markup Language) &mdash; simple tags like <code>&lt;h1&gt;</code> and <code>&lt;a href="..."&gt;</code> that tell a browser what each piece of content is. The first version had only 18 tags. Its simplicity was the point.<br><br><strong>HTTP</strong> (HyperText Transfer Protocol) &mdash; your browser sends a request, the server sends a response. Clean, simple, stateless.<br><br><strong>URLs</strong> (Uniform Resource Locators) &mdash; addresses for anything on the web, like a postal address that tells your browser where to find a specific page, anywhere in the world.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 380"><style>text{font-family:'JetBrains Mono',monospace; }</style><rect x="10" y="0" width="200" height="180" rx="10" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text x="110" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#D69E2E">HTML</text><text fill="#2D3748" x="110" y="55" text-anchor="middle" font-size="13">The STRUCTURE</text><text fill="#2D3748" x="110" y="75" text-anchor="middle" font-size="13">of a web page</text><text x="30" y="105" font-size="12" font-family="monospace" fill="#2D3748">&lt;h1&gt;Hello&lt;/h1&gt;</text><text x="30" y="125" font-size="12" font-family="monospace" fill="#2D3748" textLength="164" lengthAdjust="spacingAndGlyphs">&lt;p&gt;World&lt;/p&gt;</text><text x="30" y="145" font-size="12" font-family="monospace" fill="#2D3748">&lt;a href=&quot;...&quot;&gt;</text><text x="110" y="172" text-anchor="middle" font-size="12" fill="#2D3748">18 tags in v1</text><rect x="240" y="0" width="200" height="180" rx="10" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text x="340" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#D69E2E">HTTP</text><text fill="#2D3748" x="340" y="55" text-anchor="middle" font-size="13">The LANGUAGE</text><text fill="#2D3748" x="340" y="75" text-anchor="middle" font-size="13">browser &harr; server</text><text x="260" y="105" font-size="12" font-family="monospace" fill="#2D3748">GET /page.html</text><text x="260" y="125" font-size="12" font-family="monospace" fill="#2D3748">Host: info.cern.ch</text><text x="260" y="150" font-size="12" font-family="monospace" fill="#2D3748">HTTP/1.1 200 OK</text><text x="260" y="170" font-size="12" font-family="monospace" fill="#2D3748">Content-Type: text/html</text><rect x="470" y="0" width="200" height="180" rx="10" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text x="570" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#D69E2E">URL</text><text fill="#2D3748" x="570" y="55" text-anchor="middle" font-size="13">The ADDRESS</text><text fill="#2D3748" x="570" y="75" text-anchor="middle" font-size="13" textLength="168" lengthAdjust="spacingAndGlyphs">of anything on the web</text><text x="490" y="110" font-size="12" font-family="monospace" fill="#2D3748">http://info.cern.ch/</text><text x="490" y="130" font-size="12" font-family="monospace" fill="#2D3748">hypertext/WWW/</text><text x="490" y="150" font-size="12" font-family="monospace" fill="#2D3748">Summary.html</text><line x1="110" y1="185" x2="340" y2="220" stroke="#D69E2E" stroke-width="2"/><line x1="340" y1="185" x2="340" y2="220" stroke="#D69E2E" stroke-width="2"/><line x1="570" y1="185" x2="340" y2="220" stroke="#D69E2E" stroke-width="2"/><rect x="230" y="220" width="220" height="100" rx="10" fill="#D69E2E" stroke="#2D3748" stroke-width="2"/><text x="340" y="250" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">THE WORLD WIDE WEB</text><text x="340" y="275" text-anchor="middle" font-size="13" fill="#fff">August 6, 1991:</text><text x="340" y="295" text-anchor="middle" font-size="13" fill="#fff">First public website goes live</text><text x="340" y="315" text-anchor="middle" font-size="12" fill="#FEFCBF">(info.cern.ch)</text></svg>
+    <p class="diagram-caption">The Web's Foundation (1990): Three inventions that became the World Wide Web</p>
+  </div>
+
+    <div class="css-narration css-narration--accent"><p>The <strong>World Wide Web is not the internet.</strong> The internet is the highway system &mdash; the physical network of cables and protocols (TCP/IP) built in the 1970s and 1980s. The web is what was built on top of it: a system of linked pages, accessible through browsers, using HTML, HTTP, and URLs. The internet carries the data. The web makes it readable.</p></div>
+
+    <div class="css-hook">Berners-Lee built the first website and the first browser. But the web was still a tool for physicists. What turned it into something everyone could use? &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="3">
+    <div class="page-header">
+      <div class="issue-label">Issue 05 · Page 3</div>
+      <div class="page-title">The Browser That Opened the Floodgates</div>
+    </div>
+    <div class="panel-row">
+<div class="panel" style="flex: 1; aspect-ratio: 357/512;">
+  <img src="images/p3_01_before_mosaic.png" alt="p3_01_before_mosaic">
+  <div class="narration-overlay" style="bottom: 10px; left: 10px; right: 10px;"><strong>1992:</strong> Text only.</div>
+</div>
+<div class="panel" style="flex: 1; aspect-ratio: 357/512;">
+  <img src="images/p3_01b_after_mosaic.png" alt="p3_01b_after_mosaic">
+  <div class="narration-overlay" style="bottom: 10px; left: 10px; right: 10px;"><strong>1993:</strong> Images inline.</div>
+</div>
+    </div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 768/461;">
+  <img src="images/p3_02_robot_mosaic.png" alt="PIXELBOT: Two students added pictures to the web. Everything changed.">
+  <span class="ocr-expected" data-speaker="PIXELBOT">Two students added pictures to the web. Everything changed.</span>
+</div>
+
+    <div class="css-narration"><p>The first web browsers were functional but austere. They showed text and hyperlinks. Images opened in separate windows. Using the web felt like reading a phone book.<br><br>Then, in January 1993, <strong>Marc Andreessen</strong> and <strong>Eric Bina</strong> at NCSA at the University of Illinois released <strong>Mosaic</strong>. Andreessen, a 22-year-old undergrad earning $6.85 an hour, handled the interface and vision. Bina built the core rendering engine. Together, they created the browser that made inline images mainstream.</p></div>
+
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p3_04_mosaic_impact.png" alt="p3_04_mosaic_impact">
+</div>
+
+    <div class="css-narration"><p>Mosaic did not invent the web. But it made the web <em>usable</em>. Suddenly, ordinary people &mdash; not just researchers &mdash; could browse. And suddenly, anyone with basic HTML knowledge could publish. A personal website cost nothing. You did not need a printing press, a TV station, or a newspaper. You needed a text editor and something to say.</p></div>
+
+    <div class="css-narration css-narration--accent"><p>But none of this would have happened without a decision made four months later. On <strong>April 30, 1993</strong>, CERN officially released the World Wide Web software into the <strong>public domain</strong> &mdash; free, for everyone, forever. No licensing fees. No royalties. No corporate control.</p></div>
+
+    <div class="panel-row">
+<div class="panel" style="flex: 2; aspect-ratio: 286/384;">
+  <img src="images/p3_07_tbl_quote.png" alt="p3_07_tbl_quote">
+</div>
+  <div class="css-narration" style="flex: 3;"><p>Berners-Lee later reflected: <em>"Had the technology been proprietary, and in my total control, it would probably not have taken off. You can't propose that something be a universal space and at the same time keep control of it."</em><br><br>He never became wealthy from his invention. He chose to give it away.</p></div>
+    </div>
+
+    <div class="css-narration"><p>Andreessen and Bina received little credit or reward from NCSA. Andreessen left and co-founded <strong>Netscape Communications</strong> with Jim Clark in April 1994. Netscape Navigator polished the Mosaic concept into a commercial product. And on <strong>August 9, 1995</strong>, Netscape went public.</p></div>
+
+  <div class="panel" style="aspect-ratio: 768/256;">
+  <img src="images/p3_09_ipo.png" alt="p3_09_ipo">
+</div>
+
+    <div class="css-narration css-narration--accent"><p>Shares were priced at $28. They opened at <strong>$71</strong>. A 16-month-old company was worth <strong>$2.9 billion</strong> by the end of the day. The starting gun of the dot-com boom had fired.</p></div>
+
+    <div class="css-narration"><p><em>Think About It:</em> Tim Berners-Lee gave away the web for free. He could have patented it, licensed it, controlled it. He chose not to. But who got to participate in the "connected world"? In the 1990s, internet access required a computer, a phone line, and monthly fees &mdash; creating a "digital divide" along lines of wealth, geography, race, and gender. By 2000, fewer than 7% of the world's population was online. This gap persists today.</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p3_11b_robot_dotcom.png" alt="DOTBOT: The bubble burst. But the infrastructure survived.">
+  <span class="ocr-expected" data-speaker="DOTBOT">The bubble burst. But the infrastructure survived.</span>
+</div>
+
+    <div class="css-hook">The web was free and open. Anyone could publish. But the software underneath -- the operating systems, the servers -- was still controlled by corporations. Then a 21-year-old Finnish student posted a message that started with "just a hobby, won't be big..." &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="4">
+    <div class="page-header">
+      <div class="issue-label">Issue 05 · Page 4</div>
+      <div class="page-title">Just a Hobby</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p4_01_helsinki.png" alt="p4_01_helsinki">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 286/512;">
+  <img src="images/p4_02_robot_understatement.png" alt="PENGUBOT: 'Just a hobby, won't be big.' History's greatest understatement.">
+  <span class="ocr-expected" data-speaker="PENGUBOT">'Just a hobby, won't be big.' History's greatest understatement.</span>
+</div>
+  <div class="css-narration" style="flex: 3;"><p><strong>Linus Torvalds</strong> was born on December 28, 1969, in Helsinki, Finland, into the Swedish-speaking minority. He was a quiet kid who preferred computers to people. In January 1991, he bought a 386 PC and started tinkering with <strong>MINIX</strong>, a small Unix-like teaching operating system created by professor Andrew Tanenbaum.</p></div>
+    </div>
+
+    <div class="css-narration"><p>Torvalds was frustrated by MINIX's limitations. He wanted a real operating system &mdash; one that could run on his cheap PC, take advantage of its hardware, and let him do what he wanted. So he started writing one himself.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-5 -20 690 320"><rect x="10" y="0" width="660" height="280" rx="8" fill="#1A202C" stroke="#D69E2E" stroke-width="2"/><text x="30" y="30" font-family="'JetBrains Mono',monospace" font-size="12" fill="#48BB78">From: torvalds@klaava.Helsinki.FI (Linus Benedict Torvalds)</text><text x="30" y="48" font-family="'JetBrains Mono',monospace" font-size="12" fill="#48BB78">Newsgroups: comp.os.minix</text><text x="30" y="66" font-family="'JetBrains Mono',monospace" font-size="12" fill="#48BB78">Date: 25 Aug 91 20:57:08 GMT</text><line x1="30" y1="78" x2="650" y2="78" stroke="#4A5568" stroke-width="1"/><text x="30" y="100" font-family="'JetBrains Mono',monospace" font-size="12" fill="#E2E8F0">Hello everybody out there using minix -</text><text x="30" y="125" font-family="'JetBrains Mono',monospace" font-size="12" fill="#E2E8F0">I'm doing a (free) operating system</text><text x="30" y="145" font-family="'JetBrains Mono',monospace" font-size="12" fill="#D69E2E" font-weight="bold">(just a hobby, won't be big and</text><text x="30" y="165" font-family="'JetBrains Mono',monospace" font-size="12" fill="#D69E2E" font-weight="bold">professional like gnu)</text><text x="270" y="165" font-family="'JetBrains Mono',monospace" font-size="12" fill="#E2E8F0"> for 386(486)</text><text x="30" y="185" font-family="'JetBrains Mono',monospace" font-size="12" fill="#E2E8F0">AT clones. This has been brewing since</text><text x="30" y="205" font-family="'JetBrains Mono',monospace" font-size="12" fill="#E2E8F0">april, and is starting to get ready...</text><text x="340" y="255" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="12" fill="#E2E8F0">-- Linus Torvalds, August 25, 1991</text></svg>
+    <p class="diagram-caption">The famous Usenet post that launched Linux</p>
+  </div>
+
+    <div class="css-narration"><p>He was comparing his project to <strong>GNU</strong> &mdash; Richard Stallman's ambitious, coordinated effort from Issue 4. By that measure, he was being completely realistic. A student's side project would not rival a multi-year effort with institutional backing. He was not making a prediction about Linux's future &mdash; he was being honest about where it stood that day.<br><br>By what actually happened, he was <em>spectacularly</em> wrong. Linux would eventually power more devices than any operating system in history.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 240"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="340" y="5" text-anchor="middle" font-size="14" font-weight="bold" fill="#D69E2E">By 2020: Linux powers...</text><rect x="20" y="25" width="145" height="80" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text fill="#1A202C" x="92" y="52" text-anchor="middle" font-size="14" font-weight="bold">100% of</text><text fill="#2D3748" x="92" y="72" text-anchor="middle" font-size="13">world's top 500</text><text fill="#2D3748" x="92" y="90" text-anchor="middle" font-size="13">supercomputers</text><rect x="185" y="25" width="145" height="80" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text fill="#1A202C" x="257" y="52" text-anchor="middle" font-size="14" font-weight="bold">Android</text><text fill="#2D3748" x="257" y="72" text-anchor="middle" font-size="13">phones (3+</text><text fill="#2D3748" x="257" y="90" text-anchor="middle" font-size="13" textLength="117" lengthAdjust="spacingAndGlyphs">billion devices)</text><rect x="350" y="25" width="145" height="80" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text fill="#1A202C" x="422" y="52" text-anchor="middle" font-size="14" font-weight="bold">Most web</text><text fill="#2D3748" x="422" y="72" text-anchor="middle" font-size="13">servers on</text><text fill="#2D3748" x="422" y="90" text-anchor="middle" font-size="13">the internet</text><rect x="515" y="25" width="145" height="80" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text fill="#1A202C" x="587" y="52" text-anchor="middle" font-size="14" font-weight="bold">All top</text><text fill="#2D3748" x="587" y="72" text-anchor="middle" font-size="13">cloud</text><text fill="#2D3748" x="587" y="90" text-anchor="middle" font-size="13">platforms</text><text x="340" y="140" text-anchor="middle" font-size="13" fill="#E2E8F0">Linux v0.01 released September 17, 1991</text><text x="340" y="160" text-anchor="middle" font-size="13" fill="#E2E8F0">Switched to GPL v2 in February 1992</text><text x="340" y="185" text-anchor="middle" font-size="12" fill="#A0AEC0">Name "Linux" chosen by Ari Lemmke (Torvalds wanted "Freax")</text></svg>
+    <p class="diagram-caption">Linux: from a student's hobby to the world's most-used operating system</p>
+  </div>
+
+    <div class="css-narration"><p><strong>Linux</strong> version 0.01 was released on September 17, 1991. It was rough. But something remarkable happened: people started contributing. Developers around the world downloaded the code, found bugs, wrote fixes, and sent patches back. The internet made it possible for a global community to collaborate on a single piece of software.<br><br>Torvalds had originally released Linux under a license that prohibited commercial use. In February 1992, he switched to the <strong>GNU General Public License</strong> (GPL) version 2. This was the turning point. The GPL guaranteed that Linux would remain free and open, and it invited the entire world to contribute.</p></div>
+
+    <div class="css-narration css-narration--accent"><p>Linux proved that a global community of volunteers, coordinating over the internet, could build software that rivaled &mdash; and eventually surpassed &mdash; anything produced by the wealthiest corporations on Earth. It was not just a technical achievement. It was a <strong>new way of working</strong>.</p></div>
+
+  <div class="lab-link">
+  <div class="lab-link-icon">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+    </svg>
+  </div>
+  <div class="lab-link-content">
+    <strong class="lab-link-title">Try It Yourself</strong>
+    <p class="lab-link-desc">The bazaar model works like Unix pipes: small contributions from many people, combined. Try building pipelines yourself -- chain small tools together and watch data flow through each stage.</p>
+    <a href="../../../interactive/unix_pipe_playground.html" class="lab-link-btn">Open Unix Pipe Playground &rarr;</a>
+  </div>
+</div>
+
+    <div class="css-hook">One student wrote a kernel. Thousands of strangers improved it. But why? Why would people work for free? A hacker and essayist was about to explain -- and his explanation would change the software industry forever. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="5">
+    <div class="page-header">
+      <div class="issue-label">Issue 05 · Page 5</div>
+      <div class="page-title">The Cathedral and the Bazaar</div>
+    </div>
+    <div class="panel-row">
+<div class="panel" style="flex: 1; aspect-ratio: 357/576;">
+  <img src="images/p5_01_cathedral.png" alt="p5_01_cathedral">
+  <div class="narration-overlay" style="bottom: 10px; left: 10px; right: 10px;"><strong>The Cathedral</strong></div>
+</div>
+<div class="panel" style="flex: 1; aspect-ratio: 357/576;">
+  <img src="images/p5_01b_bazaar.png" alt="p5_01b_bazaar">
+  <div class="narration-overlay" style="bottom: 10px; left: 10px; right: 10px;"><strong>The Bazaar</strong></div>
+</div>
+    </div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 768/461;">
+  <img src="images/p5_02_robot_idea.png" alt="THINKBOT: Cathedral: planned and private. Bazaar: messy and alive.">
+  <span class="ocr-expected" data-speaker="THINKBOT">Cathedral: planned and private. Bazaar: messy and alive.</span>
+</div>
+
+    <div class="css-narration"><p>In May 1997, <strong>Eric S. Raymond</strong> presented an essay called <em>"The Cathedral and the Bazaar"</em> at the Linux Kongress. It would become the foundational text of the <strong>open-source movement</strong>.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 714 360"><style>text{font-family:'JetBrains Mono',monospace; }</style><rect x="10" y="0" width="310" height="200" rx="10" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="2"/><text x="165" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#1A202C">THE CATHEDRAL</text><text fill="#2D3748" x="30" y="55" font-size="13">&#8226; Closed source</text><text fill="#2D3748" x="30" y="78" font-size="13">&#8226; Planned releases</text><text fill="#2D3748" x="30" y="101" font-size="13">&#8226; Top-down control</text><text fill="#2D3748" x="30" y="124" font-size="13">&#8226; Polish then ship</text><text x="30" y="155" font-size="12" fill="#2D3748">Small team &#x2192; careful design</text><text x="30" y="178" font-size="12" fill="#2D3748">Examples: Windows, early GNU tools</text><rect x="360" y="0" width="310" height="200" rx="10" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text x="515" y="28" text-anchor="middle" font-size="16" font-weight="bold" fill="#D69E2E">THE BAZAAR</text><text fill="#2D3748" x="380" y="55" font-size="13">&#8226; Open source</text><text fill="#2D3748" x="380" y="78" font-size="13">&#8226; Release early/often</text><text fill="#2D3748" x="380" y="101" font-size="13">&#8226; Bottom-up feedback</text><text fill="#2D3748" x="380" y="124" font-size="13">&#8226; Ship then polish</text><text x="380" y="155" font-size="12" fill="#2D3748">Everyone contributes &#x2192; messy but alive</text><text x="380" y="178" font-size="12" fill="#2D3748">Examples: Linux, Apache, Mozilla</text><rect x="100" y="220" width="480" height="80" rx="10" fill="#D69E2E" stroke="#2D3748" stroke-width="2"/><text x="340" y="250" text-anchor="middle" font-size="15" font-weight="bold" fill="#fff">"Given enough eyeballs, all bugs are shallow."</text><text x="340" y="275" text-anchor="middle" font-size="13" fill="#FEFCBF">-- Linus's Law (Raymond, 1997)</text><text x="340" y="295" text-anchor="middle" font-size="12" fill="#FEFCBF" textLength="448" lengthAdjust="spacingAndGlyphs">If thousands can see the code, every bug is obvious to someone.</text></svg>
+    <p class="diagram-caption">Two models of software development</p>
+  </div>
+
+    <div class="css-narration"><p>The <strong>Cathedral</strong> model: a small, closed team designs the software carefully, releases it when it is ready, and controls every change. This is how most commercial software was built.<br><br>The <strong>Bazaar</strong> model: release early, release often, share everything, let anyone contribute. Accept that the process will be messy. Trust that the community will find and fix problems faster than any closed team could.<br><br>Raymond's most famous line: <strong>"Given enough eyeballs, all bugs are shallow."</strong> He called this "Linus's Law." If thousands of people can see the code, every bug becomes obvious to <em>someone</em>.</p></div>
+
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p5_06_netscape_mozilla.png" alt="p5_06_netscape_mozilla">
+</div>
+
+    <div class="css-narration"><p>The essay hit the software industry like a thunderbolt. In January 1998, Netscape &mdash; losing the Browser Wars to Microsoft &mdash; released its source code. Raymond's essay was the direct inspiration. That release became the <strong>Mozilla</strong> project, and it was <strong>Mitchell Baker</strong> &mdash; a lawyer and technologist &mdash; who shepherded it from a messy code dump into a real organization. Baker became CEO of the Mozilla Foundation and led the creation of <strong>Firefox</strong>, proving that the bazaar model could build world-class consumer software. When Firefox launched in 2004, it broke Internet Explorer's near-monopoly.</p></div>
+
+    <div class="css-narration"><p>In February 1998, Raymond and Bruce Perens founded the <strong>Open Source Initiative</strong> (OSI). They chose "open source" instead of Stallman's "free software." Stallman emphasized philosophical freedom &mdash; <em>"free as in freedom, not free as in beer."</em> Raymond emphasized practical superiority &mdash; open development simply produces better results.<br><br>Stallman was not pleased. He saw "open source" as a dilution of freedom principles. This split &mdash; freedom versus pragmatism &mdash; persists to this day. But both sides agreed: sharing code is better than hoarding it.</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p5_09b_robot_opensource.png" alt="FORKBOT: Free or open source? Same code, different philosophy.">
+  <span class="ocr-expected" data-speaker="FORKBOT">Free or open source? Same code, different philosophy.</span>
+</div>
+
+    <div class="css-narration css-narration--accent"><p>There is a question that rarely gets asked: <strong>who can afford to contribute?</strong> Writing free software requires leisure time, education, and a computer with internet access. The open-source movement was overwhelmingly built by people in wealthy countries with the financial safety nets to work for free. "Open to all" did not mean "accessible to all." The bazaar had no entry fee, but getting to the bazaar was not free.</p></div>
+
+    <div class="css-narration css-narration--accent"><p><strong>Big Idea:</strong> Open source is more than a license &mdash; it is a philosophy. The radical claim: transparency and collaboration produce better software than secrecy and control. But open source also raises questions about labor: when code is "free," who pays the people who write it? The community garden feeds many, but the gardeners still need to eat.</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p5_10b_robot_freeopen.png" alt="FORKBOT2: Two movements. Different names. Same revolution.">
+  <span class="ocr-expected" data-speaker="FORKBOT2">Two movements. Different names. Same revolution.</span>
+</div>
+
+    <div class="css-narration"><p><em>Think About It:</em> Open source means the "recipe" is published, not just the "meal." Science publishes methods so others can replicate and improve them. What if medicine or education published their "recipes" too? Where would openness help, and where might it cause problems?</p></div>
+
+    <div class="css-hook">The web was free. The code was open. People were connecting. And then capitalism noticed. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="6">
+    <div class="page-header">
+      <div class="issue-label">Issue 05 · Page 6</div>
+      <div class="page-title">Irrational Exuberance</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p6_01_nasdaq_rise.png" alt="p6_01_nasdaq_rise">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 286/512;">
+  <img src="images/p6_02_robot_wild.png" alt="SILVERBOT: Any '.com' company seemed worth billions. Most were not.">
+  <span class="ocr-expected" data-speaker="SILVERBOT">Any '.com' company seemed worth billions. Most were not.</span>
+</div>
+  <div class="css-narration" style="flex: 3;"><p>Netscape's explosive IPO on August 9, 1995, sent a signal to Wall Street: the internet was where the money was. A 16-month-old company was worth $2.9 billion. Marc Andreessen, 24 years old, appeared barefoot on the cover of <em>Time</em> magazine, sitting on a golden throne.</p></div>
+    </div>
+
+    <div class="css-narration"><p>What followed was a gold rush. Venture capital flooded into any startup with ".com" in its name. Business plans were optional. Revenue was irrelevant. The metric that mattered was "eyeballs" &mdash; how many people visited your website.<br><br>On December 5, 1996, Federal Reserve Chairman Alan Greenspan warned of <strong>"irrational exuberance"</strong> in the markets. Nobody listened.</p></div>
+
+    <div class="panel-row">
+<div class="panel" style="flex: 3; aspect-ratio: 428/384;">
+  <img src="images/p6_04_casualties.png" alt="p6_04_casualties">
+</div>
+  <div class="css-narration" style="flex: 2;"><p><strong>Pets.com</strong> spent $11.8 million on advertising while generating only $619,000 in revenue. It lasted 268 days from IPO to liquidation.<br><br><strong>Webvan</strong> raised $375 million and filed for bankruptcy in 2001.<br><br><strong>Kozmo.com</strong> burned through $280 million delivering snacks by bicycle.</p></div>
+    </div>
+
+  <div class="panel" style="aspect-ratio: 768/256;">
+  <img src="images/p6_05_crash.png" alt="p6_05_crash">
+</div>
+
+    <div class="css-narration css-narration--accent"><p>On <strong>March 10, 2000</strong>, the NASDAQ Composite peaked at <strong>5,048.62</strong>. Then it fell. And kept falling. By October 2002, it had dropped to approximately 1,114 &mdash; a decline of roughly <strong>78%</strong>. Trillions of dollars in market value evaporated. Companies vanished overnight. Thousands of workers lost their jobs.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 280"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="340" y="5" text-anchor="middle" font-size="15" font-weight="bold" fill="#D69E2E">NASDAQ Composite (1995-2002)</text><polyline points="50,200 150,180 250,140 350,60 400,25 410,25 450,80 500,120 550,160 600,190" fill="none" stroke="#D69E2E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><circle cx="400" cy="25" r="5" fill="#E53E3E"/><text x="400" y="18" text-anchor="middle" font-size="12" fill="#FFFFFF" font-weight="bold">5,048 (March 2000)</text><circle cx="600" cy="190" r="5" fill="#718096"/><text x="600" y="210" text-anchor="middle" font-size="12" fill="#E2E8F0">~1,114 (Oct 2002)</text><text x="50" y="218" font-size="12" fill="#A0AEC0">Aug 1995</text><text x="510" y="145" font-size="13" fill="#FFFFFF" font-weight="bold">78% decline</text><rect x="30" y="230" width="280" height="20" rx="4" fill="#FED7D7"/><text x="170" y="245" text-anchor="middle" font-size="12" fill="#2D3748">Casualties: Pets.com, Webvan, Kozmo, eToys</text><rect x="370" y="230" width="280" height="20" rx="4" fill="#C6F6D5"/><text x="510" y="245" text-anchor="middle" font-size="12" fill="#2D3748" textLength="260" lengthAdjust="spacingAndGlyphs">Survivors: Amazon, eBay, Google, PayPal</text></svg>
+    <p class="diagram-caption">The Dot-Com Bubble: from irrational exuberance to a 78% crash</p>
+  </div>
+
+    <div class="css-narration"><p>But here is what the simple "bubble" story misses: the crash destroyed speculative money, not the technology. Internet usage continued to rise throughout the bust. The fiber-optic cables, data centers, and networking infrastructure built during the boom remained &mdash; and actually made the next wave of innovation cheaper. Amazon's stock fell 93% &mdash; from $107 to $7 &mdash; but the company survived and eventually became one of the most valuable in the world.</p></div>
+
+    <div class="css-narration css-narration--accent"><p>The dot-com crash taught a brutal lesson: technology that changes the world and companies that make money are <strong>two different things</strong>. The internet was revolutionary. Most dot-com business plans were not. The infrastructure survived. The speculation did not. And the next generation of internet companies would be built on the rubble &mdash; literally inheriting the fiber-optic cables and data centers that the boom had overbuilt.</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p6_09b_robot_survived.png" alt="PHOENIX: The companies died. The technology lived on.">
+  <span class="ocr-expected" data-speaker="PHOENIX">The companies died. The technology lived on.</span>
+</div>
+
+    <div class="css-hook">Two Stanford PhD students had been watching the chaos from a garage in Menlo Park. They had no business plan and a server made of Lego bricks. But they had something nobody else did: a better way to find things. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="7">
+    <div class="page-header">
+      <div class="issue-label">Issue 05 · Page 7</div>
+      <div class="page-title">Organizing the World's Information</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p7_01_garage.png" alt="p7_01_garage">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 286/512;">
+  <img src="images/p7_02_robot_clever.png" alt="LENSBOT: Before Google, search ranked by word count. They counted links instead.">
+  <span class="ocr-expected" data-speaker="LENSBOT">Before Google, search ranked by word count. They counted links instead.</span>
+</div>
+  <div class="css-narration" style="flex: 3;"><p><strong>Larry Page</strong> (born 1973) and <strong>Sergey Brin</strong> (born 1973 in Moscow &mdash; his family emigrated from the Soviet Union when he was six) met as Stanford PhD students in 1995. By most accounts, they disliked each other at first. They argued about nearly everything.<br><br>But they agreed on one thing: web search was terrible.</p></div>
+    </div>
+
+    <div class="css-narration"><p>Existing search engines like AltaVista, Lycos, and Yahoo! ranked pages primarily by keyword frequency. A page that mentioned "dog" fifty times ranked higher than a page mentioned once, even if the second page was written by a veterinarian.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="-74 -20 754 360"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="340" y="5" text-anchor="middle" font-size="15" font-weight="bold" fill="#D69E2E">How PageRank Works</text><text x="170" y="30" text-anchor="middle" font-size="13" fill="#E2E8F0">Each link = a "vote." Votes from important pages count more.</text><circle cx="80" cy="100" r="28" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="2"/><text fill="#1A202C" x="80" y="105" text-anchor="middle" font-size="16" font-weight="bold">A</text><circle cx="250" cy="80" r="35" fill="#FEFCBF" stroke="#D69E2E" stroke-width="3"/><text x="250" y="85" text-anchor="middle" font-size="18" font-weight="bold" fill="#D69E2E">B</text><circle cx="420" cy="100" r="28" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="2"/><text fill="#1A202C" x="420" y="105" text-anchor="middle" font-size="16" font-weight="bold">C</text><circle cx="120" cy="200" r="24" fill="#E9D8FD" stroke="#805AD5" stroke-width="2"/><text fill="#1A202C" x="120" y="205" text-anchor="middle" font-size="16" font-weight="bold">D</text><circle cx="380" cy="200" r="24" fill="#E9D8FD" stroke="#805AD5" stroke-width="2"/><text fill="#1A202C" x="380" y="205" text-anchor="middle" font-size="16" font-weight="bold">E</text><circle cx="250" cy="260" r="22" fill="#C6F6D5" stroke="#38A169" stroke-width="2"/><text fill="#1A202C" x="250" y="265" text-anchor="middle" font-size="16" font-weight="bold">F</text><line x1="108" y1="100" x2="215" y2="85" stroke="#4A5568" stroke-width="2" marker-end="url(#arrow)"/><line x1="392" y1="100" x2="285" y2="85" stroke="#4A5568" stroke-width="2" marker-end="url(#arrow)"/><line x1="140" y1="190" x2="218" y2="110" stroke="#4A5568" stroke-width="2" marker-end="url(#arrow)"/><line x1="360" y1="195" x2="272" y2="110" stroke="#4A5568" stroke-width="2" marker-end="url(#arrow)"/><line x1="265" y1="244" x2="260" y2="115" stroke="#4A5568" stroke-width="2" marker-end="url(#arrow)"/><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#4A5568"/></marker></defs><text x="250" y="130" text-anchor="middle" font-size="12" fill="#D69E2E" font-weight="bold">Most links = highest PageRank</text><rect x="470" y="60" width="200" height="120" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text x="570" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="#D69E2E">PageRank is RECURSIVE</text><text x="490" y="108" font-size="12" fill="#2D3748">Importance depends on</text><text x="490" y="125" font-size="12" fill="#2D3748">importance. Calculated</text><text x="490" y="142" font-size="12" fill="#2D3748" textLength="166" lengthAdjust="spacingAndGlyphs">iteratively until stable.</text><text x="490" y="165" font-size="12" fill="#2D3748">Like a random surfer</text><text x="490" y="180" font-size="12" fill="#2D3748">clicking links forever.</text><text x="340" y="310" text-anchor="middle" font-size="13" fill="#E2E8F0">Named after Larry PAGE, not "web pages" (though the pun was convenient)</text></svg>
+    <p class="diagram-caption">Google's PageRank: treating links as votes of confidence</p>
+  </div>
+
+    <div class="css-narration"><p>Page and Brin's research project, originally called "BackRub," produced <strong>PageRank</strong> &mdash; named after Larry Page, not "web pages." The core insight: treat every link as a vote. If Page A links to Page B, that is a vote of confidence. But not all votes are equal &mdash; a link from a page that itself has many links counts more. Like academic citations: a paper cited by a thousand others is probably more important than one cited by two.<br><br>PageRank is <strong>recursive</strong>: importance depends on importance, calculated iteratively until it stabilizes. Mathematically, it is like imagining a random surfer clicking links endlessly &mdash; where they land most often is the most important page.</p></div>
+
+    <div class="panel-row">
+<div class="panel" style="flex: 3; aspect-ratio: 428/384;">
+  <img src="images/p7_06_bechtolsheim.png" alt="p7_06_bechtolsheim">
+</div>
+  <div class="css-narration" style="flex: 2;"><p>When Page and Brin demonstrated the technology to <strong>Andy Bechtolsheim</strong>, co-founder of Sun Microsystems, he immediately wrote a check for $100,000 to "Google Inc." &mdash; a company that did not yet legally exist. They had to incorporate before they could cash it.</p></div>
+    </div>
+
+    <div class="css-narration"><p><strong>Google</strong> was officially incorporated on <strong>September 4, 1998</strong>, in a garage owned by Susan Wojcicki in Menlo Park. The name was a play on "googol" &mdash; the number 1 followed by 100 zeros. Its stated mission: <em>"to organize the world's information and make it universally accessible and useful."</em></p></div>
+
+  <div class="panel" style="aspect-ratio: 768/256;">
+  <img src="images/p7_08_lego_server.png" alt="p7_08_lego_server">
+</div>
+
+    <div class="css-narration css-narration--accent"><p>Google's breakthrough was not building a search engine &mdash; many existed before it. The breakthrough was realizing that the <strong>structure of the web itself contains information</strong> about what matters. Links are votes. The web is not just content; it is a vast network of human judgment about what is important.<br><br>The first Google server was housed in a case made of Lego bricks. Cash-strapped students, building the future from spare parts. Within a decade, Google would become one of the most powerful companies on Earth &mdash; its mission to "organize" information would evolve into something more complex: monetizing the attention of the people searching for it.</p></div>
+
+    <div class="css-hook">Google organized the world's existing information. But what if you could create an entirely new encyclopedia -- one written not by experts behind closed doors, but by everyone? &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="8">
+    <div class="page-header">
+      <div class="issue-label">Issue 05 · Page 8</div>
+      <div class="page-title">The Encyclopedia Anyone Can Edit</div>
+    </div>
+    <div class="panel-row">
+<div class="panel" style="flex: 1; aspect-ratio: 357/512;">
+  <img src="images/p8_01_nupedia.png" alt="p8_01_nupedia">
+  <div class="narration-overlay" style="bottom: 10px; left: 10px; right: 10px;"><strong>Nupedia:</strong> 21 articles in one year.</div>
+</div>
+<div class="panel" style="flex: 1; aspect-ratio: 357/512;">
+  <img src="images/p8_01b_wikipedia.png" alt="p8_01b_wikipedia">
+  <div class="narration-overlay" style="bottom: 10px; left: 10px; right: 10px;"><strong>Wikipedia:</strong> 20,000 in one year.</div>
+</div>
+    </div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 768/461;">
+  <img src="images/p8_02_robot_amused.png" alt="BOOKBOT: Expert review: 21 articles. Open editing: 20,000. Messy won.">
+  <span class="ocr-expected" data-speaker="BOOKBOT">Expert review: 21 articles. Open editing: 20,000. Messy won.</span>
+</div>
+
+    <div class="css-narration"><p><strong>Jimmy Wales</strong> (born August 7, 1966) was an unlikely encyclopedist. He was a former options trader influenced by economist Friedrich Hayek's idea that useful knowledge is dispersed among many individuals and cannot be centrally gathered. This philosophical conviction would lead him to one of the most consequential experiments in the history of information.</p></div>
+
+    <div class="panel-row">
+  <div class="css-narration" style="flex: 2;"><p>In March 2000, Wales founded <strong>Nupedia</strong> &mdash; a free online encyclopedia written by experts, subject to a rigorous seven-step peer review process. It was meant to be the open-source Encyclopedia Britannica.<br><br>The problem: it was painfully slow. In its first year, Nupedia produced exactly <strong>21 completed articles</strong>.</p></div>
+<div class="panel" style="flex: 3; aspect-ratio: 428/384;">
+  <img src="images/p8_04b_sanger_wiki.png" alt="p8_04b_sanger_wiki">
+</div>
+    </div>
+
+    <div class="css-narration css-narration--accent"><p>Then <strong>Larry Sanger</strong>, Nupedia's editor-in-chief, proposed adding a <strong>wiki</strong> &mdash; a website anyone can edit, invented by Ward Cunningham in 1994-1995 &mdash; as a feeder system for Nupedia.<br><br>On <strong>January 15, 2001</strong>, <strong>Wikipedia</strong> launched. It was supposed to be the rough-draft stage. Instead, it immediately eclipsed Nupedia entirely. Wikipedia reached 20,000 articles in its first year. By January 2003, it had 100,000 English articles.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 290"><style>text{font-family:'JetBrains Mono',monospace; }</style><rect x="10" y="0" width="310" height="170" rx="10" fill="#E2E8F0" stroke="#718096" stroke-width="2"/><text x="165" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1A202C">NUPEDIA (2000)</text><text fill="#2D3748" x="30" y="52" font-size="12">Step 1: Assignment</text><text fill="#2D3748" x="30" y="68" font-size="12">Step 2: Finding a reviewer</text><text fill="#2D3748" x="30" y="84" font-size="12">Step 3: Lead review</text><text fill="#2D3748" x="30" y="100" font-size="12">Step 4: Open review</text><text fill="#2D3748" x="30" y="116" font-size="12">Step 5-7: Copyedit + final</text><text x="165" y="145" text-anchor="middle" font-size="14" font-weight="bold" fill="#1A202C">Result: 21 articles/year</text><text x="165" y="163" text-anchor="middle" font-size="12" fill="#2D3748">x---- CLOSED ----x</text><rect x="360" y="0" width="310" height="170" rx="10" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text x="515" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#D69E2E">WIKIPEDIA (2001)</text><rect x="430" y="45" width="170" height="40" rx="8" fill="#D69E2E"/><text x="515" y="70" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">[ EDIT ]</text><text fill="#2D3748" x="515" y="110" text-anchor="middle" font-size="13">Anyone can edit. Right now.</text><text fill="#2D3748" x="515" y="128" text-anchor="middle" font-size="13">No credentials required.</text><text x="515" y="155" text-anchor="middle" font-size="14" font-weight="bold" fill="#1A202C">Result: 20,000 articles/year</text><text x="340" y="200" text-anchor="middle" font-size="16" font-weight="bold" fill="#D69E2E">Ratio: ~1,000 to 1</text><text x="340" y="225" text-anchor="middle" font-size="13" fill="#E2E8F0">"Given enough eyeballs, all bugs are shallow."</text><text x="340" y="248" text-anchor="middle" font-size="13" fill="#E2E8F0">"Given enough editors, all articles get written."</text></svg>
+    <p class="diagram-caption">Nupedia vs. Wikipedia: expert review vs. open editing</p>
+  </div>
+
+    <div class="css-narration"><p>The concept was heretical. Traditional encyclopedia publishing was a cathedral: slow, expert-driven, authoritative. Wikipedia was the ultimate bazaar: anyone could edit any article, at any time, with no credentials required. A 2005 study in <em>Nature</em> found Wikipedia's accuracy roughly comparable to Encyclopedia Britannica for scientific topics &mdash; though Britannica called the study "fatally flawed," and it only covered science, not the history, politics, and biographical content where bias is most problematic.</p></div>
+
+    <div class="css-narration css-narration--accent"><p>Wikipedia remains a nonprofit, funded by donations and built by volunteers. But "anyone can edit" does not mean everyone does &mdash; Wikipedia's editor base skews heavily male, Western, and technically literate. A 2011 survey found that <strong>fewer than 13% of Wikipedia editors were women</strong>. Articles about notable women are shorter, more likely to be flagged for deletion, and less likely to exist in the first place. The openness is real. The equality is still a work in progress.</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p8_08b_robot_wikipedia.png" alt="WIKIBOT: Sixty million articles. Volunteers. For free.">
+  <span class="ocr-expected" data-speaker="WIKIBOT">Sixty million articles. Volunteers. For free.</span>
+</div>
+
+    <div class="css-narration"><p><strong>Big Idea:</strong> Wikipedia proved that a crowd of non-experts, given the right tools, could produce a knowledge resource that rivaled centuries-old institutions. But it also revealed the limits of openness: who shows up to edit shapes what gets written. An encyclopedia "anyone" can edit is still shaped by the demographics of who actually does.</p></div>
+
+    <div class="css-hook">The web connected documents. Linux connected developers. Wikipedia connected knowledge. But all of these had a problem: how do you let thousands of people edit the same code -- at the same time -- without everything collapsing into chaos? The answer would come, once again, from Linus Torvalds. And he built it in two weeks. &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="9">
+    <div class="page-header">
+      <div class="issue-label">Issue 05 · Page 9</div>
+      <div class="page-title">The Tool That Lets Millions Write Code Together</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p9_01_torvalds_annoyed.png" alt="p9_01_torvalds_annoyed">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 286/512;">
+  <img src="images/p9_02_robot_impressed.png" alt="WRENCHBOT: Torvalds needed a tool. He built Git in two weeks.">
+  <span class="ocr-expected" data-speaker="WRENCHBOT">Torvalds needed a tool. He built Git in two weeks.</span>
+</div>
+  <div class="css-narration" style="flex: 3;"><p>The Linux kernel is one of the most complex collaborative software projects in history &mdash; by 2020, over 20,000 developers had contributed. Coordinating that many people editing the same codebase requires a <strong>version control system</strong>.<br><br>Since 2002, Linux had used a proprietary tool called BitKeeper. In April 2005, free licenses were revoked. Torvalds responded by building his own &mdash; he started around April 3 and had a self-hosting version by April 7.</p></div>
+    </div>
+
+    <div class="css-narration css-narration--accent"><p>Git's design was radical. Unlike older systems (CVS, SVN) where one central server held the official code, Git is <strong>distributed</strong>. Every developer has a complete copy of the entire repository &mdash; every file, every change, the full history. You can work offline. You can branch &mdash; create your own parallel version &mdash; almost instantly.</p></div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -20 680 330"><style>text{font-family:'JetBrains Mono',monospace; }</style><text x="160" y="5" text-anchor="middle" font-size="14" font-weight="bold" fill="#FFFFFF">OLD MODEL (CVS/SVN)</text><text x="510" y="5" text-anchor="middle" font-size="14" font-weight="bold" fill="#D69E2E">GIT (Distributed)</text><rect x="90" y="20" width="140" height="80" rx="10" fill="#FED7D7" stroke="#E53E3E" stroke-width="2"/><text fill="#1A202C" x="160" y="50" text-anchor="middle" font-size="14" font-weight="bold">CENTRAL</text><text fill="#2D3748" x="160" y="68" text-anchor="middle" font-size="12">SERVER</text><text x="160" y="85" text-anchor="middle" font-size="12" fill="#2D3748">(single source)</text><rect x="60" y="130" width="50" height="35" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#2D3748" x="85" y="152" text-anchor="middle" font-size="12">A</text><rect x="135" y="130" width="50" height="35" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#2D3748" x="160" y="152" text-anchor="middle" font-size="12">B</text><rect x="210" y="130" width="50" height="35" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/><text fill="#2D3748" x="235" y="152" text-anchor="middle" font-size="12">C</text><line x1="85" y1="130" x2="130" y2="100" stroke="#4A5568" stroke-width="1.5"/><line x1="160" y1="130" x2="160" y2="100" stroke="#4A5568" stroke-width="1.5"/><line x1="235" y1="130" x2="190" y2="100" stroke="#4A5568" stroke-width="1.5"/><text x="160" y="185" text-anchor="middle" font-size="12" fill="#E2E8F0">(partial copies)</text><text x="160" y="200" text-anchor="middle" font-size="12" fill="#E2E8F0">Server dies = disaster</text><rect x="410" y="20" width="90" height="55" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text fill="#1A202C" x="455" y="42" text-anchor="middle" font-size="12" font-weight="bold">Full</text><text fill="#2D3748" x="455" y="58" text-anchor="middle" font-size="12">Copy A</text><rect x="530" y="20" width="90" height="55" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text fill="#1A202C" x="575" y="42" text-anchor="middle" font-size="12" font-weight="bold">Full</text><text fill="#2D3748" x="575" y="58" text-anchor="middle" font-size="12">Copy B</text><rect x="410" y="100" width="90" height="55" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text fill="#1A202C" x="455" y="122" text-anchor="middle" font-size="12" font-weight="bold">Full</text><text fill="#2D3748" x="455" y="138" text-anchor="middle" font-size="12">Copy C</text><rect x="530" y="100" width="90" height="55" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="2"/><text fill="#1A202C" x="575" y="122" text-anchor="middle" font-size="12" font-weight="bold">Full</text><text fill="#2D3748" x="575" y="138" text-anchor="middle" font-size="12">Copy D</text><line x1="500" y1="47" x2="530" y2="47" stroke="#D69E2E" stroke-width="2"/><line x1="500" y1="127" x2="530" y2="127" stroke="#D69E2E" stroke-width="2"/><line x1="455" y1="75" x2="455" y2="100" stroke="#D69E2E" stroke-width="2"/><line x1="575" y1="75" x2="575" y2="100" stroke="#D69E2E" stroke-width="2"/><text x="515" y="82" text-anchor="middle" font-size="12" fill="#D69E2E">merge</text><text x="515" y="175" text-anchor="middle" font-size="12" fill="#E2E8F0">(every copy is complete)</text><text x="515" y="192" text-anchor="middle" font-size="12" fill="#E2E8F0">No single point of failure</text><line x1="320" y1="10" x2="320" y2="210" stroke="#E2E8F0" stroke-width="2" stroke-dasharray="4"/><rect x="90" y="230" width="500" height="60" rx="10" fill="#D69E2E" stroke="#2D3748" stroke-width="2"/><text x="340" y="250" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">GITHUB (2008) -- Making Git Social</text><text x="340" y="273" text-anchor="middle" font-size="12" fill="#FEFCBF">Fork &#x2192; Change &#x2192; Pull Request &#x2192; Review &#x2192; Merge</text></svg>
+    <p class="diagram-caption">Centralized vs. Distributed Version Control, and GitHub's social layer</p>
+  </div>
+
+    <div class="css-narration"><p>Think of it as a magical notebook where every change is saved forever, you can rewind to any previous version, and a thousand people can write in their own copies simultaneously, then merge all their work together.<br><br>But Git was a command-line tool designed for kernel hackers. It was powerful and notoriously unfriendly. The tool that made Git accessible to everyone came three years later.</p></div>
+
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p9_06_github_scene.png" alt="p9_06_github_scene">
+</div>
+
+    <div class="css-narration"><p>In April 2008, <strong>GitHub</strong> launched. Founded by Tom Preston-Werner, Chris Wanstrath, PJ Hyett, and Scott Chacon, GitHub wrapped Git in a web interface and added social features: <strong>pull requests</strong> (a way to propose changes to someone else's code), issue tracking, code review, and developer profiles that functioned like resumes.<br><br>GitHub turned open-source contribution from an insider activity into something anyone could do. See a bug? Fork it, fix it, submit a pull request. The entire process is transparent, documented, and public.</p></div>
+
+    <div class="css-narration css-narration--accent"><p>By 2018, when Microsoft acquired GitHub for <strong>$7.5 billion</strong>, the platform hosted over 28 million developers and 85 million repositories. It had become the de facto library of the world's code &mdash; a single place where millions of software projects could be discovered, studied, copied, and improved.</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p9_08b_robot_github.png" alt="GITBOT: Three hundred million repos. Code shared worldwide.">
+  <span class="ocr-expected" data-speaker="GITBOT">Three hundred million repos. Code shared worldwide.</span>
+</div>
+
+    <div class="css-narration"><p><strong>Big Idea:</strong> Git and GitHub solved the hardest problem in collaborative creation: how to let thousands of people edit the same thing at the same time without chaos. In doing so, they created the world's largest library of code &mdash; open, searchable, forkable. That library would soon become something no one anticipated: a training dataset for artificial intelligence.</p></div>
+
+    <div class="css-narration"><p><em>Think About It:</em> GitHub turned code contribution into a social activity, complete with profiles and contribution histories. How does making collaboration visible and public change the way people work? Does it encourage more participation, or does it create new kinds of pressure?</p></div>
+
+  <div class="lab-link">
+  <div class="lab-link-icon">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+    </svg>
+  </div>
+  <div class="lab-link-content">
+    <strong class="lab-link-title">Try It Yourself</strong>
+    <p class="lab-link-desc">Git lives in Layer 4 of the full computing stack. Explore all 8 layers in the Full Stack Elevator -- from physics to swarms, including the web protocols and networking from this issue.</p>
+    <a href="../../../interactive/full_stack_elevator.html" class="lab-link-btn">Open Full Stack Elevator &rarr;</a>
+  </div>
+</div>
+
+    <div class="css-hook">The web connected humanity's documents. Open source connected humanity's code. Wikipedia connected humanity's knowledge. Git and GitHub made it all searchable, forkable, and available at scale. What if a machine could learn from it all? &#x25B6;</div>
+  </section>
+
+  <section class="page-section" data-page="10">
+    <div class="page-header">
+      <div class="issue-label">Issue 05 · Page 10</div>
+      <div class="page-title">The Ocean of Data</div>
+    </div>
+  <div class="panel" style="aspect-ratio: 768/320;">
+  <img src="images/p10_01_ocean_establishing.png" alt="A vast ocean made of flowing text, code, and data stretching to the horizon, with a small robot on the shore looking out">
+</div>
+
+    <div class="panel-row">
+<div class="panel panel--bubble" style="flex: 2; aspect-ratio: 286/512;">
+  <img src="images/p10_02_robot_ocean.png" alt="LIGHTHOUSE-BOT: They gave it all away. They built the ocean.">
+  <span class="ocr-expected" data-speaker="LIGHTHOUSE-BOT">They gave it all away. They built the ocean.</span>
+</div>
+  <div class="css-narration" style="flex: 3;"><p>Look at what happened in just fifteen years.<br><br>Berners-Lee gave away the web. Torvalds gave away an operating system. Wales gave away an encyclopedia. Thousands of developers gave away their code.<br><br>Every one of them chose <strong>sharing over control</strong>, openness over ownership.</p></div>
+    </div>
+
+    <div class="css-narration css-narration--accent"><p>And without knowing it, they built something extraordinary: the <strong>largest collection of human knowledge and human-written code ever assembled</strong>. Billions of web pages. Hundreds of millions of repositories. The sum total of what humanity knows and builds &mdash; connected and searchable.</p></div>
+
+    <div class="panel-row">
+<div class="panel" style="flex: 3; aspect-ratio: 428/576;">
+  <img src="images/p10_05_openness_left.png" alt="A cascade of hands passing gifts: the Web, Linux, Wikipedia, and GitHub, each enabling the next">
+</div>
+  <div class="css-narration" style="flex: 2;"><p>Tim Berners-Lee could have patented the web. <strong>He gave it to the world.</strong><br><br>Linus Torvalds could have kept Linux proprietary. <strong>He released it under the GPL.</strong><br><br>CERN could have charged licensing fees. <strong>They placed HTTP and HTML in the public domain.</strong><br><br>Wikipedia could have been expert-only. <strong>It opened the door to everyone.</strong><br><br>GitHub could have kept repos private by default. <strong>It made open source the norm.</strong></p></div>
+    </div>
+
+    <div class="svg-diagram">
+    <svg viewBox="0 -21 680 581"><style>.year{font-size:13px; font-weight:bold; } .label{font-size:12px} .note{font-size:12px; } text{font-family:'JetBrains Mono',monospace; font-weight:bold; }</style><text x="340" y="5" text-anchor="middle" font-size="16" font-weight="bold" fill="#D69E2E">THE CASCADE OF OPENNESS</text><line x1="100" y1="25" x2="100" y2="450" stroke="#D69E2E" stroke-width="2.5" stroke-linecap="round"/><circle cx="100" cy="40" r="6" fill="#D69E2E"/><text fill="#E2E8F0" x="120" y="38" class="year">1985</text><text fill="#E2E8F0" x="120" y="53" class="label">Perlman's STP enables scalable network bridges</text><circle cx="100" cy="80" r="6" fill="#D69E2E"/><text fill="#E2E8F0" x="120" y="78" class="year">1989</text><text fill="#E2E8F0" x="120" y="93" class="label">Berners-Lee gives away the Web (HTML, HTTP, URLs)</text><circle cx="100" cy="120" r="6" fill="#D69E2E"/><text fill="#E2E8F0" x="120" y="118" class="year">1991</text><text fill="#E2E8F0" x="120" y="133" class="label">Torvalds gives away Linux (GPL)</text><circle cx="100" cy="160" r="6" fill="#D69E2E"/><text fill="#E2E8F0" x="120" y="158" class="year">1993</text><text fill="#E2E8F0" x="120" y="173" class="label">CERN releases WWW into the public domain</text><circle cx="100" cy="200" r="6" fill="#D69E2E"/><text fill="#E2E8F0" x="120" y="198" class="year">1997</text><text fill="#E2E8F0" x="120" y="213" class="label">Raymond explains WHY openness wins</text><circle cx="100" cy="240" r="6" fill="#D69E2E"/><text fill="#E2E8F0" x="120" y="238" class="year">1998</text><text fill="#E2E8F0" x="120" y="253" class="label">Google organizes the open web</text><text fill="#E2E8F0" x="140" y="268" class="note">Baker shepherds Mozilla &#x2192; Firefox (2004)</text><circle cx="100" cy="310" r="6" fill="#D69E2E"/><text fill="#E2E8F0" x="120" y="308" class="year">2001</text><text fill="#E2E8F0" x="120" y="323" class="label">Wikipedia opens knowledge to everyone</text><circle cx="100" cy="355" r="6" fill="#D69E2E"/><text fill="#E2E8F0" x="120" y="353" class="year">2005</text><text fill="#E2E8F0" x="120" y="368" class="label">Git enables distributed collaboration</text><circle cx="100" cy="400" r="6" fill="#D69E2E"/><text fill="#E2E8F0" x="120" y="398" class="year">2008</text><text fill="#E2E8F0" x="120" y="413" class="label">GitHub makes code sharing social</text><polygon points="100,450 94,440 106,440" fill="#D69E2E"/><rect x="50" y="465" width="580" height="60" rx="10" fill="#D69E2E" stroke="#2D3748" stroke-width="2"/><text x="340" y="488" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">THE RESULT: An ocean of connected data</text><text x="340" y="508" text-anchor="middle" font-size="12" fill="#FEFCBF" textLength="548" lengthAdjust="spacingAndGlyphs">Billions of pages, millions of repos &mdash; the sum of human knowledge online</text></svg>
+    <p class="diagram-caption">The Cascade of Openness: each act of sharing enabled the next</p>
+  </div>
+
+    <div class="css-narration"><p>But this story is not purely heroic. The connected world was shaped by who had access: overwhelmingly English-speaking, Western, educated, and male. The "openness" was real, but it reflected the demographics of its creators. And the cumulative result &mdash; this ocean of human-created content &mdash; would soon be used in ways those creators <strong>never imagined and never consented to</strong>.</p></div>
+
+  <div class="panel" style="aspect-ratio: 768/256;">
+  <img src="images/p10_08_question_scene.png" alt="A vast data ocean at night with a large mechanical shape rising on the horizon, suggesting something new emerging from the collected knowledge">
+</div>
+
+    <div class="css-narration css-narration--accent"><p><strong>Big Idea:</strong> The connected world was built by people who chose sharing over hoarding, openness over control. In doing so, they unknowingly created something beyond any individual's imagination: the <strong>training data for artificial intelligence</strong>. The web, open source, Wikipedia, and GitHub did not just connect humanity. They created the raw material for machines that learn. Whether the creators would have consented to that use is an open question.</p></div>
+
+    <div class="css-narration"><p><em>Think About It:</em> Every piece of text on the web, every line of code on GitHub, every Wikipedia article was created by a human being. When an AI trains on billions of web pages, is it "learning" the same way a student learns from a textbook? Who owns the knowledge that billions of people contributed freely? Who owns the patterns a machine discovers in that knowledge? And did the people who built the open web consent to their work being used this way?</p></div>
+
+  <div class="panel panel--bubble" style="aspect-ratio: 640/384;">
+  <img src="images/p10_10b_robot_connected.png" alt="WEBBOT: Connected. Open. Shared. Now what do we build?">
+  <span class="ocr-expected" data-speaker="WEBBOT">Connected. Open. Shared. Now what do we build?</span>
+</div>
+
+  <details class="references-section">
+  <summary>References &amp; Further Reading</summary>
+  <ul class="ref-list">
+    <li><span class="ref-type">paper</span> <a href="https://www.w3.org/History/1989/proposal.html" target="_blank" rel="noopener">Information Management: A Proposal.</a> &mdash; Berners-Lee, Tim</li>
+    <li><span class="ref-type">book</span> <em>Weaving the Web: The Original Design and Ultimate Destiny of the World Wide Web.</em> &mdash; Berners-Lee, Tim</li>
+    <li><span class="ref-type">book</span> <em>Just for Fun: The Story of an Accidental Revolutionary.</em> &mdash; Torvalds, Linus and Diamond, David</li>
+    <li><span class="ref-type">paper</span> <a href="http://www.catb.org/~esr/writings/cathedral-bazaar/" target="_blank" rel="noopener">The Cathedral and the Bazaar.</a> &mdash; Raymond, Eric S</li>
+    <li><span class="ref-type">paper</span> <a href="http://infolab.stanford.edu/~backrub/google.html" target="_blank" rel="noopener">The Anatomy of a Large-Scale Hypertextual Web Search Engine.</a> &mdash; Page, Lawrence and Brin, Sergey</li>
+    <li><span class="ref-type">book</span> <em>In the Plex: How Google Thinks, Works, and Shapes Our Lives.</em> &mdash; Levy, Steven</li>
+    <li><span class="ref-type">book</span> <em>The Wikipedia Revolution: How a Bunch of Nobodies Created the World's Greatest Encyclopedia.</em> &mdash; Lih, Andrew</li>
+    <li><span class="ref-type">book</span> <em>Dot.con: How America Lost Its Mind and Money in the Internet Age.</em> &mdash; Cassidy, John</li>
+    <li><span class="ref-type">book</span> <a href="https://git-scm.com/book" target="_blank" rel="noopener">Pro Git.</a> &mdash; Chacon, Scott and Straub, Ben</li>
+    <li><span class="ref-type">book</span> <em>Internet encyclopaedias go head to head.</em> &mdash; Giles, Jim</li>
+    <li><span class="ref-type">book</span> <em>Netscape Time: The Making of the Billion-Dollar Start-Up That Took On Microsoft.</em> &mdash; Clark, Jim</li>
+    <li><span class="ref-type">paper</span> <a href="https://home.cern/science/computing/birth-web/short-history-web" target="_blank" rel="noopener">A Short History of the Web.</a> &mdash; CERN</li>
+    <li><span class="ref-type">video</span> <em>How Git Works</em> &mdash; Computerphile (YouTube)</li>
+    <li><span class="ref-type">book</span> <em>Interconnections: Bridges, Routers, Switches, and Internetworking Protocols.</em> &mdash; Perlman, Radia</li>
+    <li><span class="ref-type">paper</span> <a href="https://www.mozilla.org/en-US/about/manifesto/" target="_blank" rel="noopener">The Mozilla Manifesto.</a> &mdash; Baker, Mitchell</li>
+    <li><span class="ref-type">paper</span> <em>Wikipedia Survey.</em> &mdash; Glott, Ruediger, Philipp Schmidt, and Rishab Ghosh</li>
+  </ul>
+</details>
+
+    <div class="css-hook">For sixty years, humans wrote rules for machines. Then three stubborn researchers proved that machines could discover their own rules — if you gave them enough examples and enough compute. The age of machine learning begins. Next: Issue 6 — "Machines That Learn." &#x25B6;</div>
+  </section>
+
+  <div id="page-announce" class="sr-only" aria-live="polite" role="status"></div>
+  <div class="page-nav" role="navigation" aria-label="Page navigation">
+    <button id="prevBtn" onclick="navigate(-1)" aria-label="Previous page">&larr; Previous</button>
+    <div class="page-nav-center">
+      <span class="page-indicator">
+        Page <span id="pageNum">1</span> of 10
+      </span>
+      <div class="progress-dots" id="progressDots" role="tablist" aria-label="Pages"></div>
+    </div>
+    <button id="nextBtn" onclick="navigate(1)" aria-label="Next page">Next &rarr;</button>
+  </div>
+</div>
+
+<script>
+let currentPage = 1;
+const totalPages = 10;
+const sections = document.querySelectorAll('.page-section');
+const prevIssueUrl = '../issue_04_v2/index.html#page-10';
+const nextIssueUrl = '../issue_06_v2/index.html';
+const liveRegion = document.getElementById('page-announce');
+
+/* Generate progress dots */
+const dotsContainer = document.getElementById('progressDots');
+for (let i = 1; i <= totalPages; i++) {
+  const dot = document.createElement('button');
+  dot.className = 'progress-dot' + (i === 1 ? ' active' : '');
+  dot.setAttribute('aria-label', 'Page ' + i);
+  dot.setAttribute('role', 'tab');
+  dot.setAttribute('aria-selected', i === 1 ? 'true' : 'false');
+  (function(page) { dot.addEventListener('click', function() { showPage(page); }); })(i);
+  dotsContainer.appendChild(dot);
+}
+
+function showPage(n, updateHash) {
+  sections.forEach(s => s.classList.remove('active'));
+  const target = document.querySelector('[data-page="' + n + '"]');
+  if (target) {
+    target.classList.add('active');
+    target.setAttribute('tabindex', '-1');
+    target.focus({preventScroll: true});
+  }
+  currentPage = n;
+  document.getElementById('pageNum').textContent = n;
+  document.getElementById('prevBtn').disabled = (n <= 1 && !prevIssueUrl);
+  document.getElementById('nextBtn').disabled = (n >= totalPages && !nextIssueUrl);
+
+  /* Update progress dots */
+  document.querySelectorAll('.progress-dot').forEach(function(d, idx) {
+    var page = idx + 1;
+    d.classList.toggle('active', page === n);
+    d.classList.toggle('visited', page < n);
+    d.setAttribute('aria-selected', page === n ? 'true' : 'false');
+  });
+
+  /* Announce page change for screen readers */
+  if (liveRegion) liveRegion.textContent = 'Page ' + n + ' of ' + totalPages;
+
+  if (updateHash !== false) history.replaceState(null, '', '#page-' + n);
+  window.scrollTo(0, 0);
+}
+
+function navigate(dir) {
+  const next = currentPage + dir;
+  if (next >= 1 && next <= totalPages) {
+    showPage(next);
+  } else if (next < 1 && prevIssueUrl) {
+    window.location.href = prevIssueUrl;
+  } else if (next > totalPages && nextIssueUrl) {
+    window.location.href = nextIssueUrl;
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+});
+
+/* Image loading: shimmer → fade in */
+document.querySelectorAll('.panel img').forEach(function(img) {
+  function onLoad() {
+    img.classList.add('loaded');
+    var panel = img.closest('.panel');
+    if (panel) panel.classList.add('img-loaded');
+  }
+  if (img.complete && img.naturalWidth > 0) {
+    onLoad();
+  } else {
+    img.addEventListener('load', onLoad);
+    img.addEventListener('error', function() {
+      img.style.opacity = '1';
+      var panel = img.closest('.panel');
+      if (panel) panel.classList.add('img-loaded');
+    });
+  }
+});
+
+function pageFromHash() {
+  const m = location.hash.match(/^#page-(\d+)$/);
+  return m ? Math.max(1, Math.min(totalPages, parseInt(m[1]))) : 1;
+}
+window.addEventListener('hashchange', function() { showPage(pageFromHash()); });
+showPage(pageFromHash(), false);
+</script>
+</body>
+</html>

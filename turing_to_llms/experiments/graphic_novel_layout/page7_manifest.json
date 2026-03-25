@@ -1,0 +1,96 @@
+{
+  "issue": 1,
+  "page": 7,
+  "title": "The Thing That Cannot Be Done",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p7_01_scribble_serious",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 3,
+      "gen_width": 448,
+      "gen_height": 576,
+      "prompt": "Scribble, a small cute robot, with a tiny raised hand as if saying 'stop and listen', standing against a dark moody background with faint red mathematical symbols floating in shadow, serious atmosphere. A white speech bubble with black outline above. Inside the bubble the text reads: \"Some questions are IMPOSSIBLE. Provably.\" Comic book style, warm editorial illustration with ink lines and watercolor washes, dramatic lighting",
+      "bubble_text": "Some questions are IMPOSSIBLE. Provably.",
+      "speaker": "SCRIBBLE"
+    },
+    {
+      "id": "p7_02_narration_problem",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 3,
+      "text": "Can you build a SINGLE machine that works for ANY program and ANY input, and tells you — before running it — whether that program will eventually stop or run forever?<br><br>This is the <strong>Halting Problem</strong>: given a program <em>P</em> and an input <em>I</em>, will <em>P</em> eventually halt when run on <em>I</em>?",
+      "style": "default"
+    },
+    {
+      "id": "p7_03_narration_seems",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "It seems like this should be solvable. Surely a sufficiently clever analyzer could look at any program and figure out whether it loops forever. Right?<br><br>Turing proved the answer is <strong>no</strong>. No such universal analyzer can exist.",
+      "style": "default"
+    },
+    {
+      "id": "p7_04_halting_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-10 -30 700 490\"><rect x=\"5\" y=\"-15\" width=\"670\" height=\"460\" rx=\"12\" fill=\"#1A202C\" stroke=\"#4A5568\" stroke-width=\"1.5\"/><text x=\"340\" y=\"12\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"18\" font-weight=\"bold\" fill=\"#FFFFFF\">THE HALTING PROBLEM — Proof by Contradiction</text><rect x=\"180\" y=\"30\" width=\"320\" height=\"35\" rx=\"8\" fill=\"#2D3748\" stroke=\"#D69E2E\" stroke-width=\"1.5\"/><text x=\"340\" y=\"53\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\" fill=\"#D69E2E\">Suppose H exists (a halting detector)</text><line x1=\"340\" y1=\"65\" x2=\"340\" y2=\"85\" stroke=\"#718096\" stroke-width=\"1.5\"/><polygon points=\"340,85 335,78 345,78\" fill=\"#718096\"/><rect x=\"150\" y=\"88\" width=\"380\" height=\"35\" rx=\"8\" fill=\"#2D3748\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"340\" y=\"111\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\" fill=\"#FFFFFF\">Build D: \"Do the OPPOSITE of what H says\"</text><line x1=\"340\" y1=\"123\" x2=\"340\" y2=\"143\" stroke=\"#718096\" stroke-width=\"1.5\"/><polygon points=\"340,143 335,136 345,136\" fill=\"#718096\"/><rect x=\"180\" y=\"146\" width=\"320\" height=\"35\" rx=\"8\" fill=\"#2D3748\" stroke=\"#805AD5\" stroke-width=\"1.5\"/><text x=\"340\" y=\"169\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" font-weight=\"bold\" fill=\"#FFFFFF\">Run D on itself. Ask H:</text><line x1=\"250\" y1=\"181\" x2=\"200\" y2=\"210\" stroke=\"#718096\" stroke-width=\"1.5\"/><polygon points=\"200,210 200,202 208,207\" fill=\"#718096\"/><line x1=\"430\" y1=\"181\" x2=\"480\" y2=\"210\" stroke=\"#718096\" stroke-width=\"1.5\"/><polygon points=\"480,210 472,207 480,202\" fill=\"#718096\"/><rect x=\"80\" y=\"213\" width=\"200\" height=\"30\" rx=\"6\" fill=\"#2D3748\" stroke=\"#4A9BD9\" stroke-width=\"1.5\"/><text x=\"180\" y=\"233\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#4A9BD9\">H says \"halts\"</text><rect x=\"400\" y=\"213\" width=\"200\" height=\"30\" rx=\"6\" fill=\"#2D3748\" stroke=\"#48BB78\" stroke-width=\"1.5\"/><text x=\"500\" y=\"233\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" font-weight=\"bold\" fill=\"#48BB78\">H says \"loops\"</text><line x1=\"180\" y1=\"243\" x2=\"180\" y2=\"270\" stroke=\"#718096\" stroke-width=\"1.5\"/><polygon points=\"180,270 175,263 185,263\" fill=\"#718096\"/><line x1=\"500\" y1=\"243\" x2=\"500\" y2=\"270\" stroke=\"#718096\" stroke-width=\"1.5\"/><polygon points=\"500,270 495,263 505,263\" fill=\"#718096\"/><rect x=\"80\" y=\"273\" width=\"200\" height=\"30\" rx=\"6\" fill=\"#2D3748\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"180\" y=\"293\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#FED7D7\">D loops forever</text><rect x=\"400\" y=\"273\" width=\"200\" height=\"30\" rx=\"6\" fill=\"#2D3748\" stroke=\"#E53E3E\" stroke-width=\"1.5\"/><text x=\"500\" y=\"293\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#FED7D7\">D halts</text><line x1=\"180\" y1=\"303\" x2=\"180\" y2=\"330\" stroke=\"#E53E3E\" stroke-width=\"2\"/><polygon points=\"180,330 175,323 185,323\" fill=\"#E53E3E\"/><line x1=\"500\" y1=\"303\" x2=\"500\" y2=\"330\" stroke=\"#E53E3E\" stroke-width=\"2\"/><polygon points=\"500,330 495,323 505,323\" fill=\"#E53E3E\"/><rect x=\"100\" y=\"333\" width=\"160\" height=\"30\" rx=\"6\" fill=\"#E53E3E\"/><text x=\"180\" y=\"353\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#fff\">CONTRADICTION!</text><rect x=\"420\" y=\"333\" width=\"160\" height=\"30\" rx=\"6\" fill=\"#E53E3E\"/><text x=\"500\" y=\"353\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#fff\">CONTRADICTION!</text><line x1=\"180\" y1=\"363\" x2=\"340\" y2=\"385\" stroke=\"#E53E3E\" stroke-width=\"2\"/><line x1=\"500\" y1=\"363\" x2=\"340\" y2=\"385\" stroke=\"#E53E3E\" stroke-width=\"2\"/><rect x=\"205\" y=\"385\" width=\"270\" height=\"30\" rx=\"8\" fill=\"#E53E3E\" stroke=\"#fff\" stroke-width=\"1.5\"/><text x=\"340\" y=\"405\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"14\" font-weight=\"bold\" fill=\"#fff\">H cannot exist. UNDECIDABLE.</text></svg>",
+      "caption": "The Halting Problem: a proof by contradiction that no universal halting detector can exist"
+    },
+    {
+      "id": "p7_05_narration_proof",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Construct a devious program <strong>D</strong>: it asks H whether a program halts when given <em>itself</em> as input — then <strong>does the opposite</strong>.<br><br>Run D on itself. If H says \"halts\" — D loops forever. If H says \"loops\" — D halts. <strong>Either way, H gives the wrong answer.</strong> Therefore H cannot exist.",
+      "style": "default"
+    },
+    {
+      "id": "p7_06_narration_important",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Important:</strong> This does NOT mean you can never tell if a specific program halts. A simple <code>print(\"hello\")</code> obviously halts. A <code>while True</code> loop obviously doesn't. The halting problem says there is no SINGLE algorithm that correctly answers for <em>every</em> possible program. The impossibility is about <strong>universality</strong>.",
+      "style": "default"
+    },
+    {
+      "id": "p7_07_scribble_wall",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "Scribble, a small cute robot, holding up a tiny octagonal stop sign with both stubby hands, standing in front of a massive brick wall that stretches infinitely in both directions with the word 'UNDECIDABLE' etched into the bricks in fading letters, dramatic chiaroscuro lighting with deep shadows. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Not 'we haven't solved it.' We PROVED we can't.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Not 'we haven't solved it.' We PROVED we can't.",
+      "speaker": "SCRIBBLE"
+    },
+    {
+      "id": "p7_07_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Some problems are not merely unsolved — they are provably <em>unsolvable</em>. The Halting Problem was the first. Turing didn't just fail to find a solution; he proved that <strong>no solution can ever exist</strong>, for any machine, no matter how advanced. Computation has hard, permanent limits."
+    },
+    {
+      "id": "p7_09_mirror",
+      "type": "image",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 384,
+      "gen_height": 384,
+      "prompt": "Abstract illustration of two mirrors facing each other creating an infinite recursive reflection, but inside each reflection a tiny robot looks at itself looking at itself, the recursion fading into deep darkness, paradox visualized as a visual loop, the phrase 'This sentence is false' barely visible in fading text deep in the reflection, moody philosophical atmosphere, warm editorial illustration with ink lines and watercolor washes, deep blue and crimson tones",
+      "overlays": []
+    },
+    {
+      "id": "p7_09_tryit",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 1,
+      "text": "<strong>Think about it:</strong> The proof uses <em>diagonalization</em> — creating something that deliberately contradicts any attempt to account for it. Like a student who always does the opposite of what the teacher predicts. Can you think of other paradoxes? <em>(Hint: \"This sentence is false.\")</em>",
+      "style": "default"
+    },
+    {
+      "id": "p7_10_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Turing wasn't the only one discovering limits. A few years earlier, an Austrian logician had dropped an even bigger bombshell on mathematics itself..."
+    }
+  ]
+}

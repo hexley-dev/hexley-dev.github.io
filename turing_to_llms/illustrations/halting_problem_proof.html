@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Halting Problem — A Visual Proof</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #E53E3E;
+  --bg: #FAF9F6;
+  --dark: #2D3748;
+  --mid: #4A5568;
+  --light: #718096;
+  --muted: #A0AEC0;
+  --border: #E2E8F0;
+  --card: #F7FAFC;
+  --panel: #1A202C;
+  --hand: 'Caveat', 'Patrick Hand', cursive;
+  --body: 'Patrick Hand', cursive;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --halts: #48BB78;
+  --loops: #E53E3E;
+  --paradox-bg: #FED7D7;
+  --spark: #FEFCBF;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--dark);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(229,62,62,.03) 0%, transparent 55%),
+    radial-gradient(circle at 75% 75%, rgba(246,173,85,.03) 0%, transparent 55%);
+}
+
+/* Header */
+.illustration-header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 32px 24px 8px;
+}
+
+.back-link {
+display: inline-block;
+  font-family: var(--body);
+  font-size: 14px;
+  color: var(--accent);
+  text-decoration: none;
+  margin-bottom: 12px;
+  transition: opacity 0.15s;
+}
+.back-link:hover { opacity: 0.7; transition: opacity 0.15s; }
+
+.illustration-header h1 {
+  font-family: var(--hand);
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--panel);
+  line-height: 1.15;
+  margin: 0;
+}
+
+.illustration-header .subtitle {
+  font-family: var(--body);
+  font-size: 18px;
+  color: var(--mid);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.illustration-header .companion-note {
+  font-family: var(--body);
+  font-size: 13px;
+  color: #718096;
+  margin-top: 10px;
+}
+
+.title-bar {
+  width: 80px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 16px auto 0;
+}
+
+/* Container */
+.proof-container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 16px 16px 48px;
+}
+
+/* Panel cards */
+.panel-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  padding: 24px 24px 20px;
+  position: relative;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.panel-number {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--hand);
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.panel-title {
+  font-family: var(--hand);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--panel);
+  line-height: 1.2;
+}
+
+.panel-caption {
+  font-family: var(--body);
+  font-size: 16.5px;
+  color: var(--mid);
+  line-height: 1.55;
+  margin-top: 14px;
+  max-width: 680px;
+}
+
+.panel-caption strong { color: var(--panel); }
+.panel-caption em { color: var(--accent); font-style: italic; }
+
+.diagram-box {
+  margin: 14px auto 0;
+  max-width: 700px;
+}
+
+/* Connecting arrows between panels */
+.connector {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  line-height: 0;
+}
+
+/* Code box */
+.code-inline {
+  font-family: var(--mono);
+  font-size: 14px;
+  background: var(--panel);
+  color: #48BB78;
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Big idea callout */
+.bigidea {
+  margin: 16px auto 0;
+  padding: 16px 20px;
+  border-left: 4px solid var(--accent);
+  background: rgba(229,62,62,.07);
+  border-radius: 0 10px 10px 0;
+  font-size: 15.5px;
+  line-height: 1.6;
+  max-width: 640px;
+  font-family: var(--body);
+  color: var(--dark);
+}
+
+/* Footer */
+.footer-note {
+  text-align: center;
+  font-family: var(--body);
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
+  padding: 0 24px;
+}
+
+/* SVG helpers */
+svg text { user-select: none; }
+
+/* Print styles */
+@media print {
+  body { background: #fff; }
+  .panel-card { break-inside: avoid; page-break-inside: avoid; border-color: #ccc; }
+  .connector svg { height: 24px; }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .illustration-header h1 { font-size: 32px; }
+  .illustration-header .subtitle { font-size: 16px; }
+  .panel-card { padding: 16px 14px 14px; }
+  .panel-title { font-size: 22px; }
+  .panel-caption { font-size: 15px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="illustration-header">
+  <a class="back-link" href="../issues/v2/issue_01/index.html">&larr; Back to Issue 1: The Idea That Started Everything</a>
+  <h1>The Halting Problem</h1>
+  <p class="subtitle">A visual proof that some questions can never be answered</p>
+  <p class="companion-note">Illustration companion to Issue 1: The Idea That Started Everything</p>
+  <div class="title-bar"></div>
+</header>
+
+<div class="proof-container">
+
+<!-- ===== PANEL 1: THE QUESTION ===== -->
+<article class="panel-card">
+  <div class="panel-header">
+    <div class="panel-number">1</div>
+    <h2 class="panel-title">The Question</h2>
+  </div>
+
+  <div class="diagram-box">
+    <svg viewBox="0 -20 700 380" style="width:100%" aria-label="A mysterious Oracle machine with input and output, and Tera the robot asking if such a machine can exist.">
+      <defs>
+        <filter id="oracleGlow">
+          <feGaussianBlur stdDeviation="4" result="blur"/>
+          <feFlood flood-color="#E53E3E" flood-opacity="0.35" result="color"/>
+          <feComposite in="color" in2="blur" operator="in" result="shadow"/>
+          <feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Title question -->
+      <text x="350" y="6" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#4A5568;font-weight:700">Can we build a machine that predicts if any program will halt?</text>
+
+      <!-- Oracle box -->
+      <rect x="180" y="40" width="340" height="120" rx="12" fill="#1A202C" stroke="#E53E3E" stroke-width="2.5" filter="url(#oracleGlow)"/>
+      <text x="350" y="72" text-anchor="middle" style="font-family:var(--hand);font-size:22px;fill:#E2E8F0;font-weight:700;letter-spacing:2px">HALTING ORACLE</text>
+      <text x="350" y="92" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#718096">the hypothetical machine</text>
+
+      <!-- Input slot -->
+      <rect x="220" y="108" width="120" height="36" rx="6" fill="#2D3748" stroke="#A0AEC0" stroke-width="1.2"/>
+      <text x="280" y="120" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#A0AEC0">INPUT SLOT</text>
+      <text x="280" y="136" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#E2E8F0">program + input</text>
+
+      <!-- Input arrow -->
+      <line x1="280" y1="175" x2="280" y2="160" stroke="#A0AEC0" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <polygon points="275,163 280,155 285,163" fill="#A0AEC0"/>
+      <text x="280" y="192" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">feed in any program</text>
+
+      <!-- Output lights -->
+      <!-- HALTS light -->
+      <circle cx="400" cy="126" r="14" fill="#1A202C" stroke="#48BB78" stroke-width="2"/>
+      <circle cx="400" cy="126" r="8" fill="#48BB78" opacity="0.8"/>
+      <text x="400" y="152" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#48BB78;font-weight:700">HALTS</text>
+
+      <!-- LOOPS light -->
+      <circle cx="470" cy="126" r="14" fill="#1A202C" stroke="#E53E3E" stroke-width="2"/>
+      <circle cx="470" cy="126" r="8" fill="#E53E3E" opacity="0.8"/>
+      <text x="470" y="152" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#E53E3E;font-weight:700">LOOPS</text>
+
+      <!-- Output arrows from lights -->
+      <line x1="400" y1="140" x2="400" y2="195" stroke="#48BB78" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <text x="370" y="212" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#48BB78">program finishes</text>
+
+      <line x1="470" y1="140" x2="470" y2="195" stroke="#E53E3E" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <text x="500" y="212" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#E53E3E">program runs forever</text>
+
+      <!-- Tera robot (thinking mouth) — speech bubble first -->
+      <rect x="55" y="218" width="280" height="38" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+      <path d="M90,256 L78,272 L110,256" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+      <line x1="91" y1="256" x2="109" y2="256" stroke="#fff" stroke-width="2.5"/>
+      <text x="195" y="242" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Let's assume YES and see what happens...</text>
+
+      <!-- Tera (thinking) -->
+      <g transform="translate(72,290) scale(0.55)">
+        <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+        <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+        <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+        <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+        <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+        <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+        <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+        <circle cx="4" cy="-7" r="3" fill="#4A9BD9"/>
+        <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+        <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+        <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+        <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+        <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+        <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+      </g>
+    </svg>
+  </div>
+</article>
+
+<!-- Connector arrow -->
+<div class="connector">
+  <svg aria-hidden="true" viewBox="0 0 40 32" width="40" height="32"><polygon points="12,4 28,4 28,16 34,16 20,30 6,16 12,16" fill="#E2E8F0"/></svg>
+</div>
+
+<!-- ===== PANEL 2: THE ASSUMPTION ===== -->
+<article class="panel-card">
+  <div class="panel-header">
+    <div class="panel-number">2</div>
+    <h2 class="panel-title">The Assumption</h2>
+  </div>
+
+  <div class="diagram-box">
+    <svg viewBox="0 -10 700 200" style="width:100%" aria-label="The Oracle as a function: oracle(program, input) returns HALTS or LOOPS.">
+      <!-- Caption at top -->
+      <text x="350" y="10" text-anchor="middle" style="font-family:var(--body);font-size:16px;fill:#4A5568">Suppose this machine exists. It <tspan style="font-weight:700">always</tspan> gives the correct answer.</text>
+
+      <!-- Input arrow -->
+      <rect x="50" y="68" width="130" height="52" rx="8" fill="#BEE3F8" stroke="#2D3748" stroke-width="1.5"/>
+      <text x="115" y="88" text-anchor="middle" style="font-family:var(--mono);font-size:12px;fill:#2D3748">program</text>
+      <text x="115" y="106" text-anchor="middle" style="font-family:var(--mono);font-size:12px;fill:#2D3748">input</text>
+
+      <!-- Arrow to oracle -->
+      <line x1="180" y1="94" x2="248" y2="94" stroke="#2D3748" stroke-width="2"/>
+      <polygon points="245,88 258,94 245,100" fill="#2D3748"/>
+
+      <!-- Oracle box -->
+      <rect x="260" y="56" width="180" height="76" rx="10" fill="#1A202C" stroke="#E53E3E" stroke-width="2"/>
+      <text x="350" y="84" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#E2E8F0;font-weight:700">ORACLE</text>
+      <text x="350" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#718096">oracle(program, input)</text>
+
+      <!-- Output arrows -->
+      <!-- HALTS branch -->
+      <line x1="440" y1="78" x2="510" y2="62" stroke="#48BB78" stroke-width="2"/>
+      <polygon points="507,55 520,60 510,67" fill="#48BB78"/>
+      <rect x="522" y="42" width="100" height="36" rx="8" fill="#C6F6D5" stroke="#48BB78" stroke-width="1.8"/>
+      <text x="572" y="66" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#276749;font-weight:700">HALTS</text>
+
+      <!-- LOOPS branch -->
+      <line x1="440" y1="110" x2="510" y2="126" stroke="#E53E3E" stroke-width="2"/>
+      <polygon points="507,121 520,128 510,133" fill="#E53E3E"/>
+      <rect x="522" y="110" width="100" height="36" rx="8" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.8"/>
+      <text x="572" y="134" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#9B2C2C;font-weight:700">LOOPS</text>
+
+      <!-- Functional notation -->
+      <text x="350" y="168" text-anchor="middle" style="font-family:var(--mono);font-size:13px;fill:#4A5568">oracle(P, I) = HALTS  or  LOOPS</text>
+      <text x="350" y="186" text-anchor="middle" style="font-family:var(--body);font-size:14px;fill:#718096">for every possible program P and input I</text>
+    </svg>
+  </div>
+
+  <p class="panel-caption">We <em>assume</em> the Oracle is perfect — it never makes a mistake. Now we'll use it as a building block inside a new machine.</p>
+</article>
+
+<!-- Connector arrow -->
+<div class="connector">
+  <svg aria-hidden="true" viewBox="0 0 40 32" width="40" height="32"><polygon points="12,4 28,4 28,16 34,16 20,30 6,16 12,16" fill="#E2E8F0"/></svg>
+</div>
+
+<!-- ===== PANEL 3: THE TRICK ===== -->
+<article class="panel-card">
+  <div class="panel-header">
+    <div class="panel-number">3</div>
+    <h2 class="panel-title">The Trick &mdash; Building the Paradox Machine</h2>
+  </div>
+
+  <p class="panel-caption" style="margin-top:0;margin-bottom:10px">Now we build a devious new machine called <strong>PARADOX</strong>. It takes a program as input, feeds that program <em>to itself</em> as both arguments, and then does the <em>opposite</em> of what the Oracle predicts.</p>
+
+  <div class="diagram-box">
+    <svg viewBox="0 -10 700 370" style="width:100%" aria-label="The PARADOX machine: feeds a program to itself through the Oracle, then does the opposite.">
+
+      <!-- PARADOX outer box -->
+      <rect x="60" y="10" width="580" height="340" rx="14" fill="#FED7D7" stroke="#E53E3E" stroke-width="2.5" stroke-dasharray="8,4"/>
+      <!-- Warning stripes (top-left corner) -->
+      <line x1="65" y1="10" x2="85" y2="10" stroke="#E53E3E" stroke-width="3" opacity="0.5"/>
+      <line x1="65" y1="16" x2="85" y2="16" stroke="#E53E3E" stroke-width="2" opacity="0.3"/>
+      <text x="350" y="38" text-anchor="middle" style="font-family:var(--hand);font-size:22px;fill:#9B2C2C;font-weight:700;letter-spacing:2px">PARADOX MACHINE</text>
+
+      <!-- Input: program -->
+      <rect x="90" y="60" width="120" height="42" rx="7" fill="#BEE3F8" stroke="#2D3748" stroke-width="1.5"/>
+      <text x="150" y="78" text-anchor="middle" style="font-family:var(--mono);font-size:12px;fill:#2D3748;font-weight:500">program</text>
+      <text x="150" y="94" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">(input)</text>
+
+      <!-- Fork: program copies itself -->
+      <line x1="210" y1="81" x2="265" y2="81" stroke="#2D3748" stroke-width="1.5"/>
+      <circle cx="265" cy="81" r="3" fill="#2D3748"/>
+      <!-- Branch up -->
+      <line x1="265" y1="81" x2="265" y2="61" stroke="#2D3748" stroke-width="1.5"/>
+      <line x1="265" y1="61" x2="310" y2="61" stroke="#2D3748" stroke-width="1.5"/>
+      <polygon points="307,56 317,61 307,66" fill="#2D3748"/>
+      <!-- Branch down -->
+      <line x1="265" y1="81" x2="265" y2="101" stroke="#2D3748" stroke-width="1.5"/>
+      <line x1="265" y1="101" x2="310" y2="101" stroke="#2D3748" stroke-width="1.5"/>
+      <polygon points="307,96 317,101 307,106" fill="#2D3748"/>
+
+      <!-- Copy label -->
+      <text x="266" y="120" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">copies itself!</text>
+
+      <!-- Oracle box (inside PARADOX) -->
+      <rect x="318" y="46" width="160" height="72" rx="8" fill="#1A202C" stroke="#E53E3E" stroke-width="1.8"/>
+      <text x="398" y="70" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#E2E8F0;font-weight:700">ORACLE</text>
+      <text x="398" y="90" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#718096">oracle(program, program)</text>
+      <!-- Input labels on Oracle -->
+      <text x="326" y="57" text-anchor="start" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">program</text>
+      <text x="326" y="112" text-anchor="start" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">input=program</text>
+
+      <!-- Oracle outputs -->
+      <!-- HALTS branch -->
+      <line x1="478" y1="68" x2="530" y2="68" stroke="#48BB78" stroke-width="2"/>
+      <polygon points="527,62 538,68 527,74" fill="#48BB78"/>
+
+      <!-- LOOPS branch -->
+      <line x1="478" y1="100" x2="530" y2="100" stroke="#E53E3E" stroke-width="2"/>
+      <polygon points="527,94 538,100 527,106" fill="#E53E3E"/>
+
+      <!-- IF/ELSE diamond area -->
+      <!-- "says HALTS" label -->
+      <text x="504" y="57" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#48BB78;font-weight:700">says HALTS</text>
+      <!-- "says LOOPS" label -->
+      <text x="504" y="115" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#E53E3E;font-weight:700">says LOOPS</text>
+
+      <!-- Response boxes -->
+      <!-- If HALTS -> LOOP FOREVER -->
+      <rect x="540" y="50" width="82" height="36" rx="6" fill="#E53E3E" stroke="#9B2C2C" stroke-width="1.5"/>
+      <text x="581" y="64" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#fff;font-weight:700">LOOP</text>
+      <text x="581" y="78" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#fff;font-weight:700">FOREVER</text>
+
+      <!-- If LOOPS -> HALT -->
+      <rect x="540" y="96" width="82" height="24" rx="6" fill="#48BB78" stroke="#276749" stroke-width="1.5"/>
+      <text x="581" y="113" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#fff;font-weight:700">HALT</text>
+
+      <!-- Divider line -->
+      <line x1="90" y1="148" x2="620" y2="148" stroke="#E53E3E" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/>
+
+      <!-- Explanation as pseudo-code -->
+      <text x="350" y="178" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#9B2C2C;font-weight:700">How PARADOX works:</text>
+
+      <!-- Pseudocode block -->
+      <rect x="140" y="194" width="420" height="154" rx="8" fill="#1A202C"/>
+      <text x="160" y="218" style="font-family:var(--mono);font-size:13px;fill:#48BB78;font-weight:500">function PARADOX(program):</text>
+      <text x="180" y="242" style="font-family:var(--mono);font-size:13px;fill:#E2E8F0">answer = oracle(program, program)</text>
+      <text x="180" y="266" style="font-family:var(--mono);font-size:13px;fill:#E2E8F0">if answer == <tspan fill="#48BB78">HALTS</tspan>:</text>
+      <text x="200" y="290" style="font-family:var(--mono);font-size:13px;fill:#E53E3E">loop_forever()</text>
+      <text x="180" y="314" style="font-family:var(--mono);font-size:13px;fill:#E2E8F0">if answer == <tspan fill="#E53E3E">LOOPS</tspan>:</text>
+      <text x="200" y="338" style="font-family:var(--mono);font-size:13px;fill:#48BB78">halt()</text>
+
+      <!-- Annotation (inside dark code block for contrast) -->
+      <text x="485" y="270" style="font-family:var(--body);font-size:12px;fill:#A0AEC0">do the</text>
+      <text x="485" y="286" style="font-family:var(--body);font-size:12px;fill:#A0AEC0">opposite!</text>
+      <!-- curved arrow from annotation -->
+      <path d="M480,275 Q465,275 465,290" fill="none" stroke="#A0AEC0" stroke-width="1.2"/>
+      <polygon points="461,288 465,298 469,288" fill="#A0AEC0"/>
+    </svg>
+  </div>
+
+  <p class="panel-caption">The key insight: PARADOX <em>deliberately does the opposite</em> of what the Oracle predicts. If the Oracle says the program halts, PARADOX loops. If the Oracle says it loops, PARADOX halts.</p>
+</article>
+
+<!-- Connector arrow -->
+<div class="connector">
+  <svg aria-hidden="true" viewBox="0 0 40 32" width="40" height="32"><polygon points="12,4 28,4 28,16 34,16 20,30 6,16 12,16" fill="#E2E8F0"/></svg>
+</div>
+
+<!-- ===== PANEL 4: THE TRAP ===== -->
+<article class="panel-card">
+  <div class="panel-header">
+    <div class="panel-number">4</div>
+    <h2 class="panel-title">The Trap</h2>
+  </div>
+
+  <p class="panel-caption" style="margin-top:0;margin-bottom:10px">Now comes the devastating move. What happens if we feed <strong>PARADOX its own code</strong> as input?</p>
+
+  <div class="diagram-box">
+    <svg viewBox="0 -10 700 280" style="width:100%" aria-label="PARADOX being fed its own code as input, creating a self-referential loop.">
+
+      <!-- PARADOX program card -->
+      <rect x="100" y="10" width="160" height="60" rx="8" fill="#FED7D7" stroke="#E53E3E" stroke-width="2"/>
+      <text x="180" y="35" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#9B2C2C;font-weight:700">PARADOX</text>
+      <text x="180" y="55" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">(the program)</text>
+
+      <!-- Arrow curving down and into the machine -->
+      <path d="M260,40 Q310,40 310,80" fill="none" stroke="#2D3748" stroke-width="2"/>
+      <polygon points="305,77 310,88 315,77" fill="#2D3748"/>
+
+      <!-- Feed-self label -->
+      <text x="340" y="42" text-anchor="start" style="font-family:var(--body);font-size:14px;fill:#9B2C2C;font-weight:700">feed it to itself!</text>
+
+      <!-- PARADOX machine (receiving itself) -->
+      <rect x="160" y="94" width="380" height="80" rx="12" fill="#FED7D7" stroke="#E53E3E" stroke-width="2.5" stroke-dasharray="8,4"/>
+      <text x="350" y="118" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#9B2C2C;font-weight:700">PARADOX MACHINE</text>
+
+      <!-- Inner Oracle -->
+      <rect x="248" y="128" width="204" height="34" rx="6" fill="#1A202C" stroke="#E53E3E" stroke-width="1.5"/>
+      <text x="350" y="150" text-anchor="middle" style="font-family:var(--mono);font-size:12px;fill:#E2E8F0">oracle(<tspan fill="#E53E3E">PARADOX</tspan>, <tspan fill="#E53E3E">PARADOX</tspan>)</text>
+
+      <!-- Two outcome branches with question marks -->
+      <!-- Branch A: says HALTS -->
+      <line x1="280" y1="174" x2="200" y2="218" stroke="#48BB78" stroke-width="2"/>
+      <polygon points="196,212 194,224 206,216" fill="#48BB78"/>
+      <rect x="110" y="222" width="180" height="42" rx="8" fill="#C6F6D5" stroke="#48BB78" stroke-width="1.8"/>
+      <text x="200" y="240" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#276749">Oracle says <tspan style="font-weight:700">HALTS</tspan></text>
+      <text x="200" y="256" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#9B2C2C;font-weight:700">then what?</text>
+
+      <!-- Branch B: says LOOPS -->
+      <line x1="420" y1="174" x2="500" y2="218" stroke="#E53E3E" stroke-width="2"/>
+      <polygon points="494,216 506,224 504,212" fill="#E53E3E"/>
+      <rect x="410" y="222" width="180" height="42" rx="8" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.8"/>
+      <text x="500" y="240" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#9B2C2C">Oracle says <tspan style="font-weight:700">LOOPS</tspan></text>
+      <text x="500" y="256" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#9B2C2C;font-weight:700">then what?</text>
+
+      <!-- Big question marks -->
+      <text x="200" y="14" text-anchor="middle" style="font-family:var(--hand);font-size:28px;fill:#E53E3E;opacity:0.2;font-weight:700">?</text>
+      <text x="500" y="14" text-anchor="middle" style="font-family:var(--hand);font-size:28px;fill:#E53E3E;opacity:0.2;font-weight:700">?</text>
+    </svg>
+  </div>
+
+  <p class="panel-caption">We call <span class="code-inline">PARADOX(PARADOX)</span>. The Oracle inside must now answer: <strong>"Does PARADOX halt when given itself as input?"</strong> Let's follow both possible answers...</p>
+</article>
+
+<!-- Connector arrow -->
+<div class="connector">
+  <svg aria-hidden="true" viewBox="0 0 40 32" width="40" height="32"><polygon points="12,4 28,4 28,16 34,16 20,30 6,16 12,16" fill="#E53E3E" opacity="0.5"/></svg>
+</div>
+
+<!-- ===== PANEL 5: THE CONTRADICTION ===== -->
+<article class="panel-card" style="border-color:#E53E3E;border-width:2px">
+  <div class="panel-header">
+    <div class="panel-number" style="background:#9B2C2C">5</div>
+    <h2 class="panel-title" style="color:#9B2C2C">The Contradiction</h2>
+  </div>
+
+  <div class="diagram-box">
+    <svg viewBox="0 -10 700 440" style="width:100%" aria-label="Both branches lead to contradictions: if Oracle says HALTS, PARADOX loops (contradiction); if Oracle says LOOPS, PARADOX halts (contradiction).">
+
+      <!-- ===== BRANCH A (left side) ===== -->
+      <rect x="20" y="6" width="310" height="200" rx="12" fill="#F7FAFC" stroke="#48BB78" stroke-width="2"/>
+      <text x="175" y="30" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#276749;font-weight:700">Branch A</text>
+
+      <!-- Step 1 -->
+      <rect x="45" y="42" width="260" height="28" rx="6" fill="#C6F6D5"/>
+      <text x="175" y="61" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#276749">Oracle says: <tspan style="font-weight:700;font-family:var(--hand);font-size:15px">"HALTS"</tspan></text>
+
+      <!-- Arrow down -->
+      <line x1="175" y1="70" x2="175" y2="82" stroke="#2D3748" stroke-width="1.5"/>
+      <polygon points="170,80 175,88 180,80" fill="#2D3748"/>
+
+      <!-- Step 2 -->
+      <rect x="45" y="90" width="260" height="28" rx="6" fill="#FED7D7"/>
+      <text x="175" y="109" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#9B2C2C">PARADOX does the opposite: <tspan style="font-weight:700">LOOPS FOREVER</tspan></text>
+
+      <!-- Arrow down -->
+      <line x1="175" y1="118" x2="175" y2="130" stroke="#2D3748" stroke-width="1.5"/>
+      <polygon points="170,128 175,136 180,128" fill="#2D3748"/>
+
+      <!-- Step 3: contradiction -->
+      <rect x="45" y="138" width="260" height="28" rx="6" fill="#FEFCBF"/>
+      <text x="175" y="157" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#744210">But Oracle said it halts... and it doesn't!</text>
+
+      <!-- Arrow down to explosion -->
+      <line x1="175" y1="166" x2="175" y2="178" stroke="#E53E3E" stroke-width="2"/>
+
+      <!-- CONTRADICTION explosion -->
+      <!-- Explosion burst -->
+      <polygon points="175,178 195,183 188,195 205,206 185,206 175,220 165,206 145,206 162,195 155,183" fill="#FEFCBF" stroke="#E53E3E" stroke-width="1.5"/>
+      <text x="175" y="204" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#E53E3E;font-weight:700">BOOM!</text>
+
+      <!-- Red X -->
+      <line x1="137" y1="180" x2="155" y2="198" stroke="#E53E3E" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="155" y1="180" x2="137" y2="198" stroke="#E53E3E" stroke-width="3.5" stroke-linecap="round"/>
+
+      <!-- ===== BRANCH B (right side) ===== -->
+      <rect x="370" y="6" width="310" height="200" rx="12" fill="#F7FAFC" stroke="#E53E3E" stroke-width="2"/>
+      <text x="525" y="30" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#9B2C2C;font-weight:700">Branch B</text>
+
+      <!-- Step 1 -->
+      <rect x="395" y="42" width="260" height="28" rx="6" fill="#FED7D7"/>
+      <text x="525" y="61" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#9B2C2C">Oracle says: <tspan style="font-weight:700;font-family:var(--hand);font-size:15px">"LOOPS"</tspan></text>
+
+      <!-- Arrow down -->
+      <line x1="525" y1="70" x2="525" y2="82" stroke="#2D3748" stroke-width="1.5"/>
+      <polygon points="520,80 525,88 530,80" fill="#2D3748"/>
+
+      <!-- Step 2 -->
+      <rect x="395" y="90" width="260" height="28" rx="6" fill="#C6F6D5"/>
+      <text x="525" y="109" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#276749">PARADOX does the opposite: <tspan style="font-weight:700">HALTS</tspan></text>
+
+      <!-- Arrow down -->
+      <line x1="525" y1="118" x2="525" y2="130" stroke="#2D3748" stroke-width="1.5"/>
+      <polygon points="520,128 525,136 530,128" fill="#2D3748"/>
+
+      <!-- Step 3: contradiction -->
+      <rect x="395" y="138" width="260" height="28" rx="6" fill="#FEFCBF"/>
+      <text x="525" y="157" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#744210">But Oracle said it loops... and it doesn't!</text>
+
+      <!-- Arrow down to explosion -->
+      <line x1="525" y1="166" x2="525" y2="178" stroke="#E53E3E" stroke-width="2"/>
+
+      <!-- CONTRADICTION explosion -->
+      <polygon points="525,178 545,183 538,195 555,206 535,206 525,220 515,206 495,206 512,195 505,183" fill="#FEFCBF" stroke="#E53E3E" stroke-width="1.5"/>
+      <text x="525" y="204" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#E53E3E;font-weight:700">BOOM!</text>
+
+      <!-- Red X -->
+      <line x1="487" y1="180" x2="505" y2="198" stroke="#E53E3E" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="505" y1="180" x2="487" y2="198" stroke="#E53E3E" stroke-width="3.5" stroke-linecap="round"/>
+
+      <!-- Central connection: BOTH paths lead to contradiction -->
+      <!-- Converging arrows to center -->
+      <line x1="175" y1="224" x2="290" y2="264" stroke="#E53E3E" stroke-width="2.5"/>
+      <line x1="525" y1="224" x2="410" y2="264" stroke="#E53E3E" stroke-width="2.5"/>
+
+      <!-- Big central CONTRADICTION banner -->
+      <rect x="170" y="268" width="360" height="54" rx="10" fill="#E53E3E" stroke="#9B2C2C" stroke-width="2"/>
+      <text x="350" y="290" text-anchor="middle" style="font-family:var(--hand);font-size:22px;fill:#fff;font-weight:700;letter-spacing:3px">CONTRADICTION!</text>
+      <text x="350" y="312" text-anchor="middle" style="font-family:var(--body);font-size:14px;fill:#FED7D7">Both answers are impossible.</text>
+
+      <!-- Summary below -->
+      <text x="350" y="350" text-anchor="middle" style="font-family:var(--body);font-size:15px;fill:#4A5568">If the Oracle says <tspan fill="#48BB78" style="font-weight:700">HALTS</tspan>, PARADOX loops. <tspan fill="#E53E3E" style="font-weight:700">Wrong.</tspan></text>
+      <text x="350" y="372" text-anchor="middle" style="font-family:var(--body);font-size:15px;fill:#4A5568">If the Oracle says <tspan fill="#E53E3E" style="font-weight:700">LOOPS</tspan>, PARADOX halts. <tspan fill="#E53E3E" style="font-weight:700">Wrong.</tspan></text>
+      <text x="350" y="400" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#9B2C2C;font-weight:700">There is no correct answer the Oracle can give.</text>
+
+      <!-- Spark decorations around explosions -->
+      <circle cx="130" cy="188" r="2.5" fill="#FEFCBF" stroke="#E53E3E" stroke-width="0.8"/>
+      <circle cx="210" cy="185" r="2" fill="#FEFCBF" stroke="#E53E3E" stroke-width="0.8"/>
+      <circle cx="160" cy="215" r="2" fill="#FEFCBF" stroke="#E53E3E" stroke-width="0.8"/>
+      <circle cx="480" cy="188" r="2.5" fill="#FEFCBF" stroke="#E53E3E" stroke-width="0.8"/>
+      <circle cx="560" cy="185" r="2" fill="#FEFCBF" stroke="#E53E3E" stroke-width="0.8"/>
+      <circle cx="510" cy="215" r="2" fill="#FEFCBF" stroke="#E53E3E" stroke-width="0.8"/>
+
+      <!-- Additional yellow sparks -->
+      <line x1="122" y1="195" x2="115" y2="200" stroke="#FEFCBF" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="218" y1="193" x2="225" y2="198" stroke="#FEFCBF" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="472" y1="195" x2="465" y2="200" stroke="#FEFCBF" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="568" y1="193" x2="575" y2="198" stroke="#FEFCBF" stroke-width="1.5" stroke-linecap="round"/>
+
+      <!-- Faded question marks in background -->
+      <text x="90" y="250" text-anchor="middle" style="font-family:var(--hand);font-size:60px;fill:#E53E3E;opacity:0.06;font-weight:700">?</text>
+      <text x="610" y="250" text-anchor="middle" style="font-family:var(--hand);font-size:60px;fill:#E53E3E;opacity:0.06;font-weight:700">?</text>
+
+      <!-- Arrows into contradiction banner -->
+      <polygon points="285,265 292,268 288,268" fill="#E53E3E"/>
+      <polygon points="415,265 408,268 412,268" fill="#E53E3E"/>
+    </svg>
+  </div>
+</article>
+
+<!-- Connector arrow -->
+<div class="connector">
+  <svg aria-hidden="true" viewBox="0 0 40 32" width="40" height="32"><polygon points="12,4 28,4 28,16 34,16 20,30 6,16 12,16" fill="#E53E3E" opacity="0.5"/></svg>
+</div>
+
+<!-- ===== PANEL 6: THE CONCLUSION ===== -->
+<article class="panel-card" style="border-color:#E53E3E;border-width:2px;background:linear-gradient(135deg, #F7FAFC 0%, #FFF5F5 100%)">
+  <div class="panel-header">
+    <div class="panel-number" style="background:#9B2C2C">6</div>
+    <h2 class="panel-title" style="color:#9B2C2C">The Conclusion</h2>
+  </div>
+
+  <div class="diagram-box">
+    <svg viewBox="0 -20 700 430" style="width:100%" aria-label="Conclusion: the Oracle cannot exist, and Tera the robot with a surprised expression.">
+
+      <!-- Logical chain -->
+      <!-- Step 1 -->
+      <rect x="60" y="0" width="580" height="38" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+      <text x="350" y="24" text-anchor="middle" style="font-family:var(--body);font-size:15px;fill:#744210">We assumed a perfect Halting Oracle exists.</text>
+      <text x="76" y="24" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#D69E2E;font-weight:700">1</text>
+
+      <line x1="350" y1="38" x2="350" y2="50" stroke="#2D3748" stroke-width="1.5"/>
+      <polygon points="345,48 350,56 355,48" fill="#2D3748"/>
+
+      <!-- Step 2 -->
+      <rect x="60" y="58" width="580" height="38" rx="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/>
+      <text x="350" y="82" text-anchor="middle" style="font-family:var(--body);font-size:15px;fill:#2A4365">We used it to build PARADOX, which does the opposite of what the Oracle predicts.</text>
+      <text x="76" y="82" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#4A9BD9;font-weight:700">2</text>
+
+      <line x1="350" y1="96" x2="350" y2="108" stroke="#2D3748" stroke-width="1.5"/>
+      <polygon points="345,106 350,114 355,106" fill="#2D3748"/>
+
+      <!-- Step 3 -->
+      <rect x="60" y="116" width="580" height="38" rx="8" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.5"/>
+      <text x="350" y="140" text-anchor="middle" style="font-family:var(--body);font-size:15px;fill:#44337A">We fed PARADOX to itself. Both possible Oracle answers led to contradictions.</text>
+      <text x="76" y="140" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#805AD5;font-weight:700">3</text>
+
+      <line x1="350" y1="154" x2="350" y2="166" stroke="#E53E3E" stroke-width="2"/>
+      <polygon points="345,164 350,172 355,164" fill="#E53E3E"/>
+
+      <!-- Step 4: conclusion -->
+      <rect x="100" y="174" width="500" height="50" rx="10" fill="#E53E3E" stroke="#9B2C2C" stroke-width="2"/>
+      <text x="350" y="197" text-anchor="middle" style="font-family:var(--hand);font-size:20px;fill:#fff;font-weight:700">Therefore, our assumption was wrong.</text>
+      <text x="350" y="217" text-anchor="middle" style="font-family:var(--body);font-size:14px;fill:#FED7D7">No such Oracle can exist. The Halting Problem is undecidable.</text>
+
+      <!-- Tera (surprised) - speech bubble first -->
+      <rect x="215" y="242" width="455" height="52" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+      <path d="M218,294 L195,308 L240,294" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+      <line x1="219" y1="294" x2="239" y2="294" stroke="#fff" stroke-width="2.5"/>
+      <text x="442" y="264" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">This isn't a limitation of our technology.</text>
+      <text x="442" y="282" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#E53E3E;font-weight:700">It's a limitation of mathematics itself.</text>
+
+      <!-- Tera robot (surprised mouth) -->
+      <g transform="translate(155,348) scale(0.55)">
+        <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+        <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+        <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+        <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+        <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+        <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+        <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+        <circle cx="0" cy="-7" r="4" fill="#4A9BD9"/>
+        <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+        <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+        <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+        <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+        <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+        <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="bigidea">
+    <strong>Some questions are provably unanswerable.</strong> No matter how powerful our computers become, no matter what programming language we use, no algorithm can ever solve the Halting Problem. This is not an engineering challenge &mdash; it is a mathematical certainty.
+  </div>
+
+  <p class="footer-note" style="margin-top:14px">Alan Turing proved this in 1936, before any electronic computer was ever built.</p>
+</article>
+
+</div><!-- /proof-container -->
+
+<!-- Footer -->
+<footer style="text-align:center;padding:16px 24px 40px;max-width:780px;margin:0 auto">
+  <div style="width:60px;height:2px;background:#E2E8F0;border-radius:1px;margin:0 auto 14px"></div>
+  <p style="font-family:var(--body);font-size:14px;color:#718096">From Turing to Swarms &mdash; Issue 1 Illustration</p>
+  <a href="../issues/v2/issue_01/index.html" style="font-family:var(--body);font-size:14px;color:var(--accent);text-decoration:none">&larr; Return to Issue 1</a>
+</footer>
+
+</body>
+</html>

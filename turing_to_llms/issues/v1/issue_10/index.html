@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Turing to Swarms — Issue 10: The Whole Stack — and What Comes Next</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#DD6B20;--bg:#FAF9F6;--dark:#2D3748;--mid:#4A5568;--light:#718096;--muted:#A0AEC0;--border:#E2E8F0;--card:#F7FAFC;--panel:#1A202C;--hand:'Caveat','Patrick Hand',cursive;--body:'Patrick Hand',cursive;--mono:'JetBrains Mono','Fira Code','SF Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--bg);color:var(--dark);min-height:100vh;background-image:radial-gradient(circle at 25% 25%,rgba(221,107,32,.03) 0%,transparent 55%),radial-gradient(circle at 75% 75%,rgba(246,173,85,.03) 0%,transparent 55%)}
+.page{display:none;max-width:740px;margin:0 auto;padding:12px 8px 40px;animation:fadeUp .35s ease-out}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,249,246,.92);backdrop-filter:blur(8px);border-bottom:2px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;max-width:740px;margin:0 auto}
+.nav button{font-family:var(--hand);font-size:18px;background:none;border:none;color:var(--accent);cursor:pointer;padding:4px 10px}
+.nav button:disabled{color:#CBD5E0;cursor:default}
+.dots{display:flex;gap:4px;justify-content:center;margin-top:3px}
+.dot{width:8px;height:8px;border-radius:4px;background:var(--border);border:none;cursor:pointer;padding:0;transition:all .2s}
+.dot.active{width:18px;background:var(--accent)}
+.dot.past{background:rgba(221,107,32,.33)}
+.page-num{font-family:var(--hand);font-size:12px;color:var(--muted);text-align:center}
+
+/* Header */
+.issue-header{text-align:center;padding:24px 16px 8px}
+.issue-label{font-family:var(--hand);font-size:14px;color:var(--accent);text-transform:uppercase;letter-spacing:2px;font-weight:700}
+.issue-title{font-family:'Caveat',cursive;font-size:30px;color:var(--panel);margin:6px 0 0;line-height:1.2;padding:0 16px}
+.title-bar{width:60px;height:3px;background:var(--accent);border-radius:2px;margin:10px auto 0}
+
+/* Content */
+.narrative{padding:0 24px;font-size:16.5px;line-height:1.65;max-width:680px;margin:0 auto}
+.narrative p{margin:10px 0}
+.narrative strong{color:var(--panel)}
+.narrative em{color:var(--accent);font-style:italic}
+.bigidea{margin:16px auto;padding:16px 20px;border-left:4px solid var(--accent);background:rgba(221,107,32,.07);border-radius:0 10px 10px 0;font-size:15.5px;line-height:1.6;max-width:640px}
+.tryit{margin:16px auto;padding:16px 20px;border:2px dashed #CBD5E0;border-radius:10px;background:var(--card);font-size:15px;line-height:1.6;color:var(--mid);max-width:640px}
+.diagram-box{margin:14px auto;padding:8px;max-width:700px}
+.code-box{margin:8px auto;padding:12px 18px;background:var(--panel);color:#48BB78;border-radius:8px;font-family:var(--mono);font-size:14px;white-space:pre;max-width:640px;overflow-x:auto;line-height:1.5}
+
+/* References */
+.refs{margin:20px auto 0;padding:14px 18px;background:var(--card);border-radius:10px;border:1px solid var(--border);max-width:640px}
+.refs h3{font-family:var(--hand);font-size:14px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.refs ul{list-style:none;padding:0}
+.refs li{padding:3px 0;font-size:12.5px;color:var(--light)}
+.refs li::before{content:"📄 "}
+
+/* Bottom nav */
+.bot-nav{display:flex;justify-content:space-between;padding:24px 24px 0;max-width:640px;margin:0 auto}
+.bot-nav button{font-family:var(--hand);font-size:16px;border-radius:8px;padding:8px 18px;cursor:pointer}
+.bot-prev{background:rgba(221,107,32,.1);border:1.5px solid var(--accent);color:var(--accent)}
+.bot-next{background:var(--accent);border:none;color:#fff}
+
+/* SVG helpers */
+svg text{user-select:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+/* Series header */
+.series-banner{text-align:center;padding:18px 16px 4px;font-family:var(--hand);font-size:12px;color:var(--muted);letter-spacing:3px;text-transform:uppercase}
+
+/* Problem cards */
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:660px;margin:14px auto;padding:0 8px}
+@media(max-width:480px){.problem-grid{grid-template-columns:1fr}}
+.problem-card{padding:14px 16px;border-radius:10px;border:1.5px solid var(--border);background:#fff}
+.problem-card h4{font-family:var(--hand);font-size:17px;margin-bottom:4px}
+.problem-card p{font-size:14px;line-height:1.5;color:var(--mid)}
+.problem-card .status{font-size:12px;color:var(--muted);margin-top:6px;font-family:var(--mono)}
+
+/* Resource tables */
+.res-table{width:100%;border-collapse:collapse;max-width:660px;margin:10px auto;font-size:14px}
+.res-table th{font-family:var(--hand);font-size:15px;text-align:left;padding:6px 8px;border-bottom:2px solid var(--accent);color:var(--accent)}
+.res-table td{padding:6px 8px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.45}
+.res-table td:first-child{font-weight:700;color:var(--dark);min-width:120px}
+</style>
+</head>
+<body>
+
+<div class="series-banner">From Turing to Swarms · Issue 10 of 10 · The Finale</div>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+<button id="prevBtn" onclick="go(-1)">← Prev</button>
+<div style="text-align:center">
+  <div class="page-num" id="pageNum">1 / 10</div>
+  <div class="dots" id="dots"></div>
+</div>
+<button id="nextBtn" onclick="go(1)">Next →</button>
+</nav>
+
+<!-- ISSUE HEADER -->
+<div class="issue-header">
+<div class="issue-label">Issue 10 · 1936–2026 and Beyond</div>
+<h1 class="issue-title">The Whole Stack — and What Comes Next</h1>
+<div class="title-bar"></div>
+</div>
+
+<!-- ===== PAGE 1 ===== -->
+<section class="page" data-page="1">
+<p style="text-align:center;margin:4px 0 0"><a href="../issue_09/index.html" style="color:var(--accent);font-family:var(--hand);font-size:14px;text-decoration:none">← Previous Issue: The Swarm</a></p>
+
+<!-- Robot panel -->
+<svg viewBox="0 -20 680 232" style="width:100%">
+  <!-- Speech bubble (drawn first so robot renders on top) -->
+  <rect x="150" y="5" width="510" height="96" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M170,101 L155,118 L185,101" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="171" y1="101" x2="184" y2="101" stroke="#fff" stroke-width="2.5"/>
+  <text x="405" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">We've traveled ninety years together — from a mathematician's</text>
+  <text x="405" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">daydream to swarms of AI agents building software in parallel.</text>
+  <text x="405" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">We've met the people, followed the ideas, watched the machines</text>
+  <text x="405" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">get smaller and smarter. But we've never seen the WHOLE thing at once.</text>
+  <!-- Tera robot — excited/wonder -->
+  <g transform="translate(80,140) scale(0.85)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <ellipse cx="0" cy="-6" rx="5" ry="4" fill="#4A9BD9" opacity="0.5"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<!-- The full abstraction stack visual -->
+<div class="diagram-box">
+<svg viewBox="0 -20 680 520" style="width:100%">
+  <!-- Background gradient hints -->
+  <defs>
+    <linearGradient id="stackGrad" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#BEE3F8" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#DD6B20" stop-opacity="0.08"/>
+    </linearGradient>
+  </defs>
+  <rect x="90" y="0" width="500" height="480" rx="12" fill="url(#stackGrad)"/>
+
+  <!-- Layer 1: Physics (bottom) -->
+  <rect x="110" y="420" width="460" height="44" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/>
+  <text x="340" y="438" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#2B6CB0;font-weight:700">Layer 1: Physics</text>
+  <text x="340" y="455" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">Electrons, quantum mechanics, electromagnetism</text>
+  <!-- Tiny electron icon -->
+  <circle cx="135" cy="442" r="6" fill="none" stroke="#4A9BD9" stroke-width="1.2"/>
+  <circle cx="135" cy="442" r="2" fill="#4A9BD9"/>
+
+  <!-- Layer 2: Hardware -->
+  <rect x="110" y="368" width="460" height="44" rx="6" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/>
+  <text x="340" y="386" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#E53E3E;font-weight:700">Layer 2: Hardware</text>
+  <text x="340" y="403" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">Transistors, logic gates, processors, memory</text>
+
+  <!-- Layer 3: Operating Systems -->
+  <rect x="110" y="316" width="460" height="44" rx="6" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+  <text x="340" y="334" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#975A16;font-weight:700">Layer 3: Operating Systems</text>
+  <text x="340" y="351" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">Unix, Linux, file systems, process scheduling</text>
+
+  <!-- Layer 4: Languages -->
+  <rect x="110" y="264" width="460" height="44" rx="6" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/>
+  <text x="340" y="282" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#276749;font-weight:700">Layer 4: Programming Languages</text>
+  <text x="340" y="299" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">FORTRAN, C, Python, JavaScript, compilers</text>
+
+  <!-- Layer 5: Machine Learning -->
+  <rect x="110" y="212" width="460" height="44" rx="6" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.5"/>
+  <text x="340" y="230" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#553C9A;font-weight:700">Layer 5: Machine Learning</text>
+  <text x="340" y="247" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">Neural networks, backpropagation, ImageNet</text>
+
+  <!-- Layer 6: LLMs -->
+  <rect x="110" y="160" width="460" height="44" rx="6" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.5"/>
+  <text x="340" y="178" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#DD6B20;font-weight:700">Layer 6: Large Language Models</text>
+  <text x="340" y="195" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">Transformers, GPT, Claude, natural language</text>
+
+  <!-- Layer 7: Agents -->
+  <rect x="110" y="108" width="460" height="44" rx="6" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5" opacity="0.8"/>
+  <text x="340" y="126" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#C53030;font-weight:700">Layer 7: Agents</text>
+  <text x="340" y="143" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">ReAct loop, tool use, Claude Code</text>
+
+  <!-- Layer 8: Swarms -->
+  <rect x="110" y="56" width="460" height="44" rx="6" fill="#C6F6D5" stroke="#48BB78" stroke-width="1.5" opacity="0.8"/>
+  <text x="340" y="74" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#276749;font-weight:700">Layer 8: Swarms</text>
+  <text x="340" y="91" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">Multi-agent coordination, file protocols</text>
+
+  <!-- Question mark layer at top -->
+  <rect x="110" y="6" width="460" height="42" rx="6" fill="none" stroke="#DD6B20" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="340" y="33" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#DD6B20;font-weight:700">Layer ?: What you build next</text>
+
+  <!-- Side labels -->
+  <text x="88" y="448" text-anchor="end" style="font-family:var(--body);font-size:10px;fill:#A0AEC0">Machine-</text>
+  <text x="88" y="460" text-anchor="end" style="font-family:var(--body);font-size:10px;fill:#A0AEC0">friendly</text>
+  <text x="88" y="76" text-anchor="end" style="font-family:var(--body);font-size:10px;fill:#A0AEC0">Human-</text>
+  <text x="88" y="88" text-anchor="end" style="font-family:var(--body);font-size:10px;fill:#A0AEC0">friendly</text>
+
+  <!-- Vertical arrow on right -->
+  <line x1="590" y1="60" x2="590" y2="455" stroke="#A0AEC0" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="585,455 590,467 595,455" fill="#A0AEC0"/>
+  <text x="610" y="260" style="font-family:var(--body);font-size:11px;fill:#A0AEC0" transform="rotate(90,610,260)">90 years of abstraction</text>
+</svg>
+</div>
+
+<div class="narrative">
+  <p>Somewhere beneath your feet, right now, electrons are moving. They are flowing through transistors — billions of them — switching on and off billions of times per second.</p>
+  <p>Above those transistors, an operating system is juggling thousands of tasks. Above the OS, a programming language is translating human ideas into machine instructions. Above that, a neural network is predicting the next word you might want to read. And above that neural network, an AI agent might be writing code, running tests, and fixing its own mistakes.</p>
+  <p>Every layer depends on the one below it. Every layer hides the complexity beneath it and presents a simpler interface to the layer above. This idea — <strong>abstraction</strong> — is the single most powerful concept in the history of computing.</p>
+</div>
+<div class="bigidea">
+  In this final issue, we are going to see the whole stack. All of it. From physics to your prompt. And then we are going to look at what comes next — and what role you might play in it.
+</div>
+<div class="narrative"><p><em>Every one of those layers was somebody's life work. Let's meet them all — one more time.</em></p></div>
+</section>
+
+<!-- ===== PAGE 2 ===== -->
+<section class="page" data-page="2">
+<svg viewBox="0 -20 680 210" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="150" y="5" width="510" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M170,83 L155,98 L185,83" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="171" y1="83" x2="184" y2="83" stroke="#fff" stroke-width="2.5"/>
+  <text x="405" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">This is the map. Eight layers, ninety years, hundreds of</text>
+  <text x="405" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">brilliant people. Every layer does one miraculous thing: it takes</text>
+  <text x="405" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">something impossibly complicated and makes it simple enough</text>
+  <text x="405" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">for the next layer to build on top. That is the whole trick.</text>
+  <!-- Tera — proud -->
+  <g transform="translate(80,118) scale(0.8)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>Here is the <strong>computing abstraction stack</strong> — every major layer of technology between the electrons in your device and the words on your screen, laid out from bottom to top.</p>
+  <p>Each layer <strong>hides</strong> the complexity below it and <strong>exposes</strong> a simpler interface above it. A programmer writing Python does not need to understand quantum tunneling. An AI agent planning a coding task does not need to think about memory allocation. This is not a convenience — it is the mechanism by which computing scales.</p>
+</div>
+
+<!-- Interactive step-through of the stack -->
+<div id="stack-demo" style="background:#1A202C;border-radius:10px;padding:16px;margin:12px auto;max-width:680px">
+  <svg id="stack-svg" viewBox="0 -20 660 360" style="width:100%"></svg>
+  <p id="stack-desc" style="font-family:var(--body);font-size:14px;color:#A0AEC0;text-align:center;margin:8px 0;min-height:40px"></p>
+  <div style="display:flex;justify-content:center;gap:10px;margin-top:8px">
+    <button onclick="stackPrev()" id="stack-prev" style="font-family:var(--body);font-size:14px;padding:6px 16px;border-radius:6px;border:1px solid #4A5568;background:#2D3748;color:#E2E8F0;cursor:pointer">← Prev</button>
+    <span id="stack-counter" style="font-family:var(--mono);font-size:13px;color:#718096;padding:8px 12px">Layer 1 / 8</span>
+    <button onclick="stackNext()" id="stack-next" style="font-family:var(--body);font-size:14px;padding:6px 16px;border-radius:6px;border:1px solid #4A5568;background:#2D3748;color:#E2E8F0;cursor:pointer">Next →</button>
+    <button onclick="stackReset()" style="font-family:var(--body);font-size:13px;padding:6px 12px;border-radius:6px;border:1px solid #4A5568;background:transparent;color:#718096;cursor:pointer">Reset</button>
+  </div>
+</div>
+
+<div class="narrative">
+  <p>As the computer scientist Edsger Dijkstra once said: <em>"The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise."</em></p>
+  <p>Or, in a formulation often attributed to David Wheeler: <em>"All problems in computer science can be solved by another level of indirection."</em> The computing stack is living proof.</p>
+</div>
+
+<div class="bigidea">
+  The abstraction stack is not a ladder of prestige — every layer is essential, and every layer was someone's life work. The reason you can type a question in plain English and get an intelligent answer is that hundreds of thousands of people, across ninety years, each solved one layer's problems well enough that the next layer could exist.
+</div>
+<div class="narrative"><p><em>But what IS abstraction, really? And why is it so powerful? Let's make sure we truly understand it.</em></p></div>
+</section>
+
+<!-- ===== PAGE 3 ===== -->
+<section class="page" data-page="3">
+<!-- Robot panel — Tera explaining abstraction -->
+<svg viewBox="0 -20 680 210" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="150" y="5" width="510" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M170,83 L155,98 L185,83" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="171" y1="83" x2="184" y2="83" stroke="#fff" stroke-width="2.5"/>
+  <text x="405" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Abstraction sounds like a fancy word. It is not. You use it</text>
+  <text x="405" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">every single day. When you press the gas pedal, you don't think</text>
+  <text x="405" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">about fuel injectors or crankshafts. The pedal HIDES all that.</text>
+  <text x="405" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Push harder, go faster. That is abstraction.</text>
+  <!-- Tera — animated/explaining -->
+  <g transform="translate(80,122) scale(0.8)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <ellipse cx="0" cy="-6" rx="5" ry="4" fill="#4A9BD9" opacity="0.5"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>Every layer in the computing stack does the same thing the gas pedal does: it hides overwhelming complexity and exposes a simple interface.</p>
+  <p>When <strong>Grace Hopper</strong> built the first compiler in 1952 (Issue 3), she created an abstraction. Programmers no longer needed to think in binary. When <strong>Thompson and Ritchie</strong> built Unix in 1969 (Issue 4), they created an abstraction. Software no longer needed to know the specific hardware. When <strong>Vaswani and colleagues</strong> published the Transformer in 2017 (Issue 7), they created an abstraction. Users no longer needed to write code at all.</p>
+  <p>Each abstraction is an act of <strong>trust</strong>. You trust that the layer below you works correctly. And mostly, that trust is justified. But not always.</p>
+</div>
+
+<!-- Abstraction Analogy diagram — Driving vs Computing -->
+<div class="diagram-box">
+<svg viewBox="0 -20 680 320" style="width:100%">
+  <!-- Left column header -->
+  <rect x="20" y="0" width="300" height="34" rx="8" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/>
+  <text x="170" y="23" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#E53E3E;font-weight:700">DRIVING A CAR</text>
+  <!-- Right column header -->
+  <rect x="360" y="0" width="300" height="34" rx="8" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.5"/>
+  <text x="510" y="23" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#DD6B20;font-weight:700">COMPUTING STACK</text>
+
+  <!-- Row 1 -->
+  <rect x="20" y="42" width="300" height="38" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="170" y="66" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#2D3748">You press the gas pedal</text>
+  <rect x="360" y="42" width="300" height="38" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="510" y="66" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#2D3748">You type a prompt</text>
+  <line x1="320" y1="61" x2="355" y2="61" stroke="#A0AEC0" stroke-width="1.5"/><polygon points="355,57 363,61 355,65" fill="#A0AEC0"/>
+
+  <!-- Row 2 -->
+  <rect x="20" y="88" width="300" height="38" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="170" y="112" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#718096">Fuel injection fires (hidden)</text>
+  <rect x="360" y="88" width="300" height="38" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="510" y="112" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#718096">LLM processes tokens (hidden)</text>
+  <line x1="320" y1="107" x2="355" y2="107" stroke="#A0AEC0" stroke-width="1.5"/><polygon points="355,103 363,107 355,111" fill="#A0AEC0"/>
+
+  <!-- Row 3 -->
+  <rect x="20" y="134" width="300" height="38" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="170" y="158" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#718096">Combustion ignites fuel (hidden)</text>
+  <rect x="360" y="134" width="300" height="38" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="510" y="158" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#718096">Neural net multiplies matrices (hidden)</text>
+  <line x1="320" y1="153" x2="355" y2="153" stroke="#A0AEC0" stroke-width="1.5"/><polygon points="355,149 363,153 355,157" fill="#A0AEC0"/>
+
+  <!-- Row 4 -->
+  <rect x="20" y="180" width="300" height="38" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="170" y="204" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#718096">Crankshaft turns wheels (hidden)</text>
+  <rect x="360" y="180" width="300" height="38" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="510" y="204" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#718096">OS schedules GPU tasks (hidden)</text>
+  <line x1="320" y1="199" x2="355" y2="199" stroke="#A0AEC0" stroke-width="1.5"/><polygon points="355,195 363,199 355,203" fill="#A0AEC0"/>
+
+  <!-- Row 5 — result -->
+  <rect x="20" y="226" width="300" height="38" rx="6" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/>
+  <text x="170" y="250" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#276749;font-weight:700">Car moves forward.</text>
+  <rect x="360" y="226" width="300" height="38" rx="6" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/>
+  <text x="510" y="250" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#276749;font-weight:700">Answer appears on screen.</text>
+  <line x1="320" y1="245" x2="355" y2="245" stroke="#38A169" stroke-width="1.5"/><polygon points="355,241 363,245 355,249" fill="#38A169"/>
+
+  <!-- Summary -->
+  <text x="340" y="290" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#DD6B20;font-weight:700">Same pattern. Hide complexity. Expose a simple interface.</text>
+</svg>
+</div>
+
+<div class="narrative">
+  <p>In 2002, Joel Spolsky coined the term <strong>"the Law of Leaky Abstractions"</strong>: all non-trivial abstractions, to some degree, are leaky. Sometimes the layers below you bleed through. A performance problem in your AI agent traces back to GPU architecture. A security vulnerability traces back to memory management in C. <strong>Grace Hopper</strong> used to hand out 11.8-inch pieces of wire to admirals, representing the distance light travels in one nanosecond, to explain why satellite communication had latency. The physical world always leaks through.</p>
+  <p>Understanding the full stack does not mean you need to be an expert in every layer. It means you have <strong>diagnostic superpowers</strong>. When something breaks, you know where to look.</p>
+</div>
+
+<div class="bigidea">
+  Abstraction is not simplification. Simplification throws away detail. Abstraction HIDES detail behind a clean interface while keeping all the power underneath. It lets you be "absolutely precise" (Dijkstra) at your own level without drowning in every level below.
+</div>
+
+<div class="tryit">
+  <strong>Think About It:</strong> Can you think of other abstractions in daily life? A light switch hides the power grid. A restaurant menu hides the kitchen. Money hides a complex web of trust and accounting. What is the most important abstraction in YOUR daily life?
+</div>
+
+<div class="narrative"><p><em>Now let's walk through the people who built the stack — every key figure from all nine previous issues — and see how their work connects into a single story.</em></p></div>
+</section>
+
+<!-- ===== PAGE 4 ===== -->
+<section class="page" data-page="4">
+<!-- Robot panel -->
+<svg viewBox="0 -20 680 210" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="150" y="5" width="510" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M170,83 L155,98 L185,83" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="171" y1="83" x2="184" y2="83" stroke="#fff" stroke-width="2.5"/>
+  <text x="405" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Every person on this timeline gave years — sometimes decades —</text>
+  <text x="405" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">of their life to solving one piece of the puzzle. Some became</text>
+  <text x="405" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">famous. Some were nearly forgotten. But every single one stood</text>
+  <text x="405" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">on the shoulders of the people who came before.</text>
+  <!-- Tera — proud/reverent -->
+  <g transform="translate(80,118) scale(0.8)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>Here they are. The builders of the computing stack, in the order they appear in our story. Notice how each generation inherits what the previous generation built — and then extends it one layer higher. (The stack has more than eight layers — we have simplified. Networking, databases, and security each deserve their own layer.)</p>
+  <p>Notice, too, who is missing from the fame. The six women who programmed ENIAC were erased from photographs and forgotten for decades. <strong>Tommy Flowers</strong> spent a thousand pounds of his own money building Colossus, then was silenced by the Official Secrets Act. <strong>Konrad Zuse</strong> built the Z3 in his parents' living room in wartime Berlin — and it was destroyed in a bombing raid.</p>
+  <p>History is not always fair. But their work endured.</p>
+</div>
+
+<!-- Interactive timeline step-through -->
+<div id="tl-demo" style="background:#1A202C;border-radius:10px;padding:16px;margin:12px auto;max-width:680px">
+  <svg id="tl-svg" viewBox="0 -20 660 200" style="width:100%"></svg>
+  <p id="tl-desc" style="font-family:var(--body);font-size:14px;color:#A0AEC0;text-align:center;margin:8px 0;min-height:40px"></p>
+  <div style="display:flex;justify-content:center;gap:10px;margin-top:8px">
+    <button onclick="tlPrev()" id="tl-prev" style="font-family:var(--body);font-size:14px;padding:6px 16px;border-radius:6px;border:1px solid #4A5568;background:#2D3748;color:#E2E8F0;cursor:pointer">← Prev</button>
+    <span id="tl-counter" style="font-family:var(--mono);font-size:13px;color:#718096;padding:8px 12px">1 / 20</span>
+    <button onclick="tlNext()" id="tl-next" style="font-family:var(--body);font-size:14px;padding:6px 16px;border-radius:6px;border:1px solid #4A5568;background:#2D3748;color:#E2E8F0;cursor:pointer">Next →</button>
+    <button onclick="tlReset()" style="font-family:var(--body);font-size:13px;padding:6px 12px;border-radius:6px;border:1px solid #4A5568;background:transparent;color:#718096;cursor:pointer">Reset</button>
+  </div>
+</div>
+
+<div class="bigidea">
+  This timeline spans one long human lifetime. Someone born the year Turing published "On Computable Numbers" (1936) would have been 86 when ChatGPT launched (2022). The entire history of computing fits within the span of a single life.
+</div>
+
+<div class="narrative"><p><em>We have seen who built the stack and how the layers connect. But what is still missing? What problems remain unsolved?</em></p></div>
+</section>
+
+<!-- ===== PAGE 5 ===== -->
+<section class="page" data-page="5">
+<!-- Robot panel — serious Tera -->
+<svg viewBox="0 -20 680 210" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="150" y="5" width="510" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M170,83 L155,98 L185,83" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="171" y1="83" x2="184" y2="83" stroke="#fff" stroke-width="2.5"/>
+  <text x="405" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">I have spent nine issues showing you how brilliant these ideas</text>
+  <text x="405" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">are. Now I owe you something equally important: honesty about</text>
+  <text x="405" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">what we do NOT know. Computing has solved astonishing problems.</text>
+  <text x="405" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">But it has also created new ones — and some are urgent.</text>
+  <!-- Tera — thoughtful/serious -->
+  <g transform="translate(80,122) scale(0.8)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <circle cx="4" cy="-7" r="3" fill="none" stroke="#4A9BD9" stroke-width="1.8"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>For all its achievements, computing in 2026 faces a set of genuinely unsolved problems. These are not minor engineering bugs. They are deep, structural challenges that will shape how AI and computing evolve over the coming decades.</p>
+</div>
+
+<!-- Four open problems — card grid -->
+<div class="problem-grid">
+  <div class="problem-card" style="border-color:#E53E3E">
+    <h4 style="color:#E53E3E">1. The Alignment Problem</h4>
+    <p>"Will AI do what we MEAN, not just what we SAY?"</p>
+    <p>Stuart Russell's "King Midas" analogy: the genie gave Midas exactly what he asked for — and it was a disaster. The danger is not rebellion. It is competent pursuit of the wrong objective.</p>
+    <div class="status">Status: Active research | Stakes: Very high</div>
+  </div>
+  <div class="problem-card" style="border-color:#DD6B20">
+    <h4 style="color:#DD6B20">2. Interpretability</h4>
+    <p>"Can we understand WHY an AI produces a specific output?"</p>
+    <p>Like a doctor who always gives the right diagnosis but cannot explain their reasoning. Anthropic has made progress identifying individual features inside Claude, but the field is far from guarantees.</p>
+    <div class="status">Status: Early progress | Stakes: High</div>
+  </div>
+  <div class="problem-card" style="border-color:#38A169">
+    <h4 style="color:#38A169">3. Energy & Compute</h4>
+    <p>"Can we make powerful AI without boiling the planet?"</p>
+    <p>Training GPT-3 consumed approximately 1,287 MWh of electricity (Patterson et al., 2021). Efficiency improvements are closing the gap, but the tension between capability and cost is real.</p>
+    <div class="status">Status: Improving fast | Stakes: Global</div>
+  </div>
+  <div class="problem-card" style="border-color:#805AD5">
+    <h4 style="color:#805AD5">4. Bias & Fairness</h4>
+    <p>"Whose values, whose data, whose language does AI reflect?"</p>
+    <p>AI learns from data written by humans — and humans have biases. As Emily Bender, Timnit Gebru, and colleagues documented in "On the Dangers of Stochastic Parrots" (2021), larger models can amplify rather than neutralize these biases.</p>
+    <div class="status">Status: Social + technical | Stakes: Justice</div>
+  </div>
+</div>
+
+<div class="tryit">
+  <strong>Think About It:</strong> Each of these problems is partly technical and partly social. The alignment problem requires not just better algorithms but better definitions of what humans actually value. Bias requires not just better data but more diverse teams. Can you think of a technology problem that is ONLY technical, with no social dimension?
+</div>
+
+<div class="narrative"><p><em>These problems are real. But they are not hopeless. Some of the most promising approaches come from the same principle that built the entire stack: abstraction. Let's look at how.</em></p></div>
+</section>
+
+<!-- ===== PAGE 6 ===== -->
+<section class="page" data-page="6">
+<!-- Robot panel — earnest Tera -->
+<svg viewBox="0 -20 680 210" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="150" y="5" width="510" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M170,83 L155,98 L185,83" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="171" y1="83" x2="184" y2="83" stroke="#fff" stroke-width="2.5"/>
+  <text x="405" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">When people hear 'AI safety,' they picture Terminator robots.</text>
+  <text x="405" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Forget that. The real risk is much more boring and much more</text>
+  <text x="405" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">real: AI systems that faithfully optimize for the wrong thing.</text>
+  <text x="405" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Real safety requires something more nuanced than simple rules.</text>
+  <!-- Tera — determined -->
+  <g transform="translate(80,122) scale(0.8)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-5,-7 L5,-7" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p><strong>Anthropic</strong>, the company that builds Claude, was founded in 2021 by Dario and Daniela Amodei, along with colleagues who left OpenAI, on a specific bet: that safety research and capability research are complementary, not opposed.</p>
+  <p>Their core innovation is <strong>Constitutional AI</strong> (published 2022). Instead of relying entirely on human reviewers to evaluate every AI output, give the AI a set of principles — a constitution — and train it to critique and revise its own outputs against those principles.</p>
+</div>
+
+<!-- Constitutional AI diagram — interactive step-through -->
+<div id="cai-demo" style="background:#1A202C;border-radius:10px;padding:16px;margin:12px auto;max-width:680px">
+  <svg id="cai-svg" viewBox="0 -20 660 220" style="width:100%"></svg>
+  <p id="cai-desc" style="font-family:var(--body);font-size:14px;color:#A0AEC0;text-align:center;margin:8px 0;min-height:40px"></p>
+  <div style="display:flex;justify-content:center;gap:10px;margin-top:8px">
+    <button onclick="caiPrev()" id="cai-prev" style="font-family:var(--body);font-size:14px;padding:6px 16px;border-radius:6px;border:1px solid #4A5568;background:#2D3748;color:#E2E8F0;cursor:pointer">← Prev</button>
+    <span id="cai-counter" style="font-family:var(--mono);font-size:13px;color:#718096;padding:8px 12px">Step 1 / 6</span>
+    <button onclick="caiNext()" id="cai-next" style="font-family:var(--body);font-size:14px;padding:6px 16px;border-radius:6px;border:1px solid #4A5568;background:#2D3748;color:#E2E8F0;cursor:pointer">Next →</button>
+    <button onclick="caiReset()" style="font-family:var(--body);font-size:13px;padding:6px 12px;border-radius:6px;border:1px solid #4A5568;background:transparent;color:#718096;cursor:pointer">Reset</button>
+  </div>
+</div>
+
+<div class="narrative">
+  <p><strong>RLHF</strong> — Reinforcement Learning from Human Feedback — remains important too. Human volunteers compare pairs of AI responses and say which is better. But RLHF has limitations: it depends on who the volunteers are, and it can train models to be <strong>sycophantic</strong> — agreeing with users rather than challenging incorrect beliefs.</p>
+  <p>This is why Constitutional AI matters: the principles are human-authored and auditable. You can read them. You can debate them. You can change them. The meta-question — "Who writes the constitution?" — is irreducibly social and political. But at least the question is visible.</p>
+  <p>Google DeepMind, OpenAI, and academic labs are pursuing complementary approaches including RLHF variants, interpretability research, and evaluation frameworks.</p>
+  <p>Researchers like <strong>Jan Leike</strong>, who left OpenAI in 2024 to lead alignment work at Anthropic, represent the growing conviction that safety must be built in, not bolted on.</p>
+</div>
+
+<div class="bigidea">
+  AI safety is not about preventing robot rebellions. It is about the hardest engineering problem in history: building systems that pursue human goals in a world where human goals are complex, contradictory, and context-dependent. Constitutional AI makes the problem visible, auditable, and improvable. That is a start.
+</div>
+
+<div class="narrative"><p><em>Safety research is about what AI should NOT do. But what about what AI SHOULD do — alongside us? Will AI replace humans, or make them more powerful?</em></p></div>
+</section>
+
+<!-- ===== PAGE 7 ===== -->
+<section class="page" data-page="7">
+<!-- Robot panel — warm Tera -->
+<svg viewBox="0 -20 680 210" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="150" y="5" width="510" height="78" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M170,83 L155,98 L185,83" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="171" y1="83" x2="184" y2="83" stroke="#fff" stroke-width="2.5"/>
+  <text x="405" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Will AI replace programmers? Writers? Artists? Let me tell you</text>
+  <text x="405" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">what history says — because this is not the first time humanity</text>
+  <text x="405" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">has faced this question. Not even close.</text>
+  <!-- Tera — warm, open hand -->
+  <g transform="translate(80,122) scale(0.8)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>Every major technology shift triggers the same fear: "This will make us obsolete." And every time, the answer is more complicated than either side wants to admit.</p>
+  <p>When <strong>ATMs</strong> arrived in the 1970s, many predicted bank tellers would vanish. Instead, ATMs made it cheaper to run a branch. Banks opened MORE branches. The number of tellers in the US actually rose — from roughly 300,000 in 1970 to roughly 600,000 by 2010. Tellers stopped counting cash and started doing relationship management.</p>
+  <p>When <strong>spreadsheets</strong> automated calculations in the 1980s, the number of accountants increased, because spreadsheets made financial analysis accessible to more businesses.</p>
+  <p>When <strong>photography</strong> arrived in the 1840s, it freed painters from realism, leading to Impressionism, Expressionism, and Abstract art — arguably the most creative period in art history.</p>
+  <p>But the pattern is not always painless. The <strong>Luddites</strong> of the 1810s destroyed textile machinery because automation genuinely did eliminate their specific skilled jobs. History's lesson is not "everything works out." It is "the long-term outcome can be positive while the short-term transition is painful."</p>
+</div>
+
+<!-- AI Autonomy Spectrum diagram -->
+<div class="diagram-box">
+<svg viewBox="0 -20 680 220" style="width:100%">
+  <!-- Spectrum bar -->
+  <defs><linearGradient id="specGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#4A9BD9"/><stop offset="100%" stop-color="#DD6B20"/></linearGradient></defs>
+  <rect x="40" y="0" width="600" height="8" rx="4" fill="url(#specGrad)" opacity="0.3"/>
+  <text x="40" y="28" style="font-family:var(--mono);font-size:10px;fill:#4A9BD9">LESS AUTONOMY</text>
+  <text x="640" y="28" text-anchor="end" style="font-family:var(--mono);font-size:10px;fill:#DD6B20">MORE AUTONOMY</text>
+
+  <!-- 5 boxes along spectrum -->
+  <!-- Tool -->
+  <rect x="20" y="40" width="112" height="100" rx="6" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.2"/>
+  <text x="76" y="58" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2B6CB0;font-weight:700">Tool</text>
+  <text x="76" y="74" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">Calculator,</text>
+  <text x="76" y="86" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">spell-check</text>
+  <text x="76" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">Human decides</text>
+  <text x="76" y="116" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">everything</text>
+  <text x="76" y="134" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#718096">Issues 1-5</text>
+
+  <!-- Assistant -->
+  <rect x="148" y="40" width="112" height="100" rx="6" fill="#C6F6D5" stroke="#38A169" stroke-width="1.2"/>
+  <text x="204" y="58" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#276749;font-weight:700">Assistant</text>
+  <text x="204" y="74" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">Autocomplete,</text>
+  <text x="204" y="86" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">Grammarly</text>
+  <text x="204" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">Human decides,</text>
+  <text x="204" y="116" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">AI suggests</text>
+  <text x="204" y="134" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#718096">Issue 8</text>
+
+  <!-- Partner -->
+  <rect x="276" y="40" width="112" height="100" rx="6" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.2"/>
+  <text x="332" y="58" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#975A16;font-weight:700">Partner</text>
+  <text x="332" y="74" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">ChatGPT, Copilot</text>
+  <text x="332" y="86" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">for writing/code</text>
+  <text x="332" y="104" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">Human sets goals,</text>
+  <text x="332" y="116" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">reviews outputs</text>
+  <text x="332" y="134" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#718096">Issues 7-8</text>
+
+  <!-- Supervised Agent -->
+  <rect x="404" y="40" width="112" height="100" rx="6" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.2"/>
+  <text x="460" y="54" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#DD6B20;font-weight:700">Supervised</text>
+  <text x="460" y="68" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#DD6B20;font-weight:700">Agent</text>
+  <text x="460" y="82" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">Claude Code:</text>
+  <text x="460" y="94" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">files, tests, fixes</text>
+  <text x="460" y="110" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">Human can</text>
+  <text x="460" y="122" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">intervene</text>
+  <text x="460" y="134" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#718096">Issues 8-9</text>
+
+  <!-- Autonomous Agent -->
+  <rect x="532" y="40" width="128" height="100" rx="6" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.2"/>
+  <text x="596" y="54" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#E53E3E;font-weight:700">Autonomous</text>
+  <text x="596" y="68" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#E53E3E;font-weight:700">Agent</text>
+  <text x="596" y="82" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">Agent swarms</text>
+  <text x="596" y="94" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">building in parallel</text>
+  <text x="596" y="110" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">Human sets</text>
+  <text x="596" y="122" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#A0AEC0">high-level goals</text>
+  <text x="596" y="134" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#718096">Issue 9+</text>
+
+  <!-- Summary -->
+  <text x="340" y="170" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#DD6B20;font-weight:700">More autonomy = more productivity, but less oversight.</text>
+  <text x="340" y="190" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">The right balance depends on the stakes.</text>
+</svg>
+</div>
+
+<div class="narrative">
+  <p>A 2022 GitHub study found developers using Copilot completed tasks <strong>55% faster</strong> — but they spent more time on design and code review. A 2023 Harvard/BCG study found consultants using GPT-4 produced <strong>40% higher-quality work</strong> — but only within the model's capability frontier. For tasks outside that frontier, consultants using AI performed WORSE.</p>
+  <p>Ethan Mollick calls this the <strong>"jagged frontier"</strong>: AI is superhuman at some tasks and below average at others, and the boundary is hard to predict. Human judgment about WHEN to use AI is one of the most valuable skills of the coming decade.</p>
+</div>
+
+<div class="bigidea">
+  The strongest evidence suggests AI is most powerful as an augmentation tool — it raises the floor more than it raises the ceiling. New tools do not replace thinking. They elevate it to a higher layer of abstraction. The same pattern the entire series has documented.
+</div>
+
+<div class="narrative"><p><em>AI and humans, together, are more powerful than either alone. But that raises a question: what comes next? Where does the stack go from here?</em></p></div>
+</section>
+
+<!-- ===== PAGE 8 ===== -->
+<section class="page" data-page="8">
+<!-- Robot panel — direct, encouraging Tera -->
+<svg viewBox="0 -20 680 230" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="150" y="5" width="510" height="96" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M170,101 L155,118 L185,101" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="171" y1="101" x2="184" y2="101" stroke="#fff" stroke-width="2.5"/>
+  <text x="405" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Here is the part that matters most. Every person on that timeline</text>
+  <text x="405" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">started exactly where you are right now: curious. Grace Hopper</text>
+  <text x="405" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">was told no one would use a compiler. Linus said his OS was</text>
+  <text x="405" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">'just a hobby.' Fei-Fei Li labeled millions of images because she</text>
+  <text x="405" y="100" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">believed the data would matter. They just started.</text>
+  <!-- Tera — encouraging, warm glow -->
+  <g transform="translate(80,140) scale(0.8)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>One of the most persistent myths in computing is that you need to start young, or start with a math degree. The actual history tells a different story.</p>
+  <p><strong>John Backus</strong>, who led the creation of FORTRAN, was a mediocre student who stumbled into computing after failing to complete a medical degree. <strong>Mary Kenneth Keller</strong> was a Catholic nun who earned one of the first computer science PhDs in the US. <strong>Ken Thompson</strong> wrote Unix in three weeks while his wife was on vacation. <strong>Tim Berners-Lee</strong> was a physicist who wanted a better way to share documents.</p>
+  <p>The computing stack is not finished. It is still being built. And the next layers will not be built by one kind of person. The problems ahead — alignment, interpretability, bias, energy efficiency — require people who understand ethics, policy, design, culture, and lived experiences.</p>
+  <p>You do not need permission to start. You need curiosity and a willingness to build things, break things, and learn from both.</p>
+</div>
+
+<!-- Paths Into the Stack diagram -->
+<div class="diagram-box">
+<svg viewBox="0 -20 680 275" style="width:100%">
+  <!-- Start box -->
+  <rect x="180" y="5" width="320" height="36" rx="8" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.8"/>
+  <text x="340" y="28" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#DD6B20;font-weight:700">YOU ARE HERE: Curious. No experience required.</text>
+
+  <!-- Lines down -->
+  <line x1="220" y1="41" x2="130" y2="70" stroke="#DD6B20" stroke-width="1.5"/>
+  <line x1="340" y1="41" x2="340" y2="70" stroke="#DD6B20" stroke-width="1.5"/>
+  <line x1="460" y1="41" x2="550" y2="70" stroke="#DD6B20" stroke-width="1.5"/>
+
+  <!-- BUILD box -->
+  <rect x="20" y="70" width="200" height="140" rx="8" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/>
+  <text x="120" y="94" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#276749;font-weight:700">BUILD</text>
+  <text x="120" y="114" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#2D3748">Learn to code.</text>
+  <text x="120" y="130" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#2D3748">Build a website.</text>
+  <text x="120" y="146" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#2D3748">Try Claude Code.</text>
+  <text x="120" y="162" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#2D3748">Contribute to open source.</text>
+  <text x="120" y="184" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#718096">Layers 3-4-8</text>
+
+  <!-- UNDERSTAND box -->
+  <rect x="240" y="70" width="200" height="140" rx="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/>
+  <text x="340" y="94" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#2B6CB0;font-weight:700">UNDERSTAND</text>
+  <text x="340" y="114" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#2D3748">Study how AI works.</text>
+  <text x="340" y="130" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#2D3748">Take a course on ML.</text>
+  <text x="340" y="146" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#2D3748">Read papers.</text>
+  <text x="340" y="162" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#2D3748">Watch 3Blue1Brown.</text>
+  <text x="340" y="184" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#718096">Layers 5-6-7</text>
+
+  <!-- SHAPE box -->
+  <rect x="460" y="70" width="200" height="140" rx="8" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.5"/>
+  <text x="560" y="94" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#553C9A;font-weight:700">SHAPE</text>
+  <text x="560" y="114" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#2D3748">Work on the social side.</text>
+  <text x="560" y="130" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#2D3748">AI ethics, policy,</text>
+  <text x="560" y="146" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#2D3748">fairness, education.</text>
+  <text x="560" y="162" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#2D3748">Write about AI for</text>
+  <text x="560" y="178" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#2D3748">your community.</text>
+  <text x="560" y="198" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#718096">All layers</text>
+
+  <!-- Bottom label -->
+  <text x="340" y="240" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#DD6B20;font-weight:700">Pick one path. Just one. And start.</text>
+</svg>
+</div>
+
+<!-- Code box -->
+<div style="max-width:640px;margin:12px auto">
+  <p style="font-family:var(--hand);font-size:17px;color:var(--accent);font-weight:700;margin-bottom:6px;padding:0 18px">Your First Step — Talk to an AI Model (Python):</p>
+</div>
+<div class="code-box"><span style="color:#718096"># This is a real API call to Claude. Seven lines.</span>
+<span style="color:#718096"># All you need: Python, an API key, and curiosity.</span>
+
+<span style="color:#DD6B20">import</span> <span style="color:#4A9BD9">anthropic</span>
+
+client = anthropic.Anthropic()
+message = client.messages.create(
+    model=<span style="color:#48BB78">"claude-sonnet-4-20250514"</span>,
+    max_tokens=<span style="color:#F6AD55">1024</span>,
+    messages=[{<span style="color:#48BB78">"role"</span>: <span style="color:#48BB78">"user"</span>, <span style="color:#48BB78">"content"</span>: <span style="color:#48BB78">"Explain one layer of the computing stack."</span>}]
+)
+<span style="color:#DD6B20">print</span>(message.content[0].text)</div>
+
+<div class="tryit">
+  <strong>Think About It:</strong> Which layer of the stack interests you most? Are you drawn to the physics of hardware? The elegance of programming languages? The mystery of how neural networks learn? The social challenges of AI safety? There is no wrong answer. The stack needs people at every level.
+</div>
+
+<div class="narrative"><p><em>Before Tera says goodbye, there is one more thing: a reading list. Because every issue we have written is just the beginning.</em></p></div>
+</section>
+
+<!-- ===== PAGE 9 ===== -->
+<section class="page" data-page="9">
+<!-- Robot panel — generous Tera -->
+<svg viewBox="0 -20 680 200" style="width:100%">
+  <!-- Speech bubble -->
+  <rect x="150" y="5" width="510" height="60" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M170,65 L155,80 L185,65" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="171" y1="65" x2="184" y2="65" stroke="#fff" stroke-width="2.5"/>
+  <text x="405" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Everything in this series is a starting point, not an ending</text>
+  <text x="405" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">point. Here are the resources I trust most. Pick one. And start.</text>
+  <!-- Tera — generous smile -->
+  <g transform="translate(80,108) scale(0.8)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>We have covered ninety years in ten issues. Every topic deserves a deeper dive. Here is where to go next.</p>
+</div>
+
+<!-- BOOKS table -->
+<div style="max-width:660px;margin:12px auto;padding:0 8px">
+  <h3 style="font-family:var(--hand);font-size:20px;color:var(--accent);margin-bottom:4px">Books — The Essential Shelf</h3>
+  <table class="res-table">
+    <tr><th>Book</th><th>Why Read It</th><th>Issues</th></tr>
+    <tr><td><em>Code</em> — Charles Petzold (1999/2022)</td><td>The single best book for understanding how computers work from first principles. Start here.</td><td>1-4</td></tr>
+    <tr><td><em>The Annotated Turing</em> — Charles Petzold (2008)</td><td>Line-by-line walkthrough of Turing's 1936 paper. For when you want to go deep.</td><td>1</td></tr>
+    <tr><td><em>Alan Turing: The Enigma</em> — Andrew Hodges (1983/2014)</td><td>The definitive biography. Makes Turing feel like a real person.</td><td>1</td></tr>
+    <tr><td><em>The Mythical Man-Month</em> — Frederick P. Brooks Jr. (1975)</td><td>Why adding people to a late project makes it later. Timeless wisdom on collaboration and complexity.</td><td>4-5</td></tr>
+    <tr><td><em>Human Compatible</em> — Stuart Russell (2019)</td><td>The best accessible book on the alignment problem.</td><td>10</td></tr>
+    <tr><td><em>The Alignment Problem</em> — Brian Christian (2020)</td><td>Comprehensive overview of bias, fairness, and alignment in AI.</td><td>6-10</td></tr>
+    <tr><td><em>Atlas of AI</em> — Kate Crawford (2021)</td><td>Material, social, and political costs behind AI. Essential counterbalance.</td><td>6-10</td></tr>
+    <tr><td><em>Co-Intelligence</em> — Ethan Mollick (2024)</td><td>Practical guide to human-AI collaboration.</td><td>7-10</td></tr>
+  </table>
+</div>
+
+<!-- COURSES table -->
+<div style="max-width:660px;margin:12px auto;padding:0 8px">
+  <h3 style="font-family:var(--hand);font-size:20px;color:var(--accent);margin-bottom:4px">Free Online Courses</h3>
+  <table class="res-table">
+    <tr><th>Course</th><th>Where</th><th>Best For</th></tr>
+    <tr><td>3Blue1Brown — "Neural Networks"</td><td>YouTube</td><td>Visual learners (Issue 6)</td></tr>
+    <tr><td>Karpathy — "Zero to Hero"</td><td>YouTube</td><td>Build neural nets from scratch (Issues 6-7)</td></tr>
+    <tr><td>Andrew Ng — "Machine Learning"</td><td>Coursera (free)</td><td>Classic ML intro (Issue 6)</td></tr>
+    <tr><td>fast.ai — "Practical Deep Learning"</td><td>fast.ai</td><td>Build first, theory second (Issues 6-7)</td></tr>
+    <tr><td>CS50 — "Intro to CS"</td><td>Harvard/edX (free)</td><td>Computing fundamentals (Issues 1-5)</td></tr>
+    <tr><td>Anthropic Research Blog</td><td>anthropic.com/research</td><td>Safety and interpretability (Issues 7-10)</td></tr>
+  </table>
+</div>
+
+<!-- HANDS-ON PROJECTS -->
+<div style="max-width:660px;margin:12px auto;padding:0 8px">
+  <h3 style="font-family:var(--hand);font-size:20px;color:var(--accent);margin-bottom:4px">Hands-On Projects (no experience required)</h3>
+  <ol style="font-size:14.5px;line-height:1.6;padding-left:24px;color:var(--mid)">
+    <li><strong>Build a personal website</strong> with HTML, CSS, and JavaScript — experience the web stack.</li>
+    <li><strong>Try the Claude API</strong> — write the Python script from Page 8.</li>
+    <li><strong>Train a tiny neural network from scratch</strong> — follow Karpathy's micrograd tutorial.</li>
+    <li><strong>Contribute to open source on GitHub</strong> — experience collaborative development.</li>
+    <li><strong>Experiment with prompt engineering</strong> — test what LLMs can and cannot do.</li>
+    <li><strong>Try Claude Code</strong> — experience the agent paradigm firsthand.</li>
+    <li><strong>Write about AI for your community</strong> — you contributing to the stack.</li>
+  </ol>
+</div>
+
+<div class="bigidea">
+  Every expert in every field started exactly where you are: knowing nothing, but curious enough to begin. The distance between "I know nothing about computing" and "I am building something" is smaller than it has ever been. The stack is taller than ever — and that means you can stand on more shoulders than any previous generation.
+</div>
+
+<div class="narrative"><p><em>One more page. Tera has something to say.</em></p></div>
+</section>
+
+<!-- ===== PAGE 10 ===== -->
+<section class="page" data-page="10">
+<!-- Tera's farewell — full cinematic panel -->
+<svg viewBox="0 -20 680 350" style="width:100%">
+  <!-- Speech bubble — the longest of the series -->
+  <rect x="60" y="5" width="580" height="184" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <path d="M340,189 L340,211 L360,189" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="341" y1="189" x2="359" y2="189" stroke="#fff" stroke-width="2.5"/>
+  <text x="350" y="26" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#2D3748">We started with a question: can a machine solve any math problem? A 23-year-old</text>
+  <text x="350" y="42" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#2D3748">named Turing proved the answer is no — and invented the blueprint for every computer.</text>
+  <text x="350" y="58" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#2D3748">Then others built real machines. Then Hopper taught them human languages. Then</text>
+  <text x="350" y="74" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#2D3748">Thompson and Ritchie wrote Unix. Then Berners-Lee connected all knowledge. Then</text>
+  <text x="350" y="90" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#2D3748">Hinton, LeCun, and Bengio proved machines could learn. Then Transformers changed</text>
+  <text x="350" y="106" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#2D3748">everything. Then AI learned to use tools. Then swarms started building together.</text>
+  <text x="350" y="126" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#2D3748">Ninety years. Hundreds of people. Eight layers. Each one built on the last.</text>
+  <text x="350" y="146" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#DD6B20;font-weight:700">And the stack is not finished. The next layers will be built by people like you.</text>
+  <text x="350" y="166" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#2D3748">I do not know what you will build. But understanding where computing came from</text>
+  <text x="350" y="182" text-anchor="middle" style="font-family:var(--body);font-size:12.5px;fill:#2D3748">gives you the power to shape where it goes. You have the map. The rest is up to you.</text>
+  <!-- Tera — warm farewell, small wave -->
+  <g transform="translate(340,261) scale(0.75)">
+    <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+    <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+    <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+    <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+    <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+    <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+    <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+    <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <line x1="20" y1="20" x2="31" y2="12" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="33" cy="10" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+    <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+    <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+  </g>
+</svg>
+
+<div class="narrative">
+  <p>Alan Turing imagined a machine in 1936. Ninety years later, that machine's descendants can read, write, code, reason, and collaborate in teams.</p>
+  <p>But the story of computing has never been about machines. It has been about people — curious, stubborn, brilliant people who looked at the impossible and said, <em>"What if?"</em></p>
+  <p>This series has told the story primarily through American and European pioneers. But computing is a global story — Japanese semiconductor engineers, Indian algorithm researchers, Chinese AI labs, and countless contributors worldwide have shaped the stack.</p>
+</div>
+
+<!-- The What If sequence -->
+<div style="max-width:640px;margin:14px auto;padding:0 18px">
+  <p style="font-size:15px;line-height:1.7;color:var(--mid)">
+    What if a machine could compute anything? <span style="color:var(--muted)">(Turing, 1936.)</span><br>
+    What if we stored the program in memory? <span style="color:var(--muted)">(Von Neumann, 1945.)</span><br>
+    What if computers could understand English? <span style="color:var(--muted)">(Hopper, 1952.)</span><br>
+    What if small tools could be piped together? <span style="color:var(--muted)">(McIlroy, Thompson, Ritchie, 1969.)</span><br>
+    What if all the world's knowledge was linked? <span style="color:var(--muted)">(Berners-Lee, 1989.)</span><br>
+    What if machines could learn from data? <span style="color:var(--muted)">(Hinton, LeCun, Bengio, 1986-2012.)</span><br>
+    What if AI could understand language? <span style="color:var(--muted)">(Vaswani et al., 2017.)</span><br>
+    What if AI could use tools? <span style="color:var(--muted)">(2023-2025.)</span><br>
+    What if agents could work in teams? <span style="color:var(--muted)">(2025-2026.)</span>
+  </p>
+  <p style="font-size:17px;line-height:1.7;color:var(--accent);font-weight:700;font-family:var(--hand);margin-top:8px">The next "what if" is yours.</p>
+</div>
+
+<!-- The Unfinished Stack -->
+<div class="diagram-box">
+<svg viewBox="0 -20 680 320" style="width:100%">
+  <!-- Unknown layer at top -->
+  <rect x="110" y="5" width="460" height="44" rx="6" fill="none" stroke="#DD6B20" stroke-width="2.5" stroke-dasharray="8,4"/>
+  <text x="340" y="22" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#DD6B20;font-weight:700">Layer ?: What comes next is not yet written.</text>
+  <text x="340" y="40" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#DD6B20">That might be you.</text>
+
+  <!-- Compressed existing layers -->
+  <rect x="150" y="60" width="380" height="24" rx="4" fill="#C6F6D5" stroke="#48BB78" stroke-width="1"/><text x="340" y="77" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#276749">Layer 8: Swarms — Issue 9</text>
+  <rect x="150" y="90" width="380" height="24" rx="4" fill="#FED7D7" stroke="#E53E3E" stroke-width="1"/><text x="340" y="107" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#C53030">Layer 7: Agents — Issue 8</text>
+  <rect x="150" y="120" width="380" height="24" rx="4" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1"/><text x="340" y="137" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#DD6B20">Layer 6: LLMs — Issue 7</text>
+  <rect x="150" y="150" width="380" height="24" rx="4" fill="#E9D8FD" stroke="#805AD5" stroke-width="1"/><text x="340" y="167" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#553C9A">Layer 5: ML — Issue 6</text>
+  <rect x="150" y="180" width="380" height="24" rx="4" fill="#C6F6D5" stroke="#38A169" stroke-width="1"/><text x="340" y="197" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#276749">Layer 4: Languages — Issue 3</text>
+  <rect x="150" y="210" width="380" height="24" rx="4" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1"/><text x="340" y="227" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#975A16">Layer 3: OS — Issue 4</text>
+  <rect x="150" y="240" width="380" height="24" rx="4" fill="#FED7D7" stroke="#E53E3E" stroke-width="1"/><text x="340" y="257" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#E53E3E">Layer 2: Hardware — Issue 2</text>
+  <rect x="150" y="270" width="380" height="24" rx="4" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1"/><text x="340" y="287" text-anchor="middle" style="font-family:var(--hand);font-size:11px;fill:#2B6CB0">Layer 1: Physics | Layer 0: Theory — Issue 1</text>
+</svg>
+</div>
+
+<div class="bigidea">
+  The history of computing is the history of people asking "What if?" — and then building the answer. Each answer became a layer that the next question could stand on. Understanding the stack is not just knowledge. It is power. The power to see where we are, how we got here, and where we might go next.
+</div>
+
+<div class="tryit">
+  <strong>Think About It:</strong> Turing's 1950 prediction: "I believe that at the end of the century the use of words and general educated opinion will have altered so much that one will be able to speak of machines thinking without expecting to be contradicted." He was roughly right. The question has shifted from "Can machines think?" to "What do we do about machines that seem to think?" What is YOUR answer? What do YOU think should come next?
+</div>
+
+<div class="narrative">
+  <p><strong>There is no next issue. There is only what you do with what you have learned.</strong></p>
+  <p>Thank you for reading. Now go build something.</p>
+</div>
+
+<!-- Start from the beginning link -->
+<div class="tryit" style="cursor:pointer;text-align:center" onclick="window.location.href='../issue_01/index.html'">
+  <strong>You have reached the end of the series.</strong><br>
+  <a href="../issue_01/index.html" style="color:var(--accent);font-weight:700;text-decoration:underline;font-size:17px;font-family:var(--hand)">Start from the beginning →</a>
+</div>
+
+<!-- References -->
+<div class="refs">
+  <h3>References &amp; Further Reading</h3>
+  <ul>
+    <li><a href="https://doi.org/10.1112/plms/s2-42.1.230" style="color:var(--accent)">Turing, A.M. "On Computable Numbers." 1936.</a> (The founding document.)</li>
+    <li><a href="https://doi.org/10.1093/mind/LIX.236.433" style="color:var(--accent)">Turing, A.M. "Computing Machinery and Intelligence." <em>Mind</em>, 1950.</a> (Can machines think? The imitation game.)</li>
+    <li><a href="https://en.wikipedia.org/wiki/First_Draft_of_a_Report_on_the_EDVAC" style="color:var(--accent)">Von Neumann, J. "First Draft of a Report on the EDVAC." 1945.</a> (Stored-program architecture.)</li>
+    <li><a href="https://dl.acm.org/doi/10.1145/609784.609818" style="color:var(--accent)">Hopper, G.M. "The Education of a Computer." ACM, 1952.</a> (Early compiler concepts.)</li>
+    <li><a href="https://arxiv.org/abs/1706.03762" style="color:var(--accent)">Vaswani, A. et al. "Attention Is All You Need." NeurIPS, 2017.</a> (The Transformer paper.)</li>
+    <li><a href="https://arxiv.org/abs/2212.08073" style="color:var(--accent)">Bai, Y. et al. "Constitutional AI." Anthropic, 2022.</a> (Harmlessness from AI feedback.)</li>
+    <li><a href="https://arxiv.org/abs/2210.03629" style="color:var(--accent)">Yao, S. et al. "ReAct: Synergizing Reasoning and Acting." ICLR, 2023.</a> (The agent pattern.)</li>
+    <li><a href="https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/" style="color:var(--accent)">Spolsky, J. "The Law of Leaky Abstractions." 2002.</a> (Why abstractions are imperfect.)</li>
+    <li><a href="https://dl.acm.org/doi/10.1145/3442188.3445922" style="color:var(--accent)">Bender, Gebru, et al. "On the Dangers of Stochastic Parrots." FAccT, 2021.</a> (Risks of large LMs.)</li>
+    <li><a href="https://arxiv.org/abs/2104.10350" style="color:var(--accent)">Patterson, D. et al. "Carbon Emissions and Large Neural Network Training." 2021.</a> (Energy costs.)</li>
+    <li><a href="https://www.anthropic.com/research/mapping-mind-language-model" style="color:var(--accent)">Anthropic. "Scaling Monosemanticity." 2024.</a> (Mechanistic interpretability breakthrough.)</li>
+    <li><a href="https://www.hbs.edu/ris/Publication%20Files/24-013_d9b45b68-9e74-42d6-a1c6-c72fb70c7571.pdf" style="color:var(--accent)">Dell'Acqua, F. et al. "Navigating the Jagged Technological Frontier." Harvard/BCG, 2023.</a></li>
+    <li><a href="https://www.charlespetzold.com/books/" style="color:var(--accent)">Petzold, C. <em>Code</em> (1999/2022) and <em>The Annotated Turing</em> (2008).</a> (The best two books to start.)</li>
+    <li><a href="https://www.penguinrandomhouse.com/books/566677/human-compatible-by-stuart-russell/" style="color:var(--accent)">Russell, S. <em>Human Compatible.</em> Viking, 2019.</a> (The alignment problem.)</li>
+    <li><a href="https://wwnorton.com/books/the-alignment-problem" style="color:var(--accent)">Christian, B. <em>The Alignment Problem.</em> W.W. Norton, 2020.</a> (Bias, fairness, alignment.)</li>
+    <li><a href="https://yalepress.yale.edu/book/9780300209570/atlas-of-ai/" style="color:var(--accent)">Crawford, K. <em>Atlas of AI.</em> Yale, 2021.</a> (Material and social costs of AI.)</li>
+    <li><a href="https://www.youtube.com/c/3blue1brown" style="color:var(--accent)">3Blue1Brown — "Neural Networks" series. YouTube.</a> (Visual explanations. Free.)</li>
+    <li><a href="https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ" style="color:var(--accent)">Karpathy, A. "Neural Networks: Zero to Hero." YouTube.</a> (Build from scratch. Free.)</li>
+  </ul>
+</div>
+</section>
+
+<script>
+// ===== PAGE NAVIGATION =====
+const pages=document.querySelectorAll('.page');
+const total=pages.length;
+let cur=0;
+const dotsC=document.getElementById('dots');
+const pageNum=document.getElementById('pageNum');
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
+
+for(let i=0;i<total;i++){
+  const d=document.createElement('button');
+  d.className='dot';
+  d.onclick=()=>show(i);
+  dotsC.appendChild(d);
+}
+
+function show(n){
+  cur=Math.max(0,Math.min(total-1,n));
+  pages.forEach((p,i)=>{p.classList.toggle('active',i===cur);});
+  document.querySelectorAll('.dot').forEach((d,i)=>{
+    d.className='dot'+(i===cur?' active':i<cur?' past':'');
+  });
+  pageNum.textContent=(cur+1)+' / '+total;
+  prevBtn.disabled=cur===0;
+  nextBtn.disabled=cur===total-1;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function go(d){show(cur+d);}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);
+});
+
+show(0);
+
+// ===== STACK STEP-THROUGH ANIMATION (Page 2) =====
+(function(){
+  var layers = [
+    {name:"Physics",color:"#4A9BD9",bg:"#BEE3F8",issue:"Foundation",year:"~1920s-1940s",desc:"Quantum mechanics governs electron behavior in semiconductors. Band gaps in silicon make transistors possible. Electromagnetism carries signals. The speed of light is the ultimate speed limit.",provides:"THE UNIVERSE — controllable electrons",figures:"Thomson, Schrodinger, Shannon"},
+    {name:"Hardware",color:"#E53E3E",bg:"#FED7D7",issue:"Issue 2",year:"1941-present",desc:"Transistors combine into logic gates, ALUs, processors, and memory. From 2,300 transistors (Intel 4004, 1971) to ~134 billion (Apple M4 Ultra, 2024). Physical computation from electrons.",provides:"PHYSICAL COMPUTATION — logic from electrons",figures:"Bardeen, Brattain, Shockley, von Neumann, Zuse"},
+    {name:"Operating Systems",color:"#D69E2E",bg:"#FEFCBF",issue:"Issue 4",year:"1960s-present",desc:"Manage hardware, schedule tasks, provide file systems. One program runs on any compatible machine. Unix (1969) distilled elegance; Linux (1991) brought it to the world for free.",provides:"HARDWARE ABSTRACTION — software portability",figures:"Thompson, Ritchie, Torvalds, Stallman"},
+    {name:"Programming Languages",color:"#38A169",bg:"#C6F6D5",issue:"Issue 3",year:"1952-present",desc:"Compilers and interpreters translate human-readable code into machine instructions. From Grace Hopper's first compiler to Python, each language climbs the abstraction ladder higher.",provides:"HUMAN-READABLE expression of logic",figures:"Hopper, Backus, McCarthy, Ritchie"},
+    {name:"Machine Learning",color:"#805AD5",bg:"#E9D8FD",issue:"Issue 6",year:"1958-present",desc:"Neural networks that learn patterns from data. No hand-written rules — the model finds its own. From the Perceptron to deep learning, the key insight: let the data teach the machine.",provides:"PATTERN RECOGNITION without explicit rules",figures:"Hinton, LeCun, Bengio, Fei-Fei Li"},
+    {name:"Large Language Models",color:"#DD6B20",bg:"#FFF5EB",issue:"Issue 7",year:"2017-present",desc:"Transformers trained on trillions of tokens. Natural language in, natural language out. The Transformer paper (2017) changed everything — enabling conversation with computation.",provides:"NATURAL LANGUAGE INTERFACE to computation",figures:"Vaswani et al., Radford, Amodei"},
+    {name:"Agents",color:"#E53E3E",bg:"#FED7D7",issue:"Issue 8",year:"2023-2025",desc:"LLMs + tool use. Read files, run commands, fix errors. The ReAct loop: Think, Act, Observe, Repeat. AI that does, not just says. Claude Code brought this to the terminal.",provides:"AUTONOMY — AI that does, not just says",figures:"Anthropic (Claude Code), Yao et al."},
+    {name:"Swarms",color:"#48BB78",bg:"#C6F6D5",issue:"Issue 9",year:"2025-2026",desc:"Multiple specialized agents coordinating via files, task boards, and git worktrees. The Unix philosophy applied to AI: small, specialized tools composed together. Composition beats monolith.",provides:"COORDINATION — parallel work on complex projects",figures:"Addy Osmani, Claude Code team"}
+  ];
+  var cur=0;
+  function render(){
+    var svg=document.getElementById('stack-svg');
+    var s=layers[cur];
+    var html='';
+    var layerH=34, gap=4, startY=310;
+    // Draw all layers
+    for(var i=0;i<layers.length;i++){
+      var l=layers[i];
+      var y=startY - i*(layerH+gap);
+      var isActive=(i===cur);
+      var opacity=isActive?1:(i<=cur?0.7:0.3);
+      html+='<rect x="100" y="'+y+'" width="460" height="'+layerH+'" rx="5" fill="'+(isActive?l.bg:l.bg)+'" stroke="'+(isActive?l.color:'#4A5568')+'" stroke-width="'+(isActive?2.5:1)+'" opacity="'+opacity+'"/>';
+      html+='<text x="330" y="'+(y+22)+'" text-anchor="middle" style="font-family:var(--hand);font-size:'+(isActive?15:12)+'px;fill:'+(isActive?l.color:'#718096')+';font-weight:'+(isActive?700:400)+';opacity:'+opacity+'">Layer '+(i+1)+': '+l.name+'</text>';
+      if(isActive){
+        // highlight arrow
+        html+='<polygon points="82,'+(y+12)+' 96,'+(y+17)+' 82,'+(y+22)+'" fill="'+l.color+'"/>';
+      }
+    }
+    // Info panel for active layer
+    html+='<rect x="60" y="4" width="540" height="100" rx="8" fill="#2D3748" stroke="'+s.color+'" stroke-width="1.5"/>';
+    html+='<text x="330" y="26" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:'+s.color+';font-weight:700">'+s.name+' ('+s.year+')</text>';
+    html+='<text x="330" y="44" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#A0AEC0">'+s.issue+' · Figures: '+s.figures+'</text>';
+    html+='<text x="330" y="66" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:'+s.color+'">Provides: '+s.provides+'</text>';
+    // connecting line from panel to active layer
+    var activeY=startY-cur*(layerH+gap)+layerH/2;
+    html+='<line x1="330" y1="104" x2="330" y2="'+(activeY-2)+'" stroke="'+s.color+'" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>';
+
+    svg.innerHTML=html;
+    document.getElementById('stack-desc').textContent=s.desc;
+    document.getElementById('stack-counter').textContent='Layer '+(cur+1)+' / '+layers.length;
+    document.getElementById('stack-prev').disabled=(cur===0);
+    document.getElementById('stack-next').disabled=(cur===layers.length-1);
+    document.getElementById('stack-prev').style.opacity=cur===0?'0.4':'1';
+    document.getElementById('stack-next').style.opacity=cur===layers.length-1?'0.4':'1';
+  }
+  window.stackNext=function(){if(cur<layers.length-1){cur++;render();}};
+  window.stackPrev=function(){if(cur>0){cur--;render();}};
+  window.stackReset=function(){cur=0;render();};
+  render();
+})();
+
+// ===== TIMELINE STEP-THROUGH (Page 4) =====
+(function(){
+  var entries=[
+    {year:"1931",name:"Kurt Godel",what:"Incompleteness Theorems",color:"#E53E3E",cat:"Theory"},
+    {year:"1936",name:"Alonzo Church",what:"Lambda calculus — the other half of the Church-Turing thesis",color:"#E53E3E",cat:"Theory"},
+    {year:"1936",name:"Alan Turing",what:"Turing Machine, Halting Problem",color:"#E53E3E",cat:"Theory"},
+    {year:"1941",name:"Konrad Zuse",what:"Z3 — first programmable computer",color:"#DD6B20",cat:"Hardware"},
+    {year:"1945",name:"Eckert & Mauchly + ENIAC Women",what:"ENIAC — 17,468 vacuum tubes; first programmers",color:"#DD6B20",cat:"Hardware"},
+    {year:"1945",name:"John von Neumann",what:"Stored-program architecture",color:"#DD6B20",cat:"Hardware"},
+    {year:"1947",name:"Bardeen, Brattain, Shockley",what:"The transistor — Bell Labs",color:"#4A9BD9",cat:"Physics"},
+    {year:"1952",name:"Grace Hopper",what:"First compiler (A-0)",color:"#38A169",cat:"Languages"},
+    {year:"1957",name:"John Backus",what:"FORTRAN — first high-level language",color:"#38A169",cat:"Languages"},
+    {year:"1958",name:"Rosenblatt",what:"The Perceptron — first neural net",color:"#805AD5",cat:"ML"},
+    {year:"1965",name:"Mary Kenneth Keller",what:"First American woman to earn a CS doctorate",color:"#38A169",cat:"People"},
+    {year:"1969",name:"Thompson, Ritchie & McIlroy",what:"Unix — small tools, composed together (McIlroy's philosophy)",color:"#D69E2E",cat:"OS"},
+    {year:"1974",name:"Cerf & Kahn",what:"TCP/IP — the internet's backbone",color:"#D69E2E",cat:"Networking"},
+    {year:"1983",name:"Richard Stallman",what:"GNU Project, free software",color:"#D69E2E",cat:"Culture"},
+    {year:"1986",name:"Hinton, Rumelhart, Williams",what:"Backpropagation popularized",color:"#805AD5",cat:"ML"},
+    {year:"1989",name:"Tim Berners-Lee",what:"The World Wide Web",color:"#D69E2E",cat:"Web"},
+    {year:"1991",name:"Linus Torvalds",what:"Linux kernel released",color:"#D69E2E",cat:"OS"},
+    {year:"2009",name:"Fei-Fei Li",what:"ImageNet — 14M+ labeled images",color:"#805AD5",cat:"ML"},
+    {year:"2012",name:"Krizhevsky, Sutskever, Hinton",what:"AlexNet — deep learning proven",color:"#805AD5",cat:"ML"},
+    {year:"2017",name:"Vaswani et al.",what:"'Attention Is All You Need'",color:"#DD6B20",cat:"LLMs"},
+    {year:"2021",name:"Dario & Daniela Amodei",what:"Anthropic founded (safety-first)",color:"#DD6B20",cat:"Safety"},
+    {year:"2025",name:"Claude Code team",what:"Agentic AI coding in terminal",color:"#48BB78",cat:"Agents"},
+    {year:"2025+",name:"Multi-agent swarms",what:"Coordination via file protocols",color:"#48BB78",cat:"Swarms"}
+  ];
+  var cur=0;
+  function render(){
+    var svg=document.getElementById('tl-svg');
+    var e=entries[cur];
+    var html='';
+    // Timeline bar
+    var x1=50,x2=610,y=130;
+    html+='<line x1="'+x1+'" y1="'+y+'" x2="'+x2+'" y2="'+y+'" stroke="#4A5568" stroke-width="2.5" opacity="0.4"/>';
+    // Position dots for all entries
+    var total=entries.length;
+    for(var i=0;i<total;i++){
+      var px=x1+(x2-x1)*i/(total-1);
+      var isActive=(i===cur);
+      var isPast=(i<cur);
+      html+='<circle cx="'+px+'" cy="'+y+'" r="'+(isActive?7:3.5)+'" fill="'+(isActive?entries[i].color:(isPast?entries[i].color:'#4A5568'))+'" opacity="'+(isActive?1:(isPast?0.6:0.3))+'"/>';
+    }
+    // Active entry details
+    var ax=x1+(x2-x1)*cur/(total-1);
+    // Year label above dot
+    html+='<text x="'+ax+'" y="'+(y-18)+'" text-anchor="middle" style="font-family:var(--mono);font-size:14px;fill:'+e.color+';font-weight:700">'+e.year+'</text>';
+    // Info box at top
+    html+='<rect x="80" y="5" width="500" height="80" rx="8" fill="#2D3748" stroke="'+e.color+'" stroke-width="1.5"/>';
+    html+='<text x="330" y="28" text-anchor="middle" style="font-family:var(--hand);font-size:17px;fill:'+e.color+';font-weight:700">'+e.name+'</text>';
+    html+='<text x="330" y="50" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#E2E8F0">'+e.what+'</text>';
+    html+='<text x="330" y="72" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#718096">'+e.year+' · '+e.cat+'</text>';
+    // Connect line
+    html+='<line x1="'+ax+'" y1="85" x2="'+ax+'" y2="'+(y-12)+'" stroke="'+e.color+'" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>';
+    // Era labels below
+    html+='<text x="80" y="165" style="font-family:var(--body);font-size:10px;fill:#718096">1930s</text>';
+    html+='<text x="240" y="165" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">1950s-70s</text>';
+    html+='<text x="440" y="165" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">1980s-2000s</text>';
+    html+='<text x="590" y="165" text-anchor="end" style="font-family:var(--body);font-size:10px;fill:#718096">2020s</text>';
+    svg.innerHTML=html;
+    document.getElementById('tl-desc').textContent=e.year+': '+e.name+' — '+e.what;
+    document.getElementById('tl-counter').textContent=(cur+1)+' / '+total;
+    document.getElementById('tl-prev').disabled=(cur===0);
+    document.getElementById('tl-next').disabled=(cur===total-1);
+    document.getElementById('tl-prev').style.opacity=cur===0?'0.4':'1';
+    document.getElementById('tl-next').style.opacity=cur===total-1?'0.4':'1';
+  }
+  window.tlNext=function(){if(cur<entries.length-1){cur++;render();}};
+  window.tlPrev=function(){if(cur>0){cur--;render();}};
+  window.tlReset=function(){cur=0;render();};
+  render();
+})();
+
+// ===== CONSTITUTIONAL AI STEP-THROUGH (Page 6) =====
+(function(){
+  var steps=[
+    {phase:"Phase 1",title:"Model generates a response",desc:"The AI model receives a prompt and produces an initial response. This is the raw, unrefined output — potentially helpful but possibly harmful.",boxes:[{label:"Prompt",x:50,color:"#4A9BD9",active:true},{label:"Model",x:230,color:"#718096",active:false},{label:"Response v1",x:410,color:"#718096",active:false}],arrow:0},
+    {phase:"Phase 1",title:"Model reads the Constitution",desc:"The model is shown a set of human-authored principles: 'Choose the response that is most helpful while being honest and harmless.' These are the rules it will use to judge itself.",boxes:[{label:"Prompt",x:50,color:"#718096",active:false},{label:"Model",x:230,color:"#4A9BD9",active:true},{label:"Constitution",x:410,color:"#DD6B20",active:true}],arrow:1},
+    {phase:"Phase 1",title:"Model critiques its own response",desc:"The model asks itself: 'Does my response follow the principles? Is it helpful? Honest? Harmless?' This is self-evaluation — the AI as its own critic.",boxes:[{label:"Response v1",x:50,color:"#718096",active:false},{label:"Self-Critique",x:230,color:"#E53E3E",active:true},{label:"Constitution",x:410,color:"#DD6B20",active:false}],arrow:1},
+    {phase:"Phase 1",title:"Model rewrites its response",desc:"Based on the critique, the model revises its response to better match the constitutional principles. The revised version becomes training data for future improvement.",boxes:[{label:"Critique",x:50,color:"#718096",active:false},{label:"Rewrite",x:230,color:"#38A169",active:true},{label:"Response v2",x:410,color:"#38A169",active:true}],arrow:2},
+    {phase:"Phase 2 (RLAIF)",title:"AI evaluates pairs of responses",desc:"A separate AI model compares pairs of outputs and judges which better matches the constitution. This generates preference data at scale — like RLHF, but with AI as the judge.",boxes:[{label:"Response A",x:50,color:"#805AD5",active:false},{label:"AI Judge",x:230,color:"#DD6B20",active:true},{label:"Response B",x:410,color:"#805AD5",active:false}],arrow:1},
+    {phase:"Phase 2 (RLAIF)",title:"Reinforcement learning aligns the model",desc:"The preference judgments train the model to produce outputs that match the constitution — alignment that scales beyond human review. The principles are auditable: you can read them, debate them, change them.",boxes:[{label:"Preferences",x:50,color:"#718096",active:false},{label:"RL Training",x:230,color:"#DD6B20",active:true},{label:"Aligned Model",x:410,color:"#38A169",active:true}],arrow:2}
+  ];
+  var cur=0;
+  function render(){
+    var svg=document.getElementById('cai-svg');
+    var s=steps[cur];
+    var html='';
+    // Phase label
+    html+='<rect x="30" y="5" width="160" height="28" rx="6" fill="#2D3748" stroke="#DD6B20" stroke-width="1.2"/>';
+    html+='<text x="110" y="24" text-anchor="middle" style="font-family:var(--mono);font-size:12px;fill:#DD6B20;font-weight:700">'+s.phase+'</text>';
+    // Title
+    html+='<text x="330" y="60" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#E2E8F0;font-weight:700">'+s.title+'</text>';
+    // Boxes
+    var boxY=85,boxW=160,boxH=50;
+    for(var i=0;i<s.boxes.length;i++){
+      var b=s.boxes[i];
+      html+='<rect x="'+b.x+'" y="'+boxY+'" width="'+boxW+'" height="'+boxH+'" rx="8" fill="'+(b.active?b.color:'#4A5568')+'" opacity="'+(b.active?0.25:0.15)+'" stroke="'+(b.active?b.color:'#4A5568')+'" stroke-width="'+(b.active?2:1)+'"/>';
+      html+='<text x="'+(b.x+boxW/2)+'" y="'+(boxY+boxH/2+5)+'" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:'+(b.active?b.color:'#718096')+';font-weight:700">'+b.label+'</text>';
+      // Arrows between boxes
+      if(i<s.boxes.length-1){
+        var ax1=b.x+boxW+4,ax2=s.boxes[i+1].x-4,ay=boxY+boxH/2;
+        var isActiveArrow=(i===s.arrow);
+        html+='<line x1="'+ax1+'" y1="'+ay+'" x2="'+(ax2-8)+'" y2="'+ay+'" stroke="'+(isActiveArrow?'#DD6B20':'#4A5568')+'" stroke-width="'+(isActiveArrow?2:1)+'" opacity="'+(isActiveArrow?1:0.4)+'"/>';
+        html+='<polygon points="'+(ax2-8)+','+(ay-4)+' '+ax2+','+ay+' '+(ax2-8)+','+(ay+4)+'" fill="'+(isActiveArrow?'#DD6B20':'#4A5568')+'" opacity="'+(isActiveArrow?1:0.4)+'"/>';
+      }
+    }
+    // Constitution principles at bottom (shown on certain steps)
+    if(cur===1||cur===2){
+      html+='<rect x="130" y="155" width="400" height="48" rx="6" fill="#2D3748" stroke="#DD6B20" stroke-width="1" stroke-dasharray="4,3"/>';
+      html+='<text x="330" y="174" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#DD6B20">"Be helpful. Be honest. Be harmless."</text>';
+      html+='<text x="330" y="192" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">"Respect autonomy. The full constitution is auditable."</text>';
+    }
+    svg.innerHTML=html;
+    document.getElementById('cai-desc').textContent=s.desc;
+    document.getElementById('cai-counter').textContent='Step '+(cur+1)+' / '+steps.length;
+    document.getElementById('cai-prev').disabled=(cur===0);
+    document.getElementById('cai-next').disabled=(cur===steps.length-1);
+    document.getElementById('cai-prev').style.opacity=cur===0?'0.4':'1';
+    document.getElementById('cai-next').style.opacity=cur===steps.length-1?'0.4':'1';
+  }
+  window.caiNext=function(){if(cur<steps.length-1){cur++;render();}};
+  window.caiPrev=function(){if(cur>0){cur--;render();}};
+  window.caiReset=function(){cur=0;render();};
+  render();
+})();
+</script>
+</body>
+</html>

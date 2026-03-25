@@ -1,0 +1,113 @@
+{
+  "issue": 1,
+  "page": 8,
+  "title": "The Man Who Broke Mathematics",
+  "accent": "#E53E3E",
+  "panels": [
+    {
+      "id": "p8_01_vienna_cafe",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 448,
+      "prompt": "Interior of a Viennese coffee house in the early 1930s, ornate marble-topped tables, dark wood paneling, warm amber gaslight, a young intense man with round glasses and dark hair sits alone at a corner table surrounded by scattered papers and notebooks, he is Kurt Godel aged 25, deeply concentrated, a coffee cup sits untouched beside him, other patrons in the blurred background, intimate scholarly atmosphere of prewar Vienna, warm editorial illustration with ink lines and watercolor washes in warm sepia and amber tones with subtle red accents",
+      "overlays": []
+    },
+    {
+      "id": "p8_02_scribble_bridge",
+      "type": "image_with_bubble",
+      "layout": "left",
+      "flex": 1,
+      "gen_width": 384,
+      "gen_height": 384,
+      "prompt": "Scribble, a small cute robot, perched on a stack of old leather-bound books, thoughtful expression. A white speech bubble with black outline above. Inside the bubble the text reads: \"Before Turing, Godel showed some truths can't be proved.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Before Turing, Godel showed some truths can't be proved.",
+      "speaker": "SCRIBBLE"
+    },
+    {
+      "id": "p8_03_narration_godel",
+      "type": "css_narration",
+      "layout": "right",
+      "flex": 2,
+      "text": "In 1931 — five years before Turing's paper — <strong>Kurt Godel</strong> published a result that shattered Hilbert's dream before the Turing Machine was even imagined.<br><br>Godel was 25, Austrian, and painfully shy. His paper proved two devastating theorems:",
+      "style": "default"
+    },
+    {
+      "id": "p8_04_narration_first",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Godel's First Incompleteness Theorem:</strong> In any consistent formal system powerful enough to describe basic arithmetic, there will <em>always</em> be true statements that the system cannot prove. No matter how many axioms you add. The system will always contain truths it cannot reach.",
+      "style": "default"
+    },
+    {
+      "id": "p8_05_scribble_puzzle",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "Scribble, a small cute robot, sitting cross-legged on the floor surrounded by jigsaw puzzle pieces, holding one piece up and staring at it — but the puzzle is of the puzzle itself, a recursive image-within-image, the robot looks confused and slightly distressed but still endearing, warm cream background with faint mathematical notation. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"A puzzle that can't even prove it's not broken?!\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "A puzzle that can't even prove it's not broken?!",
+      "speaker": "SCRIBBLE"
+    },
+    {
+      "id": "p8_05_narration_second",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>Godel's Second Incompleteness Theorem:</strong> Such a system cannot even prove its own consistency. It can't guarantee that it won't contradict itself.",
+      "style": "default"
+    },
+    {
+      "id": "p8_07_library",
+      "type": "image",
+      "layout": "full-width",
+      "gen_width": 768,
+      "gen_height": 320,
+      "prompt": "A vast impossible infinite library with towering bookshelves stretching into misty darkness above and below, warm golden light illuminating some shelves while others fade into shadow, some shelves are empty with a faint glow where books should be — representing truths that cannot be cataloged, a tiny figure stands at the base looking up in wonder, Escher-like impossible architecture with stairs going nowhere, warm editorial illustration with ink lines and watercolor washes, amber and deep blue tones",
+      "overlays": []
+    },
+    {
+      "id": "p8_07_narration_library",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "Think of it this way: imagine a library that tries to catalog every true book. Godel proved that <em>any</em> such library will always have missing shelves — true books it cannot catalog. And it can never prove that its own catalog doesn't contain errors.",
+      "style": "default"
+    },
+    {
+      "id": "p8_08_pillars_diagram",
+      "type": "svg_diagram",
+      "layout": "full-width",
+      "svg": "<svg viewBox=\"-10 -30 700 370\"><rect x=\"5\" y=\"-15\" width=\"670\" height=\"340\" rx=\"12\" fill=\"#1A202C\" stroke=\"#4A5568\" stroke-width=\"1.5\"/><text x=\"340\" y=\"12\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#D69E2E\">HILBERT'S DREAM (1928): Mathematics should be...</text><rect x=\"50\" y=\"30\" width=\"180\" height=\"80\" rx=\"8\" fill=\"#2D3748\" stroke=\"#4A9BD9\" stroke-width=\"2\"/><text x=\"140\" y=\"52\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#4A9BD9\">COMPLETE</text><text x=\"140\" y=\"70\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">Every true statement</text><text x=\"140\" y=\"85\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">can be proved</text><rect x=\"250\" y=\"30\" width=\"180\" height=\"80\" rx=\"8\" fill=\"#2D3748\" stroke=\"#48BB78\" stroke-width=\"2\"/><text x=\"340\" y=\"52\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#48BB78\">CONSISTENT</text><text x=\"340\" y=\"70\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">No contradictions</text><text x=\"340\" y=\"85\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">are possible</text><rect x=\"450\" y=\"30\" width=\"180\" height=\"80\" rx=\"8\" fill=\"#2D3748\" stroke=\"#E53E3E\" stroke-width=\"2\"/><text x=\"540\" y=\"52\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#FFFFFF\">DECIDABLE</text><text x=\"540\" y=\"70\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">An algorithm can</text><text x=\"540\" y=\"85\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#A0AEC0\">settle any question</text><line x1=\"140\" y1=\"110\" x2=\"140\" y2=\"140\" stroke=\"#E53E3E\" stroke-width=\"2\" stroke-dasharray=\"4,3\"/><polygon points=\"140,140 135,133 145,133\" fill=\"#E53E3E\"/><line x1=\"340\" y1=\"110\" x2=\"340\" y2=\"140\" stroke=\"#E53E3E\" stroke-width=\"2\" stroke-dasharray=\"4,3\"/><polygon points=\"340,140 335,133 345,133\" fill=\"#E53E3E\"/><line x1=\"540\" y1=\"110\" x2=\"540\" y2=\"140\" stroke=\"#E53E3E\" stroke-width=\"2\" stroke-dasharray=\"4,3\"/><polygon points=\"540,140 535,133 545,133\" fill=\"#E53E3E\"/><rect x=\"50\" y=\"143\" width=\"180\" height=\"80\" rx=\"8\" fill=\"#E53E3E\" fill-opacity=\"0.15\" stroke=\"#E53E3E\" stroke-width=\"2\"/><text x=\"140\" y=\"165\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"15\" font-weight=\"bold\" fill=\"#FFFFFF\">GODEL 1931</text><text x=\"140\" y=\"183\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#FED7D7\">First Incompleteness</text><text x=\"140\" y=\"198\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#FED7D7\">Theorem</text><text x=\"140\" y=\"216\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#FFFFFF\">X NO</text><rect x=\"250\" y=\"143\" width=\"180\" height=\"80\" rx=\"8\" fill=\"#E53E3E\" fill-opacity=\"0.15\" stroke=\"#E53E3E\" stroke-width=\"2\"/><text x=\"340\" y=\"165\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"15\" font-weight=\"bold\" fill=\"#FFFFFF\">GODEL 1931</text><text x=\"340\" y=\"183\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#FED7D7\">Second Incompleteness</text><text x=\"340\" y=\"198\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#FED7D7\">Theorem</text><text x=\"340\" y=\"216\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#FFFFFF\">X NO</text><rect x=\"450\" y=\"143\" width=\"180\" height=\"80\" rx=\"8\" fill=\"#E53E3E\" fill-opacity=\"0.15\" stroke=\"#E53E3E\" stroke-width=\"2\"/><text x=\"540\" y=\"165\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"15\" font-weight=\"bold\" fill=\"#FFFFFF\">TURING 1936</text><text x=\"540\" y=\"183\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#FED7D7\">The Halting</text><text x=\"540\" y=\"198\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#FED7D7\">Problem</text><text x=\"540\" y=\"216\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"16\" font-weight=\"bold\" fill=\"#FFFFFF\">X NO</text><text x=\"340\" y=\"255\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"13\" fill=\"#A0AEC0\">All three pillars fell. Formal systems have permanent limits.</text><text x=\"340\" y=\"275\" text-anchor=\"middle\" font-family=\"'JetBrains Mono',monospace\" font-size=\"12\" fill=\"#E2E8F0\" textLength=\"634\" lengthAdjust=\"spacingAndGlyphs\">But mathematics itself? Still thrives — we just can't trap all of it in one set of rules.</text></svg>",
+      "caption": "Hilbert's three pillars — and how they fell"
+    },
+    {
+      "id": "p8_09_narration_notbroken",
+      "type": "css_narration",
+      "layout": "full-width",
+      "text": "<strong>This does not mean mathematics is broken.</strong> Godel's theorems apply to formal systems powerful enough to encode basic arithmetic. Mathematicians still prove theorems every day. What Godel and Turing showed is that no <em>single formal system</em> can capture all mathematical truth.",
+      "style": "default"
+    },
+    {
+      "id": "p8_10_bigidea",
+      "type": "css_narration",
+      "layout": "full-width",
+      "style": "accent",
+      "text": "Godel and Turing didn't destroy mathematics — they gave it <strong>honest boundaries</strong>. And by defining exactly what <em>can</em> be computed, Turing created the theoretical foundation for every computer that would ever be built."
+    },
+    {
+      "id": "p8_12_scribble_horizon",
+      "type": "image_with_bubble",
+      "layout": "full-width",
+      "gen_width": 640,
+      "gen_height": 384,
+      "prompt": "Scribble, a small cute robot, sitting on the edge of a cliff overlooking a vast mathematical landscape where equations and symbols grow like trees and rivers of numbers flow through valleys, the horizon glows with warm amber light suggesting dawn and new possibilities, one stubby hand shading its eyes as it gazes into the distance, contemplative and hopeful atmosphere. A white speech bubble with black outline near the top. Inside the bubble the text reads: \"Limits aren't the end. They're where the map begins.\" Comic book style, warm editorial illustration with ink lines and watercolor washes",
+      "bubble_text": "Limits aren't the end. They're where the map begins.",
+      "speaker": "SCRIBBLE"
+    },
+    {
+      "id": "p8_11_hook",
+      "type": "css_hook",
+      "layout": "full-width",
+      "text": "Turing wasn't the only one thinking about computation in 1936. Across the Atlantic, an American mathematician had reached the same conclusion by a completely different path..."
+    }
+  ]
+}

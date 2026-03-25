@@ -1,0 +1,13 @@
+{
+  "name": "Scribble",
+  "era": "1936 \u2014 The Birth of Computing",
+  "theme": "Turing machines, mathematical foundations, thought experiments",
+  "designs": [
+    "brass_clockwork",
+    "paper_tape",
+    "chalkboard",
+    "typewriter",
+    "golden_ratio",
+    "cambridge_stone"
+  ]
+}

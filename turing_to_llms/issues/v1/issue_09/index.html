@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From Turing to Swarms &#8212; Issue 9: The Swarm</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#48BB78;--bg:#FAF9F6;--dark:#2D3748;--mid:#4A5568;--light:#718096;--muted:#A0AEC0;--border:#E2E8F0;--card:#F7FAFC;--panel:#1A202C;--hand:'Caveat','Patrick Hand',cursive;--body:'Patrick Hand',cursive;--mono:'JetBrains Mono','Fira Code','SF Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--bg);color:var(--dark);min-height:100vh;background-image:radial-gradient(circle at 25% 25%,rgba(72,187,120,.03) 0%,transparent 55%),radial-gradient(circle at 75% 75%,rgba(198,246,213,.04) 0%,transparent 55%)}
+.page{display:none;max-width:740px;margin:0 auto;padding:12px 8px 40px;animation:fadeUp .35s ease-out}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.nav{position:sticky;top:0;z-index:50;background:rgba(250,249,246,.92);backdrop-filter:blur(8px);border-bottom:2px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;max-width:740px;margin:0 auto}
+.nav button{font-family:var(--hand);font-size:18px;background:none;border:none;color:var(--accent);cursor:pointer;padding:4px 10px}
+.nav button:disabled{color:#CBD5E0;cursor:default}
+.dots{display:flex;gap:4px;justify-content:center;margin-top:3px}
+.dot{width:8px;height:8px;border-radius:4px;background:var(--border);border:none;cursor:pointer;padding:0;transition:all .2s}
+.dot.active{width:18px;background:var(--accent)}
+.dot.past{background:rgba(72,187,120,.33)}
+.page-num{font-family:var(--hand);font-size:12px;color:var(--muted);text-align:center}
+.issue-header{text-align:center;padding:24px 16px 8px}
+.issue-label{font-family:var(--hand);font-size:14px;color:var(--accent);text-transform:uppercase;letter-spacing:2px;font-weight:700}
+.issue-title{font-family:'Caveat',cursive;font-size:30px;color:var(--panel);margin:6px 0 0;line-height:1.2;padding:0 16px}
+.title-bar{width:60px;height:3px;background:var(--accent);border-radius:2px;margin:10px auto 0}
+.narrative{padding:0 24px;font-size:16.5px;line-height:1.65;max-width:680px;margin:0 auto}
+.narrative p{margin:10px 0}
+.narrative strong{color:var(--panel)}
+.narrative em{color:var(--accent);font-style:italic}
+.bigidea{margin:16px auto;padding:16px 20px;border-left:4px solid var(--accent);background:rgba(72,187,120,.07);border-radius:0 10px 10px 0;font-size:15.5px;line-height:1.6;max-width:640px}
+.tryit{margin:16px auto;padding:16px 20px;border:2px dashed #CBD5E0;border-radius:10px;background:var(--card);font-size:15px;line-height:1.6;color:var(--mid);max-width:640px}
+.diagram-box{margin:14px auto;padding:8px;max-width:700px}
+.code-box{margin:8px auto;padding:12px 18px;background:var(--panel);color:#48BB78;border-radius:8px;font-family:var(--mono);font-size:13px;white-space:pre;max-width:640px;overflow-x:auto;line-height:1.5}
+.refs{margin:20px auto 0;padding:14px 18px;background:var(--card);border-radius:10px;border:1px solid var(--border);max-width:640px}
+.refs h3{font-family:var(--hand);font-size:14px;font-weight:700;color:var(--muted);margin-bottom:6px}
+.refs ul{list-style:none;padding:0}
+.refs li{padding:3px 0;font-size:12.5px;color:var(--light)}
+.refs li::before{content:"\1F4C4 "}
+.bot-nav{display:flex;justify-content:space-between;padding:24px 24px 0;max-width:640px;margin:0 auto}
+.bot-nav button{font-family:var(--hand);font-size:16px;border-radius:8px;padding:8px 18px;cursor:pointer}
+.bot-prev{background:rgba(72,187,120,.1);border:1.5px solid var(--accent);color:var(--accent)}
+.bot-next{background:var(--accent);border:none;color:#fff}
+svg text{user-select:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.series-banner{text-align:center;padding:18px 16px 4px;font-family:var(--hand);font-size:12px;color:var(--muted);letter-spacing:3px;text-transform:uppercase}
+.page-title{font-family:'Caveat',cursive;font-size:22px;color:var(--accent);text-align:center;margin:8px 0 12px;font-weight:700}
+.hook{margin:14px auto;padding:10px 20px;font-size:15px;color:var(--light);font-style:italic;max-width:640px;text-align:center}
+</style>
+</head>
+<body>
+<div class="series-banner">From Turing to Swarms &#183; Issue 9 of 10</div>
+<nav class="nav" id="nav">
+<button id="prevBtn" onclick="go(-1)">&#8592; Prev</button>
+<div style="text-align:center">
+<div class="page-num" id="pageNum">1 / 10</div>
+<div class="dots" id="dots"></div>
+</div>
+<button id="nextBtn" onclick="go(1)">Next &#8594;</button>
+</nav>
+<div class="issue-header">
+<div class="issue-label">Issue 9 &#183; 2025&#8211;2026</div>
+<h1 class="issue-title">The Swarm</h1>
+<div class="title-bar"></div>
+</div>
+
+<!-- ===== PAGE 1 ===== -->
+<section class="page" data-page="1">
+<p style="text-align:center;margin:4px 0 0"><a href="../issue_08/index.html" style="color:var(--accent);font-family:var(--hand);font-size:14px;text-decoration:none">&#8592; Previous Issue: The Agent Awakens</a></p>
+<div class="page-title">One Agent Is Smart. But Even the Smartest Person Can&#8217;t Build a Skyscraper Alone.</div>
+<svg viewBox="0 -20 680 230" style="width:100%" role="img" aria-label="Tera explains that AI agents figured out the same lesson as humans: you need a team">
+<!-- Speech bubble (drawn first so robot renders on top) -->
+<rect x="170" y="5" width="460" height="107" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<path d="M175,112 L163,129 L195,112" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<line x1="176" y1="112" x2="194" y2="112" stroke="#fff" stroke-width="2.5"/>
+<text x="400" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">One brilliant person can design a building. But to actually</text>
+<text x="400" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">BUILD a skyscraper, you need a whole team &#8212; architects,</text>
+<text x="400" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">electricians, plumbers, inspectors &#8212; each one focused on</text>
+<text x="400" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">what they do best. AI agents just figured out the</text>
+<text x="400" y="100" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">same thing.</text>
+<!-- Tera robot (excited, arms spread) -->
+<g transform="translate(80,112) scale(0.95)">
+  <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+  <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+  <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+  <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+  <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+  <ellipse cx="0" cy="-6" rx="5" ry="4" fill="#4A9BD9" opacity="0.5"/>
+  <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="-20" y1="20" x2="-35" y2="28" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="-37" cy="30" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="20" y1="20" x2="35" y2="28" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="37" cy="30" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+</g>
+</svg>
+<div class="narrative">
+<p>In Issue 8, we watched AI agents learn to code on their own. They could read your project, write code, run tests, hit errors, fix them, and iterate &#8212; all without a human copying and pasting. It felt like the future had arrived.</p>
+<p>But there was a ceiling. And anyone who pushed a single agent hard enough slammed into it.</p>
+<p>Give an agent a small, well-defined task &#8212; &#8220;write a function that sorts a list&#8221; &#8212; and it shines. Give it a large, messy, real-world project &#8212; &#8220;build me a full web application with authentication, a database, a payment system, tests, and documentation&#8221; &#8212; and something goes wrong. Not immediately. Not dramatically. But gradually, steadily, inevitably.</p>
+<p>The agent starts strong. It makes a plan. It writes clean code. But as the work accumulates &#8212; as the terminal fills with thousands of lines of code, error messages, file contents, and conversation history &#8212; the agent begins to drift. It forgets its own plan. It revisits problems it already solved. It contradicts decisions it made twenty minutes ago.</p>
+<p>It is not getting dumber. Its brain is getting <em>full</em>.</p>
+<p>This is the story of what happened next: the leap from one overwhelmed agent to a coordinated <strong>team</strong> of focused specialists. The leap from solo to <strong>swarm</strong>.</p>
+</div>
+<!-- Juggler metaphor diagram -->
+<svg viewBox="0 -20 680 230" style="width:100%" role="img" aria-label="One juggler dropping 20 balls versus five jugglers each handling 4 balls">
+<text x="170" y="5" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#E53E3E;font-weight:700">One Agent, 20 Tasks</text>
+<!-- Single overwhelmed juggler -->
+<circle cx="170" cy="140" r="12" fill="#E2E8F0" stroke="#2D3748" stroke-width="2"/>
+<line x1="170" y1="152" x2="170" y2="185" stroke="#2D3748" stroke-width="2"/>
+<line x1="170" y1="160" x2="155" y2="150" stroke="#2D3748" stroke-width="2"/>
+<line x1="170" y1="160" x2="185" y2="150" stroke="#2D3748" stroke-width="2"/>
+<line x1="170" y1="185" x2="160" y2="200" stroke="#2D3748" stroke-width="2"/>
+<line x1="170" y1="185" x2="180" y2="200" stroke="#2D3748" stroke-width="2"/>
+<!-- Balls in air (some falling) -->
+<circle cx="140" cy="40" r="7" fill="#48BB78" opacity="0.8"/><circle cx="160" cy="30" r="7" fill="#4A9BD9" opacity="0.8"/>
+<circle cx="180" cy="35" r="7" fill="#F6AD55" opacity="0.8"/><circle cx="200" cy="45" r="7" fill="#E53E3E" opacity="0.8"/>
+<circle cx="150" cy="55" r="7" fill="#805AD5" opacity="0.8"/>
+<!-- Falling balls -->
+<circle cx="120" cy="120" r="7" fill="#E53E3E" opacity="0.5"/><circle cx="210" cy="110" r="7" fill="#D69E2E" opacity="0.5"/>
+<circle cx="130" cy="160" r="7" fill="#4A9BD9" opacity="0.4"/><circle cx="220" cy="155" r="7" fill="#805AD5" opacity="0.4"/>
+<text x="170" y="75" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#E53E3E">balls dropping!</text>
+<!-- Divider -->
+<line x1="300" y1="10" x2="300" y2="200" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="5,4"/>
+<!-- Five calm jugglers -->
+<text x="490" y="5" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#48BB78;font-weight:700">Five Agents, 4 Tasks Each</text>
+<g transform="translate(360,0)">
+  <circle cx="0" cy="140" r="9" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="149" x2="0" y2="175" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="155" x2="-10" y2="148" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="155" x2="10" y2="148" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="175" x2="-7" y2="190" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="175" x2="7" y2="190" stroke="#2D3748" stroke-width="1.5"/>
+  <circle cx="-8" cy="105" r="6" fill="#48BB78" opacity="0.8"/>
+  <circle cx="8" cy="100" r="6" fill="#48BB78" opacity="0.8"/>
+  <circle cx="-4" cy="85" r="6" fill="#48BB78" opacity="0.8"/>
+  <circle cx="6" cy="115" r="6" fill="#48BB78" opacity="0.8"/>
+</g>
+<g transform="translate(420,0)">
+  <circle cx="0" cy="140" r="9" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="149" x2="0" y2="175" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="155" x2="-10" y2="148" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="155" x2="10" y2="148" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="175" x2="-7" y2="190" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="175" x2="7" y2="190" stroke="#2D3748" stroke-width="1.5"/>
+  <circle cx="-8" cy="105" r="6" fill="#4A9BD9" opacity="0.8"/>
+  <circle cx="8" cy="100" r="6" fill="#4A9BD9" opacity="0.8"/>
+  <circle cx="-4" cy="85" r="6" fill="#4A9BD9" opacity="0.8"/>
+  <circle cx="6" cy="115" r="6" fill="#4A9BD9" opacity="0.8"/>
+</g>
+<g transform="translate(480,0)">
+  <circle cx="0" cy="140" r="9" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="149" x2="0" y2="175" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="155" x2="-10" y2="148" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="155" x2="10" y2="148" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="175" x2="-7" y2="190" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="175" x2="7" y2="190" stroke="#2D3748" stroke-width="1.5"/>
+  <circle cx="-8" cy="105" r="6" fill="#F6AD55" opacity="0.8"/>
+  <circle cx="8" cy="100" r="6" fill="#F6AD55" opacity="0.8"/>
+  <circle cx="-4" cy="85" r="6" fill="#F6AD55" opacity="0.8"/>
+  <circle cx="6" cy="115" r="6" fill="#F6AD55" opacity="0.8"/>
+</g>
+<g transform="translate(540,0)">
+  <circle cx="0" cy="140" r="9" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="149" x2="0" y2="175" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="155" x2="-10" y2="148" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="155" x2="10" y2="148" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="175" x2="-7" y2="190" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="175" x2="7" y2="190" stroke="#2D3748" stroke-width="1.5"/>
+  <circle cx="-8" cy="105" r="6" fill="#E53E3E" opacity="0.8"/>
+  <circle cx="8" cy="100" r="6" fill="#E53E3E" opacity="0.8"/>
+  <circle cx="-4" cy="85" r="6" fill="#E53E3E" opacity="0.8"/>
+  <circle cx="6" cy="115" r="6" fill="#E53E3E" opacity="0.8"/>
+</g>
+<g transform="translate(600,0)">
+  <circle cx="0" cy="140" r="9" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="149" x2="0" y2="175" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="155" x2="-10" y2="148" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="155" x2="10" y2="148" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="175" x2="-7" y2="190" stroke="#2D3748" stroke-width="1.5"/>
+  <line x1="0" y1="175" x2="7" y2="190" stroke="#2D3748" stroke-width="1.5"/>
+  <circle cx="-8" cy="105" r="6" fill="#805AD5" opacity="0.8"/>
+  <circle cx="8" cy="100" r="6" fill="#805AD5" opacity="0.8"/>
+  <circle cx="-4" cy="85" r="6" fill="#805AD5" opacity="0.8"/>
+  <circle cx="6" cy="115" r="6" fill="#805AD5" opacity="0.8"/>
+</g>
+<text x="490" y="200" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#48BB78">same total work, no dropped balls</text>
+</svg>
+<div class="bigidea">
+<strong>The Core Insight:</strong> &#8220;The solution to an overwhelmed mind is not a bigger mind. It is more minds, each focused on less.&#8221;
+</div>
+<div class="hook">But why exactly does a single agent fall apart? The answer lies in a phenomenon researchers call &#8220;lost in the middle&#8221; &#8212; and it reveals a fundamental limit baked into the very architecture that makes language models work.</div>
+</section>
+
+<!-- ===== PAGE 2 ===== -->
+<section class="page" data-page="2">
+<div class="page-title">The Context Window Ceiling</div>
+<svg viewBox="0 -20 680 220" style="width:100%" role="img" aria-label="Tera explains the context window problem with a recipe analogy">
+<!-- Speech bubble -->
+<rect x="145" y="5" width="510" height="89" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<path d="M150,94 L138,111 L170,94" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<line x1="151" y1="94" x2="169" y2="94" stroke="#fff" stroke-width="2.5"/>
+<text x="400" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Imagine reading a 300-page recipe while cooking.</text>
+<text x="400" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Page 1? Crystal clear. Page 300? Right in front of you.</text>
+<text x="400" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">But what seasoning did you add on page 47?</text>
+<text x="400" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Good luck remembering THAT.</text>
+<!-- Tera robot (thinking) -->
+<g transform="translate(80,94) scale(0.95)">
+  <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+  <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+  <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+  <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+  <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+  <circle cx="4" cy="-7" r="3" fill="none" stroke="#4A9BD9" stroke-width="1.8"/>
+  <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+</g>
+</svg>
+<div class="narrative">
+<p>Between 2023 and 2025, AI companies raced to build bigger <strong>context windows</strong> &#8212; the amount of text a model can &#8220;see&#8221; at once. Windows grew from 8,000 tokens to 32,000, then 128,000, then 200,000 and beyond. The assumption was simple: more memory means better performance.</p>
+<p>It did not work out that way.</p>
+<p>In 2023, researchers Nelson Liu and colleagues published a paper called <strong>&#8220;Lost in the Middle.&#8221;</strong> They tested how well language models actually used information placed at different positions in their context. The results were striking: models performed well on information near the <strong>beginning</strong> and the <strong>end</strong> of their context, but struggled significantly with information in the <strong>middle</strong>. A U-shaped curve.</p>
+<p>This is not a bug in one particular model. It is a pattern across model families. The attention mechanism &#8212; the same breakthrough from Issue 7 that made Transformers possible &#8212; spreads its focus across all the tokens. As the window grows, that focus thins out, like a flashlight beam widening until it barely illuminates anything.</p>
+</div>
+<!-- U-Shaped Attention Curve -->
+<div class="diagram-box">
+<svg viewBox="0 -20 680 260" style="width:100%" role="img" aria-label="U-shaped attention curve showing performance degradation in the middle of the context window">
+<!-- Axes -->
+<line x1="80" y1="180" x2="620" y2="180" stroke="#2D3748" stroke-width="2"/>
+<line x1="80" y1="180" x2="80" y2="30" stroke="#2D3748" stroke-width="2"/>
+<!-- Y-axis label -->
+<text x="30" y="105" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096" transform="rotate(-90,30,105)">Model Performance</text>
+<!-- X-axis labels -->
+<text x="120" y="200" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">Beginning</text>
+<text x="350" y="200" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">Middle</text>
+<text x="580" y="200" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">End</text>
+<!-- U-shaped curve -->
+<path d="M100,55 C150,55 200,160 350,165 C500,170 550,60 600,55" fill="none" stroke="#48BB78" stroke-width="3" stroke-linecap="round"/>
+<!-- Shaded area for the "valley" -->
+<path d="M200,130 C250,160 300,168 350,165 C400,168 450,155 500,120" fill="none" stroke="#E53E3E" stroke-width="2" stroke-dasharray="5,4" opacity="0.6"/>
+<!-- Arrow pointing to valley -->
+<line x1="350" y1="135" x2="350" y2="160" stroke="#E53E3E" stroke-width="1.5"/>
+<polygon points="344,160 350,170 356,160" fill="#E53E3E"/>
+<text x="350" y="128" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#E53E3E;font-weight:700">The &#8220;Foggy Middle&#8221;</text>
+<!-- High performance annotations -->
+<circle cx="100" cy="55" r="5" fill="#48BB78"/>
+<text x="100" y="45" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#48BB78">HIGH</text>
+<circle cx="600" cy="55" r="5" fill="#48BB78"/>
+<text x="600" y="45" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#48BB78">HIGH</text>
+<!-- Title -->
+<text x="350" y="0" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#2D3748;font-weight:700">The U-Shaped Attention Curve (Liu et al., 2024)</text>
+<!-- Bottom annotation -->
+<text x="350" y="225" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">Models remember the start and end. The middle fades away.</text>
+</svg>
+</div>
+<div class="narrative">
+<p>For coding agents, this creates a vicious cycle. An agent working on a complex project accumulates context relentlessly: file contents, tool outputs, error messages, its own reasoning, conversation history. By the time it is deep into a task, the careful plan it made at the beginning has been pushed into the foggy middle of its context.</p>
+<p>Practitioners started calling this <strong>context degradation</strong>. And making the window bigger did not fix it. It just moved the fog further away.</p>
+</div>
+<div class="tryit">
+<strong>Think About It:</strong> Have you ever re-read a paragraph in a textbook because you forgot what it said? Now imagine re-reading it while someone keeps adding new pages between you and the paragraph. That is what context degradation feels like to an AI agent.
+</div>
+<div class="hook">Making one agent smarter was not enough. Making its memory bigger was not enough. So researchers asked a different question entirely: what if instead of one agent with a huge brain, we used a TEAM of agents, each with a fresh, focused brain?</div>
+</section>
+
+<!-- ===== PAGE 3 ===== -->
+<section class="page" data-page="3">
+<div class="page-title">The Idea &#8212; What If We Had a TEAM of Agents?</div>
+<svg viewBox="0 -20 680 240" style="width:100%" role="img" aria-label="Tera explains the ancient insight: build a team of specialists">
+<!-- Speech bubble -->
+<rect x="172" y="5" width="455" height="107" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<path d="M177,112 L165,129 L197,112" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<line x1="178" y1="112" x2="196" y2="112" stroke="#fff" stroke-width="2.5"/>
+<text x="400" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Humans figured this out thousands of years ago. You do</text>
+<text x="400" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">not ask one person to design the building, install the</text>
+<text x="400" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">wiring, pour the concrete, AND inspect the result. You</text>
+<text x="400" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">build a team. Each person brings fresh eyes and deep</text>
+<text x="400" y="100" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">focus. AI agents just learned the same lesson.</text>
+<!-- Tera robot (excited) -->
+<g transform="translate(80,112) scale(0.95)">
+  <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+  <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+  <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+  <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+  <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+  <ellipse cx="0" cy="-6" rx="5" ry="4" fill="#4A9BD9" opacity="0.5"/>
+  <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+</g>
+</svg>
+<div class="narrative">
+<p>The insight was not new. It was ancient. Every complex human project &#8212; a building, a film, a space mission &#8212; is built by <strong>teams of specialists</strong>. An architect does not also do the plumbing. A director does not also edit the film.</p>
+<p>The idea of multiple AI agents cooperating is not new either &#8212; researchers explored multi-agent protocols as far back as 1980. What changed was the arrival of LLMs powerful enough to serve as general-purpose agents.</p>
+<p>By early 2025, engineers began applying this same principle to AI agents. Instead of one agent drowning in a 200,000-token context trying to do everything, what if you had <strong>multiple agents</strong>, each with a clean, focused context, each handling one part of the job?</p>
+<p>The idea took shape across several teams almost simultaneously. <strong>Microsoft Research</strong> released <strong>AutoGen</strong> in September 2023, a framework for multi-agent conversations. <strong>Joao Moura</strong> created <strong>CrewAI</strong> in late 2023 &#8212; a tool that let you define a crew of agents with specific roles. <strong>LangChain</strong> released <strong>LangGraph</strong> in early 2024, using graph theory to model agent workflows. And in October 2024, <strong>OpenAI</strong> released <strong>Swarm</strong>, a lightweight experimental framework for agent handoffs.</p>
+<p>Meanwhile, <strong>Addy Osmani</strong> &#8212; an engineering leader at Google&#8217;s Chrome team who had spent over a decade writing about JavaScript design patterns &#8212; began documenting practical patterns for teams of Claude Code agents. His work in 2025 drew a direct line between traditional software engineering principles and multi-agent AI.</p>
+</div>
+<!-- Multi-Agent Framework Timeline -->
+<div class="diagram-box">
+<svg viewBox="0 -20 680 155" style="width:100%" role="img" aria-label="Timeline of multi-agent framework releases from 2023 to 2025">
+<line x1="60" y1="50" x2="640" y2="50" stroke="#48BB78" stroke-width="2.5" opacity="0.4"/>
+<circle cx="60" cy="50" r="7" fill="#48BB78"/>
+<text x="60" y="25" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#48BB78;font-weight:700">Sep 2023</text>
+<text x="60" y="75" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">AutoGen</text>
+<text x="60" y="88" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#A0AEC0">Microsoft</text>
+
+<circle cx="185" cy="50" r="7" fill="#48BB78"/>
+<text x="185" y="25" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#48BB78;font-weight:700">Late 2023</text>
+<text x="185" y="75" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">CrewAI</text>
+<text x="185" y="88" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#A0AEC0">Moura</text>
+
+<circle cx="320" cy="50" r="7" fill="#48BB78"/>
+<text x="320" y="25" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#48BB78;font-weight:700">Early 2024</text>
+<text x="320" y="75" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">LangGraph</text>
+<text x="320" y="88" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#A0AEC0">LangChain</text>
+
+<circle cx="450" cy="50" r="7" fill="#48BB78"/>
+<text x="450" y="25" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#48BB78;font-weight:700">Oct 2024</text>
+<text x="450" y="75" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">Swarm</text>
+<text x="450" y="88" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#A0AEC0">OpenAI</text>
+
+<circle cx="580" cy="50" r="7" fill="#48BB78"/>
+<text x="580" y="25" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#48BB78;font-weight:700">2025</text>
+<text x="580" y="75" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#718096">Agent Teams</text>
+<text x="580" y="88" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:#A0AEC0">Osmani / Production</text>
+
+<circle cx="640" cy="50" r="5" fill="#48BB78" opacity="0.5"/>
+<text x="350" y="118" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">The multi-agent ecosystem exploded in under two years.</text>
+</svg>
+</div>
+<div class="bigidea">
+<strong>The Pattern Repeats:</strong> &#8220;The move from single agents to multi-agent teams follows the oldest pattern in computing: when one thing hits its limit, use many things together. Single CPUs gave way to multi-core. Single servers gave way to distributed systems. Single agents are giving way to swarms.&#8221;
+</div>
+<div class="hook">Several architectures emerged for organizing agent teams. Each has strengths. Each has trade-offs. And one of them &#8212; the strangest-sounding of all &#8212; turned out to be surprisingly effective.</div>
+</section>
+
+<!-- ===== PAGE 4 ===== -->
+<section class="page" data-page="4">
+<div class="page-title">Architecture 1 &#8212; The Lead Agent and Its Specialist Workers</div>
+<svg viewBox="0 -20 680 210" style="width:100%" role="img" aria-label="Tera explains the hierarchical Boss Model architecture">
+<!-- Speech bubble -->
+<rect x="145" y="5" width="510" height="89" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<path d="M150,94 L138,111 L170,94" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<line x1="151" y1="94" x2="169" y2="94" stroke="#fff" stroke-width="2.5"/>
+<text x="400" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">This is the Boss Model. Think of a project manager who</text>
+<text x="400" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">breaks a big job into smaller tasks, hands each one to the</text>
+<text x="400" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">right specialist, and stitches the results together. It is the</text>
+<text x="400" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">most natural way to organize a team &#8212; human or AI.</text>
+<!-- Tera robot (happy) -->
+<g transform="translate(80,112) scale(0.9)">
+  <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+  <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+  <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+  <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+  <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+  <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+  <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+</g>
+</svg>
+<div class="narrative">
+<p>The first and most common architecture is <strong>hierarchical</strong>: one lead agent that coordinates, and multiple worker agents that execute.</p>
+<p>You give a complex task to the <strong>lead agent</strong>. The lead does not try to do the work itself. Instead, it makes a plan: &#8220;This task has three parts.&#8221; It then <strong>spawns</strong> specialist agents &#8212; one for each part &#8212; and gives each one a focused brief.</p>
+<p>Each specialist works within its own clean context. When each finishes, it sends its output back to the lead, which synthesizes everything into a final result.</p>
+<p>This is the pattern behind <strong>Claude Code&#8217;s Task tool</strong>. When Claude Code needs to accomplish something complex, it can spawn <strong>subagents</strong> &#8212; isolated instances that each tackle a piece of the puzzle. The parent agent&#8217;s context stays clean. The messy details live in the specialists&#8217; contexts.</p>
+</div>
+<!-- Hierarchical Architecture Diagram -->
+<div class="diagram-box">
+<svg viewBox="0 -20 680 280" style="width:100%" role="img" aria-label="Hierarchical architecture: Lead Agent spawns Researcher, Coder, and Tester, collects results">
+<text x="340" y="5" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#2D3748;font-weight:700">The Hierarchical Architecture</text>
+<!-- Lead Agent box (top) -->
+<rect x="240" y="25" width="200" height="40" rx="8" fill="#C6F6D5" stroke="#48BB78" stroke-width="2"/>
+<text x="340" y="50" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#276749;font-weight:700">Lead Agent</text>
+<!-- Downward arrows -->
+<line x1="270" y1="65" x2="140" y2="100" stroke="#48BB78" stroke-width="2"/>
+<polygon points="134,96 140,108 146,96" fill="#48BB78"/>
+<line x1="340" y1="65" x2="340" y2="100" stroke="#48BB78" stroke-width="2"/>
+<polygon points="334,100 340,112 346,100" fill="#48BB78"/>
+<line x1="410" y1="65" x2="540" y2="100" stroke="#48BB78" stroke-width="2"/>
+<polygon points="534,96 540,108 546,96" fill="#48BB78"/>
+<!-- Specialist boxes -->
+<rect x="65" y="110" width="150" height="40" rx="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/>
+<text x="140" y="135" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2B6CB0;font-weight:700">Researcher</text>
+<rect x="265" y="110" width="150" height="40" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+<text x="340" y="135" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#975A16;font-weight:700">Coder</text>
+<rect x="465" y="110" width="150" height="40" rx="8" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.5"/>
+<text x="540" y="135" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#553C9A;font-weight:700">Tester</text>
+<!-- Output labels -->
+<text x="140" y="167" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">research brief</text>
+<text x="340" y="167" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">code files</text>
+<text x="540" y="167" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">test results</text>
+<!-- Upward arrows (return) -->
+<line x1="140" y1="175" x2="270" y2="215" stroke="#718096" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="340" y1="175" x2="340" y2="215" stroke="#718096" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="540" y1="175" x2="410" y2="215" stroke="#718096" stroke-width="1.5" stroke-dasharray="4,3"/>
+<!-- Lead Agent box (bottom: synthesizes) -->
+<rect x="240" y="220" width="200" height="40" rx="8" fill="#C6F6D5" stroke="#48BB78" stroke-width="2"/>
+<text x="340" y="245" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#276749;font-weight:700">Synthesizes Final Output</text>
+</svg>
+</div>
+<div class="tryit">
+<strong>Think About It:</strong> Think about the last group project you worked on. Was it better when one person tried to do everything, or when someone split the work up and each person focused on their part? Why?
+</div>
+<div class="hook">The hierarchical model is clean and intuitive. But some teams pushed the idea further. What if the agents were not just separate workers &#8212; but completely, radically isolated from each other?</div>
+</section>
+
+<!-- ===== PAGE 5 ===== -->
+<section class="page" data-page="5">
+<div class="page-title">The Constellation Pattern: True Isolation</div>
+<svg viewBox="0 -20 680 240" style="width:100%" role="img" aria-label="Tera whispers about the radical Constellation Pattern: no shared memory, no group chat">
+<!-- Speech bubble -->
+<rect x="145" y="5" width="510" height="107" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<path d="M150,112 L138,129 L170,112" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<line x1="151" y1="112" x2="169" y2="112" stroke="#fff" stroke-width="2.5"/>
+<text x="400" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Here is the radical version. No shared memory. No group</text>
+<text x="400" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">chat. No real-time communication. Each agent works alone</text>
+<text x="400" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">in a sealed room, reads what others left behind, does its</text>
+<text x="400" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">work, writes its notes, and leaves. They NEVER meet.</text>
+<text x="400" y="100" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Sounds lonely? It is actually the secret to their power.</text>
+<!-- Tera robot (excited, leaning in) -->
+<g transform="translate(80,112) scale(0.95)">
+  <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+  <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+  <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+  <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+  <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+  <ellipse cx="0" cy="-6" rx="5" ry="4" fill="#4A9BD9" opacity="0.5"/>
+  <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+</g>
+</svg>
+<div class="narrative">
+<p>In early 2025, a distinct pattern emerged from practitioners building with Claude Code. They called it the <strong>Constellation Pattern</strong>, and it took multi-agent isolation to its logical extreme.</p>
+<p>Each agent is a <strong>completely separate invocation</strong> of the AI model. Not a different persona within one conversation. A separate process, with its own fresh context window, that starts from zero.</p>
+<p>The agents communicate through <strong>one channel only: files on the filesystem.</strong> Agent A writes its output to a markdown file. Agent B, when spawned later, reads that file as input. Agent B has never &#8220;been&#8221; Agent A. It has no memory of Agent A&#8217;s reasoning process.</p>
+<p>The orchestrator is deliberately simple. It does not summarize. It does not editorialize. It just spawns agents in sequence, points each one at the right input files, and collects the output files when they finish.</p>
+<p>The name captures it: stars that form a pattern, each one shining independently, none connected by anything but the shared sky.</p>
+</div>
+<!-- Constellation Pattern Architecture Diagram -->
+<div class="diagram-box">
+<svg viewBox="0 -20 680 310" style="width:100%" role="img" aria-label="Constellation Pattern: orchestrator spawns isolated agents that communicate only through files">
+<text x="340" y="5" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#2D3748;font-weight:700">The Constellation Pattern</text>
+<!-- Orchestrator -->
+<rect x="255" y="25" width="170" height="38" rx="8" fill="#C6F6D5" stroke="#48BB78" stroke-width="2"/>
+<text x="340" y="49" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#276749;font-weight:700">Orchestrator</text>
+<!-- Lines down to agents -->
+<line x1="280" y1="63" x2="80" y2="95" stroke="#48BB78" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="310" y1="63" x2="210" y2="95" stroke="#48BB78" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="340" y1="63" x2="340" y2="95" stroke="#48BB78" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="370" y1="63" x2="470" y2="95" stroke="#48BB78" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="400" y1="63" x2="600" y2="95" stroke="#48BB78" stroke-width="1.5" stroke-dasharray="4,3"/>
+<!-- Agent boxes (sealed rooms) -->
+<rect x="25" y="95" width="110" height="38" rx="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/>
+<text x="80" y="119" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#2B6CB0;font-weight:700">Researcher</text>
+<rect x="155" y="95" width="110" height="38" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+<text x="210" y="119" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#975A16;font-weight:700">Writer</text>
+<rect x="285" y="95" width="110" height="38" rx="8" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.5"/>
+<text x="340" y="119" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#553C9A;font-weight:700">Illustrator</text>
+<rect x="415" y="95" width="110" height="38" rx="8" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/>
+<text x="470" y="119" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#E53E3E;font-weight:700">Editor</text>
+<rect x="545" y="95" width="110" height="38" rx="8" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.5"/>
+<text x="600" y="119" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#DD6B20;font-weight:700">Red Team</text>
+<!-- Arrows down to files -->
+<line x1="80" y1="133" x2="80" y2="165" stroke="#4A9BD9" stroke-width="1.5"/>
+<polygon points="74,165 80,175 86,165" fill="#4A9BD9"/>
+<line x1="210" y1="133" x2="210" y2="165" stroke="#D69E2E" stroke-width="1.5"/>
+<polygon points="204,165 210,175 216,165" fill="#D69E2E"/>
+<line x1="340" y1="133" x2="340" y2="165" stroke="#805AD5" stroke-width="1.5"/>
+<polygon points="334,165 340,175 346,165" fill="#805AD5"/>
+<line x1="470" y1="133" x2="470" y2="165" stroke="#E53E3E" stroke-width="1.5"/>
+<polygon points="464,165 470,175 476,165" fill="#E53E3E"/>
+<line x1="600" y1="133" x2="600" y2="165" stroke="#DD6B20" stroke-width="1.5"/>
+<polygon points="594,165 600,175 606,165" fill="#DD6B20"/>
+<!-- File icons -->
+<rect x="55" y="178" width="50" height="30" rx="4" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+<text x="80" y="197" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#718096">research.md</text>
+<rect x="185" y="178" width="50" height="30" rx="4" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+<text x="210" y="197" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#718096">writer.md</text>
+<rect x="315" y="178" width="50" height="30" rx="4" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+<text x="340" y="197" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#718096">illust.html</text>
+<rect x="445" y="178" width="50" height="30" rx="4" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+<text x="470" y="197" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#718096">editor.md</text>
+<rect x="575" y="178" width="50" height="30" rx="4" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+<text x="600" y="197" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#718096">redteam.md</text>
+<!-- Shared filesystem label -->
+<rect x="40" y="225" width="600" height="30" rx="6" fill="rgba(72,187,120,0.08)" stroke="#48BB78" stroke-width="1.2" stroke-dasharray="5,3"/>
+<text x="340" y="245" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#48BB78;font-weight:700">shared filesystem (agent_outputs/)</text>
+<!-- Three guarantees -->
+<text x="340" y="278" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">True isolation &#183; Complete audit trail &#183; Perfect recoverability</text>
+</svg>
+</div>
+<div class="narrative">
+<p>The trade-off: file-based communication is slower than in-memory messaging, and not every task needs this level of isolation. But for complex, multi-step projects where independent judgment matters, the benefits far outweigh the cost.</p>
+</div>
+<div class="bigidea">
+<strong>Why Isolation Matters:</strong> &#8220;True isolation is not a limitation. It is a superpower. When each agent thinks independently, you get genuine diversity of analysis &#8212; not an echo chamber wearing different hats.&#8221;
+</div>
+<div class="hook">But WHY does isolation matter so much? The answer has a name: the &#8220;Same Brain&#8221; problem. And it is the reason asking one AI to play two roles is fundamentally different from having two separate AIs.</div>
+</section>
+
+<!-- ===== PAGE 6 ===== -->
+<section class="page" data-page="6">
+<div class="page-title">The &#8220;Same Brain&#8221; Problem</div>
+<svg viewBox="0 -20 680 240" style="width:100%" role="img" aria-label="Tera explains why fresh eyes catch what familiar eyes miss">
+<!-- Speech bubble -->
+<rect x="172" y="5" width="455" height="107" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<path d="M177,112 L165,129 L197,112" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<line x1="178" y1="112" x2="196" y2="112" stroke="#fff" stroke-width="2.5"/>
+<text x="400" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">You know how it is almost impossible to proofread your</text>
+<text x="400" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">own writing? You keep reading what you MEANT instead</text>
+<text x="400" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">of what you actually WROTE. AI has the exact same</text>
+<text x="400" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">problem. A separate model does not have that luxury.</text>
+<text x="400" y="100" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Fresh eyes catch what familiar eyes miss.</text>
+<!-- Tera robot (determined) -->
+<g transform="translate(80,112) scale(0.95)">
+  <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+  <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+  <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+  <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+  <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+  <path d="M-5,-7 L5,-7" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+  <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+</g>
+</svg>
+<div class="narrative">
+<p>Here is a deceptively simple experiment. Give a language model a coding task. Let it write a solution. Then, in the same conversation, ask it to review that solution for bugs.</p>
+<p>It will almost always be generous. Not because it is dishonest &#8212; but because it already &#8220;knows&#8221; the intent behind every line. It generated those tokens. When it reviews its own code, it is doing the AI equivalent of proofreading your own essay five minutes after writing it.</p>
+<p>Practitioners call this the <strong>&#8220;Same Brain&#8221; problem.</strong> The &#8220;critic&#8221; is not independent &#8212; it is the same brain wearing a different hat.</p>
+<p>Now spawn a <strong>completely separate</strong> model instance. Give it the same code with no conversation history. This second instance routinely finds issues the first one missed. Not because it is a better model &#8212; it is literally the same model. But its context is clean.</p>
+</div>
+<!-- Same Brain Comparison Diagram -->
+<div class="diagram-box">
+<svg viewBox="0 -20 680 240" style="width:100%" role="img" aria-label="Before and after: single context biased review vs isolated agents genuine review">
+<text x="340" y="5" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#2D3748;font-weight:700">The Same Brain Problem: Before &#38; After</text>
+<!-- LEFT: Single Context -->
+<rect x="20" y="25" width="300" height="32" rx="6" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/>
+<text x="170" y="46" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#E53E3E;font-weight:700">SINGLE CONTEXT (Biased)</text>
+<!-- Flow boxes -->
+<rect x="30" y="70" width="125" height="32" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+<text x="92" y="90" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#2D3748">Agent writes code</text>
+<line x1="155" y1="86" x2="175" y2="86" stroke="#718096" stroke-width="1.5"/>
+<polygon points="175,81 185,86 175,91" fill="#718096"/>
+<rect x="185" y="70" width="125" height="32" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+<text x="247" y="90" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#2D3748">Same agent reviews</text>
+<!-- Result -->
+<rect x="60" y="115" width="220" height="28" rx="6" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.2"/>
+<text x="170" y="133" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#975A16">&#8220;Looks good to me! 9/10&#8221;</text>
+<text x="170" y="158" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#A0AEC0">(anchored to its own reasoning)</text>
+<!-- Divider -->
+<line x1="340" y1="30" x2="340" y2="215" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="5,4"/>
+<!-- RIGHT: Isolated Agents -->
+<rect x="360" y="25" width="300" height="32" rx="6" fill="#C6F6D5" stroke="#48BB78" stroke-width="1.5"/>
+<text x="510" y="46" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#276749;font-weight:700">ISOLATED AGENTS (Genuine)</text>
+<!-- Flow boxes -->
+<rect x="370" y="70" width="125" height="32" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+<text x="432" y="90" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#2D3748">Agent A writes code</text>
+<line x1="495" y1="86" x2="515" y2="86" stroke="#718096" stroke-width="1.5"/>
+<polygon points="515,81 525,86 515,91" fill="#718096"/>
+<rect x="525" y="70" width="125" height="32" rx="6" fill="#F7FAFC" stroke="#E2E8F0" stroke-width="1.2"/>
+<text x="587" y="90" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#2D3748">Agent B reviews</text>
+<!-- File icon between -->
+<rect x="497" y="107" width="36" height="22" rx="3" fill="#F7FAFC" stroke="#48BB78" stroke-width="1.2"/>
+<text x="515" y="122" text-anchor="middle" style="font-family:var(--mono);font-size:7px;fill:#48BB78">file</text>
+<!-- Result -->
+<rect x="400" y="140" width="220" height="28" rx="6" fill="#C6F6D5" stroke="#48BB78" stroke-width="1.2"/>
+<text x="510" y="158" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#276749">&#8220;Found 3 bugs. 6/10&#8221;</text>
+<text x="510" y="183" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:#A0AEC0">(no memory of writing the code)</text>
+<!-- Bottom summary -->
+<text x="340" y="215" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#48BB78;font-weight:700">Same model. Different context. Genuinely independent.</text>
+</svg>
+</div>
+<div class="code-box"><span style="color:#A0AEC0"># The &#8220;Same Brain&#8221; problem, demonstrated simply:</span>
+
+<span style="color:#718096"># APPROACH 1: Same context (biased review)</span>
+<span style="color:#F6AD55">agent</span>.write(<span style="color:#48BB78">"Build a login function"</span>)
+<span style="color:#F6AD55">agent</span>.review(<span style="color:#48BB78">"Review the code you just wrote"</span>)
+<span style="color:#A0AEC0"># Result: "Code looks correct. 9/10."</span>
+
+<span style="color:#718096"># APPROACH 2: Isolated agents (genuine review)</span>
+<span style="color:#F6AD55">agent_a</span>.write(<span style="color:#48BB78">"Build a login function"</span>)
+save_to_file(<span style="color:#F6AD55">agent_a</span>.output, <span style="color:#48BB78">"login.py"</span>)
+<span style="color:#A0AEC0"># agent_a&#8217;s context is destroyed</span>
+
+<span style="color:#F6AD55">agent_b</span> = fresh_agent()
+<span style="color:#F6AD55">agent_b</span>.review(read_file(<span style="color:#48BB78">"login.py"</span>))
+<span style="color:#A0AEC0"># Result: "Missing input validation.</span>
+<span style="color:#A0AEC0">#          SQL injection risk. 6/10."</span></div>
+<div class="bigidea">
+<strong>The Key Insight:</strong> &#8220;Independence is not about being different models. It is about being different <em>contexts</em>. The same model, invoked separately, gives genuinely independent analysis &#8212; because it has no memory of generating the work it is reviewing.&#8221;
+</div>
+<div class="hook">Isolation gives agents fresh eyes. But when multiple agents need to edit the same codebase at the same time, a new problem appears: how do you keep them from stepping on each other&#8217;s work?</div>
+</section>
+
+<!-- ===== PAGE 7 ===== -->
+<section class="page" data-page="7">
+<div class="page-title">Git Worktrees &#8212; Parallel Work Without Collisions</div>
+<svg viewBox="0 -20 680 240" style="width:100%" role="img" aria-label="Tera explains git worktrees as multiple copies of a project folder, all connected to the same history">
+<!-- Speech bubble -->
+<rect x="145" y="5" width="510" height="107" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<path d="M150,112 L138,129 L170,112" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<line x1="151" y1="112" x2="169" y2="112" stroke="#fff" stroke-width="2.5"/>
+<text x="400" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Normally, your project folder can only show one version of</text>
+<text x="400" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">your code at a time. Git worktrees are like having multiple</text>
+<text x="400" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">copies of the same folder, each showing a different version,</text>
+<text x="400" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">all connected to the same history. No collisions. When they</text>
+<text x="400" y="100" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">finish, Git merges their work.</text>
+<!-- Tera robot (happy, relieved) -->
+<g transform="translate(80,112) scale(0.95)">
+  <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+  <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+  <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+  <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+  <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+  <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+  <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+</g>
+</svg>
+<div class="narrative">
+<p>Cognitive isolation solves the &#8220;Same Brain&#8221; problem. But there is a practical problem too: <strong>file conflicts</strong>.</p>
+<p>If two agents try to edit the same file at the same time, chaos ensues. One agent&#8217;s changes overwrite the other&#8217;s.</p>
+<p>Human developers solved this years ago with <strong>Git</strong> (which we covered in Issue 5). But standard Git still assumes one working directory. You check out one branch at a time.</p>
+<p>Enter <strong>git worktrees</strong>. Released in <strong>Git 2.5 in July 2015</strong> &#8212; a decade before anyone used them for AI agents &#8212; worktrees let you create multiple working directories from the same repository, each checked out to a different branch.</p>
+</div>
+<!-- Git Worktrees Diagram -->
+<div class="diagram-box">
+<svg viewBox="0 -20 680 305" style="width:100%" role="img" aria-label="Git worktrees: one repository, three parallel working directories, merge at the end">
+<text x="340" y="5" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:#2D3748;font-weight:700">Git Worktrees for Multi-Agent Development</text>
+<!-- Central repository -->
+<rect x="265" y="25" width="150" height="36" rx="8" fill="#1A202C" stroke="#48BB78" stroke-width="2"/>
+<text x="340" y="48" text-anchor="middle" style="font-family:var(--mono);font-size:12px;fill:#48BB78">.git repository</text>
+<!-- Lines down to worktrees -->
+<line x1="290" y1="61" x2="120" y2="95" stroke="#48BB78" stroke-width="2"/>
+<line x1="340" y1="61" x2="340" y2="95" stroke="#48BB78" stroke-width="2"/>
+<line x1="390" y1="61" x2="560" y2="95" stroke="#48BB78" stroke-width="2"/>
+<!-- Worktree A -->
+<rect x="40" y="95" width="160" height="70" rx="8" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/>
+<text x="120" y="115" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#2B6CB0;font-weight:700">../agent-a/</text>
+<text x="120" y="132" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">branch: feature-auth</text>
+<text x="120" y="150" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#2B6CB0">Agent A works here</text>
+<!-- Worktree B -->
+<rect x="260" y="95" width="160" height="70" rx="8" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+<text x="340" y="115" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#975A16;font-weight:700">../agent-b/</text>
+<text x="340" y="132" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">branch: feature-db</text>
+<text x="340" y="150" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#975A16">Agent B works here</text>
+<!-- Worktree C -->
+<rect x="480" y="95" width="160" height="70" rx="8" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.5"/>
+<text x="560" y="115" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#553C9A;font-weight:700">../agent-c/</text>
+<text x="560" y="132" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#718096">branch: feature-tests</text>
+<text x="560" y="150" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#553C9A">Agent C works here</text>
+<!-- Lines down to merge -->
+<line x1="120" y1="165" x2="290" y2="210" stroke="#718096" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="340" y1="165" x2="340" y2="210" stroke="#718096" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="560" y1="165" x2="390" y2="210" stroke="#718096" stroke-width="1.5" stroke-dasharray="4,3"/>
+<!-- Merge box -->
+<rect x="265" y="210" width="150" height="36" rx="8" fill="#C6F6D5" stroke="#48BB78" stroke-width="2"/>
+<text x="340" y="233" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#276749;font-weight:700">git merge</text>
+<text x="340" y="270" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">Cognitive isolation + filesystem isolation = safe parallel work</text>
+</svg>
+</div>
+<div class="code-box"><span style="color:#A0AEC0"># Create parallel workspaces</span>
+git worktree add ../agent-a feature-auth
+git worktree add ../agent-b feature-database
+git worktree add ../agent-c feature-tests
+
+<span style="color:#A0AEC0"># Each agent works in its own folder</span>
+<span style="color:#A0AEC0"># No collisions. Clean merge when done.</span></div>
+<div class="tryit">
+<strong>Think About It:</strong> Git worktrees were built in 2015 &#8212; a decade before anyone used them for AI agents. Can you think of other technologies that were invented for one purpose and later turned out to be essential for something nobody predicted?
+</div>
+<div class="hook">We have the architecture. We have the isolation. We have the tools. But what does it actually look like when a team of agents builds something real?</div>
+</section>
+
+<!-- ===== PAGE 8 ===== -->
+<section class="page" data-page="8">
+<div class="page-title">A Real Example &#8212; Watching a Swarm Build a Web App</div>
+<svg viewBox="0 -20 680 210" style="width:100%" role="img" aria-label="Tera narrates a swarm build like a sports commentator">
+<!-- Speech bubble -->
+<rect x="145" y="5" width="510" height="89" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<path d="M150,94 L138,111 L170,94" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<line x1="151" y1="94" x2="169" y2="94" stroke="#fff" stroke-width="2.5"/>
+<text x="400" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Enough theory. Let me show you what it actually looks like</text>
+<text x="400" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">when a team of agents builds a real web application. Watch</text>
+<text x="400" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">the lanes. Each agent works alone, in parallel, seeing only</text>
+<text x="400" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">the files meant for it.</text>
+<!-- Tera robot (excited) -->
+<g transform="translate(80,94) scale(0.95)">
+  <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+  <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+  <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+  <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+  <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+  <ellipse cx="0" cy="-6" rx="5" ry="4" fill="#4A9BD9" opacity="0.5"/>
+  <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+</g>
+</svg>
+<div class="narrative">
+<p>A developer wants to build a task management web application. They type a single prompt:</p>
+<p><em>&#8220;Build a task management app with user authentication, a REST API, a database, and a React front end. Include tests.&#8221;</em></p>
+<p><strong>Step 1:</strong> The orchestrator makes a plan and writes each assignment to a separate file.</p>
+<p><strong>Step 2:</strong> Specialists spin up in parallel. Agent A builds the backend API. Agent B designs the database. Agent C builds the React frontend. Agent D writes the tests. Each works in its own git worktree.</p>
+<p><strong>Step 3:</strong> Results converge. The orchestrator merges the branches.</p>
+<p><strong>Step 4:</strong> The Red Team. A final agent reviews everything with fresh eyes.</p>
+<p><strong>Step 5:</strong> Fix and ship. The cycle may repeat once or twice. Then the application is ready.</p>
+</div>
+<!-- Interactive Swarm Build Animation -->
+<div id="swarm-demo" style="background:#1A202C;border-radius:10px;padding:16px;margin:10px auto;max-width:680px">
+<svg id="swarm-viz" viewBox="0 -5 660 195" style="width:100%"></svg>
+<p id="swarm-desc" style="font-family:var(--body);font-size:14px;color:#A0AEC0;text-align:center;margin:8px 0;min-height:36px"></p>
+<div style="display:flex;justify-content:center;gap:10px;margin-top:6px">
+  <button onclick="swPrev()" id="sw-prev" style="font-family:var(--body);font-size:14px;padding:6px 16px;border-radius:6px;border:1px solid #4A5568;background:#2D3748;color:#E2E8F0;cursor:pointer">&#8592; Prev</button>
+  <span id="sw-counter" style="font-family:var(--mono);font-size:13px;color:#718096;padding:8px 12px">Step 1 / 6</span>
+  <button onclick="swNext()" id="sw-next" style="font-family:var(--body);font-size:14px;padding:6px 16px;border-radius:6px;border:1px solid #4A5568;background:#2D3748;color:#E2E8F0;cursor:pointer">Next &#8594;</button>
+  <button onclick="swReset()" style="font-family:var(--body);font-size:13px;padding:6px 12px;border-radius:6px;border:1px solid #4A5568;background:transparent;color:#718096;cursor:pointer">Reset</button>
+</div>
+</div>
+<script>
+(function(){
+var steps=[
+{lanes:{orch:'plan',a:'idle',b:'idle',c:'idle',d:'idle',red:'idle'},desc:"The orchestrator reads the task and creates a plan. It writes assignment files for each specialist."},
+{lanes:{orch:'wait',a:'work',b:'work',c:'work',d:'work',red:'idle'},desc:"Four specialists spin up in parallel. Each reads only its assignment file and works in its own git worktree."},
+{lanes:{orch:'wait',a:'done',b:'done',c:'work',d:'work',red:'idle'},desc:"Backend and Database agents finish first. Frontend and Tests are still working. Each committed to its own branch."},
+{lanes:{orch:'merge',a:'done',b:'done',c:'done',d:'done',red:'idle'},desc:"All specialists are done. The orchestrator merges all four branches into one unified codebase."},
+{lanes:{orch:'wait',a:'done',b:'done',c:'done',d:'done',red:'work'},desc:"The Red Team agent spins up LAST. Fresh eyes on the merged code. It finds bugs, security holes, and missed requirements."},
+{lanes:{orch:'ship',a:'done',b:'done',c:'done',d:'done',red:'done'},desc:"Fixes applied. The application is ready. Focused parallel work, compressed into a fraction of the solo-agent time."}
+];
+var cur=0;
+var labels=[
+{key:'orch',y:15,label:'Orchestrator',color:'#48BB78'},
+{key:'a',y:50,label:'Agent A (Backend)',color:'#4A9BD9'},
+{key:'b',y:80,label:'Agent B (Database)',color:'#D69E2E'},
+{key:'c',y:110,label:'Agent C (Frontend)',color:'#805AD5'},
+{key:'d',y:140,label:'Agent D (Tests)',color:'#E53E3E'},
+{key:'red',y:170,label:'Red Team',color:'#DD6B20'}
+];
+var stateColors={idle:'#4A5568',plan:'#48BB78',work:'#F6AD55',done:'#48BB78',wait:'#718096',merge:'#48BB78',ship:'#48BB78'};
+var stateLabels={idle:'&#183;&#183;&#183;',plan:'PLANNING',work:'WORKING',done:'DONE',wait:'WAITING',merge:'MERGING',ship:'SHIPPED'};
+function render(){
+  var s=steps[cur];
+  var h='';
+  for(var i=0;i<labels.length;i++){
+    var ln=labels[i];
+    var st=s.lanes[ln.key];
+    var barW=st==='idle'?0:st==='done'?260:st==='work'?200:st==='plan'||st==='merge'||st==='ship'?260:100;
+    h+='<text x="155" y="'+(ln.y+4)+'" text-anchor="end" style="font-family:var(--mono);font-size:10px;fill:'+ln.color+'">'+ln.label+'</text>';
+    if(st!=='idle'){
+      h+='<rect x="165" y="'+(ln.y-8)+'" width="'+barW+'" height="18" rx="4" fill="'+(stateColors[st]||'#4A5568')+'" opacity="0.3"/>';
+      h+='<rect x="165" y="'+(ln.y-8)+'" width="'+barW+'" height="18" rx="4" fill="none" stroke="'+(stateColors[st]||'#4A5568')+'" stroke-width="1.2"/>';
+      h+='<text x="'+(165+barW/2)+'" y="'+(ln.y+4)+'" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#E2E8F0">'+stateLabels[st]+'</text>';
+    } else {
+      h+='<text x="295" y="'+(ln.y+4)+'" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#4A5568">'+stateLabels[st]+'</text>';
+    }
+  }
+  document.getElementById('swarm-viz').innerHTML=h;
+  document.getElementById('swarm-desc').textContent=s.desc;
+  document.getElementById('sw-counter').textContent='Step '+(cur+1)+' / '+steps.length;
+  document.getElementById('sw-prev').disabled=cur===0;
+  document.getElementById('sw-next').disabled=cur===steps.length-1;
+  document.getElementById('sw-prev').style.opacity=cur===0?'0.4':'1';
+  document.getElementById('sw-next').style.opacity=cur===steps.length-1?'0.4':'1';
+}
+window.swNext=function(){if(cur<steps.length-1){cur++;render();}};
+window.swPrev=function(){if(cur>0){cur--;render();}};
+window.swReset=function(){cur=0;render();};
+render();
+})();
+</script>
+<div class="bigidea">
+<strong>Divided Attention:</strong> &#8220;A swarm does not just divide labor. It divides <em>attention</em>. Each agent gives its full, undegraded focus to one concern. The result is not just faster &#8212; it is often better than what one agent could produce alone.&#8221;
+</div>
+<div class="hook">If this architecture feels familiar, it should. You have seen it before &#8212; over half a century ago, in a quiet lab in New Jersey. The Unix philosophy is back.</div>
+</section>
+
+<!-- ===== PAGE 9 ===== -->
+<section class="page" data-page="9">
+<div class="page-title">The Unix Parallel &#8212; Half a Century Later</div>
+<svg viewBox="0 -20 680 240" style="width:100%" role="img" aria-label="Tera connects Unix pipes from 1978 to multi-agent AI in 2025">
+<!-- Speech bubble -->
+<rect x="145" y="5" width="510" height="107" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<path d="M150,112 L138,129 L170,112" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<line x1="151" y1="112" x2="169" y2="112" stroke="#fff" stroke-width="2.5"/>
+<text x="400" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Remember Issue 4? Unix. Small programs. Piped together.</text>
+<text x="400" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Each one does ONE thing well. They do not share memory.</text>
+<text x="400" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">They communicate through text. That was 1978. Look at</text>
+<text x="400" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">multi-agent AI. Same idea. Same elegance.</text>
+<text x="400" y="100" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">Over half a century apart.</text>
+<!-- Tera robot (happy, reverent) -->
+<g transform="translate(80,112) scale(0.95)">
+  <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+  <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+  <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+  <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+  <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+  <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+  <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="-20" y1="20" x2="-35" y2="28" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="-37" cy="30" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="20" y1="20" x2="35" y2="28" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="37" cy="30" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+</g>
+</svg>
+<div class="narrative">
+<p>In 1964, <strong>Doug McIlroy</strong> &#8212; head of the Computing Techniques Research Department at Bell Labs &#8212; wrote an internal memo. He wanted a way to connect programs together &#8220;like a garden hose &#8212; screw in another segment when it becomes necessary to massage data in another way.&#8221;</p>
+<p>It took over a decade, but his vision became the <strong>Unix pipe</strong>: the <code>|</code> character that lets you chain small programs together. <code>cat file | grep pattern | sort | uniq</code>. Four small tools. None of them knows about the others. Each reads text in and writes text out. Complex behavior emerges from simple, composable parts.</p>
+<p>In 1978, McIlroy made it a philosophy: <strong>&#8220;Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.&#8221;</strong></p>
+<p>Now look at the Constellation Pattern. Each agent does one thing well. Agents work together. They communicate through files &#8212; which are text, the universal interface. The insight McIlroy had in 1964 is precisely the insight that makes multi-agent AI work in 2025.</p>
+<p>More than half a century. The longest-running good idea in computing.</p>
+</div>
+<!-- The Half-Century Echo Comparison -->
+<div class="diagram-box">
+<svg viewBox="0 -20 680 280" style="width:100%" role="img" aria-label="Side-by-side comparison of Unix pipes in 1978 and multi-agent AI in 2025">
+<text x="340" y="5" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#2D3748;font-weight:700">The Half-Century Echo</text>
+<!-- LEFT: Unix 1978 -->
+<rect x="20" y="25" width="300" height="30" rx="6" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.5"/>
+<text x="170" y="45" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#553C9A;font-weight:700">Unix Pipes (1978)</text>
+<!-- Comparison rows -->
+<text x="40" y="75" style="font-family:var(--body);font-size:12px;fill:#718096;font-weight:700">Unit:</text>
+<text x="40" y="92" style="font-family:var(--body);font-size:12px;fill:#2D3748">Small program</text>
+<text x="40" y="115" style="font-family:var(--body);font-size:12px;fill:#718096;font-weight:700">Principle:</text>
+<text x="40" y="132" style="font-family:var(--body);font-size:12px;fill:#2D3748">Do one thing well</text>
+<text x="40" y="155" style="font-family:var(--body);font-size:12px;fill:#718096;font-weight:700">Communication:</text>
+<text x="40" y="172" style="font-family:var(--body);font-size:12px;fill:#2D3748">Text streams (stdin/stdout)</text>
+<text x="40" y="195" style="font-family:var(--body);font-size:12px;fill:#718096;font-weight:700">Memory sharing:</text>
+<text x="40" y="212" style="font-family:var(--body);font-size:12px;fill:#2D3748">None (separate processes)</text>
+<text x="40" y="235" style="font-family:var(--body);font-size:12px;fill:#718096;font-weight:700">Coordinator:</text>
+<text x="40" y="252" style="font-family:var(--body);font-size:12px;fill:#2D3748">The shell</text>
+<!-- Divider -->
+<line x1="340" y1="30" x2="340" y2="260" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="5,4"/>
+<!-- RIGHT: Multi-Agent 2025 -->
+<rect x="360" y="25" width="300" height="30" rx="6" fill="#C6F6D5" stroke="#48BB78" stroke-width="1.5"/>
+<text x="510" y="45" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#276749;font-weight:700">Multi-Agent AI (2025)</text>
+<text x="380" y="75" style="font-family:var(--body);font-size:12px;fill:#718096;font-weight:700">Unit:</text>
+<text x="380" y="92" style="font-family:var(--body);font-size:12px;fill:#2D3748">Specialist agent</text>
+<text x="380" y="115" style="font-family:var(--body);font-size:12px;fill:#718096;font-weight:700">Principle:</text>
+<text x="380" y="132" style="font-family:var(--body);font-size:12px;fill:#2D3748">Focus on one concern</text>
+<text x="380" y="155" style="font-family:var(--body);font-size:12px;fill:#718096;font-weight:700">Communication:</text>
+<text x="380" y="172" style="font-family:var(--body);font-size:12px;fill:#2D3748">Text files (markdown)</text>
+<text x="380" y="195" style="font-family:var(--body);font-size:12px;fill:#718096;font-weight:700">Memory sharing:</text>
+<text x="380" y="212" style="font-family:var(--body);font-size:12px;fill:#2D3748">None (separate contexts)</text>
+<text x="380" y="235" style="font-family:var(--body);font-size:12px;fill:#718096;font-weight:700">Coordinator:</text>
+<text x="380" y="252" style="font-family:var(--body);font-size:12px;fill:#2D3748">The orchestrator</text>
+</svg>
+</div>
+<div class="bigidea">
+<strong>An Immortal Idea:</strong> &#8220;The best ideas in computing are not inventions that appear once. They are principles that keep being rediscovered, in new forms, at new scales. Composition through text is one of those immortal ideas.&#8221;
+</div>
+<div class="hook">Multi-agent systems are the newest layer in a stack 90 years tall. And there is one more secret hiding in this issue. It involves YOU, right now, reading these words.</div>
+</section>
+
+<!-- ===== PAGE 10 ===== -->
+<section class="page" data-page="10">
+<div class="page-title">The Stack Grows Taller &#8212; And You Are Inside the Story</div>
+<svg viewBox="0 -20 680 316" style="width:100%" role="img" aria-label="Tera breaks the fourth wall: this comic was made by a multi-agent system">
+<!-- Speech bubble -->
+<rect x="50" y="5" width="580" height="161" rx="10" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<path d="M330,166 L340,183 L350,166" fill="#fff" stroke="#2D3748" stroke-width="1.8"/>
+<line x1="331" y1="166" x2="349" y2="166" stroke="#fff" stroke-width="2.5"/>
+<text x="340" y="28" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">I have a confession. This comic &#8212; the one you are reading</text>
+<text x="340" y="46" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">right now &#8212; was made with the help of a multi-agent system.</text>
+<text x="340" y="64" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">A human designed the process. Humans reviewed every step.</text>
+<text x="340" y="82" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">But the specialists? Each one was an AI agent. A Researcher</text>
+<text x="340" y="100" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">gathered the facts. A Writer crafted the story. An Illustrator</text>
+<text x="340" y="118" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">designed the visuals. An Editor checked the work. A Red Team</text>
+<text x="340" y="136" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">tried to tear it apart. Each one worked alone. They</text>
+<text x="340" y="154" text-anchor="middle" style="font-family:var(--body);font-size:13.5px;fill:#2D3748">communicated only through files.</text>
+<!-- Tera robot (warm, happy, centered) -->
+<g transform="translate(340,216) scale(0.85)">
+  <rect x="-20" y="10" width="40" height="44" rx="7" fill="#4A9BD9" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-12" y="17" width="24" height="10" rx="3" fill="#fff" opacity=".28"/>
+  <circle cx="0" cy="36" r="4" fill="#48BB78" stroke="#2D3748" stroke-width="1.3"/>
+  <rect x="-24" y="-34" width="48" height="42" rx="11" fill="#E2E8F0" stroke="#2D3748" stroke-width="2.2"/>
+  <rect x="-16" y="-27" width="32" height="25" rx="5" fill="#1A202C"/>
+  <circle cx="-6" cy="-16" r="4.8" fill="#4A9BD9"/><circle cx="6" cy="-16" r="4.8" fill="#4A9BD9"/>
+  <circle cx="-4.8" cy="-17.3" r="1.7" fill="#fff"/><circle cx="7.2" cy="-17.3" r="1.7" fill="#fff"/>
+  <path d="M-6,-8 Q0,-2 6,-8" fill="none" stroke="#4A9BD9" stroke-width="2" stroke-linecap="round"/>
+  <line x1="0" y1="-34" x2="0" y2="-45" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="0" cy="-48" r="4" fill="#F6AD55" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="-20" y1="20" x2="-31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="-33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <line x1="20" y1="20" x2="31" y2="32" stroke="#2D3748" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="33" cy="34" r="4.2" fill="#E2E8F0" stroke="#2D3748" stroke-width="1.8"/>
+  <rect x="-14" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <rect x="4" y="52" width="10" height="12" rx="3" fill="#A0AEC0" stroke="#2D3748" stroke-width="1.6"/>
+  <text y="80" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#2D3748;font-weight:700">Tera</text>
+</g>
+</svg>
+<div class="narrative">
+<p>Every layer of computing&#8217;s history rests on the one below it. Turing&#8217;s idea made hardware meaningful. Hardware made programming languages possible. Languages made operating systems like Unix practical. Unix&#8217;s philosophy shaped the Internet. The Internet fed data to machine learning. Machine learning became deep learning. Deep learning produced Transformers. Transformers enabled LLMs. LLMs became agents. And now, agents are becoming swarms.</p>
+<p>Ninety years of ideas, stacked like layers of a building. Each one was someone&#8217;s life work. Each one seemed like the peak of what was possible &#8212; until the next layer appeared.</p>
+</div>
+<!-- The Full Abstraction Stack -->
+<div class="diagram-box">
+<svg viewBox="0 -20 680 380" style="width:100%" role="img" aria-label="Nine-layer abstraction stack from Turing Machine to Swarms, each colored by its issue accent">
+<text x="340" y="5" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#2D3748;font-weight:700">The Full Abstraction Stack (90 Years)</text>
+<!-- Layer 9 (top, highlighted) -->
+<rect x="140" y="25" width="400" height="30" rx="5" fill="#C6F6D5" stroke="#48BB78" stroke-width="2.5"/>
+<text x="340" y="45" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:#276749;font-weight:700">9. The Swarm (2025) &#8212; Multi-agent systems</text>
+<!-- Layer 8 -->
+<rect x="140" y="60" width="400" height="30" rx="5" fill="#E9D8FD" stroke="#9F7AEA" stroke-width="1.5"/>
+<text x="340" y="80" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#553C9A;font-weight:700">8. The Agent (2024) &#8212; Tool use, autonomy</text>
+<!-- Layer 7 -->
+<rect x="140" y="95" width="400" height="30" rx="5" fill="#BEE3F8" stroke="#4A9BD9" stroke-width="1.5"/>
+<text x="340" y="115" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#2B6CB0;font-weight:700">7. The Attention (2017) &#8212; Transformers, LLMs</text>
+<!-- Layer 6 -->
+<rect x="140" y="130" width="400" height="30" rx="5" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/>
+<text x="340" y="150" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#E53E3E;font-weight:700">6. The Learning (2010s) &#8212; Neural nets, deep learning</text>
+<!-- Layer 5 -->
+<rect x="140" y="165" width="400" height="30" rx="5" fill="#FEFCBF" stroke="#D69E2E" stroke-width="1.5"/>
+<text x="340" y="185" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#975A16;font-weight:700">5. The Network (1990s) &#8212; Web, Linux, open source</text>
+<!-- Layer 4 -->
+<rect x="140" y="200" width="400" height="30" rx="5" fill="#E9D8FD" stroke="#805AD5" stroke-width="1.5"/>
+<text x="340" y="220" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#553C9A;font-weight:700">4. The Philosophy (1970s) &#8212; Unix, C, small tools</text>
+<!-- Layer 3 -->
+<rect x="140" y="235" width="400" height="30" rx="5" fill="#C6F6D5" stroke="#38A169" stroke-width="1.5"/>
+<text x="340" y="255" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#276749;font-weight:700">3. The Languages (1950s) &#8212; Compilers, FORTRAN</text>
+<!-- Layer 2 -->
+<rect x="140" y="270" width="400" height="30" rx="5" fill="#FFF5EB" stroke="#DD6B20" stroke-width="1.5"/>
+<text x="340" y="290" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#DD6B20;font-weight:700">2. The Hardware (1940s) &#8212; Vacuum tubes, von Neumann</text>
+<!-- Layer 1 (bottom) -->
+<rect x="140" y="305" width="400" height="30" rx="5" fill="#FED7D7" stroke="#E53E3E" stroke-width="1.5"/>
+<text x="340" y="325" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#E53E3E;font-weight:700">1. The Idea (1936) &#8212; Turing machines</text>
+<!-- Arrow pointing up from top -->
+<line x1="340" y1="25" x2="340" y2="10" stroke="#48BB78" stroke-width="2"/>
+<polygon points="334,12 340,0 346,12" fill="#48BB78"/>
+<text x="400" y="6" style="font-family:var(--hand);font-size:12px;fill:#48BB78;font-weight:700">What comes next?</text>
+<!-- Side labels -->
+<text x="125" y="45" text-anchor="end" style="font-family:var(--body);font-size:10px;fill:#48BB78">YOU ARE</text>
+<text x="125" y="56" text-anchor="end" style="font-family:var(--body);font-size:10px;fill:#48BB78">HERE</text>
+<text x="125" y="325" text-anchor="end" style="font-family:var(--body);font-size:10px;fill:#A0AEC0">Foundation</text>
+</svg>
+</div>
+<div class="narrative">
+<p>The question is no longer &#8220;Can AI write code?&#8221; That was answered. The question is no longer &#8220;Can AI work autonomously?&#8221; That was answered too. The new question is: <strong>&#8220;How do we organize teams of AI agents to tackle problems that no single mind &#8212; human or artificial &#8212; can hold all at once?&#8221;</strong></p>
+<p>And that question? It is wide open. For you, for the engineers building these systems, for everyone who will shape what comes next.</p>
+</div>
+<div class="bigidea">
+<strong>90 Years:</strong> &#8220;From Turing&#8217;s tape to the swarm&#8217;s files &#8212; the core insight has not changed: the way to tackle problems too big for one mind is to organize many minds, each focused on its part, communicating through simple, universal interfaces.&#8221;
+</div>
+<div class="tryit">
+<strong>Think About It:</strong> You have just read the entire arc from a single imaginary machine in 1936 to teams of AI agents in 2026. What do you think the NEXT layer of the stack will be? What problem is too hard for today&#8217;s swarms that will need something new?
+</div>
+<div class="tryit" style="cursor:pointer" onclick="window.location.href='../issue_10/index.html'">
+<strong>Next Issue:</strong> We zoom all the way out. The full stack. The full story. Every layer, every connection, every person who built a piece of the world you live in. <a href="../issue_10/index.html" style="color:var(--accent);font-weight:700;text-decoration:underline">Issue 10: &#8220;The Whole Stack &#8212; and What Comes Next&#8221; &#8594;</a>
+</div>
+<!-- References -->
+<div class="refs">
+<h3>References &#38; Further Reading</h3>
+<ul>
+  <li><a href="https://doi.org/10.1162/tacl_a_00638" style="color:var(--accent)">Liu, Nelson F., et al. &#8220;Lost in the Middle: How Language Models Use Long Contexts.&#8221; <em>TACL</em>, 2024.</a></li>
+  <li><a href="https://archive.org/details/bstj57-6-1899" style="color:var(--accent)">McIlroy, M.D. et al. &#8220;UNIX Time-Sharing System: Foreword.&#8221; <em>Bell System Technical Journal</em>, 1978.</a></li>
+  <li><a href="https://github.com/microsoft/autogen" style="color:var(--accent)">Microsoft AutoGen &#8212; Multi-agent conversation framework (2023).</a></li>
+  <li><a href="https://github.com/joaomdmoura/crewAI" style="color:var(--accent)">CrewAI &#8212; Role-based agent orchestration by Joao Moura (2023).</a></li>
+  <li><a href="https://github.com/langchain-ai/langgraph" style="color:var(--accent)">LangGraph &#8212; Graph-based multi-agent workflows by LangChain (2024).</a></li>
+  <li><a href="https://github.com/openai/swarm" style="color:var(--accent)">OpenAI Swarm &#8212; Experimental multi-agent handoff framework (2024).</a></li>
+  <li><a href="https://addyosmani.com/" style="color:var(--accent)">Osmani, Addy. Publications on Claude Code agent teams (2025).</a></li>
+  <li><a href="https://git-scm.com/docs/git-worktree" style="color:var(--accent)">Git Documentation: git-worktree. Official reference.</a></li>
+  <li><a href="https://doi.org/10.1109/TC.1980.1675516" style="color:var(--accent)">Smith, Reid G. &#8220;The Contract Net Protocol.&#8221; <em>IEEE Trans. Computers</em>, 1980.</a></li>
+  <li><a href="https://doi.org/10.1145/361011.361061" style="color:var(--accent)">Thompson, Ken &#38; Ritchie, Dennis. &#8220;The UNIX Time-Sharing System.&#8221; <em>CACM</em>, 1974.</a></li>
+</ul>
+</div>
+</section>
+
+<script>
+const pages=document.querySelectorAll('.page');
+const total=pages.length;
+let cur=0;
+const dotsC=document.getElementById('dots');
+const pageNum=document.getElementById('pageNum');
+const prevBtn=document.getElementById('prevBtn');
+const nextBtn=document.getElementById('nextBtn');
+for(let i=0;i<total;i++){const d=document.createElement('button');d.className='dot';d.onclick=()=>show(i);dotsC.appendChild(d);}
+function show(n){
+  cur=Math.max(0,Math.min(total-1,n));
+  pages.forEach((p,i)=>{p.classList.toggle('active',i===cur);});
+  document.querySelectorAll('.dot').forEach((d,i)=>{d.className='dot'+(i===cur?' active':i<cur?' past':'');});
+  pageNum.textContent=(cur+1)+' / '+total;
+  prevBtn.disabled=cur===0;
+  nextBtn.disabled=cur===total-1;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function go(d){show(cur+d);}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')go(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')go(-1);
+});
+show(0);
+</script>
+</body>
+</html>

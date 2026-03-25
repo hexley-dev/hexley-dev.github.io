@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robot Guide Character Designs — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    min-height: 100vh;
+  }
+
+  header {
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    background: linear-gradient(135deg, #16213e 0%, #0f3460 50%, #1a1a2e 100%);
+    border-bottom: 3px solid #e94560;
+  }
+
+  header h1 {
+    font-family: 'Bangers', cursive;
+    font-size: 2.8rem;
+    color: #e94560;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+  }
+
+  header p {
+    font-size: 1.1rem;
+    color: #a0a0c0;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .instructions {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1.2rem 1.5rem;
+    background: #16213e;
+    border-left: 4px solid #e94560;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #c0c0d8;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: #16213e;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .card:hover {
+    border-color: #e94560;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(233, 69, 96, 0.2);
+  }
+
+  .card.selected {
+    border-color: #48bb78;
+    box-shadow: 0 0 20px rgba(72, 187, 120, 0.3);
+  }
+
+  .card.selected::after {
+    content: '✓ SELECTED';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #48bb78;
+    color: #1a1a2e;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 20px;
+    z-index: 2;
+  }
+
+  .card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    background: #0f0f1e;
+  }
+
+  .card-body {
+    padding: 1.2rem;
+  }
+
+  .card-body h2 {
+    font-family: 'Bangers', cursive;
+    font-size: 1.5rem;
+    color: #e94560;
+    margin-bottom: 0.3rem;
+    letter-spacing: 1px;
+  }
+
+  .card-body .concept-id {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.85rem;
+    color: #606080;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-body .vibe {
+    font-style: italic;
+    color: #a0a0c0;
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .card-body .description {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: #b0b0c8;
+  }
+
+  .summary {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0f3460;
+    border-top: 2px solid #e94560;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.1rem;
+    z-index: 10;
+    transition: transform 0.3s;
+  }
+
+  .summary.hidden { transform: translateY(100%); }
+
+  .summary span { color: #c0c0d8; }
+  .summary .picks { color: #48bb78; font-size: 1.2rem; }
+
+  .summary button {
+    background: #e94560;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    font-family: 'Bangers', cursive;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .summary button:hover { background: #c73e54; }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 8px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 3rem 1rem 6rem;
+    color: #606080;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; padding: 1rem; }
+    header h1 { font-size: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Robot Guide Character Designs</h1>
+  <p>15 character concepts for the recurring robot guide in "From Turing to Swarms." Click any card to select your favorites. Click the image to zoom in.</p>
+</header>
+
+<div class="instructions">
+  <strong>How to pick:</strong> Click cards to select/deselect favorites. You can pick multiple. The bar at the bottom tracks your selections. Think about: Which character would you want guiding you through 10 issues of computing history?
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="Zoomed character design">
+</div>
+
+<div class="summary hidden" id="summary">
+  <span>Your picks: <span class="picks" id="pick-list">none yet</span></span>
+  <button onclick="copyPicks()">Copy Selection</button>
+</div>
+
+<footer>
+  From Turing to Swarms — Character Design Phase<br>
+  Generated via Sparky Image Gen API
+</footer>
+
+<script>
+const CHARACTERS = [
+  {
+    id: "A", file: "A_spark", name: "Spark",
+    vibe: "Wall-E meets Sputnik",
+    desc: "Retro-futurist orb bot. Spherical body, single large eye/lens, small Sputnik-style antenna, copper/warm metal tones, tiny hover jets. Feels like a friendly piece of space-age history."
+  },
+  {
+    id: "B", file: "B_byte", name: "Byte",
+    vibe: "Friendly CRT monitor",
+    desc: "Boxy companion bot shaped like a miniature vintage TV. Face displayed on screen with pixel-style expressions, stubby legs, green phosphor glow accents. Peak 80s nostalgia."
+  },
+  {
+    id: "C", file: "C_ada", name: "Ada",
+    vibe: "Baymax meets Eve (Wall-E)",
+    desc: "Sleek modern assistant. Smooth white teardrop body, two big blue eyes, floating hands (no arms), soft glow effects. Minimal, elegant, and calming."
+  },
+  {
+    id: "D", file: "D_coil", name: "Coil",
+    vibe: "Maker/inventor energy",
+    desc: "Steampunk tinker bot. Brass gears visible, goggles on forehead, tool belt, stocky build, warm amber tones. Looks like it could build the machines it's teaching you about."
+  },
+  {
+    id: "E", file: "E_pip", name: "Pip",
+    vibe: "Kirby meets robot",
+    desc: "Extremely round, extremely small. Huge eyes relative to body, single bouncy antenna with glowing tip, pastel lavender. Maximum cute, minimum complexity."
+  },
+  {
+    id: "F", file: "F_relay", name: "Relay",
+    vibe: "Delicate, handcrafted",
+    desc: "Origami paper bot. Folded kraft paper/cardboard body with visible creases, triangular ears, marker-drawn face. Feels like someone lovingly made it by hand."
+  },
+  {
+    id: "G", file: "G_nixie", name: "Nixie",
+    vibe: "Living history piece",
+    desc: "Body is a glowing vacuum tube with a friendly face formed by the warm orange filament. Thin wire limbs, glass dome head. Literally made from the technology the comic teaches."
+  },
+  {
+    id: "H", file: "H_patch", name: "Patch",
+    vibe: "Storybook companion",
+    desc: "Stitched plushie bot. Felt/fabric texture, visible hand-stitching, mismatched button eyes, colorful patches from different eras. Slightly lopsided — imperfect and lovable."
+  },
+  {
+    id: "I", file: "I_hex", name: "Hex",
+    vibe: "Modern/minimal crystal",
+    desc: "Holographic helper. Translucent blue-white geometric faceted body like a cut crystal, glowing internal light source, floats, trails sparkle particles. Ethereal and elegant."
+  },
+  {
+    id: "J", file: "J_rune", name: "Rune",
+    vibe: "Teacher energy",
+    desc: "Chalkboard bot. Dark green chalkboard body surface displaying equations and doodles, round glasses, wooden pointer. Can literally teach on itself."
+  },
+  {
+    id: "K", file: "K_toggle", name: "Toggle",
+    vibe: "Playful duality",
+    desc: "Split bot with ON/OFF switch on top. Left half bright yellow, right half deep blue. Very expressive eyebrows, compact boxy shape with rounded edges. Two moods, one friend."
+  },
+  {
+    id: "L", file: "L_sprout", name: "Sprout",
+    vibe: "Growth/learning metaphor",
+    desc: "Circuit-board seedling. Small plant growing from a PCB base, copper trace vines, LED flowers, tiny face on the main bud. Organic meets electronic — mirrors the reader's learning journey."
+  },
+  {
+    id: "M", file: "M_blip", name: "Blip",
+    vibe: "Retro lab instrument",
+    desc: "Oscilloscope face bot. Round CRT screen face showing waveform expressions (happy = sine wave smile), chunky knobs for ears, brushed aluminum body. Mid-century lab meets Saturday morning cartoon."
+  },
+  {
+    id: "N", file: "N_kit", name: "Kit",
+    vibe: "DIY maker spirit",
+    desc: "Breadboard bot. White breadboard body with colorful jumper wires and components plugged in, resistor-stripe legs, LED eyes. Looks like someone's weekend electronics project come to life."
+  },
+  {
+    id: "O", file: "O_moth", name: "Moth",
+    vibe: "Gentle, curious navigator",
+    desc: "Mechanical moth with translucent circuit-pattern wings, glowing antenna tips, large gentle compound eyes. Dusty purple and silver. Drawn to knowledge like moths to light."
+  }
+];
+
+const selected = new Set();
+const grid = document.getElementById('grid');
+const summary = document.getElementById('summary');
+const pickList = document.getElementById('pick-list');
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+
+CHARACTERS.forEach(c => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.id = `card-${c.id}`;
+  card.innerHTML = `
+    <img src="images_3d_renders/${c.file}.png" alt="${c.name} character design"
+         loading="lazy" onclick="event.stopPropagation(); openLightbox('images_3d_renders/${c.file}.png')">
+    <div class="card-body">
+      <div class="concept-id">Concept ${c.id}</div>
+      <h2>${c.name}</h2>
+      <div class="vibe">${c.vibe}</div>
+      <div class="description">${c.desc}</div>
+    </div>
+  `;
+  card.addEventListener('click', () => toggleSelect(c.id, c.name));
+  grid.appendChild(card);
+});
+
+function toggleSelect(id, name) {
+  const card = document.getElementById(`card-${id}`);
+  if (selected.has(id)) {
+    selected.delete(id);
+    card.classList.remove('selected');
+  } else {
+    selected.add(id);
+    card.classList.add('selected');
+  }
+  updateSummary();
+}
+
+function updateSummary() {
+  if (selected.size === 0) {
+    summary.classList.add('hidden');
+    return;
+  }
+  summary.classList.remove('hidden');
+  const names = [...selected].map(id =>
+    CHARACTERS.find(c => c.id === id).name
+  );
+  pickList.textContent = names.join(', ');
+}
+
+function openLightbox(src) {
+  lightboxImg.src = src;
+  lightbox.classList.add('active');
+}
+
+function copyPicks() {
+  const names = [...selected].map(id => {
+    const c = CHARACTERS.find(ch => ch.id === id);
+    return `${c.id}: ${c.name} — ${c.vibe}`;
+  });
+  navigator.clipboard.writeText(names.join('\n')).then(() => {
+    const btn = document.querySelector('.summary button');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy Selection', 1500);
+  });
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') lightbox.classList.remove('active');
+});
+</script>
+
+</body>
+</html>

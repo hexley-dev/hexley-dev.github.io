@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scribble v2 — Magnifying Glass + Pencil + Symbol Tape</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Source Serif 4', Georgia, serif; background: #1a1a2e; color: #e0e0e0; min-height: 100vh; }
+
+  header { text-align: center; padding: 2.5rem 1rem 1.5rem; background: linear-gradient(135deg, #16213e 0%, #2a1a0e 50%, #1a1a2e 100%); border-bottom: 3px solid #D4A04A; }
+  header h1 { font-family: 'Bangers', cursive; font-size: 3rem; color: #D4A04A; letter-spacing: 3px; margin-bottom: 0.3rem; }
+  header .subtitle { font-family: 'Patrick Hand', cursive; font-size: 1.3rem; color: #a08050; margin-bottom: 0.6rem; }
+  header .spec { font-size: 0.9rem; color: #808090; max-width: 600px; margin: 0 auto; line-height: 1.5; }
+  header .spec strong { color: #D4A04A; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.8rem; padding: 2rem; max-width: 1400px; margin: 0 auto; }
+
+  .card { background: #16213e; border-radius: 12px; overflow: hidden; border: 2px solid transparent; transition: all 0.2s; cursor: pointer; position: relative; }
+  .card:hover { border-color: #D4A04A; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(212,160,74,0.2); }
+  .card.selected { border-color: #48bb78; box-shadow: 0 0 20px rgba(72,187,120,0.3); }
+  .card.selected::after { content: '★ THIS ONE'; position: absolute; top: 10px; right: 10px; background: #48bb78; color: #1a1a2e; font-family: 'Patrick Hand', cursive; font-size: 0.9rem; font-weight: bold; padding: 4px 12px; border-radius: 16px; z-index: 2; }
+
+  .card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: #0f0f1e; }
+  .card-body { padding: 1rem 1.2rem; }
+  .card-body h2 { font-family: 'Bangers', cursive; font-size: 1.4rem; color: #D4A04A; letter-spacing: 1px; margin-bottom: 0.2rem; }
+  .card-body .mood { font-family: 'Patrick Hand', cursive; font-style: italic; color: #a08050; font-size: 1rem; margin-bottom: 0.4rem; }
+  .card-body .desc { font-size: 0.85rem; line-height: 1.5; color: #9090a8; }
+
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 100; align-items: center; justify-content: center; cursor: zoom-out; }
+  .lightbox.active { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; }
+
+  footer { text-align: center; padding: 2rem 1rem 3rem; color: #505068; font-size: 0.8rem; }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; padding: 1rem; } header h1 { font-size: 2.2rem; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>SCRIBBLE v2</h1>
+  <div class="subtitle">Magnifying glass hand. Pencil hand. Symbol tape. Onewheel.</div>
+  <p class="spec">
+    <strong>Read head:</strong> Magnifying glass held in one hand (not worn as monocle)<br>
+    <strong>Write head:</strong> Pencil held in the other hand<br>
+    <strong>Tape:</strong> Diverse symbols (letters, shapes, marks, 0, 1, ə, x, □) — faithful to Turing's original 1936 paper
+  </p>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lb-img" src="" alt="">
+</div>
+
+<footer>From Turing to Swarms v3 — Scribble Character Design<br>Tape symbols: historically accurate to Turing's "On Computable Numbers" (1936)</footer>
+
+<script>
+const CHARS = [
+  { id: '01_cruiser', name: 'The Cruiser', mood: 'Cool & breezy',
+    desc: 'Casual surf stance, magnifying glass held out to the side, pencil tucked behind antenna. Wind in the tape scarf. The road stretches ahead.' },
+  { id: '02_explorer', name: 'The Explorer', mood: 'Adventure & discovery',
+    desc: 'Leaning forward, magnifying glass up to examine a new symbol, pencil poised to note it down. Explorer satchel. The tape winds into the unknown.' },
+  { id: '03_thinker', name: 'The Thinker', mood: 'Quiet contemplation',
+    desc: 'Perfectly still on the board. Magnifying glass lowered, pencil eraser tapping chin. Eyes looking up pondering. Thought bubbles above.' },
+  { id: '04_speedster', name: 'The Speedster', mood: 'Pure velocity',
+    desc: 'Deep crouch, magnifying glass forward like a shield, pencil gripped tight pointing back. Tape scarf horizontal. Motion blur. Racing stripe.' },
+  { id: '05_reader', name: 'The Reader', mood: 'Absorbed & studious',
+    desc: 'Rolling slowly, magnifying glass right up to the tape. Pencil making tiny annotations. Tongue out in concentration. Oversized glasses.' },
+  { id: '06_dancer', name: 'The Dancer', mood: 'Joy & grace',
+    desc: 'Spin trick on the board. Magnifying glass raised catching light. Pencil sweeping like a baton. Tape spiraling. Pure delight.' },
+  { id: '07_nightrider', name: 'The Nightrider', mood: 'Brave in the dark',
+    desc: 'Riding through night. Magnifying glass glowing golden, illuminating the tape. Pencil leaving a luminescent trail. Starry background.' },
+  { id: '08_writer', name: 'The Writer', mood: 'Creation in motion',
+    desc: 'Riding along BLANK tape, writing new symbols as it goes. Behind: fresh symbols. Ahead: blank possibility. Ink-stained fingers.' },
+  { id: '09_teacher', name: 'The Teacher', mood: 'Warm & welcoming',
+    desc: 'Stopped, facing you. Magnifying glass held up to show a symbol. Pencil pointing at tape like a teacher. Bow tie. "Come learn with me."' },
+  { id: '10_legend', name: 'The Legend', mood: 'Epic & inspiring',
+    desc: 'Heroic pose. Magnifying glass raised like a torch. Pencil held high like a sword. Tape cape billowing. Golden backlight. Legendary.' },
+];
+
+let picked = null;
+const grid = document.getElementById('grid');
+
+CHARS.forEach(c => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.id = `card-${c.id}`;
+  card.innerHTML = `
+    <img src="images/scribblev2_${c.id}.png" alt="${c.name}" loading="lazy"
+         onclick="event.stopPropagation(); openLB('images/scribblev2_${c.id}.png')">
+    <div class="card-body">
+      <h2>${c.name}</h2>
+      <div class="mood">${c.mood}</div>
+      <div class="desc">${c.desc}</div>
+    </div>
+  `;
+  card.addEventListener('click', () => pick(c.id));
+  grid.appendChild(card);
+});
+
+function pick(id) {
+  if (picked) document.getElementById(`card-${picked}`)?.classList.remove('selected');
+  picked = picked === id ? null : id;
+  if (picked) document.getElementById(`card-${id}`).classList.add('selected');
+}
+
+function openLB(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('lightbox').classList.remove('active'); });
+</script>
+</body>
+</html>

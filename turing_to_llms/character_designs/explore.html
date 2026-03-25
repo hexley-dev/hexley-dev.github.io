@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robot Guide Explorer — 10 Designs per Issue</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    min-height: 100vh;
+  }
+
+  header {
+    text-align: center;
+    padding: 2.5rem 1rem 1.5rem;
+    background: linear-gradient(135deg, #16213e 0%, #0f3460 50%, #1a1a2e 100%);
+    border-bottom: 3px solid #e94560;
+  }
+
+  header h1 {
+    font-family: 'Bangers', cursive;
+    font-size: 2.6rem;
+    color: #e94560;
+    letter-spacing: 2px;
+    margin-bottom: 0.4rem;
+  }
+
+  header p {
+    font-size: 1rem;
+    color: #a0a0c0;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  /* Tab bar */
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    background: #0f1a30;
+    border-bottom: 2px solid #2a2a4e;
+    padding: 0 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab-bar::-webkit-scrollbar { height: 4px; }
+  .tab-bar::-webkit-scrollbar-thumb { background: #4a4a6e; border-radius: 2px; }
+
+  .tab {
+    flex-shrink: 0;
+    padding: 0.8rem 1.2rem;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1rem;
+    color: #808090;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .tab:hover { color: #c0c0d8; }
+
+  .tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .tab .pick-dot {
+    display: none;
+    position: absolute;
+    top: 6px;
+    right: 4px;
+    width: 8px;
+    height: 8px;
+    background: #48bb78;
+    border-radius: 50%;
+  }
+
+  .tab.has-pick .pick-dot { display: block; }
+
+  /* Issue panels */
+  .issue-panel {
+    display: none;
+    padding: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .issue-panel.active { display: block; }
+
+  .issue-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .issue-header h2 {
+    font-family: 'Bangers', cursive;
+    font-size: 1.8rem;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+
+  .issue-header .era {
+    font-family: 'Patrick Hand', cursive;
+    color: #808090;
+    font-size: 1rem;
+  }
+
+  .issue-header .instruction {
+    font-size: 0.9rem;
+    color: #606080;
+    margin-top: 0.3rem;
+  }
+
+  .design-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .design-card {
+    background: #16213e;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .design-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+  }
+
+  .design-card.selected {
+    border-color: #48bb78;
+    box-shadow: 0 0 16px rgba(72, 187, 120, 0.3);
+  }
+
+  .design-card.selected::after {
+    content: '★ PICK';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #48bb78;
+    color: #1a1a2e;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.85rem;
+    font-weight: bold;
+    padding: 3px 10px;
+    border-radius: 16px;
+    z-index: 2;
+  }
+
+  .design-card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    background: #0f0f1e;
+  }
+
+  .design-card .card-info {
+    padding: 0.8rem;
+  }
+
+  .design-card .card-info h3 {
+    font-family: 'Bangers', cursive;
+    font-size: 1.15rem;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    margin-bottom: 0.3rem;
+    text-transform: capitalize;
+  }
+
+  .design-card .card-info p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: #9090a8;
+  }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .lightbox.active { display: flex; }
+  .lightbox img {
+    max-width: 85vw;
+    max-height: 80vh;
+    border-radius: 8px;
+  }
+  .lightbox .lb-caption {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.2rem;
+    color: #c0c0d8;
+  }
+
+  /* Summary bar */
+  .summary {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0f3460;
+    border-top: 2px solid #e94560;
+    padding: 0.8rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1rem;
+    z-index: 10;
+    transition: transform 0.3s;
+    gap: 1rem;
+  }
+  .summary.hidden { transform: translateY(100%); }
+  .summary .picks-text { color: #c0c0d8; flex: 1; }
+  .summary .picks-text strong { color: #48bb78; }
+  .summary button {
+    background: #e94560;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    font-family: 'Bangers', cursive;
+    font-size: 1rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .summary button:hover { background: #c73e54; }
+
+  footer {
+    text-align: center;
+    padding: 2rem 1rem 5rem;
+    color: #505068;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 600px) {
+    .design-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+    .design-card .card-info p { display: none; }
+    header h1 { font-size: 2rem; }
+    .tab { padding: 0.6rem 0.8rem; font-size: 0.9rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Robot Guide Explorer</h1>
+  <p>10 character designs per issue. Pick your favorite for each era. Click images to zoom. Click cards to select.</p>
+</header>
+
+<div class="tab-bar" id="tab-bar"></div>
+<div id="panels"></div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lb-img" src="" alt="">
+  <div class="lb-caption" id="lb-caption"></div>
+</div>
+
+<div class="summary hidden" id="summary">
+  <div class="picks-text" id="picks-text"></div>
+  <button onclick="copyPicks()">Copy Picks</button>
+</div>
+
+<footer>From Turing to Swarms — Character Design Explorer</footer>
+
+<script>
+const ACCENT = {
+  I01: '#E53E3E', I02: '#DD6B20', I03: '#38A169', I04: '#805AD5', I05: '#D69E2E',
+  I06: '#E53E3E', I07: '#4A9BD9', I08: '#9F7AEA', I09: '#48BB78', I10: '#DD6B20'
+};
+
+const ISSUES = [
+  {
+    key: 'I01', num: 1, era: '1936 — The Turing Machine',
+    title: 'The Idea That Started Everything',
+    designs: [
+      { id: '01_tape_reel', name: 'Tape Reel', desc: 'Body is a reel of punched paper tape, brass read-write head as eye, mechanical ticker-tape arms.' },
+      { id: '02_typewriter', name: 'Typewriter', desc: 'Vintage typewriter body, keys as teeth in a smile, paper scroll hat, ink ribbon spool ears.' },
+      { id: '03_clockwork', name: 'Clockwork', desc: 'Wind-up clockwork with visible brass gears through glass chest, pocket watch face with friendly eyes.' },
+      { id: '04_telegraph', name: 'Telegraph', desc: 'Brass telegraph key and sounder, morse code dots floating around, copper wire arms.' },
+      { id: '05_calculator', name: 'Calculator', desc: 'Vintage mechanical calculator with spinning digit wheels showing a smiley, pull lever arm.' },
+      { id: '06_enigma', name: 'Enigma', desc: 'Enigma-style rotor machine, three spinning letter rotors on head, plugboard cables on chest.' },
+      { id: '07_slide_rule', name: 'Slide Rule', desc: 'Wooden slide rule body with sliding center, cursor hairline monocle, brass end-cap hands.' },
+      { id: '08_abacus', name: 'Abacus', desc: 'Wooden abacus frame, colorful beads on rods forming a face pattern, bead hands.' },
+      { id: '09_counter', name: 'Counter', desc: 'Vintage flip-digit mechanical counter face, brushed metal body with rivets, cranking handle arm.' },
+      { id: '10_music_box', name: 'Music Box', desc: 'Open music box mechanism, spinning pin cylinder belly, tuned comb teeth smile, delicate brass.' },
+    ]
+  },
+  {
+    key: 'I02', num: 2, era: '1940s–50s — First Computers',
+    title: 'Building the First Brains',
+    designs: [
+      { id: '01_vacuum_tube', name: 'Vacuum Tube', desc: 'Glowing vacuum tube body with orange filament face, copper wire limbs, glass dome head.' },
+      { id: '02_patch_panel', name: 'Patch Panel', desc: 'Chest covered in jack ports with colorful patch cables, plugging cable into its own chest.' },
+      { id: '03_toggle_switch', name: 'Toggle Switch', desc: 'Face is a row of toggle switches flipping for expressions, red/green indicator light eyes.' },
+      { id: '04_radar_screen', name: 'Radar Screen', desc: 'Circular green radar display face, sweeping line smile, military-spec chunky body.' },
+      { id: '05_relay', name: 'Relay', desc: 'Electromagnetic relay body, clicking armature arm waves, spark gap smile, copper wire hair.' },
+      { id: '06_nixie_tube', name: 'Nixie Tube', desc: 'Warm glowing nixie tube face showing smiley, glass envelope body, wire pin legs.' },
+      { id: '07_drum_memory', name: 'Drum Memory', desc: 'Spinning magnetic drum body, read heads as tiny arms, data track stripes, polished chrome.' },
+      { id: '08_oscilloscope', name: 'Oscilloscope', desc: 'Oscilloscope screen face with waveform smile, rotary knob ears, BNC connector arms.' },
+      { id: '09_eniac_panel', name: 'ENIAC Panel', desc: 'ENIAC panel with indicator light grid forming expressions, thick cable bundle arms.' },
+      { id: '10_crt_early', name: 'Early CRT', desc: 'Early cathode ray tube with dot-pattern phosphor smiley, heavy glass and metal body.' },
+    ]
+  },
+  {
+    key: 'I03', num: 3, era: '1950s–60s — Programming Languages',
+    title: 'Teaching Machines to Understand Us',
+    designs: [
+      { id: '01_punch_card', name: 'Punch Card', desc: 'IBM punch card body, hole pattern face, ink-stamped label, holds smaller cards.' },
+      { id: '02_tape_drive', name: 'Tape Drive', desc: 'Two tape reels as eyes on head, tape threading between, mainframe cabinet body.' },
+      { id: '03_teletype', name: 'Teletype', desc: 'Teletype terminal, clacking keyboard mouth, paper output scrolling from top, bell on head.' },
+      { id: '04_core_memory', name: 'Core Memory', desc: 'Magnetic core memory grid chest, tiny ferrite donuts on wires, delicate and precious.' },
+      { id: '05_mainframe_console', name: 'Mainframe Console', desc: 'Blinking indicator light panel face, switch row smile, two-tone IBM blue.' },
+      { id: '06_card_reader', name: 'Card Reader', desc: 'Card feed slot mouth eating cards, hopper hat full of cards, sorting pocket arms.' },
+      { id: '07_line_printer', name: 'Line Printer', desc: 'Chain line printer body, fan-fold paper streaming out, green-bar paper scarf.' },
+      { id: '08_fortran_card', name: 'FORTRAN Card', desc: 'Holding a giant FORTRAN card, body is a rubber-banded card deck, pencil behind ear.' },
+      { id: '09_blinking_panel', name: 'Blinking Panel', desc: 'Front panel of blinking lights showing expressions, register display forehead.' },
+      { id: '10_paper_tape_reader', name: 'Paper Tape Reader', desc: 'Feeding paper tape through head like headband, optical reader eyes, chad confetti.' },
+    ]
+  },
+  {
+    key: 'I04', num: 4, era: '1970s–80s — Unix & PCs',
+    title: 'Small Tools, Big Ideas',
+    designs: [
+      { id: '01_crt_terminal', name: 'CRT Terminal', desc: 'Green CRT monitor head with >_ smile, beige keyboard body, floppy disk hands.' },
+      { id: '02_floppy_disk', name: 'Floppy Disk', desc: '5.25-inch floppy body, write-protect notch winking eye, label sticker name tag.' },
+      { id: '03_acoustic_modem', name: 'Acoustic Modem', desc: 'Acoustic coupler with rubber cups and phone handset, coiled cord tail.' },
+      { id: '04_joystick', name: 'Joystick', desc: 'Atari joystick base body, stick as hat, red fire button nose, arcade energy.' },
+      { id: '05_cassette', name: 'Cassette Tape', desc: 'Audio cassette body, tape reel eyes through window, magnetic tape scarf.' },
+      { id: '06_dot_matrix', name: 'Dot Matrix Printer', desc: 'Dot matrix printer body, tractor-feed paper tongue, zipping print head.' },
+      { id: '07_apple_ii', name: 'Apple II', desc: 'Apple II shape with keyboard, BASIC prompt screen face, rainbow stripe accent.' },
+      { id: '08_circuit_board', name: 'Circuit Board', desc: 'Exposed PCB body, DIP chip eyes, resistor stripe legs, capacitor hair.' },
+      { id: '09_mouse_early', name: 'Early Mouse', desc: 'Boxy early mouse shape, one big button face, cord tail, trackball underneath.' },
+      { id: '10_unix_pipe', name: 'Unix Pipe', desc: 'Connected pipe segments with glowing data particles flowing through, valve wheel hat.' },
+    ]
+  },
+  {
+    key: 'I05', num: 5, era: '1990s–2000s — The Web',
+    title: 'The Connected World',
+    designs: [
+      { id: '01_dial_up_modem', name: 'Dial-Up Modem', desc: 'External modem with TX/RX/CD blinking eyes, speaker grille smile, screeching energy.' },
+      { id: '02_cd_rom', name: 'CD-ROM', desc: 'Shiny disc body with rainbow refraction, jewel case backpack, iridescent shimmer.' },
+      { id: '03_router', name: 'Router', desc: 'WiFi router body, adjustable antenna ears, ethernet port light smile, signal waves.' },
+      { id: '04_webcam', name: 'Webcam', desc: 'USB webcam on flexible neck, big camera lens eye, translucent blue iMac-era plastic.' },
+      { id: '05_ethernet', name: 'Ethernet Plug', desc: 'RJ45 connector head, clip tab hat, eight copper pin grin, Cat5 cable tail.' },
+      { id: '06_palm_pilot', name: 'Palm Pilot', desc: 'PDA body, green LCD pixel smiley, holding tiny stylus, graffiti zone mouth.' },
+      { id: '07_search_engine', name: 'Search Engine', desc: 'Magnifying glass and card catalog drawers, reading glasses, librarian energy.' },
+      { id: '08_globe_browser', name: 'Globe Browser', desc: 'Spinning Netscape globe head, browser toolbar body, 90s web colors.' },
+      { id: '09_imac_g3', name: 'iMac G3', desc: 'Bondi blue translucent iMac, colorful internals visible, hockey puck mouse pet.' },
+      { id: '10_server_tower', name: 'Server Tower', desc: 'Beige PC tower, CD drive slot mouth, cooling fan dimple, blinking HDD light eye.' },
+    ]
+  },
+  {
+    key: 'I06', num: 6, era: '2000s–2015 — Deep Learning',
+    title: 'Machines That Learn',
+    designs: [
+      { id: '01_gpu_card', name: 'GPU Card', desc: 'Graphics card body with cooling fan chest, heat sink hair, CUDA core grid, RGB accents.' },
+      { id: '02_server_rack', name: 'Server Rack', desc: 'Server rack unit, drive bay light eyes, blinking blue LEDs, data center glow.' },
+      { id: '03_raspberry_pi', name: 'Raspberry Pi', desc: 'Tiny Pi board body, GPIO pin hair, chip face, USB port arms, credit-card sized.' },
+      { id: '04_usb_drive', name: 'USB Drive', desc: 'Flash drive body, cap as hat, USB connector feet, LED heart on chest.' },
+      { id: '05_camera_vision', name: 'Camera Vision', desc: 'DSLR lens eye, body covered in classified photos, examining an image curiously.' },
+      { id: '06_neural_display', name: 'Neural Display', desc: 'Transparent chest showing neural network nodes pulsing, lightbulb antenna.' },
+      { id: '07_training_bot', name: 'Training Bot', desc: 'Sorting cat vs dog photos into bins, confused but determined, checkmark stamps.' },
+      { id: '08_weight_dial', name: 'Weight Dial', desc: 'Covered in adjustment dials, tuning itself, meter gauge face showing smile.' },
+      { id: '09_data_funnel', name: 'Data Funnel', desc: 'Funnel on head collecting data, messy input becomes neat output, glass body.' },
+      { id: '10_cuda_core', name: 'CUDA Core', desc: 'One tiny core in a massive grid of identical friends, parallel processing, green glow.' },
+    ]
+  },
+  {
+    key: 'I07', num: 7, era: '2017–2023 — Transformers',
+    title: 'Attention Is All You Need',
+    designs: [
+      { id: '01_token_block', name: 'Token Block', desc: 'Body of stacked word-piece blocks that rearrange, word fragments printed, pastel colors.' },
+      { id: '02_chat_bubble', name: 'Chat Bubble', desc: 'Speech bubble body, cursor eye, typing dots expression, soft blue-white.' },
+      { id: '03_attention_head', name: 'Attention Head', desc: 'Lighthouse head emitting colored attention beams to word tokens, brass body.' },
+      { id: '04_embedding_bot', name: 'Embedding Bot', desc: 'Floating in dot starfield, compass pointing to related concepts, deep blue space.' },
+      { id: '05_context_window', name: 'Context Window', desc: 'Scrolling text window body, magnifying glass examining own text, warm cream.' },
+      { id: '06_softmax', name: 'Softmax', desc: 'Probability bar chart body, tallest bar has confident face, smaller bars uncertain.' },
+      { id: '07_transformer_block', name: 'Transformer Block', desc: 'Physical transformer diagram — layer norm belt, attention chest, FF arms, residual scarf.' },
+      { id: '08_tokenizer', name: 'Tokenizer', desc: 'Scissors and ruler cutting words into pieces, craftsperson apron, token confetti.' },
+      { id: '09_scaling_bot', name: 'Scaling Bot', desc: 'Three robots small/medium/large, same design scaling up, each brighter.' },
+      { id: '10_prompt_box', name: 'Prompt Box', desc: 'Text input field body, blinking cursor, send-button heart, modern UI aesthetic.' },
+    ]
+  },
+  {
+    key: 'I08', num: 8, era: '2024–2025 — AI Agents',
+    title: 'The Agent Awakens',
+    designs: [
+      { id: '01_terminal_agent', name: 'Terminal Agent', desc: 'Dark terminal body with scrolling code, cursor eye, tool belt with browser/file/DB icons.' },
+      { id: '02_swiss_army', name: 'Swiss Army', desc: 'Swiss Army knife with tool arms — browser, editor, terminal, search. Red body, chrome tools.' },
+      { id: '03_clipboard', name: 'Clipboard', desc: 'Holding checklist clipboard, checking items off, pencil behind ear, reading glasses.' },
+      { id: '04_debugger', name: 'Debugger', desc: 'Detective with magnifying glass, deerstalker hat, examining a red bug in tweezers.' },
+      { id: '05_sandbox', name: 'Sandbox', desc: 'Sitting in sandbox but sand is code, building code-block castles, cursor shovel.' },
+      { id: '06_loop_bot', name: 'Loop Bot', desc: 'Circular arrow body, running its own loop, observe-think-act at each curve.' },
+      { id: '07_file_reader', name: 'File Reader', desc: 'Big reading glasses, examining open folder, documents spread around, studious.' },
+      { id: '08_api_connector', name: 'API Connector', desc: 'Arms are various plugs and connectors, universal adapter, colorful cables trailing.' },
+      { id: '09_error_fixer', name: 'Error Fixer', desc: 'Wrench and soldering iron, fixing red error turning green, sparks flying.' },
+      { id: '10_context_brain', name: 'Context Brain', desc: 'Transparent dome head with glowing brain, context progress bar filling up.' },
+    ]
+  },
+  {
+    key: 'I09', num: 9, era: '2025–2026 — Multi-Agent Swarms',
+    title: 'The Swarm',
+    designs: [
+      { id: '01_mini_cluster', name: 'Mini Cluster', desc: 'Five tiny one-eyed bots in V formation, connection lines between, leader in front.' },
+      { id: '02_hive_hex', name: 'Hive Hex', desc: 'Hexagonal bots tessellating like honeycomb, individual faces form larger face pattern.' },
+      { id: '03_git_branch', name: 'Git Branch', desc: 'Git branch diagram body, small agents at branch tips, merge points glow.' },
+      { id: '04_conductor', name: 'Conductor', desc: 'Orchestra conductor with baton, 6 worker bots playing instrument-tools.' },
+      { id: '05_matryoshka', name: 'Matryoshka', desc: 'Nesting dolls — orchestrator contains specialist contains worker, partially opened.' },
+      { id: '06_constellation', name: 'Constellation', desc: 'Glowing star-bots in constellation pattern, connection lines like star chart.' },
+      { id: '07_ant_colony', name: 'Ant Colony', desc: 'Mechanical ant robots carrying data blocks, assembly line, copper ants.' },
+      { id: '08_network_hub', name: 'Network Hub', desc: 'Central hub connected to 6 orbiting specialists, star topology, blue connections.' },
+      { id: '09_puzzle_pieces', name: 'Puzzle Pieces', desc: 'Jigsaw piece robots fitting together, each with own face and color, interlocking.' },
+      { id: '10_swarm_cloud', name: 'Swarm Cloud', desc: 'Murmuration of tiny dot-bots, swarm shape forms a face, emergent behavior.' },
+    ]
+  },
+  {
+    key: 'I10', num: 10, era: '1936–2026 — The Full Arc',
+    title: 'The Whole Stack',
+    designs: [
+      { id: '01_layer_cake', name: 'Layer Cake', desc: 'Layer cake of eras — gears, tubes, chips, screens, AI glow. Candle antenna on top.' },
+      { id: '02_evolution_line', name: 'Evolution Line', desc: 'Seven robots in evolution march from brass clockwork to glowing AI, sepia to blue.' },
+      { id: '03_telescope', name: 'Telescope', desc: 'Looking through telescope at the future, standing on stack of era-labeled books.' },
+      { id: '04_time_capsule', name: 'Time Capsule', desc: 'Open time capsule body filled with computing artifacts from every era.' },
+      { id: '05_stacked_blocks', name: 'Stacked Blocks', desc: 'Building blocks — binary at bottom to AI at top. Wooden toy aesthetic, tech icons.' },
+      { id: '06_tree_of_computing', name: 'Tree of Computing', desc: 'Bonsai tree — circuit roots, code trunk, network branches, AI node leaves.' },
+      { id: '07_museum_guide', name: 'Museum Guide', desc: 'Museum guide with lanyard, flashlight on timeline wall, enthusiastic educator.' },
+      { id: '08_gradient_bot', name: 'Gradient Bot', desc: 'Color gradient from sepia feet to blue head, design evolves upward through eras.' },
+      { id: '09_backpack', name: 'Backpack Bot', desc: 'Tiny bot with enormous overflowing backpack of computing artifacts, cheerful adventurer.' },
+      { id: '10_prism', name: 'Prism', desc: 'Holding prism splitting white light into era-colored rainbow spectrum. Dramatic.' },
+    ]
+  },
+];
+
+// State: one pick per issue
+const picks = {};
+const tabBar = document.getElementById('tab-bar');
+const panels = document.getElementById('panels');
+const summary = document.getElementById('summary');
+const picksText = document.getElementById('picks-text');
+const lightbox = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+const lbCaption = document.getElementById('lb-caption');
+
+// Build UI
+ISSUES.forEach((issue, idx) => {
+  const accent = ACCENT[issue.key];
+
+  // Tab
+  const tab = document.createElement('div');
+  tab.className = `tab${idx === 0 ? ' active' : ''}`;
+  tab.style.setProperty('--accent', accent);
+  tab.id = `tab-${issue.key}`;
+  tab.innerHTML = `#${issue.num} <span class="pick-dot"></span>`;
+  tab.onclick = () => switchTab(issue.key);
+  tabBar.appendChild(tab);
+
+  // Panel
+  const panel = document.createElement('div');
+  panel.className = `issue-panel${idx === 0 ? ' active' : ''}`;
+  panel.id = `panel-${issue.key}`;
+  panel.style.setProperty('--accent', accent);
+  panel.innerHTML = `
+    <div class="issue-header">
+      <h2>Issue ${issue.num}: ${issue.title}</h2>
+      <div class="era">${issue.era}</div>
+      <div class="instruction">Click to pick your favorite guide for this issue</div>
+    </div>
+    <div class="design-grid" id="grid-${issue.key}"></div>
+  `;
+  panels.appendChild(panel);
+
+  const grid = panel.querySelector('.design-grid');
+  issue.designs.forEach(d => {
+    const file = `${issue.key}_${d.id}`;
+    const card = document.createElement('div');
+    card.className = 'design-card';
+    card.id = `card-${file}`;
+    card.style.setProperty('--accent', accent);
+    card.innerHTML = `
+      <img src="images/${file}.png" alt="${d.name}"
+           loading="lazy" onclick="event.stopPropagation(); openLB('images/${file}.png', '${d.name} — Issue ${issue.num}')">
+      <div class="card-info">
+        <h3>${d.name}</h3>
+        <p>${d.desc}</p>
+      </div>
+    `;
+    card.addEventListener('click', () => pickDesign(issue.key, file, d.name));
+    grid.appendChild(card);
+  });
+});
+
+function switchTab(key) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.issue-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(`tab-${key}`).classList.add('active');
+  document.getElementById(`panel-${key}`).classList.add('active');
+}
+
+function pickDesign(issueKey, file, name) {
+  const prev = picks[issueKey];
+  if (prev) document.getElementById(`card-${prev.file}`)?.classList.remove('selected');
+
+  if (prev && prev.file === file) {
+    delete picks[issueKey];
+    document.getElementById(`tab-${issueKey}`).classList.remove('has-pick');
+  } else {
+    picks[issueKey] = { file, name };
+    document.getElementById(`card-${file}`).classList.add('selected');
+    document.getElementById(`tab-${issueKey}`).classList.add('has-pick');
+  }
+  updateSummary();
+}
+
+function updateSummary() {
+  const count = Object.keys(picks).length;
+  if (count === 0) { summary.classList.add('hidden'); return; }
+  summary.classList.remove('hidden');
+  const lines = ISSUES
+    .filter(i => picks[i.key])
+    .map(i => `<strong>#${i.num}</strong> ${picks[i.key].name}`);
+  picksText.innerHTML = `Picks (${count}/10): ${lines.join(' · ')}`;
+}
+
+function openLB(src, caption) {
+  lbImg.src = src;
+  lbCaption.textContent = caption;
+  lightbox.classList.add('active');
+}
+
+function copyPicks() {
+  const lines = ISSUES
+    .filter(i => picks[i.key])
+    .map(i => `Issue ${i.num} (${i.era}): ${picks[i.key].name} [${picks[i.key].file}]`);
+  navigator.clipboard.writeText(lines.join('\n')).then(() => {
+    const btn = document.querySelector('.summary button');
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy Picks', 1500);
+  });
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') lightbox.classList.remove('active');
+  // Arrow keys for tab switching
+  if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+    const activeIdx = ISSUES.findIndex(i => document.getElementById(`panel-${i.key}`).classList.contains('active'));
+    const next = e.key === 'ArrowRight'
+      ? Math.min(activeIdx + 1, ISSUES.length - 1)
+      : Math.max(activeIdx - 1, 0);
+    switchTab(ISSUES[next].key);
+  }
+});
+</script>
+
+</body>
+</html>

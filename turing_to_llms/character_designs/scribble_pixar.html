@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scribble Explorations — stylized 3D Character Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Source Serif 4', Georgia, serif; background: #F7F2E8; color: #3D2F24; min-height: 100vh; }
+
+  header {
+    text-align: center; padding: 2.5rem 1rem 1.5rem;
+    background: linear-gradient(135deg, #2C1810 0%, #4A2C1A 40%, #6B3A20 80%, #8B5E3C 100%);
+    color: white;
+  }
+  header h1 { font-family: 'Bangers', cursive; font-size: 2.8rem; color: #F5D4A0; letter-spacing: 3px; margin-bottom: 0.3rem; }
+  header p { font-size: 0.95rem; opacity: 0.8; max-width: 650px; margin: 0.5rem auto 0; line-height: 1.5; }
+  header .spec { font-size: 0.85rem; opacity: 0.6; margin-top: 0.5rem; }
+
+  .section-label {
+    max-width: 1400px; margin: 1.5rem auto 0; padding: 0 2rem;
+    font-family: 'Bangers', cursive; font-size: 1.1rem; color: #D94F3E;
+    letter-spacing: 1px; border-bottom: 2px solid #E4D5B8; padding-bottom: 0.4rem;
+  }
+
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem; padding: 1rem 2rem 2rem; max-width: 1400px; margin: 0 auto;
+  }
+
+  .card {
+    background: #fff; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(61,47,36,0.1), 0 0 0 1px rgba(61,47,36,0.06);
+    transition: all 0.2s; cursor: pointer; position: relative;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(61,47,36,0.15); }
+  .card.selected { box-shadow: 0 0 0 3px #D94F3E, 0 6px 20px rgba(217,79,62,0.2); }
+  .card.selected::after {
+    content: '★ PICK'; position: absolute; top: 10px; right: 10px;
+    background: #D94F3E; color: white; font-family: 'Bangers', cursive;
+    font-size: 0.85rem; padding: 3px 10px; border-radius: 12px; z-index: 2;
+  }
+
+  .card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: #F5F0E8; }
+  .card-body { padding: 0.8rem 1rem; }
+  .card-body h2 { font-family: 'Bangers', cursive; font-size: 1.15rem; color: #D94F3E; margin-bottom: 0.1rem; }
+  .card-body .vibe { font-style: italic; color: #8B7A6B; font-size: 0.85rem; }
+
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100; align-items: center; justify-content: center; cursor: zoom-out; }
+  .lightbox.active { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; }
+
+  .summary {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: #3D2F24; color: #F5D4A0; padding: 0.8rem 1.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 0.95rem; z-index: 10; transition: transform 0.3s;
+  }
+  .summary.hidden { transform: translateY(100%); }
+  .summary button {
+    background: #D94F3E; color: white; border: none; padding: 0.5rem 1.2rem;
+    border-radius: 6px; font-family: 'Bangers', cursive; font-size: 1rem; cursor: pointer;
+  }
+
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; padding: 1rem; } header h1 { font-size: 2rem; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Scribble Explorations</h1>
+  <p>20 different takes on the same character concept. Fixed: magnifying glass + pencil + paper tape. Everything else: open.</p>
+  <div class="spec">Materials · Shapes · Colors · Transport · Personality</div>
+</header>
+
+<div id="content"></div>
+
+<div class="lightbox" id="lb" onclick="this.classList.remove('active')">
+  <img id="lb-img" src="">
+</div>
+
+<div class="summary hidden" id="summary">
+  <span>Pick: <strong id="pick-name">—</strong></span>
+  <button onclick="copyPick()">Copy Pick</button>
+</div>
+
+<script>
+const SECTIONS = [
+  { label: 'Materials', items: [
+    { id: '01_porcelain', name: 'Porcelain', vibe: 'White china with blue patterns, delicate and refined' },
+    { id: '02_wooden_toy', name: 'Wooden Toy', vibe: 'Honey wood, jointed pegs, painted cheeks — handmade' },
+    { id: '03_candy_colored', name: 'Candy Colored', vibe: 'Bubblegum pink, mint, lemon — kawaii toy' },
+    { id: '04_copper_steampunk_lite', name: 'Copper Explorer', vibe: 'Polished copper, porthole chest, goggles on forehead' },
+    { id: '11_clay', name: 'Clay', vibe: 'Terracotta with thumbprints, Aardman energy' },
+    { id: '12_chrome_retro_future', name: 'Chrome Retro', vibe: 'Mirror chrome, atomic-age fins, jet flames — The Jetsons' },
+    { id: '13_felt_plush', name: 'Felt Plush', vibe: 'Stitched fabric, button eyes, stuffed with love' },
+    { id: '14_glass_glow', name: 'Glass Glow', vibe: 'Frosted glass with warm pulsing light inside' },
+  ]},
+  { label: 'Shapes', items: [
+    { id: '05_bean', name: 'Bean', vibe: 'Squishy lavender silicone, minimal, floats — baby Baymax' },
+    { id: '06_boxy_retro', name: 'Boxy Retro', vibe: 'Mini CRT TV body, pixel face, 70s beige, sneakers' },
+    { id: '07_teardrop', name: 'Teardrop', vibe: 'Glossy white, cyclopean amber eye, sphere wheel — Eve energy' },
+  ]},
+  { label: 'Personality', items: [
+    { id: '08_professor', name: 'Professor', vibe: 'Silver, spectacles, tweed jacket, bow tie — wise elder' },
+    { id: '09_kid_explorer', name: 'Kid Explorer', vibe: 'Orange, oversized hat, gap-tooth, spring legs — pure excitement' },
+    { id: '10_stargazer', name: 'Stargazer', vibe: 'Glass dome head with galaxy inside, dreamy, philosophical' },
+  ]},
+  { label: 'Transport', items: [
+    { id: '15_skateboard', name: 'Skateboard', vibe: 'Teal + brass, backwards cap, doing tricks on the tape' },
+    { id: '16_roller_skates', name: 'Roller Skates', vibe: 'Pink + white, pigtail antennae, graceful skating' },
+    { id: '17_unicycle_classic', name: 'Unicycle', vibe: 'Top hat, waistcoat, Victorian gentleman inventor' },
+    { id: '18_walking_simple', name: 'Just Walking', vibe: 'Round white, two dots for eyes, toddling — maximum simplicity' },
+  ]},
+  { label: 'Wild Cards', items: [
+    { id: '19_origami', name: 'Origami', vibe: 'Folded metallic paper, angular but cute — same medium as the tape' },
+    { id: '20_lightbulb', name: 'Lightbulb', vibe: 'Edison bulb body, filament smile, wire limbs — the light of understanding' },
+  ]},
+];
+
+let picked = null;
+const content = document.getElementById('content');
+
+SECTIONS.forEach(section => {
+  content.innerHTML += `<div class="section-label">${section.label}</div>`;
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+  section.items.forEach(c => {
+    grid.innerHTML += `
+      <div class="card" id="card-${c.id}" onclick="pick('${c.id}', '${c.name}')">
+        <img src="images_3d_scribble/scribble_3d_${c.id}.png" alt="${c.name}" loading="lazy"
+             onclick="event.stopPropagation(); openLB(this.src)">
+        <div class="card-body">
+          <h2>${c.name}</h2>
+          <div class="vibe">${c.vibe}</div>
+        </div>
+      </div>
+    `;
+  });
+  content.appendChild(grid);
+});
+
+function pick(id, name) {
+  if (picked) document.getElementById(`card-${picked}`)?.classList.remove('selected');
+  picked = picked === id ? null : id;
+  const summary = document.getElementById('summary');
+  if (picked) {
+    document.getElementById(`card-${id}`).classList.add('selected');
+    document.getElementById('pick-name').textContent = name;
+    summary.classList.remove('hidden');
+  } else {
+    summary.classList.add('hidden');
+  }
+}
+
+function openLB(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb').classList.add('active');
+}
+
+function copyPick() {
+  navigator.clipboard.writeText(`Scribble variant: ${document.getElementById('pick-name').textContent} (${picked})`);
+  document.querySelector('.summary button').textContent = 'Copied!';
+  setTimeout(() => document.querySelector('.summary button').textContent = 'Copy Pick', 1500);
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('lb').classList.remove('active'); });
+</script>
+</body>
+</html>

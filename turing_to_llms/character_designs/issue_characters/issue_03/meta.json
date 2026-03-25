@@ -1,0 +1,13 @@
+{
+  "name": "Compiler",
+  "era": "1950s\u20131960s \u2014 Teaching Machines to Understand Us",
+  "theme": "Programming languages, compilers, Grace Hopper, abstraction",
+  "designs": [
+    "punch_card",
+    "moth_bug",
+    "fortran_green",
+    "dictionary",
+    "abstraction_ladder",
+    "lisp_parentheses"
+  ]
+}

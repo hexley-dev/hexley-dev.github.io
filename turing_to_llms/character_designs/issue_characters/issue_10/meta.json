@@ -1,0 +1,13 @@
+{
+  "name": "Stack",
+  "era": "1936\u20132026 \u2014 The Whole Stack",
+  "theme": "Full abstraction stack, retrospective, looking forward",
+  "designs": [
+    "layer_cake",
+    "time_spiral",
+    "telescope",
+    "geological_strata",
+    "aurora",
+    "lego_stack"
+  ]
+}

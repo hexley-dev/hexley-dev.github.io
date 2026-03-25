@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Walking Scribble — Material Explorations</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Source Serif 4', Georgia, serif; background: #F7F2E8; color: #3D2F24; min-height: 100vh; }
+
+  header {
+    text-align: center; padding: 2.5rem 1rem 1.5rem;
+    background: linear-gradient(135deg, #2C1810 0%, #4A2C1A 40%, #6B3A20 80%, #8B5E3C 100%);
+    color: white;
+  }
+  header h1 { font-family: 'Bangers', cursive; font-size: 2.6rem; color: #F5D4A0; letter-spacing: 2px; margin-bottom: 0.3rem; }
+  header p { font-size: 0.95rem; opacity: 0.8; max-width: 600px; margin: 0.5rem auto 0; line-height: 1.5; }
+
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem; padding: 2rem; max-width: 1400px; margin: 0 auto;
+  }
+
+  .card {
+    background: #fff; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 2px 8px rgba(61,47,36,0.1), 0 0 0 1px rgba(61,47,36,0.06);
+    transition: all 0.2s; cursor: pointer; position: relative;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(61,47,36,0.15); }
+  .card.selected { box-shadow: 0 0 0 3px #D94F3E, 0 6px 20px rgba(217,79,62,0.2); }
+  .card.selected::after {
+    content: '★'; position: absolute; top: 10px; right: 10px;
+    background: #D94F3E; color: white; font-size: 1rem;
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; z-index: 2;
+  }
+
+  .card img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; background: #F5F0E8; }
+  .card-body { padding: 0.7rem 1rem; }
+  .card-body h2 { font-family: 'Bangers', cursive; font-size: 1.1rem; color: #D94F3E; margin-bottom: 0.1rem; }
+  .card-body .mat { font-size: 0.85rem; color: #8B7A6B; line-height: 1.4; }
+
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 100; align-items: center; justify-content: center; cursor: zoom-out; }
+  .lightbox.active { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; }
+
+  @media (max-width: 600px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; padding: 1rem; } .card-body .mat { display: none; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Walking Scribble — Materials</h1>
+  <p>The simplest robot. Same round shape, same walk, same magnifying glass + pencil. Only the material changes. Which one do you want to hold?</p>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<div class="lightbox" id="lb" onclick="this.classList.remove('active')">
+  <img id="lb-img" src="">
+</div>
+
+<script>
+const DESIGNS = [
+  { id: '01_white_matte', name: 'White Matte', mat: 'Smooth matte white plastic — Apple product energy' },
+  { id: '02_warm_brass', name: 'Warm Brass', mat: 'Polished brass with soft golden glow, old pocket watch warmth' },
+  { id: '03_terracotta', name: 'Terracotta', mat: 'Clay with fingerprints from being shaped by hand' },
+  { id: '04_frosted_glass', name: 'Frosted Glass', mat: 'Translucent with warm golden light glowing inside' },
+  { id: '05_honey_wood', name: 'Honey Wood', mat: 'Carved wood with visible grain, painted cheeks' },
+  { id: '06_soft_felt', name: 'Soft Felt', mat: 'Mint green felt, hand-stitched, button eyes' },
+  { id: '07_brushed_steel', name: 'Brushed Steel', mat: 'Stainless steel with amber LED eyes — sleek industrial design' },
+  { id: '08_pastel_ceramic', name: 'Pastel Ceramic', mat: 'Baby blue glazed ceramic with crackle pattern' },
+  { id: '09_copper_patina', name: 'Copper Patina', mat: 'Copper with green-blue verdigris — aged and beautiful' },
+  { id: '10_marble', name: 'Marble', mat: 'White marble with grey veining — museum miniature' },
+  { id: '11_cork', name: 'Cork', mat: 'Natural cork texture, features drawn in ink' },
+  { id: '12_candy_resin', name: 'Candy Resin', mat: 'Transparent amber resin with tiny bubbles inside' },
+  { id: '13_concrete', name: 'Concrete', mat: 'Pale concrete with aggregate speckles, succulent on head' },
+  { id: '14_rose_gold', name: 'Rose Gold', mat: 'Polished rose gold — elegant like jewelry' },
+  { id: '15_chalkboard', name: 'Chalkboard', mat: 'Dark green chalkboard surface, chalk-drawn features' },
+];
+
+let picked = null;
+const grid = document.getElementById('grid');
+
+DESIGNS.forEach(c => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.id = `card-${c.id}`;
+  card.innerHTML = `
+    <img src="images_walking_materials/walking_${c.id}.png" alt="${c.name}" loading="lazy"
+         onclick="event.stopPropagation(); openLB(this.src)">
+    <div class="card-body">
+      <h2>${c.name}</h2>
+      <div class="mat">${c.mat}</div>
+    </div>
+  `;
+  card.addEventListener('click', () => {
+    if (picked) document.getElementById(`card-${picked}`)?.classList.remove('selected');
+    picked = picked === c.id ? null : c.id;
+    if (picked) card.classList.add('selected');
+  });
+  grid.appendChild(card);
+});
+
+function openLB(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb').classList.add('active');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') document.getElementById('lb').classList.remove('active'); });
+</script>
+</body>
+</html>

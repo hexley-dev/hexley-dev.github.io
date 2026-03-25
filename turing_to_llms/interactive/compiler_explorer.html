@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compiler Explorer — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== CSS Variables ===== */
+:root {
+  --hand: 'Caveat', 'Patrick Hand', cursive;
+  --body: 'Patrick Hand', cursive;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --accent: #38A169;
+  --accent-light: rgba(56, 161, 105, 0.12);
+  --bg: #FAF9F6;
+  --dark: #2D3748;
+  --mid: #4A5568;
+  --muted: #718096;
+  --border: #E2E8F0;
+  --card: #F7FAFC;
+  --dark-panel: #1A202C;
+  --layer-blue: #BEE3F8;
+  --layer-green: #C6F6D5;
+  --layer-yellow: #FEFCBF;
+  --layer-red: #FED7D7;
+}
+
+/* ===== Reset & Base ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--dark);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(56,161,105,.03) 0%, transparent 55%),
+    radial-gradient(circle at 75% 75%, rgba(198,246,213,.04) 0%, transparent 55%);
+}
+
+/* ===== Layout ===== */
+.container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 16px 12px 60px;
+}
+
+/* ===== Header ===== */
+.back-link {
+display: inline-block;
+  font-family: var(--hand);
+  font-size: 15px;
+  color: var(--accent);
+  text-decoration: none;
+  margin-bottom: 8px;
+  transition: opacity 0.15s;
+}
+.back-link:hover { opacity: 0.7; transition: opacity 0.15s; }
+
+.header {
+  text-align: center;
+  padding: 8px 0 16px;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 20px;
+}
+.header h1 {
+  font-family: var(--hand);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--dark-panel);
+  line-height: 1.2;
+}
+.header .subtitle {
+  font-family: var(--body);
+  font-size: 16px;
+  color: var(--mid);
+  margin-top: 4px;
+}
+.header .companion-note {
+  font-family: var(--body);
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 6px;
+  font-style: italic;
+}
+
+/* ===== Quote ===== */
+.quote-block {
+  margin: 0 auto 20px;
+  padding: 14px 20px;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-light);
+  border-radius: 0 10px 10px 0;
+  max-width: 700px;
+}
+.quote-block p {
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--dark);
+}
+.quote-block .attribution {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ===== Controls Bar ===== */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.controls label {
+  font-family: var(--hand);
+  font-size: 16px;
+  color: var(--dark);
+  font-weight: 700;
+}
+.controls select {
+  font-family: var(--body);
+  font-size: 14px;
+  padding: 6px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--dark);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.controls select:focus { border-color: var(--accent); }
+
+.btn {
+  font-family: var(--hand);
+  font-size: 15px;
+  font-weight: 700;
+  padding: 7px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-primary:hover { background: #2F8A5A; }
+.btn-primary:disabled {
+  background: #A0AEC0;
+  cursor: default;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+}
+.btn-outline:hover { background: var(--accent-light); }
+
+.controls-right {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ===== Code Input ===== */
+.code-input-wrapper {
+  position: relative;
+  margin-bottom: 8px;
+}
+.code-input {
+  width: 100%;
+  min-height: 90px;
+  padding: 14px 18px;
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  background: var(--dark-panel);
+  color: #48BB78;
+  border: 2px solid #4A5568;
+  border-radius: 10px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+  tab-size: 4;
+}
+.code-input:focus { border-color: var(--accent); }
+.code-input::placeholder { color: #718096; }
+
+.input-label {
+  font-family: var(--hand);
+  font-size: 13px;
+  color: var(--muted);
+  position: absolute;
+  top: -18px;
+  right: 8px;
+}
+
+/* ===== Step Explanation ===== */
+.step-explanation {
+  text-align: center;
+  font-family: var(--body);
+  font-size: 15px;
+  color: var(--mid);
+  padding: 8px 16px;
+  margin-bottom: 12px;
+  min-height: 32px;
+  transition: opacity 0.3s;
+}
+.step-explanation.visible { opacity: 1; }
+.step-explanation.hidden { opacity: 0; }
+
+/* ===== Layers Container ===== */
+.layers-wrapper {
+  position: relative;
+}
+
+.layer-labels {
+  position: absolute;
+  left: -4px;
+  top: 0;
+  bottom: 0;
+  width: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  z-index: 5;
+}
+.layer-label-text {
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/* ===== Mapping Lines SVG ===== */
+.mapping-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+.mapping-line {
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-dasharray: 6 3;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.mapping-line.visible { opacity: 0.7; }
+
+/* ===== Layer Panels ===== */
+.layer {
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  border: 1.5px solid var(--border);
+  transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.5s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+.layer.layer-hidden {
+  opacity: 0;
+  transform: translateY(10px);
+  max-height: 0 !important;
+  margin-bottom: 0;
+  border: none;
+  overflow: hidden;
+}
+
+.layer-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 14px;
+  gap: 10px;
+}
+.layer-number {
+  font-family: var(--hand);
+  font-size: 20px;
+  font-weight: 700;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+.layer-title {
+  font-family: var(--hand);
+  font-size: 17px;
+  font-weight: 700;
+}
+.layer-desc {
+  font-family: var(--body);
+  font-size: 12px;
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.layer-content {
+  padding: 10px 14px 14px;
+}
+
+/* Layer 1: High-Level (Blue) */
+.layer-highlevel { background: var(--layer-blue); }
+.layer-highlevel .layer-number { background: #3182CE; }
+.layer-highlevel .layer-title { color: #2B6CB0; }
+.layer-highlevel .layer-content {
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--dark);
+}
+
+/* Layer 2: AST (Green) */
+.layer-ast { background: var(--layer-green); }
+.layer-ast .layer-number { background: #38A169; }
+.layer-ast .layer-title { color: #276749; }
+
+/* Layer 3: Assembly (Yellow) */
+.layer-assembly { background: var(--layer-yellow); }
+.layer-assembly .layer-number { background: #D69E2E; }
+.layer-assembly .layer-title { color: #975A16; }
+.layer-assembly .layer-content {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* Layer 4: Binary (Red) */
+.layer-binary { background: var(--layer-red); }
+.layer-binary .layer-number { background: #E53E3E; }
+.layer-binary .layer-title { color: #C53030; }
+.layer-binary .layer-content {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.65;
+}
+
+/* ===== Syntax Highlighting in High-Level layer ===== */
+.hl-keyword { color: #805AD5; font-weight: 500; }
+.hl-string { color: #38A169; }
+.hl-number { color: #DD6B20; }
+.hl-operator { color: #E53E3E; }
+.hl-variable { color: #3182CE; }
+.hl-function { color: #D69E2E; }
+.hl-comment { color: #718096; font-style: italic; }
+
+/* ===== AST Tree ===== */
+.ast-svg {
+  width: 100%;
+  overflow: visible;
+}
+.ast-node rect {
+  rx: 6;
+  ry: 6;
+  stroke-width: 1.5;
+}
+.ast-node text {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--dark);
+}
+.ast-edge {
+  stroke: #276749;
+  stroke-width: 1.5;
+  fill: none;
+}
+
+/* ===== Assembly Instructions ===== */
+.asm-line {
+  display: flex;
+  align-items: baseline;
+  padding: 2px 0;
+  cursor: default;
+  border-radius: 4px;
+  transition: background 0.15s;
+}
+.asm-line:hover { background: rgba(214, 158, 46, 0.15); }
+.asm-line .asm-op {
+  color: #805AD5;
+  font-weight: 500;
+  min-width: 60px;
+}
+.asm-line .asm-args { color: var(--dark); }
+.asm-line .asm-comment {
+  color: #718096;
+  margin-left: 12px;
+  font-size: 11.5px;
+}
+
+/* ===== Binary Display ===== */
+.bin-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  padding: 3px 0;
+  cursor: default;
+  border-radius: 4px;
+  gap: 4px;
+  transition: background 0.15s;
+}
+.bin-line:hover { background: rgba(229, 62, 62, 0.1); }
+.bin-label {
+  font-family: var(--body);
+  font-size: 11px;
+  color: var(--muted);
+  min-width: 90px;
+  flex-shrink: 0;
+}
+.bin-group {
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+.bin-opcode { background: rgba(128, 90, 213, 0.2); color: #553C9A; }
+.bin-register { background: rgba(49, 130, 206, 0.2); color: #2B6CB0; }
+.bin-value { background: rgba(221, 107, 32, 0.2); color: #C05621; }
+.bin-address { background: rgba(56, 161, 105, 0.2); color: #276749; }
+
+.bin-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(197, 48, 48, 0.3);
+}
+.bin-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--body);
+  font-size: 11px;
+  color: var(--muted);
+}
+.bin-legend-swatch {
+  width: 14px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+/* ===== Hover highlight ===== */
+[data-map-group] {
+  cursor: pointer;
+  transition: outline 0.15s, box-shadow 0.15s;
+}
+[data-map-group].highlighted {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-radius: 3px;
+  box-shadow: 0 0 8px rgba(56, 161, 105, 0.3);
+}
+
+/* ===== Error message ===== */
+.parse-error {
+  font-family: var(--body);
+  font-size: 14px;
+  color: #E53E3E;
+  padding: 8px 14px;
+  background: #FED7D7;
+  border-radius: 8px;
+  margin: 8px 0;
+  display: none;
+}
+.parse-error.visible { display: block; }
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .container { padding: 10px 6px 40px; }
+  .header h1 { font-size: 26px; }
+  .controls { flex-direction: column; align-items: stretch; }
+  .controls-right { margin-left: 0; justify-content: center; }
+  .layer-header { padding: 6px 10px; }
+  .layer-content { padding: 8px 10px 12px; }
+  .layer-desc { display: none; }
+  .layer-labels { display: none; }
+  .bin-label { min-width: 70px; font-size: 10px; }
+  .code-input { font-size: 13px; min-height: 70px; }
+  .asm-line .asm-comment { display: none; }
+}
+
+/* ===== Transitions for step-through ===== */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.layer.animate-in {
+  animation: fadeSlideIn 0.5s ease-out forwards;
+}
+
+/* Accessibility: respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Back link -->
+  <a href="../issues/v2/issue_03/index.html" class="back-link">&larr; Back to Issue 3</a>
+
+  <!-- Header -->
+  <div class="header">
+    <h1>Compiler Explorer</h1>
+    <p class="subtitle">Type code. Watch it transform into what machines actually understand.</p>
+    <p class="companion-note">Interactive companion to Issue 3: Teaching Machines to Understand Us</p>
+  </div>
+
+  <!-- Grace Hopper Quote -->
+  <div class="quote-block">
+    <p><em>"Nobody believed that I had a running compiler and nobody would touch it. They told me computers could only do arithmetic."</em></p>
+    <p class="attribution">-- Grace Hopper, 1952</p>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <label for="examples">Examples:</label>
+    <select id="examples" onchange="loadExample(this.value)">
+      <option value="">-- Pick one --</option>
+      <option value="hello">Hello World</option>
+      <option value="math">Simple Math</option>
+      <option value="journey">The Full Journey</option>
+      <option value="conditional">Conditional</option>
+    </select>
+    <div class="controls-right">
+      <button class="btn btn-outline" id="btnStep" onclick="startStepThrough()">Compile Step by Step</button>
+      <button class="btn btn-primary" id="btnCompile" onclick="compileAll()">Compile</button>
+    </div>
+  </div>
+
+  <!-- Code Input -->
+  <div class="code-input-wrapper">
+    <span class="input-label">Type Python-like code below</span>
+    <textarea class="code-input" id="codeInput" placeholder="x = 3 + 5" spellcheck="false" aria-label="Code input - type Python-like code"></textarea>
+  </div>
+
+  <!-- Parse error message -->
+  <div class="parse-error" id="parseError"></div>
+
+  <!-- Step-through explanation -->
+  <div class="step-explanation hidden" id="stepExplanation"></div>
+
+  <!-- Layers -->
+  <div class="layers-wrapper" id="layersWrapper">
+
+    <!-- Left labels -->
+    <div class="layer-labels">
+      <span class="layer-label-text" style="color:#3182CE;">Human-Friendly</span>
+      <span class="layer-label-text" style="color:#E53E3E;">Machine-Friendly</span>
+    </div>
+
+    <!-- Mapping lines SVG (drawn dynamically) -->
+    <svg class="mapping-svg" id="mappingSvg"></svg>
+
+    <!-- Layer 1: High-Level Code -->
+    <div class="layer layer-highlevel" id="layer1">
+      <div class="layer-header">
+        <div class="layer-number">1</div>
+        <div class="layer-title">High-Level Code</div>
+        <div class="layer-desc">What the programmer writes</div>
+      </div>
+      <div class="layer-content" id="highlevelContent">
+        <span class="hl-comment"># Your code will appear here...</span>
+      </div>
+    </div>
+
+    <!-- Layer 2: AST -->
+    <div class="layer layer-ast" id="layer2">
+      <div class="layer-header">
+        <div class="layer-number">2</div>
+        <div class="layer-title">Abstract Syntax Tree</div>
+        <div class="layer-desc">How the compiler sees your code</div>
+      </div>
+      <div class="layer-content" id="astContent">
+        <p style="font-family:var(--body);font-size:13px;color:var(--muted);">The parsed structure will appear here...</p>
+      </div>
+    </div>
+
+    <!-- Layer 3: Assembly -->
+    <div class="layer layer-assembly" id="layer3">
+      <div class="layer-header">
+        <div class="layer-number">3</div>
+        <div class="layer-title">Assembly Code</div>
+        <div class="layer-desc">Instructions for the CPU</div>
+      </div>
+      <div class="layer-content" id="asmContent">
+        <p style="font-family:var(--body);font-size:13px;color:var(--muted);">Assembly instructions will appear here...</p>
+      </div>
+    </div>
+
+    <!-- Layer 4: Binary -->
+    <div class="layer layer-binary" id="layer4">
+      <div class="layer-header">
+        <div class="layer-number">4</div>
+        <div class="layer-title">Binary / Machine Code</div>
+        <div class="layer-desc">What the hardware executes</div>
+      </div>
+      <div class="layer-content" id="binContent">
+        <p style="font-family:var(--body);font-size:13px;color:var(--muted);">Binary encoding will appear here...</p>
+      </div>
+    </div>
+
+  </div><!-- /layers-wrapper -->
+
+</div><!-- /container -->
+
+<script>
+/* =========================================================================
+   COMPILER EXPLORER — Educational Mini-Compiler
+   Parses simple Python-like code through 4 abstraction layers.
+   ========================================================================= */
+
+// ===== Examples =====
+const EXAMPLES = {
+  hello:       'print("hello")',
+  math:        'x = 3 + 5',
+  journey:     'x = 3 + 5\ny = x * 2\nprint(y)',
+  conditional: 'x = 10\nif x > 0: y = x + 1'
+};
+
+function loadExample(key) {
+  if (!key) return;
+  document.getElementById('codeInput').value = EXAMPLES[key];
+  compileAll();
+}
+
+// ===== Opcode Table (educational — simplified 16-bit ISA) =====
+const OPCODES = {
+  LOAD:   '0001',
+  LOADI:  '0010', // load immediate
+  STORE:  '0011',
+  ADD:    '0100',
+  SUB:    '0101',
+  MUL:    '0110',
+  CMP:    '0111',
+  JLE:    '1000',
+  JG:     '1001',
+  JMP:    '1010',
+  PRINT:  '1011',
+  PRINTS: '1100', // print string
+  NOP:    '0000'
+};
+
+const REGISTERS = {
+  R0: '0000', R1: '0001', R2: '0010', R3: '0011',
+  R4: '0100', R5: '0101', R6: '0110', R7: '0111'
+};
+
+// ===== Simple Parser =====
+// Tokenizes and parses Python-like code into AST nodes.
+
+/**
+ * Parse a single line of code into an AST node.
+ * Supported patterns:
+ *   - Assignment:     x = <expr>
+ *   - Print:          print(<expr>) or print("string")
+ *   - If:             if <expr> <cmp> <expr>: <statement>
+ */
+function parseLine(line) {
+  line = line.trim();
+  if (!line || line.startsWith('#')) return null;
+
+  // Print statement
+  let m = line.match(/^print\(\s*"([^"]*)"\s*\)$/);
+  if (m) {
+    return { type: 'PrintString', value: m[1], raw: line };
+  }
+  m = line.match(/^print\(\s*([A-Za-z_]\w*)\s*\)$/);
+  if (m) {
+    return { type: 'PrintVar', name: m[1], raw: line };
+  }
+  m = line.match(/^print\(\s*(.+)\s*\)$/);
+  if (m) {
+    const expr = parseExpr(m[1].trim());
+    if (expr) return { type: 'PrintExpr', expr: expr, raw: line };
+  }
+
+  // If statement: if <expr> <cmp> <expr>: <stmt>
+  m = line.match(/^if\s+(.+?)\s*(==|!=|>=|<=|>|<)\s*(.+?):\s*(.+)$/);
+  if (m) {
+    const left = parseExpr(m[1].trim());
+    const op = m[2];
+    const right = parseExpr(m[3].trim());
+    const body = parseLine(m[4].trim());
+    if (left && right && body) {
+      return { type: 'If', cond: { type: 'Compare', left, op, right }, body, raw: line };
+    }
+  }
+
+  // Assignment: var = expr
+  m = line.match(/^([A-Za-z_]\w*)\s*=\s*(.+)$/);
+  if (m) {
+    const target = m[1];
+    const expr = parseExpr(m[2].trim());
+    if (expr) {
+      return { type: 'Assign', target, value: expr, raw: line };
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Parse an expression string into an AST node.
+ * Supports: number literals, variable references, binary operations (+, -, *).
+ */
+function parseExpr(s) {
+  s = s.trim();
+
+  // String literal
+  let m = s.match(/^"([^"]*)"$/);
+  if (m) return { type: 'String', value: m[1] };
+
+  // Binary operation (lowest precedence: + and -)
+  // We scan from right to find the last + or - not inside parens
+  let depth = 0;
+  let splitIdx = -1;
+  let splitOp = null;
+  for (let i = s.length - 1; i >= 0; i--) {
+    if (s[i] === ')') depth++;
+    else if (s[i] === '(') depth--;
+    else if (depth === 0 && (s[i] === '+' || s[i] === '-') && i > 0) {
+      splitIdx = i;
+      splitOp = s[i];
+      break;
+    }
+  }
+  // Check for * if no +/- found
+  if (splitIdx === -1) {
+    depth = 0;
+    for (let i = s.length - 1; i >= 0; i--) {
+      if (s[i] === ')') depth++;
+      else if (s[i] === '(') depth--;
+      else if (depth === 0 && s[i] === '*' && i > 0) {
+        splitIdx = i;
+        splitOp = s[i];
+        break;
+      }
+    }
+  }
+
+  if (splitIdx > 0) {
+    const left = parseExpr(s.substring(0, splitIdx));
+    const right = parseExpr(s.substring(splitIdx + 1));
+    if (left && right) {
+      return { type: 'BinOp', left, op: splitOp, right };
+    }
+  }
+
+  // Number literal
+  if (/^-?\d+(\.\d+)?$/.test(s)) {
+    return { type: 'Num', value: parseInt(s, 10) };
+  }
+
+  // Variable reference
+  if (/^[A-Za-z_]\w*$/.test(s)) {
+    return { type: 'Var', name: s };
+  }
+
+  return null;
+}
+
+/**
+ * Parse multiple lines of code.
+ */
+function parseProgram(code) {
+  const lines = code.split('\n');
+  const stmts = [];
+  for (const line of lines) {
+    const node = parseLine(line);
+    if (node) stmts.push(node);
+  }
+  return stmts;
+}
+
+
+// ===== AST to Assembly Compiler =====
+
+let regCounter = 0;
+let labelCounter = 0;
+let varMap = {}; // variable name -> memory address
+let memCounter = 100; // start memory at address 100
+
+function resetCompiler() {
+  regCounter = 0;
+  labelCounter = 0;
+  varMap = {};
+  memCounter = 100;
+}
+
+function allocReg() {
+  const r = 'R' + regCounter;
+  regCounter++;
+  if (regCounter > 7) regCounter = 0; // wrap around for display
+  return r;
+}
+
+function allocLabel() {
+  const l = 'L' + labelCounter;
+  labelCounter++;
+  return l;
+}
+
+function getVarAddr(name) {
+  if (!varMap[name]) {
+    varMap[name] = memCounter;
+    memCounter++;
+  }
+  return varMap[name];
+}
+
+/**
+ * Compile an expression AST into assembly instructions.
+ * Returns { instructions: [...], resultReg: 'R0' }
+ */
+function compileExpr(node) {
+  const instrs = [];
+
+  if (node.type === 'Num') {
+    const r = allocReg();
+    instrs.push({ op: 'LOADI', args: `${r}, ${node.value}`, comment: `load immediate ${node.value}`, mapGroup: 'val_' + node.value, argDetails: { reg: r, val: node.value } });
+    return { instructions: instrs, resultReg: r };
+  }
+
+  if (node.type === 'Var') {
+    const r = allocReg();
+    const addr = getVarAddr(node.name);
+    instrs.push({ op: 'LOAD', args: `${r}, [${addr}]`, comment: `load ${node.name}`, mapGroup: 'var_' + node.name, argDetails: { reg: r, addr: addr } });
+    return { instructions: instrs, resultReg: r };
+  }
+
+  if (node.type === 'String') {
+    const r = allocReg();
+    instrs.push({ op: 'LOADI', args: `${r}, "${node.value}"`, comment: `load string`, mapGroup: 'str', argDetails: { reg: r, val: 0 } });
+    return { instructions: instrs, resultReg: r };
+  }
+
+  if (node.type === 'BinOp') {
+    const left = compileExpr(node.left);
+    const right = compileExpr(node.right);
+    instrs.push(...left.instructions, ...right.instructions);
+    const r = allocReg();
+    const opMap = { '+': 'ADD', '-': 'SUB', '*': 'MUL' };
+    const asmOp = opMap[node.op] || 'ADD';
+    instrs.push({
+      op: asmOp,
+      args: `${r}, ${left.resultReg}, ${right.resultReg}`,
+      comment: `${left.resultReg} ${node.op} ${right.resultReg}`,
+      mapGroup: 'op_' + node.op,
+      argDetails: { reg: r, reg2: left.resultReg, reg3: right.resultReg }
+    });
+    return { instructions: instrs, resultReg: r };
+  }
+
+  return { instructions: [], resultReg: 'R0' };
+}
+
+/**
+ * Compile a statement AST into assembly instructions.
+ */
+function compileStmt(node) {
+  const instrs = [];
+
+  if (node.type === 'Assign') {
+    const expr = compileExpr(node.value);
+    instrs.push(...expr.instructions);
+    const addr = getVarAddr(node.target);
+    instrs.push({
+      op: 'STORE',
+      args: `${expr.resultReg}, [${addr}]`,
+      comment: `store to ${node.target}`,
+      mapGroup: 'var_' + node.target,
+      argDetails: { reg: expr.resultReg, addr: addr }
+    });
+    return instrs;
+  }
+
+  if (node.type === 'PrintString') {
+    const r = allocReg();
+    instrs.push({ op: 'LOADI', args: `${r}, "${node.value}"`, comment: `load string`, mapGroup: 'str', argDetails: { reg: r, val: 0 } });
+    instrs.push({ op: 'PRINTS', args: `${r}`, comment: `print string`, mapGroup: 'print', argDetails: { reg: r } });
+    return instrs;
+  }
+
+  if (node.type === 'PrintVar') {
+    const r = allocReg();
+    const addr = getVarAddr(node.name);
+    instrs.push({ op: 'LOAD', args: `${r}, [${addr}]`, comment: `load ${node.name}`, mapGroup: 'var_' + node.name, argDetails: { reg: r, addr: addr } });
+    instrs.push({ op: 'PRINT', args: `${r}`, comment: `print ${node.name}`, mapGroup: 'print', argDetails: { reg: r } });
+    return instrs;
+  }
+
+  if (node.type === 'PrintExpr') {
+    const expr = compileExpr(node.expr);
+    instrs.push(...expr.instructions);
+    instrs.push({ op: 'PRINT', args: `${expr.resultReg}`, comment: `print result`, mapGroup: 'print', argDetails: { reg: expr.resultReg } });
+    return instrs;
+  }
+
+  if (node.type === 'If') {
+    const left = compileExpr(node.cond.left);
+    const right = compileExpr(node.cond.right);
+    instrs.push(...left.instructions, ...right.instructions);
+    instrs.push({
+      op: 'CMP',
+      args: `${left.resultReg}, ${right.resultReg}`,
+      comment: `compare`,
+      mapGroup: 'cmp',
+      argDetails: { reg: left.resultReg, reg2: right.resultReg }
+    });
+
+    const skipLabel = allocLabel();
+    // Invert condition for skip
+    const jumpOps = { '>': 'JLE', '<': 'JG', '>=': 'JLE', '<=': 'JG', '==': 'JLE', '!=': 'JLE' };
+    const jOp = jumpOps[node.cond.op] || 'JLE';
+    instrs.push({
+      op: jOp,
+      args: skipLabel,
+      comment: `skip if not ${node.cond.op}`,
+      mapGroup: 'cmp',
+      argDetails: { label: skipLabel }
+    });
+
+    const bodyInstrs = compileStmt(node.body);
+    instrs.push(...bodyInstrs);
+
+    instrs.push({
+      op: 'NOP',
+      args: '',
+      comment: `${skipLabel}:`,
+      mapGroup: 'label',
+      isLabel: true,
+      label: skipLabel,
+      argDetails: {}
+    });
+
+    return instrs;
+  }
+
+  return instrs;
+}
+
+
+// ===== Assembly to Binary Encoder =====
+
+function toBin(n, bits) {
+  if (n < 0) n = (1 << bits) + n;
+  let s = (n >>> 0).toString(2);
+  while (s.length < bits) s = '0' + s;
+  return s.slice(-bits);
+}
+
+function encodeBinary(instr) {
+  const opBin = OPCODES[instr.op] || '0000';
+  const details = instr.argDetails || {};
+
+  if (instr.isLabel) {
+    // Labels are just addresses in the instruction stream, emit NOP
+    return {
+      bits: [
+        { value: '0000', type: 'opcode', label: 'NOP' },
+        { value: '0000', type: 'register', label: '-' },
+        { value: '00000000', type: 'value', label: '0' }
+      ],
+      asmLabel: instr.op + ' ' + instr.args
+    };
+  }
+
+  // Different formats depending on instruction
+  if (instr.op === 'LOADI' || instr.op === 'PRINTS') {
+    const regBin = REGISTERS[details.reg] || '0000';
+    const val = typeof details.val === 'number' ? details.val : 0;
+    return {
+      bits: [
+        { value: opBin, type: 'opcode', label: instr.op },
+        { value: regBin, type: 'register', label: details.reg || '-' },
+        { value: toBin(val, 8), type: 'value', label: String(val) }
+      ],
+      asmLabel: instr.op + ' ' + instr.args
+    };
+  }
+
+  if (instr.op === 'LOAD' || instr.op === 'STORE') {
+    const regBin = REGISTERS[details.reg] || '0000';
+    const addr = details.addr || 0;
+    return {
+      bits: [
+        { value: opBin, type: 'opcode', label: instr.op },
+        { value: regBin, type: 'register', label: details.reg || '-' },
+        { value: toBin(addr, 8), type: 'address', label: '@' + addr }
+      ],
+      asmLabel: instr.op + ' ' + instr.args
+    };
+  }
+
+  if (instr.op === 'ADD' || instr.op === 'SUB' || instr.op === 'MUL') {
+    const rd = REGISTERS[details.reg] || '0000';
+    const rs1 = REGISTERS[details.reg2] || '0000';
+    const rs2 = REGISTERS[details.reg3] || '0000';
+    return {
+      bits: [
+        { value: opBin, type: 'opcode', label: instr.op },
+        { value: rd, type: 'register', label: details.reg || '-' },
+        { value: rs1, type: 'register', label: details.reg2 || '-' },
+        { value: rs2, type: 'register', label: details.reg3 || '-' }
+      ],
+      asmLabel: instr.op + ' ' + instr.args
+    };
+  }
+
+  if (instr.op === 'CMP') {
+    const r1 = REGISTERS[details.reg] || '0000';
+    const r2 = REGISTERS[details.reg2] || '0000';
+    return {
+      bits: [
+        { value: opBin, type: 'opcode', label: instr.op },
+        { value: r1, type: 'register', label: details.reg || '-' },
+        { value: r2, type: 'register', label: details.reg2 || '-' },
+        { value: '0000', type: 'value', label: '-' }
+      ],
+      asmLabel: instr.op + ' ' + instr.args
+    };
+  }
+
+  if (instr.op === 'JLE' || instr.op === 'JG' || instr.op === 'JMP') {
+    return {
+      bits: [
+        { value: opBin, type: 'opcode', label: instr.op },
+        { value: '0000', type: 'register', label: '-' },
+        { value: toBin(0, 8), type: 'address', label: details.label || '?' }
+      ],
+      asmLabel: instr.op + ' ' + instr.args
+    };
+  }
+
+  if (instr.op === 'PRINT') {
+    const regBin = REGISTERS[details.reg] || '0000';
+    return {
+      bits: [
+        { value: opBin, type: 'opcode', label: instr.op },
+        { value: regBin, type: 'register', label: details.reg || '-' },
+        { value: '00000000', type: 'value', label: '-' }
+      ],
+      asmLabel: instr.op + ' ' + instr.args
+    };
+  }
+
+  // Fallback
+  return {
+    bits: [
+      { value: opBin, type: 'opcode', label: instr.op },
+      { value: '000000000000', type: 'value', label: '?' }
+    ],
+    asmLabel: instr.op + ' ' + instr.args
+  };
+}
+
+
+// ===== Syntax Highlighter =====
+
+function highlightCode(code) {
+  // Tokenize each line, then wrap tokens in styled spans.
+  // This avoids regex-over-HTML issues.
+  const lines = code.split('\n');
+  return lines.map(line => {
+    const tokens = tokenizeLine(line);
+    return tokens.map(t => {
+      const escaped = escapeHtml(t.text);
+      if (t.type === 'plain') return escaped;
+      return `<span class="hl-${t.type}">${escaped}</span>`;
+    }).join('');
+  }).join('\n');
+}
+
+/**
+ * Simple tokenizer that splits a line into classified tokens.
+ * Returns an array of { type, text } objects.
+ */
+function tokenizeLine(line) {
+  const tokens = [];
+  const keywords = new Set(['if','else','while','for','print','def','return','and','or','not']);
+  let i = 0;
+
+  while (i < line.length) {
+    // Whitespace
+    if (/\s/.test(line[i])) {
+      let start = i;
+      while (i < line.length && /\s/.test(line[i])) i++;
+      tokens.push({ type: 'plain', text: line.slice(start, i) });
+      continue;
+    }
+
+    // String literal
+    if (line[i] === '"') {
+      let start = i;
+      i++; // skip opening quote
+      while (i < line.length && line[i] !== '"') i++;
+      if (i < line.length) i++; // skip closing quote
+      tokens.push({ type: 'string', text: line.slice(start, i) });
+      continue;
+    }
+
+    // Number
+    if (/\d/.test(line[i])) {
+      let start = i;
+      while (i < line.length && /[\d.]/.test(line[i])) i++;
+      tokens.push({ type: 'number', text: line.slice(start, i) });
+      continue;
+    }
+
+    // Word (keyword or variable)
+    if (/[A-Za-z_]/.test(line[i])) {
+      let start = i;
+      while (i < line.length && /\w/.test(line[i])) i++;
+      const word = line.slice(start, i);
+      if (keywords.has(word)) {
+        tokens.push({ type: 'keyword', text: word });
+      } else {
+        tokens.push({ type: 'variable', text: word });
+      }
+      continue;
+    }
+
+    // Operators and punctuation
+    if (/[+\-*=><:!(),]/.test(line[i])) {
+      tokens.push({ type: 'operator', text: line[i] });
+      i++;
+      continue;
+    }
+
+    // Comment
+    if (line[i] === '#') {
+      tokens.push({ type: 'comment', text: line.slice(i) });
+      break;
+    }
+
+    // Anything else
+    tokens.push({ type: 'plain', text: line[i] });
+    i++;
+  }
+
+  return tokens;
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+
+// ===== AST Tree SVG Renderer =====
+
+/**
+ * Render an AST node tree as an SVG tree diagram.
+ * Returns an SVG string.
+ */
+function renderAST(stmts) {
+  if (!stmts.length) return '<p style="font-family:var(--body);font-size:13px;color:var(--muted);">No parseable statements.</p>';
+
+  // Build a tree structure for layout
+  const trees = stmts.map(s => astToTree(s));
+
+  // Simple recursive layout
+  let totalWidth = 0;
+  const treeLayouts = [];
+  for (const tree of trees) {
+    const layout = layoutTree(tree, totalWidth, 10);
+    treeLayouts.push(layout);
+    totalWidth = layout.maxX + 40;
+  }
+
+  const svgWidth = Math.max(totalWidth, 200);
+  const svgHeight = treeLayouts.reduce((max, l) => Math.max(max, l.maxY), 0) + 30;
+
+  let svg = `<svg class="ast-svg" viewBox="0 0 ${svgWidth} ${svgHeight}" style="max-height:${Math.min(svgHeight, 300)}px;">`;
+
+  // Draw edges first, then nodes
+  for (const layout of treeLayouts) {
+    svg += drawEdges(layout.nodes);
+    svg += drawNodes(layout.nodes);
+  }
+
+  svg += '</svg>';
+  return svg;
+}
+
+function astToTree(node) {
+  if (!node) return { label: '?', children: [] };
+
+  switch (node.type) {
+    case 'Assign':
+      return {
+        label: 'Assign',
+        color: '#805AD5',
+        children: [
+          { label: node.target, color: '#3182CE', children: [] },
+          astToTree(node.value)
+        ]
+      };
+    case 'BinOp':
+      return {
+        label: node.op,
+        color: '#E53E3E',
+        children: [astToTree(node.left), astToTree(node.right)]
+      };
+    case 'Num':
+      return { label: String(node.value), color: '#DD6B20', children: [] };
+    case 'Var':
+      return { label: node.name, color: '#3182CE', children: [] };
+    case 'String':
+      return { label: '"' + node.value + '"', color: '#38A169', children: [] };
+    case 'PrintString':
+      return {
+        label: 'Print',
+        color: '#D69E2E',
+        children: [{ label: '"' + node.value + '"', color: '#38A169', children: [] }]
+      };
+    case 'PrintVar':
+      return {
+        label: 'Print',
+        color: '#D69E2E',
+        children: [{ label: node.name, color: '#3182CE', children: [] }]
+      };
+    case 'PrintExpr':
+      return {
+        label: 'Print',
+        color: '#D69E2E',
+        children: [astToTree(node.expr)]
+      };
+    case 'If':
+      return {
+        label: 'If',
+        color: '#805AD5',
+        children: [
+          {
+            label: node.cond.op,
+            color: '#E53E3E',
+            children: [astToTree(node.cond.left), astToTree(node.cond.right)]
+          },
+          astToTree(node.body)
+        ]
+      };
+    case 'Compare':
+      return {
+        label: node.op,
+        color: '#E53E3E',
+        children: [astToTree(node.left), astToTree(node.right)]
+      };
+    default:
+      return { label: node.type || '?', children: [] };
+  }
+}
+
+const NODE_W = 56;
+const NODE_H = 26;
+const H_GAP = 12;
+const V_GAP = 38;
+
+function layoutTree(tree, offsetX, offsetY) {
+  const nodes = [];
+  let maxX = offsetX;
+  let maxY = offsetY;
+
+  function measure(node) {
+    if (!node.children || node.children.length === 0) {
+      // Leaf: width based on label
+      return Math.max(NODE_W, node.label.length * 7 + 16);
+    }
+    let w = 0;
+    for (let i = 0; i < node.children.length; i++) {
+      if (i > 0) w += H_GAP;
+      w += measure(node.children[i]);
+    }
+    return Math.max(w, NODE_W);
+  }
+
+  function place(node, x, y, availableWidth) {
+    const nw = Math.max(NODE_W, node.label.length * 7 + 16);
+    const cx = x + availableWidth / 2;
+    const cy = y;
+    const id = nodes.length;
+    nodes.push({ id, label: node.label, color: node.color || '#718096', x: cx, y: cy, w: nw, children: [] });
+
+    if (cx + nw / 2 > maxX) maxX = cx + nw / 2;
+    if (cy + NODE_H > maxY) maxY = cy + NODE_H;
+
+    if (node.children && node.children.length > 0) {
+      const childWidths = node.children.map(c => measure(c));
+      const totalChildWidth = childWidths.reduce((a, b) => a + b, 0) + (node.children.length - 1) * H_GAP;
+      let childX = cx - totalChildWidth / 2;
+
+      for (let i = 0; i < node.children.length; i++) {
+        const childId = place(node.children[i], childX, y + V_GAP, childWidths[i]);
+        nodes[id].children.push(childId);
+        childX += childWidths[i] + H_GAP;
+      }
+    }
+
+    return id;
+  }
+
+  const totalWidth = measure(tree);
+  place(tree, offsetX, offsetY, totalWidth);
+
+  return { nodes, maxX, maxY };
+}
+
+function drawEdges(nodes) {
+  let svg = '';
+  for (const node of nodes) {
+    for (const childId of node.children) {
+      const child = nodes[childId];
+      svg += `<path class="ast-edge" d="M${node.x},${node.y + NODE_H / 2 + 4} Q${node.x},${(node.y + child.y) / 2 + 10} ${child.x},${child.y - NODE_H / 2 + 6}"/>`;
+    }
+  }
+  return svg;
+}
+
+function drawNodes(nodes) {
+  let svg = '';
+  for (const node of nodes) {
+    const w = node.w;
+    svg += `<g class="ast-node">`;
+    svg += `<rect x="${node.x - w/2}" y="${node.y - NODE_H/2 + 4}" width="${w}" height="${NODE_H}" fill="#fff" stroke="${node.color}" opacity="0.9"/>`;
+    svg += `<text x="${node.x}" y="${node.y + 4 + NODE_H/2 - 6}" text-anchor="middle" fill="${node.color}" style="font-weight:500;font-size:11px;">${escapeHtml(node.label)}</text>`;
+    svg += `</g>`;
+  }
+  return svg;
+}
+
+
+// ===== Render Assembly =====
+
+function renderAssembly(instructions) {
+  if (!instructions.length) return '<p style="font-family:var(--body);font-size:13px;color:var(--muted);">No instructions generated.</p>';
+
+  let html = '';
+  for (let i = 0; i < instructions.length; i++) {
+    const instr = instructions[i];
+    const group = instr.mapGroup || '';
+    html += `<div class="asm-line" data-map-group="${escapeHtml(group)}" data-idx="${i}" tabindex="0" role="button" aria-label="${escapeHtml(instr.op)} ${escapeHtml(instr.args)}${instr.comment ? ' - ' + escapeHtml(instr.comment) : ''}">`;
+    html += `<span class="asm-op">${escapeHtml(instr.op)}</span>`;
+    html += `<span class="asm-args">${escapeHtml(instr.args)}</span>`;
+    if (instr.comment) {
+      html += `<span class="asm-comment">; ${escapeHtml(instr.comment)}</span>`;
+    }
+    html += `</div>`;
+  }
+  return html;
+}
+
+
+// ===== Render Binary =====
+
+function renderBinary(binaryData) {
+  if (!binaryData.length) return '<p style="font-family:var(--body);font-size:13px;color:var(--muted);">No binary data.</p>';
+
+  let html = '';
+  for (let i = 0; i < binaryData.length; i++) {
+    const bd = binaryData[i];
+    html += `<div class="bin-line" data-idx="${i}" tabindex="0" role="button" aria-label="Binary encoding: ${escapeHtml(bd.asmLabel)}">`;
+    html += `<span class="bin-label">${escapeHtml(bd.asmLabel.substring(0, 16))}</span>`;
+    for (const bit of bd.bits) {
+      const cls = 'bin-' + bit.type;
+      html += `<span class="bin-group ${cls}" title="${escapeHtml(bit.label)}">${bit.value}</span>`;
+    }
+    html += `</div>`;
+  }
+
+  // Legend
+  html += `<div class="bin-legend">`;
+  html += `<div class="bin-legend-item"><span class="bin-legend-swatch" style="background:rgba(128,90,213,0.3)"></span>opcode</div>`;
+  html += `<div class="bin-legend-item"><span class="bin-legend-swatch" style="background:rgba(49,130,206,0.3)"></span>register</div>`;
+  html += `<div class="bin-legend-item"><span class="bin-legend-swatch" style="background:rgba(221,107,32,0.3)"></span>value</div>`;
+  html += `<div class="bin-legend-item"><span class="bin-legend-swatch" style="background:rgba(56,161,105,0.3)"></span>address</div>`;
+  html += `</div>`;
+
+  return html;
+}
+
+
+// ===== Main Compile Function =====
+
+let currentInstructions = [];
+let currentBinary = [];
+let stepMode = false;
+let currentStep = 0;
+
+function compileAll() {
+  stepMode = false;
+  currentStep = 4;
+  const code = document.getElementById('codeInput').value.trim();
+  const errorEl = document.getElementById('parseError');
+  const stepEl = document.getElementById('stepExplanation');
+
+  stepEl.classList.add('hidden');
+  stepEl.classList.remove('visible');
+
+  if (!code) {
+    errorEl.textContent = 'Type some code above, or pick an example!';
+    errorEl.classList.add('visible');
+    resetLayers();
+    return;
+  }
+
+  const stmts = parseProgram(code);
+  if (!stmts.length) {
+    errorEl.textContent = 'Could not parse that code. Try something like: x = 3 + 5';
+    errorEl.classList.add('visible');
+    resetLayers();
+    return;
+  }
+
+  errorEl.classList.remove('visible');
+  resetCompiler();
+
+  // Compile to assembly
+  currentInstructions = [];
+  for (const stmt of stmts) {
+    currentInstructions.push(...compileStmt(stmt));
+  }
+
+  // Compile to binary
+  currentBinary = currentInstructions.map(i => encodeBinary(i));
+
+  // Render all layers
+  renderAllLayers(code, stmts, currentInstructions, currentBinary);
+  showAllLayers();
+  setupHoverMapping();
+}
+
+function resetLayers() {
+  document.getElementById('highlevelContent').innerHTML = '<span class="hl-comment"># Your code will appear here...</span>';
+  document.getElementById('astContent').innerHTML = '<p style="font-family:var(--body);font-size:13px;color:var(--muted);">The parsed structure will appear here...</p>';
+  document.getElementById('asmContent').innerHTML = '<p style="font-family:var(--body);font-size:13px;color:var(--muted);">Assembly instructions will appear here...</p>';
+  document.getElementById('binContent').innerHTML = '<p style="font-family:var(--body);font-size:13px;color:var(--muted);">Binary encoding will appear here...</p>';
+}
+
+function renderAllLayers(code, stmts, instructions, binary) {
+  // Layer 1: High-level (highlighted)
+  document.getElementById('highlevelContent').innerHTML = '<pre style="margin:0;white-space:pre-wrap;font-family:var(--mono);font-size:14px;">' + highlightCode(code) + '</pre>';
+
+  // Layer 2: AST
+  document.getElementById('astContent').innerHTML = renderAST(stmts);
+
+  // Layer 3: Assembly
+  document.getElementById('asmContent').innerHTML = renderAssembly(instructions);
+
+  // Layer 4: Binary
+  document.getElementById('binContent').innerHTML = renderBinary(binary);
+}
+
+function showAllLayers() {
+  for (let i = 1; i <= 4; i++) {
+    const layer = document.getElementById('layer' + i);
+    layer.classList.remove('layer-hidden');
+    layer.style.maxHeight = '';
+  }
+}
+
+function hideLayers(from, to) {
+  for (let i = from; i <= to; i++) {
+    const layer = document.getElementById('layer' + i);
+    layer.classList.add('layer-hidden');
+    layer.style.maxHeight = '0';
+  }
+}
+
+
+// ===== Step-Through Mode =====
+
+const STEP_EXPLANATIONS = [
+  "You wrote some code in a high-level language -- close to how humans think. This is what Grace Hopper fought for: the ability to express ideas in words, not binary.",
+  "The compiler's first job is to PARSE your code: break it into a tree structure called an Abstract Syntax Tree (AST). Each node represents an operation or value. The tree shows the structure the compiler \"sees.\"",
+  "Next, the compiler translates the AST into assembly instructions -- simple commands the CPU can understand. Each high-level operation may become several assembly steps. Notice how one line of code becomes multiple instructions!",
+  "Finally, the assembler converts each instruction into binary -- the 1s and 0s that the hardware actually executes. Each group of bits has a specific meaning: the opcode tells the CPU WHAT to do, registers tell it WHERE to work, and values tell it WITH WHAT."
+];
+
+function startStepThrough() {
+  const code = document.getElementById('codeInput').value.trim();
+  const errorEl = document.getElementById('parseError');
+
+  if (!code) {
+    errorEl.textContent = 'Type some code first, or pick an example!';
+    errorEl.classList.add('visible');
+    return;
+  }
+
+  const stmts = parseProgram(code);
+  if (!stmts.length) {
+    errorEl.textContent = 'Could not parse that code. Try something like: x = 3 + 5';
+    errorEl.classList.add('visible');
+    return;
+  }
+
+  errorEl.classList.remove('visible');
+  resetCompiler();
+
+  // Compile everything first
+  currentInstructions = [];
+  for (const stmt of stmts) {
+    currentInstructions.push(...compileStmt(stmt));
+  }
+  currentBinary = currentInstructions.map(i => encodeBinary(i));
+
+  // Render all content (hidden layers will still have content ready)
+  renderAllLayers(code, stmts, currentInstructions, currentBinary);
+
+  // Start step mode
+  stepMode = true;
+  currentStep = 0;
+  showStep(0);
+
+  // Change button to "Next Step"
+  const btnStep = document.getElementById('btnStep');
+  btnStep.textContent = 'Next Step';
+  btnStep.onclick = nextStep;
+}
+
+function showStep(step) {
+  const stepEl = document.getElementById('stepExplanation');
+  stepEl.classList.remove('hidden');
+  stepEl.classList.add('visible');
+
+  // Fade out, change text, fade in
+  stepEl.style.opacity = '0';
+  setTimeout(() => {
+    stepEl.textContent = STEP_EXPLANATIONS[step] || '';
+    stepEl.style.opacity = '1';
+  }, 150);
+
+  // Show layers up to step+1, hide the rest
+  for (let i = 1; i <= 4; i++) {
+    const layer = document.getElementById('layer' + i);
+    if (i <= step + 1) {
+      layer.classList.remove('layer-hidden');
+      layer.style.maxHeight = '';
+      // Animate newly revealed layer
+      if (i === step + 1) {
+        layer.classList.remove('animate-in');
+        // Force reflow
+        void layer.offsetWidth;
+        layer.classList.add('animate-in');
+      }
+    } else {
+      layer.classList.add('layer-hidden');
+      layer.style.maxHeight = '0';
+    }
+  }
+
+  // Update button state
+  const btnStep = document.getElementById('btnStep');
+  if (step >= 3) {
+    btnStep.textContent = 'Compile Step by Step';
+    btnStep.onclick = startStepThrough;
+    stepMode = false;
+    setupHoverMapping();
+  }
+}
+
+function nextStep() {
+  if (!stepMode) return;
+  currentStep++;
+  if (currentStep > 3) currentStep = 3;
+  showStep(currentStep);
+}
+
+
+// ===== Hover Mapping Between Layers =====
+
+// AbortController to clean up previous event listeners when re-binding
+let hoverAbort = null;
+
+function setupHoverMapping() {
+  // Abort previous listeners if any
+  if (hoverAbort) hoverAbort.abort();
+  hoverAbort = new AbortController();
+  const signal = hoverAbort.signal;
+
+  const asmLines = document.querySelectorAll('.asm-line');
+  const binLines = document.querySelectorAll('.bin-line');
+
+  // On hover/focus over an assembly line, highlight the corresponding binary line
+  asmLines.forEach((el, i) => {
+    function highlightAsm() {
+      el.style.background = 'rgba(214, 158, 46, 0.2)';
+      if (binLines[i]) {
+        binLines[i].style.background = 'rgba(229, 62, 62, 0.15)';
+        drawConnectionLine(el, binLines[i]);
+      }
+    }
+    function unhighlightAsm() {
+      el.style.background = '';
+      if (binLines[i]) binLines[i].style.background = '';
+      clearConnectionLines();
+    }
+    el.addEventListener('mouseenter', highlightAsm, { signal });
+    el.addEventListener('mouseleave', unhighlightAsm, { signal });
+    el.addEventListener('focus', highlightAsm, { signal });
+    el.addEventListener('blur', unhighlightAsm, { signal });
+  });
+
+  // On hover/focus over a binary line, highlight the corresponding assembly line
+  binLines.forEach((el, i) => {
+    function highlightBin() {
+      el.style.background = 'rgba(229, 62, 62, 0.15)';
+      if (asmLines[i]) {
+        asmLines[i].style.background = 'rgba(214, 158, 46, 0.2)';
+        drawConnectionLine(asmLines[i], el);
+      }
+    }
+    function unhighlightBin() {
+      el.style.background = '';
+      if (asmLines[i]) asmLines[i].style.background = '';
+      clearConnectionLines();
+    }
+    el.addEventListener('mouseenter', highlightBin, { signal });
+    el.addEventListener('mouseleave', unhighlightBin, { signal });
+    el.addEventListener('focus', highlightBin, { signal });
+    el.addEventListener('blur', unhighlightBin, { signal });
+  });
+}
+
+function drawConnectionLine(fromEl, toEl) {
+  const svg = document.getElementById('mappingSvg');
+  const wrapper = document.getElementById('layersWrapper');
+  const wrapperRect = wrapper.getBoundingClientRect();
+
+  const fromRect = fromEl.getBoundingClientRect();
+  const toRect = toEl.getBoundingClientRect();
+
+  const x1 = fromRect.right - wrapperRect.left;
+  const y1 = fromRect.top + fromRect.height / 2 - wrapperRect.top;
+  const x2 = toRect.right - wrapperRect.left;
+  const y2 = toRect.top + toRect.height / 2 - wrapperRect.top;
+
+  // Draw a curved connection line
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', `M${x1},${y1} C${x1 + 30},${y1} ${x2 + 30},${y2} ${x2},${y2}`);
+  path.setAttribute('stroke', '#38A169');
+  path.setAttribute('stroke-width', '2');
+  path.setAttribute('stroke-dasharray', '6 3');
+  path.setAttribute('fill', 'none');
+  path.setAttribute('opacity', '0.6');
+  path.classList.add('mapping-connection');
+
+  svg.appendChild(path);
+
+  // Also draw small circles at endpoints
+  const c1 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  c1.setAttribute('cx', x1);
+  c1.setAttribute('cy', y1);
+  c1.setAttribute('r', '3');
+  c1.setAttribute('fill', '#38A169');
+  c1.setAttribute('opacity', '0.6');
+  c1.classList.add('mapping-connection');
+  svg.appendChild(c1);
+
+  const c2 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  c2.setAttribute('cx', x2);
+  c2.setAttribute('cy', y2);
+  c2.setAttribute('r', '3');
+  c2.setAttribute('fill', '#38A169');
+  c2.setAttribute('opacity', '0.6');
+  c2.classList.add('mapping-connection');
+  svg.appendChild(c2);
+}
+
+function clearConnectionLines() {
+  const svg = document.getElementById('mappingSvg');
+  const connections = svg.querySelectorAll('.mapping-connection');
+  connections.forEach(c => c.remove());
+}
+
+
+// ===== Auto-compile on input change (debounced) =====
+
+let compileTimeout = null;
+document.getElementById('codeInput').addEventListener('input', () => {
+  if (compileTimeout) clearTimeout(compileTimeout);
+  compileTimeout = setTimeout(() => {
+    if (!stepMode) {
+      compileAll();
+    }
+  }, 400);
+});
+
+// ===== Also compile on Enter key =====
+document.getElementById('codeInput').addEventListener('keydown', (e) => {
+  // Allow Enter for multiline, but Shift+Enter forces compile
+  if (e.key === 'Enter' && e.shiftKey) {
+    e.preventDefault();
+    compileAll();
+  }
+});
+
+// ===== Load default example on page load =====
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('codeInput').value = 'x = 3 + 5';
+  compileAll();
+});
+</script>
+
+</body>
+</html>

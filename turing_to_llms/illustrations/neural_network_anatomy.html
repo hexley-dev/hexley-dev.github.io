@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neural Network Anatomy — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#E53E3E;--bg:#FAF9F6;--dark:#2D3748;--mid:#4A5568;--light:#718096;--muted:#A0AEC0;--border:#E2E8F0;--card:#F7FAFC;--panel:#1A202C;--hand:'Caveat','Patrick Hand',cursive;--body:'Patrick Hand',cursive;--mono:'JetBrains Mono','Fira Code','SF Mono',monospace;--pos:#4A9BD9;--neg:#E53E3E;--act:#48BB78;--out:#DD6B20;--pink:#FED7D7;--yellow:#FEFCBF;--green:#C6F6D5;--blue:#BEE3F8;--purple:#E9D8FD;--orange:#FFF5EB}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--bg);color:var(--dark);min-height:100vh;background-image:radial-gradient(circle at 25% 25%,rgba(229,62,62,.03) 0%,transparent 55%),radial-gradient(circle at 75% 75%,rgba(246,173,85,.03) 0%,transparent 55%)}
+.poster{max-width:900px;margin:0 auto;padding:24px 16px 60px}
+
+/* Header */
+.poster-header{text-align:center;padding:16px 16px 24px;border-bottom:3px solid var(--accent);margin-bottom:32px}
+.poster-title{font-family:'Caveat',cursive;font-size:42px;font-weight:700;color:var(--panel);line-height:1.15}
+.poster-subtitle{font-family:var(--body);font-size:18px;color:var(--mid);margin-top:6px;line-height:1.4}
+.poster-note{font-family:var(--body);font-size:14px;color:#718096;margin-top:8px}
+.poster-note a{color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent)}
+.poster-note a:hover{border-bottom-style:solid}
+
+/* Section */
+.section{margin-bottom:40px}
+.section-num{font-family:var(--mono);font-size:12px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.section-title{font-family:'Caveat',cursive;font-size:28px;font-weight:700;color:var(--panel);margin-bottom:4px}
+.section-desc{font-family:var(--body);font-size:15px;color:var(--light);margin-bottom:14px;line-height:1.5}
+
+/* Diagram containers */
+.diagram-box{margin:10px auto;padding:8px;max-width:880px}
+.diagram-box svg{width:100%;display:block}
+.dark-diagram{background:var(--panel);border-radius:12px;padding:16px 12px;margin:14px auto;max-width:880px}
+.dark-diagram svg{width:100%;display:block}
+
+/* Caption */
+.caption{font-family:var(--body);font-size:14px;color:var(--light);text-align:center;margin-top:8px;line-height:1.4;padding:0 16px}
+.caption strong{color:var(--dark)}
+
+/* Glossary */
+.glossary{margin:10px auto;max-width:860px}
+.glossary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.glossary-item{display:flex;gap:10px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:8px}
+.glossary-term{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:500;min-width:110px;flex-shrink:0}
+.glossary-def{font-family:var(--body);font-size:14px;color:var(--mid);line-height:1.4}
+
+/* Responsive */
+@media(max-width:600px){
+  .poster-title{font-size:32px}
+  .section-title{font-size:24px}
+  .glossary-grid{grid-template-columns:1fr}
+  .glossary-term{min-width:90px}
+}
+@media print{
+  body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .poster{max-width:100%;padding:12px}
+  .section{page-break-inside:avoid}
+}
+
+svg text{user-select:none}
+</style>
+</head>
+<body>
+
+<div class="poster">
+
+<!-- ============================================ -->
+<!-- HEADER                                        -->
+<!-- ============================================ -->
+<header class="poster-header">
+  <h1 class="poster-title">Neural Network Anatomy</h1>
+  <p class="poster-subtitle">From a single neuron to convolutional vision &mdash; every part labeled</p>
+  <p class="poster-note">Illustration companion to <a href="../issues/v2/issue_06/index.html">Issue 6: Machines That Learn</a></p>
+</header>
+
+<!-- ============================================ -->
+<!-- SECTION 1: THE PERCEPTRON                     -->
+<!-- ============================================ -->
+<div class="section">
+<div class="section-num">Section 1</div>
+<h2 class="section-title">The Perceptron</h2>
+<p class="section-desc">The simplest possible neural network: one neuron. Multiply inputs by weights, add them up, squish through an activation function.</p>
+
+<div class="diagram-box">
+<svg viewBox="0 -10 860 270" aria-labelledby="perceptron-title" role="img">
+  <title id="perceptron-title">Diagram of a single perceptron with 4 inputs, weights, summation, activation, and output</title>
+
+  <!-- Input nodes -->
+  <text x="60" y="8" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:var(--light);font-weight:700">Inputs</text>
+
+  <circle cx="60" cy="42" r="22" fill="var(--blue)" stroke="var(--pos)" stroke-width="1.8"/>
+  <text x="60" y="47" text-anchor="middle" style="font-family:var(--mono);font-size:13px;fill:#2B6CB0">x&#x2081;</text>
+
+  <circle cx="60" cy="102" r="22" fill="var(--blue)" stroke="var(--pos)" stroke-width="1.8"/>
+  <text x="60" y="107" text-anchor="middle" style="font-family:var(--mono);font-size:13px;fill:#2B6CB0">x&#x2082;</text>
+
+  <circle cx="60" cy="162" r="22" fill="var(--blue)" stroke="var(--pos)" stroke-width="1.8"/>
+  <text x="60" y="167" text-anchor="middle" style="font-family:var(--mono);font-size:13px;fill:#2B6CB0">x&#x2083;</text>
+
+  <circle cx="60" cy="222" r="22" fill="var(--blue)" stroke="var(--pos)" stroke-width="1.8"/>
+  <text x="60" y="227" text-anchor="middle" style="font-family:var(--mono);font-size:13px;fill:#2B6CB0">x&#x2084;</text>
+
+  <!-- Bias input from above -->
+  <circle cx="360" cy="22" r="16" fill="var(--purple)" stroke="#805AD5" stroke-width="1.5"/>
+  <text x="360" y="27" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#553C9A">b</text>
+  <line x1="360" y1="38" x2="360" y2="98" stroke="#805AD5" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="390" y="56" style="font-family:var(--mono);font-size:11px;fill:#805AD5">b=0.1</text>
+
+  <!-- Weight connections: positive=blue, negative=red, thickness varies -->
+  <!-- w1 = 0.7 (positive, thick) -->
+  <line x1="82" y1="42" x2="320" y2="118" stroke="var(--pos)" stroke-width="3.5" opacity="0.7"/>
+  <text x="175" y="58" style="font-family:var(--mono);font-size:11px;fill:var(--pos)">w&#x2081;=0.7</text>
+
+  <!-- w2 = -0.3 (negative, thin) -->
+  <line x1="82" y1="102" x2="320" y2="125" stroke="var(--neg)" stroke-width="1.5" opacity="0.7"/>
+  <text x="175" y="100" style="font-family:var(--mono);font-size:11px;fill:var(--neg)">w&#x2082;=-0.3</text>
+
+  <!-- w3 = 0.5 (positive, medium) -->
+  <line x1="82" y1="162" x2="320" y2="132" stroke="var(--pos)" stroke-width="2.5" opacity="0.7"/>
+  <text x="175" y="160" style="font-family:var(--mono);font-size:11px;fill:var(--pos)">w&#x2083;=0.5</text>
+
+  <!-- w4 = 0.2 (positive, thin) -->
+  <line x1="82" y1="222" x2="320" y2="140" stroke="var(--pos)" stroke-width="1.2" opacity="0.7"/>
+  <text x="175" y="218" style="font-family:var(--mono);font-size:11px;fill:var(--pos)">w&#x2084;=0.2</text>
+
+  <!-- Summation node -->
+  <circle cx="360" cy="130" r="40" fill="var(--yellow)" stroke="#D69E2E" stroke-width="2.2"/>
+  <text x="360" y="126" text-anchor="middle" style="font-family:var(--hand);font-size:28px;fill:#975A16;font-weight:700">&#931;</text>
+  <text x="360" y="148" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#975A16">&#931;(w&#x1D62;&#xD7;x&#x1D62;)+b</text>
+
+  <!-- Arrow: sum to activation -->
+  <line x1="400" y1="130" x2="485" y2="130" stroke="var(--light)" stroke-width="2"/>
+  <polygon points="485,124 499,130 485,136" fill="var(--light)"/>
+
+  <!-- Activation function box -->
+  <rect x="500" y="90" width="130" height="80" rx="12" fill="var(--green)" stroke="var(--act)" stroke-width="2"/>
+  <text x="565" y="108" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#276749;font-weight:700">Activation</text>
+  <!-- Mini sigmoid curve inside -->
+  <path d="M520,155 C530,155 540,150 550,135 C555,125 560,115 570,112 C575,111 580,110 590,110" fill="none" stroke="#276749" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Axis lines for mini plot -->
+  <line x1="518" y1="110" x2="518" y2="158" stroke="#276749" stroke-width="0.8" opacity="0.4"/>
+  <line x1="516" y1="133" x2="592" y2="133" stroke="#276749" stroke-width="0.8" opacity="0.4"/>
+  <text x="565" y="175" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#276749">&#963;(z)</text>
+
+  <!-- Arrow: activation to output -->
+  <line x1="630" y1="130" x2="710" y2="130" stroke="var(--light)" stroke-width="2"/>
+  <polygon points="710,124 724,130 710,136" fill="var(--light)"/>
+
+  <!-- Output node -->
+  <circle cx="760" cy="130" r="28" fill="var(--orange)" stroke="var(--out)" stroke-width="2"/>
+  <text x="760" y="136" text-anchor="middle" style="font-family:var(--mono);font-size:16px;fill:#7B341E;font-weight:500">&#375;</text>
+  <text x="760" y="176" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:var(--light)">Output</text>
+
+  <!-- Labels along the bottom -->
+  <text x="210" y="254" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:var(--pos)">Blue lines = positive weights</text>
+  <text x="500" y="254" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:var(--neg)">Red lines = negative weights</text>
+  <text x="730" y="254" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:var(--light)">Thicker = larger magnitude</text>
+</svg>
+</div>
+<p class="caption"><strong>One neuron.</strong> Multiply inputs by weights, add them up, squish through activation. That is it.</p>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 2: ACTIVATION FUNCTIONS               -->
+<!-- ============================================ -->
+<div class="section">
+<div class="section-num">Section 2</div>
+<h2 class="section-title">Activation Functions</h2>
+<p class="section-desc">The &ldquo;squish&rdquo; functions that give networks their nonlinearity. Without them, stacking layers would be pointless.</p>
+
+<div class="dark-diagram">
+<svg viewBox="0 0 860 230" aria-labelledby="activations-title" role="img">
+  <title id="activations-title">Four activation functions: Sigmoid, Tanh, ReLU, and Softmax</title>
+
+  <!-- ---- SIGMOID ---- -->
+  <text x="108" y="22" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:var(--accent);font-weight:700">Sigmoid</text>
+  <!-- Axes -->
+  <line x1="28" y1="40" x2="28" y2="145" stroke="#4A5568" stroke-width="1"/>
+  <line x1="28" y1="145" x2="188" y2="145" stroke="#4A5568" stroke-width="1"/>
+  <!-- Axis labels -->
+  <text x="22" y="48" text-anchor="end" style="font-family:var(--mono);font-size:9px;fill:#718096">1</text>
+  <text x="22" y="98" text-anchor="end" style="font-family:var(--mono);font-size:9px;fill:#718096">0.5</text>
+  <text x="22" y="148" text-anchor="end" style="font-family:var(--mono);font-size:9px;fill:#718096">0</text>
+  <!-- Grid lines -->
+  <line x1="28" y1="45" x2="188" y2="45" stroke="#4A5568" stroke-width="0.5" stroke-dasharray="3,3" opacity="0.4"/>
+  <line x1="28" y1="95" x2="188" y2="95" stroke="#4A5568" stroke-width="0.5" stroke-dasharray="3,3" opacity="0.4"/>
+  <line x1="108" y1="40" x2="108" y2="145" stroke="#4A5568" stroke-width="0.5" stroke-dasharray="3,3" opacity="0.4"/>
+  <!-- Sigmoid curve: maps x in [-6,6] to y in [0,1], plot area x:[28,188] y:[45,145] -->
+  <path d="M28,143 C38,143 48,142 58,140 C68,137 78,130 88,118 C98,106 108,95 118,82 C128,70 138,63 148,58 C158,55 168,52 178,50 L188,49" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Formula -->
+  <text x="108" y="165" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#A0AEC0">f(x) = 1/(1+e^(-x))</text>
+  <!-- Description -->
+  <text x="108" y="185" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">Squishes to 0&ndash;1.</text>
+  <text x="108" y="200" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">Classic, but vanishing</text>
+  <text x="108" y="215" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">gradients.</text>
+
+  <!-- ---- TANH ---- -->
+  <text x="323" y="22" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#4A9BD9;font-weight:700">Tanh</text>
+  <!-- Axes -->
+  <line x1="243" y1="40" x2="243" y2="145" stroke="#4A5568" stroke-width="1"/>
+  <line x1="243" y1="95" x2="403" y2="95" stroke="#4A5568" stroke-width="1"/>
+  <!-- Axis labels -->
+  <text x="237" y="48" text-anchor="end" style="font-family:var(--mono);font-size:9px;fill:#718096">1</text>
+  <text x="237" y="98" text-anchor="end" style="font-family:var(--mono);font-size:9px;fill:#718096">0</text>
+  <text x="237" y="148" text-anchor="end" style="font-family:var(--mono);font-size:9px;fill:#718096">-1</text>
+  <!-- Grid -->
+  <line x1="243" y1="45" x2="403" y2="45" stroke="#4A5568" stroke-width="0.5" stroke-dasharray="3,3" opacity="0.4"/>
+  <line x1="243" y1="145" x2="403" y2="145" stroke="#4A5568" stroke-width="0.5" stroke-dasharray="3,3" opacity="0.4"/>
+  <line x1="323" y1="40" x2="323" y2="145" stroke="#4A5568" stroke-width="0.5" stroke-dasharray="3,3" opacity="0.4"/>
+  <!-- Tanh curve: maps [-6,6] to [-1,1], plot y:[45,145], center at y=95 -->
+  <path d="M243,143 C253,143 263,141 273,137 C283,130 293,118 303,105 C313,95 323,95 333,85 C343,75 353,65 363,58 C373,55 383,50 393,48 L403,47" fill="none" stroke="#4A9BD9" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Formula -->
+  <text x="323" y="165" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#A0AEC0">f(x) = tanh(x)</text>
+  <!-- Description -->
+  <text x="323" y="185" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">Squishes to -1 to 1.</text>
+  <text x="323" y="200" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">Centered around zero.</text>
+
+  <!-- ---- ReLU ---- -->
+  <text x="538" y="22" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:var(--act);font-weight:700">ReLU</text>
+  <!-- Axes -->
+  <line x1="458" y1="40" x2="458" y2="145" stroke="#4A5568" stroke-width="1"/>
+  <line x1="458" y1="145" x2="618" y2="145" stroke="#4A5568" stroke-width="1"/>
+  <!-- Axis labels -->
+  <text x="452" y="48" text-anchor="end" style="font-family:var(--mono);font-size:9px;fill:#718096">6</text>
+  <text x="452" y="98" text-anchor="end" style="font-family:var(--mono);font-size:9px;fill:#718096">3</text>
+  <text x="452" y="148" text-anchor="end" style="font-family:var(--mono);font-size:9px;fill:#718096">0</text>
+  <!-- Grid -->
+  <line x1="458" y1="95" x2="618" y2="95" stroke="#4A5568" stroke-width="0.5" stroke-dasharray="3,3" opacity="0.4"/>
+  <line x1="538" y1="40" x2="538" y2="145" stroke="#4A5568" stroke-width="0.5" stroke-dasharray="3,3" opacity="0.4"/>
+  <!-- ReLU: flat at 0 for x<0, ramp up for x>0. Center at x=538 -->
+  <line x1="458" y1="145" x2="538" y2="145" stroke="var(--act)" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="538" y1="145" x2="618" y2="45" stroke="var(--act)" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Dot at origin -->
+  <circle cx="538" cy="145" r="3.5" fill="var(--act)"/>
+  <!-- Formula -->
+  <text x="538" y="165" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#A0AEC0">f(x) = max(0, x)</text>
+  <!-- Description -->
+  <text x="538" y="185" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">Dead simple. Fast.</text>
+  <text x="538" y="200" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">The modern default.</text>
+
+  <!-- ---- SOFTMAX ---- -->
+  <text x="753" y="22" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:#DD6B20;font-weight:700">Softmax</text>
+  <!-- Conceptual diagram: 3 inputs -> normalized bars -->
+  <!-- Input values -->
+  <rect x="683" y="42" width="40" height="20" rx="4" fill="#2D3748" stroke="#4A5568" stroke-width="1"/>
+  <text x="703" y="56" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#A0AEC0">2.0</text>
+  <rect x="733" y="42" width="40" height="20" rx="4" fill="#2D3748" stroke="#4A5568" stroke-width="1"/>
+  <text x="753" y="56" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#A0AEC0">1.0</text>
+  <rect x="783" y="42" width="40" height="20" rx="4" fill="#2D3748" stroke="#4A5568" stroke-width="1"/>
+  <text x="803" y="56" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#A0AEC0">0.5</text>
+  <text x="753" y="78" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#718096">Raw scores</text>
+
+  <!-- Arrow -->
+  <line x1="753" y1="82" x2="753" y2="94" stroke="#718096" stroke-width="1.5"/>
+  <polygon points="748,94 753,102 758,94" fill="#718096"/>
+
+  <!-- Output probability bars -->
+  <rect x="683" y="106" width="40" height="35" rx="4" fill="#DD6B20" opacity="0.9"/>
+  <text x="703" y="128" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#fff">0.59</text>
+  <rect x="733" y="112" width="40" height="29" rx="4" fill="#DD6B20" opacity="0.65"/>
+  <text x="753" y="131" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#fff">0.24</text>
+  <rect x="783" y="117" width="40" height="24" rx="4" fill="#DD6B20" opacity="0.45"/>
+  <text x="803" y="133" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#fff">0.17</text>
+  <text x="753" y="155" text-anchor="middle" style="font-family:var(--hand);font-size:12px;fill:#718096">Probabilities (sum = 1.0)</text>
+
+  <!-- Formula -->
+  <text x="753" y="175" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#A0AEC0">softmax(z&#x1D62;)</text>
+  <!-- Description -->
+  <text x="753" y="195" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">Turns numbers into</text>
+  <text x="753" y="210" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">probabilities. Used for</text>
+  <text x="753" y="225" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:#718096">classification.</text>
+</svg>
+</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 3: MULTI-LAYER PERCEPTRON             -->
+<!-- ============================================ -->
+<div class="section">
+<div class="section-num">Section 3</div>
+<h2 class="section-title">Multi-Layer Perceptron (MLP)</h2>
+<p class="section-desc">Stack neurons in layers, connect every neuron to every neuron in the next layer, and now you can learn complex patterns.</p>
+
+<div class="diagram-box">
+<svg viewBox="0 -10 860 410" aria-labelledby="mlp-title" role="img">
+  <title id="mlp-title">A 4-layer multi-layer perceptron with 4 input, 6 hidden-1, 4 hidden-2, and 2 output neurons</title>
+
+  <!-- Forward pass arrow -->
+  <text x="430" y="10" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:var(--pos);font-weight:700">Forward Pass &#8594;</text>
+
+  <!-- Column positions: Input=100, H1=310, H2=520, Output=730 -->
+  <!-- Row spacing: neurons evenly distributed vertically in each layer -->
+
+  <!-- Layer labels -->
+  <text x="100" y="38" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:var(--dark);font-weight:700">Input</text>
+  <text x="310" y="38" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:var(--dark);font-weight:700">Hidden 1</text>
+  <text x="520" y="38" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:var(--dark);font-weight:700">Hidden 2</text>
+  <text x="730" y="38" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:var(--dark);font-weight:700">Output</text>
+
+  <!-- Dimension labels -->
+  <text x="430" y="378" text-anchor="middle" style="font-family:var(--mono);font-size:14px;fill:var(--accent);font-weight:500">4 &#8594; 6 &#8594; 4 &#8594; 2</text>
+
+  <!-- ---- CONNECTIONS (drawn first, behind neurons) ---- -->
+  <!-- Input (4 neurons at y=80,140,200,260) to Hidden1 (6 neurons at y=60,108,156,204,252,300) -->
+  <!-- Using varied stroke widths and colors for positive/negative weights -->
+
+  <!-- From x1=100 (input) to x2=310 (h1) -->
+  <!-- Input 1 (y=80) connections -->
+  <line x1="120" y1="80" x2="290" y2="60" stroke="var(--pos)" stroke-width="1.8" opacity="0.25"/>
+  <line x1="120" y1="80" x2="290" y2="108" stroke="var(--neg)" stroke-width="1.0" opacity="0.25"/>
+  <line x1="120" y1="80" x2="290" y2="156" stroke="var(--pos)" stroke-width="2.5" opacity="0.25"/>
+  <line x1="120" y1="80" x2="290" y2="204" stroke="var(--pos)" stroke-width="0.8" opacity="0.25"/>
+  <line x1="120" y1="80" x2="290" y2="252" stroke="var(--neg)" stroke-width="1.4" opacity="0.25"/>
+  <line x1="120" y1="80" x2="290" y2="300" stroke="var(--pos)" stroke-width="1.2" opacity="0.25"/>
+
+  <!-- Input 2 (y=140) connections -->
+  <line x1="120" y1="140" x2="290" y2="60" stroke="var(--pos)" stroke-width="2.2" opacity="0.25"/>
+  <line x1="120" y1="140" x2="290" y2="108" stroke="var(--pos)" stroke-width="1.6" opacity="0.25"/>
+  <line x1="120" y1="140" x2="290" y2="156" stroke="var(--neg)" stroke-width="2.0" opacity="0.25"/>
+  <line x1="120" y1="140" x2="290" y2="204" stroke="var(--pos)" stroke-width="3.0" opacity="0.25"/>
+  <line x1="120" y1="140" x2="290" y2="252" stroke="var(--pos)" stroke-width="0.6" opacity="0.25"/>
+  <line x1="120" y1="140" x2="290" y2="300" stroke="var(--neg)" stroke-width="1.8" opacity="0.25"/>
+
+  <!-- Input 3 (y=200) connections -->
+  <line x1="120" y1="200" x2="290" y2="60" stroke="var(--neg)" stroke-width="1.2" opacity="0.25"/>
+  <line x1="120" y1="200" x2="290" y2="108" stroke="var(--pos)" stroke-width="2.8" opacity="0.25"/>
+  <line x1="120" y1="200" x2="290" y2="156" stroke="var(--pos)" stroke-width="1.0" opacity="0.25"/>
+  <line x1="120" y1="200" x2="290" y2="204" stroke="var(--neg)" stroke-width="1.6" opacity="0.25"/>
+  <line x1="120" y1="200" x2="290" y2="252" stroke="var(--pos)" stroke-width="2.4" opacity="0.25"/>
+  <line x1="120" y1="200" x2="290" y2="300" stroke="var(--pos)" stroke-width="1.4" opacity="0.25"/>
+
+  <!-- Input 4 (y=260) connections -->
+  <line x1="120" y1="260" x2="290" y2="60" stroke="var(--pos)" stroke-width="0.8" opacity="0.25"/>
+  <line x1="120" y1="260" x2="290" y2="108" stroke="var(--neg)" stroke-width="2.0" opacity="0.25"/>
+  <line x1="120" y1="260" x2="290" y2="156" stroke="var(--pos)" stroke-width="1.6" opacity="0.25"/>
+  <line x1="120" y1="260" x2="290" y2="204" stroke="var(--pos)" stroke-width="2.2" opacity="0.25"/>
+  <line x1="120" y1="260" x2="290" y2="252" stroke="var(--neg)" stroke-width="1.0" opacity="0.25"/>
+  <line x1="120" y1="260" x2="290" y2="300" stroke="var(--pos)" stroke-width="3.2" opacity="0.25"/>
+
+  <!-- Hidden1 (6 at y=60,108,156,204,252,300) to Hidden2 (4 at y=80,153,226,300) -->
+  <line x1="330" y1="60" x2="500" y2="80" stroke="var(--pos)" stroke-width="2.0" opacity="0.25"/>
+  <line x1="330" y1="60" x2="500" y2="153" stroke="var(--neg)" stroke-width="1.2" opacity="0.25"/>
+  <line x1="330" y1="60" x2="500" y2="226" stroke="var(--pos)" stroke-width="1.6" opacity="0.25"/>
+  <line x1="330" y1="60" x2="500" y2="300" stroke="var(--pos)" stroke-width="0.8" opacity="0.25"/>
+
+  <line x1="330" y1="108" x2="500" y2="80" stroke="var(--neg)" stroke-width="1.4" opacity="0.25"/>
+  <line x1="330" y1="108" x2="500" y2="153" stroke="var(--pos)" stroke-width="2.6" opacity="0.25"/>
+  <line x1="330" y1="108" x2="500" y2="226" stroke="var(--pos)" stroke-width="1.0" opacity="0.25"/>
+  <line x1="330" y1="108" x2="500" y2="300" stroke="var(--neg)" stroke-width="1.8" opacity="0.25"/>
+
+  <line x1="330" y1="156" x2="500" y2="80" stroke="var(--pos)" stroke-width="3.0" opacity="0.25"/>
+  <line x1="330" y1="156" x2="500" y2="153" stroke="var(--pos)" stroke-width="1.0" opacity="0.25"/>
+  <line x1="330" y1="156" x2="500" y2="226" stroke="var(--neg)" stroke-width="2.2" opacity="0.25"/>
+  <line x1="330" y1="156" x2="500" y2="300" stroke="var(--pos)" stroke-width="1.4" opacity="0.25"/>
+
+  <line x1="330" y1="204" x2="500" y2="80" stroke="var(--pos)" stroke-width="1.0" opacity="0.25"/>
+  <line x1="330" y1="204" x2="500" y2="153" stroke="var(--neg)" stroke-width="1.8" opacity="0.25"/>
+  <line x1="330" y1="204" x2="500" y2="226" stroke="var(--pos)" stroke-width="2.8" opacity="0.25"/>
+  <line x1="330" y1="204" x2="500" y2="300" stroke="var(--pos)" stroke-width="0.6" opacity="0.25"/>
+
+  <line x1="330" y1="252" x2="500" y2="80" stroke="var(--neg)" stroke-width="2.4" opacity="0.25"/>
+  <line x1="330" y1="252" x2="500" y2="153" stroke="var(--pos)" stroke-width="1.6" opacity="0.25"/>
+  <line x1="330" y1="252" x2="500" y2="226" stroke="var(--pos)" stroke-width="1.2" opacity="0.25"/>
+  <line x1="330" y1="252" x2="500" y2="300" stroke="var(--neg)" stroke-width="2.0" opacity="0.25"/>
+
+  <line x1="330" y1="300" x2="500" y2="80" stroke="var(--pos)" stroke-width="1.6" opacity="0.25"/>
+  <line x1="330" y1="300" x2="500" y2="153" stroke="var(--pos)" stroke-width="2.2" opacity="0.25"/>
+  <line x1="330" y1="300" x2="500" y2="226" stroke="var(--neg)" stroke-width="1.0" opacity="0.25"/>
+  <line x1="330" y1="300" x2="500" y2="300" stroke="var(--pos)" stroke-width="2.8" opacity="0.25"/>
+
+  <!-- Hidden2 (4 at y=80,153,226,300) to Output (2 at y=155,225) -->
+  <line x1="540" y1="80" x2="710" y2="155" stroke="var(--pos)" stroke-width="3.0" opacity="0.3"/>
+  <line x1="540" y1="80" x2="710" y2="225" stroke="var(--neg)" stroke-width="1.6" opacity="0.3"/>
+  <line x1="540" y1="153" x2="710" y2="155" stroke="var(--neg)" stroke-width="2.0" opacity="0.3"/>
+  <line x1="540" y1="153" x2="710" y2="225" stroke="var(--pos)" stroke-width="2.6" opacity="0.3"/>
+  <line x1="540" y1="226" x2="710" y2="155" stroke="var(--pos)" stroke-width="1.4" opacity="0.3"/>
+  <line x1="540" y1="226" x2="710" y2="225" stroke="var(--pos)" stroke-width="3.2" opacity="0.3"/>
+  <line x1="540" y1="300" x2="710" y2="155" stroke="var(--pos)" stroke-width="1.0" opacity="0.3"/>
+  <line x1="540" y1="300" x2="710" y2="225" stroke="var(--neg)" stroke-width="2.4" opacity="0.3"/>
+
+  <!-- ---- NEURONS ---- -->
+  <!-- Input layer (4 neurons) -->
+  <circle cx="100" cy="80" r="20" fill="var(--blue)" stroke="var(--pos)" stroke-width="1.8" opacity="0.85"/>
+  <text x="100" y="85" text-anchor="middle" style="font-family:var(--mono);font-size:12px;fill:#2B6CB0">x&#x2081;</text>
+
+  <circle cx="100" cy="140" r="20" fill="var(--blue)" stroke="var(--pos)" stroke-width="1.8"/>
+  <text x="100" y="145" text-anchor="middle" style="font-family:var(--mono);font-size:12px;fill:#2B6CB0">x&#x2082;</text>
+
+  <circle cx="100" cy="200" r="20" fill="var(--blue)" stroke="var(--pos)" stroke-width="1.8"/>
+  <text x="100" y="205" text-anchor="middle" style="font-family:var(--mono);font-size:12px;fill:#2B6CB0">x&#x2083;</text>
+
+  <circle cx="100" cy="260" r="20" fill="var(--blue)" stroke="var(--pos)" stroke-width="1.8" opacity="0.7"/>
+  <text x="100" y="265" text-anchor="middle" style="font-family:var(--mono);font-size:12px;fill:#2B6CB0">x&#x2084;</text>
+
+  <!-- Hidden layer 1 (6 neurons) — varied fill intensity -->
+  <circle cx="310" cy="60" r="18" fill="var(--pink)" stroke="var(--accent)" stroke-width="1.5" opacity="0.95"/>
+  <circle cx="310" cy="108" r="18" fill="var(--pink)" stroke="var(--accent)" stroke-width="1.5" opacity="0.7"/>
+  <circle cx="310" cy="156" r="18" fill="var(--pink)" stroke="var(--accent)" stroke-width="1.5"/>
+  <circle cx="310" cy="204" r="18" fill="var(--pink)" stroke="var(--accent)" stroke-width="1.5" opacity="0.5"/>
+  <circle cx="310" cy="252" r="18" fill="var(--pink)" stroke="var(--accent)" stroke-width="1.5" opacity="0.85"/>
+  <circle cx="310" cy="300" r="18" fill="var(--pink)" stroke="var(--accent)" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- Hidden layer 2 (4 neurons) -->
+  <circle cx="520" cy="80" r="18" fill="var(--purple)" stroke="#805AD5" stroke-width="1.5" opacity="0.9"/>
+  <circle cx="520" cy="153" r="18" fill="var(--purple)" stroke="#805AD5" stroke-width="1.5" opacity="0.65"/>
+  <circle cx="520" cy="226" r="18" fill="var(--purple)" stroke="#805AD5" stroke-width="1.5"/>
+  <circle cx="520" cy="300" r="18" fill="var(--purple)" stroke="#805AD5" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Output layer (2 neurons) -->
+  <circle cx="730" cy="155" r="22" fill="var(--orange)" stroke="var(--out)" stroke-width="2"/>
+  <text x="730" y="160" text-anchor="middle" style="font-family:var(--mono);font-size:13px;fill:#7B341E">&#375;&#x2081;</text>
+
+  <circle cx="730" cy="225" r="22" fill="var(--orange)" stroke="var(--out)" stroke-width="2" opacity="0.75"/>
+  <text x="730" y="230" text-anchor="middle" style="font-family:var(--mono);font-size:13px;fill:#7B341E">&#375;&#x2082;</text>
+
+  <!-- Side annotations -->
+  <!-- Neuron intensity legend -->
+  <text x="100" y="310" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:var(--light)">Opacity = activation level</text>
+  <text x="100" y="324" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:var(--light)">(brighter = more active)</text>
+
+  <!-- Backpropagation arrow -->
+  <text x="430" y="400" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:var(--neg);font-weight:700">&#8592; Backward Pass (Backpropagation)</text>
+</svg>
+</div>
+<p class="caption"><strong>Every neuron in one layer connects to every neuron in the next.</strong> The network has 4 + 6 + 4 + 2 = 16 neurons and (4&#215;6) + (6&#215;4) + (4&#215;2) = 56 weight connections.</p>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 4: CNN                                -->
+<!-- ============================================ -->
+<div class="section">
+<div class="section-num">Section 4</div>
+<h2 class="section-title">Convolutional Neural Network (CNN)</h2>
+<p class="section-desc">How a computer learns to see: filters slide across images, detecting edges, then shapes, then objects.</p>
+
+<div class="diagram-box">
+<svg viewBox="0 -10 920 500" aria-labelledby="cnn-title" role="img">
+  <title id="cnn-title">CNN architecture showing image through convolutional layers, pooling, flattening, and dense layers to classification output</title>
+
+  <!-- ======== MAIN FLOW ======== -->
+
+  <!-- 1. Input Image (pixel grid) -->
+  <text x="55" y="12" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:var(--dark);font-weight:700">Input Image</text>
+  <text x="55" y="26" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:var(--muted)">224&#215;224&#215;3</text>
+  <!-- 6x6 colored pixel grid -->
+  <rect x="20" y="34" width="14" height="14" rx="1" fill="#E53E3E" opacity="0.7"/>
+  <rect x="35" y="34" width="14" height="14" rx="1" fill="#DD6B20" opacity="0.6"/>
+  <rect x="50" y="34" width="14" height="14" rx="1" fill="#D69E2E" opacity="0.5"/>
+  <rect x="65" y="34" width="14" height="14" rx="1" fill="#38A169" opacity="0.6"/>
+  <rect x="80" y="34" width="14" height="14" rx="1" fill="#E53E3E" opacity="0.4"/>
+  <rect x="20" y="49" width="14" height="14" rx="1" fill="#4A9BD9" opacity="0.5"/>
+  <rect x="35" y="49" width="14" height="14" rx="1" fill="#805AD5" opacity="0.6"/>
+  <rect x="50" y="49" width="14" height="14" rx="1" fill="#E53E3E" opacity="0.8"/>
+  <rect x="65" y="49" width="14" height="14" rx="1" fill="#DD6B20" opacity="0.5"/>
+  <rect x="80" y="49" width="14" height="14" rx="1" fill="#38A169" opacity="0.7"/>
+  <rect x="20" y="64" width="14" height="14" rx="1" fill="#D69E2E" opacity="0.6"/>
+  <rect x="35" y="64" width="14" height="14" rx="1" fill="#4A9BD9" opacity="0.7"/>
+  <rect x="50" y="64" width="14" height="14" rx="1" fill="#805AD5" opacity="0.5"/>
+  <rect x="65" y="64" width="14" height="14" rx="1" fill="#E53E3E" opacity="0.6"/>
+  <rect x="80" y="64" width="14" height="14" rx="1" fill="#D69E2E" opacity="0.8"/>
+  <rect x="20" y="79" width="14" height="14" rx="1" fill="#38A169" opacity="0.7"/>
+  <rect x="35" y="79" width="14" height="14" rx="1" fill="#E53E3E" opacity="0.5"/>
+  <rect x="50" y="79" width="14" height="14" rx="1" fill="#DD6B20" opacity="0.7"/>
+  <rect x="65" y="79" width="14" height="14" rx="1" fill="#4A9BD9" opacity="0.6"/>
+  <rect x="80" y="79" width="14" height="14" rx="1" fill="#805AD5" opacity="0.5"/>
+  <rect x="20" y="94" width="14" height="14" rx="1" fill="#DD6B20" opacity="0.6"/>
+  <rect x="35" y="94" width="14" height="14" rx="1" fill="#38A169" opacity="0.8"/>
+  <rect x="50" y="94" width="14" height="14" rx="1" fill="#D69E2E" opacity="0.5"/>
+  <rect x="65" y="94" width="14" height="14" rx="1" fill="#E53E3E" opacity="0.7"/>
+  <rect x="80" y="94" width="14" height="14" rx="1" fill="#4A9BD9" opacity="0.6"/>
+  <!-- Border around grid -->
+  <rect x="19" y="33" width="76" height="76" rx="3" fill="none" stroke="var(--dark)" stroke-width="1.2"/>
+
+  <!-- Arrow -->
+  <line x1="100" y1="70" x2="125" y2="70" stroke="var(--light)" stroke-width="1.5"/>
+  <polygon points="125,66 133,70 125,74" fill="var(--light)"/>
+
+  <!-- 2. Conv Layer 1 — stacked feature maps -->
+  <text x="186" y="12" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:var(--dark);font-weight:700">Conv Layer 1</text>
+  <text x="186" y="26" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:var(--muted)">32 filters, 3&#215;3</text>
+  <!-- Stacked feature maps (3 shown, offset) -->
+  <rect x="152" y="42" width="60" height="60" rx="4" fill="var(--blue)" stroke="var(--pos)" stroke-width="1.2" opacity="0.4"/>
+  <rect x="157" y="37" width="60" height="60" rx="4" fill="var(--blue)" stroke="var(--pos)" stroke-width="1.2" opacity="0.6"/>
+  <rect x="162" y="32" width="60" height="60" rx="4" fill="var(--blue)" stroke="var(--pos)" stroke-width="1.2" opacity="0.85"/>
+  <!-- Little grid lines on front map -->
+  <line x1="182" y1="32" x2="182" y2="92" stroke="var(--pos)" stroke-width="0.5" opacity="0.3"/>
+  <line x1="202" y1="32" x2="202" y2="92" stroke="var(--pos)" stroke-width="0.5" opacity="0.3"/>
+  <line x1="162" y1="52" x2="222" y2="52" stroke="var(--pos)" stroke-width="0.5" opacity="0.3"/>
+  <line x1="162" y1="72" x2="222" y2="72" stroke="var(--pos)" stroke-width="0.5" opacity="0.3"/>
+  <!-- 3x3 filter indicator -->
+  <rect x="162" y="32" width="20" height="20" rx="2" fill="var(--accent)" opacity="0.3" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- Arrow -->
+  <line x1="226" y1="70" x2="248" y2="70" stroke="var(--light)" stroke-width="1.5"/>
+  <polygon points="248,66 256,70 248,74" fill="var(--light)"/>
+
+  <!-- 3. Pooling -->
+  <text x="305" y="12" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:var(--dark);font-weight:700">Max Pool</text>
+  <text x="305" y="26" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:var(--muted)">2&#215;2 stride 2</text>
+  <!-- Smaller stacked maps -->
+  <rect x="275" y="48" width="48" height="48" rx="4" fill="var(--green)" stroke="var(--act)" stroke-width="1.2" opacity="0.4"/>
+  <rect x="279" y="44" width="48" height="48" rx="4" fill="var(--green)" stroke="var(--act)" stroke-width="1.2" opacity="0.6"/>
+  <rect x="283" y="40" width="48" height="48" rx="4" fill="var(--green)" stroke="var(--act)" stroke-width="1.2" opacity="0.85"/>
+  <!-- Shrink indicator -->
+  <text x="305" y="106" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:var(--act)">&#189; size</text>
+
+  <!-- Arrow -->
+  <line x1="334" y1="70" x2="356" y2="70" stroke="var(--light)" stroke-width="1.5"/>
+  <polygon points="356,66 364,70 356,74" fill="var(--light)"/>
+
+  <!-- 4. Conv Layer 2 -->
+  <text x="420" y="12" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:var(--dark);font-weight:700">Conv Layer 2</text>
+  <text x="420" y="26" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:var(--muted)">64 filters</text>
+  <!-- More stacked maps, smaller -->
+  <rect x="387" y="48" width="48" height="48" rx="4" fill="var(--yellow)" stroke="#D69E2E" stroke-width="1.2" opacity="0.35"/>
+  <rect x="391" y="44" width="48" height="48" rx="4" fill="var(--yellow)" stroke="#D69E2E" stroke-width="1.2" opacity="0.5"/>
+  <rect x="395" y="40" width="48" height="48" rx="4" fill="var(--yellow)" stroke="#D69E2E" stroke-width="1.2" opacity="0.65"/>
+  <rect x="399" y="36" width="48" height="48" rx="4" fill="var(--yellow)" stroke="#D69E2E" stroke-width="1.2" opacity="0.85"/>
+
+  <!-- Arrow -->
+  <line x1="450" y1="70" x2="472" y2="70" stroke="var(--light)" stroke-width="1.5"/>
+  <polygon points="472,66 480,70 472,74" fill="var(--light)"/>
+
+  <!-- 5. Conv Layer 3 -->
+  <text x="536" y="12" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:var(--dark);font-weight:700">Conv Layer 3</text>
+  <text x="536" y="26" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:var(--muted)">128 filters</text>
+  <!-- Even more stacked maps, even smaller -->
+  <rect x="507" y="52" width="38" height="38" rx="4" fill="var(--purple)" stroke="#805AD5" stroke-width="1.2" opacity="0.3"/>
+  <rect x="511" y="48" width="38" height="38" rx="4" fill="var(--purple)" stroke="#805AD5" stroke-width="1.2" opacity="0.45"/>
+  <rect x="515" y="44" width="38" height="38" rx="4" fill="var(--purple)" stroke="#805AD5" stroke-width="1.2" opacity="0.6"/>
+  <rect x="519" y="40" width="38" height="38" rx="4" fill="var(--purple)" stroke="#805AD5" stroke-width="1.2" opacity="0.75"/>
+  <rect x="523" y="36" width="38" height="38" rx="4" fill="var(--purple)" stroke="#805AD5" stroke-width="1.2" opacity="0.9"/>
+
+  <!-- Arrow -->
+  <line x1="565" y1="70" x2="587" y2="70" stroke="var(--light)" stroke-width="1.5"/>
+  <polygon points="587,66 595,70 587,74" fill="var(--light)"/>
+
+  <!-- 6. Flatten -->
+  <text x="627" y="12" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:var(--dark);font-weight:700">Flatten</text>
+  <!-- Tall thin column to represent 1D vector -->
+  <rect x="617" y="30" width="20" height="84" rx="4" fill="var(--card)" stroke="var(--border)" stroke-width="1.2"/>
+  <!-- Little cells -->
+  <line x1="617" y1="42" x2="637" y2="42" stroke="var(--border)" stroke-width="0.8"/>
+  <line x1="617" y1="54" x2="637" y2="54" stroke="var(--border)" stroke-width="0.8"/>
+  <line x1="617" y1="66" x2="637" y2="66" stroke="var(--border)" stroke-width="0.8"/>
+  <line x1="617" y1="78" x2="637" y2="78" stroke="var(--border)" stroke-width="0.8"/>
+  <line x1="617" y1="90" x2="637" y2="90" stroke="var(--border)" stroke-width="0.8"/>
+  <line x1="617" y1="102" x2="637" y2="102" stroke="var(--border)" stroke-width="0.8"/>
+  <text x="627" y="125" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:var(--muted)">1D vector</text>
+
+  <!-- Arrow -->
+  <line x1="640" y1="70" x2="660" y2="70" stroke="var(--light)" stroke-width="1.5"/>
+  <polygon points="660,66 668,70 660,74" fill="var(--light)"/>
+
+  <!-- 7. Dense layers -->
+  <text x="705" y="12" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:var(--dark);font-weight:700">Dense</text>
+  <!-- Small MLP representation -->
+  <circle cx="688" cy="44" r="6" fill="var(--pink)" stroke="var(--accent)" stroke-width="1"/>
+  <circle cx="688" cy="60" r="6" fill="var(--pink)" stroke="var(--accent)" stroke-width="1"/>
+  <circle cx="688" cy="76" r="6" fill="var(--pink)" stroke="var(--accent)" stroke-width="1"/>
+  <circle cx="688" cy="92" r="6" fill="var(--pink)" stroke="var(--accent)" stroke-width="1"/>
+
+  <circle cx="722" cy="52" r="6" fill="var(--pink)" stroke="var(--accent)" stroke-width="1"/>
+  <circle cx="722" cy="68" r="6" fill="var(--pink)" stroke="var(--accent)" stroke-width="1"/>
+  <circle cx="722" cy="84" r="6" fill="var(--pink)" stroke="var(--accent)" stroke-width="1"/>
+
+  <!-- Dense connections (simplified) -->
+  <line x1="694" y1="44" x2="716" y2="52" stroke="var(--accent)" stroke-width="0.6" opacity="0.3"/>
+  <line x1="694" y1="44" x2="716" y2="68" stroke="var(--accent)" stroke-width="0.6" opacity="0.3"/>
+  <line x1="694" y1="60" x2="716" y2="52" stroke="var(--accent)" stroke-width="0.6" opacity="0.3"/>
+  <line x1="694" y1="60" x2="716" y2="68" stroke="var(--accent)" stroke-width="0.6" opacity="0.3"/>
+  <line x1="694" y1="60" x2="716" y2="84" stroke="var(--accent)" stroke-width="0.6" opacity="0.3"/>
+  <line x1="694" y1="76" x2="716" y2="68" stroke="var(--accent)" stroke-width="0.6" opacity="0.3"/>
+  <line x1="694" y1="76" x2="716" y2="84" stroke="var(--accent)" stroke-width="0.6" opacity="0.3"/>
+  <line x1="694" y1="92" x2="716" y2="84" stroke="var(--accent)" stroke-width="0.6" opacity="0.3"/>
+
+  <!-- Arrow -->
+  <line x1="730" y1="70" x2="750" y2="70" stroke="var(--light)" stroke-width="1.5"/>
+  <polygon points="750,66 758,70 750,74" fill="var(--light)"/>
+
+  <!-- 8. Output: class probabilities -->
+  <text x="805" y="12" text-anchor="middle" style="font-family:var(--hand);font-size:13px;fill:var(--dark);font-weight:700">Output</text>
+  <rect x="762" y="30" width="86" height="84" rx="8" fill="var(--card)" stroke="var(--border)" stroke-width="1.2"/>
+  <!-- Probability bars -->
+  <rect x="770" y="38" width="68" height="14" rx="3" fill="var(--act)" opacity="0.9"/>
+  <text x="774" y="49" style="font-family:var(--mono);font-size:9px;fill:#fff">cat: 92%</text>
+  <rect x="770" y="56" width="14" height="14" rx="3" fill="var(--out)" opacity="0.6"/>
+  <text x="790" y="67" style="font-family:var(--mono);font-size:9px;fill:var(--mid)">dog: 7%</text>
+  <rect x="770" y="74" width="4" height="14" rx="2" fill="#805AD5" opacity="0.5"/>
+  <text x="790" y="85" style="font-family:var(--mono);font-size:9px;fill:var(--mid)">bird: 1%</text>
+  <text x="770" y="103" style="font-family:var(--mono);font-size:8px;fill:var(--muted)">softmax</text>
+
+  <!-- ======== ANNOTATIONS BELOW PIPELINE ======== -->
+  <line x1="30" y1="140" x2="890" y2="140" stroke="var(--border)" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Conv 1 annotation -->
+  <rect x="138" y="148" width="100" height="28" rx="6" fill="var(--blue)" stroke="var(--pos)" stroke-width="1" opacity="0.5"/>
+  <text x="188" y="167" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#2B6CB0">Each filter detects</text>
+  <text x="188" y="185" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#2B6CB0">one pattern</text>
+
+  <!-- Pooling annotation -->
+  <rect x="260" y="148" width="88" height="28" rx="6" fill="var(--green)" stroke="var(--act)" stroke-width="1" opacity="0.5"/>
+  <text x="304" y="167" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#276749">Keeps strongest</text>
+  <text x="304" y="185" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#276749">signals, shrinks</text>
+
+  <!-- Conv 2 annotation -->
+  <rect x="374" y="148" width="100" height="28" rx="6" fill="var(--yellow)" stroke="#D69E2E" stroke-width="1" opacity="0.5"/>
+  <text x="424" y="167" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#975A16">Combines earlier</text>
+  <text x="424" y="185" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#975A16">features</text>
+
+  <!-- Conv 3 annotation -->
+  <rect x="495" y="148" width="100" height="28" rx="6" fill="var(--purple)" stroke="#805AD5" stroke-width="1" opacity="0.5"/>
+  <text x="545" y="167" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#553C9A">Detects complex</text>
+  <text x="545" y="185" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:#553C9A">parts (eyes, ears)</text>
+
+  <!-- ======== FEATURE HIERARCHY ======== -->
+  <text x="430" y="220" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:var(--accent);font-weight:700">What Each Layer Learns</text>
+
+  <!-- Layer 1: edges -->
+  <rect x="30" y="238" width="185" height="100" rx="10" fill="var(--card)" stroke="var(--border)" stroke-width="1.2"/>
+  <text x="122" y="256" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:var(--pos);font-weight:700">Early Layers</text>
+  <!-- Mini edge detection thumbnails -->
+  <!-- Horizontal edge -->
+  <rect x="44" y="266" width="36" height="36" rx="4" fill="var(--panel)"/>
+  <line x1="50" y1="284" x2="74" y2="284" stroke="#fff" stroke-width="2.5"/>
+  <text x="62" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">edge</text>
+  <!-- Vertical edge -->
+  <rect x="90" y="266" width="36" height="36" rx="4" fill="var(--panel)"/>
+  <line x1="108" y1="272" x2="108" y2="296" stroke="#fff" stroke-width="2.5"/>
+  <text x="108" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">edge</text>
+  <!-- Gradient -->
+  <rect x="136" y="266" width="36" height="36" rx="4" fill="var(--panel)"/>
+  <rect x="136" y="266" width="36" height="36" rx="4" fill="url(#grad1)" opacity="0.7"/>
+  <text x="154" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">gradient</text>
+  <!-- Diagonal -->
+  <rect x="182" y="266" width="28" height="36" rx="4" fill="var(--panel)"/>
+  <line x1="186" y1="298" x2="206" y2="270" stroke="#fff" stroke-width="2"/>
+  <text x="196" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">diag</text>
+
+  <defs>
+    <linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#000"/>
+      <stop offset="100%" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Arrow between feature groups -->
+  <line x1="220" y1="288" x2="237" y2="288" stroke="var(--accent)" stroke-width="1.5"/>
+  <polygon points="237,284 245,288 237,292" fill="var(--accent)"/>
+
+  <!-- Layer 2: textures & corners -->
+  <rect x="248" y="238" width="185" height="100" rx="10" fill="var(--card)" stroke="var(--border)" stroke-width="1.2"/>
+  <text x="340" y="256" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#D69E2E;font-weight:700">Middle Layers</text>
+  <!-- Corner -->
+  <rect x="262" y="266" width="36" height="36" rx="4" fill="var(--panel)"/>
+  <path d="M268,296 L268,275 L292,275" fill="none" stroke="#fff" stroke-width="2.5"/>
+  <text x="280" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">corner</text>
+  <!-- Texture (crosshatch) -->
+  <rect x="308" y="266" width="36" height="36" rx="4" fill="var(--panel)"/>
+  <line x1="314" y1="272" x2="338" y2="296" stroke="#fff" stroke-width="1.5" opacity="0.7"/>
+  <line x1="314" y1="284" x2="326" y2="296" stroke="#fff" stroke-width="1.5" opacity="0.7"/>
+  <line x1="326" y1="272" x2="338" y2="284" stroke="#fff" stroke-width="1.5" opacity="0.7"/>
+  <text x="326" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">texture</text>
+  <!-- Circle/curve -->
+  <rect x="354" y="266" width="36" height="36" rx="4" fill="var(--panel)"/>
+  <circle cx="372" cy="284" r="10" fill="none" stroke="#fff" stroke-width="2"/>
+  <text x="372" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">curve</text>
+  <!-- Stripe -->
+  <rect x="400" y="266" width="28" height="36" rx="4" fill="var(--panel)"/>
+  <line x1="406" y1="272" x2="406" y2="296" stroke="#fff" stroke-width="2" opacity="0.6"/>
+  <line x1="414" y1="272" x2="414" y2="296" stroke="#fff" stroke-width="2" opacity="0.8"/>
+  <line x1="422" y1="272" x2="422" y2="296" stroke="#fff" stroke-width="2" opacity="0.6"/>
+  <text x="414" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">stripe</text>
+
+  <!-- Arrow -->
+  <line x1="438" y1="288" x2="455" y2="288" stroke="var(--accent)" stroke-width="1.5"/>
+  <polygon points="455,284 463,288 455,292" fill="var(--accent)"/>
+
+  <!-- Layer 3: parts -->
+  <rect x="466" y="238" width="185" height="100" rx="10" fill="var(--card)" stroke="var(--border)" stroke-width="1.2"/>
+  <text x="558" y="256" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:#805AD5;font-weight:700">Deep Layers</text>
+  <!-- Eye shape -->
+  <rect x="480" y="266" width="36" height="36" rx="4" fill="var(--panel)"/>
+  <ellipse cx="498" cy="282" rx="10" ry="7" fill="none" stroke="#fff" stroke-width="1.5"/>
+  <circle cx="498" cy="282" r="3.5" fill="#4A9BD9"/>
+  <text x="498" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">eye</text>
+  <!-- Ear triangle -->
+  <rect x="526" y="266" width="36" height="36" rx="4" fill="var(--panel)"/>
+  <path d="M536,296 L544,270 L556,296 Z" fill="none" stroke="#fff" stroke-width="1.5"/>
+  <text x="544" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">ear</text>
+  <!-- Wheel -->
+  <rect x="572" y="266" width="36" height="36" rx="4" fill="var(--panel)"/>
+  <circle cx="590" cy="284" r="10" fill="none" stroke="#fff" stroke-width="1.5"/>
+  <line x1="590" y1="274" x2="590" y2="294" stroke="#fff" stroke-width="1"/>
+  <line x1="580" y1="284" x2="600" y2="284" stroke="#fff" stroke-width="1"/>
+  <text x="590" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">wheel</text>
+  <!-- Nose -->
+  <rect x="618" y="266" width="28" height="36" rx="4" fill="var(--panel)"/>
+  <path d="M626,286 L632,274 L638,286 Z" fill="#fff" opacity="0.8"/>
+  <text x="632" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">nose</text>
+
+  <!-- Arrow -->
+  <line x1="656" y1="288" x2="673" y2="288" stroke="var(--accent)" stroke-width="1.5"/>
+  <polygon points="673,284 681,288 673,292" fill="var(--accent)"/>
+
+  <!-- Final layers: objects -->
+  <rect x="684" y="238" width="156" height="100" rx="10" fill="var(--card)" stroke="var(--border)" stroke-width="1.2"/>
+  <text x="762" y="256" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:var(--accent);font-weight:700">Final Layers</text>
+  <!-- Cat face -->
+  <rect x="698" y="266" width="36" height="36" rx="4" fill="var(--panel)"/>
+  <path d="M704,296 L710,274 L716,284 L722,274 L728,296" fill="none" stroke="#fff" stroke-width="1.2"/>
+  <circle cx="710" cy="286" r="2" fill="#4A9BD9"/>
+  <circle cx="722" cy="286" r="2" fill="#4A9BD9"/>
+  <text x="716" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">cat</text>
+  <!-- Car shape -->
+  <rect x="744" y="266" width="36" height="36" rx="4" fill="var(--panel)"/>
+  <rect x="750" y="280" width="24" height="12" rx="3" fill="none" stroke="#fff" stroke-width="1.2"/>
+  <path d="M754,280 L758,272 L770,272 L774,280" fill="none" stroke="#fff" stroke-width="1.2"/>
+  <circle cx="757" cy="293" r="2.5" fill="#fff" opacity="0.6"/>
+  <circle cx="771" cy="293" r="2.5" fill="#fff" opacity="0.6"/>
+  <text x="762" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">car</text>
+  <!-- Person shape -->
+  <rect x="790" y="266" width="36" height="36" rx="4" fill="var(--panel)"/>
+  <circle cx="808" cy="274" r="4" fill="none" stroke="#fff" stroke-width="1.2"/>
+  <line x1="808" y1="278" x2="808" y2="290" stroke="#fff" stroke-width="1.2"/>
+  <line x1="800" y1="284" x2="816" y2="284" stroke="#fff" stroke-width="1.2"/>
+  <line x1="808" y1="290" x2="802" y2="298" stroke="#fff" stroke-width="1.2"/>
+  <line x1="808" y1="290" x2="814" y2="298" stroke="#fff" stroke-width="1.2"/>
+  <text x="808" y="314" text-anchor="middle" style="font-family:var(--body);font-size:10px;fill:var(--light)">person</text>
+
+  <!-- Bottom summary -->
+  <text x="430" y="355" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:var(--dark);font-weight:700">Simple &#8594; Complex: each layer builds on the one before it.</text>
+
+  <!-- Detailed annotations at bottom -->
+  <rect x="30" y="375" width="860" height="110" rx="10" fill="var(--card)" stroke="var(--border)" stroke-width="1"/>
+  <text x="430" y="395" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:var(--accent);font-weight:700">How Convolution Works</text>
+
+  <!-- Filter sliding illustration -->
+  <!-- Input patch -->
+  <text x="120" y="418" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:var(--dark)">A small filter (3&#215;3) slides</text>
+  <text x="120" y="434" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:var(--dark)">across the entire image:</text>
+  <!-- Mini grid with sliding window -->
+  <rect x="60" y="442" width="48" height="38" rx="3" fill="var(--panel)"/>
+  <!-- Grid cells -->
+  <rect x="62" y="444" width="10" height="10" fill="#fff" opacity="0.2"/>
+  <rect x="74" y="444" width="10" height="10" fill="#fff" opacity="0.2"/>
+  <rect x="86" y="444" width="10" height="10" fill="#fff" opacity="0.2"/>
+  <rect x="96" y="444" width="10" height="10" fill="#fff" opacity="0.2"/>
+  <rect x="62" y="456" width="10" height="10" fill="#fff" opacity="0.2"/>
+  <rect x="74" y="456" width="10" height="10" fill="#fff" opacity="0.2"/>
+  <rect x="86" y="456" width="10" height="10" fill="#fff" opacity="0.2"/>
+  <rect x="96" y="456" width="10" height="10" fill="#fff" opacity="0.2"/>
+  <rect x="62" y="468" width="10" height="10" fill="#fff" opacity="0.2"/>
+  <rect x="74" y="468" width="10" height="10" fill="#fff" opacity="0.2"/>
+  <rect x="86" y="468" width="10" height="10" fill="#fff" opacity="0.2"/>
+  <rect x="96" y="468" width="10" height="10" fill="#fff" opacity="0.2"/>
+  <!-- Sliding 2x2 highlight -->
+  <rect x="74" y="444" width="22" height="22" rx="2" fill="var(--accent)" opacity="0.35" stroke="var(--accent)" stroke-width="1.5"/>
+
+  <!-- Multiply + Sum -->
+  <text x="135" y="461" style="font-family:var(--mono);font-size:14px;fill:var(--light)">&#215;</text>
+  <!-- Filter -->
+  <rect x="150" y="444" width="22" height="22" rx="3" fill="var(--accent)" opacity="0.25" stroke="var(--accent)" stroke-width="1.5"/>
+  <text x="161" y="458" text-anchor="middle" style="font-family:var(--body);font-size:9px;fill:var(--accent)">filter</text>
+
+  <text x="185" y="461" style="font-family:var(--mono);font-size:14px;fill:var(--light)">=</text>
+
+  <!-- One number output -->
+  <rect x="198" y="448" width="16" height="16" rx="3" fill="var(--green)" stroke="var(--act)" stroke-width="1"/>
+  <text x="206" y="460" text-anchor="middle" style="font-family:var(--mono);font-size:9px;fill:#276749">n</text>
+
+  <!-- Explanation labels -->
+  <text x="370" y="420" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:var(--dark);font-weight:700">Key parameters:</text>
+  <text x="370" y="438" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:var(--mid)">Filter size: 3&#215;3 or 5&#215;5</text>
+  <text x="370" y="454" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:var(--mid)">Stride: how far the filter slides</text>
+  <text x="370" y="470" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:var(--mid)">Padding: border handling</text>
+
+  <!-- Max pooling explanation -->
+  <text x="620" y="418" text-anchor="middle" style="font-family:var(--body);font-size:12px;fill:var(--dark);font-weight:700">Max Pooling (2&#215;2):</text>
+  <!-- 2x2 block -> 1 value -->
+  <rect x="570" y="432" width="16" height="16" rx="2" fill="var(--panel)"/>
+  <text x="578" y="444" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#fff">3</text>
+  <rect x="588" y="432" width="16" height="16" rx="2" fill="var(--panel)"/>
+  <text x="596" y="444" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#fff">1</text>
+  <rect x="570" y="450" width="16" height="16" rx="2" fill="var(--accent)" opacity="0.7"/>
+  <text x="578" y="462" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#fff">7</text>
+  <rect x="588" y="450" width="16" height="16" rx="2" fill="var(--panel)"/>
+  <text x="596" y="462" text-anchor="middle" style="font-family:var(--mono);font-size:8px;fill:#fff">4</text>
+  <text x="622" y="453" text-anchor="middle" style="font-family:var(--mono);font-size:14px;fill:var(--light)">&#8594;</text>
+  <rect x="638" y="438" width="22" height="22" rx="3" fill="var(--act)" opacity="0.8"/>
+  <text x="649" y="454" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:#fff">7</text>
+  <text x="690" y="453" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:var(--mid)">Keep the max</text>
+  <text x="690" y="468" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:var(--mid)">value only</text>
+</svg>
+</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 5: THE TRAINING LOOP                  -->
+<!-- ============================================ -->
+<div class="section">
+<div class="section-num">Section 5</div>
+<h2 class="section-title">The Training Loop</h2>
+<p class="section-desc">How a network learns: make predictions, measure errors, adjust weights, repeat.</p>
+
+<div class="diagram-box">
+<svg viewBox="0 -10 890 445" aria-labelledby="training-title" role="img">
+  <title id="training-title">Circular training loop: Forward Pass, Loss Function, Backward Pass, Update Weights</title>
+
+  <!-- Center label -->
+  <text x="430" y="188" text-anchor="middle" style="font-family:var(--hand);font-size:16px;fill:var(--accent);font-weight:700">Repeat</text>
+  <text x="430" y="210" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:var(--muted)">10,000 &ndash; 1,000,000</text>
+  <text x="430" y="228" text-anchor="middle" style="font-family:var(--hand);font-size:14px;fill:var(--muted)">times</text>
+
+  <!-- Step 1: Forward Pass (top) -->
+  <rect x="290" y="14" width="280" height="70" rx="14" fill="var(--blue)" stroke="var(--pos)" stroke-width="2"/>
+  <text x="430" y="42" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#2B6CB0;font-weight:700">1. Forward Pass</text>
+  <text x="430" y="62" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#2B6CB0">Input &#8594; through network &#8594; prediction</text>
+  <!-- Step number circle -->
+  <circle cx="290" cy="14" r="14" fill="var(--pos)" stroke="#fff" stroke-width="2"/>
+  <text x="290" y="19" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#fff;font-weight:700">1</text>
+
+  <!-- Arrow: Forward -> Loss (right side, going down) -->
+  <line x1="570" y1="64" x2="680" y2="120" stroke="var(--mid)" stroke-width="2"/>
+  <polygon points="676,114 686,124 672,122" fill="var(--mid)"/>
+
+  <!-- Step 2: Loss Function (right) -->
+  <rect x="580" y="128" width="260" height="70" rx="14" fill="var(--pink)" stroke="var(--accent)" stroke-width="2"/>
+  <text x="710" y="156" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#C53030;font-weight:700">2. Loss Function</text>
+  <text x="710" y="176" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#C53030">Prediction vs. truth &#8594; error</text>
+  <circle cx="580" cy="128" r="14" fill="var(--accent)" stroke="#fff" stroke-width="2"/>
+  <text x="580" y="133" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#fff;font-weight:700">2</text>
+
+  <!-- Arrow: Loss -> Backward (right side, going down) -->
+  <line x1="680" y1="198" x2="580" y2="260" stroke="var(--mid)" stroke-width="2"/>
+  <polygon points="584,254 576,264 582,262" fill="var(--mid)"/>
+
+  <!-- Step 3: Backward Pass (bottom) -->
+  <rect x="290" y="268" width="280" height="70" rx="14" fill="var(--purple)" stroke="#805AD5" stroke-width="2"/>
+  <text x="430" y="296" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#553C9A;font-weight:700">3. Backward Pass</text>
+  <text x="430" y="316" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#553C9A">Compute gradients: which weights caused errors?</text>
+  <circle cx="570" cy="338" r="14" fill="#805AD5" stroke="#fff" stroke-width="2"/>
+  <text x="570" y="343" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#fff;font-weight:700">3</text>
+
+  <!-- Arrow: Backward -> Update (left side, going up) -->
+  <line x1="290" y1="292" x2="180" y2="240" stroke="var(--mid)" stroke-width="2"/>
+  <polygon points="184,246 176,236 188,238" fill="var(--mid)"/>
+
+  <!-- Step 4: Update Weights (left) -->
+  <rect x="20" y="128" width="260" height="70" rx="14" fill="var(--green)" stroke="var(--act)" stroke-width="2"/>
+  <text x="150" y="156" text-anchor="middle" style="font-family:var(--hand);font-size:18px;fill:#276749;font-weight:700">4. Update Weights</text>
+  <text x="150" y="176" text-anchor="middle" style="font-family:var(--body);font-size:13px;fill:#276749">weight -= learning_rate &#215; gradient</text>
+  <circle cx="280" cy="198" r="14" fill="var(--act)" stroke="#fff" stroke-width="2"/>
+  <text x="280" y="203" text-anchor="middle" style="font-family:var(--mono);font-size:11px;fill:#fff;font-weight:700">4</text>
+
+  <!-- Arrow: Update -> Forward (left side, going up) -->
+  <line x1="180" y1="128" x2="290" y2="72" stroke="var(--mid)" stroke-width="2"/>
+  <polygon points="286,78 294,68 292,80" fill="var(--mid)"/>
+
+  <!-- Detail annotations outside the loop -->
+  <!-- Forward details -->
+  <rect x="16" y="18" width="240" height="56" rx="8" fill="var(--card)" stroke="var(--border)" stroke-width="1"/>
+  <text x="136" y="38" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:var(--mid)">prediction = model(input)</text>
+  <text x="136" y="56" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:var(--light)">Data flows forward through every layer</text>
+
+  <!-- Loss details -->
+  <rect x="620" y="210" width="220" height="56" rx="8" fill="var(--card)" stroke="var(--border)" stroke-width="1"/>
+  <text x="730" y="230" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:var(--mid)">loss = (pred - truth)&#178;</text>
+  <text x="730" y="248" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:var(--light)">One number: how wrong were we?</text>
+
+  <!-- Backward details -->
+  <rect x="600" y="318" width="240" height="56" rx="8" fill="var(--card)" stroke="var(--border)" stroke-width="1"/>
+  <text x="720" y="338" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:var(--mid)">gradients = backprop(loss)</text>
+  <text x="720" y="356" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:var(--light)">Chain rule: blame flows backward</text>
+
+  <!-- Update details -->
+  <rect x="16" y="210" width="240" height="56" rx="8" fill="var(--card)" stroke="var(--border)" stroke-width="1"/>
+  <text x="136" y="230" text-anchor="middle" style="font-family:var(--mono);font-size:10px;fill:var(--mid)">w = w - lr * grad</text>
+  <text x="136" y="248" text-anchor="middle" style="font-family:var(--body);font-size:11px;fill:var(--light)">Nudge each weight to reduce error</text>
+
+  <!-- Big bottom summary -->
+  <text x="430" y="395" text-anchor="middle" style="font-family:var(--hand);font-size:15px;fill:var(--dark);font-weight:700">Each loop makes the network slightly less wrong. Over millions of loops, it learns.</text>
+</svg>
+</div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 6: KEY TERMS GLOSSARY                 -->
+<!-- ============================================ -->
+<div class="section">
+<div class="section-num">Section 6</div>
+<h2 class="section-title">Key Terms Glossary</h2>
+<p class="section-desc">Quick reference for the essential vocabulary of neural networks.</p>
+
+<div class="glossary">
+<div class="glossary-grid">
+  <div class="glossary-item">
+    <span class="glossary-term">Epoch</span>
+    <span class="glossary-def">One complete pass through the entire training dataset. Training typically takes 10-100+ epochs.</span>
+  </div>
+  <div class="glossary-item">
+    <span class="glossary-term">Batch</span>
+    <span class="glossary-def">A subset of training data used per weight update step. Common sizes: 32, 64, 128, 256.</span>
+  </div>
+  <div class="glossary-item">
+    <span class="glossary-term">Learning Rate</span>
+    <span class="glossary-def">How large each weight adjustment is. Too high: overshoots. Too low: learns too slowly.</span>
+  </div>
+  <div class="glossary-item">
+    <span class="glossary-term">Loss</span>
+    <span class="glossary-def">A single number measuring how wrong the network's predictions are. Training minimizes this.</span>
+  </div>
+  <div class="glossary-item">
+    <span class="glossary-term">Gradient</span>
+    <span class="glossary-def">The direction and magnitude to adjust each weight. Computed via backpropagation (chain rule).</span>
+  </div>
+  <div class="glossary-item">
+    <span class="glossary-term">Overfitting</span>
+    <span class="glossary-def">When a network memorizes training data instead of learning general patterns. Fails on new data.</span>
+  </div>
+  <div class="glossary-item">
+    <span class="glossary-term">Activation</span>
+    <span class="glossary-def">A nonlinear function applied after each neuron's weighted sum. Without it, deep networks collapse to one layer.</span>
+  </div>
+  <div class="glossary-item">
+    <span class="glossary-term">Weight</span>
+    <span class="glossary-def">A learnable number on each connection. The network's &ldquo;knowledge&rdquo; is entirely stored in its weights.</span>
+  </div>
+  <div class="glossary-item">
+    <span class="glossary-term">Bias</span>
+    <span class="glossary-def">An extra learnable offset added before the activation function. Shifts the decision boundary.</span>
+  </div>
+  <div class="glossary-item">
+    <span class="glossary-term">Dropout</span>
+    <span class="glossary-def">Randomly disabling neurons during training. Prevents over-reliance on any single pathway.</span>
+  </div>
+  <div class="glossary-item">
+    <span class="glossary-term">Feature Map</span>
+    <span class="glossary-def">The output of one convolutional filter applied to an image. Highlights one type of visual pattern.</span>
+  </div>
+  <div class="glossary-item">
+    <span class="glossary-term">Backpropagation</span>
+    <span class="glossary-def">The algorithm that computes gradients layer by layer, from output back to input, using the chain rule.</span>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- Footer -->
+<footer style="text-align:center;padding:32px 16px 0;border-top:2px solid var(--border);margin-top:24px">
+  <p style="font-family:var(--hand);font-size:14px;color:#718096;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px">From Turing to Swarms</p>
+  <p style="font-family:var(--body);font-size:14px;color:var(--light)">Neural Network Anatomy &mdash; Illustration companion to <a href="../issues/v2/issue_06/index.html" style="color:var(--accent);text-decoration:none;border-bottom:1px dashed var(--accent)">Issue 6: Machines That Learn</a></p>
+  <p style="font-family:var(--body);font-size:13px;color:#718096;margin-top:8px">&larr; <a href="../issues/v2/issue_06/index.html" style="color:var(--accent);text-decoration:none">Back to Issue 6</a></p>
+</footer>
+
+</div><!-- /.poster -->
+
+</body>
+</html>
