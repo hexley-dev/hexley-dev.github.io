@@ -665,6 +665,7 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
     <a href="character_design.html">Characters</a>
     <a href="style_experiments.html">Styles</a>
     <a href="lessons.html" class="active">Lessons</a>
+    <a href="timeline.html">Timeline</a>
   </nav>
 
 <!-- ═══ LESSONS ═══ -->
@@ -676,7 +677,7 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
     <div class="timeline-item">
       <div class="timeline-date">Lesson 01</div>
       <div class="timeline-title">One GPU process at a time</div>
-      <div class="timeline-desc">The initial image generation used Z-Image-Turbo locally. Two parallel runs crashed the GPU. The script that deleted 61 images before confirming torch worked was the costliest mistake. We now use FLUX.2-dev (NVFP4) on DGX Spark.</div>
+      <div class="timeline-desc">The published v1/v2 image generation used Z-Image-Turbo on local MPS. Two parallel runs crashed the GPU. The script that deleted 61 images before confirming torch worked was the costliest mistake. Current experimental work uses FLUX.2-dev (NF4) on DGX Spark.</div>
     </div>
     <div class="timeline-item">
       <div class="timeline-date">Lesson 02</div>

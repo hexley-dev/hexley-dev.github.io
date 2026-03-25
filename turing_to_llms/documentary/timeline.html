@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Timeline — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-raised: #141414;
+  --bg-card: #1a1a1a;
+  --text: #e8e4de;
+  --text-dim: #8a8580;
+  --text-muted: #5a5652;
+  --accent: #c8956c;
+  --accent-bright: #e8b078;
+  --accent-dim: #8a6548;
+  --brass: #b8944c;
+  --brass-glow: #d4a854;
+  --red: #c45c4c;
+  --green: #6ca874;
+  --blue: #5c8cbc;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 3px; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 50%, rgba(200, 149, 108, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(92, 140, 188, 0.04) 0%, transparent 60%);
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s ease-out forwards;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  line-height: 1.1;
+  color: var(--text);
+  position: relative;
+  opacity: 0;
+  animation: fadeUp 1.2s 0.5s ease-out forwards;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent-bright);
+}
+
+.hero-sub {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-dim);
+  margin-top: 1.5rem;
+  max-width: 600px;
+  opacity: 0;
+  animation: fadeUp 1s 0.8s ease-out forwards;
+}
+
+.hero-line {
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  margin-top: 3rem;
+  opacity: 0;
+  animation: fadeUp 1s 1.2s ease-out forwards;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 1s 1s ease-out forwards;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat-num {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 600;
+  color: var(--accent-bright);
+  line-height: 1;
+}
+
+.hero-stat-label {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 0.3rem;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTIONS ── */
+section {
+  padding: 6rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent-dim);
+  margin-bottom: 1rem;
+}
+
+section h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+section h2 em { font-style: italic; color: var(--accent-bright); }
+
+.section-lead {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--text-dim);
+  max-width: 680px;
+  margin-bottom: 3rem;
+  line-height: 1.8;
+}
+
+.prose {
+  max-width: 680px;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.prose strong { color: var(--text); font-weight: 500; }
+
+/* ── DIVIDERS ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--text-muted), transparent);
+  opacity: 0.3;
+}
+
+.divider span {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ── NAV ── */
+.doc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.doc-nav a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.doc-nav a:hover, .doc-nav a.active {
+  color: var(--accent-bright);
+}
+
+/* ── STATS GRID ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: border-color 0.3s ease;
+}
+
+.stat-card:hover { border-color: var(--accent-dim); }
+
+.stat-num {
+  font-family: var(--serif);
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--accent-bright);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 0.5rem;
+}
+
+/* ── SESSION TABLE ── */
+.session-table-wrap {
+  overflow-x: auto;
+  margin: 2rem 0;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.session-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  min-width: 700px;
+}
+
+.session-table thead {
+  background: var(--bg-card);
+}
+
+.session-table th {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-dim);
+  padding: 0.8rem 1rem;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.session-table td {
+  padding: 0.6rem 1rem;
+  color: var(--text-dim);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  vertical-align: top;
+}
+
+.session-table tr:hover td {
+  background: rgba(200, 149, 108, 0.03);
+  color: var(--text);
+}
+
+.session-table .num {
+  font-family: var(--mono);
+  color: var(--accent);
+  font-size: 0.75rem;
+}
+
+.session-table .date {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.session-table .agents {
+  font-family: var(--mono);
+  color: var(--accent-bright);
+  font-weight: 400;
+}
+
+/* ── TIMELINE ── */
+.timeline {
+  position: relative;
+  margin: 3rem 0;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent-dim), var(--text-muted), transparent);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+  padding-left: 1.5rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.35rem;
+  top: 0.4rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(200, 149, 108, 0.4);
+}
+
+.timeline-date {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--accent-dim);
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.timeline-title {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-desc {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  max-width: 650px;
+  margin-bottom: 0.8rem;
+}
+
+.timeline-details {
+  list-style: none;
+  padding: 0;
+  margin: 0.8rem 0;
+}
+
+.timeline-details li {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  padding: 0.2rem 0 0.2rem 1.2rem;
+  position: relative;
+}
+
+.timeline-details li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.timeline-milestone {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: rgba(108, 168, 116, 0.1);
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  margin-top: 0.4rem;
+}
+
+.timeline-meta {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* ── DATA TABLES ── */
+.data-table-wrap {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.data-table thead {
+  background: var(--bg-card);
+}
+
+.data-table th {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-dim);
+  padding: 0.7rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.data-table td {
+  padding: 0.5rem 1rem;
+  color: var(--text-dim);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.data-table tr:hover td {
+  background: rgba(200, 149, 108, 0.03);
+}
+
+.data-table .highlight {
+  color: var(--accent-bright);
+  font-weight: 400;
+}
+
+.data-table .mono {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+}
+
+.data-table tfoot td {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ── QUOTE ── */
+.quote-block {
+  border-left: 2px solid var(--accent-dim);
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+  background: rgba(200, 149, 108, 0.03);
+  border-radius: 0 8px 8px 0;
+}
+
+.quote-block p {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* ── NARRATIVE ARC ── */
+.arc-item {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  align-items: start;
+}
+
+.arc-num {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--accent-dim);
+  line-height: 1;
+  text-align: right;
+  padding-top: 0.2rem;
+}
+
+.arc-text {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+.arc-text strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.arc-text .arc-date {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--accent-dim);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  section { padding: 4rem 1.5rem; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-stats { gap: 1.5rem; }
+  .arc-item { grid-template-columns: 40px 1fr; gap: 1rem; }
+  .arc-num { font-size: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .hero-stats { flex-direction: column; gap: 1rem; }
+  .doc-nav { gap: 0.8rem; font-size: 0.6rem; overflow-x: auto; }
+}
+
+</style>
+</head>
+<body>
+
+<nav class="doc-nav">
+    <a href="index.html">Overview</a>
+    <a href="pipeline.html">Pipeline</a>
+    <a href="character_design.html">Characters</a>
+    <a href="style_experiments.html">Styles</a>
+    <a href="lessons.html">Lessons</a>
+    <a href="timeline.html" class="active">Timeline</a>
+  </nav>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="hero-eyebrow">Project Timeline</div>
+  <h1>47 days of<br><em>building.</em></h1>
+  <p class="hero-sub">
+    A chronological record of how a 10-issue educational comic series was built
+    entirely by human-AI collaboration using multi-agent orchestration.
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">47</div>
+      <div class="hero-stat-label">Days</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">33</div>
+      <div class="hero-stat-label">Sessions</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">618</div>
+      <div class="hero-stat-label">Agents Spawned</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">1,916</div>
+      <div class="hero-stat-label">Images Generated</div>
+    </div>
+  </div>
+  <div class="hero-line"></div>
+</header>
+
+
+<!-- ═══ SESSION OVERVIEW ═══ -->
+<div class="divider"><span>All Sessions</span></div>
+
+<section class="reveal">
+  <div class="section-num">01 — Session Log</div>
+  <h2>33 sessions across<br><em>47 days.</em></h2>
+  <p class="section-lead">
+    From the first 6-hour marathon that produced all 10 issue drafts
+    to the 7-day mega-session that reviewed every generated image.
+  </p>
+
+  <div class="session-table-wrap">
+    <table class="session-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>Duration</th>
+          <th>Agents</th>
+          <th>Focus</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="num">1</td><td class="date">Feb 7</td><td>~6h</td><td class="agents">37</td><td>Research + write all 10 issues</td></tr>
+        <tr><td class="num">2</td><td class="date">Feb 7</td><td>~2h</td><td class="agents">4</td><td>Layout design continuation</td></tr>
+        <tr><td class="num">3</td><td class="date">Feb 7</td><td>~4h</td><td class="agents">31</td><td>Proofreading + editorial review (Issues 1-2)</td></tr>
+        <tr><td class="num">4</td><td class="date">Feb 8</td><td>~6h</td><td class="agents">21</td><td>Proofreading + fixes (Issues 3-5)</td></tr>
+        <tr><td class="num">5</td><td class="date">Feb 8</td><td>~12h</td><td class="agents">51</td><td>Full pipeline: edit, red team, proofread, fix (Issues 5-10)</td></tr>
+        <tr><td class="num">6</td><td class="date">Feb 9</td><td>~4h</td><td class="agents">19</td><td>Final editorial fixes (Issue 9 etc.)</td></tr>
+        <tr><td class="num">7</td><td class="date">Feb 9</td><td>brief</td><td class="agents">1</td><td>Spot fix</td></tr>
+        <tr><td class="num">8</td><td class="date">Feb 12</td><td>~8h</td><td class="agents">42</td><td>SVG visual review (18 visual reviewers) + interactive labs</td></tr>
+        <tr><td class="num">9</td><td class="date">Feb 14</td><td>brief</td><td class="agents">4</td><td>Small fixes</td></tr>
+        <tr><td class="num">10</td><td class="date">Feb 15</td><td>~6h</td><td class="agents">53</td><td>V2 rewrite: 10 writers + 10 editors + 10 red team</td></tr>
+        <tr><td class="num">11</td><td class="date">Feb 15</td><td>~12h</td><td class="agents">83</td><td>V2 continuation: more writers + editors + red team</td></tr>
+        <tr><td class="num">12</td><td class="date">Feb 15</td><td>~3h</td><td class="agents">16</td><td>V2 assembly and fixes</td></tr>
+        <tr><td class="num">13</td><td class="date">Feb 15</td><td>~1h</td><td class="agents">9</td><td>More fixes</td></tr>
+        <tr><td class="num">14</td><td class="date">Feb 15</td><td>brief</td><td class="agents">4</td><td>Spot fixes</td></tr>
+        <tr><td class="num">15</td><td class="date">Feb 15</td><td>brief</td><td class="agents">8</td><td>Spot fixes</td></tr>
+        <tr><td class="num">16</td><td class="date">Feb 15</td><td>~2h</td><td class="agents">14</td><td>Layout review</td></tr>
+        <tr><td class="num">17</td><td class="date">Feb 15</td><td>brief</td><td class="agents">3</td><td>Small review</td></tr>
+        <tr><td class="num">18</td><td class="date">Feb 15</td><td>brief</td><td class="agents">2</td><td>Spot fix</td></tr>
+        <tr><td class="num">19</td><td class="date">Feb 15</td><td>~4h</td><td class="agents">16</td><td>Layout/assembly work</td></tr>
+        <tr><td class="num">20</td><td class="date">Feb 15</td><td>brief</td><td class="agents">1</td><td>Single task</td></tr>
+        <tr><td class="num">21</td><td class="date">Feb 15</td><td>brief</td><td class="agents">1</td><td>Single task</td></tr>
+        <tr><td class="num">22</td><td class="date">Feb 16</td><td>~6h</td><td class="agents">39</td><td>Visual review round (20 visual reviewers)</td></tr>
+        <tr><td class="num">23</td><td class="date">Feb 16</td><td>~4h</td><td class="agents">19</td><td>More visual review</td></tr>
+        <tr><td class="num">24</td><td class="date">Feb 16</td><td>~6h</td><td class="agents">26</td><td>Visual review + frontend polish</td></tr>
+        <tr><td class="num">25</td><td class="date">Feb 16</td><td>brief</td><td class="agents">1</td><td>Single task</td></tr>
+        <tr><td class="num">26</td><td class="date">Feb 16-23</td><td>7 days</td><td class="agents">62</td><td>Image review + regeneration (437 images across 10 issues)</td></tr>
+        <tr><td class="num">27</td><td class="date">Feb 28</td><td>2.5h</td><td class="agents">9</td><td>Git commits + process analysis of 50 sessions</td></tr>
+        <tr><td class="num">28</td><td class="date">Feb 28</td><td>&lt;1m</td><td class="agents">1</td><td>Micro session: repo improvement suggestion</td></tr>
+        <tr><td class="num">29</td><td class="date">Feb 28</td><td>18m</td><td class="agents">7</td><td>Repo improvements + execution</td></tr>
+        <tr><td class="num">30</td><td class="date">Feb 28 - Mar 7</td><td>6+ days</td><td class="agents">1</td><td>Code quality refactoring (12 phases), CI, tests</td></tr>
+        <tr><td class="num">31</td><td class="date">Mar 17-21</td><td>4 days</td><td class="agents">15</td><td>Character design + style experiments + FLUX.2-dev on DGX Spark</td></tr>
+        <tr><td class="num">32</td><td class="date">Mar 21-22</td><td>19h</td><td class="agents">14</td><td>Photo-real Scribble, multi-image API, 500+ character designs</td></tr>
+        <tr><td class="num">33</td><td class="date">Mar 25</td><td>8h</td><td class="agents">34</td><td>Experiment reorg, documentary, behind-the-scenes</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- ═══ CHRONOLOGICAL PHASES ═══ -->
+<div class="divider"><span>Chronological Phases</span></div>
+
+<section class="reveal">
+  <div class="section-num">02 — The Build</div>
+  <h2>Nine phases from<br><em>genesis to reflection.</em></h2>
+  <p class="section-lead">
+    The project moved through distinct phases: research, editorial review,
+    image generation, quality review, character design, and documentation.
+  </p>
+
+  <div class="timeline">
+
+    <!-- Phase 1 -->
+    <div class="timeline-item">
+      <div class="timeline-date">Phase 1 — Feb 7, 2026</div>
+      <div class="timeline-title">Genesis</div>
+      <div class="timeline-meta">Sessions 1-3 · 72 subagents</div>
+      <div class="timeline-desc">Built the entire 10-issue series from scratch in a single day.</div>
+      <ul class="timeline-details">
+        <li>10 Researcher agents spawned in parallel for historical facts</li>
+        <li>10 Writer agents drafted page-by-page scripts with dialogue and narration</li>
+        <li>5 Layout Designer agents created panel manifest JSON files</li>
+        <li>Proofreading and editorial review began immediately on completed issues</li>
+        <li>The "Constellation Pattern" established: agents communicate only through files</li>
+      </ul>
+      <span class="timeline-milestone">All 10 issue scripts drafted in ~6 hours</span>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="timeline-item">
+      <div class="timeline-date">Phase 2 — Feb 7-9, 2026</div>
+      <div class="timeline-title">Editorial Gauntlet</div>
+      <div class="timeline-meta">Sessions 3-7 · 122 subagents</div>
+      <div class="timeline-desc">Multi-round editorial review and quality fixes across all issues.</div>
+      <ul class="timeline-details">
+        <li>Editor agents checked factual accuracy, pacing, and clarity</li>
+        <li>Red Team agents challenged for errors, oversimplifications, and bias</li>
+        <li>Proofreader agents verified SVG rendering, robot consistency, link validation</li>
+        <li>Fixer agents applied patches based on review reports</li>
+        <li>Multiple proofreading rounds per issue (up to v4 for some)</li>
+      </ul>
+      <span class="timeline-milestone">All 10 scripts approved through editorial pipeline</span>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="timeline-item">
+      <div class="timeline-date">Phase 3 — Feb 12, 2026</div>
+      <div class="timeline-title">Interactive Labs &amp; Illustrations</div>
+      <div class="timeline-meta">Session 8 · 42 subagents</div>
+      <div class="timeline-desc">Built supplementary interactive content and SVG visual quality review.</div>
+      <ul class="timeline-details">
+        <li>18 Visual Reviewer agents examined SVG diagrams across all issues</li>
+        <li>Built 16 interactive JavaScript labs (Turing Machine sandbox, neural network playground, sorting arena)</li>
+        <li>Created 10 detailed illustrations</li>
+      </ul>
+      <span class="timeline-milestone">Supplementary educational content complete</span>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="timeline-item">
+      <div class="timeline-date">Phase 4 — Feb 15, 2026</div>
+      <div class="timeline-title">V2 Scripts</div>
+      <div class="timeline-meta">Sessions 10-21 · ~210 subagents across 12 sessions</div>
+      <div class="timeline-desc">Complete rewrite of all 10 issue scripts for V2. The most agent-intensive day of the project.</div>
+      <ul class="timeline-details">
+        <li>Massive parallel spawning: 10 writers + 10 editors + 10 red team simultaneously</li>
+        <li>Multiple rounds of revisions with fixer agents</li>
+        <li>Layout review across batches of issues</li>
+        <li>Up to 83 subagents in a single session</li>
+        <li>12 separate sessions as the user pushed to complete V2 scripts in one day</li>
+      </ul>
+      <span class="timeline-milestone">V2 scripts complete</span>
+    </div>
+
+    <!-- Phase 5 -->
+    <div class="timeline-item">
+      <div class="timeline-date">Phase 5 — Feb 16, 2026</div>
+      <div class="timeline-title">Image Generation &amp; Visual Review</div>
+      <div class="timeline-meta">Sessions 22-25 · 85 subagents</div>
+      <div class="timeline-desc">AI image generation using Z-Image-Turbo (local MPS) and visual quality review.</div>
+      <ul class="timeline-details">
+        <li>Generated 438 images across 10 issues using Z-Image-Turbo</li>
+        <li>20+ Visual Reviewer agents checked rendering quality in batches</li>
+        <li>Frontend polish: accessibility, reduced-motion, design standardization</li>
+        <li>SVG sanitization pass across all issues</li>
+      </ul>
+      <span class="timeline-milestone">V1 published — all 10 issues fully produced</span>
+    </div>
+
+    <!-- Phase 6 -->
+    <div class="timeline-item">
+      <div class="timeline-date">Phase 6 — Feb 16-23, 2026</div>
+      <div class="timeline-title">The Mega-Session</div>
+      <div class="timeline-meta">Session 26 · 62 subagents · 63.5MB transcript</div>
+      <div class="timeline-desc">Systematic review of all 437 AI-generated images and targeted regeneration over 7 days.</div>
+      <ul class="timeline-details">
+        <li>10 parallel Image Reviewer agents (one per issue), each examining 32-58 images</li>
+        <li>Findings: 437 images reviewed, 330 OK, 3 critical, 71 warnings</li>
+        <li>Dominant issue: AI text garbling in speech bubbles</li>
+        <li>Secondary: anachronistic hardware (modern computers in 1960s scenes)</li>
+        <li>Regenerated 107 images with fixed prompts across all 10 issues</li>
+        <li>Post-regen review: 10 more agents verified fixes</li>
+      </ul>
+      <span class="timeline-milestone">V2 published — all images reviewed and fixed</span>
+    </div>
+
+    <!-- Phase 7 -->
+    <div class="timeline-item">
+      <div class="timeline-date">Phase 7 — Feb 28, 2026</div>
+      <div class="timeline-title">Process Retrospective</div>
+      <div class="timeline-meta">Sessions 27-30 · 18 subagents</div>
+      <div class="timeline-desc">Git housekeeping, process analysis, and code quality refactoring.</div>
+      <ul class="timeline-details">
+        <li>Organized 195 uncommitted files into 5 logical git commits</li>
+        <li>4 analysis agents mined 420MB of session transcripts for process improvements</li>
+        <li>Major code quality refactoring: 12 phases, 44 tests, GitHub Actions CI</li>
+        <li>Caught a real bug: batch_generate.py referenced a removed variable</li>
+        <li>22 production rules codified from 50-session analysis</li>
+      </ul>
+      <span class="timeline-milestone">CLAUDE.md hardened with 22 production rules</span>
+    </div>
+
+    <!-- Phase 8 -->
+    <div class="timeline-item">
+      <div class="timeline-date">Phase 8 — Mar 17-22, 2026</div>
+      <div class="timeline-title">Character Design &amp; Style Exploration</div>
+      <div class="timeline-meta">Sessions 31-32 · 29 subagents</div>
+      <div class="timeline-desc">Exploring visual styles and character designs using FLUX.2-dev on DGX Spark GPU.</div>
+      <ul class="timeline-details">
+        <li>Connected to Sparky API (DGX Spark running FLUX.2-dev NF4)</li>
+        <li>Generated 769 character design images (concepts, era-themed, material studies)</li>
+        <li>Produced 8 full art style experiments for Issue 1 (484 images)</li>
+        <li>Extended Sparky API to support multi-image editing</li>
+        <li>Leading character emerged: Scribble v2 "The Cruiser"</li>
+      </ul>
+      <span class="timeline-milestone">8 visual style experiments + 769 character designs</span>
+    </div>
+
+    <!-- Phase 9 -->
+    <div class="timeline-item">
+      <div class="timeline-date">Phase 9 — Mar 25, 2026</div>
+      <div class="timeline-title">Organization &amp; Documentary</div>
+      <div class="timeline-meta">Session 33 · 34 subagents</div>
+      <div class="timeline-desc">Renamed experiments, built documentary site, organized the asset repo.</div>
+      <ul class="timeline-details">
+        <li>Renamed v3/v4 directories to descriptive experiment names</li>
+        <li>Built behind-the-scenes documentary with pipeline visualization</li>
+        <li>Updated all script references and internal paths</li>
+        <li>Session timeline extraction and documentation</li>
+      </ul>
+      <span class="timeline-milestone">Project transitioned from production to reflection</span>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══ STATISTICS ═══ -->
+<div class="divider"><span>By the Numbers</span></div>
+
+<section class="reveal">
+  <div class="section-num">03 — Statistics</div>
+  <h2>The production<br><em>in numbers.</em></h2>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num">691</div>
+      <div class="stat-label">MB Transcripts</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">63.5</div>
+      <div class="stat-label">MB Largest Session</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">83</div>
+      <div class="stat-label">Peak Agents / Session</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">107</div>
+      <div class="stat-label">Images Regenerated</div>
+    </div>
+  </div>
+
+  <h3 style="font-family: var(--serif); font-weight: 300; font-size: 1.4rem; margin: 3rem 0 1rem;">Images Generated</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr><th>Category</th><th>Count</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>V2 published (10 issues)</td><td class="highlight">663</td></tr>
+        <tr><td>Style experiments (8 styles)</td><td class="highlight">484</td></tr>
+        <tr><td>Character designs</td><td class="highlight">769</td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td><strong>Total</strong></td><td class="highlight"><strong>1,916</strong></td></tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <h3 style="font-family: var(--serif); font-weight: 300; font-size: 1.4rem; margin: 3rem 0 1rem;">Agent Roles</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr><th>Role</th><th>Purpose</th><th>Est. Spawns</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Visual Reviewer</td><td>Screenshot-based rendering review</td><td class="highlight">~80</td></tr>
+        <tr><td>Proofreader</td><td>Rendering verification</td><td class="highlight">~60</td></tr>
+        <tr><td>Writer</td><td>Narrative scripts</td><td class="highlight">~40</td></tr>
+        <tr><td>Editor</td><td>Accuracy + pacing review</td><td class="highlight">~40</td></tr>
+        <tr><td>Red Team</td><td>Adversarial review</td><td class="highlight">~30</td></tr>
+        <tr><td>Fixer</td><td>Mechanical patch application</td><td class="highlight">~30</td></tr>
+        <tr><td>Researcher</td><td>Historical fact gathering</td><td class="highlight">~20</td></tr>
+        <tr><td>Layout Designer</td><td>Panel manifest creation</td><td class="highlight">~20</td></tr>
+        <tr><td>Image Reviewer</td><td>AI image quality review</td><td class="highlight">~20</td></tr>
+        <tr><td>Analysis</td><td>Process mining</td><td class="highlight">~8</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-family: var(--serif); font-weight: 300; font-size: 1.4rem; margin: 3rem 0 1rem;">Git Milestones</h3>
+  <div class="data-table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr><th>Date</th><th>Commit</th><th>Summary</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono">Feb 9</td><td class="mono">413f97d</td><td>Initial commit: 10-issue series</td></tr>
+        <tr><td class="mono">Feb 12</td><td class="mono">91eabd3</td><td>16 interactive labs + 10 illustrations</td></tr>
+        <tr><td class="mono">Feb 16</td><td class="mono">62c4174</td><td>Frontend polish + accessibility</td></tr>
+        <tr><td class="mono">Feb 16</td><td class="mono">b188821</td><td>Complete pipeline: all images + SVGs + HTML</td></tr>
+        <tr><td class="mono">Feb 28</td><td class="mono">b0579db</td><td>Image review tooling</td></tr>
+        <tr><td class="mono">Feb 28</td><td class="mono">d10d203</td><td>Prompt fixes from review</td></tr>
+        <tr><td class="mono">Feb 28</td><td class="mono">85a311c</td><td>Regenerate 107 images</td></tr>
+        <tr><td class="mono">Feb 28</td><td class="mono">078aca5</td><td>Reassemble all 10 issues</td></tr>
+        <tr><td class="mono">Feb 28</td><td class="mono">c266393</td><td>Review reports + regen specs</td></tr>
+        <tr><td class="mono">Feb 28</td><td class="mono">3b47323</td><td>Process review (50-session analysis)</td></tr>
+        <tr><td class="mono">Feb 28</td><td class="mono">0375179</td><td>User prompting analysis</td></tr>
+        <tr><td class="mono">Feb 28</td><td class="mono">4b61b35</td><td>Code quality + tests + CI</td></tr>
+        <tr><td class="mono">Feb 28</td><td class="mono">bfc28b6</td><td>CI fix</td></tr>
+        <tr><td class="mono">Mar 21</td><td class="mono">803c296</td><td>Behind-the-scenes documentary</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+<!-- ═══ NARRATIVE ARC ═══ -->
+<div class="divider"><span>The Story</span></div>
+
+<section class="reveal">
+  <div class="section-num">04 — Narrative Arc</div>
+  <h2>How the project<br><em>unfolded.</em></h2>
+  <p class="section-lead">
+    From a blank repository to a published comic series with 1,916 AI-generated images,
+    told in nine turning points.
+  </p>
+
+  <div class="arc-item">
+    <div class="arc-num">1</div>
+    <div class="arc-text">
+      <span class="arc-date">Day 1 — Feb 7</span>
+      <strong>The entire 10-issue series was researched and written in a single session</strong> using 37 parallel agents. The Constellation Pattern was established from the start: agents communicating only through files, never through the orchestrator's context.
+    </div>
+  </div>
+
+  <div class="arc-item">
+    <div class="arc-num">2</div>
+    <div class="arc-text">
+      <span class="arc-date">Days 1-3 — Feb 7-9</span>
+      <strong>Intensive editorial gauntlet.</strong> Editor and Red Team agents challenged every issue. Proofreaders verified rendering. Multiple revision rounds per issue. The pipeline crystallized: content must be locked before committing to image generation.
+    </div>
+  </div>
+
+  <div class="arc-item">
+    <div class="arc-num">3</div>
+    <div class="arc-text">
+      <span class="arc-date">Day 6 — Feb 12</span>
+      <strong>The project expanded beyond comics</strong> into a comprehensive educational platform with 16 interactive JavaScript labs and 10 detailed illustrations.
+    </div>
+  </div>
+
+  <div class="arc-item">
+    <div class="arc-num">4</div>
+    <div class="arc-text">
+      <span class="arc-date">Day 9 — Feb 15</span>
+      <strong>The most intense day.</strong> 12 sessions, 210+ subagents. Complete V2 rewrite of all scripts with simultaneous writer + editor + red team for all 10 issues.
+    </div>
+  </div>
+
+  <div class="arc-item">
+    <div class="arc-num">5</div>
+    <div class="arc-text">
+      <span class="arc-date">Day 10 — Feb 16</span>
+      <strong>Image generation day.</strong> 438 images produced with Z-Image-Turbo. V1 published. But the real work was just beginning: the image review pipeline had not been built yet.
+    </div>
+  </div>
+
+  <div class="arc-item">
+    <div class="arc-num">6</div>
+    <div class="arc-text">
+      <span class="arc-date">Days 10-17 — Feb 16-23</span>
+      <strong>The mega-session.</strong> A 63.5MB transcript spanning 7 days. 437 images reviewed by 10 parallel vision agents, 107 regenerated with fixed prompts. The most expensive lesson: AI image models garble text in speech bubbles.
+    </div>
+  </div>
+
+  <div class="arc-item">
+    <div class="arc-num">7</div>
+    <div class="arc-text">
+      <span class="arc-date">Day 22 — Feb 28</span>
+      <strong>Retrospective day.</strong> Process analysis of 50 sessions yielded 22 production rules. Code quality refactoring added tests, CI, and caught a real bug.
+    </div>
+  </div>
+
+  <div class="arc-item">
+    <div class="arc-num">8</div>
+    <div class="arc-text">
+      <span class="arc-date">Days 39-45 — Mar 17-22</span>
+      <strong>The style exploration era.</strong> FLUX.2-dev on a DGX Spark GPU opened new possibilities. 8 visual style experiments, 769 character designs, photo-real brass robots. Scribble v2 "The Cruiser" emerged as the leading character.
+    </div>
+  </div>
+
+  <div class="arc-item">
+    <div class="arc-num">9</div>
+    <div class="arc-text">
+      <span class="arc-date">Day 47 — Mar 25</span>
+      <strong>Housekeeping and documentation.</strong> Experiments renamed, documentary built, timeline extracted. The project transitioned from production to reflection.
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ LESSONS ═══ -->
+<div class="divider"><span>Takeaways</span></div>
+
+<section class="reveal">
+  <div class="section-num">05 — Lessons Codified</div>
+  <h2>10 rules from<br><em>50 sessions.</em></h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-date">Rule 01</div>
+      <div class="timeline-title">One GPU process at a time</div>
+      <div class="timeline-desc">A 24GB GPU can only run one diffusion model. Launching two crashes both.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Rule 02</div>
+      <div class="timeline-title">Never bulk-delete before confirming replacements work</div>
+      <div class="timeline-desc">The session that deleted 61 images before verifying torch was functional was the costliest mistake.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Rule 03</div>
+      <div class="timeline-title">Verify long-running tasks early</div>
+      <div class="timeline-desc">"Running" does not mean "working." Check output after the first iteration.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Rule 04</div>
+      <div class="timeline-title">Fix patterns, not instances</div>
+      <div class="timeline-desc">One agent fixing all occurrences of an error class prevents 20-spawn proofreading loops.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Rule 05</div>
+      <div class="timeline-title">Content review before image generation</div>
+      <div class="timeline-desc">Scripts are cheap to iterate; images are expensive. Lock content first.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Rule 06</div>
+      <div class="timeline-title">Historical figures need reference photos</div>
+      <div class="timeline-desc">Without them, AI generates generic faces that do not match real people.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Rule 07</div>
+      <div class="timeline-title">AI image models garble text</div>
+      <div class="timeline-desc">Speech bubble text should be kept under 12 words and use simple vocabulary.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Rule 08</div>
+      <div class="timeline-title">Monospace fonts for all SVG text</div>
+      <div class="timeline-desc">Cursive fonts cause cramming and overlap in rendered SVG diagrams.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Rule 09</div>
+      <div class="timeline-title">Save state obsessively</div>
+      <div class="timeline-desc">Update MEMORY.md every 3 interactions. The orchestrator session is a single point of failure.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Rule 10</div>
+      <div class="timeline-title">Rules must live in files, not conversation</div>
+      <div class="timeline-desc">If a mistake can happen once, it can happen again. Codify immediately.</div>
+    </div>
+  </div>
+</section>
+
+
+<div class="divider"><span>End</span></div>
+<section style="text-align: center; padding: 4rem 2rem 6rem;">
+  <p style="font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase;">
+    Built with Claude Code · FLUX.2-dev · Diffusers · FastAPI
+  </p>
+</section>
+
+
+<script>
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+
+</script>
+
+</body>
+</html>
