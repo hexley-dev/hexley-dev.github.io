@@ -659,14 +659,7 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
 </head>
 <body>
 
-<nav class="doc-nav">
-    <a href="index.html">Overview</a>
-    <a href="pipeline.html">Pipeline</a>
-    <a href="character_design.html">Characters</a>
-    <a href="style_experiments.html" class="active">Styles</a>
-    <a href="lessons.html">Lessons</a>
-    <a href="timeline.html">Timeline</a>
-  </nav>
+<nav class="doc-nav"></nav>
 
 <!-- ═══ 03. ART STYLE WARS ═══ -->
 <div class="divider"><span>Art Direction</span></div>
@@ -901,12 +894,7 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
 </section>
 
 
-<div class="divider"><span>End</span></div>
-<section style="text-align: center; padding: 4rem 2rem 6rem;">
-  <p style="font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase;">
-    Built with <a href="https://claude.com/product/claude-code" target="_blank" rel="noopener">Claude Code</a> · FLUX.2-dev · <a href="https://huggingface.co/docs/diffusers" target="_blank" rel="noopener">Diffusers</a> · <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">FastAPI</a>
-  </p>
-</section>
+<div id="doc-footer"></div>
 
 
 <div class="lightbox" id="lightbox">
@@ -914,6 +902,7 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
   <div class="lightbox-caption"></div>
 </div>
 
+<script src="shared.js"></script>
 <script>
 
 // Scroll reveal
