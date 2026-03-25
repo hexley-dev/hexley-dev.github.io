@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style Experiments — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-raised: #141414;
+  --bg-card: #1a1a1a;
+  --text: #e8e4de;
+  --text-dim: #8a8580;
+  --text-muted: #5a5652;
+  --accent: #c8956c;
+  --accent-bright: #e8b078;
+  --accent-dim: #8a6548;
+  --brass: #b8944c;
+  --brass-glow: #d4a854;
+  --red: #c45c4c;
+  --green: #6ca874;
+  --blue: #5c8cbc;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 3px; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 50%, rgba(200, 149, 108, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(92, 140, 188, 0.04) 0%, transparent 60%);
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s ease-out forwards;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  line-height: 1.1;
+  color: var(--text);
+  position: relative;
+  opacity: 0;
+  animation: fadeUp 1.2s 0.5s ease-out forwards;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent-bright);
+}
+
+.hero-sub {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-dim);
+  margin-top: 1.5rem;
+  max-width: 600px;
+  opacity: 0;
+  animation: fadeUp 1s 0.8s ease-out forwards;
+}
+
+.hero-line {
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  margin-top: 3rem;
+  opacity: 0;
+  animation: fadeUp 1s 1.2s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTIONS ── */
+section {
+  padding: 6rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent-dim);
+  margin-bottom: 1rem;
+}
+
+section h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+section h2 em { font-style: italic; color: var(--accent-bright); }
+
+.section-lead {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--text-dim);
+  max-width: 680px;
+  margin-bottom: 3rem;
+  line-height: 1.8;
+}
+
+.prose {
+  max-width: 680px;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.prose strong { color: var(--text); font-weight: 500; }
+
+/* ── DIVIDERS ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--text-muted), transparent);
+  opacity: 0.3;
+}
+
+.divider span {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ── IMAGE GALLERIES ── */
+.gallery {
+  display: grid;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.gallery-3 { grid-template-columns: repeat(3, 1fr); }
+.gallery-4 { grid-template-columns: repeat(4, 1fr); }
+.gallery-5 { grid-template-columns: repeat(5, 1fr); }
+.gallery-6 { grid-template-columns: repeat(6, 1fr); }
+.gallery-2 { grid-template-columns: repeat(2, 1fr); }
+
+.gallery-item {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--bg-card);
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img { transform: scale(1.05); }
+
+.gallery-item .label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 0.8rem 0.6rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .label { opacity: 1; }
+
+/* ── COMPARISON SLIDER ── */
+.comparison-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.comparison-card {
+  background: var(--bg-card);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: border-color 0.3s ease;
+}
+
+.comparison-card:hover { border-color: var(--accent-dim); }
+
+.comparison-card img {
+  width: 100%;
+  aspect-ratio: 2/1;
+  object-fit: cover;
+  display: block;
+}
+
+.comparison-card .tag {
+  padding: 0.6rem 0.8rem;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+/* ── PIPELINE DIAGRAM ── */
+.pipeline {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 3rem 0;
+  overflow-x: auto;
+  padding: 2rem 0;
+}
+
+.pipeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100px;
+  padding: 0 0.5rem;
+}
+
+.pipeline-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+}
+
+.pipeline-node:hover .pipeline-icon {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(200, 149, 108, 0.2);
+}
+
+.pipeline-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.pipeline-arrow {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  min-width: 30px;
+  text-align: center;
+  opacity: 0.4;
+}
+
+.pipeline-fork {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 100px;
+  align-items: center;
+}
+
+.pipeline-fork .pipeline-icon { width: 44px; height: 44px; font-size: 1.1rem; }
+.pipeline-fork .pipeline-label { font-size: 0.55rem; }
+
+/* ── STATS ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: border-color 0.3s ease;
+}
+
+.stat-card:hover { border-color: var(--accent-dim); }
+
+.stat-num {
+  font-family: var(--serif);
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--accent-bright);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 0.5rem;
+}
+
+/* ── TIMELINE ── */
+.timeline {
+  position: relative;
+  margin: 3rem 0;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent-dim), var(--text-muted), transparent);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding-left: 1.5rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.35rem;
+  top: 0.4rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(200, 149, 108, 0.4);
+}
+
+.timeline-date {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--accent-dim);
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.timeline-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.timeline-desc {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  max-width: 600px;
+}
+
+/* ── ISSUE TRACKER VIZ ── */
+.tracker-bar {
+  display: flex;
+  height: 28px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 1rem 0;
+  background: var(--bg-card);
+}
+
+.tracker-bar .segment {
+  transition: flex 0.5s ease;
+  position: relative;
+}
+
+.tracker-bar .segment:hover::after {
+  content: attr(data-label);
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text);
+  white-space: nowrap;
+  background: var(--bg-card);
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.tracker-legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tracker-legend span {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.tracker-legend .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  cursor: zoom-out;
+  backdrop-filter: blur(8px);
+}
+
+.lightbox.active { display: flex; }
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.lightbox-caption {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+/* ── QUOTE ── */
+.quote-block {
+  border-left: 2px solid var(--accent-dim);
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+  background: rgba(200, 149, 108, 0.03);
+  border-radius: 0 8px 8px 0;
+}
+
+.quote-block p {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.quote-block cite {
+  display: block;
+  margin-top: 0.8rem;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  section { padding: 4rem 1.5rem; }
+  .gallery-3, .gallery-4, .gallery-5, .gallery-6 { grid-template-columns: repeat(2, 1fr); }
+  .comparison-row { grid-template-columns: repeat(2, 1fr); }
+  .pipeline { flex-wrap: wrap; justify-content: center; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .gallery-3, .gallery-4, .gallery-5, .gallery-6 { grid-template-columns: 1fr; }
+}
+
+/* ── MATERIAL STRIP ── */
+.material-strip {
+  display: flex;
+  gap: 0;
+  margin: 2rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 200px;
+}
+
+.material-strip img {
+  flex: 1;
+  object-fit: cover;
+  min-width: 0;
+  transition: flex 0.4s ease;
+  cursor: pointer;
+}
+
+.material-strip img:hover { flex: 3; }
+
+/* ── CHAPTER INTRO ── */
+.chapter-intro {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.chapter-intro h2 {
+  margin-bottom: 1rem;
+}
+
+
+.doc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.doc-nav a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.doc-nav a:hover, .doc-nav a.active {
+  color: var(--accent-bright);
+}
+
+
+</style>
+</head>
+<body>
+
+<nav class="doc-nav">
+    <a href="index.html">Overview</a>
+    <a href="pipeline.html">Pipeline</a>
+    <a href="character_design.html">Characters</a>
+    <a href="style_experiments.html" class="active">Styles</a>
+    <a href="lessons.html">Lessons</a>
+  </nav>
+
+<!-- ═══ 03. ART STYLE WARS ═══ -->
+<div class="divider"><span>Art Direction</span></div>
+
+<section class="reveal">
+  <div class="section-num">03 — Style Wars</div>
+  <h2>Eight takes on<br><em>the same issue.</em></h2>
+  <p class="section-lead">
+    Issue 1 was rendered in eight completely different art styles.
+    Same script, same panels, wildly different visual worlds.
+    Each comparison shows the same scene — Scribble in the cosmos.
+  </p>
+
+  <div class="comparison-row">
+    <div class="comparison-card">
+      <img src="../experiments/ink_watercolor/images/p1_02_scribble_cosmos.png" alt="V3 Ink+Watercolor">
+      <div class="tag">Ink + Watercolor (V3)</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/warm_brass/images/p1_02_scribble_cosmos.png" alt="Warm Brass">
+      <div class="tag">Warm Brass</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/frosted_glass/images/p1_02_scribble_cosmos.png" alt="Frosted Glass">
+      <div class="tag">Frosted Glass</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/white_matte/images/p1_02_scribble_cosmos.png" alt="White Matte">
+      <div class="tag">White Matte</div>
+    </div>
+  </div>
+
+  <div class="prose" style="margin-top: 2rem;">
+    <p>
+      <strong>Turing running along the Cam</strong> — the scene that established each variant's mood.
+      From ink-on-paper warmth to frosty translucence.
+    </p>
+  </div>
+
+  <div class="comparison-row">
+    <div class="comparison-card">
+      <img src="../experiments/ink_watercolor/images/p1_05_turing_running.png" alt="V3">
+      <div class="tag">Ink + Watercolor (V3)</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/warm_brass/images/p1_05_turing_running.png" alt="Warm Brass">
+      <div class="tag">Warm Brass</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/frosted_glass/images/p1_05_turing_running.png" alt="Frosted Glass">
+      <div class="tag">Frosted Glass</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/white_matte/images/p1_05_turing_running.png" alt="White Matte">
+      <div class="tag">White Matte</div>
+    </div>
+  </div>
+
+  <div class="prose" style="margin-top: 2rem;">
+    <p>
+      The <strong>3D experiments</strong> took a completely different direction —
+      full 3D rendering for both characters and environments.
+    </p>
+  </div>
+
+  <div class="comparison-row">
+    <div class="comparison-card">
+      <img src="../experiments/full_3d/images/01_scribble_hero.png" alt="Full 3D">
+      <div class="tag">Full 3D Rendered</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/stylized_3d/images/01_scribble_hero.png" alt="Stylized 3D">
+      <div class="tag">Stylized 3D</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/full_3d/images/03_turing.png" alt="3D Turing">
+      <div class="tag">Full 3D — Turing</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/stylized_3d/images/03_turing.png" alt="Hybrid Turing">
+      <div class="tag">Hybrid — Turing</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COSMOS COMPARISON ═══ -->
+<section class="reveal">
+  <div class="section-num">The Opening Shot</div>
+  <h2>One cosmos,<br><em>four moods.</em></h2>
+  <p class="section-lead">
+    The very first panel of Issue 1 — a mathematical cosmos stretching to infinity.
+    Each variant establishes a completely different emotional tone.
+  </p>
+
+  <div class="comparison-row" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="comparison-card">
+      <img src="../experiments/ink_watercolor/images/p1_01_cosmos.png" alt="V3 Cosmos">
+      <div class="tag">Ink + Watercolor — warm, inviting</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/warm_brass/images/p1_01_cosmos.png" alt="Warm Brass Cosmos">
+      <div class="tag">Warm Brass — golden, nostalgic</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/frosted_glass/images/p1_01_cosmos.png" alt="Frosted Glass Cosmos">
+      <div class="tag">Frosted Glass — ethereal, cool</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/white_matte/images/p1_01_cosmos.png" alt="White Matte Cosmos">
+      <div class="tag">White Matte — clean, modern</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 06. PHOTO-REAL FRONTIER ═══ -->
+<div class="divider"><span>The Frontier</span></div>
+
+<section class="reveal">
+  <div class="section-num">06 — The Photo-Real Pivot</div>
+  <h2>What if the robot<br><em>looked real?</em></h2>
+  <p class="section-lead">
+    With FLUX.2-dev (NVFP4 quantization) running on DGX Spark, we explored a new direction:
+    photo-realistic Scribble in cinematic environments.
+  </p>
+
+  <div class="prose">
+    <p>
+      <strong>The likeness problem:</strong> Photo-realistic humans look great with FLUX.2-dev, but
+      they drift from the actual historical figures. Alan Turing rendered photo-realistically
+      looks like a convincing person — just not like <em>Turing</em>.
+      A brass robot has no "real" reference to drift from — photo-realism makes it feel
+      like a physical object you could hold.
+    </p>
+  </div>
+
+  <div class="comparison-row" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="comparison-card">
+      <img src="../experiments/warm_brass_photo_real/style_tests/opt2_turing_running.png" alt="Photo-real Turing">
+      <div class="tag">❌ Photo-real Turing — doesn't look like him</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/warm_brass_photo_real/style_tests/opt4_turing_watercolor.png" alt="Watercolor Turing">
+      <div class="tag">✓ Watercolor Turing — safe</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/warm_brass_photo_real/style_tests/opt3_turing_running.png" alt="Hybrid Turing">
+      <div class="tag">~ Hybrid — feels pasted</div>
+    </div>
+  </div>
+
+  <div class="prose" style="margin-top: 2rem;">
+    <p>
+      <strong>The solution:</strong> Scribble never shares scenes with human characters.
+      Each panel type uses the style that works best for its subject.
+      Photo-real brass robot. Ink-and-watercolor humans. No clash within any single image.
+    </p>
+  </div>
+
+  <div class="comparison-row" style="grid-template-columns: repeat(2, 1fr);">
+    <div class="comparison-card">
+      <img src="../experiments/warm_brass_photo_real/style_tests/opt4_cambridge_env.png" alt="Photo-real Cambridge">
+      <div class="tag">Photo-real environment — Cambridge at dawn</div>
+    </div>
+    <div class="comparison-card">
+      <img src="../experiments/warm_brass_photo_real/style_tests/opt2_cambridge_study.png" alt="Photo-real Study">
+      <div class="tag">Photo-real interior — Turing's study</div>
+    </div>
+  </div>
+
+  <div class="comparison-row" style="grid-template-columns: 1fr; max-width: 400px;">
+    <div class="comparison-card">
+      <img src="../character_designs/images_walking_materials/walking_02_warm_brass.png" alt="Scribble reference" style="aspect-ratio: 1/1;">
+      <div class="tag">★ The reference — Warm Brass Scribble</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 08. EXPERIMENTS ═══ -->
+<div class="divider"><span>Experiments</span></div>
+
+<section class="reveal">
+  <div class="section-num">08 — The Lab</div>
+  <h2>Eight takes on<br><em>Issue 1.</em></h2>
+  <p class="section-lead">
+    Issue 1 is our experimental proving ground. We've rendered the same story in eight
+    completely different visual styles to find the right direction for the series.
+    Every experiment below is a fully assembled, browseable comic.
+  </p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-date">Style 1</div>
+      <div class="timeline-title"><a href="../experiments/ink_watercolor/index.html" style="color: var(--accent); text-decoration: underline;">Ink + Watercolor</a></div>
+      <div class="timeline-desc">Warm editorial illustration with ink lines and watercolor washes. The style that started the experiment series — 55 images.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Style 2</div>
+      <div class="timeline-title"><a href="../experiments/warm_brass/index.html" style="color: var(--accent); text-decoration: underline;">Warm Brass</a></div>
+      <div class="timeline-desc">Golden, nostalgic pocket-watch aesthetic. Scribble feels like a physical object. 64 images.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Style 3</div>
+      <div class="timeline-title"><a href="../experiments/frosted_glass/index.html" style="color: var(--accent); text-decoration: underline;">Frosted Glass</a></div>
+      <div class="timeline-desc">Ethereal, cool translucency. Beautiful but perhaps too cold for a warmly educational series. 62 images.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Style 4</div>
+      <div class="timeline-title"><a href="../experiments/white_matte/index.html" style="color: var(--accent); text-decoration: underline;">White Matte</a></div>
+      <div class="timeline-desc">Clean, modern, Apple-product energy. Minimal and precise. 62 images.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Style 5</div>
+      <div class="timeline-title"><a href="../experiments/stylized_3d/index.html" style="color: var(--accent); text-decoration: underline;">Stylized 3D</a></div>
+      <div class="timeline-desc">3D-rendered characters in a hand-painted watercolor world — like Roger Rabbit inverted. 70 images.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Style 6</div>
+      <div class="timeline-title"><a href="../experiments/3d_compare.html" style="color: var(--accent); text-decoration: underline;">Full 3D</a></div>
+      <div class="timeline-desc">Everything rendered in 3D animated film style. Warm 1930s palette, cinematic depth of field. 8 images. (See side-by-side comparison with Stylized 3D.)</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Style 7</div>
+      <div class="timeline-title"><a href="../experiments/warm_brass_photo_real/index.html" style="color: var(--accent); text-decoration: underline;">Photo-Real Brass</a></div>
+      <div class="timeline-desc">Cinematic photo-realism with FLUX.2-dev. Robot feels tangible. Environments feel lived-in. 62 images.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Style 8</div>
+      <div class="timeline-title"><a href="../experiments/graphic_novel_layout/index.html" style="color: var(--accent); text-decoration: underline;">Graphic Novel Layout</a></div>
+      <div class="timeline-desc">Dense panel compositions — visual-first storytelling where images teach and text supports. 95 images.</div>
+    </div>
+  </div>
+</section>
+
+
+<div class="divider"><span>End</span></div>
+<section style="text-align: center; padding: 4rem 2rem 6rem;">
+  <p style="font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase;">
+    Built with Claude Code · FLUX.2-dev · Diffusers · FastAPI
+  </p>
+</section>
+
+
+<div class="lightbox" id="lightbox">
+  <img src="" alt="">
+  <div class="lightbox-caption"></div>
+</div>
+
+<script>
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+
+// Lightbox
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+
+document.querySelectorAll('.gallery-item, .comparison-card, .material-strip img').forEach(el => {
+  el.addEventListener('click', () => {
+    const img = el.tagName === 'IMG' ? el : el.querySelector('img');
+    const label = el.querySelector('.label, .tag');
+    lightboxImg.src = img.src;
+    lightboxCaption.textContent = label ? label.textContent : img.alt || '';
+    lightbox.classList.add('active');
+  });
+});
+
+lightbox.addEventListener('click', () => {
+  lightbox.classList.remove('active');
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') lightbox.classList.remove('active');
+});
+
+</script>
+
+</body>
+</html>

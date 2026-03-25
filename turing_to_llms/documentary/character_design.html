@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Character Design — From Turing to Swarms</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-raised: #141414;
+  --bg-card: #1a1a1a;
+  --text: #e8e4de;
+  --text-dim: #8a8580;
+  --text-muted: #5a5652;
+  --accent: #c8956c;
+  --accent-bright: #e8b078;
+  --accent-dim: #8a6548;
+  --brass: #b8944c;
+  --brass-glow: #d4a854;
+  --red: #c45c4c;
+  --green: #6ca874;
+  --blue: #5c8cbc;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 3px; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 50%, rgba(200, 149, 108, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(92, 140, 188, 0.04) 0%, transparent 60%);
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s ease-out forwards;
+}
+
+.hero h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  line-height: 1.1;
+  color: var(--text);
+  position: relative;
+  opacity: 0;
+  animation: fadeUp 1.2s 0.5s ease-out forwards;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent-bright);
+}
+
+.hero-sub {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-dim);
+  margin-top: 1.5rem;
+  max-width: 600px;
+  opacity: 0;
+  animation: fadeUp 1s 0.8s ease-out forwards;
+}
+
+.hero-line {
+  width: 1px;
+  height: 80px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  margin-top: 3rem;
+  opacity: 0;
+  animation: fadeUp 1s 1.2s ease-out forwards;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTIONS ── */
+section {
+  padding: 6rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-num {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent-dim);
+  margin-bottom: 1rem;
+}
+
+section h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+section h2 em { font-style: italic; color: var(--accent-bright); }
+
+.section-lead {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--text-dim);
+  max-width: 680px;
+  margin-bottom: 3rem;
+  line-height: 1.8;
+}
+
+.prose {
+  max-width: 680px;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.prose strong { color: var(--text); font-weight: 500; }
+
+/* ── DIVIDERS ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--text-muted), transparent);
+  opacity: 0.3;
+}
+
+.divider span {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ── IMAGE GALLERIES ── */
+.gallery {
+  display: grid;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.gallery-3 { grid-template-columns: repeat(3, 1fr); }
+.gallery-4 { grid-template-columns: repeat(4, 1fr); }
+.gallery-5 { grid-template-columns: repeat(5, 1fr); }
+.gallery-6 { grid-template-columns: repeat(6, 1fr); }
+.gallery-2 { grid-template-columns: repeat(2, 1fr); }
+
+.gallery-item {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--bg-card);
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img { transform: scale(1.05); }
+
+.gallery-item .label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 0.8rem 0.6rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .label { opacity: 1; }
+
+/* ── COMPARISON SLIDER ── */
+.comparison-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.comparison-card {
+  background: var(--bg-card);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: border-color 0.3s ease;
+}
+
+.comparison-card:hover { border-color: var(--accent-dim); }
+
+.comparison-card img {
+  width: 100%;
+  aspect-ratio: 2/1;
+  object-fit: cover;
+  display: block;
+}
+
+.comparison-card .tag {
+  padding: 0.6rem 0.8rem;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+/* ── PIPELINE DIAGRAM ── */
+.pipeline {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 3rem 0;
+  overflow-x: auto;
+  padding: 2rem 0;
+}
+
+.pipeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 100px;
+  padding: 0 0.5rem;
+}
+
+.pipeline-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+}
+
+.pipeline-node:hover .pipeline-icon {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(200, 149, 108, 0.2);
+}
+
+.pipeline-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.pipeline-arrow {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  min-width: 30px;
+  text-align: center;
+  opacity: 0.4;
+}
+
+.pipeline-fork {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 100px;
+  align-items: center;
+}
+
+.pipeline-fork .pipeline-icon { width: 44px; height: 44px; font-size: 1.1rem; }
+.pipeline-fork .pipeline-label { font-size: 0.55rem; }
+
+/* ── STATS ── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: border-color 0.3s ease;
+}
+
+.stat-card:hover { border-color: var(--accent-dim); }
+
+.stat-num {
+  font-family: var(--serif);
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--accent-bright);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 0.5rem;
+}
+
+/* ── TIMELINE ── */
+.timeline {
+  position: relative;
+  margin: 3rem 0;
+  padding-left: 2rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent-dim), var(--text-muted), transparent);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  padding-left: 1.5rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -2.35rem;
+  top: 0.4rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(200, 149, 108, 0.4);
+}
+
+.timeline-date {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: var(--accent-dim);
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.timeline-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.timeline-desc {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  max-width: 600px;
+}
+
+/* ── ISSUE TRACKER VIZ ── */
+.tracker-bar {
+  display: flex;
+  height: 28px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 1rem 0;
+  background: var(--bg-card);
+}
+
+.tracker-bar .segment {
+  transition: flex 0.5s ease;
+  position: relative;
+}
+
+.tracker-bar .segment:hover::after {
+  content: attr(data-label);
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text);
+  white-space: nowrap;
+  background: var(--bg-card);
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.tracker-legend {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tracker-legend span {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.tracker-legend .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  cursor: zoom-out;
+  backdrop-filter: blur(8px);
+}
+
+.lightbox.active { display: flex; }
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.lightbox-caption {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+/* ── QUOTE ── */
+.quote-block {
+  border-left: 2px solid var(--accent-dim);
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+  background: rgba(200, 149, 108, 0.03);
+  border-radius: 0 8px 8px 0;
+}
+
+.quote-block p {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.quote-block cite {
+  display: block;
+  margin-top: 0.8rem;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  font-style: normal;
+  text-transform: uppercase;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  section { padding: 4rem 1.5rem; }
+  .gallery-3, .gallery-4, .gallery-5, .gallery-6 { grid-template-columns: repeat(2, 1fr); }
+  .comparison-row { grid-template-columns: repeat(2, 1fr); }
+  .pipeline { flex-wrap: wrap; justify-content: center; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .gallery-3, .gallery-4, .gallery-5, .gallery-6 { grid-template-columns: 1fr; }
+}
+
+/* ── MATERIAL STRIP ── */
+.material-strip {
+  display: flex;
+  gap: 0;
+  margin: 2rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 200px;
+}
+
+.material-strip img {
+  flex: 1;
+  object-fit: cover;
+  min-width: 0;
+  transition: flex 0.4s ease;
+  cursor: pointer;
+}
+
+.material-strip img:hover { flex: 3; }
+
+/* ── CHAPTER INTRO ── */
+.chapter-intro {
+  text-align: center;
+  padding: 4rem 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.chapter-intro h2 {
+  margin-bottom: 1rem;
+}
+
+
+.doc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.doc-nav a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.doc-nav a:hover, .doc-nav a.active {
+  color: var(--accent-bright);
+}
+
+
+</style>
+</head>
+<body>
+
+<nav class="doc-nav">
+    <a href="index.html">Overview</a>
+    <a href="pipeline.html">Pipeline</a>
+    <a href="character_design.html" class="active">Characters</a>
+    <a href="style_experiments.html">Styles</a>
+    <a href="lessons.html">Lessons</a>
+  </nav>
+
+<!-- ═══ 02. CHARACTER DESIGN ═══ -->
+<div class="divider"><span>Character Design</span></div>
+
+<section class="reveal">
+  <div class="section-num">02 — The Robot Guide</div>
+  <h2>Designing the guide<br><em>character.</em></h2>
+  <p class="section-lead">
+    The published v1 and v2 used inline SVG robot guides — functional but not visual
+    storytelling. Now we're experimenting with AI-generated character designs, starting
+    with Issue 1 as our proving ground.
+  </p>
+
+  <div class="prose">
+    <p>
+      <strong>Early exploration: a cast of many.</strong> We started with stylized 3D renders — Spark, Byte, Ada, Coil, Pip,
+      Relay, Nixie, Patch, Hex. Each was charming individually, but together they diluted
+      the narrative thread. Too many faces to love.
+    </p>
+  </div>
+
+  <div class="gallery gallery-5">
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/A_spark.png" alt="Spark"><div class="label">Spark</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/B_byte.png" alt="Byte"><div class="label">Byte</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/C_ada.png" alt="Ada"><div class="label">Ada</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/E_pip.png" alt="Pip"><div class="label">Pip</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/G_nixie.png" alt="Nixie"><div class="label">Nixie</div></div>
+  </div>
+
+  <div class="gallery gallery-5">
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/D_coil.png" alt="Coil"><div class="label">Coil</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/F_relay.png" alt="Relay"><div class="label">Relay</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/H_patch.png" alt="Patch"><div class="label">Patch</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/I_hex.png" alt="Hex"><div class="label">Hex</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/J_rune.png" alt="Rune"><div class="label">Rune</div></div>
+  </div>
+
+  <div class="prose" style="margin-top: 2rem;">
+    <p>
+      Each issue also had era-specific robot guides. These were beautiful
+      but compounded the "too many characters" problem.
+    </p>
+  </div>
+
+  <div class="gallery gallery-5">
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/T01_ticker.png" alt="Ticker"><div class="label">Ticker — Issue 1</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/T02_valvie.png" alt="Valvie"><div class="label">Valvie — Issue 2</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/T04_shell.png" alt="Shell"><div class="label">Shell — Issue 4</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/T06_neuron.png" alt="Neuron"><div class="label">Neuron — Issue 6</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/T09_hivemind.png" alt="Hivemind"><div class="label">Hivemind — Issue 9</div></div>
+  </div>
+</section>
+
+<!-- ═══ SCRIBBLE EVOLUTION ═══ -->
+<section class="reveal">
+  <div class="section-num">The Search for Scribble</div>
+  <h2>One character,<br><em>twenty explorations.</em></h2>
+  <p class="section-lead">
+    We pivoted to a single recurring guide: Scribble. A tiny brass robot with a magnifying
+    glass, a pencil, and boundless curiosity. Finding the right form took 20 stylized 3D
+    explorations alone.
+  </p>
+
+  <div class="gallery gallery-5">
+    <div class="gallery-item"><img src="../character_designs/images_3d_scribble/scribble_3d_01_porcelain.png" alt="Porcelain"><div class="label">Porcelain</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_scribble/scribble_3d_02_wooden_toy.png" alt="Wooden Toy"><div class="label">Wooden Toy</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_scribble/scribble_3d_03_candy_colored.png" alt="Candy"><div class="label">Candy Colored</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_scribble/scribble_3d_04_copper_steampunk_lite.png" alt="Copper"><div class="label">Copper Steampunk</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_scribble/scribble_3d_05_bean.png" alt="Bean"><div class="label">Bean</div></div>
+  </div>
+
+  <div class="gallery gallery-5">
+    <div class="gallery-item"><img src="../character_designs/images_3d_scribble/scribble_3d_06_boxy_retro.png" alt="Boxy Retro"><div class="label">Boxy Retro</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_scribble/scribble_3d_09_kid_explorer.png" alt="Kid Explorer"><div class="label">Kid Explorer</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_scribble/scribble_3d_10_stargazer.png" alt="Stargazer"><div class="label">Stargazer</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_scribble/scribble_3d_14_glass_glow.png" alt="Glass Glow"><div class="label">Glass Glow</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_scribble/scribble_3d_19_origami.png" alt="Origami"><div class="label">Origami</div></div>
+  </div>
+
+  <div class="prose" style="margin-top: 2rem;">
+    <p>
+      We also explored <strong>comic-style character designs</strong> — ten personality archetypes
+      for the guide role, each with a different vibe.
+    </p>
+  </div>
+
+  <div class="gallery gallery-5">
+    <div class="gallery-item"><img src="../character_designs/images/I01v2_scribble.png" alt="Scribble v1"><div class="label">Scribble v1</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/I01v2_blinky.png" alt="Blinky"><div class="label">Blinky</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/I01v2_nibble.png" alt="Nibble"><div class="label">Nibble</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/I01v2_ticker.png" alt="Ticker"><div class="label">Ticker</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/I01v2_zippy.png" alt="Zippy"><div class="label">Zippy</div></div>
+  </div>
+</section>
+
+<!-- ═══ MATERIAL STUDIES ═══ -->
+<section class="reveal">
+  <div class="section-num">Material Exploration</div>
+  <h2>Fifteen materials.<br><em>One winner.</em></h2>
+  <p class="section-lead">
+    Once we locked the form, we explored materials. Same robot, fifteen different surfaces —
+    from white matte to frosted glass to warm brass to chalkboard.
+    Hover to expand each material.
+  </p>
+
+  <div class="material-strip">
+    <img src="../character_designs/images_walking_materials/walking_01_white_matte.png" alt="White Matte" title="White Matte">
+    <img src="../character_designs/images_walking_materials/walking_02_warm_brass.png" alt="Warm Brass" title="Warm Brass ★">
+    <img src="../character_designs/images_walking_materials/walking_03_terracotta.png" alt="Terracotta" title="Terracotta">
+    <img src="../character_designs/images_walking_materials/walking_04_frosted_glass.png" alt="Frosted Glass" title="Frosted Glass">
+    <img src="../character_designs/images_walking_materials/walking_05_honey_wood.png" alt="Honey Wood" title="Honey Wood">
+    <img src="../character_designs/images_walking_materials/walking_06_soft_felt.png" alt="Soft Felt" title="Soft Felt">
+    <img src="../character_designs/images_walking_materials/walking_07_brushed_steel.png" alt="Brushed Steel" title="Brushed Steel">
+    <img src="../character_designs/images_walking_materials/walking_08_pastel_ceramic.png" alt="Pastel Ceramic" title="Pastel Ceramic">
+    <img src="../character_designs/images_walking_materials/walking_09_copper_patina.png" alt="Copper Patina" title="Copper Patina">
+    <img src="../character_designs/images_walking_materials/walking_10_marble.png" alt="Marble" title="Marble">
+  </div>
+
+  <div class="material-strip" style="margin-top: 0.5rem;">
+    <img src="../character_designs/images_walking_materials/walking_11_cork.png" alt="Cork" title="Cork">
+    <img src="../character_designs/images_walking_materials/walking_12_candy_resin.png" alt="Candy Resin" title="Candy Resin">
+    <img src="../character_designs/images_walking_materials/walking_13_concrete.png" alt="Concrete" title="Concrete">
+    <img src="../character_designs/images_walking_materials/walking_14_rose_gold.png" alt="Rose Gold" title="Rose Gold">
+    <img src="../character_designs/images_walking_materials/walking_15_chalkboard.png" alt="Chalkboard" title="Chalkboard">
+  </div>
+
+  <div class="quote-block" style="margin-top: 2rem;">
+    <p>"Warm brass. It feels like a pocket watch — something you'd carry with you
+    through history."</p>
+    <cite>Design decision, Session 47</cite>
+  </div>
+</section>
+
+<!-- ═══ SCRIBBLE V2 POSES ═══ -->
+<section class="reveal">
+  <div class="section-num">Current Favorite</div>
+  <h2><em>Scribble v2</em> — The Cruiser</h2>
+  <p class="section-lead">
+    Our current leading design: a tiny round warm brass robot with a magnifying glass, a pencil,
+    and two dark curious eyes. Still evolving — ten expression studies tested the design's range.
+  </p>
+
+  <div class="gallery gallery-5">
+    <div class="gallery-item"><img src="../character_designs/images/scribblev2_01_cruiser.png" alt="Cruiser"><div class="label">The Cruiser</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/scribblev2_02_explorer.png" alt="Explorer"><div class="label">Explorer</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/scribblev2_03_thinker.png" alt="Thinker"><div class="label">Thinker</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/scribblev2_05_reader.png" alt="Reader"><div class="label">Reader</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/scribblev2_07_nightrider.png" alt="Nightrider"><div class="label">Nightrider</div></div>
+  </div>
+
+  <div class="gallery gallery-5">
+    <div class="gallery-item"><img src="../character_designs/images/scribblev2_04_speedster.png" alt="Speedster"><div class="label">Speedster</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/scribblev2_06_dancer.png" alt="Dancer"><div class="label">Dancer</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/scribblev2_08_writer.png" alt="Writer"><div class="label">Writer</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/scribblev2_09_teacher.png" alt="Teacher"><div class="label">Teacher</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/scribblev2_10_legend.png" alt="Legend"><div class="label">Legend</div></div>
+  </div>
+</section>
+
+<!-- ═══ 04. THE OBJECT LIBRARY ═══ -->
+<div class="divider"><span>World Building</span></div>
+
+<section class="reveal">
+  <div class="section-num">04 — The Object Library</div>
+  <h2>130 objects across<br><em>ninety years.</em></h2>
+  <p class="section-lead">
+    Every era of computing got its own set of iconic objects — from 1930s tape reels
+    and typewriters to modern GPUs and neural network displays.
+  </p>
+
+  <div class="gallery gallery-5">
+    <div class="gallery-item"><img src="../character_designs/images/I01_01_tape_reel.png" alt="Tape Reel"><div class="label">1930s — Tape Reel</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/I01_03_clockwork.png" alt="Clockwork"><div class="label">1930s — Clockwork</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/I01_06_enigma.png" alt="Enigma"><div class="label">1930s — Enigma</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/I01_08_abacus.png" alt="Abacus"><div class="label">Ancient — Abacus</div></div>
+    <div class="gallery-item"><img src="../character_designs/images/I01_10_music_box.png" alt="Music Box"><div class="label">1800s — Music Box</div></div>
+  </div>
+
+  <div class="gallery gallery-5">
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/I01_01_tape_reel.png" alt="3D Tape Reel"><div class="label">3D — Tape Reel</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/I01_02_typewriter.png" alt="3D Typewriter"><div class="label">3D — Typewriter</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/I01_05_calculator.png" alt="3D Calculator"><div class="label">3D — Calculator</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/I01_07_slide_rule.png" alt="3D Slide Rule"><div class="label">3D — Slide Rule</div></div>
+    <div class="gallery-item"><img src="../character_designs/images_3d_renders/I01_09_counter.png" alt="3D Counter"><div class="label">3D — Counter</div></div>
+  </div>
+</section>
+
+
+<div class="divider"><span>End</span></div>
+<section style="text-align: center; padding: 4rem 2rem 6rem;">
+  <p style="font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase;">
+    Built with Claude Code · FLUX.2-dev · Diffusers · FastAPI
+  </p>
+</section>
+
+
+<div class="lightbox" id="lightbox">
+  <img src="" alt="">
+  <div class="lightbox-caption"></div>
+</div>
+
+<script>
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+
+// Lightbox
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = lightbox.querySelector('img');
+const lightboxCaption = lightbox.querySelector('.lightbox-caption');
+
+document.querySelectorAll('.gallery-item, .comparison-card, .material-strip img').forEach(el => {
+  el.addEventListener('click', () => {
+    const img = el.tagName === 'IMG' ? el : el.querySelector('img');
+    const label = el.querySelector('.label, .tag');
+    lightboxImg.src = img.src;
+    lightboxCaption.textContent = label ? label.textContent : img.alt || '';
+    lightbox.classList.add('active');
+  });
+});
+
+lightbox.addEventListener('click', () => {
+  lightbox.classList.remove('active');
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') lightbox.classList.remove('active');
+});
+
+</script>
+
+</body>
+</html>
