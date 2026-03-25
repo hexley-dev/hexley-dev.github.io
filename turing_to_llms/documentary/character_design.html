@@ -28,7 +28,8 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 20px; }
+a[target="_blank"] { color: inherit; text-decoration: underline; text-decoration-color: var(--text-muted); text-underline-offset: 2px; }
 
 body {
   background: var(--bg);
@@ -36,7 +37,6 @@ body {
   font-family: var(--sans);
   font-weight: 300;
   line-height: 1.7;
-  font-size: 20px;
   overflow-x: hidden;
 }
 
@@ -676,7 +676,7 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
   <h2>Designing the guide<br><em>character.</em></h2>
   <p class="section-lead">
     The published v1 used inline SVG robot guides — functional but not visual
-    storytelling. v2 uses Z-Image-Turbo for AI-generated art, but the model doesn't allow
+    storytelling. v2 uses <a href="https://huggingface.co/Zheng-Peng-Fei/FLUX-Z-Image-Turbo" target="_blank" rel="noopener">Z-Image-Turbo</a> for AI-generated art, but the model doesn't allow
     visual consistency across images. Now we're experimenting with character design approaches
     for future versions, using Issue 1 as our proving ground.
   </p>
@@ -903,7 +903,7 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
 <div class="divider"><span>End</span></div>
 <section style="text-align: center; padding: 4rem 2rem 6rem;">
   <p style="font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase;">
-    Built with Claude Code · FLUX.2-dev · Diffusers · FastAPI
+    Built with <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" rel="noopener">Claude Code</a> · <a href="https://huggingface.co/black-forest-labs/FLUX.1-dev" target="_blank" rel="noopener">FLUX.2-dev</a> · <a href="https://huggingface.co/docs/diffusers" target="_blank" rel="noopener">Diffusers</a> · <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">FastAPI</a>
   </p>
 </section>
 
