@@ -753,6 +753,10 @@ function renderFilterBar(tabKey) {
     btn.addEventListener("click", () => {
       const f = btn.dataset.filter;
       activeFilter = f === "all" ? null : f;
+      // Update URL hash
+      var hash = tabKey;
+      if (activeFilter) hash += "/" + activeFilter;
+      history.replaceState(null, "", "#" + hash);
       renderFilterBar(tabKey);
       renderPanel(tabKey);
     });
@@ -793,9 +797,9 @@ function renderPanel(tabKey) {
 }
 
 // ── Tabs ──────────────────────────────────────
-function switchTab(tabKey) {
+function switchTab(tabKey, filter) {
   activeTab = tabKey;
-  activeFilter = null;
+  activeFilter = filter || null;
 
   document.querySelectorAll(".tab-btn").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.tab === tabKey);
@@ -804,12 +808,23 @@ function switchTab(tabKey) {
     p.classList.toggle("active", p.id === "panel-" + tabKey);
   });
 
+  // Update URL hash for deep linking (gallery.html#styles or #styles/photorealistic)
+  var hash = tabKey;
+  if (activeFilter) hash += "/" + activeFilter;
+  history.replaceState(null, "", "#" + hash);
+
   renderFilterBar(tabKey);
   renderPanel(tabKey);
 }
 
 document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => switchTab(btn.dataset.tab));
+});
+
+// Handle browser back/forward
+window.addEventListener("hashchange", () => {
+  var parts = location.hash.slice(1).split("/");
+  if (TAB_DATA[parts[0]]) switchTab(parts[0], parts[1] || null);
 });
 
 // ── Lightbox ──────────────────────────────────
@@ -869,7 +884,18 @@ document.addEventListener("keydown", e => {
 (async function init() {
   // Render immediately with 0 counts
   ["robots","scenes","styles"].forEach(k => updateBadge(k));
-  switchTab("robots");
+
+  // Deep link: read hash (e.g. #styles, #styles/photorealistic, #robots/adorable)
+  var startTab = "robots";
+  var startFilter = null;
+  if (location.hash) {
+    var parts = location.hash.slice(1).split("/");
+    if (TAB_DATA[parts[0]]) {
+      startTab = parts[0];
+      if (parts[1]) startFilter = parts[1];
+    }
+  }
+  switchTab(startTab, startFilter);
 
   // Then count actual loaded images in background
   await Promise.all(["robots","scenes","styles"].map(k => countLoadedImages(k)));
