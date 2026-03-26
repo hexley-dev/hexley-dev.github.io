@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Four futures worth building — where human wisdom meets artificial intelligence to push civilization forward.">
+<title>Future Canvas — From Turing to LLMs and Beyond</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #080c12;
+  --bg-section: #0c1018;
+  --bg-card: rgba(255,255,255,0.04);
+  --text: #f0ece4;
+  --text-dim: #9a9590;
+  --text-muted: #5a5855;
+  --accent: #4ea8d4;
+  --accent-warm: #d4a054;
+  --accent-glow: rgba(78, 168, 212, 0.12);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Noise grain overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ── Scroll reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.reveal-fade.visible {
+  opacity: 1;
+}
+
+/* ── Typography ── */
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+h1 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 1.05;
+  color: var(--text);
+}
+
+h2 {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.15;
+  color: var(--text);
+}
+
+h3 {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+blockquote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  line-height: 1.5;
+  color: var(--text);
+}
+
+p { max-width: 65ch; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Layout ── */
+.section-pad {
+  padding: clamp(3rem, 8vh, 8rem) clamp(1rem, 4vw, 2rem);
+}
+
+.centered {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.wide {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Hero (Section 0) ── */
+.hero {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 60%;
+  background: linear-gradient(to top, var(--bg) 10%, transparent);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: clamp(5rem, 12vh, 10rem);
+  text-align: center;
+  gap: 1rem;
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  animation: scrollBounce 1.5s ease-in-out infinite;
+  transition: opacity 0.5s ease;
+}
+
+.scroll-indicator.hidden { opacity: 0; pointer-events: none; }
+
+.scroll-indicator svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--text-muted);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ── Accent line ── */
+.accent-line {
+  width: 60px;
+  height: 1px;
+  background: var(--accent);
+  margin: 3rem auto;
+  opacity: 0.5;
+}
+
+/* ── Full-bleed hero images ── */
+.hero-image {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero-image::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(to top, var(--bg), transparent);
+  pointer-events: none;
+}
+
+.hero-image .image-text {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: clamp(2rem, 6vw, 5rem);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ── Split row (portrait + quote) ── */
+.split-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  max-width: 1100px;
+  margin: clamp(3rem, 6vh, 6rem) auto;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+  align-items: center;
+}
+
+.split-row img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+}
+
+.split-row blockquote {
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--accent);
+}
+
+@media (max-width: 768px) {
+  .split-row {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .split-row blockquote {
+    border-left: none;
+    padding-left: 0;
+    border-top: 2px solid var(--accent);
+    padding-top: 1.5rem;
+  }
+}
+
+/* ── Card grid ── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+}
+
+.card {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: border-color 0.3s, transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.card h4 {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.card p {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.card a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-family: var(--mono);
+  letter-spacing: 0.05em;
+}
+.card a:hover { text-decoration: underline; }
+
+/* ── Steps ── */
+.steps {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+}
+
+.steps ol {
+  counter-reset: step;
+  list-style: none;
+  padding: 0;
+}
+
+.steps li {
+  counter-increment: step;
+  padding: 1rem 0 1rem 3.5rem;
+  position: relative;
+  color: var(--text-dim);
+  font-size: 1rem;
+  line-height: 1.6;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.steps li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  font-family: var(--mono);
+  font-size: 1.2rem;
+  color: var(--accent-warm);
+  font-weight: 400;
+}
+
+/* ── Strip images ── */
+.strip-wrap {
+  max-width: 1400px;
+  margin: clamp(3rem, 6vh, 4rem) auto;
+  padding: 0 2rem;
+}
+
+.strip-wrap img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 0 80px var(--accent-glow), 0 4px 30px rgba(0,0,0,0.4);
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .strip-wrap img { border-radius: 6px; }
+}
+
+/* ── Closing section ── */
+.closing-hero {
+  position: relative;
+  width: 100vw;
+  min-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closing-hero img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.closing-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--bg) 5%, rgba(8,12,18,0.5) 40%, rgba(8,12,18,0.3));
+  pointer-events: none;
+}
+
+.closing-hero .closing-text {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* ── Link columns ── */
+.link-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+}
+
+.link-column h4 {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.link-column ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.link-column li a {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+.link-column li a:hover { color: var(--text); }
+
+/* ── Footer ── */
+footer {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-family: var(--mono);
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+footer a { color: var(--text-dim); }
+footer a:hover { color: var(--text); }
+
+/* ── Alternating section bg ── */
+.bg-alt { background: var(--bg-section); }
+
+/* ── Parallax image container ── */
+.parallax-image img {
+  will-change: transform;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-fade { transition: none; opacity: 1; transform: none; }
+  .scroll-indicator { animation: none; }
+  .parallax-image img { will-change: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 0 · HERO
+     ═══════════════════════════════════════════════ -->
+<section class="hero parallax-image">
+  <img src="images/hero_city.png" alt="A luminous future city skyline at golden hour, bridges of light connecting towers of glass and growing green">
+  <div class="hero-overlay">
+    <span class="eyebrow">From Turing to LLMs and Beyond</span>
+    <h1>The future we<br>build together</h1>
+  </div>
+  <div class="scroll-indicator" id="scrollIndicator">
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 1 · PROLOGUE
+     ═══════════════════════════════════════════════ -->
+<section class="section-pad">
+  <div class="centered reveal">
+    <p style="color: var(--text-dim);">For ten issues, we traced computing's arc — from a thought experiment on paper tape to agents that write code. Every breakthrough was built by people who believed the next layer was possible.</p>
+    <p style="color: var(--text-dim); margin-top: 1.5rem;">Now it's our turn.</p>
+    <p style="color: var(--text); margin-top: 1.5rem; font-size: clamp(1.1rem, 2.2vw, 1.35rem);">These are four futures worth wanting.</p>
+  </div>
+  <div class="accent-line reveal"></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 2 · 01 DISCOVERY
+     ═══════════════════════════════════════════════ -->
+<section class="bg-alt">
+  <div class="hero-image parallax-image reveal-fade">
+    <img src="images/discovery_hero_lab.png" alt="A vast research laboratory where holographic molecular structures float above workbenches, scientists collaborating with AI visualizations" loading="lazy">
+    <div class="image-text">
+      <span class="eyebrow">01 — Discovery</span>
+      <h2>Accelerating what<br>we can know</h2>
+    </div>
+  </div>
+
+  <div class="section-pad">
+    <div class="centered reveal">
+      <p style="color: var(--text-dim);">When human intuition meets AI's ability to search vast possibility spaces, discoveries happen faster. Not replacing the scientist — amplifying the question.</p>
+    </div>
+
+    <div class="split-row reveal">
+      <img src="images/discovery_secondary_breakthrough.png" alt="A scientist experiencing a moment of breakthrough, molecular visualizations reflecting in their eyes" loading="lazy">
+      <blockquote>"The microscope didn't replace the eye. It gave it reach."</blockquote>
+    </div>
+
+    <h3 class="reveal">What's Real Right Now</h3>
+    <div class="card-grid reveal">
+      <div class="card">
+        <h4>AlphaFold</h4>
+        <p>Predicted structures for 200M+ proteins, accelerating drug discovery and biology research.</p>
+        <a href="https://alphafold.ebi.ac.uk/" target="_blank" rel="noopener">alphafold.ebi.ac.uk →</a>
+      </div>
+      <div class="card">
+        <h4>GNoME</h4>
+        <p>Discovered 2.2 million new crystal structures, expanding known stable materials by 10×.</p>
+        <a href="https://deepmind.google/discover/blog/millions-of-new-materials-discovered-with-deep-learning/" target="_blank" rel="noopener">deepmind.google →</a>
+      </div>
+      <div class="card">
+        <h4>AI for Fusion</h4>
+        <p>DeepMind + TAE Technologies using AI to control plasma in fusion reactors.</p>
+        <a href="https://deepmind.google/discover/blog/accelerating-fusion-science-through-learned-plasma-control/" target="_blank" rel="noopener">deepmind.google →</a>
+      </div>
+      <div class="card">
+        <h4>Recursion</h4>
+        <p>AI-guided drug discovery platform screening billions of molecular combinations.</p>
+        <a href="https://www.recursion.com/" target="_blank" rel="noopener">recursion.com →</a>
+      </div>
+    </div>
+
+    <h3 class="reveal" style="margin-top: clamp(3rem, 6vh, 5rem);">Your Move</h3>
+    <div class="steps reveal">
+      <ol>
+        <li>Start with computational biology — MIT OpenCourseWare and Rosalind.info offer free courses</li>
+        <li>Contribute to open-source science tools like OpenMM or RDKit</li>
+        <li>Tackle real scientific challenges on Kaggle's research competitions</li>
+      </ol>
+    </div>
+
+    <div class="strip-wrap reveal">
+      <img src="images/discovery_strip_ocean.png" alt="A panoramic view of an AI-assisted ocean research vessel scanning bioluminescent depths with arrays of sensors" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 3 · 02 LEARNING
+     ═══════════════════════════════════════════════ -->
+<section>
+  <div class="hero-image parallax-image reveal-fade">
+    <img src="images/learning_hero_classroom.png" alt="A sunlit classroom of the future where every student has a personal AI tutor, holographic lessons floating above desks" loading="lazy">
+    <div class="image-text">
+      <span class="eyebrow">02 — Learning</span>
+      <h2>A teacher for<br>every learner</h2>
+    </div>
+  </div>
+
+  <div class="section-pad">
+    <div class="centered reveal">
+      <p style="color: var(--text-dim);">The best education has always been personal. AI makes one-to-one mentorship possible at a scale no school system ever could — meeting every learner exactly where they are.</p>
+    </div>
+
+    <div class="split-row reveal">
+      <img src="images/learning_secondary_boy_tree.png" alt="A young boy reading under a tree, a gentle holographic AI companion helping him understand the stars above" loading="lazy">
+      <blockquote>"Understanding is not a luxury. It's infrastructure."</blockquote>
+    </div>
+
+    <h3 class="reveal">What's Real Right Now</h3>
+    <div class="card-grid reveal">
+      <div class="card">
+        <h4>Khanmigo</h4>
+        <p>Khan Academy's AI tutor, bringing one-on-one guidance to millions of students.</p>
+        <a href="https://www.khanacademy.org/khan-labs" target="_blank" rel="noopener">khanacademy.org →</a>
+      </div>
+      <div class="card">
+        <h4>Duolingo Max</h4>
+        <p>Adaptive AI that personalizes language learning in real time.</p>
+        <a href="https://blog.duolingo.com/duolingo-max/" target="_blank" rel="noopener">blog.duolingo.com →</a>
+      </div>
+      <div class="card">
+        <h4>MIT OCW</h4>
+        <p>Free access to MIT course materials for the entire world.</p>
+        <a href="https://ocw.mit.edu/" target="_blank" rel="noopener">ocw.mit.edu →</a>
+      </div>
+      <div class="card">
+        <h4>Claude for Education</h4>
+        <p>AI study companion for research, writing, and understanding complex concepts.</p>
+        <a href="https://claude.ai/" target="_blank" rel="noopener">claude.ai →</a>
+      </div>
+    </div>
+
+    <h3 class="reveal" style="margin-top: clamp(3rem, 6vh, 5rem);">Your Move</h3>
+    <div class="steps reveal">
+      <ol>
+        <li>Build an educational tool — even a simple quiz bot teaches you about learning design</li>
+        <li>Volunteer for digital literacy programs in your community</li>
+        <li>Create and share open educational content on topics you know well</li>
+      </ol>
+    </div>
+
+    <div class="strip-wrap reveal">
+      <img src="images/learning_strip_library.png" alt="An infinite digital library stretching to the horizon, warm light spilling from every shelf" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 4 · 03 SUSTAINABILITY
+     ═══════════════════════════════════════════════ -->
+<section class="bg-alt">
+  <div class="hero-image parallax-image reveal-fade">
+    <img src="images/sustain_hero_rewilding.png" alt="A rewilded cityscape where nature and technology coexist — solar panels on green rooftops, AI-guided drone pollinators over wildflower meadows" loading="lazy">
+    <div class="image-text">
+      <span class="eyebrow">03 — Sustainability</span>
+      <h2>Technology<br>that restores</h2>
+    </div>
+  </div>
+
+  <div class="section-pad">
+    <div class="centered reveal">
+      <p style="color: var(--text-dim);">The same intelligence that optimizes supply chains can optimize ecosystems. AI-guided rewilding, precision agriculture, clean energy grids — not just reducing harm, but actively healing.</p>
+    </div>
+
+    <div class="split-row reveal">
+      <img src="images/sustain_secondary_building.png" alt="A living building covered in vertical gardens, monitored by subtle AI sensors tracking every ecosystem metric" loading="lazy">
+      <blockquote>"We don't need less technology. We need better aims."</blockquote>
+    </div>
+
+    <h3 class="reveal">What's Real Right Now</h3>
+    <div class="card-grid reveal">
+      <div class="card">
+        <h4>Climate TRACE</h4>
+        <p>AI coalition tracking global greenhouse gas emissions in real time.</p>
+        <a href="https://climatetrace.org/" target="_blank" rel="noopener">climatetrace.org →</a>
+      </div>
+      <div class="card">
+        <h4>DeepMind Wind</h4>
+        <p>Machine learning boosted wind farm energy output by 20%.</p>
+        <a href="https://deepmind.google/discover/blog/machine-learning-can-boost-the-value-of-wind-energy/" target="_blank" rel="noopener">deepmind.google →</a>
+      </div>
+      <div class="card">
+        <h4>Open Climate Fix</h4>
+        <p>Open-source AI for solar energy forecasting, reducing grid waste.</p>
+        <a href="https://openclimatefix.org/" target="_blank" rel="noopener">openclimatefix.org →</a>
+      </div>
+      <div class="card">
+        <h4>Precision Ag</h4>
+        <p>AI-powered see-and-spray reduces herbicide use by 77%.</p>
+        <a href="https://www.deere.com/en/technology-products/precision-ag-technology/" target="_blank" rel="noopener">deere.com →</a>
+      </div>
+    </div>
+
+    <h3 class="reveal" style="margin-top: clamp(3rem, 6vh, 5rem);">Your Move</h3>
+    <div class="steps reveal">
+      <ol>
+        <li>Learn climate data science through Climate Change AI's free courses and resources</li>
+        <li>Build with sustainability APIs — Electricity Maps, Open Climate Fix, carbon intensity data</li>
+        <li>Join or start local environmental monitoring with citizen science platforms</li>
+      </ol>
+    </div>
+
+    <div class="strip-wrap reveal">
+      <img src="images/sustain_strip_grid.png" alt="A vast smart energy grid stretching across a green landscape, wind turbines and solar arrays connected by lines of light" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 5 · 04 EXPLORATION
+     ═══════════════════════════════════════════════ -->
+<section>
+  <div class="hero-image parallax-image reveal-fade">
+    <img src="images/explore_hero_station.png" alt="A space station orbiting Earth, robotic arms and AI systems maintaining life support while astronauts gaze at the stars" loading="lazy">
+    <div class="image-text">
+      <span class="eyebrow">04 — Exploration</span>
+      <h2>Reaching further<br>together</h2>
+    </div>
+  </div>
+
+  <div class="section-pad">
+    <div class="centered reveal">
+      <p style="color: var(--text-dim);">Space is too vast, the ocean too deep, the genome too complex for any single intelligence. Human wonder paired with AI endurance takes us to places neither could reach alone.</p>
+    </div>
+
+    <div class="split-row reveal">
+      <img src="images/explore_secondary_mars.png" alt="A Mars habitat at dusk, AI rovers working alongside humans to build the first permanent settlement" loading="lazy">
+      <blockquote>"Every frontier was impossible until someone went anyway."</blockquote>
+    </div>
+
+    <h3 class="reveal">What's Real Right Now</h3>
+    <div class="card-grid reveal">
+      <div class="card">
+        <h4>Mars Perseverance</h4>
+        <p>AI autonomous navigation lets the rover drive itself across Mars terrain.</p>
+        <a href="https://mars.nasa.gov/mars2020/" target="_blank" rel="noopener">mars.nasa.gov →</a>
+      </div>
+      <div class="card">
+        <h4>Ocean Infinity</h4>
+        <p>AI-powered fleet mapping the deep ocean floor at unprecedented scale.</p>
+        <a href="https://oceaninfinity.com/" target="_blank" rel="noopener">oceaninfinity.com →</a>
+      </div>
+      <div class="card">
+        <h4>NASA Open Source</h4>
+        <p>Thousands of open-source projects from rocket science to earth observation.</p>
+        <a href="https://github.com/nasa" target="_blank" rel="noopener">github.com/nasa →</a>
+      </div>
+      <div class="card">
+        <h4>Zooniverse</h4>
+        <p>The world's largest citizen science platform — your eyes help AI learn.</p>
+        <a href="https://www.zooniverse.org/" target="_blank" rel="noopener">zooniverse.org →</a>
+      </div>
+    </div>
+
+    <h3 class="reveal" style="margin-top: clamp(3rem, 6vh, 5rem);">Your Move</h3>
+    <div class="steps reveal">
+      <ol>
+        <li>Explore NASA's open-source projects on GitHub — real space code, open to contributors</li>
+        <li>Join citizen science on Zooniverse — classify galaxies, track wildlife, map coral</li>
+        <li>Learn robotics and autonomous systems — the skills behind every frontier-pushing machine</li>
+      </ol>
+    </div>
+
+    <div class="strip-wrap reveal">
+      <img src="images/explore_strip_deepspace.png" alt="A deep-space probe departing the solar system, its AI guidance system charting a course through the stars" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 6 · CLOSING
+     ═══════════════════════════════════════════════ -->
+<section class="closing-hero">
+  <img src="images/closing_convergence.png" alt="All four futures converging — a luminous horizon where science, learning, nature, and exploration merge into possibility" loading="lazy">
+  <div class="closing-text reveal">
+    <span class="eyebrow">The Whole Stack</span>
+    <h2 style="margin-top: 0.75rem;">Ninety years of builders<br>got us here.<br><span style="color: var(--accent-warm);">The next chapter is yours.</span></h2>
+  </div>
+</section>
+
+<section class="section-pad" style="padding-top: clamp(4rem, 8vh, 6rem);">
+  <div class="centered reveal" style="margin-bottom: clamp(2.5rem, 5vh, 4rem);">
+    <h2 style="font-size: clamp(1.5rem, 3.5vw, 2.5rem);">Start building</h2>
+  </div>
+
+  <div class="link-grid reveal">
+    <div class="link-column">
+      <h4>Discovery</h4>
+      <ul>
+        <li><a href="https://alphafold.ebi.ac.uk/" target="_blank" rel="noopener">AlphaFold</a></li>
+        <li><a href="https://deepmind.google/discover/blog/millions-of-new-materials-discovered-with-deep-learning/" target="_blank" rel="noopener">GNoME</a></li>
+        <li><a href="https://www.recursion.com/" target="_blank" rel="noopener">Recursion</a></li>
+        <li><a href="https://rosalind.info/" target="_blank" rel="noopener">Rosalind.info</a></li>
+      </ul>
+    </div>
+    <div class="link-column">
+      <h4>Learning</h4>
+      <ul>
+        <li><a href="https://www.khanacademy.org/khan-labs" target="_blank" rel="noopener">Khanmigo</a></li>
+        <li><a href="https://ocw.mit.edu/" target="_blank" rel="noopener">MIT OCW</a></li>
+        <li><a href="https://blog.duolingo.com/duolingo-max/" target="_blank" rel="noopener">Duolingo Max</a></li>
+        <li><a href="https://claude.ai/" target="_blank" rel="noopener">Claude</a></li>
+      </ul>
+    </div>
+    <div class="link-column">
+      <h4>Sustainability</h4>
+      <ul>
+        <li><a href="https://climatetrace.org/" target="_blank" rel="noopener">Climate TRACE</a></li>
+        <li><a href="https://openclimatefix.org/" target="_blank" rel="noopener">Open Climate Fix</a></li>
+        <li><a href="https://www.electricitymaps.com/" target="_blank" rel="noopener">Electricity Maps</a></li>
+        <li><a href="https://www.climatechange.ai/" target="_blank" rel="noopener">Climate Change AI</a></li>
+      </ul>
+    </div>
+    <div class="link-column">
+      <h4>Exploration</h4>
+      <ul>
+        <li><a href="https://github.com/nasa" target="_blank" rel="noopener">NASA Open Source</a></li>
+        <li><a href="https://www.zooniverse.org/" target="_blank" rel="noopener">Zooniverse</a></li>
+        <li><a href="https://mars.nasa.gov/mars2020/" target="_blank" rel="noopener">Mars Perseverance</a></li>
+        <li><a href="https://oceaninfinity.com/" target="_blank" rel="noopener">Ocean Infinity</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p style="margin-bottom: 1rem;">
+    <a href="../../documentary/style_experiments.html">← Back to Style Experiments</a>
+  </p>
+  <p>Built with Claude Code · FLUX.2-dev · From Turing to LLMs and Beyond</p>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── Scroll reveal via IntersectionObserver ──
+  const reveals = document.querySelectorAll('.reveal, .reveal-fade');
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el) { observer.observe(el); });
+  } else {
+    reveals.forEach(function(el) { el.classList.add('visible'); });
+  }
+
+  // ── Scroll indicator fade ──
+  var indicator = document.getElementById('scrollIndicator');
+  if (indicator) {
+    window.addEventListener('scroll', function() {
+      indicator.classList.toggle('hidden', window.scrollY > 100);
+    }, { passive: true });
+  }
+
+  // ── Subtle parallax on hero images ──
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced) {
+    var parallaxEls = document.querySelectorAll('.parallax-image img');
+    var ticking = false;
+    window.addEventListener('scroll', function() {
+      if (!ticking) {
+        requestAnimationFrame(function() {
+          var scrollY = window.pageYOffset;
+          parallaxEls.forEach(function(img) {
+            var rect = img.parentElement.getBoundingClientRect();
+            var center = rect.top + rect.height / 2;
+            var viewCenter = window.innerHeight / 2;
+            var offset = (center - viewCenter) * 0.06;
+            offset = Math.max(-60, Math.min(60, offset));
+            img.style.transform = 'translateY(' + offset + 'px) scale(1.05)';
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+})();
+</script>
+</body>
+</html>
