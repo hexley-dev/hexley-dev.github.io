@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why We Build — From Turing to LLMs and Beyond</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.prose {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.prose p {
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text-dim);
+  margin-bottom: 1.8rem;
+}
+.prose p:first-child::first-letter {
+  font-family: var(--serif);
+  font-size: 3.2rem;
+  float: left;
+  line-height: 0.8;
+  margin-right: 0.12em;
+  margin-top: 0.1em;
+  color: var(--text);
+}
+.prose em {
+  color: var(--text);
+  font-style: italic;
+}
+.prose strong {
+  color: var(--text);
+  font-weight: 500;
+}
+.section-head {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text);
+  margin: 4rem 0 1.5rem;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 2rem;
+}
+.pullquote {
+  max-width: 600px;
+  margin: 3rem auto;
+  padding: 2rem 2.5rem;
+  border-left: 2px solid var(--accent-dim);
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--text);
+}
+.pullquote .attr {
+  display: block;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-style: normal;
+  color: var(--text-muted);
+  margin-top: 0.8rem;
+  letter-spacing: 0.05em;
+}
+.principles {
+  max-width: 680px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+  list-style: none;
+  counter-reset: principle;
+}
+.principles li {
+  counter-increment: principle;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+.principles li::before {
+  content: counter(principle, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-right: 1rem;
+}
+.principles li strong {
+  color: var(--text);
+  font-weight: 500;
+}
+</style>
+</head>
+<body>
+
+<nav class="doc-nav"></nav>
+
+<header class="hero">
+  <div class="hero-eyebrow">The Thinking Behind the Work</div>
+  <h1>Why We <em>Build</em></h1>
+  <p class="hero-sub">
+    Not a manifesto. An honest account of what this project believes
+    and why those beliefs shape every page.
+  </p>
+  <div class="hero-line"></div>
+</header>
+
+<div class="prose">
+  <p>
+    Something is missing in how we talk about technology. There is no shortage of
+    explainers, no shortage of hot takes. But there is a gap between
+    <em>using</em> a thing and <em>understanding</em> it. Abstraction is computing's
+    superpower &mdash; each layer lets the next generation build higher without
+    understanding what's below. But that convenience has a cost: every layer becomes
+    an opaque black box to the people standing on it.
+  </p>
+  <p>
+    We want to open those boxes. Not to make everyone a programmer, but to make
+    everyone literate in the systems that shape their lives. Understanding where
+    computing came from &mdash; the struggles, the false starts, the breakthroughs
+    that changed everything &mdash; is how you develop the judgment to steer where
+    it goes next.
+  </p>
+  <p>
+    But understanding the past isn't enough. We want to end by imagining the future.
+    Not predicting it &mdash; imagining it. Drawing it. Making it vivid enough that
+    someone looks at it and thinks: <em>I want to help build that.</em>
+  </p>
+</div>
+
+<h2 class="section-head">The problem we see</h2>
+
+<div class="prose">
+  <p>
+    There is a generation that has every reason to be skeptical of technology.
+    They see tech companies that put profit above wellbeing. They see politics that
+    feels broken. They see a world that promises innovation and delivers
+    surveillance, addiction, and inequality. The loudest voices are either doom
+    &mdash; <em>AI will destroy us</em> &mdash; or greed &mdash; <em>AI will make
+    us rich.</em> Almost no one is saying: <em>this is extraordinary, let's build
+    something worthy of it.</em>
+  </p>
+  <p>
+    The result is a cycle: doom leads to apathy, apathy leads to disengagement,
+    and disengagement becomes a self-fulfilling prophecy. If the people who care
+    most about the future give up on shaping it, only the people who care least
+    about consequences will be left building it.
+  </p>
+  <p>
+    We believe the antidote to doom isn't optimism. It's <strong>agency</strong>.
+    People aren't paralyzed by knowing about problems. They're paralyzed by feeling
+    they can't do anything about them. Show that building is possible. Show that
+    ordinary people do it. Show that every breakthrough in this series came from
+    someone who just&hellip; started.
+  </p>
+</div>
+
+<h2 class="section-head">What we believe</h2>
+
+<div class="pullquote">
+  They were four guys who kept each other's negative tendencies in check;
+  they balanced each other. And the total was greater than the sum of the parts.
+  <span class="attr">Steve Jobs, on the Beatles</span>
+</div>
+
+<div class="prose">
+  <p>
+    That's our model for human + AI collaboration. Not replacement &mdash; creative
+    synergy that produces something neither could alone. This project is proof of
+    concept: one person working with AI agents produced a 10-issue comic series,
+    160 pieces of concept art, interactive labs, and a documentary site. Not
+    because AI replaced a team, but because it made a team of one capable of things
+    that would have required a studio.
+  </p>
+  <p>
+    Steve Jobs also said Apple stood at the intersection of technology and the
+    liberal arts. We believe the best builders combine both. Computing isn't just
+    engineering &mdash; it's philosophy, linguistics, art, ethics, storytelling.
+    The series tries to embody that intersection.
+  </p>
+  <p>
+    And we believe in what Ezra Klein outlines in <em>Abundance</em>: that the
+    future we want requires building more of what we need. Not just critiquing
+    what exists &mdash; constructing what's missing. The series is meant to cultivate
+    builders. Not spectators, not critics, not doomsayers. People who look at a
+    problem and think: <em>I could build something that helps.</em>
+  </p>
+</div>
+
+<h2 class="section-head">On jobs, fear, and who benefits</h2>
+
+<div class="prose">
+  <p>
+    The most emotionally charged question about AI is about jobs. And the fear is
+    real &mdash; for specific people, in specific industries, right now. Dismissing
+    that fear sounds exactly like what people resent: comfortable elites telling
+    uncomfortable workers that progress is good for them.
+  </p>
+  <p>
+    The series has a quiet answer to this, because it's already told the story five
+    times. Human computers &mdash; mostly women &mdash; literally had the job title
+    "computer." The machine didn't just eliminate their jobs. Many of those women
+    became the first programmers. Typists gave way to PCs, but the secretary
+    became the office manager with a spreadsheet. Travel agents lost to the web,
+    but every small business gained global reach.
+  </p>
+  <p>
+    The pattern isn't "jobs disappear and new ones appear." The pattern is:
+    <strong>the tool goes from specialists to everyone, and when everyone has it,
+    they do things nobody predicted.</strong> The PC didn't stay in IBM's mainframe
+    room. The internet didn't stay in DARPA's lab. AI is following the same arc
+    &mdash; and faster. A kid in a small town has the same tools as a PhD at Stanford.
+  </p>
+  <p>
+    The question we want readers to carry isn't "will AI take my job?" It's
+    <em>"what could I do if I had an AI?"</em> That's not a semantic trick. It's
+    a fundamentally different way of looking at the world.
+  </p>
+</div>
+
+<h2 class="section-head">On gratitude</h2>
+
+<div class="prose">
+  <p>
+    We live in a golden age that's easy to take for granted. Yes, there are wars.
+    Politics is polarized. Democracy faces real threats. But someone in 1950 would
+    have wept at what we casually ignore: a library in your pocket, a surgeon
+    guided by imaging that didn't exist twenty years ago, the ability to talk face
+    to face with someone on the other side of the planet for free.
+  </p>
+  <p>
+    We don't think you cultivate gratitude by saying "be grateful." You cultivate
+    it by walking people through ninety years of struggle &mdash; researchers
+    spending careers in card catalogs, room-sized computers with less power than a
+    watch, decades of work to connect two machines across a room. By the time readers
+    arrive at today, the appreciation isn't instructed. It's felt. The contrast does
+    the work.
+  </p>
+  <p>
+    And computing is not where building started. It's the latest chapter in
+    humanity's oldest story &mdash; from fire to the wheel to language to art.
+    The tradition of making tools that extend what we can do. We want readers to
+    feel part of that lineage, not separated from it.
+  </p>
+</div>
+
+<h2 class="section-head">Our principles</h2>
+
+<ol class="principles">
+  <li><strong>Show, don't argue.</strong> Trust the reader to feel it. The case for building is made by showing a specific person solving a specific problem &mdash; not by lecturing.</li>
+  <li><strong>Earn the right to hope.</strong> Be honest about costs. Every breakthrough displaced someone. Acknowledging the pain is what earns credibility to show what came next.</li>
+  <li><strong>The tool always goes to everyone.</strong> That's the pattern of computing history. Mainframes to PCs to smartphones to AI. Show it.</li>
+  <li><strong>Ground futures in specific, relatable people.</strong> Not elites. A mechanic diagnosing a car. A baker optimizing recipes. A kid in a rural town building an app.</li>
+  <li><strong>"What could you do?"</strong> Frame AI as a tool that unlocks capability, not one that replaces people. The question is always about the reader's potential.</li>
+  <li><strong>Agency is the antidote to doom.</strong> Doom leads to apathy leads to self-fulfilling prophecy. Every issue should leave the reader feeling: I could do something like that.</li>
+  <li><strong>Cultivate appreciation through contrast.</strong> Never say "be grateful." Walk through the struggle, let the reader feel the distance traveled.</li>
+  <li><strong>Liberal arts + technology.</strong> The best builders combine technical skill with human wisdom. Computing is philosophy, linguistics, art, ethics, and storytelling.</li>
+  <li><strong>Build for the greater good.</strong> The series heroes aren't billionaires. Turing, Hopper, Berners-Lee &mdash; they built for everyone. Celebrate those who gave it away.</li>
+  <li><strong>Never partisan, always embody values.</strong> Curiosity, generosity, truth-seeking, building for others. Through characters and choices, never through editorializing.</li>
+</ol>
+
+<div id="doc-footer"></div>
+
+<script src="shared.js"></script>
+</body>
+</html>

@@ -28,6 +28,7 @@ var DOC_NAV_NOW = [
   { href: BASE + "experiments/future_canvas/index.html", label: "Future Canvas" },
   { href: BASE + "experiments/future_canvas/gallery.html", label: "Concept Art" },
   { href: BASE + "documentary/style_experiments.html", label: "Experiments" },
+  { href: BASE + "documentary/why_we_build.html", label: "Why We Build" },
   { href: BASE + "documentary/on_our_mind.html", label: "On Our Mind" },
 ];
 
