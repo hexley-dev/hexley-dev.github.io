@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Future Canvas — Concept Art Gallery</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../documentary/shared.css">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -417,6 +418,8 @@ body {
 </style>
 </head>
 <body>
+
+<nav class="doc-nav"></nav>
 
 <div class="header">
   <a href="index.html" class="back-link">&larr; Back to Future Canvas</a>
@@ -904,5 +907,8 @@ document.addEventListener("keydown", e => {
   if (counter) counter.textContent = loadedCounts[activeTab] + " of " + TAB_DATA[activeTab].expected + " images loaded";
 })();
 </script>
+
+<div id="doc-footer"></div>
+<script src="../../documentary/shared.js"></script>
 </body>
 </html>
