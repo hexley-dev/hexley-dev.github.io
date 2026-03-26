@@ -13,7 +13,7 @@ const DOC_FOOTER_HTML = `
 <div class="divider"><span>End</span></div>
 <section style="text-align: center; padding: 4rem 2rem 6rem;">
   <p style="font-family: var(--mono); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.2em; text-transform: uppercase;">
-    Built with <a href="https://claude.com/product/claude-code" target="_blank" rel="noopener">Claude Code</a> · <a href="https://huggingface.co/black-forest-labs/FLUX.2-dev" target="_blank" rel="noopener">FLUX.2-dev</a> · <a href="https://huggingface.co/docs/diffusers" target="_blank" rel="noopener">Diffusers</a> · <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">FastAPI</a>
+    Built with <a href="https://claude.com/product/claude-code" target="_blank" rel="noopener">Claude Code</a> · <a href="https://huggingface.co/Tongyi-MAI/Z-Image-Turbo" target="_blank" rel="noopener">Z-Image-Turbo</a> · <a href="https://huggingface.co/black-forest-labs/FLUX.2-dev" target="_blank" rel="noopener">FLUX.2-dev</a> · <a href="https://huggingface.co/docs/diffusers" target="_blank" rel="noopener">Diffusers</a> · <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener">FastAPI</a>
   </p>
 </section>`;
 

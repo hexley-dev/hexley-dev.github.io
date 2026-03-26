@@ -5,131 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Project Timeline — From Turing to LLMs and Beyond</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
 <style>
-:root {
-  --bg: #0a0a0a;
-  --bg-raised: #141414;
-  --bg-card: #1a1a1a;
-  --text: #e8e4de;
-  --text-dim: #8a8580;
-  --text-muted: #5a5652;
-  --accent: #c8956c;
-  --accent-bright: #e8b078;
-  --accent-dim: #8a6548;
-  --brass: #b8944c;
-  --brass-glow: #d4a854;
-  --red: #c45c4c;
-  --green: #6ca874;
-  --blue: #5c8cbc;
-  --serif: 'Cormorant Garamond', Georgia, serif;
-  --sans: 'DM Sans', system-ui, sans-serif;
-  --mono: 'JetBrains Mono', monospace;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; font-size: 20px; }
-a[target="_blank"] { color: inherit; text-decoration: underline; text-decoration-color: var(--text-muted); text-underline-offset: 2px; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--sans);
-  font-weight: 300;
-  line-height: 1.7;
-  overflow-x: hidden;
-}
-
-::selection {
-  background: var(--accent);
-  color: var(--bg);
-}
-
-/* ── GRAIN OVERLAY ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
-}
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--accent-dim); border-radius: 3px; }
-
-/* ── HERO ── */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 50% at 50% 50%, rgba(200, 149, 108, 0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(92, 140, 188, 0.04) 0%, transparent 60%);
-}
-
-.hero-eyebrow {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 2rem;
-  opacity: 0;
-  animation: fadeUp 1s 0.3s ease-out forwards;
-}
-
-.hero h1 {
-  font-family: var(--serif);
-  font-weight: 300;
-  font-size: clamp(2.5rem, 7vw, 6rem);
-  line-height: 1.1;
-  color: var(--text);
-  position: relative;
-  opacity: 0;
-  animation: fadeUp 1.2s 0.5s ease-out forwards;
-}
-
-.hero h1 em {
-  font-style: italic;
-  color: var(--accent-bright);
-}
-
-.hero-sub {
-  font-family: var(--serif);
-  font-size: clamp(1rem, 2vw, 1.4rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--text-dim);
-  margin-top: 1.5rem;
-  max-width: 600px;
-  opacity: 0;
-  animation: fadeUp 1s 0.8s ease-out forwards;
-}
-
-.hero-line {
-  width: 1px;
-  height: 80px;
-  background: linear-gradient(to bottom, var(--accent), transparent);
-  margin-top: 3rem;
-  opacity: 0;
-  animation: fadeUp 1s 1.2s ease-out forwards;
-}
-
+/* ── TIMELINE PAGE-SPECIFIC ── */
 .hero-stats {
   display: flex;
   gap: 2.5rem;
@@ -159,144 +37,6 @@ body::before {
   text-transform: uppercase;
   color: var(--text-dim);
   margin-top: 0.3rem;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ── SECTIONS ── */
-section {
-  padding: 6rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.section-num {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--accent-dim);
-  margin-bottom: 1rem;
-}
-
-section h2 {
-  font-family: var(--serif);
-  font-weight: 300;
-  font-size: clamp(1.8rem, 4vw, 3.2rem);
-  line-height: 1.2;
-  margin-bottom: 0.5rem;
-}
-
-section h2 em { font-style: italic; color: var(--accent-bright); }
-
-.section-lead {
-  font-family: var(--serif);
-  font-size: 1.15rem;
-  font-style: italic;
-  color: var(--text-dim);
-  max-width: 680px;
-  margin-bottom: 3rem;
-  line-height: 1.8;
-}
-
-.prose {
-  max-width: 680px;
-  color: var(--text-dim);
-  font-size: 1.05rem;
-  margin-bottom: 2rem;
-}
-
-.prose strong { color: var(--text); font-weight: 500; }
-
-/* ── DIVIDERS ── */
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.divider::before, .divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, transparent, var(--text-muted), transparent);
-  opacity: 0.3;
-}
-
-.divider span {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.3em;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-/* ── NAV ── */
-.doc-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  gap: 1.5rem;
-  padding: 1rem 2rem;
-  background: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.doc-nav a {
-  color: var(--text-dim);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.doc-nav a:hover, .doc-nav a.active {
-  color: var(--accent-bright);
-}
-
-/* ── STATS GRID ── */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1rem;
-  margin: 2rem 0;
-}
-
-.stat-card {
-  background: var(--bg-card);
-  border: 1px solid rgba(255,255,255,0.04);
-  border-radius: 8px;
-  padding: 1.5rem;
-  text-align: center;
-  transition: border-color 0.3s ease;
-}
-
-.stat-card:hover { border-color: var(--accent-dim); }
-
-.stat-num {
-  font-family: var(--serif);
-  font-size: 2.5rem;
-  font-weight: 600;
-  color: var(--accent-bright);
-  line-height: 1;
-}
-
-.stat-label {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-top: 0.5rem;
 }
 
 /* ── SESSION TABLE ── */
@@ -360,61 +100,17 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
   font-weight: 400;
 }
 
-/* ── TIMELINE ── */
-.timeline {
-  position: relative;
-  margin: 3rem 0;
-  padding-left: 2rem;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: linear-gradient(to bottom, var(--accent-dim), var(--text-muted), transparent);
-}
-
+/* ── TIMELINE OVERRIDES ── */
 .timeline-item {
-  position: relative;
   margin-bottom: 3rem;
-  padding-left: 1.5rem;
-}
-
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  left: -2.35rem;
-  top: 0.4rem;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 8px rgba(200, 149, 108, 0.4);
-}
-
-.timeline-date {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  color: var(--accent-dim);
-  text-transform: uppercase;
-  margin-bottom: 0.3rem;
 }
 
 .timeline-title {
-  font-family: var(--serif);
   font-size: 1.3rem;
-  font-weight: 400;
-  color: var(--text);
   margin-bottom: 0.5rem;
 }
 
 .timeline-desc {
-  font-size: 0.85rem;
-  color: var(--text-dim);
   max-width: 650px;
   margin-bottom: 0.8rem;
 }
@@ -518,23 +214,6 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
   font-weight: 500;
 }
 
-/* ── QUOTE ── */
-.quote-block {
-  border-left: 2px solid var(--accent-dim);
-  padding: 1.5rem 2rem;
-  margin: 2rem 0;
-  background: rgba(200, 149, 108, 0.03);
-  border-radius: 0 8px 8px 0;
-}
-
-.quote-block p {
-  font-family: var(--serif);
-  font-size: 1.2rem;
-  font-style: italic;
-  color: var(--text);
-  line-height: 1.7;
-}
-
 /* ── NARRATIVE ARC ── */
 .arc-item {
   display: grid;
@@ -575,22 +254,8 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
   margin-bottom: 0.3rem;
 }
 
-/* ── SCROLL REVEAL ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ── RESPONSIVE ── */
+/* ── RESPONSIVE OVERRIDES ── */
 @media (max-width: 768px) {
-  section { padding: 4rem 1.5rem; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .hero-stats { gap: 1.5rem; }
   .arc-item { grid-template-columns: 40px 1fr; gap: 1rem; }
   .arc-num { font-size: 1.5rem; }
@@ -600,7 +265,6 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
   .hero-stats { flex-direction: column; gap: 1rem; }
   .doc-nav { gap: 0.8rem; font-size: 0.6rem; overflow-x: auto; }
 }
-
 </style>
 </head>
 <body>
@@ -625,11 +289,11 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
       <div class="hero-stat-label">Sessions</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num">618</div>
+      <div class="hero-stat-num">648</div>
       <div class="hero-stat-label">Agents Spawned</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num">1,916</div>
+      <div class="hero-stat-num">1,691</div>
       <div class="hero-stat-label">Images Generated</div>
     </div>
   </div>
@@ -685,7 +349,7 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
         <tr><td class="num">23</td><td class="date">Feb 16</td><td>~4h</td><td class="agents">19</td><td>More visual review</td></tr>
         <tr><td class="num">24</td><td class="date">Feb 16</td><td>~6h</td><td class="agents">26</td><td>Visual review + frontend polish</td></tr>
         <tr><td class="num">25</td><td class="date">Feb 16</td><td>brief</td><td class="agents">1</td><td>Single task</td></tr>
-        <tr><td class="num">26</td><td class="date">Feb 16-23</td><td>7 days</td><td class="agents">62</td><td>Image review + regeneration (437 images across 10 issues)</td></tr>
+        <tr><td class="num">26</td><td class="date">Feb 16-23</td><td>7 days</td><td class="agents">62</td><td>Image review + regeneration (438 images across 10 issues)</td></tr>
         <tr><td class="num">27</td><td class="date">Feb 28</td><td>2.5h</td><td class="agents">9</td><td>Git commits + process analysis of 50 sessions</td></tr>
         <tr><td class="num">28</td><td class="date">Feb 28</td><td>&lt;1m</td><td class="agents">1</td><td>Micro session: repo improvement suggestion</td></tr>
         <tr><td class="num">29</td><td class="date">Feb 28</td><td>18m</td><td class="agents">7</td><td>Repo improvements + execution</td></tr>
@@ -786,7 +450,7 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
         <li>Frontend polish: accessibility, reduced-motion, design standardization</li>
         <li>SVG sanitization pass across all issues</li>
       </ul>
-      <span class="timeline-milestone">V1 published — all 10 issues fully produced</span>
+      <span class="timeline-milestone">V1 published — inline SVG robots, no AI images</span>
     </div>
 
     <!-- Phase 6 -->
@@ -797,7 +461,7 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
       <div class="timeline-desc">Systematic review of all 437 AI-generated images and targeted regeneration over 7 days.</div>
       <ul class="timeline-details">
         <li>10 parallel Image Reviewer agents (one per issue), each examining 32-58 images</li>
-        <li>Findings: 437 images reviewed, 330 OK, 3 critical, 71 warnings</li>
+        <li>Findings: 438 images reviewed — 330 OK, 3 critical, 71 warnings, 34 informational</li>
         <li>Dominant issue: AI text garbling in speech bubbles</li>
         <li>Secondary: anachronistic hardware (modern computers in 1960s scenes)</li>
         <li>Regenerated 107 images with fixed prompts across all 10 issues</li>
@@ -890,12 +554,12 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
         <tr><th>Category</th><th>Count</th></tr>
       </thead>
       <tbody>
-        <tr><td>V2 published (10 issues)</td><td class="highlight">663</td></tr>
+        <tr><td>V2 published (10 issues)</td><td class="highlight">438</td></tr>
         <tr><td>Style experiments (8 styles)</td><td class="highlight">484</td></tr>
         <tr><td>Character designs</td><td class="highlight">769</td></tr>
       </tbody>
       <tfoot>
-        <tr><td><strong>Total</strong></td><td class="highlight"><strong>1,916</strong></td></tr>
+        <tr><td><strong>Total</strong></td><td class="highlight"><strong>1,691</strong></td></tr>
       </tfoot>
     </table>
   </div>
@@ -1003,7 +667,7 @@ section h2 em { font-style: italic; color: var(--accent-bright); }
     <div class="arc-num">6</div>
     <div class="arc-text">
       <span class="arc-date">Days 10-17 — Feb 16-23</span>
-      <strong>The mega-session.</strong> A 63.5MB transcript spanning 7 days. 437 images reviewed by 10 parallel vision agents, 107 regenerated with fixed prompts. The most expensive lesson: AI image models garble text in speech bubbles.
+      <strong>The mega-session.</strong> A 63.5MB transcript spanning 7 days. 438 images reviewed by 10 parallel vision agents, 107 regenerated with fixed prompts. The most expensive lesson: AI image models garble text in speech bubbles.
     </div>
   </div>
 
