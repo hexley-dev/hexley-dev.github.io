@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>On Our Mind — From Turing to LLMs and Beyond</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+.mind-list {
+  max-width: 700px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+  list-style: none;
+}
+.mind-item {
+  padding: 1.2rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.mind-item:last-child { border-bottom: none; }
+.mind-check {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  opacity: 0.5;
+}
+.mind-text {
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.mind-text strong {
+  color: var(--text);
+  font-weight: 500;
+}
+.mind-category {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+  display: block;
+}
+.done .mind-check { opacity: 0.3; }
+.done .mind-text { text-decoration: line-through; opacity: 0.4; }
+</style>
+</head>
+<body>
+
+<nav class="doc-nav"></nav>
+
+<header class="hero">
+  <div class="hero-eyebrow">Living Document</div>
+  <h1>On Our <em>Mind</em></h1>
+  <p class="hero-sub">
+    Open questions, unresolved explorations, and ideas we're chewing on.
+    This page updates as we work.
+  </p>
+  <div class="hero-line"></div>
+</header>
+
+<ul class="mind-list">
+  <li class="mind-item">
+    <span class="mind-check">☐</span>
+    <div class="mind-text">
+      <span class="mind-category">Character Design</span>
+      <strong>Finalize robot guide character for Issue 1.</strong>
+      Scribble v2 is a leading candidate, not the answer. We're exploring 60 robot concepts
+      across 12 categories — from adorable to ethereal to architectural.
+    </div>
+  </li>
+  <li class="mind-item">
+    <span class="mind-check">☐</span>
+    <div class="mind-text">
+      <span class="mind-category">Character Design</span>
+      <strong>Design a unique robot character per issue.</strong>
+      Not one character for all 10 — each era of computing deserves a guide
+      that reflects its personality. The 1940s vacuum tube era feels different
+      from the 2020s transformer era.
+    </div>
+  </li>
+  <li class="mind-item">
+    <span class="mind-check">☐</span>
+    <div class="mind-text">
+      <span class="mind-category">Art Direction</span>
+      <strong>Choose art style for v3.</strong>
+      Eight full experiments done (ink watercolor, warm brass, frosted glass,
+      white matte, stylized 3D, full 3D, graphic novel, photo-real). None locked.
+      40 style explorations of the same scene underway.
+    </div>
+  </li>
+  <li class="mind-item">
+    <span class="mind-check">☐</span>
+    <div class="mind-text">
+      <span class="mind-category">Future Canvas</span>
+      <strong>Build the interactive Future Canvas experience.</strong>
+      Not just a concept page — a branching narrative where readers explore
+      possible futures and choose which one they want to help build.
+    </div>
+  </li>
+  <li class="mind-item">
+    <span class="mind-check">☐</span>
+    <div class="mind-text">
+      <span class="mind-category">Art Direction</span>
+      <strong>Explore photo-real + stylized hybrid.</strong>
+      Robot in photo-real brass, humans in illustration.
+      Avoids the historical figure likeness drift problem while keeping
+      the tactile warmth of the brass robot.
+    </div>
+  </li>
+  <li class="mind-item">
+    <span class="mind-check">☐</span>
+    <div class="mind-text">
+      <span class="mind-category">Technical</span>
+      <strong>Solve historical figure likeness drift in FLUX.2-dev.</strong>
+      Photo-real humans don't resemble actual historical figures enough.
+      Not uncanny valley — just doesn't look like Turing, von Neumann, etc.
+      May need reference-guided generation or LoRA fine-tuning.
+    </div>
+  </li>
+  <li class="mind-item">
+    <span class="mind-check">☐</span>
+    <div class="mind-text">
+      <span class="mind-category">Technical</span>
+      <strong>Visual consistency across panels within an issue.</strong>
+      Current image gen produces beautiful individual panels but the same character
+      looks different in every shot. Consistency is the frontier.
+    </div>
+  </li>
+  <li class="mind-item">
+    <span class="mind-check">☐</span>
+    <div class="mind-text">
+      <span class="mind-category">Narrative</span>
+      <strong>Issues 9 + 10 should inspire, not just explain.</strong>
+      The series shouldn't end at "here's where we are today." It should paint vivid,
+      realistic-optimist futures worth building — and hand the reader the torch.
+    </div>
+  </li>
+</ul>
+
+<div id="doc-footer"></div>
+
+<script src="shared.js"></script>
+</body>
+</html>

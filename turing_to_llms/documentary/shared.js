@@ -4,6 +4,7 @@ const DOC_NAV_NOW = [
   { href: "../experiments/future_canvas/index.html", label: "Future Canvas" },
   { href: "../experiments/future_canvas/gallery.html", label: "Concept Art" },
   { href: "style_experiments.html", label: "Experiments" },
+  { href: "on_our_mind.html", label: "On Our Mind" },
 ];
 
 const DOC_NAV_ARCHIVE = [
