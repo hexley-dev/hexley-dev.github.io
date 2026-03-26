@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full 3D — Style Experiment — From Turing to LLMs and Beyond</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F7F2E8;
+  --paper-dark: #EFE8DA;
+  --ink: #3D2F24;
+  --ink-light: #5C4A3A;
+  --ink-muted: #8B7A6B;
+  --accent: #D94F3E;
+  --cream-border: #E4D5B8;
+  --font-title: 'Bangers', 'Impact', sans-serif;
+  --font-body: 'Source Serif 4', Georgia, serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem 3rem;
+}
+
+header {
+  text-align: center;
+  padding: 3rem 2rem 2.5rem;
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d2d5e 40%, #3a3a7a 80%, #4a4a9a 100%);
+  color: white;
+  border-bottom: 4px solid var(--accent);
+}
+
+header .series {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+header h1 {
+  font-family: var(--font-title);
+  font-size: 2.2rem;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  margin-bottom: 0.4rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+header .subtitle {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 300;
+  opacity: 0.85;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(61,47,36,0.1), 0 0 0 1px rgba(61,47,36,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(61,47,36,0.15), 0 0 0 1px rgba(61,47,36,0.08);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card figcaption {
+  padding: 0.6rem 0.8rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-light);
+  border-top: 1px solid var(--cream-border);
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  border-top: 1px solid var(--cream-border);
+  margin-top: 2.5rem;
+}
+
+footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+footer a:hover { text-decoration: underline; }
+
+@media (max-width: 560px) {
+  .gallery { grid-template-columns: 1fr; }
+  header h1 { font-size: 1.7rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="series">From Turing to LLMs and Beyond</div>
+  <h1>Full 3D — Style Experiment</h1>
+  <div class="subtitle">Issue 1 scenes rendered in full 3D animated style</div>
+</header>
+
+<div class="container">
+  <div class="gallery">
+    <figure class="card">
+      <img src="images/01_scribble_hero.png" alt="Scribble Hero" loading="lazy">
+      <figcaption>Scribble Hero</figcaption>
+    </figure>
+    <figure class="card">
+      <img src="images/02_cambridge.png" alt="Cambridge" loading="lazy">
+      <figcaption>Cambridge</figcaption>
+    </figure>
+    <figure class="card">
+      <img src="images/03_turing.png" alt="Turing" loading="lazy">
+      <figcaption>Turing</figcaption>
+    </figure>
+    <figure class="card">
+      <img src="images/04_hilbert.png" alt="Hilbert" loading="lazy">
+      <figcaption>Hilbert</figcaption>
+    </figure>
+    <figure class="card">
+      <img src="images/05_scribble_tape.png" alt="Scribble Tape" loading="lazy">
+      <figcaption>Scribble Tape</figcaption>
+    </figure>
+    <figure class="card">
+      <img src="images/06_meta_moment.png" alt="Meta Moment" loading="lazy">
+      <figcaption>Meta Moment</figcaption>
+    </figure>
+    <figure class="card">
+      <img src="images/07_vienna_cafe.png" alt="Vienna Cafe" loading="lazy">
+      <figcaption>Vienna Cafe</figcaption>
+    </figure>
+    <figure class="card">
+      <img src="images/08_scribble_ride.png" alt="Scribble Ride" loading="lazy">
+      <figcaption>Scribble Ride</figcaption>
+    </figure>
+  </div>
+
+  <footer>
+    <a href="../../documentary/style_experiments.html">&larr; Back to Style Experiments</a>
+  </footer>
+</div>
+
+</body>
+</html>
