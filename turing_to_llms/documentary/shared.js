@@ -35,11 +35,11 @@ function initDocNav() {
 
   nav.innerHTML = `
     <div class="nav-tier nav-now">
-      <span class="nav-label">Now</span>
+      <span class="nav-label">Latest</span>
       ${DOC_NAV_NOW.map(renderLink).join("\n")}
     </div>
     <div class="nav-tier nav-archive">
-      <span class="nav-label">Archive</span>
+      <span class="nav-label">Making Of</span>
       ${DOC_NAV_ARCHIVE.map(renderLink).join("\n")}
     </div>`;
 }
