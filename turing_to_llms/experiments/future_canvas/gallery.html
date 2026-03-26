@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future Canvas — Concept Art Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #080c12;
+  --surface: #0f1520;
+  --surface-hover: #161e2e;
+  --border: #1e293b;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --text-muted: #64748b;
+  --accent: #f59e0b;
+  --accent-dim: rgba(245, 158, 11, 0.15);
+  --tab-active: #f59e0b;
+  --tag-robots: #818cf8;
+  --tag-scenes: #34d399;
+  --tag-styles: #f472b6;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Header ─────────────────────────────────── */
+.header {
+  padding: 24px 32px 0;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-family: var(--font-mono);
+  transition: color 0.2s;
+}
+.back-link:hover { color: var(--accent); }
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 42px);
+  font-weight: 700;
+  color: var(--text);
+  margin: 16px 0 4px;
+  letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+  color: var(--text-dim);
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+/* ── Tabs ───────────────────────────────────── */
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  position: relative;
+  bottom: -1px;
+}
+.tab-btn:hover { color: var(--text-dim); }
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 11px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+.tab-btn.active .tab-badge { background: var(--accent-dim); color: var(--accent); }
+.tab-btn:not(.active) .tab-badge { background: rgba(100,116,139,0.2); color: var(--text-muted); }
+
+/* ── Filter bar ─────────────────────────────── */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 32px;
+}
+
+.filter-btn {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-dim);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover { border-color: var(--text-muted); color: var(--text); }
+.filter-btn.active {
+  background: var(--accent-dim);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.image-counter {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ── Grid ───────────────────────────────────── */
+.gallery-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 32px 64px;
+}
+
+.subcategory-section { margin-bottom: 32px; }
+
+.subcategory-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+
+.subcategory-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  text-transform: capitalize;
+}
+
+.subcategory-count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  background: rgba(100,116,139,0.15);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 1024px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .header, .tab-bar, .filter-bar, .gallery-container { padding-left: 16px; padding-right: 16px; }
+  .tab-btn { padding: 10px 12px; font-size: 13px; }
+}
+
+/* ── Card ───────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.card:hover {
+  border-color: var(--text-muted);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.card-thumb {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--surface-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.card:hover .card-thumb img { transform: scale(1.03); }
+
+.card-thumb .placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-family: var(--font-mono);
+}
+.placeholder-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(100,116,139,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.card-info {
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.card-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-tag {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  text-transform: capitalize;
+}
+.card-tag.robots { background: rgba(129,140,248,0.15); color: var(--tag-robots); }
+.card-tag.scenes { background: rgba(52,211,153,0.15); color: var(--tag-scenes); }
+.card-tag.styles { background: rgba(244,114,182,0.15); color: var(--tag-styles); }
+
+/* ── Lightbox ───────────────────────────────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.lightbox.visible { display: flex; opacity: 1; }
+.lightbox.opening { display: flex; }
+
+.lightbox-inner {
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.lightbox-img-wrap {
+  width: 100%;
+  max-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface);
+}
+.lightbox-img-wrap img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+.lightbox-img-wrap .placeholder {
+  padding: 80px 40px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.lightbox-meta {
+  text-align: center;
+  max-width: 600px;
+}
+.lightbox-name {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.lightbox-category {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  text-transform: capitalize;
+  margin-bottom: 8px;
+}
+.lightbox-desc {
+  font-size: 15px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 1001;
+}
+.lightbox-close:hover { background: var(--surface-hover); border-color: var(--text-muted); }
+
+.lightbox-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 1001;
+}
+.lightbox-nav:hover { background: var(--surface-hover); border-color: var(--text-muted); }
+.lightbox-nav.prev { left: 16px; }
+.lightbox-nav.next { right: 16px; }
+
+/* ── Tab panel ──────────────────────────────── */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── No results ─────────────────────────────── */
+.no-results {
+  text-align: center;
+  padding: 64px 24px;
+  color: var(--text-muted);
+  font-size: 15px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <a href="index.html" class="back-link">&larr; Back to Future Canvas</a>
+  <h1 class="page-title">Concept Art Gallery</h1>
+  <p class="page-subtitle">Browse, compare, and evaluate 160 concept images across robots, scenes, and art styles.</p>
+</div>
+
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" data-tab="robots">
+    Robot Guides <span class="tab-badge" id="badge-robots">0/60</span>
+  </button>
+  <button class="tab-btn" data-tab="scenes">
+    Future Scenes <span class="tab-badge" id="badge-scenes">0/60</span>
+  </button>
+  <button class="tab-btn" data-tab="styles">
+    Art Styles <span class="tab-badge" id="badge-styles">0/40</span>
+  </button>
+</div>
+
+<div class="filter-bar" id="filterBar"></div>
+
+<div class="gallery-container">
+  <div class="tab-panel active" id="panel-robots"></div>
+  <div class="tab-panel" id="panel-scenes"></div>
+  <div class="tab-panel" id="panel-styles"></div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose">&times;</button>
+  <button class="lightbox-nav prev" id="lbPrev">&#8249;</button>
+  <button class="lightbox-nav next" id="lbNext">&#8250;</button>
+  <div class="lightbox-inner">
+    <div class="lightbox-img-wrap" id="lbImgWrap"></div>
+    <div class="lightbox-meta">
+      <div class="lightbox-name" id="lbName"></div>
+      <div class="lightbox-category" id="lbCategory"></div>
+      <div class="lightbox-desc" id="lbDesc"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Data ──────────────────────────────────────
+const ROBOTS = [
+  {id:"adorable_01_marshmallow",name:"Puff",category:"adorable",filename:"robot_adorable_01_marshmallow.png",desc:"A tiny marshmallow-shaped companion — pillowy white silicone body, enormous warm eyes, crescent-moon antenna."},
+  {id:"adorable_02_bean",name:"Poco",category:"adorable",filename:"robot_adorable_02_bean.png",desc:"Bean-shaped brass bot tilted forward with curiosity — asymmetric eyes, desk-lamp arms, curly wire tail."},
+  {id:"adorable_03_teardrop",name:"Dewdrop",category:"adorable",filename:"robot_adorable_03_teardrop.png",desc:"Inverted teardrop in pearlescent ceramic, gold kintsugi lines, single color-shifting iris, fin stabilizers."},
+  {id:"adorable_04_nesting",name:"Matryoshka",category:"adorable",filename:"robot_adorable_04_nesting.png",desc:"Nesting-doll silhouette with rotating rings of steel and rosewood, folk-art patterns, opens to reveal a smaller self."},
+  {id:"adorable_05_dumpling",name:"Mochi",category:"adorable",filename:"robot_adorable_05_dumpling.png",desc:"Dumpling dome in buttercream yellow with pleated rim, minimal kawaii face, scoots by vibrating its base."},
+  {id:"sleek_01_sphere",name:"Orion",category:"sleek",filename:"robot_sleek_01_sphere.png",desc:"Hovering chrome sphere with a luminous equatorial ring, telescoping sensor eye, gesture-controlled panels."},
+  {id:"sleek_02_origami",name:"Fold",category:"sleek",filename:"robot_sleek_02_origami.png",desc:"Geometric origami crane in brushed titanium — faceted surfaces, folding/reconfiguring limbs, paper-thin."},
+  {id:"sleek_03_glass",name:"Lumen",category:"sleek",filename:"robot_sleek_03_glass.png",desc:"Translucent borosilicate glass body revealing internal circuits of golden light — visible logic made beautiful."},
+  {id:"sleek_04_arc",name:"Pulse",category:"sleek",filename:"robot_sleek_04_arc.png",desc:"Arc-reactor core glowing soft blue, suspended in a minimal open-frame exoskeleton of dark carbon fiber."},
+  {id:"sleek_05_hover",name:"Drift",category:"sleek",filename:"robot_sleek_05_hover.png",desc:"Flat hover-disc that tilts expressively, matte black surface with a single amber status ring."},
+  {id:"retro_01_chrome_egg",name:"Cosmo",category:"retro_future",filename:"robot_retro_01_chrome_egg.png",desc:"Chrome egg on tripod legs, toggle switches, green CRT eye, 1950s space-age optimism."},
+  {id:"retro_02_antenna",name:"Signal",category:"retro_future",filename:"robot_retro_02_antenna.png",desc:"Oversized rotating antenna dish for a head, vacuum-tube body, frequency-dial face."},
+  {id:"retro_03_rocket",name:"Jetson",category:"retro_future",filename:"robot_retro_03_rocket.png",desc:"Tiny chrome rocket ship with porthole eyes and retro fin legs — perpetually about to launch."},
+  {id:"retro_04_bubble",name:"Fizz",category:"retro_future",filename:"robot_retro_04_bubble.png",desc:"Clear bubble-dome head over a chunky pastel body, visible whirring gears, atomic-age charm."},
+  {id:"retro_05_transistor",name:"Dials",category:"retro_future",filename:"robot_retro_05_transistor.png",desc:"Walking transistor radio — bakelite body, tuning dials for eyes, wire antenna, AM/FM soul."},
+  {id:"nature_01_terrarium",name:"Sprout",category:"nature_tech",filename:"robot_nature_01_terrarium.png",desc:"Glass-domed terrarium body with a living fern inside, brass base, moisture-droplet sensors."},
+  {id:"nature_02_vine",name:"Tendril",category:"nature_tech",filename:"robot_nature_02_vine.png",desc:"Wire-vine limbs growing from a mossy copper core, LED berries, moves like a climbing plant."},
+  {id:"nature_03_crystal",name:"Geode",category:"nature_tech",filename:"robot_nature_03_crystal.png",desc:"Cracked-open geode body revealing glowing amethyst circuits inside rough stone exterior."},
+  {id:"nature_04_seed",name:"Pip",category:"nature_tech",filename:"robot_nature_04_seed.png",desc:"Seed-pod shape that unfurls solar-panel petals, dandelion-fluff propulsion, migrates with the wind."},
+  {id:"nature_05_coral",name:"Reef",category:"nature_tech",filename:"robot_nature_05_coral.png",desc:"Branching coral-form housing distributed processors — grows new nodes, bioluminescent network pulses."},
+  {id:"artisan_01_pocket_watch",name:"Ticker",category:"artisan",filename:"robot_artisan_01_pocket_watch.png",desc:"Oversized pocket watch with visible tourbillon movement, hinged lid face, chain-link limbs."},
+  {id:"artisan_02_orrery",name:"Copernicus",category:"artisan",filename:"robot_artisan_02_orrery.png",desc:"Miniature brass orrery — rotating planetary rings around a glowing solar-core eye."},
+  {id:"artisan_03_calligraphy",name:"Quill",category:"artisan",filename:"robot_artisan_03_calligraphy.png",desc:"Fountain-pen body with ink-well base, nib fingers that write in flowing script as it speaks."},
+  {id:"artisan_04_astrolabe",name:"Azimuth",category:"artisan",filename:"robot_artisan_04_astrolabe.png",desc:"Interlocking brass astrolabe discs forming a spherical body, celestial navigation built in."},
+  {id:"artisan_05_music_box",name:"Cadence",category:"artisan",filename:"robot_artisan_05_music_box.png",desc:"Music-box body with visible cylinder and comb, tiny dancer platform on top, plays when it thinks."},
+  {id:"ethereal_01_constellation",name:"Stellan",category:"ethereal",filename:"robot_ethereal_01_constellation.png",desc:"Points of light connected by faint lines forming a humanoid constellation, shifts star-patterns with mood."},
+  {id:"ethereal_02_prism",name:"Refract",category:"ethereal",filename:"robot_ethereal_02_prism.png",desc:"Floating triangular prism splitting white light into rainbow — body IS the spectrum."},
+  {id:"ethereal_03_aurora",name:"Shimmer",category:"ethereal",filename:"robot_ethereal_03_aurora.png",desc:"Shifting curtains of aurora light contained in a vaguely humanoid magnetic field."},
+  {id:"ethereal_04_fractal",name:"Mandel",category:"ethereal",filename:"robot_ethereal_04_fractal.png",desc:"Recursive fractal form — zoom in and find smaller versions of itself at every scale."},
+  {id:"ethereal_05_nebula",name:"Nova",category:"ethereal",filename:"robot_ethereal_05_nebula.png",desc:"Swirling nebula cloud condensed to grapefruit size, star-forming regions as eyes."},
+  // ── V2: Toy / Playful ──
+  {id:"toy_01_windup",name:"Windup",category:"toy",filename:"robot_toy_01_windup.png",desc:"1950s tin wind-up bot with cherry-red body, brass key, porthole eyes with spinning gears, propeller beanie."},
+  {id:"toy_02_pulltoy",name:"Timber",category:"toy",filename:"robot_toy_02_pulltoy.png",desc:"Wooden pull-toy duck on red wheels, maple grain with circuit-board etchings, bobbing head cam mechanism."},
+  {id:"toy_03_snowglobe",name:"Flurry",category:"toy",filename:"robot_toy_03_snowglobe.png",desc:"Snow globe torso with golden gear-shaped glitter, Victorian brass base, tiny mechanical heart inside."},
+  {id:"toy_04_jackinbox",name:"Sproing",category:"toy",filename:"robot_toy_04_jackinbox.png",desc:"Jack-in-the-box bot with spring-mounted jester head, cobalt-and-mustard painted cube, surprised LED eyes."},
+  {id:"toy_05_duck",name:"Quack",category:"toy",filename:"robot_toy_05_duck.png",desc:"Mechanical rubber duck with matte yellow silicone over brass skeleton, periscope antenna, sailor hat radar dish."},
+  // ── V2: Architectural / Geometric ──
+  {id:"arch_01_mobius",name:"Mobius",category:"architectural",filename:"robot_arch_01_mobius.png",desc:"Continuous Mobius strip body in brushed titanium, perpetually rotating along its own twisted surface."},
+  {id:"arch_02_voronoi",name:"Lattice",category:"architectural",filename:"robot_arch_02_voronoi.png",desc:"Egg-shaped voronoi shell in white ceramic, amber light glowing through cell gaps like a living lantern."},
+  {id:"arch_03_geodesic",name:"Buckminster",category:"architectural",filename:"robot_arch_03_geodesic.png",desc:"Geodesic dome head of triangular copper-and-bronze facets, transparent panels reveal clockwork inside."},
+  {id:"arch_04_cantilever",name:"Overhang",category:"architectural",filename:"robot_arch_04_cantilever.png",desc:"Gravity-defying cantilevered form — heavy head balanced by thin tail on a single contact point."},
+  {id:"arch_05_tessellated",name:"Escher",category:"architectural",filename:"robot_arch_05_tessellated.png",desc:"Penrose-tiled surface in brass and oxidized copper, aperiodic pattern that ripples like a kinetic sculpture."},
+  // ── V2: Cinematic / Iconic ──
+  {id:"cine_01_explorer",name:"Relic",category:"cinematic",filename:"robot_cine_01_explorer.png",desc:"Battered lone explorer with one working amber eye, bindle bag of treasures, tank treads caked with dust."},
+  {id:"cine_02_sassbot",name:"Snark",category:"cinematic",filename:"robot_cine_02_sassbot.png",desc:"Squat gunmetal sass-bot with permanently skeptical tilted head, crossed arms, steam-puffing vent."},
+  {id:"cine_03_gentle",name:"Haven",category:"cinematic",filename:"robot_cine_03_gentle.png",desc:"Gentle giant in matte white ceramic — massive soft-padded hands, tiny dot eyes radiating infinite patience."},
+  {id:"cine_04_wonderseeker",name:"Gaze",category:"cinematic",filename:"robot_cine_04_wonderseeker.png",desc:"Rose-gold wonder-seeker with telescope neck, permanently tilted upward in awe, clutching a tiny brass telescope."},
+  {id:"cine_05_companion",name:"Shadow",category:"cinematic",filename:"robot_cine_05_companion.png",desc:"Loyal four-legged companion in burnished bronze, wagging tail antenna, glowing heart that pulses near its person."},
+  // ── V2: Micro / Nano ──
+  {id:"micro_01_flea",name:"Tick",category:"micro",filename:"robot_micro_01_flea.png",desc:"Microscopic clockwork flea magnified 1000x — jewel-bearing legs, compound ruby eyes, coiled spring jumpers."},
+  {id:"micro_02_crystal",name:"Silica",category:"micro",filename:"robot_micro_02_crystal.png",desc:"Silicon crystal lattice robot — glowing atoms in diamond cubic arrangement, gold dopant eyes, flows like geometric liquid."},
+  {id:"micro_03_assembler",name:"Bond",category:"micro",filename:"robot_micro_03_assembler.png",desc:"Molecular assembler with six radiating tool-arms in octahedral geometry, scanning electron microscope aesthetic."},
+  {id:"micro_04_dustmote",name:"Mote",category:"micro",filename:"robot_micro_04_dustmote.png",desc:"Dust-mote explorer of interwoven silver-gold nanowires, bioluminescent green eyes, drifts weightlessly."},
+  {id:"micro_05_pollen",name:"Spore",category:"micro",filename:"robot_micro_05_pollen.png",desc:"Pollen-grain navigator in machined brass — spiky antenna arrays, hexagonal intake vents, equatorial propulsion jets."},
+  // ── V2: Musical / Sound ──
+  {id:"music_01_theremin",name:"Aether",category:"musical",filename:"robot_music_01_theremin.png",desc:"Mahogany theremin cabinet bot with antenna-arms, Art Deco speaker grille face, vacuum tube eyes, shimmering EM field."},
+  {id:"music_02_musicbox",name:"Celeste",category:"musical",filename:"robot_music_02_musicbox.png",desc:"Brass music-box cylinder torso with pin spirals, steel-tine comb wing, crystal prism eyes, hand-crank arm."},
+  {id:"music_03_kalimba",name:"Mbira",category:"musical",filename:"robot_music_03_kalimba.png",desc:"Dark hardwood resonance chamber with fan arrays of graduated metal tines, copper disc eyes, buzzing bead textures."},
+  {id:"music_04_belljar",name:"Chime",category:"musical",filename:"robot_music_04_belljar.png",desc:"Inverted crystal bell jar body with internal pendulum striker, standing wave light patterns, air-bubble eyes."},
+  {id:"music_05_vinyl",name:"Groove",category:"musical",filename:"robot_music_05_vinyl.png",desc:"Miniature vinyl record bot — glossy black disc with groove spirals, tonearm unicorn horn, rolls on its edge."},
+  // ── V2: Weather / Elemental ──
+  {id:"weather_01_storm",name:"Tempest",category:"weather",filename:"robot_weather_01_storm.png",desc:"Storm lantern bot with perpetual miniature lightning arcing inside glass chamber, nautical brass framework."},
+  {id:"weather_02_sundial",name:"Solstice",category:"weather",filename:"robot_weather_02_sundial.png",desc:"Polished gold sundial head on terracotta column, self-generating golden luminance, serene and unhurried."},
+  {id:"weather_03_rain",name:"Petrichor",category:"weather",filename:"robot_weather_03_rain.png",desc:"Glass rain gauge body with perpetual water cycle inside, mercury-drop eyes, funnel crown, umbrella hands."},
+  {id:"weather_04_wind",name:"Zephyr",category:"weather",filename:"robot_weather_04_wind.png",desc:"Compass-wind bot with spinning weather vane head, hammered copper wing-arms billowing in invisible breeze."},
+  {id:"weather_05_frost",name:"Rime",category:"weather",filename:"robot_weather_05_frost.png",desc:"Crystal ball body filled with self-generated snowflakes, brass core with blue eyes peering through the blizzard."}
+];
+
+const SCENES = [
+  {id:"cities_01_biophilic_tower",name:"Biophilic Tower District",category:"cities",filename:"scene_cities_01_biophilic.png",desc:"Residential towers wrapped in cascading terraces of native plants at golden hour."},
+  {id:"cities_02_neighborhood_market",name:"The 15-Minute Neighborhood",category:"cities",filename:"scene_cities_02_neighborhood.png",desc:"Vibrant car-free neighborhood street on a Saturday morning with farmers market stalls."},
+  {id:"cities_03_public_square",name:"The Living Public Square",category:"cities",filename:"scene_cities_03_public_square.png",desc:"Grand civic plaza at dusk with amphitheater steps, reflecting pool, and community gathering."},
+  {id:"cities_04_energy_positive",name:"Energy-Positive Campus",category:"cities",filename:"scene_cities_04_energy_positive.png",desc:"Soaring timber-and-glass community center producing three times its energy consumption."},
+  {id:"cities_05_beautiful_infrastructure",name:"The Beautiful Bridge",category:"cities",filename:"scene_cities_05_bridge.png",desc:"Infrastructure reimagined as public art — a bridge that is destination, not just passage."},
+  {id:"discovery_01_ai_lab",name:"The Human-AI Research Lab",category:"discovery",filename:"scene_discovery_01_ai_lab.png",desc:"Collaborative research space where humans and AI work side by side on breakthroughs."},
+  {id:"discovery_02_ocean_station",name:"Deep Ocean Research Station",category:"discovery",filename:"scene_discovery_02_ocean.png",desc:"Underwater research station with panoramic ocean views, studying deep-sea ecosystems."},
+  {id:"discovery_03_quantum_facility",name:"Quantum Computing Atrium",category:"discovery",filename:"scene_discovery_03_quantum.png",desc:"Cathedral-like atrium housing quantum processors in a crystalline cooling structure."},
+  {id:"discovery_04_citizen_science",name:"Citizen Science Festival",category:"discovery",filename:"scene_discovery_04_citizen_science.png",desc:"Outdoor science festival where citizens contribute to real research with accessible tools."},
+  {id:"discovery_05_medical_breakthrough",name:"The Moment of Discovery",category:"discovery",filename:"scene_discovery_05_medical.png",desc:"The electric moment when researchers realize their medical breakthrough works."},
+  {id:"education_01_outdoor_classroom",name:"The Forest Classroom",category:"education",filename:"scene_education_01_outdoor.png",desc:"Open-air classroom nestled in a forest with natural materials and living curriculum."},
+  {id:"education_02_maker_space",name:"The Maker Workshop",category:"education",filename:"scene_education_02_maker.png",desc:"Hands-on maker space where young people build, prototype, and learn by doing."},
+  {id:"education_03_living_library",name:"The Living Library",category:"education",filename:"scene_education_03_library.png",desc:"Library reimagined as living ecosystem — books, media, nature, and community intertwined."},
+  {id:"education_04_mentorship_garden",name:"The Mentorship Garden",category:"education",filename:"scene_education_04_mentorship.png",desc:"Intergenerational mentorship happening naturally in a beautiful shared garden space."},
+  {id:"education_05_global_classroom",name:"Connected Classrooms",category:"education",filename:"scene_education_05_global.png",desc:"Students in different countries learning together through immersive holographic connection."},
+  {id:"sustain_01_rewilding_corridor",name:"The Rewilding Corridor",category:"sustainability",filename:"scene_sustain_01_rewilding.png",desc:"Former highway transformed into a wildlife corridor connecting fragmented ecosystems."},
+  {id:"sustain_02_vertical_farm",name:"The Factory Reborn",category:"sustainability",filename:"scene_sustain_02_vertical_farm.png",desc:"Abandoned factory converted into a thriving vertical farm feeding the neighborhood."},
+  {id:"sustain_03_clean_energy_fair",name:"The Clean Energy World Fair",category:"sustainability",filename:"scene_sustain_03_energy_fair.png",desc:"Festival celebrating clean energy breakthroughs with exhibits and demonstrations."},
+  {id:"sustain_04_ocean_cleanup",name:"The Ocean Restoration Fleet",category:"sustainability",filename:"scene_sustain_04_ocean_cleanup.png",desc:"Fleet of autonomous vessels working together to restore ocean health."},
+  {id:"sustain_05_carbon_negative",name:"Carbon-Negative Celebration",category:"sustainability",filename:"scene_sustain_05_carbon_negative.png",desc:"Community celebration marking the moment their city went carbon-negative."},
+  {id:"frontier_01_mars_garden",name:"Mars Habitat Garden",category:"frontiers",filename:"scene_frontier_01_mars.png",desc:"Pressurized garden dome on Mars where settlers grow food under the rusty sky."},
+  {id:"frontier_02_space_lounge",name:"The Deep Space Observatory Lounge",category:"frontiers",filename:"scene_frontier_02_space_lounge.png",desc:"Cozy observation lounge on a deep space station with panoramic star views."},
+  {id:"frontier_03_underwater_habitat",name:"The Undersea Village",category:"frontiers",filename:"scene_frontier_03_underwater.png",desc:"Permanent underwater community with transparent domes and bioluminescent gardens."},
+  {id:"frontier_04_genome_center",name:"The Genome Visualization Center",category:"frontiers",filename:"scene_frontier_04_genome.png",desc:"Immersive center where visitors walk through giant 3D genomic data visualizations."},
+  {id:"frontier_05_europa_station",name:"Europa Ice Drilling Station",category:"frontiers",filename:"scene_frontier_05_europa.png",desc:"Research station drilling through Europa's ice shell to reach the ocean below."},
+  {id:"connection_01_family_dinner",name:"The Multi-Generational Table",category:"connection",filename:"scene_connection_01_dinner.png",desc:"Warm family dinner spanning four generations, tech enhancing rather than replacing togetherness."},
+  {id:"connection_02_community_art",name:"The Community Mural Project",category:"connection",filename:"scene_connection_02_art.png",desc:"Neighbors of all ages collaborating on a massive community mural together."},
+  {id:"connection_03_music_collab",name:"The Global Jam Session",category:"connection",filename:"scene_connection_03_music.png",desc:"Musicians across continents playing together in real-time through holographic presence."},
+  {id:"connection_04_elder_care",name:"The Garden Companion",category:"connection",filename:"scene_connection_04_elder_care.png",desc:"Gentle robot companion helping an elderly person tend their beloved garden."},
+  {id:"connection_05_smart_playground",name:"The Imagination Playground",category:"connection",filename:"scene_connection_05_playground.png",desc:"Adaptive playground that reshapes itself based on children's creative play."},
+  // ── V2: Health & Wellbeing ──
+  {id:"health_01_surgery",name:"The Observation Gallery",category:"health",filename:"scene_health_01_surgery.png",desc:"Glass observation gallery overlooking a surgical theater with robotic arms and holographic anatomical overlays."},
+  {id:"health_02_mental_garden",name:"The Healing Garden",category:"health",filename:"scene_health_02_mental_garden.png",desc:"Terraced hillside garden for mental health — ambient sound, labyrinth paths, koi ponds, bamboo enclosure."},
+  {id:"health_03_prosthetics",name:"The Prosthetics Workshop",category:"health",filename:"scene_health_03_prosthetics.png",desc:"Bright maker workshop where people custom-design prosthetic limbs that look like art, not medical devices."},
+  {id:"health_04_pandemic_watch",name:"The Sentinel Room",category:"health",filename:"scene_health_04_pandemic_watch.png",desc:"Circular pandemic early warning center with holographic globe, calm and prepared like air traffic control."},
+  {id:"health_05_elder_vitality",name:"The Second Summit",category:"health",filename:"scene_health_05_elder_vitality.png",desc:"Ninety-year-old woman rock climbing with elegant exoskeleton support, fierce concentration and joy."},
+  // ── V2: Food & Agriculture ──
+  {id:"food_01_vertical_cathedral",name:"The Vertical Farm Cathedral",category:"food",filename:"scene_food_01_vertical_cathedral.png",desc:"Gothic cathedral repurposed as vertical farm — hydroponic racks reaching fifty feet, stained glass and grow lights."},
+  {id:"food_02_harvest",name:"The Autonomous Harvest",category:"food",filename:"scene_food_02_harvest.png",desc:"Golden wheat field at sunrise with gentle autonomous harvesting robots, farmer watching with quiet pride."},
+  {id:"food_03_street_market",name:"The Future Street Kitchen",category:"food",filename:"scene_food_03_street_market.png",desc:"Bustling twilight street food market with flavor-compound analysis, communal tables, and global cuisine."},
+  {id:"food_04_seed_vault",name:"The Seed Cathedral",category:"food",filename:"scene_food_04_seed_vault.png",desc:"Mountain seed vault with frosted glass chambers glowing blue-white, botanist placing crystal vials reverently."},
+  {id:"food_05_community_feast",name:"The Rooftop Harvest Table",category:"food",filename:"scene_food_05_community_feast.png",desc:"Two-hundred-person harvest table on a vast rooftop garden at sunset, food grown in the surrounding beds."},
+  // ── V2: Art & Creativity ──
+  {id:"art_01_sculptor",name:"The Sculptor's Dialogue",category:"art",filename:"scene_art_01_sculptor.png",desc:"Sculptor shaping clay while holographic variations float around her — ancient craft meeting new possibility."},
+  {id:"art_02_architecture",name:"Walking Through the Unbuilt",category:"art",filename:"scene_art_02_architecture.png",desc:"Architect walking through a full-scale holographic building in a warehouse — standing inside an idea."},
+  {id:"art_03_orchestra",name:"The Synesthetic Symphony",category:"art",filename:"scene_art_03_orchestra.png",desc:"Symphony orchestra with real-time abstract visual art generated from the music on a massive curved screen."},
+  {id:"art_04_kids_animation",name:"The Young Directors",category:"art",filename:"scene_art_04_kids_animation.png",desc:"Children's animation studio where kids direct, pose, and voice their own characters coming to life in real-time."},
+  {id:"art_05_street_art",name:"The AR Muralist",category:"art",filename:"scene_art_05_street_art.png",desc:"Muralist on scaffolding with AR glasses, holographic overlay guiding a vibrant community mural at golden hour."},
+  // ── V2: Governance & Democracy ──
+  {id:"governance_01_town_hall",name:"The Digital Amphitheater",category:"governance",filename:"scene_governance_01_town_hall.png",desc:"Outdoor civic amphitheater at dusk with 3D neighborhood model, live polling, and genuine democratic engagement."},
+  {id:"governance_02_budget",name:"The Transparent Ledger",category:"governance",filename:"scene_governance_02_budget.png",desc:"City budget displayed as interactive sculptural fountain — water channels representing allocations."},
+  {id:"governance_03_climate_negotiation",name:"The Climate Table",category:"governance",filename:"scene_governance_03_climate_negotiation.png",desc:"Circular negotiation room with holographic globe, diverse diplomats in collegial climate discussion."},
+  {id:"governance_04_jury",name:"The Deliberation Chamber",category:"governance",filename:"scene_governance_04_jury.png",desc:"Dignified jury chamber with evidence displays — AI presents information, but decision belongs to humans."},
+  {id:"governance_05_community_planning",name:"The Neighborhood Architects",category:"governance",filename:"scene_governance_05_community_planning.png",desc:"Community gymnasium with holographic neighborhood model that residents rearrange by touch."},
+  // ── V2: Infrastructure & Making ──
+  {id:"infra_01_bridge",name:"The Living Bridge",category:"infrastructure",filename:"scene_infra_01_bridge.png",desc:"AI-designed pedestrian bridge under construction at dawn — organic leaf-skeleton form, coordinated robotic cranes."},
+  {id:"infra_02_water",name:"The Water Temple",category:"infrastructure",filename:"scene_infra_02_water.png",desc:"Water treatment facility as cascading terraced pools with biofiltration gardens, making clean water visible and beautiful."},
+  {id:"infra_03_transit",name:"The Underground Cathedral",category:"infrastructure",filename:"scene_infra_03_transit.png",desc:"Subway station with forty-foot vaulted rock ceilings, fiber-optic starfield, and living moss gardens."},
+  {id:"infra_04_recycling",name:"The Material Alchemy Lab",category:"infrastructure",filename:"scene_infra_04_recycling.png",desc:"Advanced materials recovery facility — electronics disassembled by robotic arms, plastics become amber gems."},
+  {id:"infra_05_power_grid",name:"The Energy Ballet",category:"infrastructure",filename:"scene_infra_05_power_grid.png",desc:"Sweeping sunset landscape of synchronized wind turbines and solar arrays with holographic grid operations center."},
+  // ── V2: Play & Joy ──
+  {id:"play_01_zero_gravity",name:"The Orbital Playground",category:"play",filename:"scene_play_01_zero_gravity.png",desc:"Orbital station recreation module where people tumble, play, and do yoga in microgravity with Earth in view."},
+  {id:"play_02_holographic_theater",name:"The Story Sphere",category:"play",filename:"scene_play_02_holographic_theater.png",desc:"360-degree holographic theater with luminous whale swimming over the audience — boundary between story and viewer dissolved."},
+  {id:"play_03_chess_park",name:"The Grandmaster's Garden",category:"play",filename:"scene_play_03_chess_park.png",desc:"Sun-dappled park where an elderly man plays chess against a warm copper robot — genuine companionship."},
+  {id:"play_04_night_festival",name:"The Luminous Festival",category:"play",filename:"scene_play_04_night_festival.png",desc:"Night waterfront festival with AI-responsive light sculptures that float, pulse, and dance with the crowd."},
+  {id:"play_05_beach_day",name:"The Restored Shore",category:"play",filename:"scene_play_05_beach_day.png",desc:"Pristine restored beach at golden hour — families building sandcastles, clear water with visible fish, ecological recovery."}
+];
+
+const STYLES = [
+  {id:"style_01_golden_cinematic",name:"Golden Hour Cinematic",category:"photorealistic",filename:"style_01_golden_cinematic.png",desc:"Cinematic 35mm film photography with Roger Deakins lighting and warm amber color grading."},
+  {id:"style_02_blade_runner_optimist",name:"Blade Runner Optimist",category:"photorealistic",filename:"style_02_blade_runner_optimist.png",desc:"Blade Runner visual density reimagined as warm and hopeful — layered, atmospheric, alive."},
+  {id:"style_03_national_geographic",name:"National Geographic",category:"photorealistic",filename:"style_03_national_geographic.png",desc:"Photojournalistic documentary style — natural, candid, honest warm tones."},
+  {id:"style_04_oil_painting",name:"Oil Painting",category:"painterly",filename:"style_04_oil_painting.png",desc:"Classical oil painting with Vermeer lighting — thick impasto strokes, luminous shadow transitions."},
+  {id:"style_05_watercolor_wash",name:"Watercolor Wash",category:"painterly",filename:"style_05_watercolor_wash.png",desc:"Flowing watercolor on Arches paper — wet-on-wet bleeds, Turner-esque atmospheric sky."},
+  {id:"style_06_gouache_mary_blair",name:"Gouache Illustration",category:"painterly",filename:"style_06_gouache_mary_blair.png",desc:"Mid-century gouache concept art — flat bold shapes, rich opaque colors, graphic simplicity."},
+  {id:"style_07_impressionist",name:"Impressionist",category:"painterly",filename:"style_07_impressionist.png",desc:"French Impressionist painting — dappled broken color, Monet light-capture technique."},
+  {id:"style_08_syd_mead",name:"Syd Mead Futurism",category:"concept_art",filename:"style_08_syd_mead.png",desc:"Syd Mead visual futurism — clean precise lines, chrome and glass, gouache rendering."},
+  {id:"style_09_studio_ghibli",name:"Studio Ghibli",category:"concept_art",filename:"style_09_studio_ghibli.png",desc:"Miyazaki-style lush backgrounds with simple, expressive character design — nature and civilization."},
+  {id:"style_10_spider_verse",name:"Into the Spider-Verse",category:"concept_art",filename:"style_10_spider_verse.png",desc:"Bold graphic line work, Ben-Day halftone dots, CMYK separation, comic book pop energy."},
+  {id:"style_11_moebius",name:"Moebius / Jean Giraud",category:"concept_art",filename:"style_11_moebius.png",desc:"Intricate ink linework with delicate hatching, vast luminous landscapes, surreal-realist blend."},
+  {id:"style_12_worlds_fair",name:"1939 World's Fair Poster",category:"retro",filename:"style_12_worlds_fair.png",desc:"Art Deco poster design — bold geometric shapes, radiating sunbursts, gold/navy/cream palette."},
+  {id:"style_13_nasa_concept",name:"1960s NASA Concept",category:"retro",filename:"style_13_nasa_concept.png",desc:"Robert McCall space-age optimism — monumental scale, precise rendering, romantic atmosphere."},
+  {id:"style_14_soviet_space",name:"Soviet Space Propaganda (Optimist)",category:"retro",filename:"style_14_soviet_space.png",desc:"Constructivist propaganda reimagined as warm and optimistic — bold diagonals, heroic figures."},
+  {id:"style_15_tomorrowland",name:"Vintage Disneyland Tomorrowland",category:"retro",filename:"style_15_tomorrowland.png",desc:"Mid-century modern futurism — Space Age architecture, boomerang roofs, turquoise and coral."},
+  {id:"style_16_isometric_pixel",name:"Isometric Pixel Art",category:"experimental",filename:"style_16_isometric_pixel.png",desc:"Detailed 16-bit isometric pixel art — visible pixel grid, dithering, charming constraints."},
+  {id:"style_17_paper_cut",name:"Paper Cut / Diorama",category:"experimental",filename:"style_17_paper_cut.png",desc:"Layered paper cut-out shadow box — depth through physical craft, tactile handmade quality."},
+  {id:"style_18_stained_glass",name:"Stained Glass",category:"experimental",filename:"style_18_stained_glass.png",desc:"Cathedral stained glass — luminous translucent color separated by dark lead came lines."},
+  {id:"style_19_ukiyo_e",name:"Ukiyo-e",category:"experimental",filename:"style_19_ukiyo_e.png",desc:"Japanese woodblock print — flat color areas, bold outlines, stacked spatial planes."},
+  {id:"style_20_blueprint",name:"Blueprint / Technical Drawing",category:"experimental",filename:"style_20_blueprint.png",desc:"White lines on Prussian blue — architectural elevation drawings with warm gold accents."},
+  // ── V2: Photographic / Filmic ──
+  {id:"style_21_wes_anderson",name:"Wes Anderson Symmetry",category:"photographic",filename:"style_21_wes_anderson.png",desc:"Perfectly symmetrical Wes Anderson film still — pastel palette, planimetric framing, obsessive alignment."},
+  {id:"style_22_tilt_shift",name:"Tilt-Shift Miniature",category:"photographic",filename:"style_22_tilt_shift.png",desc:"Tilt-shift photography making the scene look like a tiny toy diorama — extreme selective focus, oversaturated."},
+  {id:"style_23_infrared",name:"Infrared Photography",category:"photographic",filename:"style_23_infrared.png",desc:"Near-infrared 720nm filter — foliage glows ethereal white, sky deep black, otherworldly dreamscape."},
+  // ── V2: Classical Art ──
+  {id:"style_24_art_nouveau",name:"Art Nouveau",category:"classical",filename:"style_24_art_nouveau.png",desc:"Alphonse Mucha decorative panel — flowing sinuous organic lines, jewel-tone palette, gold leaf accents."},
+  {id:"style_25_pointillism",name:"Pointillism",category:"classical",filename:"style_25_pointillism.png",desc:"Georges Seurat pointillism — thousands of distinct dots of pure unmixed color, optical mixing shimmer."},
+  {id:"style_26_fresco",name:"Fresco",category:"classical",filename:"style_26_fresco.png",desc:"Renaissance buon fresco on cracked plaster — earth pigments, heroic proportions, aged 500 years."},
+  {id:"style_27_chinese_ink_wash",name:"Chinese Ink Wash",category:"classical",filename:"style_27_chinese_ink_wash.png",desc:"Song Dynasty shanshui landscape on rice paper — graduated ink washes, vast negative white space, contemplative."},
+  // ── V2: Modern Design ──
+  {id:"style_28_bauhaus",name:"Bauhaus Poster",category:"modern_design",filename:"style_28_bauhaus.png",desc:"Bauhaus geometric abstraction — primary colors, circles-triangles-rectangles, bold diagonal tension."},
+  {id:"style_29_memphis_design",name:"Memphis Design",category:"modern_design",filename:"style_29_memphis_design.png",desc:"1980s Memphis Group — wild clashing colors, squiggly lines, confetti dots, anti-minimalist maximalist joy."},
+  {id:"style_30_swiss_international",name:"Swiss International Style",category:"modern_design",filename:"style_30_swiss_international.png",desc:"Josef Muller-Brockmann grid — high-contrast duotone, strict modular layout, Helvetica rationality."},
+  // ── V2: Animation / Comics ──
+  {id:"style_31_arcane",name:"Arcane (Netflix)",category:"animation",filename:"style_31_arcane.png",desc:"Fortiche painterly animation — impasto brushstrokes, hard-edge cel-shading, atmospheric particles, gritty-beautiful."},
+  {id:"style_32_adventure_time",name:"Adventure Time",category:"animation",filename:"style_32_adventure_time.png",desc:"Pendleton Ward cartoon — thick clean outlines, flat candy-pastel colors, maximum charm from minimum detail."},
+  {id:"style_33_ligne_claire",name:"Tintin / Ligne Claire",category:"animation",filename:"style_33_ligne_claire.png",desc:"Herge ligne claire — uniform-weight ink outlines, flat color fills, zero shading, architectural precision."},
+  {id:"style_34_manga_spread",name:"Manga Spread",category:"animation",filename:"style_34_manga_spread.png",desc:"Katsuhiro Otomo manga — black-and-white ink with screentone, extreme architectural detail, speed lines."},
+  // ── V2: Sculptural / Physical ──
+  {id:"style_35_lego_diorama",name:"LEGO Diorama",category:"sculptural",filename:"style_35_lego_diorama.png",desc:"Photograph of elaborate LEGO brick diorama — visible studs, standard colors, shallow DOF, charming miniature scale."},
+  {id:"style_36_claymation",name:"Claymation",category:"sculptural",filename:"style_36_claymation.png",desc:"Aardman stop-motion claymation — visible fingerprints in plasticine, waxy sheen, warm handcrafted charm."},
+  {id:"style_37_bronze_relief",name:"Bronze Relief",category:"sculptural",filename:"style_37_bronze_relief.png",desc:"Greco-Roman bronze bas-relief panel — raised foreground, verdigris patina, raking side-light shadows."},
+  {id:"style_38_neon_sign",name:"Neon Sign",category:"sculptural",filename:"style_38_neon_sign.png",desc:"Glowing neon sign on dark brick wall — bent glass tubes, electrode caps, colored light halos, romantic urban night."},
+  // ── V2: Extreme / Abstract ──
+  {id:"style_39_data_visualization",name:"Data Visualization",category:"extreme",filename:"style_39_data_visualization.png",desc:"Scene as infographic — bar chart skyline, force-directed graph robot, scatter-plot constellation figure, D3.js aesthetic."},
+  {id:"style_40_thermal_imaging",name:"Thermal Imaging",category:"extreme",filename:"style_40_thermal_imaging.png",desc:"FLIR infrared thermal camera — hot robot glowing white-yellow, human thermal signature, ironbow color palette."}
+];
+
+const CATEGORY_LABELS = {
+  adorable: "Adorable / Plush",
+  sleek: "Sleek / Minimal",
+  retro_future: "Retro-Future",
+  nature_tech: "Nature-Tech",
+  artisan: "Artisan / Craft",
+  ethereal: "Ethereal / Abstract",
+  toy: "Toy / Playful",
+  architectural: "Architectural / Geometric",
+  cinematic: "Cinematic / Iconic",
+  micro: "Micro / Nano",
+  musical: "Musical / Sound",
+  weather: "Weather / Elemental",
+  cities: "Cities of Tomorrow",
+  discovery: "Discovery & Research",
+  education: "Learning Reimagined",
+  sustainability: "Sustainability",
+  frontiers: "Exploration & Frontiers",
+  connection: "Human Connection",
+  health: "Health & Wellbeing",
+  food: "Food & Agriculture",
+  art: "Art & Creativity",
+  governance: "Governance & Democracy",
+  infrastructure: "Infrastructure & Making",
+  play: "Play & Joy",
+  photorealistic: "Photorealistic / Cinematic",
+  painterly: "Painterly / Fine Art",
+  concept_art: "Digital / Concept Art",
+  retro: "Retro / Vintage",
+  experimental: "Experimental",
+  photographic: "Photographic / Filmic",
+  classical: "Classical Art",
+  modern_design: "Modern Design",
+  animation: "Animation / Comics",
+  sculptural: "Sculptural / Physical",
+  extreme: "Extreme / Abstract"
+};
+
+const TAB_DATA = {
+  robots: { items: ROBOTS, dir: "concepts/robots/", tagClass: "robots", expected: 60 },
+  scenes: { items: SCENES, dir: "concepts/scenes/", tagClass: "scenes", expected: 60 },
+  styles: { items: STYLES, dir: "concepts/styles/", tagClass: "styles", expected: 40 }
+};
+
+// ── State ─────────────────────────────────────
+let activeTab = "robots";
+let activeFilter = null;
+let loadedCounts = { robots: 0, scenes: 0, styles: 0 };
+let currentLightboxItems = [];
+let currentLightboxIndex = 0;
+
+// ── Image loading tracker ─────────────────────
+function checkImage(src) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = src;
+  });
+}
+
+async function countLoadedImages(tabKey) {
+  const data = TAB_DATA[tabKey];
+  let count = 0;
+  const checks = data.items.map(item =>
+    checkImage(data.dir + item.filename).then(ok => { if (ok) count++; })
+  );
+  await Promise.all(checks);
+  loadedCounts[tabKey] = count;
+  updateBadge(tabKey);
+}
+
+function updateBadge(tabKey) {
+  const badge = document.getElementById("badge-" + tabKey);
+  const data = TAB_DATA[tabKey];
+  badge.textContent = loadedCounts[tabKey] + "/" + data.expected;
+}
+
+// ── Render ────────────────────────────────────
+function getCategories(tabKey) {
+  const seen = [];
+  TAB_DATA[tabKey].items.forEach(item => {
+    if (!seen.includes(item.category)) seen.push(item.category);
+  });
+  return seen;
+}
+
+function renderFilterBar(tabKey) {
+  const bar = document.getElementById("filterBar");
+  const cats = getCategories(tabKey);
+  const data = TAB_DATA[tabKey];
+
+  let html = '<button class="filter-btn' + (activeFilter === null ? " active" : "") + '" data-filter="all">Show All</button>';
+  cats.forEach(cat => {
+    const label = CATEGORY_LABELS[cat] || cat;
+    const count = data.items.filter(i => i.category === cat).length;
+    html += '<button class="filter-btn' + (activeFilter === cat ? " active" : "") + '" data-filter="' + cat + '">' + label + ' (' + count + ')</button>';
+  });
+  html += '<span class="image-counter" id="imageCounter">' + loadedCounts[tabKey] + ' of ' + data.expected + ' images loaded</span>';
+  bar.innerHTML = html;
+
+  bar.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const f = btn.dataset.filter;
+      activeFilter = f === "all" ? null : f;
+      renderFilterBar(tabKey);
+      renderPanel(tabKey);
+    });
+  });
+}
+
+function renderPanel(tabKey) {
+  const panel = document.getElementById("panel-" + tabKey);
+  const data = TAB_DATA[tabKey];
+  const cats = getCategories(tabKey);
+
+  let html = "";
+  cats.forEach(cat => {
+    if (activeFilter && activeFilter !== cat) return;
+    const items = data.items.filter(i => i.category === cat);
+    const label = CATEGORY_LABELS[cat] || cat;
+    html += '<div class="subcategory-section" data-cat="' + cat + '">';
+    html += '<div class="subcategory-header"><span class="subcategory-name">' + label + '</span><span class="subcategory-count">' + items.length + ' concepts</span></div>';
+    html += '<div class="card-grid">';
+    items.forEach(item => {
+      const src = data.dir + item.filename;
+      html += '<div class="card" data-id="' + item.id + '" data-tab="' + tabKey + '">';
+      html += '<div class="card-thumb">';
+      html += '<img src="' + src + '" alt="' + item.name + '" loading="lazy" onerror="this.parentElement.innerHTML=\'<div class=placeholder><div class=placeholder-icon>\u25A2</div>' + item.name + '</div>\'">';
+      html += '</div>';
+      html += '<div class="card-info"><span class="card-name">' + item.name + '</span><span class="card-tag ' + data.tagClass + '">' + (CATEGORY_LABELS[cat] || cat) + '</span></div>';
+      html += '</div>';
+    });
+    html += '</div></div>';
+  });
+
+  if (!html) html = '<div class="no-results">No concepts in this filter.</div>';
+  panel.innerHTML = html;
+
+  panel.querySelectorAll(".card").forEach(card => {
+    card.addEventListener("click", () => openLightbox(card.dataset.tab, card.dataset.id));
+  });
+}
+
+// ── Tabs ──────────────────────────────────────
+function switchTab(tabKey) {
+  activeTab = tabKey;
+  activeFilter = null;
+
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.tab === tabKey);
+  });
+  document.querySelectorAll(".tab-panel").forEach(p => {
+    p.classList.toggle("active", p.id === "panel-" + tabKey);
+  });
+
+  renderFilterBar(tabKey);
+  renderPanel(tabKey);
+}
+
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => switchTab(btn.dataset.tab));
+});
+
+// ── Lightbox ──────────────────────────────────
+function openLightbox(tabKey, itemId) {
+  const data = TAB_DATA[tabKey];
+  const filtered = activeFilter ? data.items.filter(i => i.category === activeFilter) : data.items;
+  currentLightboxItems = filtered.map(i => ({ ...i, dir: data.dir }));
+  currentLightboxIndex = currentLightboxItems.findIndex(i => i.id === itemId);
+  if (currentLightboxIndex < 0) currentLightboxIndex = 0;
+  showLightboxItem();
+  const lb = document.getElementById("lightbox");
+  lb.classList.add("opening");
+  requestAnimationFrame(() => { lb.classList.add("visible"); });
+  document.body.style.overflow = "hidden";
+}
+
+function showLightboxItem() {
+  const item = currentLightboxItems[currentLightboxIndex];
+  if (!item) return;
+  const src = item.dir + item.filename;
+  const wrap = document.getElementById("lbImgWrap");
+  wrap.innerHTML = '<img src="' + src + '" alt="' + item.name + '" onerror="this.parentElement.innerHTML=\'<div class=placeholder>Image not yet generated</div>\'">';
+  document.getElementById("lbName").textContent = item.name;
+  document.getElementById("lbCategory").textContent = (CATEGORY_LABELS[item.category] || item.category) + " \u00B7 " + (currentLightboxIndex + 1) + " of " + currentLightboxItems.length;
+  document.getElementById("lbDesc").textContent = item.desc || "";
+}
+
+function closeLightbox() {
+  const lb = document.getElementById("lightbox");
+  lb.classList.remove("visible");
+  setTimeout(() => lb.classList.remove("opening"), 250);
+  document.body.style.overflow = "";
+}
+
+document.getElementById("lbClose").addEventListener("click", closeLightbox);
+document.getElementById("lbPrev").addEventListener("click", () => {
+  currentLightboxIndex = (currentLightboxIndex - 1 + currentLightboxItems.length) % currentLightboxItems.length;
+  showLightboxItem();
+});
+document.getElementById("lbNext").addEventListener("click", () => {
+  currentLightboxIndex = (currentLightboxIndex + 1) % currentLightboxItems.length;
+  showLightboxItem();
+});
+
+document.getElementById("lightbox").addEventListener("click", e => {
+  if (e.target === e.currentTarget) closeLightbox();
+});
+
+document.addEventListener("keydown", e => {
+  if (!document.getElementById("lightbox").classList.contains("visible")) return;
+  if (e.key === "Escape") closeLightbox();
+  if (e.key === "ArrowLeft") { currentLightboxIndex = (currentLightboxIndex - 1 + currentLightboxItems.length) % currentLightboxItems.length; showLightboxItem(); }
+  if (e.key === "ArrowRight") { currentLightboxIndex = (currentLightboxIndex + 1) % currentLightboxItems.length; showLightboxItem(); }
+});
+
+// ── Init ──────────────────────────────────────
+(async function init() {
+  // Render immediately with 0 counts
+  ["robots","scenes","styles"].forEach(k => updateBadge(k));
+  switchTab("robots");
+
+  // Then count actual loaded images in background
+  await Promise.all(["robots","scenes","styles"].map(k => countLoadedImages(k)));
+  // Re-render the counter
+  const counter = document.getElementById("imageCounter");
+  if (counter) counter.textContent = loadedCounts[activeTab] + " of " + TAB_DATA[activeTab].expected + " images loaded";
+})();
+</script>
+</body>
+</html>
