@@ -1,0 +1,51 @@
+[
+  {
+    "tier": "01_minimal",
+    "target_chars": 50,
+    "actual_chars": 50,
+    "filename": "01_minimal_50chars.png",
+    "elapsed_s": 50.2
+  },
+  {
+    "tier": "02_short",
+    "target_chars": 100,
+    "actual_chars": 128,
+    "filename": "02_short_128chars.png",
+    "elapsed_s": 52.0
+  },
+  {
+    "tier": "03_medium",
+    "target_chars": 200,
+    "actual_chars": 275,
+    "filename": "03_medium_275chars.png",
+    "elapsed_s": 52.0
+  },
+  {
+    "tier": "04_recommended",
+    "target_chars": 350,
+    "actual_chars": 459,
+    "filename": "04_recommended_459chars.png",
+    "elapsed_s": 52.5
+  },
+  {
+    "tier": "05_long",
+    "target_chars": 600,
+    "actual_chars": 778,
+    "filename": "05_long_778chars.png",
+    "elapsed_s": 52.3
+  },
+  {
+    "tier": "06_very_long",
+    "target_chars": 900,
+    "actual_chars": 1274,
+    "filename": "06_very_long_1274chars.png",
+    "elapsed_s": 52.2
+  },
+  {
+    "tier": "07_extreme",
+    "target_chars": 1400,
+    "actual_chars": 2383,
+    "filename": "07_extreme_2383chars.png",
+    "elapsed_s": 50.6
+  }
+]

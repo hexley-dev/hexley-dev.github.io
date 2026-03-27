@@ -57,9 +57,22 @@ function initDocNav() {
   var currentPath = location.pathname;
 
   function isActive(href) {
-    // Resolve href to compare with current path
-    var pageName = href.split("/").pop();
-    return currentPath.endsWith(pageName) || currentPath.includes(href.replace(/\.\.\//g, ""));
+    // Strip ../ to get the path relative to turing_to_llms/
+    var resolved = href.replace(/\.\.\//g, "");
+    // Also get the current path relative to turing_to_llms/
+    var tlIdx = currentPath.indexOf("turing_to_llms/");
+    var currentRel = tlIdx >= 0 ? currentPath.substring(tlIdx + "turing_to_llms/".length) : currentPath;
+    // Exact filename match
+    if (currentRel === resolved) return true;
+    // For nav items pointing into subdirectories (2+ levels deep like experiments/future_canvas/),
+    // check if current page is inside that specific subdirectory.
+    // Count slashes to determine depth — only apply directory matching for deep links.
+    var slashes = (resolved.match(/\//g) || []).length;
+    if (slashes >= 2) {
+      var resolvedDir = resolved.replace(/[^/]*$/, "");
+      if (currentRel.indexOf(resolvedDir) === 0) return true;
+    }
+    return false;
   }
 
   function renderLink(item) {

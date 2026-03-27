@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Length Experiment — From Turing to LLMs and Beyond</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../documentary/shared.css">
+<style>
+/* ── EXPERIMENT-SPECIFIC STYLES ── */
+.finding-box {
+  background: var(--bg-card);
+  border: 1px solid var(--accent-dim);
+  border-radius: 10px;
+  padding: 2rem 2.5rem;
+  margin: 2rem 0 3rem;
+  max-width: 720px;
+}
+.finding-box .finding-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+.finding-box p {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.6;
+}
+.finding-box p em {
+  color: var(--accent-bright);
+  font-style: italic;
+}
+
+/* ── TIER CARDS ── */
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.2rem;
+  margin: 2rem 0;
+}
+.tier-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+.tier-card:hover {
+  border-color: var(--accent-dim);
+  transform: translateY(-3px);
+}
+.tier-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+.tier-card .tier-info {
+  padding: 0.8rem 1rem;
+}
+.tier-card .tier-tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+}
+.tier-card .tier-name {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.tier-card .tier-tokens {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+}
+.tier-card .tier-desc {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.tier-card .tier-result {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--green);
+  margin-top: 0.3rem;
+  letter-spacing: 0.05em;
+}
+
+/* ── CRITICAL TESTS ── */
+.critical-section {
+  background: var(--bg-raised);
+  border: 1px solid rgba(196, 92, 76, 0.25);
+  border-radius: 10px;
+  padding: 2.5rem;
+  margin: 3rem 0;
+}
+.critical-section h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+.critical-section h3 em {
+  color: var(--red);
+  font-style: italic;
+}
+.critical-lead {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+.critical-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.2rem;
+}
+.critical-card {
+  background: var(--bg-card);
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+}
+.critical-card:hover {
+  border-color: var(--accent-dim);
+}
+.critical-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+.critical-card .cc-info {
+  padding: 0.8rem 1rem;
+}
+.critical-card .cc-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+.critical-card .cc-desc {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+.critical-card .cc-result {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  margin-top: 0.4rem;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+.cc-followed { color: var(--green); }
+.cc-ignored { color: var(--red); }
+
+/* ── CONCLUSION LIST ── */
+.conclusions {
+  max-width: 720px;
+  margin: 2rem 0;
+  counter-reset: conclusion;
+}
+.conclusion-item {
+  position: relative;
+  padding: 1.2rem 1.5rem 1.2rem 3.5rem;
+  margin-bottom: 0.8rem;
+  background: var(--bg-card);
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.04);
+  counter-increment: conclusion;
+}
+.conclusion-item::before {
+  content: counter(conclusion);
+  position: absolute;
+  left: 1.2rem;
+  top: 1.3rem;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--accent);
+  font-weight: 500;
+}
+.conclusion-item strong {
+  color: var(--text);
+  font-weight: 500;
+}
+.conclusion-item p {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* ── GUIDELINES ── */
+.guideline-list {
+  max-width: 680px;
+  list-style: none;
+  margin: 1.5rem 0;
+}
+.guideline-list li {
+  padding: 0.6rem 0 0.6rem 1.5rem;
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+.guideline-list li::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  color: var(--accent-dim);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+.guideline-list li strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ── METHOD BOX ── */
+.method-box {
+  background: var(--bg-card);
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 1.5rem 2rem;
+  margin: 1.5rem 0;
+  max-width: 680px;
+}
+.method-box h4 {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.8rem;
+}
+.method-box ul {
+  list-style: none;
+}
+.method-box li {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  padding: 0.3rem 0;
+  padding-left: 1rem;
+  position: relative;
+}
+.method-box li::before {
+  content: '-';
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+
+/* ── TOKEN BAR VISUALIZATION ── */
+.token-bar-container {
+  max-width: 720px;
+  margin: 2rem 0;
+}
+.token-bar-wrapper {
+  position: relative;
+  height: 40px;
+  background: var(--bg-card);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+.token-bar-fill {
+  height: 100%;
+  border-radius: 6px 0 0 6px;
+  transition: width 0.6s ease;
+}
+.token-bar-safe { background: linear-gradient(90deg, rgba(108, 168, 116, 0.3), rgba(108, 168, 116, 0.5)); }
+.token-bar-warn { background: linear-gradient(90deg, rgba(214, 158, 46, 0.3), rgba(214, 158, 46, 0.5)); }
+.token-bar-danger { background: linear-gradient(90deg, rgba(196, 92, 76, 0.3), rgba(196, 92, 76, 0.5)); }
+.token-bar-markers {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+.token-bar-markers .mark-safe { color: var(--green); }
+.token-bar-markers .mark-warn { color: var(--brass); }
+.token-bar-markers .mark-danger { color: var(--red); }
+.token-bar-label {
+  position: absolute;
+  right: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+}
+.token-bar-boundary {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--red);
+  opacity: 0.6;
+}
+.token-bar-boundary::after {
+  content: '512 token limit';
+  position: absolute;
+  top: -1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 0.5rem;
+  color: var(--red);
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+}
+
+/* ── DEBUNK BOX ── */
+.debunk-box {
+  background: rgba(196, 92, 76, 0.05);
+  border: 1px solid rgba(196, 92, 76, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+  max-width: 680px;
+}
+.debunk-box .debunk-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 0.6rem;
+}
+.debunk-box p {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+.debunk-box strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Lightbox click behavior for all images */
+.tier-card img, .critical-card img {
+  cursor: zoom-in;
+}
+</style>
+</head>
+<body>
+
+<nav class="doc-nav"></nav>
+
+<header class="hero">
+  <div class="hero-eyebrow">Research Log</div>
+  <h1>Prompt Length <em>Experiment</em></h1>
+  <p class="hero-sub">How many tokens can FLUX.2-dev actually follow? We tested it.</p>
+  <div class="hero-line"></div>
+</header>
+
+<!-- ═══ KEY FINDING ═══ -->
+<section class="reveal">
+  <div class="finding-box">
+    <div class="finding-label">Key Finding</div>
+    <p>FLUX.2-dev follows additive instructions at <em>every position</em> within its 512-token window &mdash; including the very last content token before EOS. The only failure mode we found is <em>contradicting earlier tokens</em>. We initially assumed prompts should be kept under 400 characters &mdash; an unverified assumption based on an AI agent's assertion that we accepted without checking. After compressing 240 prompts and regenerating all of them, we saw no improvement. This experiment was built to understand why, and to find the actual limits.</p>
+  </div>
+</section>
+
+<!-- ═══ METHOD ═══ -->
+<section class="reveal">
+  <div class="section-num">01 &mdash; Method</div>
+  <h2>Experimental <em>design</em></h2>
+  <p class="section-lead">A controlled, additive approach: start with a sphere, keep adding elements, see when the model stops listening.</p>
+
+  <div class="method-box">
+    <h4>Controls</h4>
+    <ul>
+      <li>Fixed seed (42) and dimensions (512 x 512) across all tiers</li>
+      <li>512-token context window (enforced by diffusers pipeline)</li>
+      <li>Progressively added visual elements, verifying each one appeared</li>
+      <li>Final tests: contradictory vs. additive instructions at token positions ~491, 502, and 511 (the last content token)</li>
+    </ul>
+  </div>
+
+  <!-- Token bar visualization -->
+  <div class="token-bar-container">
+    <div style="font-family: var(--mono); font-size: 0.6rem; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.6rem;">FLUX.2-dev Context Window (512 tokens)</div>
+    <div class="token-bar-wrapper">
+      <div class="token-bar-fill token-bar-safe" style="width: 100%;"></div>
+      <div class="token-bar-boundary" style="left: 100%;"></div>
+      <div class="token-bar-label">512 max</div>
+    </div>
+    <div class="token-bar-markers">
+      <span class="mark-safe">0 &mdash; full fidelity</span>
+      <span class="mark-safe">additive instructions work everywhere</span>
+      <span class="mark-warn">contradictions lose to earlier tokens</span>
+      <span class="mark-danger">512 hard cutoff</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>Progressive Build</span></div>
+
+<!-- ═══ TIER PROGRESSION ═══ -->
+<section class="reveal">
+  <div class="section-num">02 &mdash; Results</div>
+  <h2>Building <em>the scene</em></h2>
+  <p class="section-lead">Each tier adds new visual elements to the prompt. Every element was verified in the output image.</p>
+
+  <div class="tier-grid">
+
+    <div class="tier-card" onclick="openLightbox(this)">
+      <img src="t01_004tok_sphere.png" alt="T1: A sphere" loading="lazy">
+      <div class="tier-info">
+        <div class="tier-tag"><span class="tier-name">T1</span><span class="tier-tokens">4 tokens</span></div>
+        <div class="tier-desc">"A sphere" &mdash; baseline</div>
+        <div class="tier-result">Clear glass sphere</div>
+      </div>
+    </div>
+
+    <div class="tier-card" onclick="openLightbox(this)">
+      <img src="t02_005tok_red_sphere.png" alt="T2: Red sphere" loading="lazy">
+      <div class="tier-info">
+        <div class="tier-tag"><span class="tier-name">T2</span><span class="tier-tokens">5 tokens</span></div>
+        <div class="tier-desc">Made it red</div>
+        <div class="tier-result">Red confirmed</div>
+      </div>
+    </div>
+
+    <div class="tier-card" onclick="openLightbox(this)">
+      <img src="t03_010tok_red_sphere_grass.png" alt="T3: Red sphere on grass" loading="lazy">
+      <div class="tier-info">
+        <div class="tier-tag"><span class="tier-name">T3</span><span class="tier-tokens">9 tokens</span></div>
+        <div class="tier-desc">Added green grass</div>
+        <div class="tier-result">Grass confirmed</div>
+      </div>
+    </div>
+
+    <div class="tier-card" onclick="openLightbox(this)">
+      <img src="t04_018tok_mountains.png" alt="T4: Mountains" loading="lazy">
+      <div class="tier-info">
+        <div class="tier-tag"><span class="tier-name">T4</span><span class="tier-tokens">17 tokens</span></div>
+        <div class="tier-desc">Snow-capped mountains</div>
+        <div class="tier-result">Mountains confirmed</div>
+      </div>
+    </div>
+
+    <div class="tier-card" onclick="openLightbox(this)">
+      <img src="t05_025tok_sunset.png" alt="T5: Sunset" loading="lazy">
+      <div class="tier-info">
+        <div class="tier-tag"><span class="tier-name">T5</span><span class="tier-tokens">23 tokens</span></div>
+        <div class="tier-desc">Orange sunset</div>
+        <div class="tier-result">Sunset confirmed</div>
+      </div>
+    </div>
+
+    <div class="tier-card" onclick="openLightbox(this)">
+      <img src="t06_040tok_robot.png" alt="T6: Brass robot" loading="lazy">
+      <div class="tier-info">
+        <div class="tier-tag"><span class="tier-name">T6</span><span class="tier-tokens">38 tokens</span></div>
+        <div class="tier-desc">Brass robot with blue eyes</div>
+        <div class="tier-result">Robot confirmed</div>
+      </div>
+    </div>
+
+    <div class="tier-card" onclick="openLightbox(this)">
+      <img src="t07_060tok_river_bridge.png" alt="T7: River and bridge" loading="lazy">
+      <div class="tier-info">
+        <div class="tier-tag"><span class="tier-name">T7</span><span class="tier-tokens">57 tokens</span></div>
+        <div class="tier-desc">River + wooden bridge</div>
+        <div class="tier-result">Both confirmed</div>
+      </div>
+    </div>
+
+    <div class="tier-card" onclick="openLightbox(this)">
+      <img src="t08_090tok_birds_metallic.png" alt="T8: Birds and metallic surface" loading="lazy">
+      <div class="tier-info">
+        <div class="tier-tag"><span class="tier-name">T8</span><span class="tier-tokens">86 tokens</span></div>
+        <div class="tier-desc">Birds + metallic reflective surface</div>
+        <div class="tier-result">Both confirmed</div>
+      </div>
+    </div>
+
+    <div class="tier-card" onclick="openLightbox(this)">
+      <img src="t09_150tok_cherry_wildflowers.png" alt="T9: Cherry blossoms and wildflowers" loading="lazy">
+      <div class="tier-info">
+        <div class="tier-tag"><span class="tier-name">T9</span><span class="tier-tokens">147 tokens</span></div>
+        <div class="tier-desc">Cherry blossom tree + wildflowers</div>
+        <div class="tier-result">Both confirmed</div>
+      </div>
+    </div>
+
+    <div class="tier-card" onclick="openLightbox(this)">
+      <img src="t10_210tok_cube_fog_boat.png" alt="T10: Cube, fog, and rowboat" loading="lazy">
+      <div class="tier-info">
+        <div class="tier-tag"><span class="tier-name">T10</span><span class="tier-tokens">216 tokens</span></div>
+        <div class="tier-desc">Blue glass cube + fog + rowboat</div>
+        <div class="tier-result">All confirmed</div>
+      </div>
+    </div>
+
+    <div class="tier-card" onclick="openLightbox(this)">
+      <img src="t11_340tok_girl_moon_path.png" alt="T11: Girl in yellow raincoat" loading="lazy">
+      <div class="tier-info">
+        <div class="tier-tag"><span class="tier-name">T11</span><span class="tier-tokens">318 tokens</span></div>
+        <div class="tier-desc">Girl in yellow raincoat + stone path</div>
+        <div class="tier-result">Both confirmed</div>
+      </div>
+    </div>
+
+    <div class="tier-card" onclick="openLightbox(this)">
+      <img src="t12_460tok_cat_lantern_boots.png" alt="T12: Cat, lantern, boots" loading="lazy">
+      <div class="tier-info">
+        <div class="tier-tag"><span class="tier-name">T12</span><span class="tier-tokens">432 tokens</span></div>
+        <div class="tier-desc">Tabby cat + green lantern + purple clouds</div>
+        <div class="tier-result">Cat and lantern confirmed</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"><span>The Critical Tests</span></div>
+
+<!-- ═══ CRITICAL TESTS ═══ -->
+<section class="reveal">
+  <div class="section-num">03 &mdash; Boundary</div>
+  <h2>Every token <em>matters</em></h2>
+  <p class="section-lead">With 15+ elements rendering correctly at 432 tokens, we pushed to the boundary. Can instructions placed near &mdash; or at &mdash; the 512-token limit still be followed?</p>
+
+  <div class="critical-section">
+    <h3>The <em>conflict resolution</em> test</h3>
+    <p class="critical-lead">We placed "make the sphere BLUE" at different token positions to see where the model stops obeying. The sphere was originally described as red at token 3.</p>
+
+    <div class="critical-grid">
+
+      <div class="critical-card" onclick="openLightbox(this)">
+        <img src="t13b_527tok_blue_EARLY.png" alt="T13b: Blue instruction early" loading="lazy">
+        <div class="cc-info">
+          <div class="cc-label" style="color: var(--green);">T13b &mdash; 527 tokens</div>
+          <div class="cc-desc">"BRIGHT BLUE sphere" placed at <strong>token 3</strong> (early position)</div>
+          <div class="cc-result cc-followed">BLUE &mdash; instruction followed</div>
+        </div>
+      </div>
+
+      <div class="critical-card" onclick="openLightbox(this)">
+        <img src="t13c_503tok_blue_at_491.png" alt="T13c: Blue instruction at 491" loading="lazy">
+        <div class="cc-info">
+          <div class="cc-label" style="color: var(--red);">T13c &mdash; 503 tokens</div>
+          <div class="cc-desc">"sphere is BLUE not red" placed at <strong>token 491</strong> (contradicts early "red")</div>
+          <div class="cc-result cc-ignored">RED &mdash; instruction NOT followed</div>
+        </div>
+      </div>
+
+      <div class="critical-card" onclick="openLightbox(this)">
+        <img src="t13a_543tok_blue_LATE.png" alt="T13a: Blue instruction past 512" loading="lazy">
+        <div class="cc-info">
+          <div class="cc-label" style="color: var(--red);">T13a &mdash; 543 tokens</div>
+          <div class="cc-desc">"sphere is BLUE not red" placed at <strong>token 516</strong> (past 512 boundary)</div>
+          <div class="cc-result cc-ignored">RED &mdash; truncated, not followed</div>
+        </div>
+      </div>
+
+      <div class="critical-card" onclick="openLightbox(this)">
+        <img src="t14_508tok_crown_at_491.png" alt="T14: Crown at 491" loading="lazy">
+        <div class="cc-info">
+          <div class="cc-label" style="color: var(--green);">T14 &mdash; 508 tokens</div>
+          <div class="cc-desc">"golden crown on sphere" placed at <strong>token 491</strong> (new element, no conflict)</div>
+          <div class="cc-result cc-followed">CROWN PRESENT &mdash; instruction followed</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="quote-block" style="margin-top: 2rem;">
+      <p>It's not position decay &mdash; it's conflict resolution. New elements work near the boundary. Contradictions don't. Early tokens win.</p>
+    </div>
+
+    <h3 style="margin-top: 3rem;">The <em>definitive</em> test</h3>
+    <p class="critical-lead">Can the model follow an additive instruction placed at the very last token? We added "rainbow" at progressively later positions in a 512-token prompt.</p>
+
+    <div class="critical-grid">
+
+      <div class="critical-card" onclick="openLightbox(this)">
+        <img src="t15_512tok_rainbow_at_502.png" alt="T15: Rainbow at token 502" loading="lazy">
+        <div class="cc-info">
+          <div class="cc-label" style="color: var(--green);">T15 &mdash; 512 tokens</div>
+          <div class="cc-desc">"rainbow" instruction at <strong>tokens 502&ndash;511</strong> (additive, no conflict)</div>
+          <div class="cc-result cc-followed">RAINBOW VISIBLE &mdash; instruction followed</div>
+        </div>
+      </div>
+
+      <div class="critical-card" onclick="openLightbox(this)">
+        <img src="t15b_512tok_rainbow_at_511.png" alt="T15b: Rainbow at token 511" loading="lazy">
+        <div class="cc-info">
+          <div class="cc-label" style="color: var(--green);">T15b &mdash; 512 tokens</div>
+          <div class="cc-desc">"rainbow" is <strong>token 511</strong> &mdash; the absolute last content token before EOS</div>
+          <div class="cc-result cc-followed">RAINBOW VISIBLE &mdash; full attention at final token</div>
+        </div>
+      </div>
+
+      <div class="critical-card" onclick="openLightbox(this)">
+        <img src="t15c_502tok_NO_rainbow.png" alt="T15c: Control — no rainbow instruction" loading="lazy">
+        <div class="cc-info">
+          <div class="cc-label" style="color: var(--amber);">T15c &mdash; 502 tokens (control)</div>
+          <div class="cc-desc">Same prompt and seed as T15b but with "rainbow" <strong>removed</strong></div>
+          <div class="cc-result cc-ignored">NO RAINBOW &mdash; confirms T15b rainbow was caused by the instruction</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="quote-block" style="margin-top: 2rem;">
+      <p>No attention decay whatsoever. The model follows additive instructions at every position in its 512-token window, including the very last content token. The control (T15c) confirms the rainbow was caused by the instruction, not coincidence.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>Analysis</span></div>
+
+<!-- ═══ CONCLUSIONS ═══ -->
+<section class="reveal">
+  <div class="section-num">04 &mdash; Conclusions</div>
+  <h2>What we <em>learned</em></h2>
+
+  <div class="conclusions">
+    <div class="conclusion-item">
+      <p><strong>No attention decay within the 512-token window.</strong> Additive instructions are followed at every position &mdash; including token 511, the absolute last content token before EOS. The entire window is fully utilized.</p>
+    </div>
+    <div class="conclusion-item">
+      <p><strong>Hard truncation at 512 tokens.</strong> The diffusers pipeline enforces <code>max_sequence_length=512</code>. Anything past that boundary is invisible to the model. Instructions at token 516 had zero effect.</p>
+    </div>
+    <div class="conclusion-item">
+      <p><strong>The only failure mode is contradiction.</strong> "Actually BLUE not red" at token 491 lost to the earlier "red" at token 3. When instructions conflict, early tokens win. But new, non-conflicting elements work everywhere in the window.</p>
+    </div>
+    <div class="conclusion-item">
+      <p><strong>Characters are the wrong unit.</strong> We were measuring prompt length in characters and acting on an unverified assumption. Character-based prompt limits are meaningless &mdash; tokens are what matter, and the model handles all 512.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>Practice</span></div>
+
+<!-- ═══ GUIDELINES ═══ -->
+<section class="reveal">
+  <div class="section-num">05 &mdash; Guidelines</div>
+  <h2>Practical <em>takeaways</em></h2>
+
+  <ul class="guideline-list">
+    <li><strong>Our concept art prompts are safe.</strong> Average 263 tokens, max 334 &mdash; well within the verified fidelity range.</li>
+    <li><strong>Put the most important descriptors first.</strong> The model gives priority to earlier tokens when conflicts arise.</li>
+    <li><strong>Don't append corrections &mdash; edit the original.</strong> "Actually make it BLUE" at the end loses to "red" at the start. Change the original word instead.</li>
+    <li><strong>New elements work at every position in the window.</strong> Non-conflicting additions are followed even at token 511 &mdash; the very last content token.</li>
+    <li><strong>Style and camera keywords work anywhere.</strong> "Shot on 35mm," "shallow depth of field" &mdash; these don't conflict with scene elements and work fine at any position.</li>
+  </ul>
+
+  <div class="debunk-box">
+    <div class="debunk-label">Wasted Effort: Prompt Compression</div>
+    <p>We compressed all 240 concept art prompts from ~263 tokens to ~80 tokens and regenerated every image &mdash; based on an unverified assumption from one of our AI agents that prompts degrade past 400 characters. We didn't check whether 400 characters was the right unit, whether the claim had a source, or whether our prompts were actually in the danger zone. <strong>Side-by-side comparison showed no quality improvement</strong> &mdash; because there was no degradation to fix. The wasted effort motivated this experiment: if the assumption was wrong, what are the actual limits?</p>
+    <p style="margin-top: 1rem;">A bigger lesson: a few minutes of research into the diffusers documentation would have revealed the 512-token <code>max_sequence_length</code> and the actual text encoder, saving hours of wasted effort. <strong>Always research before experimenting, and experiment before scaling.</strong></p>
+  </div>
+</section>
+
+<div class="divider"><span>Honesty</span></div>
+
+<!-- ═══ WHAT WE GOT WRONG ═══ -->
+<section class="reveal">
+  <div class="section-num">06 &mdash; Corrections</div>
+  <h2>What we <em>got wrong</em></h2>
+
+  <div class="debunk-box">
+    <div class="debunk-label">Wrong Text Encoder</div>
+    <p>Throughout this experiment, we assumed FLUX.2-dev uses T5-XXL as its text encoder. It doesn't. <strong>FLUX.2-dev uses Mistral-Small-3.2-24B-Instruct.</strong> Our tokenizer analysis &mdash; characters-per-token ratios, token count estimates &mdash; was measured against the wrong model. The behavioral findings (attention, contradiction) still hold because they test the model's actual output, but our token-counting methodology was flawed.</p>
+  </div>
+
+  <div class="debunk-box">
+    <div class="debunk-label">Trivially Discoverable</div>
+    <p>The 512-token truncation is enforced by the diffusers pipeline via <code>max_sequence_length=512</code>, which raises a hard <code>ValueError</code> if exceeded. This is documented in the diffusers source code. HuggingFace discussion #43 from 2024 explains the exact behavior. <strong>A five-minute search would have answered the truncation question without running a single image generation.</strong></p>
+  </div>
+
+  <div class="conclusions">
+    <div class="conclusion-item">
+      <p><strong>We didn't research the encoder.</strong> We assumed T5-XXL without checking. The actual encoder (Mistral) has different tokenization characteristics.</p>
+    </div>
+    <div class="conclusion-item">
+      <p><strong>We didn't read the diffusers docs.</strong> The 512-token limit is a documented parameter, not a discovery. We could have found it in minutes.</p>
+    </div>
+    <div class="conclusion-item">
+      <p><strong>We trusted an AI agent's assertion as fact.</strong> The original "400 character limit" claim came from an AI review agent. We never asked for a source, never verified it, and built an entire compression pipeline on it.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>Value</span></div>
+
+<!-- ═══ WHAT THE EXPERIMENT CONTRIBUTED ═══ -->
+<section class="reveal">
+  <div class="section-num">07 &mdash; Contributions</div>
+  <h2>What the experiment <em>did</em> contribute</h2>
+  <p class="section-lead">The truncation limit was documented. The behavioral questions were not.</p>
+
+  <div class="conclusions">
+    <div class="conclusion-item">
+      <p><strong>No attention decay within the window.</strong> No public documentation we found addresses whether FLUX.2-dev's attention degrades at later token positions. Our progressive tests (T1&ndash;T15b) demonstrate it does not. Additive instructions at token 511 are followed just as faithfully as at token 3.</p>
+    </div>
+    <div class="conclusion-item">
+      <p><strong>Contradiction vs. addition at late positions.</strong> The conflict resolution behavior &mdash; early tokens winning when instructions contradict &mdash; is not documented in the diffusers docs or HuggingFace discussions we reviewed. This is a practical finding for anyone writing long prompts.</p>
+    </div>
+    <div class="conclusion-item">
+      <p><strong>Visual proof at the boundary.</strong> The T15b result (rainbow visible at token 511) provides concrete evidence that the full 512-token window is utilized, not just tolerated. This goes beyond "the model accepts 512 tokens" to "the model pays attention to all 512 tokens."</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>Lessons</span></div>
+
+<!-- ═══ PROCESS LESSONS ═══ -->
+<section class="reveal">
+  <div class="section-num">08 &mdash; Process</div>
+  <h2>Process <em>lessons</em></h2>
+
+  <ul class="guideline-list">
+    <li><strong>Research before experimenting.</strong> Five minutes with the diffusers docs would have answered the truncation question and identified the correct text encoder. We skipped this and spent hours generating images to answer a question that was already documented.</li>
+    <li><strong>Experiment before scaling.</strong> We compressed 240 prompts and regenerated every image before testing whether compression helped. One controlled test would have shown it didn't &mdash; saving the entire batch effort.</li>
+    <li><strong>Verify which model you're testing.</strong> We assumed T5-XXL, built our tokenizer analysis around it, and never checked. The actual encoder (Mistral-Small-3.2-24B-Instruct) has different tokenization. Know your stack.</li>
+    <li><strong>An AI agent's assertion is not a source.</strong> The original "400 character limit" claim came from an AI review agent during a code audit. We treated it as fact. AI agents can be confidently wrong &mdash; always ask for the source, and verify it yourself.</li>
+  </ul>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<div id="doc-footer"></div>
+
+<!-- ═══ LIGHTBOX ═══ -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="">
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<script>
+function openLightbox(card) {
+  var img = card.querySelector('img');
+  var desc = card.querySelector('.tier-desc, .cc-desc');
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightbox-img');
+  var lbCap = document.getElementById('lightbox-caption');
+  lbImg.src = img.src;
+  lbImg.alt = img.alt;
+  lbCap.textContent = desc ? desc.textContent : img.alt;
+  lb.classList.add('active');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+</script>
+
+<!-- ═══ SCROLL REVEAL ═══ -->
+<script>
+(function() {
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+})();
+</script>
+
+<script src="../../documentary/shared.js"></script>
+</body>
+</html>

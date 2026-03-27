@@ -140,6 +140,19 @@
       realistic-optimist futures worth building — and hand the reader the torch.
     </div>
   </li>
+  <li class="mind-item">
+    <span class="mind-check">☑</span>
+    <div class="mind-text">
+      <span class="mind-category">Research</span>
+      <strong>Prompt length limits — empirically tested.</strong>
+      An AI review agent claimed prompts degrade past 400 characters. We accepted this
+      without verification, compressed 240 prompts, and regenerated them — finding no
+      improvement. The actual limit (512 tokens, documented in the diffusers API) was a
+      5-minute search away. New elements work at every position within the window;
+      only contradictions of earlier tokens fail.
+      <a href="../experiments/prompt_length_test/" style="color: inherit;">Read the experiment →</a>
+    </div>
+  </li>
 </ul>
 
 <div id="doc-footer"></div>
