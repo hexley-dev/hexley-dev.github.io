@@ -274,26 +274,26 @@
 <!-- ═══ HERO ═══ -->
 <header class="hero">
   <div class="hero-eyebrow">Project Timeline</div>
-  <h1>47 days of<br><em>building.</em></h1>
+  <h1>48 days of<br><em>building.</em></h1>
   <p class="hero-sub">
     A chronological record of how a 10-issue educational comic series was built
     entirely by human-AI collaboration using multi-agent orchestration.
   </p>
   <div class="hero-stats">
     <div class="hero-stat">
-      <div class="hero-stat-num">47</div>
+      <div class="hero-stat-num">48</div>
       <div class="hero-stat-label">Days</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num">33</div>
+      <div class="hero-stat-num">34</div>
       <div class="hero-stat-label">Sessions</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num">648</div>
+      <div class="hero-stat-num">688</div>
       <div class="hero-stat-label">Agents Spawned</div>
     </div>
     <div class="hero-stat">
-      <div class="hero-stat-num">1,691</div>
+      <div class="hero-stat-num">1,851</div>
       <div class="hero-stat-label">Images Generated</div>
     </div>
   </div>
@@ -306,7 +306,7 @@
 
 <section class="reveal">
   <div class="section-num">01 — Session Log</div>
-  <h2>33 sessions across<br><em>47 days.</em></h2>
+  <h2>34 sessions across<br><em>48 days.</em></h2>
   <p class="section-lead">
     From the first 6-hour marathon that produced all 10 issue drafts
     to the 7-day mega-session that reviewed every generated image.
@@ -357,6 +357,7 @@
         <tr><td class="num">31</td><td class="date">Mar 17-21</td><td>4 days</td><td class="agents">15</td><td>Character design + style experiments + <a href="https://huggingface.co/black-forest-labs/FLUX.2-dev" target="_blank" rel="noopener">FLUX.2-dev</a> on <a href="https://www.nvidia.com/en-us/products/workstations/dgx-spark/" target="_blank" rel="noopener">DGX Spark</a></td></tr>
         <tr><td class="num">32</td><td class="date">Mar 21-22</td><td>19h</td><td class="agents">14</td><td>Photo-real Scribble, multi-image API, 500+ character designs</td></tr>
         <tr><td class="num">33</td><td class="date">Mar 25</td><td>8h</td><td class="agents">34</td><td>Experiment reorg, documentary, behind-the-scenes</td></tr>
+        <tr><td class="num">34</td><td class="date">Mar 26</td><td>~10h</td><td class="agents">40</td><td>Repo restructure, two-repo split, Future Canvas (160 concept art), pipeline hardening, narrative guidelines</td></tr>
       </tbody>
     </table>
   </div>
@@ -368,10 +369,10 @@
 
 <section class="reveal">
   <div class="section-num">02 — The Build</div>
-  <h2>Nine phases from<br><em>genesis to reflection.</em></h2>
+  <h2>Ten phases from<br><em>genesis to vision.</em></h2>
   <p class="section-lead">
     The project moved through distinct phases: research, editorial review,
-    image generation, quality review, character design, and documentation.
+    image generation, quality review, character design, documentation, and reorganization.
   </p>
 
   <div class="timeline">
@@ -517,6 +518,26 @@
       <span class="timeline-milestone">Project transitioned from production to reflection</span>
     </div>
 
+    <!-- Phase 10 -->
+    <div class="timeline-item">
+      <div class="timeline-date">Phase 10 — Mar 26, 2026</div>
+      <div class="timeline-title">Reorganization &amp; Vision</div>
+      <div class="timeline-meta">Session 34 · ~40 subagents</div>
+      <div class="timeline-desc">Major repo restructure, philosophical foundation, and 160-image concept art generation for the Future Canvas.</div>
+      <ul class="timeline-details">
+        <li>Split into two repos: workflow (scripts/agents) and assets (hexley-dev.github.io)</li>
+        <li>Issue versioning introduced: v1/, v2/, staging/ directory structure</li>
+        <li>Archived 20 experiment scripts to archive/experiments/ and archive/migrations/</li>
+        <li>Git identity rewrite: all commits now attributed to Hexley</li>
+        <li>Documentary site expanded: 7 pages with shared nav/footer, two-tier navigation</li>
+        <li>"Why We Build" philosophical foundation page and 10 narrative guidelines codified</li>
+        <li>"On Our Mind" living ideas page added to Latest nav</li>
+        <li>Future Canvas: 160 concept art prompts (60 robots, 60 scenes, 40 styles) generated via Sparky API in 169 minutes</li>
+        <li>Pipeline hardening: validate_schema.py, image_gen_audit.py, pipeline_status.py, generate_concept_art.py</li>
+      </ul>
+      <span class="timeline-milestone">Two-repo architecture + 160 concept art pieces + philosophical foundation</span>
+    </div>
+
   </div>
 </section>
 
@@ -557,9 +578,10 @@
         <tr><td>V2 published (10 issues)</td><td class="highlight">438</td></tr>
         <tr><td>Style experiments (8 styles)</td><td class="highlight">484</td></tr>
         <tr><td>Character designs</td><td class="highlight">769</td></tr>
+        <tr><td>Future Canvas concept art</td><td class="highlight">160</td></tr>
       </tbody>
       <tfoot>
-        <tr><td><strong>Total</strong></td><td class="highlight"><strong>1,691</strong></td></tr>
+        <tr><td><strong>Total</strong></td><td class="highlight"><strong>1,851</strong></td></tr>
       </tfoot>
     </table>
   </div>
@@ -619,8 +641,8 @@
   <div class="section-num">04 — Narrative Arc</div>
   <h2>How the project<br><em>unfolded.</em></h2>
   <p class="section-lead">
-    From a blank repository to a published comic series with 1,916 AI-generated images,
-    told in nine turning points.
+    From a blank repository to a published comic series with 1,851 AI-generated images,
+    told in ten turning points.
   </p>
 
   <div class="arc-item">
@@ -694,6 +716,14 @@
       <strong>Housekeeping and documentation.</strong> Experiments renamed, documentary built, timeline extracted. The project transitioned from production to reflection.
     </div>
   </div>
+
+  <div class="arc-item">
+    <div class="arc-num">10</div>
+    <div class="arc-text">
+      <span class="arc-date">Day 48 — Mar 26</span>
+      <strong>The great reorganization.</strong> The project split into two repos (workflow vs. assets), issue versioning was introduced, and 20 experiment scripts were archived. The documentary site grew to 7 pages with a philosophical foundation ("Why We Build") and 10 narrative guidelines. Three creative director agents designed 160 concept art prompts for the Future Canvas — robots, future scenes, and art styles — all generated via Sparky API in under 3 hours. Four new pipeline tools hardened the production workflow. The project found its voice.
+    </div>
+  </div>
 </section>
 
 
@@ -702,7 +732,7 @@
 
 <section class="reveal">
   <div class="section-num">05 — Lessons Codified</div>
-  <h2>10 rules from<br><em>50 sessions.</em></h2>
+  <h2>10 rules from<br><em>the trenches.</em></h2>
 
   <div class="timeline">
     <div class="timeline-item">
