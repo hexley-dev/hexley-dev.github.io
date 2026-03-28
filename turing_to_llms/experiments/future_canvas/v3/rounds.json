@@ -1,0 +1,1274 @@
+[
+  {
+    "round": 1,
+    "timestamp": "2026-03-27T21:34:28.456818",
+    "mode": "explore",
+    "total_generated": 5,
+    "failed": 0,
+    "kept": 5,
+    "dropped": 0,
+    "gen_time_min": 5.7,
+    "concepts": [
+      {
+        "name": "The Interpreter",
+        "category": "accessibility",
+        "style": "photorealistic",
+        "prompt": "Photorealistic, cinematic lighting, close-up of a young deaf girl wearing sleek smart glasses, face lit with sudden joy as AI captions appear in her vision, elderly grandfather speaking beside her, warm afternoon museum light through tall windows, shallow depth of field, tears at the corner of her eye, emotional connection across silence NO TEXT NO LABELS",
+        "filename": "r01_01_the_interpreter.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Intergenerational joy \u2014 granddaughter finally hearing grandfather fully."
+      },
+      {
+        "name": "The Keeper of Patterns",
+        "category": "cultural preservation",
+        "style": "oil_painting",
+        "prompt": "Oil painting, visible brushstrokes, classical lighting, elderly Moroccan woman weaving intricate geometric patterns at a wooden loom, small tablet beside her shows AI mapping her technique for preservation, golden lantern warmth, rich ochres and indigo, dignified portrait composition, her weathered hands mid-motion, thread catching light, centuries of knowledge in her posture NO TEXT NO LABELS",
+        "filename": "r01_02_the_keeper_of_patterns.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Oil paint texture mirrors handcraft; AI as silent archivist, not actor."
+      },
+      {
+        "name": "First Heartbeat",
+        "category": "rural healthcare",
+        "style": "watercolor",
+        "prompt": "Watercolor wash, loose flowing strokes, paper texture visible, young midwife in rural Uganda pressing portable AI ultrasound probe to a pregnant woman's belly, both women leaning toward a glowing tablet screen together, soft light through a clinic window, tender shared anticipation, earth tones and warm ochre skin, the faintest blue glow from the screen NO TEXT NO LABELS",
+        "filename": "r01_03_first_heartbeat.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Two women leaning together \u2014 AI enables a shared human moment."
+      },
+      {
+        "name": "The Rooftop Agronomist",
+        "category": "urban food",
+        "style": "gouache",
+        "prompt": "Gouache illustration, flat bold colors, mid-century modern, Latina woman tending lush rooftop garden above a dense city skyline, phone in one hand showing a bright sensor grid of soil moisture and harvest timing, late afternoon gold light, graphic beds of tomatoes and herbs, city geometry below her, expression of confident ownership \u2014 this is her domain NO TEXT NO LABELS",
+        "filename": "r01_04_the_rooftop_agronomist.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Urban food sovereignty angle is fresh; phone sensor grid stays grounded."
+      },
+      {
+        "name": "The Decision",
+        "category": "emergency response",
+        "style": "concept_art",
+        "prompt": "Digital concept art, painterly, matte painting style, lone female firefighter at the treeline edge at dusk, forearm projecting a holographic AI fire-spread map glowing amber against smoke-filled mountains, she studies it with calm authority, embers drift past her helmet, epic environmental scale dwarfs her body but her stillness commands the frame, heroic and grounded NO TEXT NO LABELS",
+        "filename": "r01_05_the_decision.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Calm authority in a life-or-death moment \u2014 stakes and composure together."
+      }
+    ],
+    "review": {
+      "verdicts": [
+        {
+          "name": "The Interpreter",
+          "verdict": "KEEP",
+          "why": "Intergenerational joy \u2014 granddaughter finally hearing grandfather fully."
+        },
+        {
+          "name": "The Keeper of Patterns",
+          "verdict": "KEEP",
+          "why": "Oil paint texture mirrors handcraft; AI as silent archivist, not actor."
+        },
+        {
+          "name": "First Heartbeat",
+          "verdict": "KEEP",
+          "why": "Two women leaning together \u2014 AI enables a shared human moment."
+        },
+        {
+          "name": "The Rooftop Agronomist",
+          "verdict": "KEEP",
+          "why": "Urban food sovereignty angle is fresh; phone sensor grid stays grounded."
+        },
+        {
+          "name": "The Decision",
+          "verdict": "KEEP",
+          "why": "Calm authority in a life-or-death moment \u2014 stakes and composure together."
+        }
+      ],
+      "discovery": "watercolor + intimate healthcare \u2014 loose strokes reinforce tenderness; style IS storytelling",
+      "ban": "forearm holographic projections \u2014 edges past 10-20yr horizon into sci-fi cosplay",
+      "next_mode": "exploit",
+      "next_direction": "All 5 share the formula: specific person + AI as peripheral detail + human emotional peak. Exploit this by varying the two-human dynamic \u2014 the strongest images (Interpreter, First Heartbeat) show TWO people sharing an AI-enabled moment. Next round: push every scene toward a collaboration or connection between two humans that AI quietly made possible. Also vary geography more aggressively \u2014 so far: Uganda, Morocco, unspecified US/urban. Add South/Southeast Asia, rural Appalachia, Indigenous communities. Keep banning: robots as companions, AI as the visual centerpiece, holographic displays."
+    },
+    "direction": "All 5 share the formula: specific person + AI as peripheral detail + human emotional peak. Exploit this by varying the two-human dynamic \u2014 the strongest images (Interpreter, First Heartbeat) show TWO people sharing an AI-enabled moment. Next round: push every scene toward a collaboration or connection between two humans that AI quietly made possible. Also vary geography more aggressively \u2014 so far: Uganda, Morocco, unspecified US/urban. Add South/Southeast Asia, rural Appalachia, Indigenous communities. Keep banning: robots as companions, AI as the visual centerpiece, holographic displays."
+  },
+  {
+    "round": 2,
+    "timestamp": "2026-03-27T21:41:41.138900",
+    "mode": "explore",
+    "total_generated": 5,
+    "failed": 0,
+    "kept": 4,
+    "dropped": 1,
+    "gen_time_min": 5.7,
+    "concepts": [
+      {
+        "name": "Ocean Sentinel",
+        "category": "environmental monitoring",
+        "style": "ink_wash",
+        "prompt": "Black and white ink wash, sumi-e inspired, dramatic contrast, solitary marine biologist on small research vessel at dawn, hunched over waterproof tablet displaying glowing sensor network map of ocean floor, whale migration routes traced in light, vast dark sea around her, mist on horizon, wave reflections shattered in ink. NO TEXT NO LABELS",
+        "filename": "r02_01_ocean_sentinel.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Ink wash solitude + glowing sensor map creates meditative wonder"
+      },
+      {
+        "name": "The Reading Map",
+        "category": "personalized education",
+        "style": "editorial",
+        "prompt": "Editorial illustration, clean lines, warm palette, magazine quality, middle-aged male teacher kneeling beside a girl with dyslexia in sunlit rural classroom, AI tablet between them showing her personalized reading path branching like a tree, sunlight through dusty windows, other children engaged at desks behind them, focused tenderness in his posture. NO TEXT NO LABELS",
+        "filename": "r02_02_the_reading_map.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Tree-branching path reframes dyslexia as divergence, not deficit"
+      },
+      {
+        "name": "The Living Field",
+        "category": "regenerative farming",
+        "style": "ghibli",
+        "prompt": "Studio Ghibli inspired, lush detail, simple figures, nature harmony, elderly Kenyan grandmother walks rows of thriving maize at golden hour, small autonomous drone drifts above scanning crop health, weathered phone in her hand shows green soil health map, grandchildren chasing each other between stalks behind her, clouds enormous and alive, land radiant with color. NO TEXT NO LABELS",
+        "filename": "r02_03_the_living_field.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Weathered phone grounds Ghibli magic in real accessibility stakes"
+      },
+      {
+        "name": "Bridge Builder",
+        "category": "infrastructure",
+        "style": "retro_poster",
+        "prompt": "Retro-future poster, bold geometric shapes, limited palette, female civil engineer in hardhat stands before half-built bridge, tablet held up showing structural stress simulation as bold overlaid geometric lines, orange sky, teal shadows, tiny workers on scaffolding below, bridge arc rising strong and clean, diagonal composition full of forward momentum. NO TEXT NO LABELS",
+        "filename": "r02_04_bridge_builder.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Retro geometric style IS structural simulation \u2014 perfect self-reference"
+      },
+      {
+        "name": "First Steps Again",
+        "category": "physical rehabilitation",
+        "style": "architectural",
+        "prompt": "Architectural rendering, precise lines, ambient occlusion, physical therapist beside elderly stroke patient taking careful steps in rehabilitation room, AI motion sensors mounted on ceiling casting faint tracking halos around the patient's movement, progress arc on wall screen, afternoon light flooding through floor-to-ceiling windows, stillness and effort and hope in equal measure. NO TEXT NO LABELS",
+        "filename": "r02_05_first_steps_again.png",
+        "verdict": "DROP",
+        "verdict_reason": "Architectural coldness kills the warmth a rehabilitation moment demands"
+      }
+    ],
+    "review": {
+      "verdicts": [
+        {
+          "name": "Ocean Sentinel",
+          "verdict": "KEEP",
+          "why": "Ink wash solitude + glowing sensor map creates meditative wonder"
+        },
+        {
+          "name": "The Reading Map",
+          "verdict": "KEEP",
+          "why": "Tree-branching path reframes dyslexia as divergence, not deficit"
+        },
+        {
+          "name": "The Living Field",
+          "verdict": "KEEP",
+          "why": "Weathered phone grounds Ghibli magic in real accessibility stakes"
+        },
+        {
+          "name": "Bridge Builder",
+          "verdict": "KEEP",
+          "why": "Retro geometric style IS structural simulation \u2014 perfect self-reference"
+        },
+        {
+          "name": "First Steps Again",
+          "verdict": "DROP",
+          "why": "Architectural coldness kills the warmth a rehabilitation moment demands"
+        }
+      ],
+      "discovery": "retro_poster + infrastructure \u2014 geometric shapes as style ARE the AI tool's visual output; style mirrors content without needing explanation",
+      "ban": "architectural rendering for intimate human-care scenes \u2014 precision aesthetic actively undermines emotional resonance in healing, caregiving, and vulnerable moments",
+      "next_mode": "exploit",
+      "next_direction": "Chase the Bridge Builder discovery: find 3-4 more style+AI-tool pairings where the visual grammar of the style IS the AI tool's output. Candidates: blueprint/schematic style for diagnostic imaging (the lines ARE the scan), data-vis style for logistics optimization, infographic style for environmental monitoring dashboards. The test: can a viewer understand what the AI is doing from the style alone, before reading a word?"
+    },
+    "direction": "Chase the Bridge Builder discovery: find 3-4 more style+AI-tool pairings where the visual grammar of the style IS the AI tool's output. Candidates: blueprint/schematic style for diagnostic imaging (the lines ARE the scan), data-vis style for logistics optimization, infographic style for environmental monitoring dashboards. The test: can a viewer understand what the AI is doing from the style alone, before reading a word?"
+  },
+  {
+    "round": 3,
+    "timestamp": "2026-03-27T21:50:01.106140",
+    "mode": "exploit",
+    "total_generated": 5,
+    "failed": 0,
+    "kept": 4,
+    "dropped": 1,
+    "gen_time_min": 5.7,
+    "concepts": [
+      {
+        "name": "The Migration Chart",
+        "category": "regenerative_fishing",
+        "style": "woodblock",
+        "prompt": "Japanese woodblock print, flat planes, bold outlines, weathered Japanese fisherman on small wooden boat at dawn, indigo sea as stacked flat wave planes, tablet screen showing fish migration routes as bold red circles that echo the woodblock wave patterns, humble composure, Hokusai palette, morning mist, data and tradition speaking the same visual language NO TEXT NO LABELS",
+        "filename": "r03_01_the_migration_chart.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Wave stacks echoing data circles \u2014 medium becomes the visualization itself."
+      },
+      {
+        "name": "What Would Be Lost",
+        "category": "cultural_preservation",
+        "style": "stained_glass",
+        "prompt": "Stained glass style, luminous colors, lead lines, Gothic frame, elderly West African grandmother speaking to a tablet in a community center, surrounding panels transforming her words into Arabic, Haitian Creole, Vietnamese script preserved as luminous colored glass, warm amber light through her face, lead lines forming subtle neural network pattern, reverence for what would be lost NO TEXT NO LABELS",
+        "filename": "r03_02_what_would_be_lost.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Stained glass as preservation metaphor \u2014 heritage held in light, not explained."
+      },
+      {
+        "name": "The Coordinator",
+        "category": "urban_food",
+        "style": "isometric",
+        "prompt": "Isometric view, detailed miniature, tilt-shift depth of field, middle-aged Black woman in community food pantry, tiny isometric shelves and distribution routes visible below her, color-coded translucent overlays showing AI inventory optimization, warm afternoon light, figures receiving boxes softly blurred in background, her calm focus sharp in the center frame, tilt-shift making the community feel precious and worth protecting NO TEXT NO LABELS",
+        "filename": "r03_03_the_coordinator.png",
+        "verdict": "DROP",
+        "verdict_reason": "AI element is a dashboard description, not a human moment \u2014 administrative, not felt."
+      },
+      {
+        "name": "Three in the Morning",
+        "category": "rural_healthcare",
+        "style": "charcoal",
+        "prompt": "Charcoal drawing, dramatic shadows, textured paper, Filipina ICU nurse at 3am leaning toward a patient monitor, face lit by screen glow, AI cardiac alert as a single bright anomalous line amid dark waveforms, her hand poised above the call button, entire room in deep shadow except her focused face and the monitor, life-or-death composure, tender authority, rough charcoal texture grounding the stakes in something real NO TEXT NO LABELS",
+        "filename": "r03_04_three_in_the_morning.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Single bright line in charcoal darkness \u2014 medium and stakes are the same thing."
+      },
+      {
+        "name": "The Terrain",
+        "category": "mental_health",
+        "style": "pixel_art",
+        "prompt": "Detailed pixel art, 16-bit palette, dithering, teenage girl journaling on a worn tablet, AI mood history rendered as a pixel art landscape visible on screen \u2014 dark valleys gradually becoming navigable hills, her face reflected in the screen shows cautious wonder, bedroom window behind her shows real rain, warm lamplight dithered against blue-gray digital world, mental health data reframed as terrain worth exploring not a verdict to receive NO TEXT NO LABELS",
+        "filename": "r03_05_the_terrain.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Face reflected in pixel landscape \u2014 subject and terrain are literally the same."
+      }
+    ],
+    "review": {
+      "verdicts": [
+        {
+          "name": "The Migration Chart",
+          "verdict": "KEEP",
+          "why": "Wave stacks echoing data circles \u2014 medium becomes the visualization itself."
+        },
+        {
+          "name": "What Would Be Lost",
+          "verdict": "KEEP",
+          "why": "Stained glass as preservation metaphor \u2014 heritage held in light, not explained."
+        },
+        {
+          "name": "The Coordinator",
+          "verdict": "DROP",
+          "why": "AI element is a dashboard description, not a human moment \u2014 administrative, not felt."
+        },
+        {
+          "name": "Three in the Morning",
+          "verdict": "KEEP",
+          "why": "Single bright line in charcoal darkness \u2014 medium and stakes are the same thing."
+        },
+        {
+          "name": "The Terrain",
+          "verdict": "KEEP",
+          "why": "Face reflected in pixel landscape \u2014 subject and terrain are literally the same."
+        }
+      ],
+      "discovery": "Charcoal + high-stakes healthcare: charcoal's native darkness becomes dread, and a single lit element carries all the emotional weight. The medium stops being a style choice and starts being the story.",
+      "ban": "AI-as-overlay descriptions ('color-coded translucent overlays showing optimization') \u2014 these always render as corporate UI, not human experience. The AI element must be *felt* by the human subject, not labeled for the viewer.",
+      "next_mode": "exploit",
+      "next_direction": "Exploit the 'medium IS the content' pattern that's appearing in the strongest keepers: woodblock waves = migration data, pixel art = inner terrain, charcoal darkness = ICU dread. Next round: deliberately pair styles where the formal properties of the medium can double as the AI or data element. Try: linocut + soil data (cut lines become crop rows), thermal imaging palette + search and rescue (heat IS the person being found), circuit-board isometric + education access (traces are learning pathways). In each case the style should do conceptual work, not just aesthetic work."
+    },
+    "direction": "Exploit the 'medium IS the content' pattern that's appearing in the strongest keepers: woodblock waves = migration data, pixel art = inner terrain, charcoal darkness = ICU dread. Next round: deliberately pair styles where the formal properties of the medium can double as the AI or data element. Try: linocut + soil data (cut lines become crop rows), thermal imaging palette + search and rescue (heat IS the person being found), circuit-board isometric + education access (traces are learning pathways). In each case the style should do conceptual work, not just aesthetic work."
+  },
+  {
+    "round": 4,
+    "timestamp": "2026-03-27T21:58:23.219677",
+    "mode": "exploit",
+    "total_generated": 5,
+    "failed": 0,
+    "kept": 4,
+    "dropped": 1,
+    "gen_time_min": 5.7,
+    "concepts": [
+      {
+        "name": "The Thermal Read",
+        "category": "skilled_trades",
+        "style": "photorealistic",
+        "prompt": "Photorealistic, cinematic lighting, a middle-aged Puerto Rican woman plumber in worn work clothes examines a wall junction, handheld thermal scanner in her grip showing heat anomaly on its small display, utility room shadows broken by a single work lamp angled across her face, she is absorbed and expert, the technology fits in her palm like a second tool, her confidence needs no explanation, NO TEXT NO LABELS",
+        "filename": "r04_01_the_thermal_read.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Photorealism validates invisible heat detection \u2014 style earns its keep."
+      },
+      {
+        "name": "The Long Morning",
+        "category": "elder_care",
+        "style": "oil_painting",
+        "prompt": "Oil painting, visible brushstrokes, classical lighting, elderly South Asian man at his kitchen table in morning window light, a small lit pill organizer beside his tea, a tablet face-up shows a photo from his daughter, his posture is unhurried and at home, Rembrandt-quality light catches his hands and the rim of his cup, the room is worn and familiar, the technology is present without announcing itself, NO TEXT NO LABELS",
+        "filename": "r04_02_the_long_morning.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Technology rendered as furniture \u2014 pill organizer beside the teacup, weightless."
+      },
+      {
+        "name": "The Closing Gap",
+        "category": "language_access",
+        "style": "watercolor",
+        "prompt": "Watercolor wash, loose flowing strokes, paper texture visible, a Guatemalan grandmother and a young social worker sit close at a community center table, a phone between them translating in real time, both lean forward laughing at something just understood, the pigment of their faces and clothes bleeds softly where they are near each other, the gap between them is visibly closing, the warmth lives in the bleed, NO TEXT NO LABELS",
+        "filename": "r04_03_the_closing_gap.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Watercolor's flow IS language flowing \u2014 medium mirrors concept perfectly."
+      },
+      {
+        "name": "The Count",
+        "category": "remote_community_health",
+        "style": "gouache",
+        "prompt": "Gouache illustration, flat bold colors, mid-century modern, Pacific island community health worker in vivid green scrubs stands at an outdoor table sorting drone-delivered medical supplies, a white drone banks away into cerulean sky behind her, the supplies are arranged in bright color-blocked stacks, she is mid-count and focused, the sea is flat blue at the frame edge, NO TEXT NO LABELS",
+        "filename": "r04_04_the_count.png",
+        "verdict": "DROP",
+        "verdict_reason": "Drone banking in cerulean sky is the visual star. Technology upstages the human."
+      },
+      {
+        "name": "What She Built",
+        "category": "climate_adaptation",
+        "style": "concept_art",
+        "prompt": "Digital concept art, painterly, matte painting style, a teenage girl stands on a restored mangrove shoreline at golden hour, tablet held loosely at her side, behind her the transformed coastline curves away \u2014 natural breakwaters, elevated community structures anchored in restored wetland, the sea held at its proper distance, she is small against the landscape but at its center, the horizon glows like something was repaired here, NO TEXT NO LABELS",
+        "filename": "r04_05_what_she_built.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Concept art style validates a teenager's vision as legitimate as any sci-fi future."
+      }
+    ],
+    "review": {
+      "verdicts": [
+        {
+          "name": "The Thermal Read",
+          "verdict": "KEEP",
+          "why": "Photorealism validates invisible heat detection \u2014 style earns its keep."
+        },
+        {
+          "name": "The Long Morning",
+          "verdict": "KEEP",
+          "why": "Technology rendered as furniture \u2014 pill organizer beside the teacup, weightless."
+        },
+        {
+          "name": "The Closing Gap",
+          "verdict": "KEEP",
+          "why": "Watercolor's flow IS language flowing \u2014 medium mirrors concept perfectly."
+        },
+        {
+          "name": "The Count",
+          "verdict": "DROP",
+          "why": "Drone banking in cerulean sky is the visual star. Technology upstages the human."
+        },
+        {
+          "name": "What She Built",
+          "verdict": "KEEP",
+          "why": "Concept art style validates a teenager's vision as legitimate as any sci-fi future."
+        }
+      ],
+      "discovery": "Technology-as-furniture: when AI tools carry the same visual weight as a teacup or a pill organizer, normalization happens without argument. The Long Morning nails this. It's a template.",
+      "ban": "AI in triumphant exit position \u2014 drone banking away into heroic sky, glowing interfaces stealing compositional focus. The technology served and should be gone, or invisible. It should never take a bow.",
+      "next_mode": "exploit",
+      "next_direction": "Push the technology-as-furniture principle harder. Next round: 5 images where the AI element is visually indistinguishable from any other domestic or professional object \u2014 a worn tablet, a dashboard on a wall, a sensor that looks like a smoke detector. Human hands, human faces, human effort fill the frame. Technology is ambient. Vary geographies: Central Asia, West Africa, rural Appalachia, Arctic community, favela. One image per style: charcoal, gouache, oil painting, woodcut, watercolor. The test: can you remove the AI element from the scene description and the image still makes emotional sense? If yes, you've buried it deep enough."
+    },
+    "direction": "Push the technology-as-furniture principle harder. Next round: 5 images where the AI element is visually indistinguishable from any other domestic or professional object \u2014 a worn tablet, a dashboard on a wall, a sensor that looks like a smoke detector. Human hands, human faces, human effort fill the frame. Technology is ambient. Vary geographies: Central Asia, West Africa, rural Appalachia, Arctic community, favela. One image per style: charcoal, gouache, oil painting, woodcut, watercolor. The test: can you remove the AI element from the scene description and the image still makes emotional sense? If yes, you've buried it deep enough."
+  },
+  {
+    "round": 5,
+    "timestamp": "2026-03-27T22:06:22.423624",
+    "mode": "exploit",
+    "total_generated": 5,
+    "failed": 0,
+    "kept": 4,
+    "dropped": 1,
+    "gen_time_min": 5.7,
+    "concepts": [
+      {
+        "name": "The Depth Reader",
+        "category": "maritime livelihoods",
+        "style": "ink_wash",
+        "prompt": "Black and white ink wash, sumi-e inspired, dramatic contrast, pre-dawn fishing boat, weathered Filipino fisherman hands cradling a battered phone showing depth contours, sea a vast ink field around him, phone glow the only warmth, mist dissolving the horizon, solitude that is complete not lonely, NO TEXT NO LABELS",
+        "filename": "r05_01_the_depth_reader.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Phone glow as only warmth \u2014 technology as heat against cold ink sea."
+      },
+      {
+        "name": "The Pattern Keeper",
+        "category": "craft economy",
+        "style": "editorial",
+        "prompt": "Editorial illustration, clean lines, warm palette, magazine quality, Mexican seamstress in small atelier surrounded by bolts of fabric, tablet beside her loom showing pattern optimization, her hands guiding thread, late afternoon window light, craft and computation sharing the same worktable as equals, NO TEXT NO LABELS",
+        "filename": "r05_02_the_pattern_keeper.png",
+        "verdict": "DROP",
+        "verdict_reason": "Editorial style generic \u2014 does no work for the craft-vs-optimization concept."
+      },
+      {
+        "name": "What She Planted",
+        "category": "environmental restoration",
+        "style": "ghibli",
+        "prompt": "Studio Ghibli inspired, lush detail, simple figures, nature harmony, young Bangladeshi woman knee-deep in coastal wetland planting mangrove seedlings by hand, the section she restored last year already lush and teeming behind her, sky clearing after rain, water catching light, the AI's work already done and gone, NO TEXT NO LABELS",
+        "filename": "r05_03_what_she_planted.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Past restoration visible behind her \u2014 time argument built into composition."
+      },
+      {
+        "name": "She Runs the Grid",
+        "category": "water infrastructure",
+        "style": "retro_poster",
+        "prompt": "Retro-future poster, bold geometric shapes, limited palette, Kenyan water utility operator at her control station, silhouette central, pipe network radiating outward in aqua and rust geometry, AI flow optimization rendered as the poster's own graphic logic, she is the city's center of gravity, NO TEXT NO LABELS",
+        "filename": "r05_04_she_runs_the_grid.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Poster geometry IS the AI optimization \u2014 medium becomes the data layer."
+      },
+      {
+        "name": "The Building Speaks",
+        "category": "structural preservation",
+        "style": "architectural",
+        "prompt": "Architectural rendering, precise lines, ambient occlusion, Korean structural engineer in 1920s brick building, palm pressed to the wall, tablet showing sensor map of hidden stress fractures as clean geometry, decades of silent strain now legible, her expression relief and recognition, precision as a form of empathy, NO TEXT NO LABELS",
+        "filename": "r05_05_the_building_speaks.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Architectural rendering speaks the building's native language \u2014 AI as translator."
+      }
+    ],
+    "review": {
+      "verdicts": [
+        {
+          "name": "The Depth Reader",
+          "verdict": "KEEP",
+          "why": "Phone glow as only warmth \u2014 technology as heat against cold ink sea."
+        },
+        {
+          "name": "The Pattern Keeper",
+          "verdict": "DROP",
+          "why": "Editorial style generic \u2014 does no work for the craft-vs-optimization concept."
+        },
+        {
+          "name": "What She Planted",
+          "verdict": "KEEP",
+          "why": "Past restoration visible behind her \u2014 time argument built into composition."
+        },
+        {
+          "name": "She Runs the Grid",
+          "verdict": "KEEP",
+          "why": "Poster geometry IS the AI optimization \u2014 medium becomes the data layer."
+        },
+        {
+          "name": "The Building Speaks",
+          "verdict": "KEEP",
+          "why": "Architectural rendering speaks the building's native language \u2014 AI as translator."
+        }
+      ],
+      "discovery": "Retro poster + infrastructure: the style's own geometry becomes the AI data visualization. Style as information layer, not decoration.",
+      "ban": "Style as neutral container \u2014 any prompt where swapping the style anchor would produce an equally strong image. The style must mirror the AI's function in that domain.",
+      "next_mode": "exploit",
+      "next_direction": "Push medium-as-metaphor harder and weirder. Blueprint style for hidden structure revealed. Cross-stitch / embroidery for pattern recognition. Weather map for predictive systems. Topographic map for terrain optimization. X-ray for diagnostic AI. The question to ask for every new prompt: 'What does the AI DO in this domain \u2014 and is there a visual medium whose grammar mirrors that function?'"
+    },
+    "direction": "Push medium-as-metaphor harder and weirder. Blueprint style for hidden structure revealed. Cross-stitch / embroidery for pattern recognition. Weather map for predictive systems. Topographic map for terrain optimization. X-ray for diagnostic AI. The question to ask for every new prompt: 'What does the AI DO in this domain \u2014 and is there a visual medium whose grammar mirrors that function?'"
+  },
+  {
+    "round": 6,
+    "timestamp": "2026-03-27T22:14:10.591898",
+    "mode": "explore",
+    "total_generated": 5,
+    "failed": 0,
+    "kept": 3,
+    "dropped": 2,
+    "gen_time_min": 5.7,
+    "concepts": [
+      {
+        "name": "The Reading",
+        "category": "sustainable-fishing",
+        "style": "woodblock",
+        "prompt": "Japanese woodblock print, flat planes, bold outlines, dawn over open ocean, elderly Filipino fisherman in wooden banca adjusting course by hand, weathered fingers on waterproof unit showing school positions as bold depth contours, flat indigo water plane below pale sky plane, birds as black brushmarks, no heroic gesture just a man recalculating, quiet dignity NO TEXT NO LABELS",
+        "filename": "r06_01_the_reading.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Flat contour data mirrors woodblock's flat planes \u2014 style is content"
+      },
+      {
+        "name": "Last Call",
+        "category": "palliative-care",
+        "style": "stained_glass",
+        "prompt": "Stained glass style, luminous colors, lead lines, Gothic frame, elderly woman in hospice bed, nurse gently angling tablet so patient sees family faces on screen, light fractured into warmth across worn blanket, faces in luminous color panels like windows, technology as pure conduit between worlds, no device branding, the glow is all that exists NO TEXT NO LABELS",
+        "filename": "r06_02_last_call.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Family faces ARE the stained glass \u2014 love rendered as sacred light"
+      },
+      {
+        "name": "The Last Mile",
+        "category": "food-distribution",
+        "style": "isometric",
+        "prompt": "Isometric view, detailed miniature, tilt-shift depth of field, cold storage warehouse, Latina worker in padded jacket scanning produce pallets with handheld device, sharp focus on her hands, soft blur at edges, ripe tomatoes near expiry glowing warm against steel gray, worn floor paths showing years of routes, each crate rendered precious, labor dignified by scale NO TEXT NO LABELS",
+        "filename": "r06_03_the_last_mile.png",
+        "verdict": "DROP",
+        "verdict_reason": "Competent but cold \u2014 no emotional argument, just logistics made visible"
+      },
+      {
+        "name": "Wind Map",
+        "category": "wildfire-response",
+        "style": "charcoal",
+        "prompt": "Charcoal drawing, dramatic shadows, textured paper, wildfire crew boss alone on ridge at 3am, single headlamp illuminating face and open tablet, wind-shift forecast as sparse hand-drawn contour lines on screen, forest darkness absolute around her, no equipment glamour, weight of the decision in her jaw and shoulders, ash-gray sky NO TEXT NO LABELS",
+        "filename": "r06_04_wind_map.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Charcoal darkness + lone decision-maker + life-or-death stakes = maximum tension"
+      },
+      {
+        "name": "The Drop",
+        "category": "music-production",
+        "style": "pixel_art",
+        "prompt": "Detailed pixel art, 16-bit palette, dithering, teenage girl in small bedroom studio, headphones around neck, leaning toward monitor showing AI chord suggestions as colored blocks in a DAW timeline, guitar neck visible at edge, notebooks stacked, warm lamp dither, moment of recognition as she reaches for keys, discovery not instruction NO TEXT NO LABELS",
+        "filename": "r06_05_the_drop.png",
+        "verdict": "DROP",
+        "verdict_reason": "Redundant with What She Built \u2014 second teenage-girl-creates scene dilutes both"
+      }
+    ],
+    "review": {
+      "verdicts": [
+        {
+          "name": "The Reading",
+          "verdict": "KEEP",
+          "why": "Flat contour data mirrors woodblock's flat planes \u2014 style is content"
+        },
+        {
+          "name": "Last Call",
+          "verdict": "KEEP",
+          "why": "Family faces ARE the stained glass \u2014 love rendered as sacred light"
+        },
+        {
+          "name": "The Last Mile",
+          "verdict": "DROP",
+          "why": "Competent but cold \u2014 no emotional argument, just logistics made visible"
+        },
+        {
+          "name": "Wind Map",
+          "verdict": "KEEP",
+          "why": "Charcoal darkness + lone decision-maker + life-or-death stakes = maximum tension"
+        },
+        {
+          "name": "The Drop",
+          "verdict": "DROP",
+          "why": "Redundant with What She Built \u2014 second teenage-girl-creates scene dilutes both"
+        }
+      ],
+      "discovery": "Charcoal + solitary high-stakes outdoor decisions. The medium's grain and shadow become physical danger \u2014 no other style creates that visceral alone-in-the-dark feeling. Pair with: ER triage, night rescue, Arctic expedition, flood response.",
+      "ban": "Bedroom creator scenes. We have the archetype locked with What She Built. Every repeat weakens it. Ban: teenager + bedroom + screen + creative tool.",
+      "next_mode": "exploit",
+      "next_direction": "Double down on Wind Map's formula: charcoal + one person + darkness + invisible-but-present AI data rendered as sparse marks. New scenarios to try: (1) ER nurse in charcoal, single overhead light, patient vitals as gestural lines on wall monitor; (2) Arctic researcher charcoal, whiteout conditions, sea-ice stress fractures as hand-drawn fault lines on tablet; (3) flood response worker charcoal, waist-deep water, evacuation routes as minimal contours glowing from chest-mounted device. Also exploit Last Call's stained-glass-as-faces discovery: what other intimate human connection moments could be rendered as light through colored panels? Refugee family video call? Deaf child using sign-language translation overlay?"
+    },
+    "direction": "Double down on Wind Map's formula: charcoal + one person + darkness + invisible-but-present AI data rendered as sparse marks. New scenarios to try: (1) ER nurse in charcoal, single overhead light, patient vitals as gestural lines on wall monitor; (2) Arctic researcher charcoal, whiteout conditions, sea-ice stress fractures as hand-drawn fault lines on tablet; (3) flood response worker charcoal, waist-deep water, evacuation routes as minimal contours glowing from chest-mounted device. Also exploit Last Call's stained-glass-as-faces discovery: what other intimate human connection moments could be rendered as light through colored panels? Refugee family video call? Deaf child using sign-language translation overlay?"
+  },
+  {
+    "round": 7,
+    "timestamp": "2026-03-27T22:22:22.964746",
+    "mode": "exploit",
+    "total_generated": 5,
+    "failed": 0,
+    "kept": 4,
+    "dropped": 1,
+    "gen_time_min": 5.7,
+    "concepts": [
+      {
+        "name": "The Green Number",
+        "category": "maternal-health",
+        "style": "photorealistic",
+        "prompt": "Photorealistic, cinematic lighting, dim rural clinic, midnight blue from a single window, young pregnant woman alone in a chair, hand on her belly, on the wall behind her a small vital-signs monitor glows steady green \u2014 baby's heartbeat, her pressure, both fine. No doctor. No alarm. Just a woman and a good number in the dark. NO TEXT NO LABELS",
+        "filename": "r07_01_the_green_number.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Midnight blue + single green glow = technology as silent guardian angel."
+      },
+      {
+        "name": "The Chart",
+        "category": "traditional-knowledge",
+        "style": "oil_painting",
+        "prompt": "Oil painting, visible brushstrokes, classical lighting, dawn gold on still water, weathered Moroccan fisherman standing in a small boat, a waterproof tablet strapped to the gunwale showing thermal ocean currents \u2014 just another tool like the net coiled at his feet. His eyes read horizon and screen with equal ease. NO TEXT NO LABELS",
+        "filename": "r07_02_the_chart.png",
+        "verdict": "DROP",
+        "verdict_reason": "Conceptually sound but emotionally flat \u2014 dawn gold and a tablet lacks life-or-death stakes."
+      },
+      {
+        "name": "Two Stable",
+        "category": "rural-birth",
+        "style": "watercolor",
+        "prompt": "Watercolor wash, loose flowing strokes, paper texture visible, blue predawn, a midwife's hands cradling a newborn, on her wrist a small biosensor \u2014 mother stable, baby stable. The nearest hospital is four hours away. She already knew. The number confirmed it. The room holds only quiet and new breath. NO TEXT NO LABELS",
+        "filename": "r07_03_two_stable.png",
+        "verdict": "KEEP",
+        "verdict_reason": "'She already knew. Number confirmed' \u2014 AI amplifies human mastery, never replaces it."
+      },
+      {
+        "name": "The Guardian",
+        "category": "water-infrastructure",
+        "style": "gouache",
+        "prompt": "Gouache illustration, flat bold colors, mid-century modern, a municipal water treatment operator, broad-shouldered woman in coveralls, before a wall of gauges and pipes rendered as flat geometric shapes. Her tablet shows water quality data \u2014 safe for 2.3 million people today. The pipes ARE the poster. She is the unseen guardian. NO TEXT NO LABELS",
+        "filename": "r07_04_the_guardian.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Mid-century flat geometry renders the invisible infrastructure of communal survival."
+      },
+      {
+        "name": "She Came to Confirm",
+        "category": "ecological-restoration",
+        "style": "concept_art",
+        "prompt": "Digital concept art, painterly, matte painting style, vast rewilded African savanna at golden hour stretching to horizon, lone conservation biologist \u2014 small figure at the edge of recovered grassland, clipboard in hand, a single survey drone a barely-visible speck in the enormous sky. AI predicted this migration return 18 months ago. She came to confirm it. The land did the rest. NO TEXT NO LABELS",
+        "filename": "r07_05_she_came_to_confirm.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Tiny figure + vast recovered ecosystem \u2014 human as witness to transformation, not author."
+      }
+    ],
+    "review": {
+      "verdicts": [
+        {
+          "name": "The Green Number",
+          "verdict": "KEEP",
+          "why": "Midnight blue + single green glow = technology as silent guardian angel."
+        },
+        {
+          "name": "The Chart",
+          "verdict": "DROP",
+          "why": "Conceptually sound but emotionally flat \u2014 dawn gold and a tablet lacks life-or-death stakes."
+        },
+        {
+          "name": "Two Stable",
+          "verdict": "KEEP",
+          "why": "'She already knew. Number confirmed' \u2014 AI amplifies human mastery, never replaces it."
+        },
+        {
+          "name": "The Guardian",
+          "verdict": "KEEP",
+          "why": "Mid-century flat geometry renders the invisible infrastructure of communal survival."
+        },
+        {
+          "name": "She Came to Confirm",
+          "verdict": "KEEP",
+          "why": "Tiny figure + vast recovered ecosystem \u2014 human as witness to transformation, not author."
+        }
+      ],
+      "discovery": "The 'confirmation' pattern: Two Stable and She Came to Confirm both show humans who already knew \u2014 technology confirms, doesn't inform. This perfectly inverts the AI-as-oracle clich\u00e9 and puts human competence first. It's a reframe worth exploiting.",
+      "ban": "Passive observation scenes where the human is simply watching a screen. The Chart fails this way \u2014 fisherman looks at tablet, nothing is at stake in that moment. If a human could be replaced by a tripod holding the device, the image fails.",
+      "next_mode": "exploit",
+      "next_direction": "Double down on the confirmation pattern: people who bring deep expertise, and technology that confirms what their body/intuition already knew. Expand to: a structural engineer who felt the vibration before the sensor flagged it; a sommelier whose palate matched the AI's chemical analysis; a deaf mother who read her baby's expression before the monitor alarmed. Vary styles \u2014 try woodblock or risograph for maximum form-as-content potential. Keep humans physically intimate with their domain (hands in soil, ear to wall, nose to glass) while technology recedes to a secondary glow or readout."
+    },
+    "direction": "Double down on the confirmation pattern: people who bring deep expertise, and technology that confirms what their body/intuition already knew. Expand to: a structural engineer who felt the vibration before the sensor flagged it; a sommelier whose palate matched the AI's chemical analysis; a deaf mother who read her baby's expression before the monitor alarmed. Vary styles \u2014 try woodblock or risograph for maximum form-as-content potential. Keep humans physically intimate with their domain (hands in soil, ear to wall, nose to glass) while technology recedes to a secondary glow or readout."
+  },
+  {
+    "round": 8,
+    "timestamp": "2026-03-27T22:30:24.773446",
+    "mode": "exploit",
+    "total_generated": 5,
+    "failed": 0,
+    "kept": 3,
+    "dropped": 2,
+    "gen_time_min": 5.7,
+    "concepts": [
+      {
+        "name": "What She Already Knew",
+        "category": "wildfire management",
+        "style": "ink_wash",
+        "prompt": "Black and white ink wash, sumi-e inspired, dramatic contrast, a lone forest ranger stands at a ridgeline at dusk, smoke blooming on the distant horizon, a phone's pale glow the only light on her weathered face, her eyes already fixed on the smoke \u2014 not the screen. A lifetime of fire behind her. A decision ahead. Ink bleeds into the sky like the smoke itself. NO TEXT NO LABELS",
+        "filename": "r08_01_what_she_already_knew.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Sumi-e smoke + pale phone glow = expertise confirmed, never replaced."
+      },
+      {
+        "name": "The Green Checkmark",
+        "category": "elder care",
+        "style": "editorial",
+        "prompt": "Editorial illustration, clean lines, warm palette, magazine quality, a young home health aide hands morning medication to an elderly woman at her kitchen table, both sharing a private laugh. On the counter behind them, a phone shows a quiet green checkmark \u2014 the AI dosage verification already done, already forgotten. Morning light through gauze curtains. NO TEXT NO LABELS",
+        "filename": "r08_02_the_green_checkmark.png",
+        "verdict": "DROP",
+        "verdict_reason": "Warm kitchen + green check is earnest but The Green Number owns this quieter-tech territory with more visual drama."
+      },
+      {
+        "name": "She Freed Him",
+        "category": "marine conservation",
+        "style": "ghibli",
+        "prompt": "Studio Ghibli inspired, lush detail, simple figures, nature harmony, a marine biologist waist-deep in dawn-lit tropical shallows releases a sea turtle from her hands, face upturned laughing through tears. A small tracking buoy bobs in the middle distance \u2014 it found him, she freed him. The turtle descends into lush coral below an open sky. NO TEXT NO LABELS",
+        "filename": "r08_03_she_freed_him.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Laughing through tears at release \u2014 Ghibli earns the emotional peak honestly."
+      },
+      {
+        "name": "The Morning Shift",
+        "category": "water infrastructure",
+        "style": "retro_poster",
+        "prompt": "Retro-future poster, bold geometric shapes, limited palette, a water treatment operator stands before a vast diagram of pipes, valves, and flow networks \u2014 the invisible infrastructure of a city. Her figure is small but confident, coffee in hand. The geometric shapes ARE the AI overnight optimization: pressure routing, contamination detection, flow balance. She arrives each morning to review. NO TEXT NO LABELS",
+        "filename": "r08_04_the_morning_shift.png",
+        "verdict": "DROP",
+        "verdict_reason": "Retro-poster + invisible infrastructure is The Guardian, reskinned. No new territory."
+      },
+      {
+        "name": "First She Listens",
+        "category": "disaster resilience",
+        "style": "architectural",
+        "prompt": "Architectural rendering, precise lines, ambient occlusion, a structural engineer presses both palms flat against a cracked concrete wall in a partially collapsed building, eyes closed \u2014 listening. Behind her, a tablet shows stress analysis in precise architectural lines. Twenty years of earthquakes in her hands. The data confirmed what she felt first. Dust motes in the only shaft of light. NO TEXT NO LABELS",
+        "filename": "r08_05_first_she_listens.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Palms on cracked concrete, eyes closed \u2014 body knowledge + data confirmation = mastery made physical."
+      }
+    ],
+    "review": {
+      "verdicts": [
+        {
+          "name": "What She Already Knew",
+          "verdict": "KEEP",
+          "why": "Sumi-e smoke + pale phone glow = expertise confirmed, never replaced."
+        },
+        {
+          "name": "The Green Checkmark",
+          "verdict": "DROP",
+          "why": "Warm kitchen + green check is earnest but The Green Number owns this quieter-tech territory with more visual drama."
+        },
+        {
+          "name": "She Freed Him",
+          "verdict": "KEEP",
+          "why": "Laughing through tears at release \u2014 Ghibli earns the emotional peak honestly."
+        },
+        {
+          "name": "The Morning Shift",
+          "verdict": "DROP",
+          "why": "Retro-poster + invisible infrastructure is The Guardian, reskinned. No new territory."
+        },
+        {
+          "name": "First She Listens",
+          "verdict": "KEEP",
+          "why": "Palms on cracked concrete, eyes closed \u2014 body knowledge + data confirmation = mastery made physical."
+        }
+      ],
+      "discovery": "architectural + body-knowledge: pressing hands against surfaces, closing eyes to listen, physical expertise the AI then *quantifies* \u2014 creates a tension no other style+theme pair has found yet. First She Listens opens a seam worth mining.",
+      "ban": "Retro-poster + infrastructure. The Guardian already owns it. Every new attempt is a pale echo.",
+      "next_mode": "exploit",
+      "next_direction": "Mine the 'body knowledge confirmed by data' seam from First She Listens. Vary profession (winemaker smelling a barrel, surgeon palpating before incision, mechanic with ear to engine block, farmer pressing fingers into soil) and style (ink_wash, ghibli, noir). The through-line: human uses a physical sense first \u2014 AI then annotates what the body already felt. That sequence is the emotional argument: technology honors expertise, it doesn't replace it."
+    },
+    "direction": "Mine the 'body knowledge confirmed by data' seam from First She Listens. Vary profession (winemaker smelling a barrel, surgeon palpating before incision, mechanic with ear to engine block, farmer pressing fingers into soil) and style (ink_wash, ghibli, noir). The through-line: human uses a physical sense first \u2014 AI then annotates what the body already felt. That sequence is the emotional argument: technology honors expertise, it doesn't replace it."
+  },
+  {
+    "round": 9,
+    "timestamp": "2026-03-27T22:39:08.722112",
+    "mode": "exploit",
+    "total_generated": 5,
+    "failed": 0,
+    "kept": 2,
+    "dropped": 3,
+    "gen_time_min": 5.7,
+    "concepts": [
+      {
+        "name": "What Her Hands Already Knew",
+        "category": "craft-mastery",
+        "style": "woodblock",
+        "prompt": "Japanese woodblock print, flat planes, bold outlines, elderly Japanese-American woman runs both palms along the curved hull of a wooden boat in dry dock, eyes closed, detecting a hidden flaw by touch. A small sensor pad on the wood glows faintly, its readout matching what her hands already found. Late afternoon gold. Reverence for material knowledge. NO TEXT NO LABELS",
+        "filename": "r09_01_what_her_hands_already_knew.png",
+        "verdict": "DROP",
+        "verdict_reason": "Third tactile-expertise-confirmed entry this round; concept exhausted against two winners"
+      },
+      {
+        "name": "The Stories She Carried",
+        "category": "cultural-preservation",
+        "style": "stained_glass",
+        "prompt": "Stained glass style, luminous colors, lead lines, Gothic frame, elderly Filipina grandmother mid-storytelling gesture, grandchildren leaning in rapt. Between them a small phone rests face-up on the table, quietly translating. Each stained glass panel shows a scene from her story in vivid color. The phone is barely there \u2014 a candle-sized light. Evening warmth. Heritage flowing unbroken across the language gap. NO TEXT NO LABELS",
+        "filename": "r09_02_the_stories_she_carried.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Phone disappears into reverence \u2014 stained glass consecrates human connection perfectly"
+      },
+      {
+        "name": "The Order She Made",
+        "category": "humanitarian-logistics",
+        "style": "isometric",
+        "prompt": "Isometric view, detailed miniature, tilt-shift depth of field, disaster relief distribution center viewed from above, tiny human figures organizing supplies with quiet efficiency. Colored supply lines radiate outward like circuit traces, AI-optimized but invisible in mechanism \u2014 just order emerging from chaos. A single coordinator at the hub, hand raised mid-instruction. Warm late light. The miniature scale makes the human effort feel like a gift. NO TEXT NO LABELS",
+        "filename": "r09_03_the_order_she_made.png",
+        "verdict": "DROP",
+        "verdict_reason": "Overhead isometric shrinks humans to system components; AI supply-lines visually dominate"
+      },
+      {
+        "name": "Already Certain",
+        "category": "wildfire-management",
+        "style": "charcoal",
+        "prompt": "Charcoal drawing, dramatic shadows, textured paper, solitary woman in her 50s at a fire lookout tower, one hand gripping the railing, other reaching for the radio mic. On the desk behind her a small laptop shows fire behavior modeling \u2014 but her eyes are already on the distant smoke column, already certain. Paper grain becomes heat shimmer and char. Dusk. The decision was made before the machine finished. NO TEXT NO LABELS",
+        "filename": "r09_04_already_certain.png",
+        "verdict": "KEEP",
+        "verdict_reason": "She reaches for the radio before the algorithm catches up \u2014 urgency over confirmation"
+      },
+      {
+        "name": "The Fault She Found",
+        "category": "repair-economy",
+        "style": "pixel_art",
+        "prompt": "Detailed pixel art, 16-bit palette, dithering, middle-aged Kenyan woman in a community repair shop, hands deep inside a disassembled washing machine, methodical and sure. A small diagnostic tablet nearby shows the fault tree in green pixels \u2014 but her hands are already at the right part. Warm shop light, tool shadows dithered across the floor. Repair as dignity, machine as puzzle solved. NO TEXT NO LABELS",
+        "filename": "r09_05_the_fault_she_found.png",
+        "verdict": "DROP",
+        "verdict_reason": "Identical emotional beat to three other entries this round; concept is now a reflex, not a choice"
+      }
+    ],
+    "review": {
+      "verdicts": [
+        {
+          "name": "What Her Hands Already Knew",
+          "verdict": "DROP",
+          "why": "Third tactile-expertise-confirmed entry this round; concept exhausted against two winners"
+        },
+        {
+          "name": "The Stories She Carried",
+          "verdict": "KEEP",
+          "why": "Phone disappears into reverence \u2014 stained glass consecrates human connection perfectly"
+        },
+        {
+          "name": "The Order She Made",
+          "verdict": "DROP",
+          "why": "Overhead isometric shrinks humans to system components; AI supply-lines visually dominate"
+        },
+        {
+          "name": "Already Certain",
+          "verdict": "KEEP",
+          "why": "She reaches for the radio before the algorithm catches up \u2014 urgency over confirmation"
+        },
+        {
+          "name": "The Fault She Found",
+          "verdict": "DROP",
+          "why": "Identical emotional beat to three other entries this round; concept is now a reflex, not a choice"
+        }
+      ],
+      "discovery": "Stained glass + cultural-preservation: the sacred register of the style makes technology disappear by contrast \u2014 the phone becomes as unobtrusive as a candle. First pairing that makes AI genuinely invisible without effort.",
+      "ban": "Hands on surface + glowing screen confirms what hands already knew. We have two winners on this beat and three more entries this round. The pattern has become our default, which means it is no longer a choice. Retire for minimum three rounds.",
+      "next_mode": "pivot",
+      "next_direction": "Shift the core emotion entirely. Every KEEP so far is about mastery confirmed or agency asserted \u2014 people who already know something, proved right. We have not yet captured FIRST ACCESS: the moment someone gains capability they never had before. Not confirmation \u2014 expansion. A rural clinic nurse seeing AI-assisted imaging catch something she would have missed and couldn't have caught alone. A first-generation student in a language she wasn't taught in, suddenly keeping up. A small-town welder whose AI-assisted bid just won a contract in a city she's never been to. The feeling is wonder and becoming, not expertise validated. Target styles: linocut, risograph, gouache \u2014 warm and handmade, nothing cold or corporate. The protagonist should be visibly surprised, moved, changed. Technology in these scenes should look like luck finally showing up."
+    },
+    "direction": "Shift the core emotion entirely. Every KEEP so far is about mastery confirmed or agency asserted \u2014 people who already know something, proved right. We have not yet captured FIRST ACCESS: the moment someone gains capability they never had before. Not confirmation \u2014 expansion. A rural clinic nurse seeing AI-assisted imaging catch something she would have missed and couldn't have caught alone. A first-generation student in a language she wasn't taught in, suddenly keeping up. A small-town welder whose AI-assisted bid just won a contract in a city she's never been to. The feeling is wonder and becoming, not expertise validated. Target styles: linocut, risograph, gouache \u2014 warm and handmade, nothing cold or corporate. The protagonist should be visibly surprised, moved, changed. Technology in these scenes should look like luck finally showing up."
+  },
+  {
+    "round": 10,
+    "timestamp": "2026-03-27T22:49:34.157180",
+    "mode": "pivot",
+    "total_generated": 5,
+    "failed": 0,
+    "kept": 3,
+    "dropped": 2,
+    "gen_time_min": 5.7,
+    "concepts": [
+      {
+        "name": "What Her Hands Say",
+        "category": "disability-and-performance",
+        "style": "photorealistic",
+        "prompt": "Photorealistic, cinematic lighting, close-up portrait of a Black deaf woman, sign language interpreter at a concert, hands held mid-gesture above the roar of the crowd, small vibration wristbands barely visible on both wrists, sweat and stage light on her face, full concentration, shot from below, warm gold and purple light, the music visible only in her hands, NO TEXT NO LABELS",
+        "filename": "r10_01_what_her_hands_say.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Barely-visible tech inside human performance \u2014 restraint wins."
+      },
+      {
+        "name": "He Knew What Happened",
+        "category": "legal-access-and-justice",
+        "style": "oil_painting",
+        "prompt": "Oil painting, visible brushstrokes, classical lighting, Rembrandt chiaroscuro, a middle-aged Latino man at a prison library table, writing by hand, small dim tablet beside him, his face lit from a single high window, expression of concentrated determination, pen and paper dominate the composition, the tablet is secondary and barely visible, warm amber shadows, NO TEXT NO LABELS",
+        "filename": "r10_02_he_knew_what_happened.png",
+        "verdict": "DROP",
+        "verdict_reason": "Tablet is furniture, not participant \u2014 AI never serves the man."
+      },
+      {
+        "name": "The Last Time She Will Laugh Like That",
+        "category": "linguistic-preservation",
+        "style": "watercolor",
+        "prompt": "Watercolor wash, loose flowing strokes, paper texture visible, an Inuit elder and a young woman linguist sit very close, both laughing hard, the elder's weathered hands mid-gesture, soft diffused arctic light through a frosted window, a phone resting on the table between them barely noticed, warmth and trust between two generations, the laughter is the entire subject, intimate and fleeting, NO TEXT NO LABELS",
+        "filename": "r10_03_the_last_time_she_will_laugh_l.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Title earns devastation; watercolor dissolves into the human moment."
+      },
+      {
+        "name": "First Fist",
+        "category": "assistive-technology-and-childhood",
+        "style": "gouache",
+        "prompt": "Gouache illustration, flat bold colors, mid-century modern, a small Southeast Asian girl age seven making a triumphant fist with her new myoelectric prosthetic hand, face pure disbelief and joy, warm clinic setting with bold geometric shapes in background, a technician's hands visible at frame edge steadying the device, the child fills the frame entirely, bold warm palette, NO TEXT NO LABELS",
+        "filename": "r10_04_first_fist.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Disbelief-to-joy arc is clean, physical, and completely unambiguous."
+      },
+      {
+        "name": "Cathedral",
+        "category": "biodiversity-and-environmental-science",
+        "style": "concept_art",
+        "prompt": "Digital concept art, painterly, matte painting style, a female researcher suspended on a rope at 60 meters at the top of a rainforest canopy at dawn, headphones on, eyes closed, listening, golden light breaking through leaves above her, the vast dark forest floor impossibly far below, she is tiny against the ancient canopy, peaceful and intensely concentrated, acoustic sensor equipment barely visible clipped to her harness, NO TEXT NO LABELS",
+        "filename": "r10_05_cathedral.png",
+        "verdict": "DROP",
+        "verdict_reason": "Eyes-closed listening posture already claimed by a stronger winner."
+      }
+    ],
+    "review": {
+      "verdicts": [
+        {
+          "name": "What Her Hands Say",
+          "verdict": "KEEP",
+          "why": "Barely-visible tech inside human performance \u2014 restraint wins."
+        },
+        {
+          "name": "He Knew What Happened",
+          "verdict": "DROP",
+          "why": "Tablet is furniture, not participant \u2014 AI never serves the man."
+        },
+        {
+          "name": "The Last Time She Will Laugh Like That",
+          "verdict": "KEEP",
+          "why": "Title earns devastation; watercolor dissolves into the human moment."
+        },
+        {
+          "name": "First Fist",
+          "verdict": "KEEP",
+          "why": "Disbelief-to-joy arc is clean, physical, and completely unambiguous."
+        },
+        {
+          "name": "Cathedral",
+          "verdict": "DROP",
+          "why": "Eyes-closed listening posture already claimed by a stronger winner."
+        }
+      ],
+      "discovery": "Watercolor + linguistic-impermanence: loose strokes mirror the fragility of what's being preserved \u2014 medium and theme are the same idea",
+      "ban": "AI as passive background object \u2014 tablet or phone 'beside' the subject with no active role. Technology must be doing something, even if invisible. Presence without function is set dressing.",
+      "next_mode": "exploit",
+      "next_direction": "Push the 'barely visible technology' formula harder: three rounds varying the human subject (age, geography, ability level) while keeping one structural rule constant \u2014 the AI element must be either invisible OR doing one specific legible thing. Try: elderly man, rural village, sub-Saharan Africa; teenage girl, wheelchair user, urban transit; male nurse, night shift, understaffed ward. Each should have a title that names the human truth, not the technology."
+    },
+    "direction": "Push the 'barely visible technology' formula harder: three rounds varying the human subject (age, geography, ability level) while keeping one structural rule constant \u2014 the AI element must be either invisible OR doing one specific legible thing. Try: elderly man, rural village, sub-Saharan Africa; teenage girl, wheelchair user, urban transit; male nurse, night shift, understaffed ward. Each should have a title that names the human truth, not the technology."
+  },
+  {
+    "round": 11,
+    "timestamp": "2026-03-27T22:57:43.252825",
+    "mode": "exploit",
+    "total_generated": 5,
+    "failed": 0,
+    "kept": 4,
+    "dropped": 1,
+    "gen_time_min": 5.7,
+    "concepts": [
+      {
+        "name": "Before the Algorithm Speaks",
+        "category": "climate-response",
+        "style": "ink_wash",
+        "prompt": "Black and white ink wash, sumi-e inspired, dramatic contrast, a lone Indigenous woman mountain guide pauses on a snow ridge, head tilted, listening. A small earpiece relays AI avalanche risk data. She is already turning, already certain, before the alert sounds. Wind-blurred peaks above, hard shadow below. Solitude and competence as the same thing. NO TEXT NO LABELS",
+        "filename": "r11_01_before_the_algorithm_speaks.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Sumi-e ink wash makes indigenous climate knowledge feel ancient and urgent."
+      },
+      {
+        "name": "The Algorithm Trails Her",
+        "category": "healthcare",
+        "style": "editorial",
+        "prompt": "Editorial illustration, clean lines, warm palette, magazine quality, a 60-year-old Ghanaian ER nurse moves through a triage bay, decisive, unhurried. A small badge displays AI risk scores. She has already acted on every patient before her eyes find the numbers. Bodies in motion, urgency without panic. The algorithm follows. NO TEXT NO LABELS",
+        "filename": "r11_02_the_algorithm_trails_her.png",
+        "verdict": "DROP",
+        "verdict_reason": "Third human-first beat this round \u2014 formula has replaced insight."
+      },
+      {
+        "name": "Two Kinds of Knowing",
+        "category": "traditional-knowledge",
+        "style": "ghibli",
+        "prompt": "Studio Ghibli inspired, lush detail, simple figures, nature harmony, an elderly Korean grandfather and his young granddaughter stand at the end of a fishing pier at dawn. She holds a small device showing fish migration data, but he is already pointing at the horizon. Dawn mist, still water, certainty passing between generations. The data confirms what he already sees. NO TEXT NO LABELS",
+        "filename": "r11_03_two_kinds_of_knowing.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Intergenerational wisdom earns grandfather-first beat \u2014 two kinds of knowing coexist."
+      },
+      {
+        "name": "She Found It First",
+        "category": "scientific-discovery",
+        "style": "retro_poster",
+        "prompt": "Retro-future poster, bold geometric shapes, limited palette, a young Peruvian woman leans into a radio telescope eyepiece under a geometric desert sky. Stars as flat bold shapes. An AI anomaly detector runs behind her on a screen. She is looking with her own eyes. She found it first. The night belongs to curiosity. NO TEXT NO LABELS",
+        "filename": "r11_04_she_found_it_first.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Retro poster geometry plus Peruvian scientist is culturally and visually striking."
+      },
+      {
+        "name": "What the Stone Knows",
+        "category": "built-environment",
+        "style": "architectural",
+        "prompt": "Architectural rendering, precise lines, ambient occlusion, a structural engineer presses one palm flat against a century-old stone bridge arch, eyes closed. Acoustic AI sensors trace the surface nearby. She is listening with her body in a way no sensor captures. Cross-section of stone, data, and flesh \u2014 three kinds of knowing at the same surface. NO TEXT NO LABELS",
+        "filename": "r11_05_what_the_stone_knows.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Human body as irreplaceable sensor \u2014 philosophically richest concept this round."
+      }
+    ],
+    "review": {
+      "verdicts": [
+        {
+          "name": "Before the Algorithm Speaks",
+          "verdict": "KEEP",
+          "why": "Sumi-e ink wash makes indigenous climate knowledge feel ancient and urgent."
+        },
+        {
+          "name": "The Algorithm Trails Her",
+          "verdict": "DROP",
+          "why": "Third human-first beat this round \u2014 formula has replaced insight."
+        },
+        {
+          "name": "Two Kinds of Knowing",
+          "verdict": "KEEP",
+          "why": "Intergenerational wisdom earns grandfather-first beat \u2014 two kinds of knowing coexist."
+        },
+        {
+          "name": "She Found It First",
+          "verdict": "KEEP",
+          "why": "Retro poster geometry plus Peruvian scientist is culturally and visually striking."
+        },
+        {
+          "name": "What the Stone Knows",
+          "verdict": "KEEP",
+          "why": "Human body as irreplaceable sensor \u2014 philosophically richest concept this round."
+        }
+      ],
+      "discovery": "Architectural precision + embodied human knowledge ('What the Stone Knows'): the body as sensor that cannot be replaced is a fresh emotional register \u2014 intimate, grounded, philosophically loaded. Worth a dedicated exploit round.",
+      "ban": "Human acts before algorithm as the primary emotional beat. 4 of 5 images this round end with 'she already knew / he was already pointing / she had already acted.' The brief wants collaboration and revelation, not humans perpetually outpacing their tools. This pattern now feels defensive rather than abundant.",
+      "next_mode": "pivot",
+      "next_direction": "Flip the emotional beat entirely: show the moment AI REVEALS something the human couldn't see alone \u2014 and the human is genuinely moved, surprised, or changed by the revelation. The human is still protagonist; the AI is the catalyst for new perception. The feeling is wonder, not confirmation. Examples: a farmer sees her soil's hidden 40-year story for the first time and sits down in the field; an ER doctor watches a pattern emerge across 10,000 patients and quietly corrects a diagnosis he's been making for 20 years; a child's drawing is analyzed to surface a spatial gift she didn't know she had, and her teacher shows her the result. The emotional arc is: ignorance \u2192 revelation \u2192 changed. Not 'human was right all along.'"
+    },
+    "direction": "Flip the emotional beat entirely: show the moment AI REVEALS something the human couldn't see alone \u2014 and the human is genuinely moved, surprised, or changed by the revelation. The human is still protagonist; the AI is the catalyst for new perception. The feeling is wonder, not confirmation. Examples: a farmer sees her soil's hidden 40-year story for the first time and sits down in the field; an ER doctor watches a pattern emerge across 10,000 patients and quietly corrects a diagnosis he's been making for 20 years; a child's drawing is analyzed to surface a spatial gift she didn't know she had, and her teacher shows her the result. The emotional arc is: ignorance \u2192 revelation \u2192 changed. Not 'human was right all along.'"
+  },
+  {
+    "round": 12,
+    "timestamp": "2026-03-27T23:06:26.149343",
+    "mode": "pivot",
+    "total_generated": 5,
+    "failed": 0,
+    "kept": 4,
+    "dropped": 1,
+    "gen_time_min": 5.7,
+    "concepts": [
+      {
+        "name": "The Signal Before Dawn",
+        "category": "disaster-prevention",
+        "style": "woodblock",
+        "prompt": "Japanese woodblock print, flat planes, bold outlines, A Javanese volcanologist in her field station at dusk, alert face lit by a single monitor, AI flagged a seismic precursor no human had catalogued, outside the window a village still asleep on the mountain slope, flat planes of orange sky against volcanic silhouette, she reaches for the radio, everything about to change, NO TEXT NO LABELS",
+        "filename": "r12_01_the_signal_before_dawn.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Sleeping village vs alert scientist creates visceral, wordless tension."
+      },
+      {
+        "name": "Fifty Years of Voice",
+        "category": "grief-memory",
+        "style": "stained_glass",
+        "prompt": "Stained glass style, luminous colors, lead lines, Gothic frame, An elderly Filipino woman in a garden at golden hour, holding a small device playing her late husband's voice reconstructed from fifty years of recordings, eyes closed face lifted toward the sun, light through leaves rendered as jeweled panes, the device glowing like a votive candle, grief and presence intertwined, NO TEXT NO LABELS",
+        "filename": "r12_02_fifty_years_of_voice.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Grief-memory category breakthrough \u2014 receiving a voice, not watching a screen."
+      },
+      {
+        "name": "The Reef She Rebuilt",
+        "category": "ocean-restoration",
+        "style": "isometric",
+        "prompt": "Isometric view, detailed miniature, tilt-shift depth of field, Underwater coral reef restoration station off Queensland, Aboriginal marine biologist at center orchestrating AI-monitored growth sensors and micro-planting robots she designed, tilt-shift makes the reef a jeweled terrarium, warm bioluminescence in the distance, her wetsuit vivid against bleached scaffolding turning pink with new coral growth, NO TEXT NO LABELS",
+        "filename": "r12_03_the_reef_she_rebuilt.png",
+        "verdict": "DROP",
+        "verdict_reason": "Isometric view shows the system; human designer's face and feeling are invisible."
+      },
+      {
+        "name": "The Unlocking",
+        "category": "neurodivergent-learning",
+        "style": "charcoal",
+        "prompt": "Charcoal drawing, dramatic shadows, textured paper, A nine-year-old boy with dyslexia in the precise moment of reading aloud for the first time, AI adaptive software reshaped the text into symbols his brain unlocks, face tilted up from the page: surprise becoming wonder becoming understanding, his mother behind him hand over her mouth, charcoal shadows carry the weight of years trying and now this moment, NO TEXT NO LABELS",
+        "filename": "r12_04_the_unlocking.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Surprise is richer than triumph \u2014 charcoal rawness earns the breakthrough moment."
+      },
+      {
+        "name": "The Herdswoman Turns",
+        "category": "pastoral-wildlife",
+        "style": "pixel_art",
+        "prompt": "Detailed pixel art, 16-bit palette, dithering, A Mongolian herdswoman on the open steppe at midnight, her flock a white cluster in darkness, satellite earpiece pings: AI predicted wolf pack approaching from the northwest, she turns unhurried and certain, the vast 16-bit sky packed with stars, the ancient and the algorithmic in perfect equilibrium, her silhouette against the pixelated horizon, NO TEXT NO LABELS",
+        "filename": "r12_05_the_herdswoman_turns.png",
+        "verdict": "KEEP",
+        "verdict_reason": "'Unhurried and certain' is a new emotional register \u2014 empowerment without drama."
+      }
+    ],
+    "review": {
+      "verdicts": [
+        {
+          "name": "The Signal Before Dawn",
+          "verdict": "KEEP",
+          "why": "Sleeping village vs alert scientist creates visceral, wordless tension."
+        },
+        {
+          "name": "Fifty Years of Voice",
+          "verdict": "KEEP",
+          "why": "Grief-memory category breakthrough \u2014 receiving a voice, not watching a screen."
+        },
+        {
+          "name": "The Reef She Rebuilt",
+          "verdict": "DROP",
+          "why": "Isometric view shows the system; human designer's face and feeling are invisible."
+        },
+        {
+          "name": "The Unlocking",
+          "verdict": "KEEP",
+          "why": "Surprise is richer than triumph \u2014 charcoal rawness earns the breakthrough moment."
+        },
+        {
+          "name": "The Herdswoman Turns",
+          "verdict": "KEEP",
+          "why": "'Unhurried and certain' is a new emotional register \u2014 empowerment without drama."
+        }
+      ],
+      "discovery": "Stained glass + grief-memory (Fifty Years of Voice): luminous spiritual style meets the series' most intimate emotional territory. The form mirrors the content \u2014 light through leaded glass feels like memory made visible.",
+      "ban": "Isometric view for human-protagonist scenes. Isometric is a system perspective \u2014 it dissolves the individual into the infrastructure. Reserve it for diagrams only.",
+      "next_mode": "exploit",
+      "next_direction": "Exploit grief-memory and micro-transformation moments. Fifty Years of Voice opened a category we haven't mined: AI as a bridge across loss and time. Try: a son hearing his deaf mother speak in her own reconstructed voice for the first time; a war refugee whose village was bombed using satellite imagery + AI reconstruction to show her children what it looked like; a hospice nurse whose AI companion captured a patient's last lucid story for the family. Separately, push 'unhurried confidence' from The Herdswoman \u2014 that posture (someone who now knows, and acts without drama) is underrepresented. The series has too many 'moment of wonder,' not enough 'moment of quiet mastery.'"
+    },
+    "direction": "Exploit grief-memory and micro-transformation moments. Fifty Years of Voice opened a category we haven't mined: AI as a bridge across loss and time. Try: a son hearing his deaf mother speak in her own reconstructed voice for the first time; a war refugee whose village was bombed using satellite imagery + AI reconstruction to show her children what it looked like; a hospice nurse whose AI companion captured a patient's last lucid story for the family. Separately, push 'unhurried confidence' from The Herdswoman \u2014 that posture (someone who now knows, and acts without drama) is underrepresented. The series has too many 'moment of wonder,' not enough 'moment of quiet mastery.'"
+  },
+  {
+    "round": 13,
+    "timestamp": "2026-03-27T23:14:59.182810",
+    "mode": "exploit",
+    "total_generated": 5,
+    "failed": 0,
+    "kept": 2,
+    "dropped": 3,
+    "gen_time_min": 5.7,
+    "concepts": [
+      {
+        "name": "What the Chisel Remembers",
+        "category": "aging-craft-preservation",
+        "style": "photorealistic",
+        "prompt": "Photorealistic, cinematic lighting, elderly Japanese craftsman, 78, cutting a curved dovetail joint with trembling hands; his face locked in fierce concentration; the chisel follows his intent precisely \u2014 Parkinson's invisible in the finished cut; warm workshop, single overhead lamp, cherry shavings on the floor, a cradle-rail emerging from the wood. NO TEXT NO LABELS",
+        "filename": "r13_01_what_the_chisel_remembers.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Intention outlives the body \u2014 AI renders Parkinson's invisible in finished work"
+      },
+      {
+        "name": "The Instrument Answers",
+        "category": "surgical-mastery",
+        "style": "oil_painting",
+        "prompt": "Oil painting, visible brushstrokes, classical lighting, Sudanese surgeon, 50s, steady hands holding a microsurgical tool, single shaft of operating light from above; her expression absolute presence; deep shadow frames the scene like a Rembrandt portrait; no screen visible, the AI lives in the haptic resistance of the instrument against her fingertips. NO TEXT NO LABELS",
+        "filename": "r13_02_the_instrument_answers.png",
+        "verdict": "DROP",
+        "verdict_reason": "Reads as surgeon portrait \u2014 AI element too subordinate to register as partnership"
+      },
+      {
+        "name": "The Room That Kept the Voice",
+        "category": "grief-memory",
+        "style": "watercolor",
+        "prompt": "Watercolor wash, loose flowing strokes, paper texture visible, elderly Latino grandfather, 70s, seated by a window, eyes closed; a small speaker on the table; his late wife's voice reaches him from old recordings rebuilt by AI; afternoon light warms his face; the lines of his grief slowly releasing; the room holds the sound like breath. NO TEXT NO LABELS",
+        "filename": "r13_03_the_room_that_kept_the_voice.png",
+        "verdict": "DROP",
+        "verdict_reason": "Redundant to Fifty Years of Voice winner \u2014 same category, identical emotional beat"
+      },
+      {
+        "name": "After the Long Dry",
+        "category": "climate-adaptation",
+        "style": "gouache",
+        "prompt": "Gouache illustration, flat bold colors, mid-century modern, Tamil Nadu farmer woman, 40s, ankle-deep in newly-flowing irrigation channels through red clay fields at dawn; she stands in the center of what arrived overnight; her face \u2014 not surprise but recognition; the water speaks first; flat terracotta sky, bold geometry of channels receding. NO TEXT NO LABELS",
+        "filename": "r13_04_after_the_long_dry.png",
+        "verdict": "KEEP",
+        "verdict_reason": "Ankle-deep physicality plus 'not surprise but...' earns a new emotional register"
+      },
+      {
+        "name": "The Same Answer",
+        "category": "occupational-safety",
+        "style": "concept_art",
+        "prompt": "Digital concept art, painterly, matte painting style, female mining geologist, 40s, alone in a narrow shaft; she presses her bare palm against the rock face, eyes closed; a distant seismic sensor blinks green overhead; both her hands and the machine have read the same answer; amber headlamp light, ancient stone walls, dust settling. NO TEXT NO LABELS",
+        "filename": "r13_05_the_same_answer.png",
+        "verdict": "DROP",
+        "verdict_reason": "Parallel-sensing concept shadows What the Stone Knows \u2014 too close to the winner"
+      }
+    ],
+    "review": {
+      "verdicts": [
+        {
+          "name": "What the Chisel Remembers",
+          "verdict": "KEEP",
+          "why": "Intention outlives the body \u2014 AI renders Parkinson's invisible in finished work"
+        },
+        {
+          "name": "The Instrument Answers",
+          "verdict": "DROP",
+          "why": "Reads as surgeon portrait \u2014 AI element too subordinate to register as partnership"
+        },
+        {
+          "name": "The Room That Kept the Voice",
+          "verdict": "DROP",
+          "why": "Redundant to Fifty Years of Voice winner \u2014 same category, identical emotional beat"
+        },
+        {
+          "name": "After the Long Dry",
+          "verdict": "KEEP",
+          "why": "Ankle-deep physicality plus 'not surprise but...' earns a new emotional register"
+        },
+        {
+          "name": "The Same Answer",
+          "verdict": "DROP",
+          "why": "Parallel-sensing concept shadows What the Stone Knows \u2014 too close to the winner"
+        }
+      ],
+      "discovery": "Invisible disability + craft mastery: AI as dignity preserver, not capability replacer. What the Chisel Remembers found a category nobody else is in \u2014 the viewer sees only the perfect dovetail, never the trembling hand. That gap is the story.",
+      "ban": "Grief-memory variations that don't clearly differentiate from Fifty Years of Voice. We have the winner. Stop re-entering that room unless the angle is genuinely orthogonal.",
+      "next_mode": "exploit",
+      "next_direction": "Drill hard into the territory What the Chisel Remembers opened: invisible disability + craft mastery. The emotional core is fixed \u2014 intention survives what the body cannot, and the viewer never sees the AI, only the perfect result. Vary along three axes: (1) disability type \u2014 vision loss, hearing loss, focal dystonia, stroke-affected motor control; (2) craft domain \u2014 watchmaker, ceramicist, glassblower, calligrapher, luthier, pastry sculptor; (3) style \u2014 watercolor and gouache are untested in this category. Run 6 prompts. One constraint: the AI must be completely invisible in the image. If the tool is visible, the concept fails."
+    },
+    "direction": "Drill hard into the territory What the Chisel Remembers opened: invisible disability + craft mastery. The emotional core is fixed \u2014 intention survives what the body cannot, and the viewer never sees the AI, only the perfect result. Vary along three axes: (1) disability type \u2014 vision loss, hearing loss, focal dystonia, stroke-affected motor control; (2) craft domain \u2014 watchmaker, ceramicist, glassblower, calligrapher, luthier, pastry sculptor; (3) style \u2014 watercolor and gouache are untested in this category. Run 6 prompts. One constraint: the AI must be completely invisible in the image. If the tool is visible, the concept fails."
+  },
+  {
+    "round": 14,
+    "timestamp": "2026-03-27T23:24:20.119855",
+    "mode": "exploit",
+    "total_generated": 5,
+    "failed": 0,
+    "kept": 5,
+    "dropped": 0,
+    "gen_time_min": 5.7,
+    "concepts": [
+      {
+        "name": "The Amber Bracelet",
+        "category": "rural-healthcare",
+        "style": "ink_wash",
+        "prompt": "Black and white ink wash, sumi-e inspired, dramatic contrast, close on a midwife's weathered hands guiding a newborn into lamplight, a small AI sensor bracelet on her wrist shifts from amber to green \u2014 risk resolved in the body before it became crisis, sparse room, damp walls, firelight catching the relief crossing her face, life held and delivered, NO TEXT NO LABELS",
+        "filename": "r14_01_the_amber_bracelet.png",
+        "verdict": "KEEP",
+        "verdict_reason": "auto-kept"
+      },
+      {
+        "name": "The Frozen Hand",
+        "category": "medication-safety",
+        "style": "editorial",
+        "prompt": "Editorial illustration, clean lines, warm palette, magazine quality, a hospital pharmacist mid-reach \u2014 her hand suspended in air above an open drawer, eyes locked on a single amber warning on the dispensing screen, AI has flagged a near-fatal drug interaction she nearly missed, the pill still untouched, golden afternoon light through the pharmacy window, the correction that never had to happen, NO TEXT NO LABELS",
+        "filename": "r14_02_the_frozen_hand.png",
+        "verdict": "KEEP",
+        "verdict_reason": "auto-kept"
+      },
+      {
+        "name": "She Reads the Swarm",
+        "category": "traditional-knowledge",
+        "style": "ghibli",
+        "prompt": "Studio Ghibli inspired, lush detail, simple figures, nature harmony, an elderly beekeeper stands perfectly still in a summer meadow as ten thousand bees spiral in living patterns around her, a small wrist display maps colony health in color \u2014 she reads the swarm without ever opening a box, afternoon gold, wildflowers at her knees, belonging without intrusion, unhurried and certain, NO TEXT NO LABELS",
+        "filename": "r14_03_she_reads_the_swarm.png",
+        "verdict": "KEEP",
+        "verdict_reason": "auto-kept"
+      },
+      {
+        "name": "She IS the Bass Drum",
+        "category": "accessibility",
+        "style": "retro_poster",
+        "prompt": "Retro-future poster, bold geometric shapes, limited palette, a deaf percussionist mid-performance eyes closed, whole body alive \u2014 vibration-sensing suit renders AI-translated frequencies as waves of haptic light across her skin, she doesn't hear the bass drum, she IS the bass drum, bold coral and deep teal, the instrument and the player indistinguishable, NO TEXT NO LABELS",
+        "filename": "r14_04_she_is_the_bass_drum.png",
+        "verdict": "KEEP",
+        "verdict_reason": "auto-kept"
+      },
+      {
+        "name": "Before the Spark",
+        "category": "climate-management",
+        "style": "architectural",
+        "prompt": "Architectural rendering, precise lines, ambient occlusion, a wildfire prevention specialist at blue hour in dense chaparral ties orange ribbon around a marked tree while AI thermal imaging overlays ghostly heat signatures through the smoke ahead \u2014 risk made visible before any spark exists, she moves with quiet purpose through amber haze, vast sky behind her, the landscape and its hidden danger both legible at once, NO TEXT NO LABELS",
+        "filename": "r14_05_before_the_spark.png",
+        "verdict": "KEEP",
+        "verdict_reason": "auto-kept"
+      }
+    ],
+    "review": {
+      "verdicts": [
+        {
+          "name": "The Amber Bracelet",
+          "verdict": "KEEP",
+          "why": "auto-kept"
+        },
+        {
+          "name": "The Frozen Hand",
+          "verdict": "KEEP",
+          "why": "auto-kept"
+        },
+        {
+          "name": "She Reads the Swarm",
+          "verdict": "KEEP",
+          "why": "auto-kept"
+        },
+        {
+          "name": "She IS the Bass Drum",
+          "verdict": "KEEP",
+          "why": "auto-kept"
+        },
+        {
+          "name": "Before the Spark",
+          "verdict": "KEEP",
+          "why": "auto-kept"
+        }
+      ],
+      "next_mode": "explore",
+      "next_direction": "continue exploring"
+    },
+    "direction": "continue exploring"
+  }
+]

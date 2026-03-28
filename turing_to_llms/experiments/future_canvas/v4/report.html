@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept Production v4 — Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #0a0a0a; --text: #e8e0d4; --accent: #c8956c; --surface: #141414; --border: #222; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text);
+    padding: 2rem 1rem; line-height: 1.5; }
+  h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 400; margin-bottom: 0.5rem; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400;
+    margin: 3rem 0 1.2rem; color: var(--accent); }
+  h3 { font-family: 'DM Sans', sans-serif; color: var(--text); font-size: 1.1rem; }
+  .container { max-width: 1600px; margin: 0 auto; }
+
+  /* Stats header */
+  .stats { color: #999; font-size: 1rem; margin-bottom: 2rem; }
+  .stats strong { color: var(--accent); }
+  .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem; margin-bottom: 2rem; }
+  .stat-card { background: var(--surface); border-radius: 8px; padding: 1rem; text-align: center; }
+  .stat-num { font-size: 2rem; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 0.8rem; color: #888; }
+
+  /* Sequence triptych */
+  .sequence { margin-bottom: 2rem; background: #0c0c0c; border-radius: 10px; overflow: hidden;
+    transition: transform 0.15s; }
+  .sequence:hover { transform: translateY(-2px); }
+  .seq-header { padding: 1rem 1.2rem 0.5rem; }
+  .seq-title { font-size: 1.05rem; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .seq-meta { font-size: 0.8rem; color: var(--accent); margin-top: 0.2rem; }
+  .seq-story { font-size: 0.85rem; color: #aaa; margin-top: 0.3rem; }
+  .triptych { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding: 0.8rem; }
+  .beat { position: relative; }
+  .beat img { width: 100%; display: block; border-radius: 4px; cursor: zoom-in; }
+  .beat-label { position: absolute; top: 6px; left: 6px; font-size: 0.65rem; font-weight: 600;
+    background: rgba(0,0,0,0.8); color: #fff; padding: 2px 8px; border-radius: 3px;
+    text-transform: uppercase; letter-spacing: 0.08em; }
+  .beat-score { font-size: 0.75rem; margin-top: 0.4rem; font-weight: 600; }
+  .beat-score.ship { color: #48bb78; }
+  .beat-score.refine { color: #ecc94b; }
+  .beat-score.scrap { color: #e53e3e; }
+  .beat-feedback { font-size: 0.75rem; color: #888; margin-top: 0.2rem; line-height: 1.4; }
+
+  /* Badges */
+  .badge { font-size: 0.6rem; padding: 2px 8px; border-radius: 3px; text-transform: uppercase;
+    letter-spacing: 0.08em; font-weight: 700; }
+  .badge.keep { background: rgba(72,187,120,0.15); color: #48bb78; }
+  .badge.drop { background: rgba(229,62,62,0.15); color: #e53e3e; }
+
+  /* Round cards */
+  .round-card { margin-bottom: 3rem; padding: 1.5rem 2rem; background: var(--surface);
+    border-radius: 10px; border-left: 4px solid; }
+  .round-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .round-stats { font-size: 0.8rem; color: #888; font-weight: 400; margin-left: 0.5rem; }
+  .mode-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600;
+    padding: 4px 12px; border: 1px solid; border-radius: 4px; }
+  .round-direction { font-size: 0.85rem; color: #888; border-top: 1px solid var(--border);
+    padding-top: 1rem; margin-top: 1rem; line-height: 1.5; }
+
+  /* Style bars */
+  .bar-row { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem; }
+  .bar-label { font-size: 0.8rem; width: 140px; text-align: right; color: #aaa; }
+  .bar-track { flex: 1; height: 16px; background: #1a1a1a; border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--accent); border-radius: 4px; }
+  .bar-count { font-size: 0.8rem; color: #888; width: 30px; }
+
+  /* Winners */
+  .winner-row { padding: 0.7rem 0; border-bottom: 1px solid #1a1a1a; font-size: 0.9rem;
+    display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+  .winner-style { color: var(--accent); font-size: 0.75rem; text-transform: uppercase; }
+  .winner-who { color: #888; font-size: 0.8rem; }
+  .winner-reason { color: #999; flex: 1; }
+
+  /* Lists */
+  .list-section { font-size: 0.9rem; padding-left: 1.5rem; line-height: 1.8; }
+  .list-section li { color: #aaa; margin-bottom: 0.3rem; }
+  .list-section.banned li { color: #e57373; }
+
+  .section-box { padding: 1.5rem; background: var(--surface); border-radius: 10px; }
+
+  /* Lightbox */
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000;
+    justify-content: center; align-items: center; cursor: zoom-out; }
+  .lightbox.active { display: flex; }
+  .lightbox img { max-width: 95vw; max-height: 95vh; border-radius: 8px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Concept Production v4</h1>
+  <p class="stats">Research-grounded &middot; 3-beat sequences &middot; VLM critique &middot; Always refine</p>
+
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-num">5</div><div class="stat-label">Rounds</div></div>
+    <div class="stat-card"><div class="stat-num">15</div><div class="stat-label">Sequences</div></div>
+    <div class="stat-card"><div class="stat-num">15</div><div class="stat-label">Kept</div></div>
+    <div class="stat-card"><div class="stat-num">45</div><div class="stat-label">Images</div></div>
+    <div class="stat-card"><div class="stat-num">45</div><div class="stat-label">Refined</div></div>
+    <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Keep Rate</div></div>
+  </div>
+
+  <h2>Style Distribution</h2>
+  <div class="section-box"></div>
+
+  <h2>Winners Board</h2>
+  <div class="section-box">
+        <div class="winner-row">
+          <strong>The Shape of a Cure</strong>
+          <span class="winner-style">photorealistic</span>
+          <span class="winner-who">Amara, 29, Kenyan biochemist, working in a modestly equipped university lab in Nairobi on malaria vaccine candidates</span>
+          <span class="winner-reason">This is a genuinely strong image. The composition is excellent — the researcher leans in from the left third, the glowing protein structure anchors the right, and the laptop serves as the bridge between human and discovery. The hands-over-mouth gesture is universally readable as awe or shock, landing this squarely in &#x27;breakthrough moment&#x27; territory without any caption needed. The chiaroscuro lighting (deep lab darkness, laptop glow on her face, luminous protein) is dramatic and cinematically confident. Narrative clarity is near-perfect: young Black female scientist, late-night lab, holographic molecular structure emerging from screen — &#x27;the shape of a cure&#x27; is legible at a glance. Minor deductions: the protein structure reads slightly more like a generic glowing blob than a precise molecular model (style fidelity), and the background cabinets feel slightly stock-photo generic (grounding). But these are small complaints against a very strong image.</span>
+        </div>
+        <div class="winner-row">
+          <strong>The Naturalist He Never Knew He Was</strong>
+          <span class="winner-style">oil_painting</span>
+          <span class="winner-who">Cornelius, 68, retired Black postal worker, rural Indiana, who spent 40 years walking the same routes and never had language for what he observed</span>
+          <span class="winner-reason">This image is genuinely striking. The composition is masterful — the beetle, phone screen, and man&#x27;s face form a tight triangle that pulls the eye in a perfect loop. The phone screen reflecting a blank/green field while the real beetle sits inches away creates an instantly legible irony without any text. The man&#x27;s expression — mouth open, eyes wide, slightly disbelieving — sells the discovery moment completely. The golden-hour backlight gives warmth and dignity. The painterly oil style is consistent and confident. Minor deductions: the phone UI is slightly generic/anachronistic (boxy older model), and the beetle&#x27;s iridescent blue feels slightly hyper-saturated relative to the naturalistic skin tones — a small stylistic tension. But these are small. This image tells a complete human story in a single frame.</span>
+        </div>
+        <div class="winner-row">
+          <strong>What Lives in the Water</strong>
+          <span class="winner-style">watercolor</span>
+          <span class="winner-who">Nomvula, 14, Zulu schoolgirl in rural KwaZulu-Natal, South Africa, who suspects the stream near her village is getting worse</span>
+          <span class="winner-reason">This is one of the strongest images in the set. The composition is a masterclass in forced intimacy — the close crop pulls you into the child&#x27;s world, the downward gaze creates a clear visual axis from her eyes → phone screen → jar → water, and the reflection in the stream anchors everything. The emotion is genuinely earned: pure, unselfconscious curiosity. No performance for an audience. She&#x27;s just *in it*. The specific details make it feel real: worn sandals, jar slightly submerged, one hand steadying it while the other holds the phone. The watercolor treatment is mostly consistent — soft wet blooms in the background grass, golden light wash — though the phone and jar edges are slightly harder/more photorealistic than the overall watercolor aesthetic, which is a minor style break. Narrative is immediately legible: kid capturing something she found in a stream, technology amplifying natural curiosity rather than replacing it. This image embodies the project&#x27;s &#x27;what could YOU do?&#x27; frame perfectly.</span>
+        </div>
+        <div class="winner-row">
+          <strong>The Number That Changed Everything</strong>
+          <span class="winner-style">photorealistic</span>
+          <span class="winner-who">Amara, a Malawian midwife in her late thirties, working alone in a rural clinic outside Lilongwe with no specialist within 80 kilometers</span>
+          <span class="winner-reason">This image earns its keep. The emotional core is exceptional — the pregnant woman&#x27;s simultaneous tears and smile is a genuinely moving sight, and the nurse&#x27;s wide-eyed awe mirrors the viewer&#x27;s intended reaction perfectly. The two-point lighting (warm bedside lamp vs. cool holographic display) creates a natural compositional anchor that pulls the eye from technology back to the human face. The glowing scanner ring on the abdomen is a strong visual metaphor — technology touching life. Minor weaknesses: the holographic data display reads as generic dashboard UI rather than something specific or legible; it floats a bit disconnectedly. The scanner device itself is slightly ambiguous in purpose on first glance. These are refinement notes, not dealbreakers. The human story lands — that&#x27;s the hardest thing to get right.</span>
+        </div>
+        <div class="winner-row">
+          <strong>She Asked in Zulu</strong>
+          <span class="winner-style">oil_painting</span>
+          <span class="winner-who">Nomsa, a nineteen-year-old Black South African woman living in a township outside Durban, too ashamed to visit a clinic alone</span>
+          <span class="winner-reason">This is a genuinely affecting image. The chiaroscuro lighting — phone glow as the sole light source, carving her face out of deep shadow — is technically excellent and emotionally resonant. She&#x27;s lying on her bed, late at night, phone in both hands, lips slightly parted in the moment of receiving an answer. That half-open mouth is the detail that sells it: not blank consumption, but active wonder. The composition is strong — diagonal body leads the eye to the illuminated hands and face, then up to her expression. The dark curtain/wall background gives it a stage-like intimacy. Grounding is exceptional: specific girl, specific moment, specific light. Not a stock photo teenager — a real person in a real room at a real hour. Style fidelity docks one point because the painterly treatment is closer to hyperrealistic oil than a distinct &#x27;concept art&#x27; style — it&#x27;s beautiful but could read as photorealistic with a filter rather than a deliberately painted aesthetic. Narrative is slightly ambiguous without context (she could be texting a friend or watching a video) but the title &#x27;she asked in Zulu&#x27; resolves that. Strong enough to carry the thematic weight intended.</span>
+        </div>
+        <div class="winner-row">
+          <strong>What Her Hand Could Hold</strong>
+          <span class="winner-style">watercolor</span>
+          <span class="winner-who">Valentina, a seven-year-old girl in rural Colombia whose right arm ends at the wrist, enrolled in a rural primary school where the other children climb and draw and build</span>
+          <span class="winner-reason">This is a genuinely moving image. The triangular composition — child&#x27;s downward gaze, caregiver&#x27;s gentle lean, the prosthetic hand as the focal point at the center-bottom — is textbook and deeply effective. The child&#x27;s expression carries quiet wonder and a hint of uncertainty, not performed joy, which makes it feel real. The caregiver is cropped just enough to stay supporting character rather than stealing focus. The 3D-printed prosthetic (teal/orange lattice structure) reads immediately as both technological and personal — not cold medical equipment, but something made. The watercolor treatment softens the clinical setting beautifully; the window light in the background suggests openness and possibility without being heavy-handed. Grounding is strong: scrubs, medical-adjacent room, a specific child (not a generic stock &#x27;happy patient&#x27;). The only minor note: the prosthetic&#x27;s color palette is very saturated relative to the watercolor figures — borderline jarring, though it also works as intentional emphasis on the &#x27;new thing&#x27; entering her world.</span>
+        </div>
+        <div class="winner-row">
+          <strong>The Answer She Already Had</strong>
+          <span class="winner-style">photorealistic</span>
+          <span class="winner-who">Maria, 14-year-old Guatemalan immigrant girl, first year in a US middle school, struggling with English and algebra simultaneously</span>
+          <span class="winner-reason">Strong image. The dual light sources — warm lamp glow behind her, cool blue tablet glow on her face — create genuine visual tension that makes the scene read as a discovery moment. Her leaning posture and fingertip touching the screen communicate intense focus without staging it. The library bookshelves in the soft bokeh background are perfect symbolic weight: old knowledge behind, new knowledge in front. Weak spots: the tablet screen is indistinct — colorful blobs rather than legible UI, so the &#x27;answer she already had&#x27; narrative is opaque. Also photo-realistic in a way that skews stock-photo rather than editorial illustration — the glasses reflection is a nice detail that saves it from feeling generic.</span>
+        </div>
+        <div class="winner-row">
+          <strong>The First Book in His Language</strong>
+          <span class="winner-style">oil_painting</span>
+          <span class="winner-who">Mamadou, 7-year-old boy in Bamako, Mali, attending a primary school where instruction was French — a language none of the children speak at home</span>
+          <span class="winner-reason">The emotional core is exceptional — the boy&#x27;s open mouth and upward gaze capture pure wonder at the moment of discovery, exactly the feeling this project is built to evoke. The window light raking across his face is painterly and warm. Composition is strong: low angle, book anchoring the bottom third, face filling the frame. Two problems drag it down: (1) the book text is Cyrillic gibberish (&#x27;Полида 1 меди Нказдена деля&#x27;) — AI hallucinated fake Russian, which breaks immersion if the viewer looks closely; (2) the painting style is Old Masters realism (Bouguereau-adjacent) which may or may not match the intended art direction — it reads as classical European painting, not modern concept art. If the style target was something else (e.g. warm illustrated, Pixar-adjacent), this is off-brand. But as a standalone image the emotion is undeniable.</span>
+        </div>
+        <div class="winner-row">
+          <strong>She Already Knew the Algorithm</strong>
+          <span class="winner-style">watercolor</span>
+          <span class="winner-who">Agnes, 64-year-old grandmother in rural Uganda, attends a Raspberry Pi Code Club session at her village church community center alongside her grandchildren — she never finished primary school</span>
+          <span class="winner-reason">This image lands emotionally — the intergenerational pairing is the core strength. The elderly woman&#x27;s quiet knowing smile against the child&#x27;s open-mouthed delight creates genuine tension between wisdom and discovery. The radial golden burst from the cards is a smart visual metaphor for the &#x27;aha moment.&#x27; Composition uses classic triangular framing (two heads + table apex) with good eye flow left-to-right. Style fidelity is solid watercolor with appropriate softness and warm palette. The main weakness is grounding: the symbol cards on the table read as generic/decorative — colorful rounded-square icons that don&#x27;t clearly communicate &#x27;algorithm&#x27; or computational thinking. A viewer without context can read this as a card game, not a coding/logic moment. Also the background is near-empty — a kitchen table, a classroom, any specific environment would anchor this in real life rather than floating in watercolor mist.</span>
+        </div>
+        <div class="winner-row">
+          <strong>The Fog That Numbers Lift</strong>
+          <span class="winner-style">photorealistic</span>
+          <span class="winner-who">Chen Wei, 55-year-old Chinese logistics manager at Shenzhen container port, 30 years on the docks</span>
+          <span class="winner-reason">Strong image. The over-the-shoulder framing with the harbor backdrop creates genuine depth — real industrial world behind him, illuminated data world in his hands. The man&#x27;s expression (slight awe/concentration) carries emotional weight without being theatrical. The glowing orange hotspots on the tablet map read immediately as &#x27;data revealing hidden patterns&#x27; — exactly the fog-lifting metaphor. The photo-real style is competent but the tablet screen composite feels slightly artificial — the glow doesn&#x27;t quite spill onto his face the way real screen light would. The harbor background is evocative and specific (shipping containers, cranes) rather than generic. Grounding is solid — this feels like a real port logistics worker, not a stock photo executive.</span>
+        </div>
+        <div class="winner-row">
+          <strong>The Hours She Could Now Count</strong>
+          <span class="winner-style">oil_painting</span>
+          <span class="winner-who">Amara, 68-year-old Ugandan grandmother and retired teacher in a rural village, newly equipped with rooftop solar panels via an NGO installation</span>
+          <span class="winner-reason">This image is exceptional. The two-figure composition — an elderly woman and a child sharing a glowing tablet screen — creates an immediate intergenerational story without a word of explanation. The warm screen light illuminating both faces against the deep dusk-orange sunset is a masterful lighting choice: technology as hearth, as a new kind of fire. The grandmother&#x27;s weathered hands on the tablet are the emotional core — decades of life meeting a new tool. The African savanna backdrop keeps this grounded and specific, never generic. Style is painterly oil with strong chiaroscuro; the only slight inconsistency is the tablet&#x27;s UI feels slightly more photographic/crisp than the surrounding painterly treatment, creating a minor material discontinuity. Narrative reads clearly: someone who never had access to this tool is now learning it, guided or sharing with younger generation. Grounding is perfect — the faces, the landscape, the worn clothing all feel specific and lived-in, not stock.</span>
+        </div>
+        <div class="winner-row">
+          <strong>All That Sun, Waiting</strong>
+          <span class="winner-style">watercolor</span>
+          <span class="winner-who">Darlene, 34-year-old Navajo woman in rural Arizona, who has been waiting two years for grid interconnection approval on her family&#x27;s land</span>
+          <span class="winner-reason">This image lands hard. The triumphant arm-raised figure with phone catching signal against a Southwest desert sunrise is immediately legible as a breakthrough moment — connectivity arriving somewhere it was absent. The diagonal of the raised arm pulls the eye from the burst of golden light through the figure and into the elder in the doorway, creating a two-generation story without a word. The elder holding a document (permit? approval?) gives the narrative real weight — this isn&#x27;t just a signal bar, it&#x27;s the culmination of a process. The watercolor rendering is confident: warm ochre-orange sky bleeds naturally, the porch architecture anchors the scene spatially, and the mesa in the background places us firmly in the Southwest. The traditional dress reads as culturally specific without being costume-y. Minor critiques: the elder in the doorway is slightly underlit and compositionally passive — she could benefit from warmer rim light to pull her into the emotional moment. The document she holds is unreadable, which slightly weakens the narrative specificity. But neither issue undercuts the core image.</span>
+        </div>
+        <div class="winner-row">
+          <strong>807 Feet Alone</strong>
+          <span class="winner-style">photorealistic</span>
+          <span class="winner-who">Yuna, 28, Korean-American JPL mission controller, Pasadena CA — has worked Perseverance ops for 3 years</span>
+          <span class="winner-reason">This is a standout image. The composition is cinematic — the woman leans into the monitor at an acute angle, creating diagonal tension that pulls the eye directly into the Mars rover mission data on screen. The warm amber glow of the monitor against the cool dusk window creates a beautiful two-light setup that feels lived-in and real. The emotion is exceptional: her parted lips, wide eyes, and forward posture communicate pure absorption — this is someone witnessing something that matters. The Mars mission planning interface on screen is legible enough to be credible without being cartoonishly fake. Grounding is strong: the cluttered desk, casual hoodie, apartment window at dusk — this is an ordinary person doing extraordinary work. The only minor issue is photo-real style leans slightly stock-photo in the face (the woman is conventionally attractive in a way that risks &#x27;model, not scientist&#x27; read), but the posture and intensity override that. The style fidelity is slightly below max only because the photorealistic treatment is clean in a way that could read as commercial rather than documentary — a touch more grain or imperfection would cement it.</span>
+        </div>
+        <div class="winner-row">
+          <strong>Thirty Years of Drawings</strong>
+          <span class="winner-style">oil_painting</span>
+          <span class="winner-who">Dr. Amara, 57, Nigerian-born deep-sea taxonomist at MBARI, Moss Landing CA — 30 years of handwritten field notebooks and hand-drawn species illustrations</span>
+          <span class="winner-reason">This image is genuinely moving. The compositional triangle — warm lamp light, aged sketchbook, glowing laptop screen — creates a perfect past/present dialogue. The researcher&#x27;s profile gaze connects the hand-drawn insect studies wallpapering the background to the 3D AI-rendered specimen on screen, making the &#x27;thirty years of drawings&#x27; narrative immediately legible without any caption. The academic oil-painting style gives it gravitas without feeling stiff. The only weakness is the laptop screen rendering feels slightly uncanny — the 3D insect model looks more like a game asset than a scientific visualization. That minor collision of realism registers but doesn&#x27;t undermine the image.</span>
+        </div>
+        <div class="winner-row">
+          <strong>What Margaret Found</strong>
+          <span class="winner-style">watercolor</span>
+          <span class="winner-who">Margaret, 71, retired science teacher, Mountainair NM — participates in Backyard Worlds: Cool Neighbors from her kitchen table</span>
+          <span class="winner-reason">This image lands. The elderly woman&#x27;s wide-eyed, open-mouthed expression of pure wonder is the whole story — you feel her delight instantly. The pointing finger touching the glowing constellation on the tablet is a perfect visual metaphor: a human reaching into something vast and magical. Composition is strong — diagonal lean-in creates forward energy, the coffee mug anchors the scene in domestic reality (kitchen window, warm morning light), and the contrast between the mundane setting and the cosmic glow on the screen is exactly right. Watercolor style is consistent and well-executed. Minor weaknesses: the background kitchen is slightly soft/generic, and her hand anatomy is slightly exaggerated (common watercolor AI artifact). Neither detracts meaningfully. The grounding detail — coffee, kitchen, morning light, a grandmother at a table — makes this feel like a real moment, not a stock illustration. This is the &#x27;specific, relatable, non-elite protagonist&#x27; the series calls for, embodying pillar #4 and #5 perfectly.</span>
+        </div></div>
+
+  <h2>Round-by-Round Journey</h2>
+  
+        <div class="round-card" style="border-left-color:#4ea8d4">
+          <div class="round-header">
+            <h3>Round 1: Discovery &amp; Science
+              <span class="round-stats">3/3 kept</span></h3>
+            <span class="mode-tag" style="color:#4ea8d4;border-color:#4ea8d4">explore</span>
+          </div>
+          
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">The Shape of a Cure <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Amara, 29, Kenyan biochemist, working in a modestly equipped university lab in Nairobi on malaria vaccine candidates</div>
+                <div class="seq-story">A researcher with brilliant instincts but no access to expensive crystallography equipment discovers AlphaFold and unlocks a protein interaction that changes her research trajectory.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_01/r01_s01_the_shape_of_a_cure_before_refined.png" loading="lazy" alt="The Shape of a Cure — before">
+                  <div class="beat-score ship">20/25 SHIP</div>
+                  <div class="beat-feedback">This image earns its keep. The researcher&#x27;s posture — hands pressed to temples, eyes downcast over handwritten molecular diagrams — is immediately legible as exhausted, committed, human. The warm amber window light against the cold fluorescent overhead creates a subtle tension (outside world vs. inside obsession) that rewards a second look. The stack of papers on the left anchors the sense of accumulated effort. Composition is strong: she sits in the center-bottom third, the clutter frames her without overwhelming. Two weaknesses: (1) style fidelity is inconsistent — the equipment reads as generic photorealistic rather than the intended painterly/concept-art hybrid; the fluorescent tube fixture in particular looks stock. (2) The molecular sketches in the notebook are slightly soft and hard to read as the focal artifact they should be. Neither flaw breaks the image — the emotional core is too strong.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_01/r01_s01_the_shape_of_a_cure_moment_refined.png" loading="lazy" alt="The Shape of a Cure — moment">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This is a genuinely strong image. The composition is excellent — the researcher leans in from the left third, the glowing protein structure anchors the right, and the laptop serves as the bridge between human and discovery. The hands-over-mouth gesture is universally readable as awe or shock, landing this squarely in &#x27;breakthrough moment&#x27; territory without any caption needed. The chiaroscuro lighting (deep lab darkness, laptop glow on her face, luminous protein) is dramatic and cinematically confident. Narrative clarity is near-perfect: young Black female scientist, late-night lab, holographic molecular structure emerging from screen — &#x27;the shape of a cure&#x27; is legible at a glance. Minor deductions: the protein structure reads slightly more like a generic glowing blob than a precise molecular model (style fidelity), and the background cabinets feel slightly stock-photo generic (grounding). But these are small complaints against a very strong image.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_01/r01_s01_the_shape_of_a_cure_after_v2.png" loading="lazy" alt="The Shape of a Cure — after">
+                  <div class="beat-score ship">21/25 SHIP</div>
+                  <div class="beat-feedback">Genuinely strong image. The dual-light sourcing — cold fluorescent overhead on the whiteboard, warm desk lamp in the foreground — creates natural depth and emotional contrast: clinical pursuit vs. human warmth. The researcher&#x27;s silhouetted profile looking UP at the molecular structure reads immediately as reverence or discovery, not just work. The crumpled paper cups and coffee cups scattered on the desk are the best detail: they ground this in real obsessive effort, not a staged lab shoot. The molecular diagram on the whiteboard is legible enough to signal &#x27;science&#x27; without being sterile. Style fidelity is the one soft spot — it reads closer to cinematic photography than a distinctive illustrated style, which may or may not be the intended register. If this is meant to feel painterly or stylized, it needs texture treatment. As straight photorealistic concept art, it&#x27;s excellent.</div>
+                </div>
+              </div>
+            </div>
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">The Naturalist He Never Knew He Was <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Cornelius, 68, retired Black postal worker, rural Indiana, who spent 40 years walking the same routes and never had language for what he observed</div>
+                <div class="seq-story">A man who always noticed the natural world but never had tools to engage with it discovers iNaturalist and finds a second vocation in his retirement.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_01/r01_s02_the_naturalist_he_never_k_before_refined.png" loading="lazy" alt="The Naturalist He Never Knew He Was — before">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This is one of the strongest images in the set. The composition is near-perfect — the old man crouching low draws the eye diagonally into the frame, with the weathered fence post acting as a vertical anchor and natural framing device. The face is inches from the beetle, and that proximity communicates pure absorbed wonder without a single word. The autumn palette (golden grass, warm light, muted browns) reads as late-afternoon discovery, unhurried and contemplative. The rainbow-iridescent beetle is the exact right choice — it earns its visual strangeness against the realistic naturalistic setting, making it feel like nature&#x27;s own magic rather than digital artifice. The oil-painting texture is well-maintained across the entire frame — no smoothing artifacts or uncanny zones. Minor deductions: the man&#x27;s face has a slight Morgan Freeman resemblance that edges toward specific-celebrity rather than a universal everyman; and the beetle&#x27;s neon rainbow saturation is slightly oversaturated relative to the muted realism of everything else — one notch less vivid would integrate it better. But neither issue is disqualifying. This image earns its place.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_01/r01_s02_the_naturalist_he_never_k_moment_refined.png" loading="lazy" alt="The Naturalist He Never Knew He Was — moment">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This image is genuinely striking. The composition is masterful — the beetle, phone screen, and man&#x27;s face form a tight triangle that pulls the eye in a perfect loop. The phone screen reflecting a blank/green field while the real beetle sits inches away creates an instantly legible irony without any text. The man&#x27;s expression — mouth open, eyes wide, slightly disbelieving — sells the discovery moment completely. The golden-hour backlight gives warmth and dignity. The painterly oil style is consistent and confident. Minor deductions: the phone UI is slightly generic/anachronistic (boxy older model), and the beetle&#x27;s iridescent blue feels slightly hyper-saturated relative to the naturalistic skin tones — a small stylistic tension. But these are small. This image tells a complete human story in a single frame.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_01/r01_s02_the_naturalist_he_never_k_after_refined.png" loading="lazy" alt="The Naturalist He Never Knew He Was — after">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This is a genuinely moving image. The elder man mid-stride in a golden wildflower meadow, phone raised to capture a bird or butterfly, sunset burning behind him — the composition is near-perfect. His upward gesture creates a strong diagonal that pulls the eye from the blooming foreground through his body to the glowing sky. The scattered birds (blackbirds? sparrows?) in the upper right add life and reinforce the naturalist theme without overexplaining. The emotion is earned: this reads immediately as a man who has spent a lifetime learning to see, and technology has simply extended his reach — not replaced his wonder. That&#x27;s exactly the series&#x27; message. The oil-painting style is well-executed with confident brushwork and warm palette. Minor deduction on style fidelity: the phone looks slightly too modern/stock — almost photorealistic in a way that breaks the painterly surface. Narrative clarity docks one point because without the title &#x27;the naturalist&#x27; it&#x27;s mildly ambiguous (is he filming? calling? using iNaturalist?). But that ambiguity is actually productive — it invites the viewer in. Grounding is exceptional: the specific wrinkles, white beard, rolled sleeves, and worn trousers make this a real person, not a stock illustration. This is one of the stronger images in the set.</div>
+                </div>
+              </div>
+            </div>
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">What Lives in the Water <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Nomvula, 14, Zulu schoolgirl in rural KwaZulu-Natal, South Africa, who suspects the stream near her village is getting worse</div>
+                <div class="seq-story">A teenager with a worry she can&#x27;t prove uses miniSASS to gather real evidence, then presents water quality data to her community elders.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_01/r01_s03_what_lives_in_the_water_before_refined.png" loading="lazy" alt="What Lives in the Water — before">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This is genuinely moving. The composition is near-perfect — the girl&#x27;s downward gaze pulls the eye to her cupped hands, and the ripple circles in the stream create a natural focal anchor. The red-orange soil banks frame her without crowding. Her school uniform (white collar, blue pinafore) is a specific, loaded detail: this is a child who should be in class, not scooping stream water — that tension communicates instantly without a single word. The watercolor wash is confident with clean wet-on-wet blending in the background vegetation. The only minor friction: the fraying on the uniform hem reads as a rendering artifact rather than an intentional wear detail, and the distant treeline is slightly soft in a way that suggests compression rather than atmospheric haze. Narrative clarity docks one point because &#x27;what lives in the water&#x27; implies biological curiosity or contamination concern — the image shows need/scarcity more than scientific inquiry. But that reframe is arguably richer. Strong enough to ship as-is.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_01/r01_s03_what_lives_in_the_water_moment_refined.png" loading="lazy" alt="What Lives in the Water — moment">
+                  <div class="beat-score ship">24/25 SHIP</div>
+                  <div class="beat-feedback">This is one of the strongest images in the set. The composition is a masterclass in forced intimacy — the close crop pulls you into the child&#x27;s world, the downward gaze creates a clear visual axis from her eyes → phone screen → jar → water, and the reflection in the stream anchors everything. The emotion is genuinely earned: pure, unselfconscious curiosity. No performance for an audience. She&#x27;s just *in it*. The specific details make it feel real: worn sandals, jar slightly submerged, one hand steadying it while the other holds the phone. The watercolor treatment is mostly consistent — soft wet blooms in the background grass, golden light wash — though the phone and jar edges are slightly harder/more photorealistic than the overall watercolor aesthetic, which is a minor style break. Narrative is immediately legible: kid capturing something she found in a stream, technology amplifying natural curiosity rather than replacing it. This image embodies the project&#x27;s &#x27;what could YOU do?&#x27; frame perfectly.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_01/r01_s03_what_lives_in_the_water_after_refined.png" loading="lazy" alt="What Lives in the Water — after">
+                  <div class="beat-score ship">22/25 SHIP</div>
+                  <div class="beat-feedback">This image lands. A young girl holds a smartphone showing something to a semicircle of elders — the generational contrast is immediate and legible without any caption. The elders lean in with curiosity, not suspicion, which perfectly embodies the series&#x27; abundance frame (&#x27;what could YOU do?&#x27;). The warm golden-hour light unifies the scene and gives it genuine warmth without sentimentality. The watercolor wash is clean and consistent. Minor weaknesses: the phone screen content is too small to read (a deliberate ambiguity, but slightly missed opportunity), and the two elders on the far left feel slightly crowded/clipped at the frame edge. The child figure in the background is a lovely depth cue. Overall this image earns its emotion through specificity — a real village, real faces, real moment.</div>
+                </div>
+              </div>
+            </div>
+          <div class="round-direction"><strong>Next:</strong> Push the painterly vein harder: try gouache, ink-wash, and plein-air styles on themes of discovery, ecology, and quiet human persistence. Also stress-test whether the watercolor/oil advantage holds across non-nature themes (urban isolation, archival work, night-shift labor) — if it does, these styles are universal carriers; if not, we&#x27;ve found a theme-locked pairing worth documenting. Hold photorealistic for one technological or architectural story to see if the lower score was style-theme mismatch rather than style weakness.</div>
+        </div>
+        <div class="round-card" style="border-left-color:#4ea8d4">
+          <div class="round-header">
+            <h3>Round 2: Healthcare &amp; Wellbeing
+              <span class="round-stats">3/3 kept</span></h3>
+            <span class="mode-tag" style="color:#4ea8d4;border-color:#4ea8d4">explore</span>
+          </div>
+          
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">The Number That Changed Everything <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Amara, a Malawian midwife in her late thirties, working alone in a rural clinic outside Lilongwe with no specialist within 80 kilometers</div>
+                <div class="seq-story">A midwife who spent years guessing gestational age by touch alone uses a phone-sized ultrasound probe to see what she never could before — and becomes the one who teaches others.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_02/r02_s01_the_number_that_changed_e_before_refined.png" loading="lazy" alt="The Number That Changed Everything — before">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This image is genuinely moving. The composition is textbook-strong: the midwife&#x27;s body forms a diagonal that leads the eye directly to the patient, and the window light creates a natural spotlight on the examination. The medical forms and tape measure in the foreground are excellent grounding details — they tell you exactly where you are and what&#x27;s at stake without any caption needed. The colorful printed fabric on the midwife reads as specific and culturally real, not costume. The patient&#x27;s face — eyes closed, serene trust — carries the emotional weight of the whole frame. The only slight weakness is style fidelity: this reads as photo-real documentary photography rather than concept art, which may or may not match the v4 style brief. If the style target was warmer/painterly, that&#x27;s the one gap. But as a standalone image, it&#x27;s exceptional — specific, human, non-elite, and quietly powerful.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_02/r02_s01_the_number_that_changed_e_moment_v2.png" loading="lazy" alt="The Number That Changed Everything — moment">
+                  <div class="beat-score ship">21/25 SHIP</div>
+                  <div class="beat-feedback">This image earns its keep. The emotional core is exceptional — the pregnant woman&#x27;s simultaneous tears and smile is a genuinely moving sight, and the nurse&#x27;s wide-eyed awe mirrors the viewer&#x27;s intended reaction perfectly. The two-point lighting (warm bedside lamp vs. cool holographic display) creates a natural compositional anchor that pulls the eye from technology back to the human face. The glowing scanner ring on the abdomen is a strong visual metaphor — technology touching life. Minor weaknesses: the holographic data display reads as generic dashboard UI rather than something specific or legible; it floats a bit disconnectedly. The scanner device itself is slightly ambiguous in purpose on first glance. These are refinement notes, not dealbreakers. The human story lands — that&#x27;s the hardest thing to get right.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_02/r02_s01_the_number_that_changed_e_after_v2.png" loading="lazy" alt="The Number That Changed Everything — after">
+                  <div class="beat-score ship">20/25 SHIP</div>
+                  <div class="beat-feedback">Strong image. The nurse in profile studying a whiteboard of patient numbers — with one value circled in red — is immediately readable as a moment of discovery or concern. The corridor depth behind her adds institutional authenticity. The shallow depth of field keeps focus on her face and the circled number simultaneously, creating natural eye flow: face → pen → circled anomaly. Grounding is excellent — the blue scrubs, the wall-mounted data board, the hallway light all feel real and specific, not staged. The one weakness is style fidelity: this reads as clean photographic/documentary rather than a distinct stylized aesthetic. If the series has a defined visual language (painterly, graphic novel, warm-toned), this image sits outside it. Within a photorealistic tier of the Future Canvas, it earns its place.</div>
+                </div>
+              </div>
+            </div>
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">She Asked in Zulu <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Nomsa, a nineteen-year-old Black South African woman living in a township outside Durban, too ashamed to visit a clinic alone</div>
+                <div class="seq-story">A young woman too afraid to speak her fear aloud finds a chatbot that answers in her language without judgment — and walks through a clinic door she never thought was open to her.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_02/r02_s02_she_asked_in_zulu_before_refined.png" loading="lazy" alt="She Asked in Zulu — before">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This is one of the strongest images in the set. The dual-light composition is masterful — warm floor lamp on the left, cold screen glow on the right, meeting on her face. Her expression is transfixed, almost reverent. The rumpled bed, bare feet, the specific angle of her posture — nothing here reads as stock. The Vermeer-like chiaroscuro elevates it from documentary to painterly without losing specificity. The narrative reads clearly: a young woman alone at night, asking something important into a glowing device. The &#x27;she asked in Zulu&#x27; title makes the stakes land — this is the access-to-knowledge story rendered as a quiet, private human moment. Minor note: the style reads as photo-real oil painting, which works, but if the target style is more painterly/illustrative it may drift slightly.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_02/r02_s02_she_asked_in_zulu_moment_refined.png" loading="lazy" alt="She Asked in Zulu — moment">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This is a genuinely affecting image. The chiaroscuro lighting — phone glow as the sole light source, carving her face out of deep shadow — is technically excellent and emotionally resonant. She&#x27;s lying on her bed, late at night, phone in both hands, lips slightly parted in the moment of receiving an answer. That half-open mouth is the detail that sells it: not blank consumption, but active wonder. The composition is strong — diagonal body leads the eye to the illuminated hands and face, then up to her expression. The dark curtain/wall background gives it a stage-like intimacy. Grounding is exceptional: specific girl, specific moment, specific light. Not a stock photo teenager — a real person in a real room at a real hour. Style fidelity docks one point because the painterly treatment is closer to hyperrealistic oil than a distinct &#x27;concept art&#x27; style — it&#x27;s beautiful but could read as photorealistic with a filter rather than a deliberately painted aesthetic. Narrative is slightly ambiguous without context (she could be texting a friend or watching a video) but the title &#x27;she asked in Zulu&#x27; resolves that. Strong enough to carry the thematic weight intended.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_02/r02_s02_she_asked_in_zulu_after_v2.png" loading="lazy" alt="She Asked in Zulu — after">
+                  <div class="beat-score ship">19/25 SHIP</div>
+                  <div class="beat-feedback">Strong image. The counter-and-window framing creates natural depth, and the warm golden-ochre walls give it an unmistakably specific place — a rural clinic, not a generic hospital. The nurse&#x27;s warm smile and the girl&#x27;s attentive posture toward the phone tell the story clearly: technology is bridging a language gap in a real, human moment. The eye flows naturally from girl → phone → nurse&#x27;s face, which is exactly right. The one weakness is the garbled text on the wall signage — the AI clearly failed to render legible script, and the mirrored/scrambled characters draw the eye awkwardly. Style fidelity is the weak point: the rendering is painterly and warm but leans more &#x27;oil painting illustration&#x27; than a consistent defined art style — fine for standalone use, but may feel inconsistent in a set.</div>
+                </div>
+              </div>
+            </div>
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">What Her Hand Could Hold <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Valentina, a seven-year-old girl in rural Colombia whose right arm ends at the wrist, enrolled in a rural primary school where the other children climb and draw and build</div>
+                <div class="seq-story">A child who watched others play from a distance receives a 3D-printed hand designed by volunteers halfway around the world — and uses it to make something messy and beautiful.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_02/r02_s03_what_her_hand_could_hold_before_refined.png" loading="lazy" alt="What Her Hand Could Hold — before">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This is genuinely affecting. The girl drawing circles in the dirt with a stick — alone in the foreground while every other child plays behind her — is a powerful visual metaphor that doesn&#x27;t need a caption. The spatial separation between her and the group is compositionally sharp: foreground isolation vs. background activity creates instant tension. Her downward gaze and the loops she&#x27;s tracing feel contemplative, not sad — she&#x27;s working something out. The warm ochre dirt grounds her in a specific, non-generic place (feels South/Central American school, not a stock playground). The watercolor handling is soft but confident — the hazy background school building, the light-flooded sky. Minor style note: the swing set children feel slightly more graphic/solid than the loose watercolor treatment of the foreground figure, creating a small tonal inconsistency. But this doesn&#x27;t break the image. The stick in the dirt as her only &#x27;tool&#x27; is the emotional anchor — it earns its close placement in frame.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_02/r02_s03_what_her_hand_could_hold_moment_refined.png" loading="lazy" alt="What Her Hand Could Hold — moment">
+                  <div class="beat-score ship">24/25 SHIP</div>
+                  <div class="beat-feedback">This is a genuinely moving image. The triangular composition — child&#x27;s downward gaze, caregiver&#x27;s gentle lean, the prosthetic hand as the focal point at the center-bottom — is textbook and deeply effective. The child&#x27;s expression carries quiet wonder and a hint of uncertainty, not performed joy, which makes it feel real. The caregiver is cropped just enough to stay supporting character rather than stealing focus. The 3D-printed prosthetic (teal/orange lattice structure) reads immediately as both technological and personal — not cold medical equipment, but something made. The watercolor treatment softens the clinical setting beautifully; the window light in the background suggests openness and possibility without being heavy-handed. Grounding is strong: scrubs, medical-adjacent room, a specific child (not a generic stock &#x27;happy patient&#x27;). The only minor note: the prosthetic&#x27;s color palette is very saturated relative to the watercolor figures — borderline jarring, though it also works as intentional emphasis on the &#x27;new thing&#x27; entering her world.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_02/r02_s03_what_her_hand_could_hold_after_refined.png" loading="lazy" alt="What Her Hand Could Hold — after">
+                  <div class="beat-score ship">21/25 SHIP</div>
+                  <div class="beat-feedback">This image lands. The prosthetic arm holding a paintbrush while children lean in with open-mouthed delight is immediately legible and genuinely moving — it earns its emotion without sentimentality. The composition uses a natural crowd-circle framing that pulls the eye straight down to the red flowers being painted, which is a strong focal anchor. The girl&#x27;s quiet concentration against the exuberant reactions of the surrounding kids creates real tension. The watercolor style is mostly consistent but the robotic arm reads more photorealistic/hard-rendered than the soft washes everywhere else — it&#x27;s the one stylistic rupture. The children&#x27;s faces are well-differentiated and specific, avoiding generic stock-photo uniformity. The red flowers are a smart symbolic choice: vivid, alive, something that shouldn&#x27;t be possible made real. Minor note: the composition is slightly bottom-heavy with empty white paper dominating the lower third.</div>
+                </div>
+              </div>
+            </div>
+          <div class="round-direction"><strong>Next:</strong> Stay in high-scoring territory but stress-test the edges: (1) Push watercolor into more technically complex subjects — can it hold up for abstract concepts like algorithms or signal propagation, or does it only shine on human-scale moments? (2) Try oil painting on a physical/tactile story the way watercolor owned &#x27;Her Hand&#x27; — does oil carry the same warmth or does it feel heavier/more distant? (3) The photorealistic piece scored consistently but not as high — test it on a story with extreme contrast (darkness/light, isolation/connection) where photorealism&#x27;s literalness becomes an asset rather than a limitation.</div>
+        </div>
+        <div class="round-card" style="border-left-color:#48bb78">
+          <div class="round-header">
+            <h3>Round 3: Education &amp; Learning
+              <span class="round-stats">3/3 kept</span></h3>
+            <span class="mode-tag" style="color:#48bb78;border-color:#48bb78">exploit</span>
+          </div>
+          
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">The Answer She Already Had <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Maria, 14-year-old Guatemalan immigrant girl, first year in a US middle school, struggling with English and algebra simultaneously</div>
+                <div class="seq-story">Maria goes from paralyzed defeat over a homework problem to a breakthrough Socratic exchange with an AI tutor that refuses to just give her the answer — to teaching the same concept to a classmate the next morning.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_03/r03_s01_the_answer_she_already_ha_before_refined.png" loading="lazy" alt="The Answer She Already Had — before">
+                  <div class="beat-score ship">20/25 SHIP</div>
+                  <div class="beat-feedback">Strong image. The warm lamplight versus cold blue library creates a compelling contrast that isolates the girl emotionally — she&#x27;s in her own crisis bubble while the world recedes. The crumpled paper balls are doing real narrative work: they show effort, failure, persistence. Hands in hair is a universal frustration gesture that reads instantly. The open textbook anchors the scene as academic struggle. What weakens it slightly: the style reads as photorealistic cinematic rather than editorial illustration — if the series targets a warmer, painterly, or graphic novel aesthetic, this will feel out of place. The bookshelves receding to vanishing point in the background is slightly generic (stock-photo library). But as a standalone emotional beat — &#x27;the student who can&#x27;t find the answer&#x27; — this earns its keep.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_03/r03_s01_the_answer_she_already_ha_moment_refined.png" loading="lazy" alt="The Answer She Already Had — moment">
+                  <div class="beat-score ship">18/25 SHIP</div>
+                  <div class="beat-feedback">Strong image. The dual light sources — warm lamp glow behind her, cool blue tablet glow on her face — create genuine visual tension that makes the scene read as a discovery moment. Her leaning posture and fingertip touching the screen communicate intense focus without staging it. The library bookshelves in the soft bokeh background are perfect symbolic weight: old knowledge behind, new knowledge in front. Weak spots: the tablet screen is indistinct — colorful blobs rather than legible UI, so the &#x27;answer she already had&#x27; narrative is opaque. Also photo-realistic in a way that skews stock-photo rather than editorial illustration — the glasses reflection is a nice detail that saves it from feeling generic.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_03/r03_s01_the_answer_she_already_ha_after_v2.png" loading="lazy" alt="The Answer She Already Had — after">
+                  <div class="beat-score ship">21/25 SHIP</div>
+                  <div class="beat-feedback">This image earns its keep. The two-figure composition — younger girl writing, older girl leaning in with a gentle pointing finger — tells the story instantly: mentorship, discovery, the quiet moment before confidence clicks. The warm backlit window creates a natural glow that pulls emotional weight without feeling manipulative. Eye flow is excellent: window light → older girl&#x27;s face → her pointing hand → younger girl&#x27;s pencil and open notebook. The smile on the younger girl is the emotional center — it reads as &#x27;I got it,&#x27; which is exactly the narrative beat this series wants. The notebook math content is soft and impressionistic (not legible), which is fine — it signals &#x27;math&#x27; without distracting. Minor deductions: the background classroom feels slightly generic (colorful wall posters, chalkboard), and the &#x27;grounding&#x27; suffers slightly from the anime-adjacent character rendering — faces have a polish that edges toward illustration stock rather than specific people in a specific place. Still, the warmth, the human connection, and the narrative clarity are strong.</div>
+                </div>
+              </div>
+            </div>
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">The First Book in His Language <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Mamadou, 7-year-old boy in Bamako, Mali, attending a primary school where instruction was French — a language none of the children speak at home</div>
+                <div class="seq-story">Mamadou stares blankly at a French textbook in a crowded classroom, receives one of 107 AI-generated Bambara storybooks for the first time in his life, and that evening reads it aloud to his younger sister on their doorstep.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_03/r03_s02_the_first_book_in_his_lan_before_refined.png" loading="lazy" alt="The First Book in His Language — before">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">Exceptional image. The composition is masterfully layered — foreground boy reading with intense focus, middle-ground peers at desks, silhouetted teacher at the chalkboard, all framed by warm window light cutting through atmospheric haze. The eye enters at the boy&#x27;s face (sharpest focus, warmest light), travels along his hands to the book, then drifts back through the classroom depth. Emotionally powerful: the boy&#x27;s downward gaze into the book reads as genuine absorption, not posed. The book itself — clearly in a local language with readable text on the cover — is the narrative anchor and delivers the story title without any caption. The oil-painting style is consistent and warm. Minor style note: the signature in the bottom-right corner is a slight anachronism for AI-generated work and could confuse viewers. Grounding is strong — wooden desks, bare walls, chalk board, natural light — feels specific to West/Central Africa, not generic &#x27;classroom stock photo&#x27;.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_03/r03_s02_the_first_book_in_his_lan_moment_refined.png" loading="lazy" alt="The First Book in His Language — moment">
+                  <div class="beat-score ship">19/25 SHIP</div>
+                  <div class="beat-feedback">The emotional core is exceptional — the boy&#x27;s open mouth and upward gaze capture pure wonder at the moment of discovery, exactly the feeling this project is built to evoke. The window light raking across his face is painterly and warm. Composition is strong: low angle, book anchoring the bottom third, face filling the frame. Two problems drag it down: (1) the book text is Cyrillic gibberish (&#x27;Полида 1 меди Нказдена деля&#x27;) — AI hallucinated fake Russian, which breaks immersion if the viewer looks closely; (2) the painting style is Old Masters realism (Bouguereau-adjacent) which may or may not match the intended art direction — it reads as classical European painting, not modern concept art. If the style target was something else (e.g. warm illustrated, Pixar-adjacent), this is off-brand. But as a standalone image the emotion is undeniable.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_03/r03_s02_the_first_book_in_his_lan_after_refined.png" loading="lazy" alt="The First Book in His Language — after">
+                  <div class="beat-score ship">22/25 SHIP</div>
+                  <div class="beat-feedback">Exceptional. The golden hour backlight creates a natural halo around the children, drawing the eye inward toward the book — the compositional anchor. The older child&#x27;s protective lean over the younger one communicates mentorship and care without a single word. The alley perspective adds depth and a sense of place (Mediterranean or Latin American village doorstep). The oil-painting texture is warm and consistent. Minor deductions: the book&#x27;s interior illustration is slightly generic/cartoonish which undercuts the specificity; the style reads more as classical oil painting than concept art, which may or may not match intended art direction. But as a standalone image, it&#x27;s genuinely moving.</div>
+                </div>
+              </div>
+            </div>
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">She Already Knew the Algorithm <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Agnes, 64-year-old grandmother in rural Uganda, attends a Raspberry Pi Code Club session at her village church community center alongside her grandchildren — she never finished primary school</div>
+                <div class="seq-story">Agnes sits apart at the margins of an AI literacy workshop, uncertain she belongs — then discovers the unplugged card-sorting activity maps perfectly onto patterns she has known all her life — and ends the session teaching the children herself.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_03/r03_s03_she_already_knew_the_algo_before_refined.png" loading="lazy" alt="She Already Knew the Algorithm — before">
+                  <div class="beat-score ship">20/25 SHIP</div>
+                  <div class="beat-feedback">Strong image. The watercolor rendering is excellent — soft washes, natural light from tall windows, warm palette anchored by the elder woman&#x27;s vivid kente-style wrap against the cool classroom blues. The elder woman&#x27;s crossed arms and quiet, knowing expression carry real weight — there&#x27;s dignity and a hint of &#x27;I&#x27;ve seen this before.&#x27; The shallow depth of field effect (sharp foreground, soft background crowd of children) is well-executed for a painting. The main narrative gap: it&#x27;s not immediately clear she&#x27;s the *student* rather than the *teacher*, which blurs the &#x27;she already knew the algorithm before&#x27; concept — the tension of an elder learning something new versus instructing. The crossed arms read as guarded or skeptical, which actually works beautifully for the title concept. Composition flows well: eye enters on her face, reads right to the bright windows, then settles on the children behind.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_03/r03_s03_she_already_knew_the_algo_moment_refined.png" loading="lazy" alt="She Already Knew the Algorithm — moment">
+                  <div class="beat-score ship">20/25 SHIP</div>
+                  <div class="beat-feedback">This image lands emotionally — the intergenerational pairing is the core strength. The elderly woman&#x27;s quiet knowing smile against the child&#x27;s open-mouthed delight creates genuine tension between wisdom and discovery. The radial golden burst from the cards is a smart visual metaphor for the &#x27;aha moment.&#x27; Composition uses classic triangular framing (two heads + table apex) with good eye flow left-to-right. Style fidelity is solid watercolor with appropriate softness and warm palette. The main weakness is grounding: the symbol cards on the table read as generic/decorative — colorful rounded-square icons that don&#x27;t clearly communicate &#x27;algorithm&#x27; or computational thinking. A viewer without context can read this as a card game, not a coding/logic moment. Also the background is near-empty — a kitchen table, a classroom, any specific environment would anchor this in real life rather than floating in watercolor mist.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_03/r03_s03_she_already_knew_the_algo_after_refined.png" loading="lazy" alt="She Already Knew the Algorithm — after">
+                  <div class="beat-score ship">21/25 SHIP</div>
+                  <div class="beat-feedback">Exceptional emotional core — the elderly woman&#x27;s radiant, full-body laugh is the strongest human moment in any image evaluated so far. The circular arrangement of children creates a natural vignette that pulls the eye directly to her face, and the warm backlit glow from the window halos her perfectly without feeling manipulative. Watercolor bleeds at the edges are soft and intentional. The cards she&#x27;s holding are colorful and legible enough to read as &#x27;teaching tool&#x27; without requiring explanation. Minor weaknesses: the &#x27;algorithm&#x27; narrative hook is not immediately legible — this reads as a storytelling/game moment, not a computing/pattern-recognition moment, which may or may not matter depending on placement. The grounding score dips slightly because the classroom is generic (could be any era, any country) and the children&#x27;s faces, while charming, trend toward a slightly idealized storybook uniformity. But none of that undermines the image&#x27;s power — it earns its keep on pure emotional truth.</div>
+                </div>
+              </div>
+            </div>
+          <div class="round-direction"><strong>Next:</strong> Double down on oil painting for personal stories of access and belonging — characters encountering tools/knowledge that were previously denied or unavailable to them. Watercolor and photorealistic both performed consistently (18-21 range) and are safe to continue, but oil painting has the highest ceiling. Next round: push oil painting into 2-3 more sequences, varying the specific moment of access — not just books/language but code, tools, math, maps. Test whether the style&#x27;s emotional peak generalizes or was specific to the literacy/language frame.</div>
+        </div>
+        <div class="round-card" style="border-left-color:#48bb78">
+          <div class="round-header">
+            <h3>Round 4: Sustainability &amp; Climate
+              <span class="round-stats">3/3 kept</span></h3>
+            <span class="mode-tag" style="color:#48bb78;border-color:#48bb78">exploit</span>
+          </div>
+          
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">The Fog That Numbers Lift <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Chen Wei, 55-year-old Chinese logistics manager at Shenzhen container port, 30 years on the docks</div>
+                <div class="seq-story">A veteran port manager encounters Climate TRACE satellite emissions data for the first time, and the harbor he has worked in for decades becomes a problem he can now solve.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_04/r04_s01_the_fog_that_numbers_lift_before_refined.png" loading="lazy" alt="The Fog That Numbers Lift — before">
+                  <div class="beat-score refine">15/25 REFINE</div>
+                  <div class="beat-feedback">The composition is genuinely strong — the centered back-of-figure framing against a foggy industrial port creates real visual weight, and the layered depth (containers → water → cranes → haze) gives the eye a clear path. The grounding is excellent: this looks like a specific port, a specific morning, a specific person. But two things kill it for this project. (1) STYLE FIDELITY: This reads as straight photorealism — there&#x27;s nothing here that signals &#x27;concept art&#x27; or any stylized treatment. It looks like a stock photo of a shipping manager, not a scene from an educational comic series about computing and human potential. (2) NARRATIVE CLARITY: The &#x27;fog that numbers lift&#x27; idea — data illuminating uncertainty — is completely invisible. There&#x27;s no data overlay, no clearing patch of fog, no device in hand, no visual metaphor connecting numbers to the fog. A viewer would never guess this is about computational insight. The human story is generic: &#x27;man surveys foggy port.&#x27; We need a reason this image belongs in this series.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_04/r04_s01_the_fog_that_numbers_lift_moment_refined.png" loading="lazy" alt="The Fog That Numbers Lift — moment">
+                  <div class="beat-score ship">19/25 SHIP</div>
+                  <div class="beat-feedback">Strong image. The over-the-shoulder framing with the harbor backdrop creates genuine depth — real industrial world behind him, illuminated data world in his hands. The man&#x27;s expression (slight awe/concentration) carries emotional weight without being theatrical. The glowing orange hotspots on the tablet map read immediately as &#x27;data revealing hidden patterns&#x27; — exactly the fog-lifting metaphor. The photo-real style is competent but the tablet screen composite feels slightly artificial — the glow doesn&#x27;t quite spill onto his face the way real screen light would. The harbor background is evocative and specific (shipping containers, cranes) rather than generic. Grounding is solid — this feels like a real port logistics worker, not a stock photo executive.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_04/r04_s01_the_fog_that_numbers_lift_after_v2.png" loading="lazy" alt="The Fog That Numbers Lift — after">
+                  <div class="beat-score ship">24/25 SHIP</div>
+                  <div class="beat-feedback">This is one of the strongest images in the series. The three-layer composition — harbor lights at dusk through the window, weathered fisherman&#x27;s face lit by screen glow, swirling ocean current visualization on the tablet — tells the entire story without a caption. The subject&#x27;s expression is the key: not wonder, not triumph, but focused concentration — a working man doing his job better. The screen&#x27;s red/blue fluid dynamics visualization is visually arresting and scientifically specific (looks like actual NOAA current modeling). The chipped table, the mason jars, the grey stubble all ground this in a real place. Minor deduction on style fidelity: the background harbor is slightly more photographic/stock than the rest, lacking the painterly finish that would push this into pure cinematic concept art. But that is a marginal issue.</div>
+                </div>
+              </div>
+            </div>
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">The Hours She Could Now Count <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Amara, 68-year-old Ugandan grandmother and retired teacher in a rural village, newly equipped with rooftop solar panels via an NGO installation</div>
+                <div class="seq-story">A retired teacher who rationed her evenings by candlelight discovers a solar forecast app and transforms her home into an afternoon gathering place for the neighborhood&#x27;s children.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_04/r04_s02_the_hours_she_could_now_c_before_refined.png" loading="lazy" alt="The Hours She Could Now Count — before">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This is a genuinely moving image. The candlelight is doing real compositional work — it&#x27;s not decorative, it&#x27;s the emotional anchor. The warm flame against the dark background creates a tight, intimate triangle between the light source, her face, and the documents in her hands. Her expression is the star: there&#x27;s quiet concentration, maybe joy, maybe relief — the kind of face that makes you want to know her name. The papers on the table feel real, not staged — official-looking forms with text visible, which adds grounding without being readable. The painting style is confident, with loose brushwork in the background tightening to careful rendering on her face and hands. Minor deductions: the style reads slightly more photo-painterly than a pure painterly illustration, which may or may not match your target fidelity. The narrative is legible — a woman, late at night, reading something that matters — though what it means (freedom documents? immigration? land deed?) is appropriately ambiguous.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_04/r04_s02_the_hours_she_could_now_c_moment_refined.png" loading="lazy" alt="The Hours She Could Now Count — moment">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This image is exceptional. The two-figure composition — an elderly woman and a child sharing a glowing tablet screen — creates an immediate intergenerational story without a word of explanation. The warm screen light illuminating both faces against the deep dusk-orange sunset is a masterful lighting choice: technology as hearth, as a new kind of fire. The grandmother&#x27;s weathered hands on the tablet are the emotional core — decades of life meeting a new tool. The African savanna backdrop keeps this grounded and specific, never generic. Style is painterly oil with strong chiaroscuro; the only slight inconsistency is the tablet&#x27;s UI feels slightly more photographic/crisp than the surrounding painterly treatment, creating a minor material discontinuity. Narrative reads clearly: someone who never had access to this tool is now learning it, guided or sharing with younger generation. Grounding is perfect — the faces, the landscape, the worn clothing all feel specific and lived-in, not stock.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_04/r04_s02_the_hours_she_could_now_c_after_refined.png" loading="lazy" alt="The Hours She Could Now Count — after">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This is genuinely moving. The triangular composition — grandmother anchored at center, children flanking — creates a natural, stable hierarchy that reads as family without any caption needed. The warm lamp glow against the cool window light does real compositional work: it pulls the eye inward to the writing on the table, making the act of learning the literal and symbolic center. The grandmother&#x27;s face is the standout element — deeply lined, attentive, alive — it carries the entire emotional weight of the image. She&#x27;s not performing for the viewer; she&#x27;s present with these kids. The papers scattered across the table ground it immediately: this is a working session, not a posed portrait. Minor style note: the oil painting texture is strong but the lamp cord (bottom center) is anachronistically modern-looking and slightly breaks the timeless quality. The children&#x27;s faces are slightly less individuated than the grandmother&#x27;s, which slightly dilutes the &#x27;specific real people&#x27; quality. But these are minor. The image earns its feeling honestly.</div>
+                </div>
+              </div>
+            </div>
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">All That Sun, Waiting <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Darlene, 34-year-old Navajo woman in rural Arizona, who has been waiting two years for grid interconnection approval on her family&#x27;s land</div>
+                <div class="seq-story">A woman who has watched sun pour onto her family&#x27;s land for two years while paperwork stalled her solar project receives AI-accelerated approval — and begins to pass something forward to her daughter.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_04/r04_s03_all_that_sun,_waiting_before_refined.png" loading="lazy" alt="All That Sun, Waiting — before">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This is quietly stunning. The composition is masterful — figure anchored left in the doorframe, vast high-desert landscape opening right, light flooding in from the upper-left to backlight her face. The diagonal formed by the mesa on the horizon and the porch edge pulls the eye perfectly through the frame. The emotional weight is real: a Native woman holding what reads as bureaucratic paperwork (permit forms, land documents?), looking out over the land with an expression that holds both weariness and resolve. The red beads and earrings against the muted blue shirt give her specificity and dignity. The watercolor treatment is confident — loose where it should be (sage scrub, sky) and detailed where it matters (her face, the documents). Minor deduction on style fidelity: the documents have slightly too-rendered typography that feels more editorial illustration than painterly. Narrative clarity loses one point because the document text is garbled/AI-generated rather than legible, which slightly undermines the specificity. But the core story — a person caught between paperwork and land, waiting for something — lands without a single word.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_04/r04_s03_all_that_sun,_waiting_moment_refined.png" loading="lazy" alt="All That Sun, Waiting — moment">
+                  <div class="beat-score ship">21/25 SHIP</div>
+                  <div class="beat-feedback">This image lands hard. The triumphant arm-raised figure with phone catching signal against a Southwest desert sunrise is immediately legible as a breakthrough moment — connectivity arriving somewhere it was absent. The diagonal of the raised arm pulls the eye from the burst of golden light through the figure and into the elder in the doorway, creating a two-generation story without a word. The elder holding a document (permit? approval?) gives the narrative real weight — this isn&#x27;t just a signal bar, it&#x27;s the culmination of a process. The watercolor rendering is confident: warm ochre-orange sky bleeds naturally, the porch architecture anchors the scene spatially, and the mesa in the background places us firmly in the Southwest. The traditional dress reads as culturally specific without being costume-y. Minor critiques: the elder in the doorway is slightly underlit and compositionally passive — she could benefit from warmer rim light to pull her into the emotional moment. The document she holds is unreadable, which slightly weakens the narrative specificity. But neither issue undercuts the core image.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_04/r04_s03_all_that_sun,_waiting_after_refined.png" loading="lazy" alt="All That Sun, Waiting — after">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This is a genuinely strong image. The back-facing figures (mother and young child holding hands) create immediate emotional resonance — we project ourselves into the scene rather than being observers of someone else&#x27;s moment. The diagonal of the solar panels leads the eye directly into the sun, which sits at the compositional horizon with perfect warmth. The golden wheat field grounds the scene in a specific, rural, non-elite place — exactly the kind of &#x27;specific mechanic or farmer&#x27; character the series philosophical pillars call for. The watercolor style is confident and clean: wet washes in the sky, dry-brush texture in the grass, crisp panel geometry. Minor deductions: the mountains in the background feel slightly photographic/flat compared to the foreground&#x27;s looser watercolor handling, which creates a subtle stylistic seam. The solar panels are convincingly rendered but verge on photorealistic compared to the figures. Neither issue is disqualifying. The image earns its emotion without manipulation — it simply shows two people watching the sun and understanding something about the future.</div>
+                </div>
+              </div>
+            </div>
+          <div class="round-direction"><strong>Next:</strong> continue exploring</div>
+        </div>
+        <div class="round-card" style="border-left-color:#4ea8d4">
+          <div class="round-header">
+            <h3>Round 5: Exploration &amp; Frontiers
+              <span class="round-stats">3/3 kept</span></h3>
+            <span class="mode-tag" style="color:#4ea8d4;border-color:#4ea8d4">explore</span>
+          </div>
+          
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">807 Feet Alone <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Yuna, 28, Korean-American JPL mission controller, Pasadena CA — has worked Perseverance ops for 3 years</div>
+                <div class="seq-story">A mission controller surrenders control to an AI rover on Mars for the first time, and feels the precise weight of trust across 100 million miles.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_05/r05_s01_807_feet_alone_before_refined.png" loading="lazy" alt="807 Feet Alone — before">
+                  <div class="beat-score ship">18/25 SHIP</div>
+                  <div class="beat-feedback">Strong image. The three-point light setup — screen glow from right, warm dusk window from behind, deep shadow on left — creates real cinematic depth. Her upward gaze toward the Mars display reads immediately as wonder/longing, which is exactly the emotion the series needs. The dual-monitor setup with orbital data and a planetary body anchors the narrative clearly: someone alone, late, working on something bigger than herself. What keeps this from a 5-on-grounding: the screens read as slightly generic UI dashboards rather than a specific mission — &#x27;analyst working on Mars&#x27; rather than &#x27;THIS analyst on THAT mission.&#x27; The dusk window is a cliché but it earns its place here by providing warmth against the cold blue screen light. Lands at exactly 18 — borderline, but the emotional read is clean enough to ship.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_05/r05_s01_807_feet_alone_moment_refined.png" loading="lazy" alt="807 Feet Alone — moment">
+                  <div class="beat-score ship">24/25 SHIP</div>
+                  <div class="beat-feedback">This is a standout image. The composition is cinematic — the woman leans into the monitor at an acute angle, creating diagonal tension that pulls the eye directly into the Mars rover mission data on screen. The warm amber glow of the monitor against the cool dusk window creates a beautiful two-light setup that feels lived-in and real. The emotion is exceptional: her parted lips, wide eyes, and forward posture communicate pure absorption — this is someone witnessing something that matters. The Mars mission planning interface on screen is legible enough to be credible without being cartoonishly fake. Grounding is strong: the cluttered desk, casual hoodie, apartment window at dusk — this is an ordinary person doing extraordinary work. The only minor issue is photo-real style leans slightly stock-photo in the face (the woman is conventionally attractive in a way that risks &#x27;model, not scientist&#x27; read), but the posture and intensity override that. The style fidelity is slightly below max only because the photorealistic treatment is clean in a way that could read as commercial rather than documentary — a touch more grain or imperfection would cement it.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_05/r05_s01_807_feet_alone_after_v2.png" loading="lazy" alt="807 Feet Alone — after">
+                  <div class="beat-score ship">19/25 SHIP</div>
+                  <div class="beat-feedback">Strong image. The triangular composition — woman&#x27;s gaze leading out the window, golden-hour landscape pulling the eye into depth, laptop anchoring the foreground — creates natural flow. The coffee cup, relaxed posture, and that contemplative sideways glance communicate a quiet between-tasks moment effectively. The small-town rooftops outside the window do real work: this is clearly a non-elite, non-coastal setting, which matches the series&#x27; mandate. The main weakness is style fidelity: the laptop screen renders with near-photographic UI legibility (spreadsheet rows visible), which tips into stock-photo realism rather than painterly concept art. The wall note/paper on the right reads as clip-art flat compared to the warm impressionistic background painting. These are minor texture inconsistencies, not composition failures.</div>
+                </div>
+              </div>
+            </div>
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">Thirty Years of Drawings <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Dr. Amara, 57, Nigerian-born deep-sea taxonomist at MBARI, Moss Landing CA — 30 years of handwritten field notebooks and hand-drawn species illustrations</div>
+                <div class="seq-story">A veteran marine biologist uploads a lifetime of unprocessed ROV footage to FathomNet and watches AI do in minutes what she couldn&#x27;t finish in a career — freeing her for the work that only she can do.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_05/r05_s02_thirty_years_of_drawings_before_refined.png" loading="lazy" alt="Thirty Years of Drawings — before">
+                  <div class="beat-score ship">19/25 SHIP</div>
+                  <div class="beat-feedback">Strong image overall. The triangular composition — researcher anchoring the left, CRT monitor with fish footage on the right, warm lamp overhead — creates a satisfying visual tension between analog (handwritten field notes, stacked VHS tapes) and the digital screen. The subject&#x27;s expression reads as quiet determination, even mild skepticism, which earns the emotional score. Style is consistent painterly realism with confident light sourcing from the lamp. The weak point is narrative clarity: the VHS stack reads as &#x27;archival footage&#x27; but the connection between the tapes, the fish on screen, and the wall charts isn&#x27;t immediately legible as &#x27;30 years of documentation.&#x27; A viewer unfamiliar with the prompt might read this as &#x27;marine biologist at a computer&#x27; rather than &#x27;the weight of a lifetime of accumulated work.&#x27; The handwritten journal is a good anchor but slightly soft/unreadable. The lamp glow is doing heavy lifting as a metaphor — it works.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_05/r05_s02_thirty_years_of_drawings_moment_v2.png" loading="lazy" alt="Thirty Years of Drawings — moment">
+                  <div class="beat-score ship">21/25 SHIP</div>
+                  <div class="beat-feedback">This image is genuinely moving. The compositional triangle — warm lamp light, aged sketchbook, glowing laptop screen — creates a perfect past/present dialogue. The researcher&#x27;s profile gaze connects the hand-drawn insect studies wallpapering the background to the 3D AI-rendered specimen on screen, making the &#x27;thirty years of drawings&#x27; narrative immediately legible without any caption. The academic oil-painting style gives it gravitas without feeling stiff. The only weakness is the laptop screen rendering feels slightly uncanny — the 3D insect model looks more like a game asset than a scientific visualization. That minor collision of realism registers but doesn&#x27;t undermine the image.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_05/r05_s02_thirty_years_of_drawings_after_refined.png" loading="lazy" alt="Thirty Years of Drawings — after">
+                  <div class="beat-score ship">19/25 SHIP</div>
+                  <div class="beat-feedback">Strong painterly execution with warm chiaroscuro lighting that draws the eye naturally from the sketch journal (foreground) → hands → faces → screen — a clean Z-path. The emotional beat lands: shared discovery, the young man&#x27;s focused intensity contrasted with the girl&#x27;s quiet delight. The journal-to-screen bridge beautifully literalizes &#x27;thirty years of drawings come alive.&#x27; Style fidelity is consistent Old Masters oil technique throughout. Grounding loses a point because the lab coats read as scientists rather than an artist/illustrator — slightly mismatches the &#x27;drawings&#x27; narrative. The screen content (glowing blue cephalopod in what looks like Photoshop) is specific and evocative but slightly fantastical rather than grounded.</div>
+                </div>
+              </div>
+            </div>
+            <div class="sequence" style="opacity:1">
+              <div class="seq-header">
+                <div class="seq-title">What Margaret Found <span class="badge keep">KEPT</span></div>
+                <div class="seq-meta">Margaret, 71, retired science teacher, Mountainair NM — participates in Backyard Worlds: Cool Neighbors from her kitchen table</div>
+                <div class="seq-story">A retired teacher in rural New Mexico finds a previously unknown cold brown dwarf in NASA infrared data and becomes a named discoverer at 71.</div>
+              </div>
+              <div class="triptych">
+                
+                <div class="beat">
+                  <div class="beat-label">before</div>
+                  <img src="round_05/r05_s03_what_margaret_found_before_refined.png" loading="lazy" alt="What Margaret Found — before">
+                  <div class="beat-score ship">23/25 SHIP</div>
+                  <div class="beat-feedback">This is genuinely strong. The composition pulls off a rare trick: the woman&#x27;s downward gaze creates a natural line of sight from her face → coffee cup → star chart → tablet, guiding the eye in a full loop across all the story elements. The reading glasses set aside on the chart is a beautiful detail — it implies she&#x27;s been working long enough to take them off, or she&#x27;s pausing to think rather than read. The kitchen context is specific and working-class (gas range, wooden cabinets, warm browns) — this is not a tech person&#x27;s studio, which makes the tablet on the table feel like discovery rather than routine. The emotional register is quiet wonder, not excitement, which is exactly right for the series tone. Minor deductions: the tablet screen shows a cloudy/nebular image that&#x27;s slightly ambiguous — could be astronomy software or just a decorative screensaver. A star map or constellation interface would sharpen narrative clarity. Style is slightly uneven — the tablet is rendered more flatly/digitally than the rest of the watercolor scene.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">moment</div>
+                  <img src="round_05/r05_s03_what_margaret_found_moment_refined.png" loading="lazy" alt="What Margaret Found — moment">
+                  <div class="beat-score ship">22/25 SHIP</div>
+                  <div class="beat-feedback">This image lands. The elderly woman&#x27;s wide-eyed, open-mouthed expression of pure wonder is the whole story — you feel her delight instantly. The pointing finger touching the glowing constellation on the tablet is a perfect visual metaphor: a human reaching into something vast and magical. Composition is strong — diagonal lean-in creates forward energy, the coffee mug anchors the scene in domestic reality (kitchen window, warm morning light), and the contrast between the mundane setting and the cosmic glow on the screen is exactly right. Watercolor style is consistent and well-executed. Minor weaknesses: the background kitchen is slightly soft/generic, and her hand anatomy is slightly exaggerated (common watercolor AI artifact). Neither detracts meaningfully. The grounding detail — coffee, kitchen, morning light, a grandmother at a table — makes this feel like a real moment, not a stock illustration. This is the &#x27;specific, relatable, non-elite protagonist&#x27; the series calls for, embodying pillar #4 and #5 perfectly.</div>
+                </div>
+                <div class="beat">
+                  <div class="beat-label">after</div>
+                  <img src="round_05/r05_s03_what_margaret_found_after_refined.png" loading="lazy" alt="What Margaret Found — after">
+                  <div class="beat-score ship">22/25 SHIP</div>
+                  <div class="beat-feedback">This is a genuinely moving image. The grandmother-granddaughter pairing is the emotional core — the elder pointing at the night sky while the child looks up with clasped hands is universally legible and deeply warm. The compositional triangle formed by the lamp (warm/right), the open window with stars (cool/center-left), and the star charts on the table (foreground) creates a beautiful tension between old knowledge (paper charts) and new tools (tablet). The eye travels naturally: faces → pointing arm → stars → back down to the tablet. The watercolor style is clean and consistent. Minor weakness: the tablet app UI is slightly generic/stock-looking and the kitchen background could be more specific/lived-in to increase grounding. The warm lamp glow against the cool night sky is a beautiful contrast that earns the &#x27;discovery&#x27; theme.</div>
+                </div>
+              </div>
+            </div>
+          <div class="round-direction"><strong>Next:</strong> Run 2-3 more watercolor sequences, but vary the narrative type: one with a child protagonist, one with an elderly character, one with an ambiguous or bittersweet resolution. Test whether watercolor&#x27;s consistency is tied to the &#x27;found/discovered&#x27; story shape or if it holds across emotional registers. Separately, probe the photorealistic spike: beat 2 of &#x27;807 Feet Alone&#x27; hit 24 — highest single beat this round. Design one sequence where photorealistic is paired with a single overwhelming visual moment (a crowd, a landscape, a machine at scale) to see if the style&#x27;s ceiling is actually much higher than its floor suggests.</div>
+        </div>
+
+  <h2>Discoveries</h2>
+  <ul class="list-section">
+    <li>Painterly styles (oil, watercolor) paired with discovery/natural-world themes are hitting ceiling scores (23-24). The texture and organic quality of these media seem to amplify emotional resonance — the hand-crafted feel mirrors the human curiosity in the subject matter. This pairing feels fresh and non-generic.</li><li>Watercolor + intimate physical scale (&#x27;What Her Hand Could Hold&#x27;) achieved the highest beat score (24) and strongest total — the organic, bleeding quality of watercolor amplifies stories about human hands meeting machines. This pairing earns its emotional weight rather than asserting it.</li><li>Oil painting + intimate personal knowledge moment (&#x27;The First Book in His Language&#x27;) scored the highest peaks of any round — beat 1 scored 23, suggesting classical painterly warmth unlocks emotional depth in stories about access and belonging that other styles haven&#x27;t matched.</li><li>Watercolor + intimate personal narrative is the standout pairing: &#x27;What Margaret Found&#x27; posted the highest scores of the round (23, 22, 22) with remarkable consistency across all three beats — no sag, no spike, just sustained emotional resonance. The soft translucency of watercolor appears to amplify quiet personal revelation in a way oil and photorealistic styles cannot match.</li>
+  </ul>
+
+  <h2>Banned Patterns</h2>
+  <ul class="list-section banned">
+    <li>No hard bans yet, but photorealistic scored meaningfully lower on its first beat (20 vs 23-24 for painterly). Flag photorealistic-as-default for human emotional stories — it may work better for procedural or technological subjects where precision reads as intentional rather than cold.</li><li>Oil painting as a default &#x27;serious art&#x27; choice — &#x27;Thirty Years of Drawings&#x27; was solid but unremarkable (19, 21, 19). It&#x27;s carrying the style&#x27;s prestige without earning it. Unless a story specifically calls for the weight and texture of oil, it reads as a safe fallback that adds craft without adding feeling.</li>
+  </ul>
+
+</div>
+
+<div class="lightbox" onclick="this.classList.remove('active')">
+  <img id="lb-img" src="" alt="Enlarged">
+</div>
+<script>
+  document.querySelectorAll('.beat img').forEach(img => {
+    img.addEventListener('click', () => {
+      document.getElementById('lb-img').src = img.src;
+      document.querySelector('.lightbox').classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

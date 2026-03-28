@@ -1,0 +1,262 @@
+{
+  "winners": [
+    {
+      "name": "The Stories She Carried",
+      "style": "stained_glass",
+      "category": "cultural-preservation",
+      "why": "Phone disappears into reverence \u2014 stained glass consecrates human connection perfectly",
+      "prompt": "Stained glass style, luminous colors, lead lines, Gothic frame, elderly Filipina grandmother mid-storytelling gesture, grandchildren leaning in rapt. Between them a small phone rests face-up on the ta"
+    },
+    {
+      "name": "Already Certain",
+      "style": "charcoal",
+      "category": "wildfire-management",
+      "why": "She reaches for the radio before the algorithm catches up \u2014 urgency over confirmation",
+      "prompt": "Charcoal drawing, dramatic shadows, textured paper, solitary woman in her 50s at a fire lookout tower, one hand gripping the railing, other reaching for the radio mic. On the desk behind her a small l"
+    },
+    {
+      "name": "What Her Hands Say",
+      "style": "photorealistic",
+      "category": "disability-and-performance",
+      "why": "Barely-visible tech inside human performance \u2014 restraint wins.",
+      "prompt": "Photorealistic, cinematic lighting, close-up portrait of a Black deaf woman, sign language interpreter at a concert, hands held mid-gesture above the roar of the crowd, small vibration wristbands bare"
+    },
+    {
+      "name": "The Last Time She Will Laugh Like That",
+      "style": "watercolor",
+      "category": "linguistic-preservation",
+      "why": "Title earns devastation; watercolor dissolves into the human moment.",
+      "prompt": "Watercolor wash, loose flowing strokes, paper texture visible, an Inuit elder and a young woman linguist sit very close, both laughing hard, the elder's weathered hands mid-gesture, soft diffused arct"
+    },
+    {
+      "name": "First Fist",
+      "style": "gouache",
+      "category": "assistive-technology-and-childhood",
+      "why": "Disbelief-to-joy arc is clean, physical, and completely unambiguous.",
+      "prompt": "Gouache illustration, flat bold colors, mid-century modern, a small Southeast Asian girl age seven making a triumphant fist with her new myoelectric prosthetic hand, face pure disbelief and joy, warm "
+    },
+    {
+      "name": "Before the Algorithm Speaks",
+      "style": "ink_wash",
+      "category": "climate-response",
+      "why": "Sumi-e ink wash makes indigenous climate knowledge feel ancient and urgent.",
+      "prompt": "Black and white ink wash, sumi-e inspired, dramatic contrast, a lone Indigenous woman mountain guide pauses on a snow ridge, head tilted, listening. A small earpiece relays AI avalanche risk data. She"
+    },
+    {
+      "name": "Two Kinds of Knowing",
+      "style": "ghibli",
+      "category": "traditional-knowledge",
+      "why": "Intergenerational wisdom earns grandfather-first beat \u2014 two kinds of knowing coexist.",
+      "prompt": "Studio Ghibli inspired, lush detail, simple figures, nature harmony, an elderly Korean grandfather and his young granddaughter stand at the end of a fishing pier at dawn. She holds a small device show"
+    },
+    {
+      "name": "She Found It First",
+      "style": "retro_poster",
+      "category": "scientific-discovery",
+      "why": "Retro poster geometry plus Peruvian scientist is culturally and visually striking.",
+      "prompt": "Retro-future poster, bold geometric shapes, limited palette, a young Peruvian woman leans into a radio telescope eyepiece under a geometric desert sky. Stars as flat bold shapes. An AI anomaly detecto"
+    },
+    {
+      "name": "What the Stone Knows",
+      "style": "architectural",
+      "category": "built-environment",
+      "why": "Human body as irreplaceable sensor \u2014 philosophically richest concept this round.",
+      "prompt": "Architectural rendering, precise lines, ambient occlusion, a structural engineer presses one palm flat against a century-old stone bridge arch, eyes closed. Acoustic AI sensors trace the surface nearb"
+    },
+    {
+      "name": "The Signal Before Dawn",
+      "style": "woodblock",
+      "category": "disaster-prevention",
+      "why": "Sleeping village vs alert scientist creates visceral, wordless tension.",
+      "prompt": "Japanese woodblock print, flat planes, bold outlines, A Javanese volcanologist in her field station at dusk, alert face lit by a single monitor, AI flagged a seismic precursor no human had catalogued,"
+    },
+    {
+      "name": "Fifty Years of Voice",
+      "style": "stained_glass",
+      "category": "grief-memory",
+      "why": "Grief-memory category breakthrough \u2014 receiving a voice, not watching a screen.",
+      "prompt": "Stained glass style, luminous colors, lead lines, Gothic frame, An elderly Filipino woman in a garden at golden hour, holding a small device playing her late husband's voice reconstructed from fifty y"
+    },
+    {
+      "name": "The Unlocking",
+      "style": "charcoal",
+      "category": "neurodivergent-learning",
+      "why": "Surprise is richer than triumph \u2014 charcoal rawness earns the breakthrough moment.",
+      "prompt": "Charcoal drawing, dramatic shadows, textured paper, A nine-year-old boy with dyslexia in the precise moment of reading aloud for the first time, AI adaptive software reshaped the text into symbols his"
+    },
+    {
+      "name": "The Herdswoman Turns",
+      "style": "pixel_art",
+      "category": "pastoral-wildlife",
+      "why": "'Unhurried and certain' is a new emotional register \u2014 empowerment without drama.",
+      "prompt": "Detailed pixel art, 16-bit palette, dithering, A Mongolian herdswoman on the open steppe at midnight, her flock a white cluster in darkness, satellite earpiece pings: AI predicted wolf pack approachin"
+    },
+    {
+      "name": "What the Chisel Remembers",
+      "style": "photorealistic",
+      "category": "aging-craft-preservation",
+      "why": "Intention outlives the body \u2014 AI renders Parkinson's invisible in finished work",
+      "prompt": "Photorealistic, cinematic lighting, elderly Japanese craftsman, 78, cutting a curved dovetail joint with trembling hands; his face locked in fierce concentration; the chisel follows his intent precise"
+    },
+    {
+      "name": "After the Long Dry",
+      "style": "gouache",
+      "category": "climate-adaptation",
+      "why": "Ankle-deep physicality plus 'not surprise but...' earns a new emotional register",
+      "prompt": "Gouache illustration, flat bold colors, mid-century modern, Tamil Nadu farmer woman, 40s, ankle-deep in newly-flowing irrigation channels through red clay fields at dawn; she stands in the center of w"
+    },
+    {
+      "name": "The Amber Bracelet",
+      "style": "ink_wash",
+      "category": "rural-healthcare",
+      "why": "auto-kept",
+      "prompt": "Black and white ink wash, sumi-e inspired, dramatic contrast, close on a midwife's weathered hands guiding a newborn into lamplight, a small AI sensor bracelet on her wrist shifts from amber to green "
+    },
+    {
+      "name": "The Frozen Hand",
+      "style": "editorial",
+      "category": "medication-safety",
+      "why": "auto-kept",
+      "prompt": "Editorial illustration, clean lines, warm palette, magazine quality, a hospital pharmacist mid-reach \u2014 her hand suspended in air above an open drawer, eyes locked on a single amber warning on the disp"
+    },
+    {
+      "name": "She Reads the Swarm",
+      "style": "ghibli",
+      "category": "traditional-knowledge",
+      "why": "auto-kept",
+      "prompt": "Studio Ghibli inspired, lush detail, simple figures, nature harmony, an elderly beekeeper stands perfectly still in a summer meadow as ten thousand bees spiral in living patterns around her, a small w"
+    },
+    {
+      "name": "She IS the Bass Drum",
+      "style": "retro_poster",
+      "category": "accessibility",
+      "why": "auto-kept",
+      "prompt": "Retro-future poster, bold geometric shapes, limited palette, a deaf percussionist mid-performance eyes closed, whole body alive \u2014 vibration-sensing suit renders AI-translated frequencies as waves of h"
+    },
+    {
+      "name": "Before the Spark",
+      "style": "architectural",
+      "category": "climate-management",
+      "why": "auto-kept",
+      "prompt": "Architectural rendering, precise lines, ambient occlusion, a wildfire prevention specialist at blue hour in dense chaparral ties orange ribbon around a marked tree while AI thermal imaging overlays gh"
+    }
+  ],
+  "banned": [
+    "forearm holographic projections \u2014 edges past 10-20yr horizon into sci-fi cosplay",
+    "architectural rendering for intimate human-care scenes \u2014 precision aesthetic actively undermines emotional resonance in healing, caregiving, and vulnerable moments",
+    "AI-as-overlay descriptions ('color-coded translucent overlays showing optimization') \u2014 these always render as corporate UI, not human experience. The AI element must be *felt* by the human subject, not labeled for the viewer.",
+    "AI in triumphant exit position \u2014 drone banking away into heroic sky, glowing interfaces stealing compositional focus. The technology served and should be gone, or invisible. It should never take a bow.",
+    "Style as neutral container \u2014 any prompt where swapping the style anchor would produce an equally strong image. The style must mirror the AI's function in that domain.",
+    "Bedroom creator scenes. We have the archetype locked with What She Built. Every repeat weakens it. Ban: teenager + bedroom + screen + creative tool.",
+    "Passive observation scenes where the human is simply watching a screen. The Chart fails this way \u2014 fisherman looks at tablet, nothing is at stake in that moment. If a human could be replaced by a tripod holding the device, the image fails.",
+    "Retro-poster + infrastructure. The Guardian already owns it. Every new attempt is a pale echo.",
+    "Hands on surface + glowing screen confirms what hands already knew. We have two winners on this beat and three more entries this round. The pattern has become our default, which means it is no longer a choice. Retire for minimum three rounds.",
+    "AI as passive background object \u2014 tablet or phone 'beside' the subject with no active role. Technology must be doing something, even if invisible. Presence without function is set dressing.",
+    "Human acts before algorithm as the primary emotional beat. 4 of 5 images this round end with 'she already knew / he was already pointing / she had already acted.' The brief wants collaboration and revelation, not humans perpetually outpacing their tools. This pattern now feels defensive rather than abundant.",
+    "Isometric view for human-protagonist scenes. Isometric is a system perspective \u2014 it dissolves the individual into the infrastructure. Reserve it for diagrams only.",
+    "Grief-memory variations that don't clearly differentiate from Fifty Years of Voice. We have the winner. Stop re-entering that room unless the angle is genuinely orthogonal."
+  ],
+  "style_counts": {
+    "photorealistic": 5,
+    "oil_painting": 5,
+    "watercolor": 5,
+    "gouache": 5,
+    "concept_art": 5,
+    "ink_wash": 5,
+    "editorial": 5,
+    "ghibli": 5,
+    "retro_poster": 5,
+    "architectural": 5,
+    "woodblock": 4,
+    "stained_glass": 4,
+    "isometric": 4,
+    "charcoal": 4,
+    "pixel_art": 4
+  },
+  "theme_counts": {
+    "accessibility": 2,
+    "cultural preservation": 1,
+    "rural healthcare": 1,
+    "urban food": 1,
+    "emergency response": 1,
+    "environmental monitoring": 1,
+    "personalized education": 1,
+    "regenerative farming": 1,
+    "infrastructure": 1,
+    "physical rehabilitation": 1,
+    "regenerative_fishing": 1,
+    "cultural_preservation": 1,
+    "urban_food": 1,
+    "rural_healthcare": 1,
+    "mental_health": 1,
+    "skilled_trades": 1,
+    "elder_care": 1,
+    "language_access": 1,
+    "remote_community_health": 1,
+    "climate_adaptation": 1,
+    "maritime livelihoods": 1,
+    "craft economy": 1,
+    "environmental restoration": 1,
+    "water infrastructure": 2,
+    "structural preservation": 1,
+    "sustainable-fishing": 1,
+    "palliative-care": 1,
+    "food-distribution": 1,
+    "wildfire-response": 1,
+    "music-production": 1,
+    "maternal-health": 1,
+    "traditional-knowledge": 3,
+    "rural-birth": 1,
+    "water-infrastructure": 1,
+    "ecological-restoration": 1,
+    "wildfire management": 1,
+    "elder care": 1,
+    "marine conservation": 1,
+    "disaster resilience": 1,
+    "craft-mastery": 1,
+    "cultural-preservation": 1,
+    "humanitarian-logistics": 1,
+    "wildfire-management": 1,
+    "repair-economy": 1,
+    "disability-and-performance": 1,
+    "legal-access-and-justice": 1,
+    "linguistic-preservation": 1,
+    "assistive-technology-and-childhood": 1,
+    "biodiversity-and-environmental-science": 1,
+    "climate-response": 1,
+    "healthcare": 1,
+    "scientific-discovery": 1,
+    "built-environment": 1,
+    "disaster-prevention": 1,
+    "grief-memory": 2,
+    "ocean-restoration": 1,
+    "neurodivergent-learning": 1,
+    "pastoral-wildlife": 1,
+    "aging-craft-preservation": 1,
+    "surgical-mastery": 1,
+    "climate-adaptation": 1,
+    "occupational-safety": 1,
+    "rural-healthcare": 1,
+    "medication-safety": 1,
+    "climate-management": 1
+  },
+  "total_kept": 51,
+  "total_dropped": 19,
+  "discoveries": [
+    "watercolor + intimate healthcare \u2014 loose strokes reinforce tenderness; style IS storytelling",
+    "retro_poster + infrastructure \u2014 geometric shapes as style ARE the AI tool's visual output; style mirrors content without needing explanation",
+    "Charcoal + high-stakes healthcare: charcoal's native darkness becomes dread, and a single lit element carries all the emotional weight. The medium stops being a style choice and starts being the story.",
+    "Technology-as-furniture: when AI tools carry the same visual weight as a teacup or a pill organizer, normalization happens without argument. The Long Morning nails this. It's a template.",
+    "Retro poster + infrastructure: the style's own geometry becomes the AI data visualization. Style as information layer, not decoration.",
+    "Charcoal + solitary high-stakes outdoor decisions. The medium's grain and shadow become physical danger \u2014 no other style creates that visceral alone-in-the-dark feeling. Pair with: ER triage, night rescue, Arctic expedition, flood response.",
+    "The 'confirmation' pattern: Two Stable and She Came to Confirm both show humans who already knew \u2014 technology confirms, doesn't inform. This perfectly inverts the AI-as-oracle clich\u00e9 and puts human competence first. It's a reframe worth exploiting.",
+    "architectural + body-knowledge: pressing hands against surfaces, closing eyes to listen, physical expertise the AI then *quantifies* \u2014 creates a tension no other style+theme pair has found yet. First She Listens opens a seam worth mining.",
+    "Stained glass + cultural-preservation: the sacred register of the style makes technology disappear by contrast \u2014 the phone becomes as unobtrusive as a candle. First pairing that makes AI genuinely invisible without effort.",
+    "Watercolor + linguistic-impermanence: loose strokes mirror the fragility of what's being preserved \u2014 medium and theme are the same idea",
+    "Architectural precision + embodied human knowledge ('What the Stone Knows'): the body as sensor that cannot be replaced is a fresh emotional register \u2014 intimate, grounded, philosophically loaded. Worth a dedicated exploit round.",
+    "Stained glass + grief-memory (Fifty Years of Voice): luminous spiritual style meets the series' most intimate emotional territory. The form mirrors the content \u2014 light through leaded glass feels like memory made visible.",
+    "Invisible disability + craft mastery: AI as dignity preserver, not capability replacer. What the Chisel Remembers found a category nobody else is in \u2014 the viewer sees only the perfect dovetail, never the trembling hand. That gap is the story."
+  ],
+  "mood": "explore",
+  "rounds_in_mode": 0
+}

@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept Production v3 — Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #0a0a0a; --text: #e8e0d4; --accent: #c8956c; --surface: #141414; --border: #222; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); padding: 2rem 1rem; line-height: 1.5; }
+  h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 400; margin-bottom: 0.5rem; }
+  h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; margin: 3rem 0 1.2rem; color: var(--accent); }
+  h3 { font-family: 'DM Sans', sans-serif; color: var(--text); font-size: 1.1rem; }
+
+  .container { max-width: 1400px; margin: 0 auto; }
+  .stats { color: #999; font-size: 1rem; margin-bottom: 2rem; }
+  .stats span { margin: 0 0.3rem; }
+
+  /* Image grid — wider cards for readability */
+  .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; }
+  .card { background: #0c0c0c; border-radius: 8px; overflow: hidden; transition: transform 0.15s; }
+  .card:hover { transform: translateY(-2px); }
+  .card-img-wrap { position: relative; }
+  .card-img-wrap img { width: 100%; display: block; border-bottom: 3px solid; }
+  .style-tag { position: absolute; top: 8px; left: 8px; font-size: 0.7rem; font-weight: 500;
+    background: rgba(0,0,0,0.8); color: #fff; padding: 3px 10px; border-radius: 4px;
+    backdrop-filter: blur(4px); text-transform: uppercase; letter-spacing: 0.05em; }
+  .card-body { padding: 0.8rem 1rem 1rem; }
+  .card-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .card-reason { font-size: 0.85rem; color: #aaa; line-height: 1.4; }
+  .card-prompt { margin-top: 0.5rem; }
+  .card-prompt summary { font-size: 0.75rem; color: #666; cursor: pointer; }
+  .card-prompt summary:hover { color: var(--accent); }
+  .card-prompt p { font-size: 0.75rem; color: #888; margin-top: 0.4rem; font-family: 'JetBrains Mono', monospace; line-height: 1.5; }
+  .badge { font-size: 0.6rem; padding: 2px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; }
+  .badge.keep { background: rgba(72,187,120,0.15); color: #48bb78; }
+  .badge.drop { background: rgba(229,62,62,0.15); color: #e53e3e; }
+
+  /* Round cards */
+  .round-card { margin-bottom: 3rem; padding: 1.5rem 2rem; background: var(--surface); border-radius: 10px; border-left: 4px solid; }
+  .round-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; }
+  .round-stats { font-size: 0.8rem; color: #888; font-weight: 400; margin-left: 0.5rem; }
+  .mode-tag { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600;
+    padding: 4px 12px; border: 1px solid; border-radius: 4px; }
+  .round-direction { font-size: 0.85rem; color: #888; border-top: 1px solid var(--border); padding-top: 1rem; line-height: 1.5; }
+
+  /* Style distribution bars */
+  .bar-row { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem; }
+  .bar-label { font-size: 0.8rem; width: 140px; text-align: right; color: #aaa; }
+  .bar-track { flex: 1; height: 16px; background: #1a1a1a; border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--accent); border-radius: 4px; transition: width 0.3s; }
+  .bar-count { font-size: 0.8rem; color: #888; width: 30px; }
+
+  /* Winners board */
+  .winner-row { padding: 0.7rem 0; border-bottom: 1px solid #1a1a1a; font-size: 0.9rem; display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap; }
+  .winner-style { color: var(--accent); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .winner-reason { color: #999; flex: 1; }
+
+  /* Discoveries and banned */
+  .list-section { font-size: 0.9rem; padding-left: 1.5rem; line-height: 1.8; }
+  .list-section.banned { color: #e53e3e; }
+  .list-section li { color: #aaa; margin-bottom: 0.3rem; }
+  .list-section.banned li { color: #e57373; }
+
+  /* Section containers */
+  .section-box { padding: 1.5rem; background: var(--surface); border-radius: 10px; }
+
+  /* Lightbox */
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000;
+    justify-content: center; align-items: center; cursor: zoom-out; }
+  .lightbox.active { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Concept Production v3</h1>
+  <p class="stats">
+    <span>14 rounds</span> &middot;
+    <span>70 generated</span> &middot;
+    <span><strong>51 kept</strong></span> &middot;
+    <span>19 dropped</span> &middot;
+    <span>73% keep rate</span>
+  </p>
+
+  <h2>Style Distribution</h2>
+  <div class="section-box">
+            <div class="bar-row">
+              <span class="bar-label">photorealistic</span>
+              <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+              <span class="bar-count">5</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">oil_painting</span>
+              <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+              <span class="bar-count">5</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">watercolor</span>
+              <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+              <span class="bar-count">5</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">gouache</span>
+              <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+              <span class="bar-count">5</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">concept_art</span>
+              <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+              <span class="bar-count">5</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">ink_wash</span>
+              <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+              <span class="bar-count">5</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">editorial</span>
+              <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+              <span class="bar-count">5</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">ghibli</span>
+              <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+              <span class="bar-count">5</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">retro_poster</span>
+              <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+              <span class="bar-count">5</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">architectural</span>
+              <div class="bar-track"><div class="bar-fill" style="width:100.0%"></div></div>
+              <span class="bar-count">5</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">woodblock</span>
+              <div class="bar-track"><div class="bar-fill" style="width:80.0%"></div></div>
+              <span class="bar-count">4</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">stained_glass</span>
+              <div class="bar-track"><div class="bar-fill" style="width:80.0%"></div></div>
+              <span class="bar-count">4</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">isometric</span>
+              <div class="bar-track"><div class="bar-fill" style="width:80.0%"></div></div>
+              <span class="bar-count">4</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">charcoal</span>
+              <div class="bar-track"><div class="bar-fill" style="width:80.0%"></div></div>
+              <span class="bar-count">4</span>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">pixel_art</span>
+              <div class="bar-track"><div class="bar-fill" style="width:80.0%"></div></div>
+              <span class="bar-count">4</span>
+            </div></div>
+
+  <h2>Winners Board</h2>
+  <div class="section-box">
+        <div class="winner-row">
+          <strong>The Stories She Carried</strong>
+          <span class="winner-style">stained_glass</span>
+          <span class="winner-reason">Phone disappears into reverence — stained glass consecrates human connection perfectly</span>
+        </div>
+        <div class="winner-row">
+          <strong>Already Certain</strong>
+          <span class="winner-style">charcoal</span>
+          <span class="winner-reason">She reaches for the radio before the algorithm catches up — urgency over confirmation</span>
+        </div>
+        <div class="winner-row">
+          <strong>What Her Hands Say</strong>
+          <span class="winner-style">photorealistic</span>
+          <span class="winner-reason">Barely-visible tech inside human performance — restraint wins.</span>
+        </div>
+        <div class="winner-row">
+          <strong>The Last Time She Will Laugh Like That</strong>
+          <span class="winner-style">watercolor</span>
+          <span class="winner-reason">Title earns devastation; watercolor dissolves into the human moment.</span>
+        </div>
+        <div class="winner-row">
+          <strong>First Fist</strong>
+          <span class="winner-style">gouache</span>
+          <span class="winner-reason">Disbelief-to-joy arc is clean, physical, and completely unambiguous.</span>
+        </div>
+        <div class="winner-row">
+          <strong>Before the Algorithm Speaks</strong>
+          <span class="winner-style">ink_wash</span>
+          <span class="winner-reason">Sumi-e ink wash makes indigenous climate knowledge feel ancient and urgent.</span>
+        </div>
+        <div class="winner-row">
+          <strong>Two Kinds of Knowing</strong>
+          <span class="winner-style">ghibli</span>
+          <span class="winner-reason">Intergenerational wisdom earns grandfather-first beat — two kinds of knowing coexist.</span>
+        </div>
+        <div class="winner-row">
+          <strong>She Found It First</strong>
+          <span class="winner-style">retro_poster</span>
+          <span class="winner-reason">Retro poster geometry plus Peruvian scientist is culturally and visually striking.</span>
+        </div>
+        <div class="winner-row">
+          <strong>What the Stone Knows</strong>
+          <span class="winner-style">architectural</span>
+          <span class="winner-reason">Human body as irreplaceable sensor — philosophically richest concept this round.</span>
+        </div>
+        <div class="winner-row">
+          <strong>The Signal Before Dawn</strong>
+          <span class="winner-style">woodblock</span>
+          <span class="winner-reason">Sleeping village vs alert scientist creates visceral, wordless tension.</span>
+        </div>
+        <div class="winner-row">
+          <strong>Fifty Years of Voice</strong>
+          <span class="winner-style">stained_glass</span>
+          <span class="winner-reason">Grief-memory category breakthrough — receiving a voice, not watching a screen.</span>
+        </div>
+        <div class="winner-row">
+          <strong>The Unlocking</strong>
+          <span class="winner-style">charcoal</span>
+          <span class="winner-reason">Surprise is richer than triumph — charcoal rawness earns the breakthrough moment.</span>
+        </div>
+        <div class="winner-row">
+          <strong>The Herdswoman Turns</strong>
+          <span class="winner-style">pixel_art</span>
+          <span class="winner-reason">&#x27;Unhurried and certain&#x27; is a new emotional register — empowerment without drama.</span>
+        </div>
+        <div class="winner-row">
+          <strong>What the Chisel Remembers</strong>
+          <span class="winner-style">photorealistic</span>
+          <span class="winner-reason">Intention outlives the body — AI renders Parkinson&#x27;s invisible in finished work</span>
+        </div>
+        <div class="winner-row">
+          <strong>After the Long Dry</strong>
+          <span class="winner-style">gouache</span>
+          <span class="winner-reason">Ankle-deep physicality plus &#x27;not surprise but...&#x27; earns a new emotional register</span>
+        </div>
+        <div class="winner-row">
+          <strong>The Amber Bracelet</strong>
+          <span class="winner-style">ink_wash</span>
+          <span class="winner-reason">auto-kept</span>
+        </div>
+        <div class="winner-row">
+          <strong>The Frozen Hand</strong>
+          <span class="winner-style">editorial</span>
+          <span class="winner-reason">auto-kept</span>
+        </div>
+        <div class="winner-row">
+          <strong>She Reads the Swarm</strong>
+          <span class="winner-style">ghibli</span>
+          <span class="winner-reason">auto-kept</span>
+        </div>
+        <div class="winner-row">
+          <strong>She IS the Bass Drum</strong>
+          <span class="winner-style">retro_poster</span>
+          <span class="winner-reason">auto-kept</span>
+        </div>
+        <div class="winner-row">
+          <strong>Before the Spark</strong>
+          <span class="winner-style">architectural</span>
+          <span class="winner-reason">auto-kept</span>
+        </div></div>
+
+  <h2>Round-by-Round Journey</h2>
+  
+        <div class="round-card" style="border-left-color:#4ea8d4">
+          <div class="round-header">
+            <h3>Round 1 <span class="round-stats">5/5 kept</span></h3>
+            <span class="mode-tag" style="color:#4ea8d4;border-color:#4ea8d4">explore</span>
+          </div>
+          <div class="image-grid">
+            
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_01/r01_01_the_interpreter.png" loading="lazy" alt="The Interpreter"
+                     style="border-color:#48bb78">
+                <span class="style-tag">photorealistic</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Interpreter <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Intergenerational joy — granddaughter finally hearing grandfather fully.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Photorealistic, cinematic lighting, close-up of a young deaf girl wearing sleek smart glasses, face lit with sudden joy as AI captions appear in her vision, elderly grandfather speaking beside her, warm afternoon museum light through tall windows, shallow depth of field, tears at the corner of her eye, emotional connection across silence NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_01/r01_02_the_keeper_of_patterns.png" loading="lazy" alt="The Keeper of Patterns"
+                     style="border-color:#48bb78">
+                <span class="style-tag">oil_painting</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Keeper of Patterns <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Oil paint texture mirrors handcraft; AI as silent archivist, not actor.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Oil painting, visible brushstrokes, classical lighting, elderly Moroccan woman weaving intricate geometric patterns at a wooden loom, small tablet beside her shows AI mapping her technique for preservation, golden lantern warmth, rich ochres and indigo, dignified portrait composition, her weathered hands mid-motion, thread catching light, centuries of knowledge in her posture NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_01/r01_03_first_heartbeat.png" loading="lazy" alt="First Heartbeat"
+                     style="border-color:#48bb78">
+                <span class="style-tag">watercolor</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">First Heartbeat <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Two women leaning together — AI enables a shared human moment.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Watercolor wash, loose flowing strokes, paper texture visible, young midwife in rural Uganda pressing portable AI ultrasound probe to a pregnant woman&#x27;s belly, both women leaning toward a glowing tablet screen together, soft light through a clinic window, tender shared anticipation, earth tones and warm ochre skin, the faintest blue glow from the screen NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_01/r01_04_the_rooftop_agronomist.png" loading="lazy" alt="The Rooftop Agronomist"
+                     style="border-color:#48bb78">
+                <span class="style-tag">gouache</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Rooftop Agronomist <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Urban food sovereignty angle is fresh; phone sensor grid stays grounded.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Gouache illustration, flat bold colors, mid-century modern, Latina woman tending lush rooftop garden above a dense city skyline, phone in one hand showing a bright sensor grid of soil moisture and harvest timing, late afternoon gold light, graphic beds of tomatoes and herbs, city geometry below her, expression of confident ownership — this is her domain NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_01/r01_05_the_decision.png" loading="lazy" alt="The Decision"
+                     style="border-color:#48bb78">
+                <span class="style-tag">concept_art</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Decision <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Calm authority in a life-or-death moment — stakes and composure together.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Digital concept art, painterly, matte painting style, lone female firefighter at the treeline edge at dusk, forearm projecting a holographic AI fire-spread map glowing amber against smoke-filled mountains, she studies it with calm authority, embers drift past her helmet, epic environmental scale dwarfs her body but her stillness commands the frame, heroic and grounded NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+          </div>
+          <div class="round-direction">
+            <strong>Direction:</strong> All 5 share the formula: specific person + AI as peripheral detail + human emotional peak. Exploit this by varying the two-human dynamic — the strongest images (Interpreter, First Heartbeat) show TWO people sharing an AI-enabled moment. Next round: push every scene toward a collaboration or connection between two humans that AI quietly made possible. Also vary geography more aggressively — so far: Uganda, Morocco, unspecified US/urban. Add South/Southeast Asia, rural Appalachia, Indigenous communities. Keep banning: robots as companions, AI as the visual centerpiece, holographic displays.
+          </div>
+        </div>
+        <div class="round-card" style="border-left-color:#4ea8d4">
+          <div class="round-header">
+            <h3>Round 2 <span class="round-stats">4/5 kept</span></h3>
+            <span class="mode-tag" style="color:#4ea8d4;border-color:#4ea8d4">explore</span>
+          </div>
+          <div class="image-grid">
+            
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_02/r02_01_ocean_sentinel.png" loading="lazy" alt="Ocean Sentinel"
+                     style="border-color:#48bb78">
+                <span class="style-tag">ink_wash</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Ocean Sentinel <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Ink wash solitude + glowing sensor map creates meditative wonder</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Black and white ink wash, sumi-e inspired, dramatic contrast, solitary marine biologist on small research vessel at dawn, hunched over waterproof tablet displaying glowing sensor network map of ocean floor, whale migration routes traced in light, vast dark sea around her, mist on horizon, wave reflections shattered in ink. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_02/r02_02_the_reading_map.png" loading="lazy" alt="The Reading Map"
+                     style="border-color:#48bb78">
+                <span class="style-tag">editorial</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Reading Map <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Tree-branching path reframes dyslexia as divergence, not deficit</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Editorial illustration, clean lines, warm palette, magazine quality, middle-aged male teacher kneeling beside a girl with dyslexia in sunlit rural classroom, AI tablet between them showing her personalized reading path branching like a tree, sunlight through dusty windows, other children engaged at desks behind them, focused tenderness in his posture. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_02/r02_03_the_living_field.png" loading="lazy" alt="The Living Field"
+                     style="border-color:#48bb78">
+                <span class="style-tag">ghibli</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Living Field <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Weathered phone grounds Ghibli magic in real accessibility stakes</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Studio Ghibli inspired, lush detail, simple figures, nature harmony, elderly Kenyan grandmother walks rows of thriving maize at golden hour, small autonomous drone drifts above scanning crop health, weathered phone in her hand shows green soil health map, grandchildren chasing each other between stalks behind her, clouds enormous and alive, land radiant with color. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_02/r02_04_bridge_builder.png" loading="lazy" alt="Bridge Builder"
+                     style="border-color:#48bb78">
+                <span class="style-tag">retro_poster</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Bridge Builder <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Retro geometric style IS structural simulation — perfect self-reference</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Retro-future poster, bold geometric shapes, limited palette, female civil engineer in hardhat stands before half-built bridge, tablet held up showing structural stress simulation as bold overlaid geometric lines, orange sky, teal shadows, tiny workers on scaffolding below, bridge arc rising strong and clean, diagonal composition full of forward momentum. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_02/r02_05_first_steps_again.png" loading="lazy" alt="First Steps Again"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">architectural</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">First Steps Again <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Architectural coldness kills the warmth a rehabilitation moment demands</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Architectural rendering, precise lines, ambient occlusion, physical therapist beside elderly stroke patient taking careful steps in rehabilitation room, AI motion sensors mounted on ceiling casting faint tracking halos around the patient&#x27;s movement, progress arc on wall screen, afternoon light flooding through floor-to-ceiling windows, stillness and effort and hope in equal measure. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+          </div>
+          <div class="round-direction">
+            <strong>Direction:</strong> Chase the Bridge Builder discovery: find 3-4 more style+AI-tool pairings where the visual grammar of the style IS the AI tool&#x27;s output. Candidates: blueprint/schematic style for diagnostic imaging (the lines ARE the scan), data-vis style for logistics optimization, infographic style for environmental monitoring dashboards. The test: can a viewer understand what the AI is doing from the style alone, before reading a word?
+          </div>
+        </div>
+        <div class="round-card" style="border-left-color:#48bb78">
+          <div class="round-header">
+            <h3>Round 3 <span class="round-stats">4/5 kept</span></h3>
+            <span class="mode-tag" style="color:#48bb78;border-color:#48bb78">exploit</span>
+          </div>
+          <div class="image-grid">
+            
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_03/r03_01_the_migration_chart.png" loading="lazy" alt="The Migration Chart"
+                     style="border-color:#48bb78">
+                <span class="style-tag">woodblock</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Migration Chart <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Wave stacks echoing data circles — medium becomes the visualization itself.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Japanese woodblock print, flat planes, bold outlines, weathered Japanese fisherman on small wooden boat at dawn, indigo sea as stacked flat wave planes, tablet screen showing fish migration routes as bold red circles that echo the woodblock wave patterns, humble composure, Hokusai palette, morning mist, data and tradition speaking the same visual language NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_03/r03_02_what_would_be_lost.png" loading="lazy" alt="What Would Be Lost"
+                     style="border-color:#48bb78">
+                <span class="style-tag">stained_glass</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">What Would Be Lost <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Stained glass as preservation metaphor — heritage held in light, not explained.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Stained glass style, luminous colors, lead lines, Gothic frame, elderly West African grandmother speaking to a tablet in a community center, surrounding panels transforming her words into Arabic, Haitian Creole, Vietnamese script preserved as luminous colored glass, warm amber light through her face, lead lines forming subtle neural network pattern, reverence for what would be lost NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_03/r03_03_the_coordinator.png" loading="lazy" alt="The Coordinator"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">isometric</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Coordinator <span class="badge drop">DROP</span></div>
+                <div class="card-reason">AI element is a dashboard description, not a human moment — administrative, not felt.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Isometric view, detailed miniature, tilt-shift depth of field, middle-aged Black woman in community food pantry, tiny isometric shelves and distribution routes visible below her, color-coded translucent overlays showing AI inventory optimization, warm afternoon light, figures receiving boxes softly blurred in background, her calm focus sharp in the center frame, tilt-shift making the community feel precious and worth protecting NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_03/r03_04_three_in_the_morning.png" loading="lazy" alt="Three in the Morning"
+                     style="border-color:#48bb78">
+                <span class="style-tag">charcoal</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Three in the Morning <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Single bright line in charcoal darkness — medium and stakes are the same thing.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Charcoal drawing, dramatic shadows, textured paper, Filipina ICU nurse at 3am leaning toward a patient monitor, face lit by screen glow, AI cardiac alert as a single bright anomalous line amid dark waveforms, her hand poised above the call button, entire room in deep shadow except her focused face and the monitor, life-or-death composure, tender authority, rough charcoal texture grounding the stakes in something real NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_03/r03_05_the_terrain.png" loading="lazy" alt="The Terrain"
+                     style="border-color:#48bb78">
+                <span class="style-tag">pixel_art</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Terrain <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Face reflected in pixel landscape — subject and terrain are literally the same.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Detailed pixel art, 16-bit palette, dithering, teenage girl journaling on a worn tablet, AI mood history rendered as a pixel art landscape visible on screen — dark valleys gradually becoming navigable hills, her face reflected in the screen shows cautious wonder, bedroom window behind her shows real rain, warm lamplight dithered against blue-gray digital world, mental health data reframed as terrain worth exploring not a verdict to receive NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+          </div>
+          <div class="round-direction">
+            <strong>Direction:</strong> Exploit the &#x27;medium IS the content&#x27; pattern that&#x27;s appearing in the strongest keepers: woodblock waves = migration data, pixel art = inner terrain, charcoal darkness = ICU dread. Next round: deliberately pair styles where the formal properties of the medium can double as the AI or data element. Try: linocut + soil data (cut lines become crop rows), thermal imaging palette + search and rescue (heat IS the person being found), circuit-board isometric + education access (traces are learning pathways). In each case the style should do conceptual work, not just aesthetic work.
+          </div>
+        </div>
+        <div class="round-card" style="border-left-color:#48bb78">
+          <div class="round-header">
+            <h3>Round 4 <span class="round-stats">4/5 kept</span></h3>
+            <span class="mode-tag" style="color:#48bb78;border-color:#48bb78">exploit</span>
+          </div>
+          <div class="image-grid">
+            
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_04/r04_01_the_thermal_read.png" loading="lazy" alt="The Thermal Read"
+                     style="border-color:#48bb78">
+                <span class="style-tag">photorealistic</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Thermal Read <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Photorealism validates invisible heat detection — style earns its keep.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Photorealistic, cinematic lighting, a middle-aged Puerto Rican woman plumber in worn work clothes examines a wall junction, handheld thermal scanner in her grip showing heat anomaly on its small display, utility room shadows broken by a single work lamp angled across her face, she is absorbed and expert, the technology fits in her palm like a second tool, her confidence needs no explanation, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_04/r04_02_the_long_morning.png" loading="lazy" alt="The Long Morning"
+                     style="border-color:#48bb78">
+                <span class="style-tag">oil_painting</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Long Morning <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Technology rendered as furniture — pill organizer beside the teacup, weightless.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Oil painting, visible brushstrokes, classical lighting, elderly South Asian man at his kitchen table in morning window light, a small lit pill organizer beside his tea, a tablet face-up shows a photo from his daughter, his posture is unhurried and at home, Rembrandt-quality light catches his hands and the rim of his cup, the room is worn and familiar, the technology is present without announcing itself, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_04/r04_03_the_closing_gap.png" loading="lazy" alt="The Closing Gap"
+                     style="border-color:#48bb78">
+                <span class="style-tag">watercolor</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Closing Gap <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Watercolor&#x27;s flow IS language flowing — medium mirrors concept perfectly.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Watercolor wash, loose flowing strokes, paper texture visible, a Guatemalan grandmother and a young social worker sit close at a community center table, a phone between them translating in real time, both lean forward laughing at something just understood, the pigment of their faces and clothes bleeds softly where they are near each other, the gap between them is visibly closing, the warmth lives in the bleed, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_04/r04_04_the_count.png" loading="lazy" alt="The Count"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">gouache</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Count <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Drone banking in cerulean sky is the visual star. Technology upstages the human.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Gouache illustration, flat bold colors, mid-century modern, Pacific island community health worker in vivid green scrubs stands at an outdoor table sorting drone-delivered medical supplies, a white drone banks away into cerulean sky behind her, the supplies are arranged in bright color-blocked stacks, she is mid-count and focused, the sea is flat blue at the frame edge, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_04/r04_05_what_she_built.png" loading="lazy" alt="What She Built"
+                     style="border-color:#48bb78">
+                <span class="style-tag">concept_art</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">What She Built <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Concept art style validates a teenager&#x27;s vision as legitimate as any sci-fi future.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Digital concept art, painterly, matte painting style, a teenage girl stands on a restored mangrove shoreline at golden hour, tablet held loosely at her side, behind her the transformed coastline curves away — natural breakwaters, elevated community structures anchored in restored wetland, the sea held at its proper distance, she is small against the landscape but at its center, the horizon glows like something was repaired here, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+          </div>
+          <div class="round-direction">
+            <strong>Direction:</strong> Push the technology-as-furniture principle harder. Next round: 5 images where the AI element is visually indistinguishable from any other domestic or professional object — a worn tablet, a dashboard on a wall, a sensor that looks like a smoke detector. Human hands, human faces, human effort fill the frame. Technology is ambient. Vary geographies: Central Asia, West Africa, rural Appalachia, Arctic community, favela. One image per style: charcoal, gouache, oil painting, woodcut, watercolor. The test: can you remove the AI element from the scene description and the image still makes emotional sense? If yes, you&#x27;ve buried it deep enough.
+          </div>
+        </div>
+        <div class="round-card" style="border-left-color:#48bb78">
+          <div class="round-header">
+            <h3>Round 5 <span class="round-stats">4/5 kept</span></h3>
+            <span class="mode-tag" style="color:#48bb78;border-color:#48bb78">exploit</span>
+          </div>
+          <div class="image-grid">
+            
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_05/r05_01_the_depth_reader.png" loading="lazy" alt="The Depth Reader"
+                     style="border-color:#48bb78">
+                <span class="style-tag">ink_wash</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Depth Reader <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Phone glow as only warmth — technology as heat against cold ink sea.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Black and white ink wash, sumi-e inspired, dramatic contrast, pre-dawn fishing boat, weathered Filipino fisherman hands cradling a battered phone showing depth contours, sea a vast ink field around him, phone glow the only warmth, mist dissolving the horizon, solitude that is complete not lonely, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_05/r05_02_the_pattern_keeper.png" loading="lazy" alt="The Pattern Keeper"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">editorial</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Pattern Keeper <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Editorial style generic — does no work for the craft-vs-optimization concept.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Editorial illustration, clean lines, warm palette, magazine quality, Mexican seamstress in small atelier surrounded by bolts of fabric, tablet beside her loom showing pattern optimization, her hands guiding thread, late afternoon window light, craft and computation sharing the same worktable as equals, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_05/r05_03_what_she_planted.png" loading="lazy" alt="What She Planted"
+                     style="border-color:#48bb78">
+                <span class="style-tag">ghibli</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">What She Planted <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Past restoration visible behind her — time argument built into composition.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Studio Ghibli inspired, lush detail, simple figures, nature harmony, young Bangladeshi woman knee-deep in coastal wetland planting mangrove seedlings by hand, the section she restored last year already lush and teeming behind her, sky clearing after rain, water catching light, the AI&#x27;s work already done and gone, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_05/r05_04_she_runs_the_grid.png" loading="lazy" alt="She Runs the Grid"
+                     style="border-color:#48bb78">
+                <span class="style-tag">retro_poster</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">She Runs the Grid <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Poster geometry IS the AI optimization — medium becomes the data layer.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Retro-future poster, bold geometric shapes, limited palette, Kenyan water utility operator at her control station, silhouette central, pipe network radiating outward in aqua and rust geometry, AI flow optimization rendered as the poster&#x27;s own graphic logic, she is the city&#x27;s center of gravity, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_05/r05_05_the_building_speaks.png" loading="lazy" alt="The Building Speaks"
+                     style="border-color:#48bb78">
+                <span class="style-tag">architectural</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Building Speaks <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Architectural rendering speaks the building&#x27;s native language — AI as translator.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Architectural rendering, precise lines, ambient occlusion, Korean structural engineer in 1920s brick building, palm pressed to the wall, tablet showing sensor map of hidden stress fractures as clean geometry, decades of silent strain now legible, her expression relief and recognition, precision as a form of empathy, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+          </div>
+          <div class="round-direction">
+            <strong>Direction:</strong> Push medium-as-metaphor harder and weirder. Blueprint style for hidden structure revealed. Cross-stitch / embroidery for pattern recognition. Weather map for predictive systems. Topographic map for terrain optimization. X-ray for diagnostic AI. The question to ask for every new prompt: &#x27;What does the AI DO in this domain — and is there a visual medium whose grammar mirrors that function?&#x27;
+          </div>
+        </div>
+        <div class="round-card" style="border-left-color:#4ea8d4">
+          <div class="round-header">
+            <h3>Round 6 <span class="round-stats">3/5 kept</span></h3>
+            <span class="mode-tag" style="color:#4ea8d4;border-color:#4ea8d4">explore</span>
+          </div>
+          <div class="image-grid">
+            
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_06/r06_01_the_reading.png" loading="lazy" alt="The Reading"
+                     style="border-color:#48bb78">
+                <span class="style-tag">woodblock</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Reading <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Flat contour data mirrors woodblock&#x27;s flat planes — style is content</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Japanese woodblock print, flat planes, bold outlines, dawn over open ocean, elderly Filipino fisherman in wooden banca adjusting course by hand, weathered fingers on waterproof unit showing school positions as bold depth contours, flat indigo water plane below pale sky plane, birds as black brushmarks, no heroic gesture just a man recalculating, quiet dignity NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_06/r06_02_last_call.png" loading="lazy" alt="Last Call"
+                     style="border-color:#48bb78">
+                <span class="style-tag">stained_glass</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Last Call <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Family faces ARE the stained glass — love rendered as sacred light</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Stained glass style, luminous colors, lead lines, Gothic frame, elderly woman in hospice bed, nurse gently angling tablet so patient sees family faces on screen, light fractured into warmth across worn blanket, faces in luminous color panels like windows, technology as pure conduit between worlds, no device branding, the glow is all that exists NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_06/r06_03_the_last_mile.png" loading="lazy" alt="The Last Mile"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">isometric</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Last Mile <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Competent but cold — no emotional argument, just logistics made visible</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Isometric view, detailed miniature, tilt-shift depth of field, cold storage warehouse, Latina worker in padded jacket scanning produce pallets with handheld device, sharp focus on her hands, soft blur at edges, ripe tomatoes near expiry glowing warm against steel gray, worn floor paths showing years of routes, each crate rendered precious, labor dignified by scale NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_06/r06_04_wind_map.png" loading="lazy" alt="Wind Map"
+                     style="border-color:#48bb78">
+                <span class="style-tag">charcoal</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Wind Map <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Charcoal darkness + lone decision-maker + life-or-death stakes = maximum tension</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Charcoal drawing, dramatic shadows, textured paper, wildfire crew boss alone on ridge at 3am, single headlamp illuminating face and open tablet, wind-shift forecast as sparse hand-drawn contour lines on screen, forest darkness absolute around her, no equipment glamour, weight of the decision in her jaw and shoulders, ash-gray sky NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_06/r06_05_the_drop.png" loading="lazy" alt="The Drop"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">pixel_art</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Drop <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Redundant with What She Built — second teenage-girl-creates scene dilutes both</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Detailed pixel art, 16-bit palette, dithering, teenage girl in small bedroom studio, headphones around neck, leaning toward monitor showing AI chord suggestions as colored blocks in a DAW timeline, guitar neck visible at edge, notebooks stacked, warm lamp dither, moment of recognition as she reaches for keys, discovery not instruction NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+          </div>
+          <div class="round-direction">
+            <strong>Direction:</strong> Double down on Wind Map&#x27;s formula: charcoal + one person + darkness + invisible-but-present AI data rendered as sparse marks. New scenarios to try: (1) ER nurse in charcoal, single overhead light, patient vitals as gestural lines on wall monitor; (2) Arctic researcher charcoal, whiteout conditions, sea-ice stress fractures as hand-drawn fault lines on tablet; (3) flood response worker charcoal, waist-deep water, evacuation routes as minimal contours glowing from chest-mounted device. Also exploit Last Call&#x27;s stained-glass-as-faces discovery: what other intimate human connection moments could be rendered as light through colored panels? Refugee family video call? Deaf child using sign-language translation overlay?
+          </div>
+        </div>
+        <div class="round-card" style="border-left-color:#48bb78">
+          <div class="round-header">
+            <h3>Round 7 <span class="round-stats">4/5 kept</span></h3>
+            <span class="mode-tag" style="color:#48bb78;border-color:#48bb78">exploit</span>
+          </div>
+          <div class="image-grid">
+            
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_07/r07_01_the_green_number.png" loading="lazy" alt="The Green Number"
+                     style="border-color:#48bb78">
+                <span class="style-tag">photorealistic</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Green Number <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Midnight blue + single green glow = technology as silent guardian angel.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Photorealistic, cinematic lighting, dim rural clinic, midnight blue from a single window, young pregnant woman alone in a chair, hand on her belly, on the wall behind her a small vital-signs monitor glows steady green — baby&#x27;s heartbeat, her pressure, both fine. No doctor. No alarm. Just a woman and a good number in the dark. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_07/r07_02_the_chart.png" loading="lazy" alt="The Chart"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">oil_painting</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Chart <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Conceptually sound but emotionally flat — dawn gold and a tablet lacks life-or-death stakes.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Oil painting, visible brushstrokes, classical lighting, dawn gold on still water, weathered Moroccan fisherman standing in a small boat, a waterproof tablet strapped to the gunwale showing thermal ocean currents — just another tool like the net coiled at his feet. His eyes read horizon and screen with equal ease. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_07/r07_03_two_stable.png" loading="lazy" alt="Two Stable"
+                     style="border-color:#48bb78">
+                <span class="style-tag">watercolor</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Two Stable <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">&#x27;She already knew. Number confirmed&#x27; — AI amplifies human mastery, never replaces it.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Watercolor wash, loose flowing strokes, paper texture visible, blue predawn, a midwife&#x27;s hands cradling a newborn, on her wrist a small biosensor — mother stable, baby stable. The nearest hospital is four hours away. She already knew. The number confirmed it. The room holds only quiet and new breath. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_07/r07_04_the_guardian.png" loading="lazy" alt="The Guardian"
+                     style="border-color:#48bb78">
+                <span class="style-tag">gouache</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Guardian <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Mid-century flat geometry renders the invisible infrastructure of communal survival.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Gouache illustration, flat bold colors, mid-century modern, a municipal water treatment operator, broad-shouldered woman in coveralls, before a wall of gauges and pipes rendered as flat geometric shapes. Her tablet shows water quality data — safe for 2.3 million people today. The pipes ARE the poster. She is the unseen guardian. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_07/r07_05_she_came_to_confirm.png" loading="lazy" alt="She Came to Confirm"
+                     style="border-color:#48bb78">
+                <span class="style-tag">concept_art</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">She Came to Confirm <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Tiny figure + vast recovered ecosystem — human as witness to transformation, not author.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Digital concept art, painterly, matte painting style, vast rewilded African savanna at golden hour stretching to horizon, lone conservation biologist — small figure at the edge of recovered grassland, clipboard in hand, a single survey drone a barely-visible speck in the enormous sky. AI predicted this migration return 18 months ago. She came to confirm it. The land did the rest. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+          </div>
+          <div class="round-direction">
+            <strong>Direction:</strong> Double down on the confirmation pattern: people who bring deep expertise, and technology that confirms what their body/intuition already knew. Expand to: a structural engineer who felt the vibration before the sensor flagged it; a sommelier whose palate matched the AI&#x27;s chemical analysis; a deaf mother who read her baby&#x27;s expression before the monitor alarmed. Vary styles — try woodblock or risograph for maximum form-as-content potential. Keep humans physically intimate with their domain (hands in soil, ear to wall, nose to glass) while technology recedes to a secondary glow or readout.
+          </div>
+        </div>
+        <div class="round-card" style="border-left-color:#48bb78">
+          <div class="round-header">
+            <h3>Round 8 <span class="round-stats">3/5 kept</span></h3>
+            <span class="mode-tag" style="color:#48bb78;border-color:#48bb78">exploit</span>
+          </div>
+          <div class="image-grid">
+            
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_08/r08_01_what_she_already_knew.png" loading="lazy" alt="What She Already Knew"
+                     style="border-color:#48bb78">
+                <span class="style-tag">ink_wash</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">What She Already Knew <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Sumi-e smoke + pale phone glow = expertise confirmed, never replaced.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Black and white ink wash, sumi-e inspired, dramatic contrast, a lone forest ranger stands at a ridgeline at dusk, smoke blooming on the distant horizon, a phone&#x27;s pale glow the only light on her weathered face, her eyes already fixed on the smoke — not the screen. A lifetime of fire behind her. A decision ahead. Ink bleeds into the sky like the smoke itself. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_08/r08_02_the_green_checkmark.png" loading="lazy" alt="The Green Checkmark"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">editorial</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Green Checkmark <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Warm kitchen + green check is earnest but The Green Number owns this quieter-tech territory with more visual drama.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Editorial illustration, clean lines, warm palette, magazine quality, a young home health aide hands morning medication to an elderly woman at her kitchen table, both sharing a private laugh. On the counter behind them, a phone shows a quiet green checkmark — the AI dosage verification already done, already forgotten. Morning light through gauze curtains. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_08/r08_03_she_freed_him.png" loading="lazy" alt="She Freed Him"
+                     style="border-color:#48bb78">
+                <span class="style-tag">ghibli</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">She Freed Him <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Laughing through tears at release — Ghibli earns the emotional peak honestly.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Studio Ghibli inspired, lush detail, simple figures, nature harmony, a marine biologist waist-deep in dawn-lit tropical shallows releases a sea turtle from her hands, face upturned laughing through tears. A small tracking buoy bobs in the middle distance — it found him, she freed him. The turtle descends into lush coral below an open sky. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_08/r08_04_the_morning_shift.png" loading="lazy" alt="The Morning Shift"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">retro_poster</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Morning Shift <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Retro-poster + invisible infrastructure is The Guardian, reskinned. No new territory.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Retro-future poster, bold geometric shapes, limited palette, a water treatment operator stands before a vast diagram of pipes, valves, and flow networks — the invisible infrastructure of a city. Her figure is small but confident, coffee in hand. The geometric shapes ARE the AI overnight optimization: pressure routing, contamination detection, flow balance. She arrives each morning to review. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_08/r08_05_first_she_listens.png" loading="lazy" alt="First She Listens"
+                     style="border-color:#48bb78">
+                <span class="style-tag">architectural</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">First She Listens <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Palms on cracked concrete, eyes closed — body knowledge + data confirmation = mastery made physical.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Architectural rendering, precise lines, ambient occlusion, a structural engineer presses both palms flat against a cracked concrete wall in a partially collapsed building, eyes closed — listening. Behind her, a tablet shows stress analysis in precise architectural lines. Twenty years of earthquakes in her hands. The data confirmed what she felt first. Dust motes in the only shaft of light. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+          </div>
+          <div class="round-direction">
+            <strong>Direction:</strong> Mine the &#x27;body knowledge confirmed by data&#x27; seam from First She Listens. Vary profession (winemaker smelling a barrel, surgeon palpating before incision, mechanic with ear to engine block, farmer pressing fingers into soil) and style (ink_wash, ghibli, noir). The through-line: human uses a physical sense first — AI then annotates what the body already felt. That sequence is the emotional argument: technology honors expertise, it doesn&#x27;t replace it.
+          </div>
+        </div>
+        <div class="round-card" style="border-left-color:#48bb78">
+          <div class="round-header">
+            <h3>Round 9 <span class="round-stats">2/5 kept</span></h3>
+            <span class="mode-tag" style="color:#48bb78;border-color:#48bb78">exploit</span>
+          </div>
+          <div class="image-grid">
+            
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_09/r09_01_what_her_hands_already_knew.png" loading="lazy" alt="What Her Hands Already Knew"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">woodblock</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">What Her Hands Already Knew <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Third tactile-expertise-confirmed entry this round; concept exhausted against two winners</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Japanese woodblock print, flat planes, bold outlines, elderly Japanese-American woman runs both palms along the curved hull of a wooden boat in dry dock, eyes closed, detecting a hidden flaw by touch. A small sensor pad on the wood glows faintly, its readout matching what her hands already found. Late afternoon gold. Reverence for material knowledge. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_09/r09_02_the_stories_she_carried.png" loading="lazy" alt="The Stories She Carried"
+                     style="border-color:#48bb78">
+                <span class="style-tag">stained_glass</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Stories She Carried <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Phone disappears into reverence — stained glass consecrates human connection perfectly</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Stained glass style, luminous colors, lead lines, Gothic frame, elderly Filipina grandmother mid-storytelling gesture, grandchildren leaning in rapt. Between them a small phone rests face-up on the table, quietly translating. Each stained glass panel shows a scene from her story in vivid color. The phone is barely there — a candle-sized light. Evening warmth. Heritage flowing unbroken across the language gap. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_09/r09_03_the_order_she_made.png" loading="lazy" alt="The Order She Made"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">isometric</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Order She Made <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Overhead isometric shrinks humans to system components; AI supply-lines visually dominate</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Isometric view, detailed miniature, tilt-shift depth of field, disaster relief distribution center viewed from above, tiny human figures organizing supplies with quiet efficiency. Colored supply lines radiate outward like circuit traces, AI-optimized but invisible in mechanism — just order emerging from chaos. A single coordinator at the hub, hand raised mid-instruction. Warm late light. The miniature scale makes the human effort feel like a gift. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_09/r09_04_already_certain.png" loading="lazy" alt="Already Certain"
+                     style="border-color:#48bb78">
+                <span class="style-tag">charcoal</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Already Certain <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">She reaches for the radio before the algorithm catches up — urgency over confirmation</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Charcoal drawing, dramatic shadows, textured paper, solitary woman in her 50s at a fire lookout tower, one hand gripping the railing, other reaching for the radio mic. On the desk behind her a small laptop shows fire behavior modeling — but her eyes are already on the distant smoke column, already certain. Paper grain becomes heat shimmer and char. Dusk. The decision was made before the machine finished. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_09/r09_05_the_fault_she_found.png" loading="lazy" alt="The Fault She Found"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">pixel_art</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Fault She Found <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Identical emotional beat to three other entries this round; concept is now a reflex, not a choice</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Detailed pixel art, 16-bit palette, dithering, middle-aged Kenyan woman in a community repair shop, hands deep inside a disassembled washing machine, methodical and sure. A small diagnostic tablet nearby shows the fault tree in green pixels — but her hands are already at the right part. Warm shop light, tool shadows dithered across the floor. Repair as dignity, machine as puzzle solved. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+          </div>
+          <div class="round-direction">
+            <strong>Direction:</strong> Shift the core emotion entirely. Every KEEP so far is about mastery confirmed or agency asserted — people who already know something, proved right. We have not yet captured FIRST ACCESS: the moment someone gains capability they never had before. Not confirmation — expansion. A rural clinic nurse seeing AI-assisted imaging catch something she would have missed and couldn&#x27;t have caught alone. A first-generation student in a language she wasn&#x27;t taught in, suddenly keeping up. A small-town welder whose AI-assisted bid just won a contract in a city she&#x27;s never been to. The feeling is wonder and becoming, not expertise validated. Target styles: linocut, risograph, gouache — warm and handmade, nothing cold or corporate. The protagonist should be visibly surprised, moved, changed. Technology in these scenes should look like luck finally showing up.
+          </div>
+        </div>
+        <div class="round-card" style="border-left-color:#e53e3e">
+          <div class="round-header">
+            <h3>Round 10 <span class="round-stats">3/5 kept</span></h3>
+            <span class="mode-tag" style="color:#e53e3e;border-color:#e53e3e">pivot</span>
+          </div>
+          <div class="image-grid">
+            
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_10/r10_01_what_her_hands_say.png" loading="lazy" alt="What Her Hands Say"
+                     style="border-color:#48bb78">
+                <span class="style-tag">photorealistic</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">What Her Hands Say <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Barely-visible tech inside human performance — restraint wins.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Photorealistic, cinematic lighting, close-up portrait of a Black deaf woman, sign language interpreter at a concert, hands held mid-gesture above the roar of the crowd, small vibration wristbands barely visible on both wrists, sweat and stage light on her face, full concentration, shot from below, warm gold and purple light, the music visible only in her hands, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_10/r10_02_he_knew_what_happened.png" loading="lazy" alt="He Knew What Happened"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">oil_painting</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">He Knew What Happened <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Tablet is furniture, not participant — AI never serves the man.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Oil painting, visible brushstrokes, classical lighting, Rembrandt chiaroscuro, a middle-aged Latino man at a prison library table, writing by hand, small dim tablet beside him, his face lit from a single high window, expression of concentrated determination, pen and paper dominate the composition, the tablet is secondary and barely visible, warm amber shadows, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_10/r10_03_the_last_time_she_will_laugh_l.png" loading="lazy" alt="The Last Time She Will Laugh Like That"
+                     style="border-color:#48bb78">
+                <span class="style-tag">watercolor</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Last Time She Will Laugh Like That <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Title earns devastation; watercolor dissolves into the human moment.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Watercolor wash, loose flowing strokes, paper texture visible, an Inuit elder and a young woman linguist sit very close, both laughing hard, the elder&#x27;s weathered hands mid-gesture, soft diffused arctic light through a frosted window, a phone resting on the table between them barely noticed, warmth and trust between two generations, the laughter is the entire subject, intimate and fleeting, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_10/r10_04_first_fist.png" loading="lazy" alt="First Fist"
+                     style="border-color:#48bb78">
+                <span class="style-tag">gouache</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">First Fist <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Disbelief-to-joy arc is clean, physical, and completely unambiguous.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Gouache illustration, flat bold colors, mid-century modern, a small Southeast Asian girl age seven making a triumphant fist with her new myoelectric prosthetic hand, face pure disbelief and joy, warm clinic setting with bold geometric shapes in background, a technician&#x27;s hands visible at frame edge steadying the device, the child fills the frame entirely, bold warm palette, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_10/r10_05_cathedral.png" loading="lazy" alt="Cathedral"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">concept_art</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Cathedral <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Eyes-closed listening posture already claimed by a stronger winner.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Digital concept art, painterly, matte painting style, a female researcher suspended on a rope at 60 meters at the top of a rainforest canopy at dawn, headphones on, eyes closed, listening, golden light breaking through leaves above her, the vast dark forest floor impossibly far below, she is tiny against the ancient canopy, peaceful and intensely concentrated, acoustic sensor equipment barely visible clipped to her harness, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+          </div>
+          <div class="round-direction">
+            <strong>Direction:</strong> Push the &#x27;barely visible technology&#x27; formula harder: three rounds varying the human subject (age, geography, ability level) while keeping one structural rule constant — the AI element must be either invisible OR doing one specific legible thing. Try: elderly man, rural village, sub-Saharan Africa; teenage girl, wheelchair user, urban transit; male nurse, night shift, understaffed ward. Each should have a title that names the human truth, not the technology.
+          </div>
+        </div>
+        <div class="round-card" style="border-left-color:#48bb78">
+          <div class="round-header">
+            <h3>Round 11 <span class="round-stats">4/5 kept</span></h3>
+            <span class="mode-tag" style="color:#48bb78;border-color:#48bb78">exploit</span>
+          </div>
+          <div class="image-grid">
+            
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_11/r11_01_before_the_algorithm_speaks.png" loading="lazy" alt="Before the Algorithm Speaks"
+                     style="border-color:#48bb78">
+                <span class="style-tag">ink_wash</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Before the Algorithm Speaks <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Sumi-e ink wash makes indigenous climate knowledge feel ancient and urgent.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Black and white ink wash, sumi-e inspired, dramatic contrast, a lone Indigenous woman mountain guide pauses on a snow ridge, head tilted, listening. A small earpiece relays AI avalanche risk data. She is already turning, already certain, before the alert sounds. Wind-blurred peaks above, hard shadow below. Solitude and competence as the same thing. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_11/r11_02_the_algorithm_trails_her.png" loading="lazy" alt="The Algorithm Trails Her"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">editorial</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Algorithm Trails Her <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Third human-first beat this round — formula has replaced insight.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Editorial illustration, clean lines, warm palette, magazine quality, a 60-year-old Ghanaian ER nurse moves through a triage bay, decisive, unhurried. A small badge displays AI risk scores. She has already acted on every patient before her eyes find the numbers. Bodies in motion, urgency without panic. The algorithm follows. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_11/r11_03_two_kinds_of_knowing.png" loading="lazy" alt="Two Kinds of Knowing"
+                     style="border-color:#48bb78">
+                <span class="style-tag">ghibli</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Two Kinds of Knowing <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Intergenerational wisdom earns grandfather-first beat — two kinds of knowing coexist.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Studio Ghibli inspired, lush detail, simple figures, nature harmony, an elderly Korean grandfather and his young granddaughter stand at the end of a fishing pier at dawn. She holds a small device showing fish migration data, but he is already pointing at the horizon. Dawn mist, still water, certainty passing between generations. The data confirms what he already sees. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_11/r11_04_she_found_it_first.png" loading="lazy" alt="She Found It First"
+                     style="border-color:#48bb78">
+                <span class="style-tag">retro_poster</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">She Found It First <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Retro poster geometry plus Peruvian scientist is culturally and visually striking.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Retro-future poster, bold geometric shapes, limited palette, a young Peruvian woman leans into a radio telescope eyepiece under a geometric desert sky. Stars as flat bold shapes. An AI anomaly detector runs behind her on a screen. She is looking with her own eyes. She found it first. The night belongs to curiosity. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_11/r11_05_what_the_stone_knows.png" loading="lazy" alt="What the Stone Knows"
+                     style="border-color:#48bb78">
+                <span class="style-tag">architectural</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">What the Stone Knows <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Human body as irreplaceable sensor — philosophically richest concept this round.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Architectural rendering, precise lines, ambient occlusion, a structural engineer presses one palm flat against a century-old stone bridge arch, eyes closed. Acoustic AI sensors trace the surface nearby. She is listening with her body in a way no sensor captures. Cross-section of stone, data, and flesh — three kinds of knowing at the same surface. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+          </div>
+          <div class="round-direction">
+            <strong>Direction:</strong> Flip the emotional beat entirely: show the moment AI REVEALS something the human couldn&#x27;t see alone — and the human is genuinely moved, surprised, or changed by the revelation. The human is still protagonist; the AI is the catalyst for new perception. The feeling is wonder, not confirmation. Examples: a farmer sees her soil&#x27;s hidden 40-year story for the first time and sits down in the field; an ER doctor watches a pattern emerge across 10,000 patients and quietly corrects a diagnosis he&#x27;s been making for 20 years; a child&#x27;s drawing is analyzed to surface a spatial gift she didn&#x27;t know she had, and her teacher shows her the result. The emotional arc is: ignorance → revelation → changed. Not &#x27;human was right all along.&#x27;
+          </div>
+        </div>
+        <div class="round-card" style="border-left-color:#e53e3e">
+          <div class="round-header">
+            <h3>Round 12 <span class="round-stats">4/5 kept</span></h3>
+            <span class="mode-tag" style="color:#e53e3e;border-color:#e53e3e">pivot</span>
+          </div>
+          <div class="image-grid">
+            
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_12/r12_01_the_signal_before_dawn.png" loading="lazy" alt="The Signal Before Dawn"
+                     style="border-color:#48bb78">
+                <span class="style-tag">woodblock</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Signal Before Dawn <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Sleeping village vs alert scientist creates visceral, wordless tension.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Japanese woodblock print, flat planes, bold outlines, A Javanese volcanologist in her field station at dusk, alert face lit by a single monitor, AI flagged a seismic precursor no human had catalogued, outside the window a village still asleep on the mountain slope, flat planes of orange sky against volcanic silhouette, she reaches for the radio, everything about to change, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_12/r12_02_fifty_years_of_voice.png" loading="lazy" alt="Fifty Years of Voice"
+                     style="border-color:#48bb78">
+                <span class="style-tag">stained_glass</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Fifty Years of Voice <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Grief-memory category breakthrough — receiving a voice, not watching a screen.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Stained glass style, luminous colors, lead lines, Gothic frame, An elderly Filipino woman in a garden at golden hour, holding a small device playing her late husband&#x27;s voice reconstructed from fifty years of recordings, eyes closed face lifted toward the sun, light through leaves rendered as jeweled panes, the device glowing like a votive candle, grief and presence intertwined, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_12/r12_03_the_reef_she_rebuilt.png" loading="lazy" alt="The Reef She Rebuilt"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">isometric</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Reef She Rebuilt <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Isometric view shows the system; human designer&#x27;s face and feeling are invisible.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Isometric view, detailed miniature, tilt-shift depth of field, Underwater coral reef restoration station off Queensland, Aboriginal marine biologist at center orchestrating AI-monitored growth sensors and micro-planting robots she designed, tilt-shift makes the reef a jeweled terrarium, warm bioluminescence in the distance, her wetsuit vivid against bleached scaffolding turning pink with new coral growth, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_12/r12_04_the_unlocking.png" loading="lazy" alt="The Unlocking"
+                     style="border-color:#48bb78">
+                <span class="style-tag">charcoal</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Unlocking <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Surprise is richer than triumph — charcoal rawness earns the breakthrough moment.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Charcoal drawing, dramatic shadows, textured paper, A nine-year-old boy with dyslexia in the precise moment of reading aloud for the first time, AI adaptive software reshaped the text into symbols his brain unlocks, face tilted up from the page: surprise becoming wonder becoming understanding, his mother behind him hand over her mouth, charcoal shadows carry the weight of years trying and now this moment, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_12/r12_05_the_herdswoman_turns.png" loading="lazy" alt="The Herdswoman Turns"
+                     style="border-color:#48bb78">
+                <span class="style-tag">pixel_art</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Herdswoman Turns <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">&#x27;Unhurried and certain&#x27; is a new emotional register — empowerment without drama.</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Detailed pixel art, 16-bit palette, dithering, A Mongolian herdswoman on the open steppe at midnight, her flock a white cluster in darkness, satellite earpiece pings: AI predicted wolf pack approaching from the northwest, she turns unhurried and certain, the vast 16-bit sky packed with stars, the ancient and the algorithmic in perfect equilibrium, her silhouette against the pixelated horizon, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+          </div>
+          <div class="round-direction">
+            <strong>Direction:</strong> Exploit grief-memory and micro-transformation moments. Fifty Years of Voice opened a category we haven&#x27;t mined: AI as a bridge across loss and time. Try: a son hearing his deaf mother speak in her own reconstructed voice for the first time; a war refugee whose village was bombed using satellite imagery + AI reconstruction to show her children what it looked like; a hospice nurse whose AI companion captured a patient&#x27;s last lucid story for the family. Separately, push &#x27;unhurried confidence&#x27; from The Herdswoman — that posture (someone who now knows, and acts without drama) is underrepresented. The series has too many &#x27;moment of wonder,&#x27; not enough &#x27;moment of quiet mastery.&#x27;
+          </div>
+        </div>
+        <div class="round-card" style="border-left-color:#48bb78">
+          <div class="round-header">
+            <h3>Round 13 <span class="round-stats">2/5 kept</span></h3>
+            <span class="mode-tag" style="color:#48bb78;border-color:#48bb78">exploit</span>
+          </div>
+          <div class="image-grid">
+            
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_13/r13_01_what_the_chisel_remembers.png" loading="lazy" alt="What the Chisel Remembers"
+                     style="border-color:#48bb78">
+                <span class="style-tag">photorealistic</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">What the Chisel Remembers <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Intention outlives the body — AI renders Parkinson&#x27;s invisible in finished work</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Photorealistic, cinematic lighting, elderly Japanese craftsman, 78, cutting a curved dovetail joint with trembling hands; his face locked in fierce concentration; the chisel follows his intent precisely — Parkinson&#x27;s invisible in the finished cut; warm workshop, single overhead lamp, cherry shavings on the floor, a cradle-rail emerging from the wood. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_13/r13_02_the_instrument_answers.png" loading="lazy" alt="The Instrument Answers"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">oil_painting</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Instrument Answers <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Reads as surgeon portrait — AI element too subordinate to register as partnership</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Oil painting, visible brushstrokes, classical lighting, Sudanese surgeon, 50s, steady hands holding a microsurgical tool, single shaft of operating light from above; her expression absolute presence; deep shadow frames the scene like a Rembrandt portrait; no screen visible, the AI lives in the haptic resistance of the instrument against her fingertips. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_13/r13_03_the_room_that_kept_the_voice.png" loading="lazy" alt="The Room That Kept the Voice"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">watercolor</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Room That Kept the Voice <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Redundant to Fifty Years of Voice winner — same category, identical emotional beat</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Watercolor wash, loose flowing strokes, paper texture visible, elderly Latino grandfather, 70s, seated by a window, eyes closed; a small speaker on the table; his late wife&#x27;s voice reaches him from old recordings rebuilt by AI; afternoon light warms his face; the lines of his grief slowly releasing; the room holds the sound like breath. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_13/r13_04_after_the_long_dry.png" loading="lazy" alt="After the Long Dry"
+                     style="border-color:#48bb78">
+                <span class="style-tag">gouache</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">After the Long Dry <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">Ankle-deep physicality plus &#x27;not surprise but...&#x27; earns a new emotional register</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Gouache illustration, flat bold colors, mid-century modern, Tamil Nadu farmer woman, 40s, ankle-deep in newly-flowing irrigation channels through red clay fields at dawn; she stands in the center of what arrived overnight; her face — not surprise but recognition; the water speaks first; flat terracotta sky, bold geometry of channels receding. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:0.35">
+              <div class="card-img-wrap">
+                <img src="round_13/r13_05_the_same_answer.png" loading="lazy" alt="The Same Answer"
+                     style="border-color:#e53e3e">
+                <span class="style-tag">concept_art</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Same Answer <span class="badge drop">DROP</span></div>
+                <div class="card-reason">Parallel-sensing concept shadows What the Stone Knows — too close to the winner</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Digital concept art, painterly, matte painting style, female mining geologist, 40s, alone in a narrow shaft; she presses her bare palm against the rock face, eyes closed; a distant seismic sensor blinks green overhead; both her hands and the machine have read the same answer; amber headlamp light, ancient stone walls, dust settling. NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+          </div>
+          <div class="round-direction">
+            <strong>Direction:</strong> Drill hard into the territory What the Chisel Remembers opened: invisible disability + craft mastery. The emotional core is fixed — intention survives what the body cannot, and the viewer never sees the AI, only the perfect result. Vary along three axes: (1) disability type — vision loss, hearing loss, focal dystonia, stroke-affected motor control; (2) craft domain — watchmaker, ceramicist, glassblower, calligrapher, luthier, pastry sculptor; (3) style — watercolor and gouache are untested in this category. Run 6 prompts. One constraint: the AI must be completely invisible in the image. If the tool is visible, the concept fails.
+          </div>
+        </div>
+        <div class="round-card" style="border-left-color:#48bb78">
+          <div class="round-header">
+            <h3>Round 14 <span class="round-stats">5/5 kept</span></h3>
+            <span class="mode-tag" style="color:#48bb78;border-color:#48bb78">exploit</span>
+          </div>
+          <div class="image-grid">
+            
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_14/r14_01_the_amber_bracelet.png" loading="lazy" alt="The Amber Bracelet"
+                     style="border-color:#48bb78">
+                <span class="style-tag">ink_wash</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Amber Bracelet <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">auto-kept</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Black and white ink wash, sumi-e inspired, dramatic contrast, close on a midwife&#x27;s weathered hands guiding a newborn into lamplight, a small AI sensor bracelet on her wrist shifts from amber to green — risk resolved in the body before it became crisis, sparse room, damp walls, firelight catching the relief crossing her face, life held and delivered, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_14/r14_02_the_frozen_hand.png" loading="lazy" alt="The Frozen Hand"
+                     style="border-color:#48bb78">
+                <span class="style-tag">editorial</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">The Frozen Hand <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">auto-kept</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Editorial illustration, clean lines, warm palette, magazine quality, a hospital pharmacist mid-reach — her hand suspended in air above an open drawer, eyes locked on a single amber warning on the dispensing screen, AI has flagged a near-fatal drug interaction she nearly missed, the pill still untouched, golden afternoon light through the pharmacy window, the correction that never had to happen, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_14/r14_03_she_reads_the_swarm.png" loading="lazy" alt="She Reads the Swarm"
+                     style="border-color:#48bb78">
+                <span class="style-tag">ghibli</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">She Reads the Swarm <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">auto-kept</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Studio Ghibli inspired, lush detail, simple figures, nature harmony, an elderly beekeeper stands perfectly still in a summer meadow as ten thousand bees spiral in living patterns around her, a small wrist display maps colony health in color — she reads the swarm without ever opening a box, afternoon gold, wildflowers at her knees, belonging without intrusion, unhurried and certain, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_14/r14_04_she_is_the_bass_drum.png" loading="lazy" alt="She IS the Bass Drum"
+                     style="border-color:#48bb78">
+                <span class="style-tag">retro_poster</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">She IS the Bass Drum <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">auto-kept</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Retro-future poster, bold geometric shapes, limited palette, a deaf percussionist mid-performance eyes closed, whole body alive — vibration-sensing suit renders AI-translated frequencies as waves of haptic light across her skin, she doesn&#x27;t hear the bass drum, she IS the bass drum, bold coral and deep teal, the instrument and the player indistinguishable, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+            <div class="card" style="opacity:1">
+              <div class="card-img-wrap">
+                <img src="round_14/r14_05_before_the_spark.png" loading="lazy" alt="Before the Spark"
+                     style="border-color:#48bb78">
+                <span class="style-tag">architectural</span>
+              </div>
+              <div class="card-body">
+                <div class="card-title">Before the Spark <span class="badge keep">KEPT</span></div>
+                <div class="card-reason">auto-kept</div>
+                <details class="card-prompt"><summary>Prompt</summary><p>Architectural rendering, precise lines, ambient occlusion, a wildfire prevention specialist at blue hour in dense chaparral ties orange ribbon around a marked tree while AI thermal imaging overlays ghostly heat signatures through the smoke ahead — risk made visible before any spark exists, she moves with quiet purpose through amber haze, vast sky behind her, the landscape and its hidden danger both legible at once, NO TEXT NO LABELS</p></details>
+              </div>
+            </div>
+          </div>
+          <div class="round-direction">
+            <strong>Direction:</strong> continue exploring
+          </div>
+        </div>
+
+  <h2>Discoveries</h2>
+  <ul class="list-section">
+    <li>watercolor + intimate healthcare — loose strokes reinforce tenderness; style IS storytelling</li><li>retro_poster + infrastructure — geometric shapes as style ARE the AI tool&#x27;s visual output; style mirrors content without needing explanation</li><li>Charcoal + high-stakes healthcare: charcoal&#x27;s native darkness becomes dread, and a single lit element carries all the emotional weight. The medium stops being a style choice and starts being the story.</li><li>Technology-as-furniture: when AI tools carry the same visual weight as a teacup or a pill organizer, normalization happens without argument. The Long Morning nails this. It&#x27;s a template.</li><li>Retro poster + infrastructure: the style&#x27;s own geometry becomes the AI data visualization. Style as information layer, not decoration.</li><li>Charcoal + solitary high-stakes outdoor decisions. The medium&#x27;s grain and shadow become physical danger — no other style creates that visceral alone-in-the-dark feeling. Pair with: ER triage, night rescue, Arctic expedition, flood response.</li><li>The &#x27;confirmation&#x27; pattern: Two Stable and She Came to Confirm both show humans who already knew — technology confirms, doesn&#x27;t inform. This perfectly inverts the AI-as-oracle cliché and puts human competence first. It&#x27;s a reframe worth exploiting.</li><li>architectural + body-knowledge: pressing hands against surfaces, closing eyes to listen, physical expertise the AI then *quantifies* — creates a tension no other style+theme pair has found yet. First She Listens opens a seam worth mining.</li><li>Stained glass + cultural-preservation: the sacred register of the style makes technology disappear by contrast — the phone becomes as unobtrusive as a candle. First pairing that makes AI genuinely invisible without effort.</li><li>Watercolor + linguistic-impermanence: loose strokes mirror the fragility of what&#x27;s being preserved — medium and theme are the same idea</li><li>Architectural precision + embodied human knowledge (&#x27;What the Stone Knows&#x27;): the body as sensor that cannot be replaced is a fresh emotional register — intimate, grounded, philosophically loaded. Worth a dedicated exploit round.</li><li>Stained glass + grief-memory (Fifty Years of Voice): luminous spiritual style meets the series&#x27; most intimate emotional territory. The form mirrors the content — light through leaded glass feels like memory made visible.</li><li>Invisible disability + craft mastery: AI as dignity preserver, not capability replacer. What the Chisel Remembers found a category nobody else is in — the viewer sees only the perfect dovetail, never the trembling hand. That gap is the story.</li>
+  </ul>
+
+  <h2>Banned Patterns</h2>
+  <ul class="list-section banned">
+    <li>forearm holographic projections — edges past 10-20yr horizon into sci-fi cosplay</li><li>architectural rendering for intimate human-care scenes — precision aesthetic actively undermines emotional resonance in healing, caregiving, and vulnerable moments</li><li>AI-as-overlay descriptions (&#x27;color-coded translucent overlays showing optimization&#x27;) — these always render as corporate UI, not human experience. The AI element must be *felt* by the human subject, not labeled for the viewer.</li><li>AI in triumphant exit position — drone banking away into heroic sky, glowing interfaces stealing compositional focus. The technology served and should be gone, or invisible. It should never take a bow.</li><li>Style as neutral container — any prompt where swapping the style anchor would produce an equally strong image. The style must mirror the AI&#x27;s function in that domain.</li><li>Bedroom creator scenes. We have the archetype locked with What She Built. Every repeat weakens it. Ban: teenager + bedroom + screen + creative tool.</li><li>Passive observation scenes where the human is simply watching a screen. The Chart fails this way — fisherman looks at tablet, nothing is at stake in that moment. If a human could be replaced by a tripod holding the device, the image fails.</li><li>Retro-poster + infrastructure. The Guardian already owns it. Every new attempt is a pale echo.</li><li>Hands on surface + glowing screen confirms what hands already knew. We have two winners on this beat and three more entries this round. The pattern has become our default, which means it is no longer a choice. Retire for minimum three rounds.</li><li>AI as passive background object — tablet or phone &#x27;beside&#x27; the subject with no active role. Technology must be doing something, even if invisible. Presence without function is set dressing.</li><li>Human acts before algorithm as the primary emotional beat. 4 of 5 images this round end with &#x27;she already knew / he was already pointing / she had already acted.&#x27; The brief wants collaboration and revelation, not humans perpetually outpacing their tools. This pattern now feels defensive rather than abundant.</li><li>Isometric view for human-protagonist scenes. Isometric is a system perspective — it dissolves the individual into the infrastructure. Reserve it for diagrams only.</li><li>Grief-memory variations that don&#x27;t clearly differentiate from Fifty Years of Voice. We have the winner. Stop re-entering that room unless the angle is genuinely orthogonal.</li>
+  </ul>
+
+</div>
+
+<div class="lightbox" onclick="this.classList.remove('active')">
+  <img id="lb-img" src="" alt="Enlarged">
+</div>
+<script>
+  document.querySelectorAll('.card-img-wrap img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+      document.getElementById('lb-img').src = img.src;
+      document.querySelector('.lightbox').classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

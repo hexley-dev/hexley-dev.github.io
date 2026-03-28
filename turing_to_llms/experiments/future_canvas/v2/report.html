@@ -1,0 +1,2567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept Production Report — Future Canvas v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../documentary/shared.css">
+<style>
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+}
+.stat-card .num {
+  font-family: var(--serif);
+  font-size: 2rem;
+  color: var(--accent);
+}
+.stat-card .label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+}
+.round-section {
+  max-width: 1400px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+}
+.round-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+.round-header h2 {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--text);
+}
+.round-meta {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+.concept-card {
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+.concept-card:hover { transform: translateY(-2px); }
+.concept-card.kept { border-color: rgba(72, 187, 120, 0.4); }
+.concept-card.dropped { border-color: rgba(229, 62, 62, 0.3); opacity: 0.6; }
+.concept-card.missing { opacity: 0.3; }
+.concept-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+.card-meta {
+  padding: 0.6rem 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.card-name {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+.card-cat {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.review-notes {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: 6px;
+  border-left: 2px solid var(--accent-dim);
+}
+.review-notes p {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+}
+.review-notes strong { color: var(--text); }
+.category-table {
+  max-width: 600px;
+  margin: 2rem auto;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+}
+.category-table td {
+  padding: 0.4rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: var(--text-dim);
+}
+.category-table td:last-child { color: var(--accent); text-align: right; }
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+</style>
+</head>
+<body>
+
+<nav class="doc-nav"></nav>
+
+<header class="hero">
+  <div class="hero-eyebrow">Autonomous Creative Production</div>
+  <h1>Concept <em>Report</em></h1>
+  <p class="hero-sub">
+    17 rounds of self-directed exploration.
+    252 images generated. 192 kept.
+  </p>
+  <div class="hero-line"></div>
+</header>
+
+<div class="stats-grid">
+  <div class="stat-card"><div class="num">17</div><div class="label">Rounds</div></div>
+  <div class="stat-card"><div class="num">252</div><div class="label">Generated</div></div>
+  <div class="stat-card"><div class="num">192</div><div class="label">Kept</div></div>
+  <div class="stat-card"><div class="num">418</div><div class="label">Minutes</div></div>
+</div>
+
+<div class="round-section">
+  <h2 style="font-family:var(--serif);font-size:1.2rem;font-weight:400;color:var(--text);margin-bottom:1rem;">Category Coverage</h2>
+  <table class="category-table"><tr><td>everyday</td><td>45</td></tr>
+<tr><td>ecosystems</td><td>43</td></tr>
+<tr><td>medical</td><td>33</td></tr>
+<tr><td>human_connection</td><td>22</td></tr>
+<tr><td>infrastructure</td><td>19</td></tr>
+<tr><td>sustainability</td><td>19</td></tr>
+<tr><td>agricultural</td><td>18</td></tr>
+<tr><td>education</td><td>18</td></tr>
+<tr><td>domestic</td><td>17</td></tr>
+<tr><td>creative_tools</td><td>15</td></tr>
+<tr><td>decision_support</td><td>2</td></tr>
+<tr><td>exploration</td><td>2</td></tr>
+<tr><td>breakthroughs</td><td>2</td></tr></table>
+</div>
+
+
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 1</h2>
+            <span class="round-meta">
+              Go WIDER. The 13 keepers cover medical, agricultural, legal, education, creative, domestic, craft, d &mdash;
+              15 images,
+              13 kept,
+              20 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card kept">
+              <img src="round_01/r01_01_first_heartbeat.png" loading="lazy" alt="First Heartbeat"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">First Heartbeat</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_01/r01_02_red_earth_reading.png" loading="lazy" alt="Red Earth Reading"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Red Earth Reading</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_01/r01_03_nervous_system.png" loading="lazy" alt="Nervous System"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Nervous System</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_01/r01_04_the_aha.png" loading="lazy" alt="The Aha"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">The Aha</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_01/r01_05_loom_conversation.png" loading="lazy" alt="Loom Conversation"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Loom Conversation</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_01/r01_06_forty_seconds.png" loading="lazy" alt="Forty Seconds"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forty Seconds</span>
+                <span class="card-cat">decision_support</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_01/r01_07_the_city_reads_back.png" loading="lazy" alt="The City Reads Back"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">The City Reads Back</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_01/r01_08_reef_clock.png" loading="lazy" alt="Reef Clock"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Reef Clock</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_01/r01_09_dear_marta.png" loading="lazy" alt="Dear Marta"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Dear Marta</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_01/r01_10_14_hours.png" loading="lazy" alt="14 Hours"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">14 Hours</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_01/r01_11_the_word_she_needed.png" loading="lazy" alt="The Word She Needed"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">The Word She Needed</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_01/r01_12_desert_retrofit.png" loading="lazy" alt="Desert Retrofit"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Desert Retrofit</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_01/r01_13_the_open_passage.png" loading="lazy" alt="The Open Passage"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">The Open Passage</span>
+                <span class="card-cat">exploration</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_01/r01_14_ice_memory.png" loading="lazy" alt="Ice Memory"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Ice Memory</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_01/r01_15_the_enzyme_kids.png" loading="lazy" alt="The Enzyme Kids"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">The Enzyme Kids</span>
+                <span class="card-cat">breakthroughs</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> The diversity of people is genuinely impressive — Bangladeshi nurse, Kenyan farmer, Guatemalan Maya weaver, Latina public defender, elderly Polish man, Navajo contractor, Inuit hunter, Black Mississippi teacher. This is not a diversity checklist; these are protagonists whose specific identities make the scenes more true. Equally strong: the range of AI forms. Phone overlay, soil probe, voice transcription, drone swarm, earpiece, temperature sensor — the batch correctly resists the companion-robot default. 'Dear Marta' is the standout: AI that is completely invisible. The man speaks to empty air. That's the bravest and most human prompt in the batch. 'Ice Memory' is close behind — the detail of one hand on a device, the other reading actual ice, is exact and earned.</p>
+              <p><strong>Bad patterns:</strong> Three prompts are truncated mid-sentence in the source data ('highlight...', 'predic...', '3...'). This means we're reviewing prompts we cannot fully evaluate — a process flaw. Two prompts commit the same sin: the human checks or looks at data ('Reef Clock': leans over gunwale watching drones feed data to tablet; 'The City Reads Back': navigates confidently while earpiece describes things). Checking data is not the same as doing something. The emotional apex must belong to the human, not happen off-screen in a data feed. Also: slight over-reliance on 'worn phone' and 'small screen' as the AI form — five prompts use some version of this. Valid, but starting to feel like a template.</p>
+              <p><strong>Gaps:</strong> No joy, no play. Every prompt is solving a problem or surviving a difficulty. The series needs at least one scene of pure delight — a kid laughing, an artist surprised by their own work, a moment where AI makes something beautiful happen and the person just grins. No economic mobility story — a small business owner, a market vendor, a freelancer whose livelihood expanded. No community or collective action — every scene is one person alone with a tool. No repair culture — someone fixing something, restoring something, choosing to maintain rather than replace. No physical labor enhanced (not replaced) by AI — a welder, a bricklayer, a surgeon's hands. No mental health scenario beyond speech therapy. No intergenerational teaching — an elder and a youth, one knowing something the other doesn't.</p>
+              <p><strong>Next direction:</strong> Go WIDER. The 13 keepers cover medical, agricultural, legal, education, creative, domestic, craft, disaster response, conservation, and science education thoroughly. The next batch should explore territory that's missing: (1) Joy and play — a scene with no problem to solve, just capability unleashed; (2) Small business / economic life — a tailor, a mechanic, a market vendor whose craft or livelihood expands; (3) Collective action — a community decision, a neighborhood, people doing something together with AI as infrastructure; (4) Physical labor — not a professional but someone whose body is the primary tool, enhanced not replaced; (5) An intergenerational moment — knowledge flowing both directions, elder wisdom and young fluency.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 2</h2>
+            <span class="round-meta">
+              Round 3 must solve the art style monoculture. Mandate: no prompt may start with 'Cinematic photo' un &mdash;
+              15 images,
+              12 kept,
+              26 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card kept">
+              <img src="round_02/r02_01_teacher_s_dashboard.png" loading="lazy" alt="Teacher's Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teacher's Dashboard</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_02/r02_02_baker_s_recipe_ai.png" loading="lazy" alt="Baker's Recipe AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Baker's Recipe AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_02/r02_03_forest_fire_early_warning.png" loading="lazy" alt="Forest Fire Early Warning"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forest Fire Early Warning</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_02/r02_04_surgeon_s_ar_overlay.png" loading="lazy" alt="Surgeon's AR Overlay"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Surgeon's AR Overlay</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_02/r02_05_bridge_inspector_drone.png" loading="lazy" alt="Bridge Inspector Drone"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Bridge Inspector Drone</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_02/r02_06_wheelchair_user_s_smart_home.png" loading="lazy" alt="Wheelchair User's Smart Home"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Wheelchair User's Smart Home</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_02/r02_07_rooftop_solar_party.png" loading="lazy" alt="Rooftop Solar Party"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Rooftop Solar Party</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_02/r02_08_farmer_s_ai_dashboard.png" loading="lazy" alt="Farmer's AI Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Farmer's AI Dashboard</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_02/r02_09_night_shift_nurse.png" loading="lazy" alt="Night Shift Nurse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Night Shift Nurse</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_02/r02_10_ocean_monitor_station.png" loading="lazy" alt="Ocean Monitor Station"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Ocean Monitor Station</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_02/r02_11_small_business_ai.png" loading="lazy" alt="Small Business AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Small Business AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_02/r02_12_translation_glasses.png" loading="lazy" alt="Translation Glasses"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Translation Glasses</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_02/r02_13_mechanic_s_diagnostic.png" loading="lazy" alt="Mechanic's Diagnostic"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Mechanic's Diagnostic</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_02/r02_14_smart_greenhouse.png" loading="lazy" alt="Smart Greenhouse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Smart Greenhouse</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_02/r02_15_music_studio_collaboration.png" loading="lazy" alt="Music Studio Collaboration"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Music Studio Collaboration</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> The non-elite protagonists are exactly right: mechanic with grease on her hands, nurse at 3am, ocean biologist in yellow rain gear, elderly couple tending tomatoes. These specifics are doing the work the mission requires. AI form discipline is also strong — dashboards, sensor networks, AR overlays, ambient systems. No companion robots smuggled in. 'Technology invisible to the patient' in Surgeon's AR Overlay is the best single line in the batch — that's the ethos.</p>
+              <p><strong>Bad patterns:</strong> CRITICAL FAILURE: Every single prompt opens with 'Cinematic photo.' All 15. The round instructions explicitly required at least 3 different art styles. A watercolor farmer's almanac aesthetic. An editorial illustration for the classroom. An ink wash for the ocean scene. None of this happened. The batch is visually monotonous before a single image is generated. Additionally, 7 of 15 prompts share the same composition: human + screen showing data. That's becoming the cliché we're trying to escape — the 'person looking at a dashboard' pattern. The AI is right-formed but the HUMAN is becoming interchangeable.</p>
+              <p><strong>Gaps:</strong> No children as actual protagonists — kids appear as background in the rooftop party, never as the central human. No Global South settings — every scenario reads as North American or European. No physical rehabilitation or assistive therapy. No mental health or emotional wellbeing scenarios (AI helping someone process grief, manage anxiety, stay connected while isolated). No scenarios where the AI is truly invisible — no screen, no device, just outcomes (a field that's healthy, a patient who survived). No civic or governance scenarios. No scenarios in extreme or unusual environments — underwater research station, Arctic monitoring post, underground mine. The mission requires showing AI going to everyone, everywhere, but this round is still suburban-professional.</p>
+              <p><strong>Next direction:</strong> Round 3 must solve the art style monoculture. Mandate: no prompt may start with 'Cinematic photo' unless it is the only appropriate form. Require: at least one watercolor or gouache illustration (warm, handmade — a farmer's almanac for the AI age), at least one editorial illustration (bold, graphic — NYT Magazine register), at least one concept art / matte painting (expansive, future-city scale), at least one ink wash or woodblock print (contemplative, timeless). Pair the style to the emotional register: the teacher's classroom is warm editorial illustration, the surgical scene is crisp photorealism, the future city is concept art painting. Simultaneously: diversify human subjects. Include a child as the central protagonist (not background). Include a scene set explicitly in the Global South — a village, a market, a smallholder farm in sub-Saharan Africa or South Asia. Include one scenario where AI is genuinely invisible — we see only the outcome, not the interface.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 3</h2>
+            <span class="round-meta">
+              We have ~38 strong keepers across 3 rounds. The collection is deep in agricultural, medical, and dom &mdash;
+              15 images,
+              13 kept,
+              20 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card kept">
+              <img src="round_03/r03_01_the_widower_s_morning.png" loading="lazy" alt="The Widower's Morning"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">The Widower's Morning</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_03/r03_02_kenyan_soil_reading.png" loading="lazy" alt="Kenyan Soil Reading"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Kenyan Soil Reading</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_03/r03_03_blind_coder_in_flow.png" loading="lazy" alt="Blind Coder in Flow"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Blind Coder in Flow</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_03/r03_04_rural_midwife_indonesia.png" loading="lazy" alt="Rural Midwife, Indonesia"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Rural Midwife, Indonesia</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_03/r03_05_lagos_girl_city_planner.png" loading="lazy" alt="Lagos Girl, City Planner"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Lagos Girl, City Planner</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_03/r03_06_nepal_avalanche_watch.png" loading="lazy" alt="Nepal Avalanche Watch"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Nepal Avalanche Watch</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_03/r03_07_grandmother_doesn_t_have_to_remember.png" loading="lazy" alt="Grandmother Doesn't Have to Remember"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Grandmother Doesn't Have to Remember</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_03/r03_08_the_invisible_harvest.png" loading="lazy" alt="The Invisible Harvest"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">The Invisible Harvest</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_03/r03_09_deaf_architect_acoustic_space.png" loading="lazy" alt="Deaf Architect, Acoustic Space"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Deaf Architect, Acoustic Space</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_03/r03_10_arctic_keeper.png" loading="lazy" alt="Arctic Keeper"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Arctic Keeper</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_03/r03_11_everyone_goes_home.png" loading="lazy" alt="Everyone Goes Home"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Everyone Goes Home</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_03/r03_12_stroke_survivor_first_steps.png" loading="lazy" alt="Stroke Survivor, First Steps"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Stroke Survivor, First Steps</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_03/r03_13_village_tap_clean_water.png" loading="lazy" alt="Village Tap, Clean Water"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Village Tap, Clean Water</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_03/r03_14_teenager_breathing_app.png" loading="lazy" alt="Teenager, Breathing App"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teenager, Breathing App</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_03/r03_15_brazilian_watershed_vote.png" loading="lazy" alt="Brazilian Watershed Vote"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Brazilian Watershed Vote</span>
+                <span class="card-cat">decision_support</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> Round 3 decisively solved the art style monoculture problem that killed Round 2. Across 15 prompts: oil painting (x2), gouache illustration (x2), ink wash, editorial illustration (x2), watercolor (x2), woodblock print, concept art matte painting, photorealistic, bold ink woodcut. That's 8 distinct styles deployed with purpose — the gouache for tactile warmth in the midwife scene, photorealism for the clinical precision of physical therapy, woodblock for the civic weight of the watershed vote. This is the assignment answered. The geographic range is excellent: Kenya, Indonesia, Nigeria, Nepal, South Africa, Arctic, Brazil, India, Japan, Lagos. The AI-form variety is strong: voice devices, sensor stakes, floor sensors, wrist displays, AR glasses overlays, tablet maps, projector overlays. Critically, nobody handed a robot a starring role. The Brazilian Watershed Vote is a standout — AI generates the options, humans vote. That's the right power relationship shown correctly.</p>
+              <p><strong>Bad patterns:</strong> Two prompts dropped for the same underlying sin: invoking invisible AI as a concept without earning it compositionally. Invisible infrastructure is a legitimate and beautiful choice — 'Grandmother Doesn't Have to Remember' earns it by keeping the emotional weight on the grandmother's dignity. 'Everyone Goes Home' earns it by centering the wrist display as the point of contact. Invisible AI that leaves the viewer with nothing to grab onto is just a pretty image that doesn't serve the mission. Watch for this in future rounds. Secondary concern: several prompt excerpts are cut off in the log, making it impossible to verify they came in under 450 characters. Run a character count audit before generation.</p>
+              <p><strong>Gaps:</strong> Three clear gaps after 3 rounds: (1) Knowledge work — we have farmers, midwives, miners, architects, but almost no one doing 'office' or 'desk' work transformed by AI. A paralegal finding case precedents in seconds. A small business owner who now has a CFO's tools. A translator handling medical consultations across three languages. These are the people who represent the bulk of AI's near-term impact and they're missing. (2) Tension and determination — the emotional palette skews warm (joy, relief, wonder, warmth). We have almost no images of grit, focus-under-pressure, or the moment before breakthrough. The brief says 'realistic optimism,' not 'everything is joyful.' Show someone debugging something that matters, a rescue worker in the rain, a researcher at 2am. (3) Repair, maintenance, and trades — mechanics, electricians, plumbers, HVAC technicians. These are the people Klein's Abundance argument is actually about. A small engine mechanic with an AI diagnostic overlay would be a powerful image. Currently underrepresented.</p>
+              <p><strong>Next direction:</strong> We have ~38 strong keepers across 3 rounds. The collection is deep in agricultural, medical, and domestic scenes. Round 4 should hard-pivot to the three gaps above. Specific brief: (1) 3-4 knowledge worker / small business owner scenes — a paralegal, a solo accountant, a small restaurant owner doing inventory. (2) 3-4 trades and repair scenes — mechanic, electrician, plumber, HVAC tech. These are the non-elite protagonists the brief demands and they're conspicuously absent. (3) 3-4 tension/determination scenes — not everything resolved, some in-progress, stakes visible. (4) 2 creative arts scenes — a musician collaborating with generative tools, a filmmaker editing. Maintain the art style diversity that Round 3 cracked. No two prompts may use the same opening style descriptor.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 4</h2>
+            <span class="round-meta">
+              Style diversity is non-negotiable in Round 5. Zero cinematic photo prompts. Hard mandate: every prom &mdash;
+              15 images,
+              13 kept,
+              26 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card dropped">
+              <img src="round_04/r04_01_farmer_s_ai_dashboard.png" loading="lazy" alt="Farmer's AI Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Farmer's AI Dashboard</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_04/r04_02_baker_s_recipe_ai.png" loading="lazy" alt="Baker's Recipe AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Baker's Recipe AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_04/r04_03_teacher_s_dashboard.png" loading="lazy" alt="Teacher's Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teacher's Dashboard</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_04/r04_04_night_shift_nurse.png" loading="lazy" alt="Night Shift Nurse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Night Shift Nurse</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_04/r04_05_small_business_ai.png" loading="lazy" alt="Small Business AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Small Business AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_04/r04_06_translation_glasses.png" loading="lazy" alt="Translation Glasses"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Translation Glasses</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_04/r04_07_wheelchair_user_s_smart_home.png" loading="lazy" alt="Wheelchair User's Smart Home"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Wheelchair User's Smart Home</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_04/r04_08_music_studio_collaboration.png" loading="lazy" alt="Music Studio Collaboration"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Music Studio Collaboration</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_04/r04_09_mechanic_s_diagnostic.png" loading="lazy" alt="Mechanic's Diagnostic"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Mechanic's Diagnostic</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_04/r04_10_forest_fire_early_warning.png" loading="lazy" alt="Forest Fire Early Warning"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forest Fire Early Warning</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_04/r04_11_smart_greenhouse.png" loading="lazy" alt="Smart Greenhouse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Smart Greenhouse</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_04/r04_12_rooftop_solar_party.png" loading="lazy" alt="Rooftop Solar Party"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Rooftop Solar Party</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_04/r04_13_bridge_inspector_drone.png" loading="lazy" alt="Bridge Inspector Drone"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Bridge Inspector Drone</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_04/r04_14_surgeon_s_ar_overlay.png" loading="lazy" alt="Surgeon's AR Overlay"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Surgeon's AR Overlay</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_04/r04_15_ocean_monitor_station.png" loading="lazy" alt="Ocean Monitor Station"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Ocean Monitor Station</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> Human-first framing is strong throughout — nearly every prompt establishes the person before the technology. AI form variety is the best it's been: drones, AR overlays, ambient smart home, wall-mounted monitors, sensor networks. The collection now has genuine demographic range: elderly couple in greenhouse, teenager in music studio, young woman mechanic, female surgeon. Lighting has diversified meaningfully — blue hour, dawn mist, stormy twilight, colored LEDs are all doing real work. The truncated prompts ending in '...' suggest composers were working right up to the character limit and packing in emotional texture, which is good instinct.</p>
+              <p><strong>Bad patterns:</strong> CRITICAL FAILURE: Every single prompt in this batch starts with 'Cinematic photo.' Every. Single. One. Round 2 explicitly mandated breaking this. Round 3 direction said the same. This is the third consecutive round failing to solve the same problem. The style monoculture is not a stylistic preference — it's an artistic limitation. Cinematic photo rewards the familiar and punishes the unexpected. A Rooftop Solar Party would be far more joyful as a bold editorial illustration. The Ocean Monitor would hit harder as ink wash. The Wheelchair Smart Home scene could be transcendent as warm gouache. We are generating technically competent prompts that are all playing the same note. The medical category is also getting crowded: Night Shift Nurse and Surgeon's AR Overlay are both strong individually, but we now have multiple medical entries across all four rounds. One more medical prompt and we have a hospital brochure, not a series about all of human civilization.</p>
+              <p><strong>Gaps:</strong> Four rounds in and we have almost nothing on: (1) Civic and governance AI — a public defender using AI to surface precedents for a client who can't afford a $500/hr lawyer; a city council member reviewing AI-modeled infrastructure tradeoffs; (2) Cultural preservation — a community elder working with AI to transcribe and preserve a dying oral language; a conservator using AI to detect forgeries or restore damaged artwork; (3) Accessible technology beyond physical mobility — deaf child using AI that converts music into visual rhythm patterns; blind programmer using AI code narration; (4) Mental wellness — not a robot therapist, but a veteran using an AI journaling tool that helps them notice emotional patterns over time, shown through the journal itself; (5) Disaster response and resilience — not just early warning, but coordination: search-and-rescue team using AI to prioritize grid squares after an earthquake; (6) Blue-collar trades beyond mechanic and farmer — a plumber diagnosing pipe failures, a welder using AR for precision joints; (7) Global South protagonists — we have diverse people but the scenarios skew affluent-world infrastructure (smart greenhouse, rooftop solar, home automation). A Kenyan smallholder farmer getting SMS crop advice, a Brazilian community health worker with an offline-capable diagnostic tool.</p>
+              <p><strong>Next direction:</strong> Style diversity is non-negotiable in Round 5. Zero cinematic photo prompts. Hard mandate: every prompt must specify a non-photographic style. Suggested distribution across 15 prompts: gouache illustration (3), oil painting (2), ink wash (2), editorial illustration (2), retro-future poster (2), watercolor (2), architectural rendering concept art (1), woodblock print (1). Pair styles to emotional registers: civic/legal scenes work as editorial illustration; cultural preservation works as ink wash or woodblock; disaster response works as high-contrast concept art painting; everyday joy works as gouache. Content-wise: go WIDER. Mandate at least 3 of: civic/legal aid, cultural preservation, Global South protagonist, accessibility (hearing or vision), blue-collar trade we haven't done. One prompt should have NO technology visible at all — just the human and the outcome, technology implied.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 5</h2>
+            <span class="round-meta">
+              Round 6 has one non-negotiable constraint: zero 'Cinematic photo' prompts. Every prompt must start w &mdash;
+              15 images,
+              10 kept,
+              26 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card kept">
+              <img src="round_05/r05_01_music_studio_collaboration.png" loading="lazy" alt="Music Studio Collaboration"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Music Studio Collaboration</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_05/r05_02_smart_greenhouse.png" loading="lazy" alt="Smart Greenhouse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Smart Greenhouse</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_05/r05_03_farmer_s_ai_dashboard.png" loading="lazy" alt="Farmer's AI Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Farmer's AI Dashboard</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_05/r05_04_wheelchair_user_s_smart_home.png" loading="lazy" alt="Wheelchair User's Smart Home"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Wheelchair User's Smart Home</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_05/r05_05_bridge_inspector_drone.png" loading="lazy" alt="Bridge Inspector Drone"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Bridge Inspector Drone</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_05/r05_06_ocean_monitor_station.png" loading="lazy" alt="Ocean Monitor Station"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Ocean Monitor Station</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_05/r05_07_forest_fire_early_warning.png" loading="lazy" alt="Forest Fire Early Warning"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forest Fire Early Warning</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_05/r05_08_baker_s_recipe_ai.png" loading="lazy" alt="Baker's Recipe AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Baker's Recipe AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_05/r05_09_rooftop_solar_party.png" loading="lazy" alt="Rooftop Solar Party"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Rooftop Solar Party</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_05/r05_10_mechanic_s_diagnostic.png" loading="lazy" alt="Mechanic's Diagnostic"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Mechanic's Diagnostic</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_05/r05_11_small_business_ai.png" loading="lazy" alt="Small Business AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Small Business AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_05/r05_12_night_shift_nurse.png" loading="lazy" alt="Night Shift Nurse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Night Shift Nurse</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_05/r05_13_translation_glasses.png" loading="lazy" alt="Translation Glasses"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Translation Glasses</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_05/r05_14_teacher_s_dashboard.png" loading="lazy" alt="Teacher's Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teacher's Dashboard</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_05/r05_15_surgeon_s_ar_overlay.png" loading="lazy" alt="Surgeon's AR Overlay"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Surgeon's AR Overlay</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> Human specificity is improving: the 3am nurse, the laughing market vendor, the elderly couple tending tomatoes — these are characters, not archetypes. AI form choices are mostly right: ambient smart home, sensor networks, drones, AR overlays, wall monitors. Nobody handed the farmer a robot companion. The 'Rooftop Solar Party' is the most emotionally distinctive concept in the batch — celebration as a theme has been absent and it earns its place.</p>
+              <p><strong>Bad patterns:</strong> CRITICAL FAILURE: Every single prompt in Round 5 starts with 'Cinematic photo.' The Round 4 mandate was zero cinematic photo prompts — a hard rule. This batch ignored it entirely. This is not a style diversity problem, it is a mandate violation. The images are already generated, so the style is baked in, but this must not happen in Round 6. Secondary: three ecosystems concepts in one batch (greenhouse, ocean, forest) — category overconcentration. And 'person looking at a screen/tablet' appears in 9 of 15 prompts — passive interaction is becoming the default posture.</p>
+              <p><strong>Gaps:</strong> Civic and democratic participation — no concept yet shows AI helping ordinary people engage with government, local planning, or voting. Mental health support — delicate but mission-critical; a therapist using AI to notice patterns, not a robot giving comfort. Physical performance — para-athlete, aging runner, youth sports coach. Cultural heritage — restorer using AI to analyze a painting, a linguist preserving an endangered language. Emergency response — the moment of disaster prevention or recovery, not monitoring beforehand. Refugee and migration — someone navigating bureaucracy or a new language with AI support. Sign language interpretation — an ASL interpreter augmented by AI in a packed auditorium. Rural telemedicine — the moment a rural patient gets specialist-level diagnosis via AI-assisted remote consult.</p>
+              <p><strong>Next direction:</strong> Round 6 has one non-negotiable constraint: zero 'Cinematic photo' prompts. Every prompt must start with a non-photographic style. Mandate at least: 3 oil painting or gouache illustration, 2 editorial illustration (think New Yorker or TIME cover energy), 2 concept art painting, 2 watercolor, 1 woodblock print or linocut, 1 isometric illustration, 1 stained glass or paper-cut diorama. Explore new emotional registers: not just quiet competence — try: joy, relief, wonder, determination, grief turning to hope. Go wider on gaps: civic/democratic participation, mental health, cultural heritage, physical performance, sign language / accessibility beyond wheelchair. Avoid any prompt whose structure is 'person + tablet/laptop showing AI data.' Make the AI form surprising — a singing bowl that's also a biometric device, a fishing net that reports ocean health, a classroom wall that shifts to show student comprehension.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 6</h2>
+            <span class="round-meta">
+              Round 7 has two hard mandates. First: no prompt may open with 'Cinematic photo' — the batch must be  &mdash;
+              15 images,
+              8 kept,
+              26 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card dropped">
+              <img src="round_06/r06_01_surgeon_s_ar_overlay.png" loading="lazy" alt="Surgeon's AR Overlay"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Surgeon's AR Overlay</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_06/r06_02_rooftop_solar_party.png" loading="lazy" alt="Rooftop Solar Party"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Rooftop Solar Party</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_06/r06_03_farmer_s_ai_dashboard.png" loading="lazy" alt="Farmer's AI Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Farmer's AI Dashboard</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_06/r06_04_smart_greenhouse.png" loading="lazy" alt="Smart Greenhouse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Smart Greenhouse</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_06/r06_05_baker_s_recipe_ai.png" loading="lazy" alt="Baker's Recipe AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Baker's Recipe AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_06/r06_06_forest_fire_early_warning.png" loading="lazy" alt="Forest Fire Early Warning"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forest Fire Early Warning</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_06/r06_07_translation_glasses.png" loading="lazy" alt="Translation Glasses"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Translation Glasses</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_06/r06_08_teacher_s_dashboard.png" loading="lazy" alt="Teacher's Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teacher's Dashboard</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_06/r06_09_bridge_inspector_drone.png" loading="lazy" alt="Bridge Inspector Drone"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Bridge Inspector Drone</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_06/r06_10_mechanic_s_diagnostic.png" loading="lazy" alt="Mechanic's Diagnostic"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Mechanic's Diagnostic</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_06/r06_11_wheelchair_user_s_smart_home.png" loading="lazy" alt="Wheelchair User's Smart Home"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Wheelchair User's Smart Home</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_06/r06_12_small_business_ai.png" loading="lazy" alt="Small Business AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Small Business AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_06/r06_13_ocean_monitor_station.png" loading="lazy" alt="Ocean Monitor Station"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Ocean Monitor Station</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_06/r06_14_night_shift_nurse.png" loading="lazy" alt="Night Shift Nurse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Night Shift Nurse</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_06/r06_15_music_studio_collaboration.png" loading="lazy" alt="Music Studio Collaboration"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Music Studio Collaboration</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> Character specificity is improving significantly. 'Marine biologist in yellow rain gear on small boat,' 'nurse at 3am,' 'wheelchair user's voice-controlled home' — these are vivid, specific human portraits. The emotional register is rising: laughter across a language barrier, a community dancing on solar panels, 3am hospital quiet. Several prompts now include weather, time of day, and physical detail that ground them. Bridge Inspector Drone shows that non-heroic, unglamorous infrastructure work can be compelling.</p>
+              <p><strong>Bad patterns:</strong> CRITICAL FAILURE: 100% of Round 6 prompts open with 'Cinematic photo' — a direct, unambiguous violation of the stated non-negotiable mandate. This is not a slip; it is a complete miss. The instruction was 'zero Cinematic photo prompts.' Every single prompt failed it. Beyond that systemic failure: screens, tablets, and laptops are the AI interface in 11 of 15 prompts. The collection is developing screen-blindness. AI as invisible ambient system, as physical tool, as spatial intelligence — almost entirely absent. The kept images survive despite style failure, not because of it.</p>
+              <p><strong>Gaps:</strong> Non-visual AI is severely underrepresented: no smart building that reads crowd flow, no haptic feedback suit, no AI optimized traffic that a cyclist navigates, no prosthetic limb with neural sync, no material-sensing fabrication robot, no smell/taste sensor in food safety inspection. Children as solo protagonists (not background) are missing. Global South contexts — rural India, sub-Saharan Africa, Southeast Asian city — are absent despite the 'tool goes to everyone' mandate. Play and leisure are nearly zero: no AI-assisted sport, no generative art installation, no community game. Physical labor beyond the garage — dockworkers, miners, construction — is untouched.</p>
+              <p><strong>Next direction:</strong> Round 7 has two hard mandates. First: no prompt may open with 'Cinematic photo' — the batch must be rejected wholesale if this fails again. Required styles include at minimum: gouache illustration, ink wash, architectural rendering, editorial illustration, and woodblock print — assign each to a concept deliberately, not randomly. Second: ban screens and tablets as the primary AI interface element. Force alternative forms: spatial overlays, audio feedback, physical sensors, smart materials, drone swarms, ambient building intelligence, haptic tools. Themes to target: physical labor (dockworker, miner, construction), leisure and play, Global South contexts, children as primary protagonists, and at least one concept where the AI is genuinely invisible — you can only infer it from the human's confidence or ease.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 7</h2>
+            <span class="round-meta">
+              Round 8 is a style intervention round. Zero 'Cinematic photo' prompts — this is a hard block, not a  &mdash;
+              15 images,
+              9 kept,
+              26 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card kept">
+              <img src="round_07/r07_01_ocean_monitor_station.png" loading="lazy" alt="Ocean Monitor Station"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Ocean Monitor Station</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_07/r07_02_teacher_s_dashboard.png" loading="lazy" alt="Teacher's Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teacher's Dashboard</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_07/r07_03_night_shift_nurse.png" loading="lazy" alt="Night Shift Nurse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Night Shift Nurse</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_07/r07_04_baker_s_recipe_ai.png" loading="lazy" alt="Baker's Recipe AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Baker's Recipe AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_07/r07_05_translation_glasses.png" loading="lazy" alt="Translation Glasses"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Translation Glasses</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_07/r07_06_music_studio_collaboration.png" loading="lazy" alt="Music Studio Collaboration"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Music Studio Collaboration</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_07/r07_07_bridge_inspector_drone.png" loading="lazy" alt="Bridge Inspector Drone"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Bridge Inspector Drone</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_07/r07_08_forest_fire_early_warning.png" loading="lazy" alt="Forest Fire Early Warning"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forest Fire Early Warning</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_07/r07_09_small_business_ai.png" loading="lazy" alt="Small Business AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Small Business AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_07/r07_10_rooftop_solar_party.png" loading="lazy" alt="Rooftop Solar Party"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Rooftop Solar Party</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_07/r07_11_surgeon_s_ar_overlay.png" loading="lazy" alt="Surgeon's AR Overlay"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Surgeon's AR Overlay</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_07/r07_12_farmer_s_ai_dashboard.png" loading="lazy" alt="Farmer's AI Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Farmer's AI Dashboard</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_07/r07_13_smart_greenhouse.png" loading="lazy" alt="Smart Greenhouse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Smart Greenhouse</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_07/r07_14_wheelchair_user_s_smart_home.png" loading="lazy" alt="Wheelchair User's Smart Home"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Wheelchair User's Smart Home</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_07/r07_15_mechanic_s_diagnostic.png" loading="lazy" alt="Mechanic's Diagnostic"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Mechanic's Diagnostic</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> Human-first framing is now instinctive — nearly every prompt leads with a person, a role, an emotional state. The AI forms are genuinely varied and purposeful: underwater sensors, wall-mounted monitors, ambient home intelligence, AR overlays, drones. Nobody is talking to a companion robot. Diversity is present and thoughtful: woman surgeon, wheelchair user, elderly couple, woman mechanic, marine biologist in weather gear. The 'quiet competence' and '3am dedication' emotional registers land consistently well. Rooftop Solar Party is the standout of the batch — the only prompt that achieves genuine joy and community scale simultaneously.</p>
+              <p><strong>Bad patterns:</strong> Every single prompt starts with 'Cinematic photo.' This is the third consecutive round where the hard mandate to break the style monoculture was completely ignored — despite escalating instructions in Rounds 5, 6, and 7. This is no longer a style preference problem; it's a production pipeline failure. The mandate has been stated three times and zero prompts have complied. The collection now has 70+ images in approximately one visual register. This must be treated as a blocking issue, not a note.</p>
+              <p><strong>Gaps:</strong> The collection has almost no civic or governance technology — voting systems, public health infrastructure, city planning tools. No grief-to-hope narratives: someone navigating a medical diagnosis with AI assistance, or a community rebuilding after disaster with data tools. No children as active protagonists (Rooftop Solar Party has kids dancing but as background). No developing world or rural non-US settings beyond the agricultural work. No play, sport, or leisure that isn't also serious. No representation of AI helping with communication or access for people who are non-verbal, deaf, or have cognitive differences. The collection earns wonder and competence; it has not yet earned tenderness.</p>
+              <p><strong>Next direction:</strong> Round 8 is a style intervention round. Zero 'Cinematic photo' prompts — this is a hard block, not a preference. Every prompt must begin with a specific named art style from this list: warm gouache illustration, ink wash, editorial illustration, oil painting, watercolor, concept art painting, woodblock print, architectural rendering, or Ghibli-inspired. For concept territory: go toward the gaps above — civic technology, grief-to-hope, children as protagonists, accessibility beyond mobility, and one developing-world setting. The emotional register to target: tenderness. We have competence, dedication, quiet heroism. We need the face of someone who just received relief they didn't expect.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 8</h2>
+            <span class="round-meta">
+              Round 9 has one non-negotiable production rule: prompts are written in a shared doc before submissio &mdash;
+              15 images,
+              9 kept,
+              26 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card kept">
+              <img src="round_08/r08_01_rooftop_solar_party.png" loading="lazy" alt="Rooftop Solar Party"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Rooftop Solar Party</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_08/r08_02_surgeon_s_ar_overlay.png" loading="lazy" alt="Surgeon's AR Overlay"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Surgeon's AR Overlay</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_08/r08_03_night_shift_nurse.png" loading="lazy" alt="Night Shift Nurse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Night Shift Nurse</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_08/r08_04_translation_glasses.png" loading="lazy" alt="Translation Glasses"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Translation Glasses</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_08/r08_05_baker_s_recipe_ai.png" loading="lazy" alt="Baker's Recipe AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Baker's Recipe AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_08/r08_06_wheelchair_user_s_smart_home.png" loading="lazy" alt="Wheelchair User's Smart Home"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Wheelchair User's Smart Home</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_08/r08_07_music_studio_collaboration.png" loading="lazy" alt="Music Studio Collaboration"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Music Studio Collaboration</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_08/r08_08_bridge_inspector_drone.png" loading="lazy" alt="Bridge Inspector Drone"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Bridge Inspector Drone</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_08/r08_09_smart_greenhouse.png" loading="lazy" alt="Smart Greenhouse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Smart Greenhouse</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_08/r08_10_teacher_s_dashboard.png" loading="lazy" alt="Teacher's Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teacher's Dashboard</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_08/r08_11_small_business_ai.png" loading="lazy" alt="Small Business AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Small Business AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_08/r08_12_farmer_s_ai_dashboard.png" loading="lazy" alt="Farmer's AI Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Farmer's AI Dashboard</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_08/r08_13_ocean_monitor_station.png" loading="lazy" alt="Ocean Monitor Station"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Ocean Monitor Station</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_08/r08_14_mechanic_s_diagnostic.png" loading="lazy" alt="Mechanic's Diagnostic"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Mechanic's Diagnostic</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_08/r08_15_forest_fire_early_warning.png" loading="lazy" alt="Forest Fire Early Warning"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forest Fire Early Warning</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> Strong character specificity is the best thing this batch does: 'grease on hands, competence in her expression' (Mechanic), 'weather-beaten, purposeful' (Ocean Monitor), 'reaching for coffee, planning who needs help next' (Teacher). These details make subjects feel like people, not archetypes. AI form diversity is also solid — AR overlays, wall monitors, drones, ambient home intelligence, tablets — no forced companion robots. The lighting variety shows effort even if constrained to one style register.</p>
+              <p><strong>Bad patterns:</strong> CRITICAL FAILURE: Every single prompt in Round 8 opens with 'Cinematic photo.' This is a direct, explicit violation of the Round 8 mandate ('Zero Cinematic photo prompts — this is a hard block, not a suggestion'). This is not a trend or a pattern. It is total non-compliance. The style mandate has been issued four consecutive rounds and has failed to land four consecutive times. The prompts have been allowed to ignore the single hardest constraint in the brief. This is a systemic production failure, not a creative one — the underlying concepts in this batch are among the strongest we've produced. But every image was generated in the wrong style, which means every image needs to be regenerated.</p>
+              <p><strong>Gaps:</strong> The collection is now strong in: medical, agricultural, everyday trades, domestic, and education. What's nearly absent: (1) Governance and civic participation — AI helping a city council member understand constituent needs, a community voting tool, neighborhood planning. (2) Children as protagonists — not teenagers, but 8-12 year olds using tools we can't yet imagine. (3) Global South settings — the collection skews heavily Western/suburban. A rural health worker in West Africa, a market in Southeast Asia, a fishing village in Indonesia. (4) Physical labor with AI — construction, mining, deep-sea work, wildfire fighting from the ground (not a remote lookout). (5) Creative arts beyond music — a weaver, a potter, a muralist.</p>
+              <p><strong>Next direction:</strong> Round 9 has one non-negotiable production rule: prompts are written in a shared doc before submission, and any prompt starting with 'Cinematic photo' is struck before the batch is finalized. This is a gate, not a suggestion. For content: go WIDER into the global south and civic/governance themes. One batch should feel like it was shot (or painted) in four different countries. Style mandate for Round 9: every prompt must specify a non-photographic style — watercolor editorial, gouache illustration, ink wash, isometric diagram, woodblock print, concept art painting. The kept concepts from this round (Surgeon, Nurse, Translation Glasses, Wheelchair User, Baker, Teacher, Ocean Monitor, Mechanic, Rooftop Party) should be regenerated with appropriate non-cinematic styles before they're considered final.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 9</h2>
+            <span class="round-meta">
+              Style intervention is now mandatory at the structural level. The next batch must be built with a sty &mdash;
+              15 images,
+              12 kept,
+              27 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card kept">
+              <img src="round_09/r09_01_teacher_s_dashboard.png" loading="lazy" alt="Teacher's Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teacher's Dashboard</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_09/r09_02_translation_glasses.png" loading="lazy" alt="Translation Glasses"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Translation Glasses</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_09/r09_03_baker_s_recipe_ai.png" loading="lazy" alt="Baker's Recipe AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Baker's Recipe AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_09/r09_04_ocean_monitor_station.png" loading="lazy" alt="Ocean Monitor Station"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Ocean Monitor Station</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_09/r09_05_bridge_inspector_drone.png" loading="lazy" alt="Bridge Inspector Drone"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Bridge Inspector Drone</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_09/r09_06_rooftop_solar_party.png" loading="lazy" alt="Rooftop Solar Party"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Rooftop Solar Party</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_09/r09_07_night_shift_nurse.png" loading="lazy" alt="Night Shift Nurse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Night Shift Nurse</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_09/r09_08_wheelchair_user_s_smart_home.png" loading="lazy" alt="Wheelchair User's Smart Home"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Wheelchair User's Smart Home</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_09/r09_09_small_business_ai.png" loading="lazy" alt="Small Business AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Small Business AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_09/r09_10_mechanic_s_diagnostic.png" loading="lazy" alt="Mechanic's Diagnostic"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Mechanic's Diagnostic</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_09/r09_11_farmer_s_ai_dashboard.png" loading="lazy" alt="Farmer's AI Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Farmer's AI Dashboard</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_09/r09_12_smart_greenhouse.png" loading="lazy" alt="Smart Greenhouse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Smart Greenhouse</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_09/r09_13_music_studio_collaboration.png" loading="lazy" alt="Music Studio Collaboration"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Music Studio Collaboration</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_09/r09_14_surgeon_s_ar_overlay.png" loading="lazy" alt="Surgeon's AR Overlay"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Surgeon's AR Overlay</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_09/r09_15_forest_fire_early_warning.png" loading="lazy" alt="Forest Fire Early Warning"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forest Fire Early Warning</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> Genuine protagonist diversity is the strongest asset this round: weathered farmer in flannel, young woman with grease on her hands, elderly couple, teenager in a studio, nurse at 3am — these are non-elite people in non-elite situations. Lighting varies meaningfully within the cinematic photo frame: stormy twilight, blue-white hospital night, humid green light, dawn mist, overcast morning. That's real craft. Several prompts nail specificity: 'humidity and flour batch,' 'soil moisture maps and pest predictions,' 'colored node indicating understanding level' — these are plausible near-future details that make the AI feel real, not magical. The framing line 'Creating, not being replaced' in Music Studio is the best single phrase in the batch.</p>
+              <p><strong>Bad patterns:</strong> Every single prompt — 15 of 15 — opens with 'Cinematic photo.' This is a catastrophic style compliance failure. This batch was supposed to have prompts reviewed in a shared document before submission specifically to prevent this. That safeguard apparently failed completely. After four consecutive rounds of explicit hard mandates (rounds 5, 6, 7, 8 all flagged this as a blocking issue), 100% cinematic photo is not drift — it is the default being reasserted every time constraints are relaxed. The style variety mandate is not being internalized; it is being tolerated briefly when forced, then abandoned. A secondary pattern: several prompts end with summary taglines ('Craft meets intelligence,' 'Independence through ambient intelligence,' 'Technology as a watchful partner') that read like pitch copy, not visual direction. These lines describe meaning rather than show it. They waste prompt tokens.</p>
+              <p><strong>Gaps:</strong> Zero scenes outside North America or Europe — every setting reads as wealthy, developed-world infrastructure. No Global South. No low-bandwidth AI scenarios (SMS crop advisory in Uganda, voice-only health triage in a rural clinic). No cognitive accessibility — only one disability scene and it's physical. No inter-generational knowledge transfer moments where AI bridges the gap between an elder's expertise and a younger person's energy. Critically: no scenes showing the moment BEFORE the AI helps — struggle, confusion, exhaustion — so the relief or discovery lands harder. We keep showing the solution without earning it through contrast.</p>
+              <p><strong>Next direction:</strong> Style intervention is now mandatory at the structural level. The next batch must be built with a style-first constraint: choose the art style BEFORE writing the scenario, then find a concept that fits. Assign slots: 3 oil/acrylic painting prompts, 3 editorial illustration prompts, 3 woodblock or ink wash prompts, 3 watercolor prompts, 3 architectural/isometric rendering prompts. Zero cinematic photo slots. Once styles are assigned, fill them with scenarios from underrepresented geography (Sub-Saharan Africa, South Asia, Latin America, rural Southeast Asia) and underrepresented emotional registers (relief after crisis, inter-generational collaboration, a child teaching a grandparent). The batch should feel like it came from five different illustrators with five different artistic languages — not one photographer.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 10</h2>
+            <span class="round-meta">
+              Go deeper on human_connection with a specific constraint: scenes where technology helps someone pres &mdash;
+              15 images,
+              13 kept,
+              19 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card kept">
+              <img src="round_10/r10_01_estate_night.png" loading="lazy" alt="Estate Night"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Estate Night</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_10/r10_02_loom_memory.png" loading="lazy" alt="Loom Memory"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Loom Memory</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_10/r10_03_before_the_answer.png" loading="lazy" alt="Before the Answer"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Before the Answer</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_10/r10_04_field_advisory.png" loading="lazy" alt="Field Advisory"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Field Advisory</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_10/r10_05_under_the_hood.png" loading="lazy" alt="Under the Hood"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Under the Hood</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_10/r10_06_teaching_the_elder.png" loading="lazy" alt="Teaching the Elder"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teaching the Elder</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_10/r10_07_the_warning_shore.png" loading="lazy" alt="The Warning Shore"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">The Warning Shore</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_10/r10_08_tactile_map.png" loading="lazy" alt="Tactile Map"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Tactile Map</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_10/r10_09_deep_archive.png" loading="lazy" alt="Deep Archive"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Deep Archive</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_10/r10_10_first_breath.png" loading="lazy" alt="First Breath"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">First Breath</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_10/r10_11_under_the_acacia.png" loading="lazy" alt="Under the Acacia"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Under the Acacia</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_10/r10_12_nothing_wasted.png" loading="lazy" alt="Nothing Wasted"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Nothing Wasted</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_10/r10_13_network_of_wells.png" loading="lazy" alt="Network of Wells"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Network of Wells</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_10/r10_14_routing_care.png" loading="lazy" alt="Routing Care"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Routing Care</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_10/r10_15_growing_tower.png" loading="lazy" alt="Growing Tower"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Growing Tower</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> Exceptional style diversity this round — oil painting, woodblock print, editorial illustration, ink wash, watercolor, isometric — this is the strongest style range of any batch. AI forms are consistently correct: SMS advisory, loading indicator, haptic earbuds, sensor buoys, phone apps. Zero forced companion robots. Geographic and demographic range is excellent: Ugandan, Bangladeshi, Filipino, Brazilian, Kenyan, Chinese, West African, Ethiopian, Mexican, Nigerian, Malian. The human_connection category is now clearly producing the most resonant work: Estate Night, Loom Memory, and Teaching the Elder are three of the strongest prompts in the entire series. Most importantly: 'Before the Answer' is a genuine breakthrough — the loading indicator as the emotional center, the ABSENCE of answer as dramatic tension. This is the most sophisticated AI-form choice in any round. It earns trust precisely because it doesn't pretend the technology solves everything instantly.</p>
+              <p><strong>Bad patterns:</strong> Medical is now overcrowded: Before the Answer, First Breath, and the dropped Routing Care are all in the same domain. One more medical scene tips into hospital-pamphlet territory. Two consecutive isometric illustrations (Network of Wells, Growing Tower) are individually fine but reduce visual range when batched — they will feel like a set rather than a collection. Several prompts are truncated mid-sentence with ellipsis, which suggests prompt length is hitting a copy/display limit; confirm full prompts are reaching the generator intact. The batch still skews heavily toward rural Global South — which is a deliberate and correct corrective to typical AI imagery, but it risks making the series feel like 'AI as foreign aid' rather than a universal story.</p>
+              <p><strong>Gaps:</strong> No creative domain: no musicians, visual artists, writers, poets, craftspeople. This is a significant omission — creative work is where AI feels most threatening AND most potentially generative, and the series hasn't touched it. No Global North working class: no factory worker in Detroit, fisherman in Newfoundland, pub owner in rural Wales. No child as protagonist — children appear as students or background but never as the agent of the scene. No moment of graceful limitation: every prompt implies AI delivers value. The series needs at least one scene where the AI hits a wall and a human's wisdom, experience, or relationships carry it — this is what earns trust with the skeptic. No civic or governance domain: local government, community decision-making, participatory democracy tools.</p>
+              <p><strong>Next direction:</strong> Go deeper on human_connection with a specific constraint: scenes where technology helps someone preserve or transmit something irreplaceable across distance, language, generational gap, or death. These are the scenes that will make a tech-skeptic cry. Simultaneously, open the creative domain hard: a West African musician using AI to reconstruct the tuning of a near-extinct folk instrument; a Syrian refugee weaving her grandmother's pattern from memory with AI color-matching from a single faded photograph; a Peruvian street muralist using an AR overlay to preview scale before committing paint to a twenty-meter wall. Specific, non-elite, culturally grounded, emotionally loaded. Add one scene of graceful limitation — AI runs out of answer, human fills the gap with something machines don't have.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 11</h2>
+            <span class="round-meta">
+              This batch is on style suspension until the regression is addressed. Next batch NON-NEGOTIABLES: (1) &mdash;
+              15 images,
+              11 kept,
+              26 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card dropped">
+              <img src="round_11/r11_01_farmer_s_ai_dashboard.png" loading="lazy" alt="Farmer's AI Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Farmer's AI Dashboard</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_11/r11_02_small_business_ai.png" loading="lazy" alt="Small Business AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Small Business AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_11/r11_03_bridge_inspector_drone.png" loading="lazy" alt="Bridge Inspector Drone"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Bridge Inspector Drone</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_11/r11_04_mechanic_s_diagnostic.png" loading="lazy" alt="Mechanic's Diagnostic"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Mechanic's Diagnostic</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_11/r11_05_smart_greenhouse.png" loading="lazy" alt="Smart Greenhouse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Smart Greenhouse</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_11/r11_06_rooftop_solar_party.png" loading="lazy" alt="Rooftop Solar Party"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Rooftop Solar Party</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_11/r11_07_surgeon_s_ar_overlay.png" loading="lazy" alt="Surgeon's AR Overlay"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Surgeon's AR Overlay</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_11/r11_08_baker_s_recipe_ai.png" loading="lazy" alt="Baker's Recipe AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Baker's Recipe AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_11/r11_09_translation_glasses.png" loading="lazy" alt="Translation Glasses"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Translation Glasses</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_11/r11_10_teacher_s_dashboard.png" loading="lazy" alt="Teacher's Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teacher's Dashboard</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_11/r11_11_music_studio_collaboration.png" loading="lazy" alt="Music Studio Collaboration"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Music Studio Collaboration</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_11/r11_12_ocean_monitor_station.png" loading="lazy" alt="Ocean Monitor Station"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Ocean Monitor Station</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_11/r11_13_wheelchair_user_s_smart_home.png" loading="lazy" alt="Wheelchair User's Smart Home"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Wheelchair User's Smart Home</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_11/r11_14_night_shift_nurse.png" loading="lazy" alt="Night Shift Nurse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Night Shift Nurse</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_11/r11_15_forest_fire_early_warning.png" loading="lazy" alt="Forest Fire Early Warning"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forest Fire Early Warning</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> Human-first framing is genuinely strong across most prompts — the mechanic with grease on her hands, the nurse at 3am, the marine biologist in yellow rain gear in a storm. These are physical, specific, working-person details that create emotional presence. AI form is conceptually diverse when it works: AR overlays, ambient home intelligence, sensor networks, phone diagnostics — not robots. The Surgeon's 'technology invisible to the patient' is sophisticated and earned. Music Studio's 'creating, not being r[eplaced]' is the series thesis in five words. Night Shift Nurse's '3am dedication' makes time itself a character.</p>
+              <p><strong>Bad patterns:</strong> CRITICAL REGRESSION — the kind that should trigger a full stop. Every single prompt in this batch opens with 'Cinematic photo.' All fifteen. This directly reverses the style intervention explicitly mandated from Round 6 onward and declared structural in Round 9. After achieving real style diversity in Rounds 9 and 10, the entire batch has collapsed back to a single style. This is not drift. It is a complete failure of discipline. Separately: the Round 10 direction — 'go deeper on human_connection with a specific constraint: scenes where technology helps someone preserve...' — was largely ignored. Only Translation Glasses clearly addresses it. Directions are not suggestions.</p>
+              <p><strong>Gaps:</strong> Style is the obvious gap: zero editorial illustration, zero watercolor, zero gouache, zero ink wash, zero concept art painting, zero woodblock print, zero architectural rendering. The emotional register is also narrow — nearly every prompt lands in 'competence + technology.' No awe. No relief after fear. No unexpected joy. No quiet grief transformed. No frustration giving way to breakthrough. No scene where the technology is imperfect or unfamiliar. No rural Global South. No children discovering something for the first time. No elder encountering something bewildering. And the human_connection mandate from Round 10 was not followed.</p>
+              <p><strong>Next direction:</strong> This batch is on style suspension until the regression is addressed. Next batch NON-NEGOTIABLES: (1) Pre-assign art styles BEFORE writing a single scene — allocate 15 slots across at least 5 styles (e.g., 3 warm editorial illustration, 3 watercolor, 2 concept art painting, 2 ink wash, 2 woodblock print, 3 photorealistic). Style assignment locks first. Then write scenes to match the style's emotional register. (2) Go deeper on human_connection as STILL mandated from Round 10 — scenes where technology bridges grief, language, distance, disability, isolation. This was the direction. Follow it. (3) Expand the emotional range: at least three prompts must target an emotion other than competence or pride — aim for relief, awe, unexpected joy, or grief transformed. Any prompt opening with 'Cinematic photo' is automatically dropped during review.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 12</h2>
+            <span class="round-meta">
+              Go wider into economic precarity and collective use. The next batch should answer: what does AI look &mdash;
+              15 images,
+              12 kept,
+              22 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card kept">
+              <img src="round_12/r12_01_mother_s_archive.png" loading="lazy" alt="Mother's Archive"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Mother's Archive</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_12/r12_02_first_argument.png" loading="lazy" alt="First Argument"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">First Argument</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_12/r12_03_agronomist_on_the_line.png" loading="lazy" alt="Agronomist on the Line"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Agronomist on the Line</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_12/r12_04_forest_sentinel.png" loading="lazy" alt="Forest Sentinel"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forest Sentinel</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_12/r12_05_midnight_repair.png" loading="lazy" alt="Midnight Repair"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Midnight Repair</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_12/r12_06_the_discovery.png" loading="lazy" alt="The Discovery"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">The Discovery</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_12/r12_07_elder_s_garden.png" loading="lazy" alt="Elder's Garden"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Elder's Garden</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_12/r12_08_the_dive.png" loading="lazy" alt="The Dive"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">The Dive</span>
+                <span class="card-cat">exploration</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_12/r12_09_early_detection.png" loading="lazy" alt="Early Detection"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Early Detection</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_12/r12_10_3am_feed.png" loading="lazy" alt="3am Feed"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">3am Feed</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_12/r12_11_the_mend.png" loading="lazy" alt="The Mend"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">The Mend</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_12/r12_12_grandmother_s_voice.png" loading="lazy" alt="Grandmother's Voice"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Grandmother's Voice</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_12/r12_13_the_score.png" loading="lazy" alt="The Score"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">The Score</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_12/r12_14_fault_lines.png" loading="lazy" alt="Fault Lines"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Fault Lines</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_12/r12_15_the_bloom.png" loading="lazy" alt="The Bloom"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">The Bloom</span>
+                <span class="card-cat">breakthroughs</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> This is the strongest batch in several rounds. Style diversity is genuinely excellent: oil painting, gouache, watercolor, woodblock print, ink wash, concept art, photorealistic — every piece earns its style choice rather than defaulting to cinematic photo. Geographic diversity is remarkable: Kenya, Indonesia, Peru, Philippines, Nigeria/London, South Asia, Latin America — not a single generic Western setting. The invisible/ambient AI form is now a natural default in several scenes (Mother's Archive, Grandmother's Voice, 3am Feed) — the AI serves without announcing itself. Intergenerational scenes (First Argument, Elder's Garden) are landing. The emotional range has widened: grief, exhaustion, argument, wonder, tenderness, professional discovery.</p>
+              <p><strong>Bad patterns:</strong> Truncated prompts throughout this batch ('voicema...', 'real t...', 'cra...', 'continen...') make full assessment harder — the most emotionally charged beats are often in the final clause, and losing them is not a minor editing issue. Two 'expert with tablet in specialized environment' scenes survived (Agronomist, Fault Lines, The Dive) — one is being dropped, but the pattern is worth naming. The batch is also still skewed toward solitary figures. Twelve of fifteen images show one or two people maximum. Community, collective, and crowd scenes are nearly absent.</p>
+              <p><strong>Gaps:</strong> Economic precarity as survival context — not AI as enhancement but AI as lifeline for someone who would otherwise lose their livelihood, their home, their crop, their ability to function. Collective and community AI use: a neighborhood, a village council, a school building, a market — not always one person alone with a device. Urban working class in the Global South: a Lagos mechanic, a Mumbai delivery driver, a Jakarta street vendor — not just rural farmers or Western domestic scenes. Disability beyond deafness: mobility aids with AI navigation, chronic illness management, mental health support, low vision assistive tech. Children as creators and builders, not just awed learners — a kid in a rural town building something, not watching something. Night shift and gig economy workers: the overnight hospital cleaner, the early-morning market porter, the 2am rideshare driver.</p>
+              <p><strong>Next direction:</strong> Go wider into economic precarity and collective use. The next batch should answer: what does AI look like for someone whose margin for error is zero? Not the researcher who might make a discovery — the farmer who will lose their farm if the crop fails. Not the composer who might create art — the street vendor whose pricing algorithm is the difference between eating and not. Build at least 4 scenes around survival stakes, not enhancement stakes. Additionally, attempt 2-3 collective scenes: a group of people benefiting together, not individually. And write every prompt to completion — no truncation. The final clause is where the human moment lives.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 13</h2>
+            <span class="round-meta">
+              This batch needs a style intervention before any new scenes are generated. The next batch must open  &mdash;
+              15 images,
+              10 kept,
+              26 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card kept">
+              <img src="round_13/r13_01_baker_s_recipe_ai.png" loading="lazy" alt="Baker's Recipe AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Baker's Recipe AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_13/r13_02_night_shift_nurse.png" loading="lazy" alt="Night Shift Nurse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Night Shift Nurse</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_13/r13_03_bridge_inspector_drone.png" loading="lazy" alt="Bridge Inspector Drone"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Bridge Inspector Drone</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_13/r13_04_wheelchair_user_s_smart_home.png" loading="lazy" alt="Wheelchair User's Smart Home"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Wheelchair User's Smart Home</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_13/r13_05_forest_fire_early_warning.png" loading="lazy" alt="Forest Fire Early Warning"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forest Fire Early Warning</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_13/r13_06_mechanic_s_diagnostic.png" loading="lazy" alt="Mechanic's Diagnostic"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Mechanic's Diagnostic</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_13/r13_07_translation_glasses.png" loading="lazy" alt="Translation Glasses"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Translation Glasses</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_13/r13_08_teacher_s_dashboard.png" loading="lazy" alt="Teacher's Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teacher's Dashboard</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_13/r13_09_farmer_s_ai_dashboard.png" loading="lazy" alt="Farmer's AI Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Farmer's AI Dashboard</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_13/r13_10_small_business_ai.png" loading="lazy" alt="Small Business AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Small Business AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_13/r13_11_rooftop_solar_party.png" loading="lazy" alt="Rooftop Solar Party"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Rooftop Solar Party</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_13/r13_12_ocean_monitor_station.png" loading="lazy" alt="Ocean Monitor Station"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Ocean Monitor Station</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_13/r13_13_surgeon_s_ar_overlay.png" loading="lazy" alt="Surgeon's AR Overlay"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Surgeon's AR Overlay</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_13/r13_14_music_studio_collaboration.png" loading="lazy" alt="Music Studio Collaboration"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Music Studio Collaboration</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_13/r13_15_smart_greenhouse.png" loading="lazy" alt="Smart Greenhouse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Smart Greenhouse</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> Human-first framing is mostly working. The batch has genuinely diverse AI forms: ambient voice systems, AR overlays, sensor networks, drone footage, wall-mounted monitors. No companion robots. Characters include a female mechanic, night shift nurse, teenager, marine biologist, elderly couple, wheelchair user — this is real range. The Surgeon's AR Overlay earns its keep with a single elegant observation: 'invisible to the patient.' That's the kind of precise framing that makes a scene resonant rather than just competent.</p>
+              <p><strong>Bad patterns:</strong> EVERY. SINGLE. PROMPT. STARTS WITH 'CINEMATIC PHOTO.' This is a catastrophic style regression. The round instructions mandate at least 3 different art styles per batch. This has been flagged in Round 9, Round 11, and now Round 13 — the rule is not optional, it is structural. A farmer's tablet dashboard in warm editorial illustration would be more emotionally legible than a cinematic photo. A bridge inspection as an architectural rendering would transform a dull scene into something worth looking at. The style monoculture is making the batch feel like a stock photo catalog, not a vision document. The second bad pattern: 'person looks at screen with AI data' as the default scene structure. At least 8 of 15 prompts are this scene. It works when there's a sharp human detail (3am, grease on hands, laughing across language) but it fails when the human is just there to hold the device.</p>
+              <p><strong>Gaps:</strong> Economic precarity: Round 12 asked for it explicitly and this batch retreated to aspirational middle-class competence. Where is the person who cannot afford to fail — the subsistence farmer, the gig worker, the night-shift immigrant worker whose AI tool is the only advantage they have? Collective struggle: Rooftop Solar Party is the only scene showing people together with shared stakes. The rest are solitary individuals at their individual devices. Intergenerational knowledge transfer: an older craftsperson teaching a younger one, with AI as a mediator of tacit knowledge — this doesn't appear anywhere. Physical/embodied scenarios: the Mechanic is the only scene with 'grease on hands.' We need more scenes where the body is doing the real work and AI is peripheral support — not screen-centric.</p>
+              <p><strong>Next direction:</strong> This batch needs a style intervention before any new scenes are generated. The next batch must open with a style sheet: assign each of the 15 slots an art style before writing the scene. Required distribution: 4 photorealistic, 3 editorial illustration (warm, journalistic), 2 oil painting, 2 gouache/watercolor, 2 concept art/architectural, 1 ink wash, 1 retro-future poster. THEN write scenes to fit the assigned styles — not the other way around. Additionally, go wider into collective and precarity scenarios: a shared community AI terminal in a rural village, a mutual aid network coordinated by an app, a laid-off factory worker retraining, a refugee using translation + legal AI in an intake office. These are scenes where the stakes are real and the technology is life-altering, not just convenient.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 14</h2>
+            <span class="round-meta">
+              Style-led generation, mandatory. The next batch must be built PROMPT-FIRST from art style, not scene &mdash;
+              15 images,
+              12 kept,
+              26 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card dropped">
+              <img src="round_14/r14_01_bridge_inspector_drone.png" loading="lazy" alt="Bridge Inspector Drone"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Bridge Inspector Drone</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_14/r14_02_baker_s_recipe_ai.png" loading="lazy" alt="Baker's Recipe AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Baker's Recipe AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_14/r14_03_ocean_monitor_station.png" loading="lazy" alt="Ocean Monitor Station"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Ocean Monitor Station</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_14/r14_04_forest_fire_early_warning.png" loading="lazy" alt="Forest Fire Early Warning"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forest Fire Early Warning</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_14/r14_05_mechanic_s_diagnostic.png" loading="lazy" alt="Mechanic's Diagnostic"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Mechanic's Diagnostic</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_14/r14_06_smart_greenhouse.png" loading="lazy" alt="Smart Greenhouse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Smart Greenhouse</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_14/r14_07_wheelchair_user_s_smart_home.png" loading="lazy" alt="Wheelchair User's Smart Home"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Wheelchair User's Smart Home</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_14/r14_08_surgeon_s_ar_overlay.png" loading="lazy" alt="Surgeon's AR Overlay"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Surgeon's AR Overlay</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_14/r14_09_teacher_s_dashboard.png" loading="lazy" alt="Teacher's Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teacher's Dashboard</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_14/r14_10_night_shift_nurse.png" loading="lazy" alt="Night Shift Nurse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Night Shift Nurse</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_14/r14_11_rooftop_solar_party.png" loading="lazy" alt="Rooftop Solar Party"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Rooftop Solar Party</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_14/r14_12_farmer_s_ai_dashboard.png" loading="lazy" alt="Farmer's AI Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Farmer's AI Dashboard</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_14/r14_13_translation_glasses.png" loading="lazy" alt="Translation Glasses"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Translation Glasses</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_14/r14_14_music_studio_collaboration.png" loading="lazy" alt="Music Studio Collaboration"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Music Studio Collaboration</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_14/r14_15_small_business_ai.png" loading="lazy" alt="Small Business AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Small Business AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> Human-first framing is consistently strong across the kept prompts. Non-companion-robot AI forms are now the clear default — this is a genuine win across rounds. Several prompts achieve real emotional specificity: 'grease on hands, competence in her expression' (Mechanic), 'reaching for coffee, planning who needs attention next' (Teacher), '3am dedication' (Night Shift Nurse), 'elderly couple tending tomatoes' (Smart Greenhouse). The diversity spread is meaningfully better: disability representation (Wheelchair), age diversity (elderly couple, teenager), gender variety (woman mechanic, female surgeon). Lighting variety within the cinematic photo constraint is present: blue hour, stormy twilight, dawn mist, overcast morning, blue-white night. The AI form vocabulary is expanding: drone, AR overlay, ambient home intelligence, sensor network, wall-mounted monitor — not just 'tablet with dashboard.'</p>
+              <p><strong>Bad patterns:</strong> CRITICAL FAILURE: 15 out of 15 prompts open with 'Cinematic photo.' Every single one. This is Round 14. The style intervention mandate has been issued in Round 9, Round 11, and Round 13. It has not been implemented. This is not a drift — it is a structural failure in how prompts are being generated. The instructions are explicit: at least 3 different art styles per batch. The instructions name specific alternatives: watercolor, gouache illustration, editorial illustration, oil painting, ink wash, Ghibli-inspired, woodblock print, paper cut diorama. None of these appear. The Baker's Recipe AI scene would be transformed by warm gouache illustration. The Smart Greenhouse deserves a lush watercolor treatment. The Teacher's Dashboard should be a warm editorial illustration. The Farmer's AI Dashboard explicitly appears as an example in the style guidance. Instead, everything defaults to the same photographic register. This is the fourth consecutive round where this pattern persists after explicit correction. Secondary pattern: several prompts end with a summarizing tag line ('Craft meets intelligence,' 'Technology as gardening partner,' 'Creating, not being replaced') that tells the emotional conclusion instead of trusting the imagery to produce it. These should be cut or replaced with additional scene specificity.</p>
+              <p><strong>Gaps:</strong> Three genuine absences: (1) Non-Western and Global South contexts — every scenario in this batch implicitly reads as North American or European. A smallholder farmer in Kenya using soil sensors. A fishing community in Vietnam with ocean temperature alerts. A midwife in rural Bangladesh with prenatal monitoring. The 'tool goes to everyone' pillar demands geographic diversity, not just demographic diversity within one cultural context. (2) Grief, loss, and hard human moments where technology helps with the weight of difficult experiences — a palliative care nurse, a parent of a child with chronic illness, a worker retraining after job displacement. The series commits to acknowledging real costs; the concept art should occasionally show that tension. (3) Collective and communal AI use — groups organizing together around shared tools. We have individual users and couples; we're missing the cooperative, the union hall, the community health clinic, the mutual aid network. Abundance is collective, not just individual.</p>
+              <p><strong>Next direction:</strong> Style-led generation, mandatory. The next batch must be built PROMPT-FIRST from art style, not scene-first to cinematic photo. Structure: for each of the 15 prompts, assign the art style before any other decision, and ensure minimum 5 distinct non-photographic styles across the batch. Suggested allocation: 3 editorial illustration, 3 gouache/watercolor, 2 oil painting or concept art painting, 2 ink wash or woodblock print, 2 architectural rendering or isometric, and only 3 cinematic photo (reserved for scenes where photorealism serves the emotional register, e.g., surgery, night shift hospital). Simultaneously: expand geographic scope with 4-5 prompts set in non-Western contexts. The scenes themselves can draw from the kept prompts' successful formulas — grounded humans, non-robot AI, specific emotional detail — but the style monoculture must break or this round's failures will repeat in Round 15.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 15</h2>
+            <span class="round-meta">
+              Style enforcement is non-negotiable before any new scene work. The next batch must be constructed in &mdash;
+              15 images,
+              12 kept,
+              26 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card dropped">
+              <img src="round_15/r15_01_music_studio_collaboration.png" loading="lazy" alt="Music Studio Collaboration"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Music Studio Collaboration</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_15/r15_02_ocean_monitor_station.png" loading="lazy" alt="Ocean Monitor Station"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Ocean Monitor Station</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_15/r15_03_night_shift_nurse.png" loading="lazy" alt="Night Shift Nurse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Night Shift Nurse</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_15/r15_04_forest_fire_early_warning.png" loading="lazy" alt="Forest Fire Early Warning"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forest Fire Early Warning</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_15/r15_05_bridge_inspector_drone.png" loading="lazy" alt="Bridge Inspector Drone"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Bridge Inspector Drone</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_15/r15_06_smart_greenhouse.png" loading="lazy" alt="Smart Greenhouse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Smart Greenhouse</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_15/r15_07_wheelchair_user_s_smart_home.png" loading="lazy" alt="Wheelchair User's Smart Home"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Wheelchair User's Smart Home</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_15/r15_08_small_business_ai.png" loading="lazy" alt="Small Business AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Small Business AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_15/r15_09_translation_glasses.png" loading="lazy" alt="Translation Glasses"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Translation Glasses</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_15/r15_10_mechanic_s_diagnostic.png" loading="lazy" alt="Mechanic's Diagnostic"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Mechanic's Diagnostic</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_15/r15_11_farmer_s_ai_dashboard.png" loading="lazy" alt="Farmer's AI Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Farmer's AI Dashboard</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_15/r15_12_surgeon_s_ar_overlay.png" loading="lazy" alt="Surgeon's AR Overlay"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Surgeon's AR Overlay</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_15/r15_13_teacher_s_dashboard.png" loading="lazy" alt="Teacher's Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teacher's Dashboard</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_15/r15_14_rooftop_solar_party.png" loading="lazy" alt="Rooftop Solar Party"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Rooftop Solar Party</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_15/r15_15_baker_s_recipe_ai.png" loading="lazy" alt="Baker's Recipe AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Baker's Recipe AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> Human-first grounding is strong across most of this batch. Sensory specificity does real work: grease-stained hands, yellow rain gear in a storm, flannel shirt on overcast morning, dough rising on a bakery counter — these details anchor the technology in real labor. AI form diversity is the best it has been: drones, ambient sensor networks, AR overlays, satellite heat-signature analysis, wall-mounted pattern-recognition alerts, voice-responsive architecture. Not one companion robot. Occupational range (marine biologist, ranger, nurse, farmer, surgeon, mechanic, baker, wheelchair user) honors the mission's directive to show ordinary people, not lab-coated specialists. Rooftop Solar Party stands out as the most emotionally joyful image in multiple rounds — community celebration as the payload of shared infrastructure.</p>
+              <p><strong>Bad patterns:</strong> CRITICAL REGRESSION: Every single prompt opens with 'Cinematic photo.' All fifteen. Round 14's explicit mandate was style-led generation — build prompt-first from art style, not scene. This batch completely discarded that direction. This is the fourth consecutive round flagging style uniformity, and the fourth time the batch has reset to default photorealism. The instruction is being read and then ignored at generation time. Additionally, several prompts are visibly truncated mid-sentence (Music Studio, Mechanic's Diagnostic, Smart Greenhouse, Surgeon's AR Overlay, Teacher's Dashboard) — the NO TEXT NO LABELS tag may not be reaching the model for these, which is a pipeline flaw with real image-quality consequences.</p>
+              <p><strong>Gaps:</strong> Art style diversity remains the most critical gap — no watercolor, no editorial illustration, no ink wash, no gouache, no woodblock, no architectural rendering in this entire batch. Also absent: non-Western settings beyond a brief market appearance; moments of adversity and recovery (AI helping after crop failure, after a medical crisis, after a flood — not just steady-state optimization); intergenerational technology use; disability beyond one wheelchair user (Deaf, blind, chronic pain, cognitive difference); collective/municipal AI decisions where a community is the protagonist, not an individual.</p>
+              <p><strong>Next direction:</strong> Style enforcement is non-negotiable before any new scene work. The next batch must be constructed in this order: (1) Name five art styles first — minimum five distinct, non-photographic styles from: warm editorial illustration, ink wash + digital color, watercolor with linework, gouache painting, architectural concept rendering, woodblock print, retro-future poster art, paper cut diorama. (2) Assign a scene to each style based on emotional register — not the reverse. (3) Every prompt must open with the style name, not 'Cinematic photo.' Content-wise: pivot from optimization to resilience. The next batch should explore AI as a tool in moments of hardship — after a flood, after a diagnosis, after a harvest failure, after losing a job. Not 'AI helps you do your job better.' AI as a lifeline when the ground gives out. That is where the emotional stakes are highest and where tech-skeptics are most likely to be moved.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 16</h2>
+            <span class="round-meta">
+              Full style moratorium on cinematic photo. The next batch of 15 must open with ZERO instances of 'cin &mdash;
+              15 images,
+              12 kept,
+              26 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card kept">
+              <img src="round_16/r16_01_forest_fire_early_warning.png" loading="lazy" alt="Forest Fire Early Warning"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forest Fire Early Warning</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_16/r16_02_bridge_inspector_drone.png" loading="lazy" alt="Bridge Inspector Drone"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Bridge Inspector Drone</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_16/r16_03_rooftop_solar_party.png" loading="lazy" alt="Rooftop Solar Party"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Rooftop Solar Party</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_16/r16_04_small_business_ai.png" loading="lazy" alt="Small Business AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Small Business AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_16/r16_05_translation_glasses.png" loading="lazy" alt="Translation Glasses"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Translation Glasses</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_16/r16_06_music_studio_collaboration.png" loading="lazy" alt="Music Studio Collaboration"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Music Studio Collaboration</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_16/r16_07_wheelchair_user_s_smart_home.png" loading="lazy" alt="Wheelchair User's Smart Home"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Wheelchair User's Smart Home</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_16/r16_08_farmer_s_ai_dashboard.png" loading="lazy" alt="Farmer's AI Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Farmer's AI Dashboard</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_16/r16_09_night_shift_nurse.png" loading="lazy" alt="Night Shift Nurse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Night Shift Nurse</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_16/r16_10_smart_greenhouse.png" loading="lazy" alt="Smart Greenhouse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Smart Greenhouse</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_16/r16_11_mechanic_s_diagnostic.png" loading="lazy" alt="Mechanic's Diagnostic"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Mechanic's Diagnostic</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_16/r16_12_baker_s_recipe_ai.png" loading="lazy" alt="Baker's Recipe AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Baker's Recipe AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_16/r16_13_surgeon_s_ar_overlay.png" loading="lazy" alt="Surgeon's AR Overlay"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Surgeon's AR Overlay</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_16/r16_14_teacher_s_dashboard.png" loading="lazy" alt="Teacher's Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teacher's Dashboard</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_16/r16_15_ocean_monitor_station.png" loading="lazy" alt="Ocean Monitor Station"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Ocean Monitor Station</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> The best prompts in this batch earn their emotional resonance through specificity: 'humidity and flour batch' on the baker, '3am' on the nurse, 'elderly couple tending tomatoes' on the greenhouse, 'reaching for coffee' on the teacher. These details humanize the scene before the technology appears. The AI forms are consistently appropriate — AR overlays, sensor networks, ambient intelligence, wall monitors — non-embodied, purposeful, invisible. The human diversity (young wheelchair user, teenage musician, marine biologist in rain gear, nurse at 3am) is the strongest element of this batch.</p>
+              <p><strong>Bad patterns:</strong> CATASTROPHIC STYLE REGRESSION: Every single prompt in this batch begins with 'Cinematic photo.' Every one. This is Round 16. Style enforcement has been the explicit direction since Round 11 — five consecutive rounds of explicit direction — and this batch achieved zero compliance. Not one illustration. Not one watercolor. Not one editorial or gouache or ink wash style. This isn't a drift problem; it's a complete reversal. The 'at least 3 different art styles' rule was ignored entirely. Additionally, two dropped prompts reveal a secondary pattern: generic emotional shorthand ('quiet competence,' 'pride in running a tight ship') substituting for concrete visual specificity. When a prompt can't answer 'what does the human's FACE look like in this moment,' it fails.</p>
+              <p><strong>Gaps:</strong> Style variety is the only critical gap — the scene content is genuinely strong. Structurally missing from the full collection: (1) A failure-and-recovery scene — AI makes a mistake, human catches it and course-corrects. This would be the most powerful counter to AI-replacement anxiety and is completely absent. (2) Civic/governance AI — a city council using predictive tools, a judge reviewing AI-flagged patterns with skepticism. (3) A historical contrast — someone in 1970 doing a task that takes hours, same task in 2035 taking seconds. The gratitude-through-contrast principle from CLAUDE.md. (4) A scene where AI makes someone visibly emotional — not just competent, but moved. Relief, not just efficiency.</p>
+              <p><strong>Next direction:</strong> Full style moratorium on cinematic photo. The next batch of 15 must open with ZERO instances of 'cinematic photo.' Every prompt must start with a non-photorealistic style. Construct the batch as follows: 4 editorial illustrations (warm ink lines, flat color fills — suits everyday civic and domestic scenes), 3 watercolors (fluid washes — suits nature, ocean, agriculture), 2 gouache illustrations (opaque, graphic — suits healthcare, community), 2 isometric architectural renderings (suits infrastructure, smart buildings), 2 Ghibli-inspired animation stills (suits education, childhood, wonder), 1 retro-future poster (suits ambitious future scenes), 1 blueprint/technical drawing style (suits infrastructure or surgical precision). Every style choice must be justified by the emotional register of the scene. Then — and only then — choose the scene to match the style, not the reverse.</p>
+            </div>
+        </div>
+        <div class="round-section">
+          <div class="round-header">
+            <h2>Round 17</h2>
+            <span class="round-meta">
+              The next batch must not contain a single instance of 'cinematic photo' in any prompt. This is the th &mdash;
+              12 images,
+              11 kept,
+              21 min
+            </span>
+          </div>
+          <div class="concept-grid">
+            <div class="concept-card dropped">
+              <img src="round_17/r17_01_farmer_s_ai_dashboard.png" loading="lazy" alt="Farmer's AI Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Farmer's AI Dashboard</span>
+                <span class="card-cat">agricultural</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_17/r17_02_rooftop_solar_party.png" loading="lazy" alt="Rooftop Solar Party"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Rooftop Solar Party</span>
+                <span class="card-cat">sustainability</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_17/r17_03_music_studio_collaboration.png" loading="lazy" alt="Music Studio Collaboration"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Music Studio Collaboration</span>
+                <span class="card-cat">creative_tools</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_17/r17_04_ocean_monitor_station.png" loading="lazy" alt="Ocean Monitor Station"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Ocean Monitor Station</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_17/r17_05_forest_fire_early_warning.png" loading="lazy" alt="Forest Fire Early Warning"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Forest Fire Early Warning</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_17/r17_06_teacher_s_dashboard.png" loading="lazy" alt="Teacher's Dashboard"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Teacher's Dashboard</span>
+                <span class="card-cat">education</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_17/r17_07_night_shift_nurse.png" loading="lazy" alt="Night Shift Nurse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Night Shift Nurse</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_17/r17_08_bridge_inspector_drone.png" loading="lazy" alt="Bridge Inspector Drone"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Bridge Inspector Drone</span>
+                <span class="card-cat">infrastructure</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_17/r17_09_wheelchair_user_s_smart_home.png" loading="lazy" alt="Wheelchair User's Smart Home"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Wheelchair User's Smart Home</span>
+                <span class="card-cat">domestic</span>
+              </div>
+            </div>
+            <div class="concept-card dropped">
+              <img src="round_17/r17_10_small_business_ai.png" loading="lazy" alt="Small Business AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Small Business AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_17/r17_11_translation_glasses.png" loading="lazy" alt="Translation Glasses"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Translation Glasses</span>
+                <span class="card-cat">human_connection</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_17/r17_12_mechanic_s_diagnostic.png" loading="lazy" alt="Mechanic's Diagnostic"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Mechanic's Diagnostic</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_17/r17_13_surgeon_s_ar_overlay.png" loading="lazy" alt="Surgeon's AR Overlay"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Surgeon's AR Overlay</span>
+                <span class="card-cat">medical</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_17/r17_14_smart_greenhouse.png" loading="lazy" alt="Smart Greenhouse"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Smart Greenhouse</span>
+                <span class="card-cat">ecosystems</span>
+              </div>
+            </div>
+            <div class="concept-card kept">
+              <img src="round_17/r17_15_baker_s_recipe_ai.png" loading="lazy" alt="Baker's Recipe AI"
+                   onerror="this.parentElement.classList.add('missing')">
+              <div class="card-meta">
+                <span class="card-name">Baker's Recipe AI</span>
+                <span class="card-cat">everyday</span>
+              </div>
+            </div></div>
+          
+            <div class="review-notes">
+              <p><strong>Good patterns:</strong> The strongest prompts in this batch achieve specificity through small human details that make the technology invisible: 'grease on hands' (Mechanic), 'reaching for coffee' (Teacher), '3am dedication' (Nurse), 'laughing together' (Translation Glasses). These details tell us who the person is BEFORE the technology enters the frame. The wheelchair user's smart home is the best in the batch — independence through ambient intelligence is the correct framing, and the prompt lists concrete behaviors (counter lowering, door opening) that make it real. Rooftop Solar Party is the only genuinely collective scene in the batch, which the mission requires more of.</p>
+              <p><strong>Bad patterns:</strong> Round 16 issued a FULL STYLE MORATORIUM on 'cinematic photo' and required ZERO instances in the next batch. All 15 prompts in Round 17 open with 'Cinematic photo.' This is a complete failure to follow direction — not a partial compliance, not a near-miss. Every single prompt. This is the dominant issue in this round, overshadowing the content quality (which is actually decent). Three images are also MISSING (ungenerated), which compounds the production problem. The style moratorium was issued precisely because cinematic photo was homogenizing the collection and preventing exploration of illustration, watercolor, editorial art, and other styles that serve many of these scenes better. A baker's recipe scene in warm editorial illustration would be more resonant than cinematic photo. A smart greenhouse with an elderly couple would be better served by Ghibli-inspired warmth than photography.</p>
+              <p><strong>Gaps:</strong> 1) Non-Western settings: every prompt reads as North American or European. A teacher's dashboard in Lagos, a community greenhouse in rural Japan, a marine biologist in the Philippines — geography gives these scenes specificity and makes the 'tool goes to everyone' theme concrete. 2) Intergenerational dynamics: the elderly couple in Smart Greenhouse is a hint at this, but a grandparent and grandchild using AI together (not just elderly people using it alone) would add emotional texture. 3) Collective and political uses: AI helping a city council plan infrastructure, a cooperative making decisions, a union negotiating data — the mission talks about non-zero-sum but the batch is still stuck on individual tool use. 4) Art styles: illustration, watercolor, editorial art, architectural rendering — not represented at all despite explicit direction.</p>
+              <p><strong>Next direction:</strong> The next batch must not contain a single instance of 'cinematic photo' in any prompt. This is the third consecutive round where the moratorium has been stated and ignored. Before generating any new scenes, assign an art style first, then find the right scene for it. Mandatory distribution for the next 15: 4 editorial illustrations (warm, textural — suited to domestic and agricultural scenes), 3 oil painting or gouache concept art (atmospheric, suited to large-scale or emotional scenes), 2 ink wash or woodblock (suited to medical, precision, quiet-intensity scenes), 2 isometric or architectural rendering (suited to infrastructure, collective, city-scale scenes), 2 Ghibli-inspired or animation-adjacent (suited to intergenerational, nature, or wonder-focused scenes), 2 photorealistic only where the subject specifically demands it (surgical precision, material texture). Scenes should lean into non-Western settings, collective action, and intergenerational moments.</p>
+            </div>
+        </div>
+
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('active')">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<div id="doc-footer"></div>
+
+<script src="../../../documentary/shared.js"></script>
+<script>
+document.querySelectorAll('.concept-card').forEach(function(card) {
+  card.addEventListener('click', function() {
+    var img = card.querySelector('img');
+    if (img && img.src) {
+      document.getElementById('lightbox-img').src = img.src;
+      document.getElementById('lightbox').classList.add('active');
+    }
+  });
+});
+</script>
+</body>
+</html>
