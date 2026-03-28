@@ -56,21 +56,28 @@ function initDocNav() {
   if (!nav) return;
   var currentPath = location.pathname;
 
-  function isActive(href) {
-    // Strip ../ to get the path relative to turing_to_llms/
-    var resolved = href.replace(/\.\.\//g, "");
-    // Also get the current path relative to turing_to_llms/
+  // Resolve current path relative to turing_to_llms/
     var tlIdx = currentPath.indexOf("turing_to_llms/");
     var currentRel = tlIdx >= 0 ? currentPath.substring(tlIdx + "turing_to_llms/".length) : currentPath;
+
+    // Check if current page exactly matches any nav item
+    var allItems = DOC_NAV_NOW.concat(DOC_NAV_ARCHIVE);
+    var hasExactMatch = allItems.some(function(item) {
+      return item.href.replace(/\.\.\//g, "") === currentRel;
+    });
+
+  function isActive(href) {
+    var resolved = href.replace(/\.\.\//g, "");
     // Exact filename match
     if (currentRel === resolved) return true;
-    // For nav items pointing into subdirectories (2+ levels deep like experiments/future_canvas/),
-    // check if current page is inside that specific subdirectory.
-    // Count slashes to determine depth — only apply directory matching for deep links.
-    var slashes = (resolved.match(/\//g) || []).length;
-    if (slashes >= 2) {
-      var resolvedDir = resolved.replace(/[^/]*$/, "");
-      if (currentRel.indexOf(resolvedDir) === 0) return true;
+    // Directory matching for sub-pages (e.g. future_canvas/v2/report.html → Future Canvas),
+    // but only when the current page isn't an exact match for another nav item
+    if (!hasExactMatch) {
+      var slashes = (resolved.match(/\//g) || []).length;
+      if (slashes >= 2) {
+        var resolvedDir = resolved.replace(/[^/]*$/, "");
+        if (currentRel.indexOf(resolvedDir) === 0) return true;
+      }
     }
     return false;
   }
