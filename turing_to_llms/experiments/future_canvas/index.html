@@ -360,6 +360,9 @@ a:hover { text-decoration: underline; }
   border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
+.steps a { color: var(--accent-warm); text-decoration: underline; text-underline-offset: 2px; }
+.steps a:hover { color: var(--text); }
+
 .steps li::before {
   content: counter(step, decimal-leading-zero);
   position: absolute;
@@ -425,8 +428,8 @@ a:hover { text-decoration: underline; }
 /* ── Link columns ── */
 .link-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 clamp(1rem, 4vw, 2rem);
@@ -568,9 +571,9 @@ footer a:hover { color: var(--text); }
     <h3 class="reveal" style="margin-top: clamp(3rem, 6vh, 5rem);">Your Move</h3>
     <div class="steps reveal">
       <ol>
-        <li>Start with computational biology — MIT OpenCourseWare and Rosalind.info offer free courses</li>
-        <li>Contribute to open-source science tools like OpenMM or RDKit</li>
-        <li>Tackle real scientific challenges on Kaggle's research competitions</li>
+        <li>Start with computational biology — <a href="https://ocw.mit.edu/courses/7-91j-foundations-of-computational-and-systems-biology-spring-2014/" target="_blank" rel="noopener">MIT OpenCourseWare</a> and <a href="https://rosalind.info/" target="_blank" rel="noopener">Rosalind.info</a> offer free courses</li>
+        <li>Contribute to open-source science tools like <a href="https://github.com/openmm/openmm" target="_blank" rel="noopener">OpenMM</a> or <a href="https://github.com/rdkit/rdkit" target="_blank" rel="noopener">RDKit</a></li>
+        <li>Tackle real scientific challenges on <a href="https://www.kaggle.com/competitions" target="_blank" rel="noopener">Kaggle's research competitions</a></li>
       </ol>
     </div>
 
@@ -630,8 +633,8 @@ footer a:hover { color: var(--text); }
     <div class="steps reveal">
       <ol>
         <li>Build an educational tool — even a simple quiz bot teaches you about learning design</li>
-        <li>Volunteer for digital literacy programs in your community</li>
-        <li>Create and share open educational content on topics you know well</li>
+        <li>Volunteer for digital literacy programs like <a href="https://www.codeclub.org/" target="_blank" rel="noopener">Code Club</a> in your community</li>
+        <li>Create and share open educational content on <a href="https://www.oercommons.org/" target="_blank" rel="noopener">OER Commons</a></li>
       </ol>
     </div>
 
@@ -690,9 +693,9 @@ footer a:hover { color: var(--text); }
     <h3 class="reveal" style="margin-top: clamp(3rem, 6vh, 5rem);">Your Move</h3>
     <div class="steps reveal">
       <ol>
-        <li>Learn climate data science through Climate Change AI's free courses and resources</li>
-        <li>Build with sustainability APIs — Electricity Maps, Open Climate Fix, carbon intensity data</li>
-        <li>Join or start local environmental monitoring with citizen science platforms</li>
+        <li>Learn climate data science through <a href="https://www.climatechange.ai/" target="_blank" rel="noopener">Climate Change AI</a>'s free courses and resources</li>
+        <li>Build with sustainability APIs — <a href="https://www.electricitymaps.com/" target="_blank" rel="noopener">Electricity Maps</a>, <a href="https://www.openclimatefix.org/" target="_blank" rel="noopener">Open Climate Fix</a>, carbon intensity data</li>
+        <li>Join or start local environmental monitoring with <a href="https://www.inaturalist.org/" target="_blank" rel="noopener">citizen science platforms</a></li>
       </ol>
     </div>
 
@@ -751,9 +754,9 @@ footer a:hover { color: var(--text); }
     <h3 class="reveal" style="margin-top: clamp(3rem, 6vh, 5rem);">Your Move</h3>
     <div class="steps reveal">
       <ol>
-        <li>Explore NASA's open-source projects on GitHub — real space code, open to contributors</li>
-        <li>Join citizen science on Zooniverse — classify galaxies, track wildlife, map coral</li>
-        <li>Learn robotics and autonomous systems — the skills behind every frontier-pushing machine</li>
+        <li>Explore <a href="https://github.com/nasa" target="_blank" rel="noopener">NASA's open-source projects on GitHub</a> — real space code, open to contributors</li>
+        <li>Join citizen science on <a href="https://www.zooniverse.org/" target="_blank" rel="noopener">Zooniverse</a> — classify galaxies, track wildlife, map coral</li>
+        <li>Learn robotics and autonomous systems with <a href="https://www.theconstructsim.com/" target="_blank" rel="noopener">The Construct</a> — the skills behind every frontier-pushing machine</li>
       </ol>
     </div>
 
