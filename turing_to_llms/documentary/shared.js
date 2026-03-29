@@ -26,7 +26,6 @@ var BASE = getBasePath();
 
 var DOC_NAV_NOW = [
   { href: BASE + "experiments/future_canvas/index.html", label: "Future Canvas" },
-  { href: BASE + "experiments/future_canvas/gallery.html", label: "Concept Gallery" },
   { href: BASE + "documentary/style_experiments.html", label: "Experiments" },
   { href: BASE + "documentary/on_our_mind.html", label: "On Our Mind" },
 ];
@@ -36,7 +35,6 @@ var DOC_NAV_ARCHIVE = [
   { href: BASE + "documentary/why_we_build.html", label: "Why We Build" },
   { href: BASE + "documentary/pipeline.html", label: "Pipeline" },
   { href: BASE + "documentary/character_design.html", label: "Characters" },
-  { href: BASE + "documentary/lessons.html", label: "Lessons" },
   { href: BASE + "documentary/timeline.html", label: "Timeline" },
 ];
 
