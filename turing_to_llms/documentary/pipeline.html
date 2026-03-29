@@ -14,7 +14,7 @@
 <header class="hero">
   <div class="hero-eyebrow">The Production Pipeline</div>
   <h1>The Agent <em>Constellation</em></h1>
-  <p class="hero-sub">Eight specialized agents, one comic. How the pipeline turns research into published pages.</p>
+  <p class="hero-sub">Two pipelines, many agents. How the constellation turns research into published comics and autonomous concept art.</p>
   <div class="hero-line"></div>
 </header>
 
@@ -72,7 +72,7 @@
 
 <!-- ═══ PIPELINE ═══ -->
 <section class="reveal">
-  <div class="section-num">The Production Pipeline</div>
+  <div class="section-num">The Comic Production Pipeline</div>
   <h2>Eight agents, <em>one comic.</em></h2>
   <p class="section-lead">
     Each issue passes through a multi-agent pipeline — content is locked before any expensive
@@ -120,6 +120,157 @@
       <div class="pipeline-icon" style="background: rgba(108,168,116,0.15); color: var(--green);">👁️</div>
       <div class="pipeline-label">Review</div>
     </div>
+  </div>
+</section>
+
+<!-- ═══ CONCEPT ART PIPELINE ═══ -->
+<div class="divider"><span>Concept Art</span></div>
+
+<section class="reveal">
+  <div class="section-num">The Autonomous Pipeline</div>
+  <h2>From breakthroughs to <em>triptychs.</em></h2>
+  <p class="section-lead">
+    A separate pipeline generates concept art autonomously — crawling real science sources,
+    finding narrative connections, and producing three-beat visual sequences grounded in actual breakthroughs.
+  </p>
+
+  <div class="prose">
+    <p>
+      The comic production pipeline above requires a human orchestrator at every stage.
+      The concept art pipeline is different: it runs autonomously once launched, making creative
+      decisions through a chain of specialized roles — research, education, direction, critique,
+      generation, and evaluation.
+    </p>
+  </div>
+
+  <div class="pipeline" style="flex-wrap: wrap; gap: 0.5rem 0;">
+    <div class="pipeline-node">
+      <div class="pipeline-icon" style="background: rgba(92,140,188,0.15); color: var(--blue);">🌐</div>
+      <div class="pipeline-label">Deep Research</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-node">
+      <div class="pipeline-icon" style="background: rgba(108,168,116,0.15); color: var(--green);">🔗</div>
+      <div class="pipeline-label">Enhancement</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-node">
+      <div class="pipeline-icon" style="background: rgba(200,149,108,0.15); color: var(--accent);">🧬</div>
+      <div class="pipeline-label">Educator</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-node">
+      <div class="pipeline-icon" style="background: rgba(184,148,76,0.15); color: var(--brass);">🎬</div>
+      <div class="pipeline-label">Director</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-node">
+      <div class="pipeline-icon" style="background: rgba(196,92,76,0.15); color: var(--red);">⚡</div>
+      <div class="pipeline-label">CREA Critic</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-node">
+      <div class="pipeline-icon" style="background: rgba(184,148,76,0.15); color: var(--brass);">🎨</div>
+      <div class="pipeline-label">Generate</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-node">
+      <div class="pipeline-icon" style="background: rgba(92,140,188,0.15); color: var(--blue);">🔄</div>
+      <div class="pipeline-label">Refine</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-node">
+      <div class="pipeline-icon" style="background: rgba(108,168,116,0.15); color: var(--green);">👁️</div>
+      <div class="pipeline-label">VLM Critique</div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-node">
+      <div class="pipeline-icon" style="background: rgba(200,149,108,0.15); color: var(--accent);">📊</div>
+      <div class="pipeline-label">Curate</div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="section-num">Stage 1: Knowledge Gathering</div>
+  <h2>Crawling real science, <em>not imagining it.</em></h2>
+
+  <div class="prose">
+    <p>
+      <strong>Deep Research Sweep</strong> crawls 40+ real web sources — <a href="https://deepmind.google/" target="_blank" rel="noopener" style="color: inherit;">DeepMind</a>,
+      <a href="https://www.nasa.gov/" target="_blank" rel="noopener" style="color: inherit;">NASA</a>,
+      <a href="https://www.nature.com/" target="_blank" rel="noopener" style="color: inherit;">Nature</a>,
+      <a href="https://arxiv.org/" target="_blank" rel="noopener" style="color: inherit;">arXiv</a>,
+      among others — extracting breakthroughs with visual descriptions, dates, and source URLs.
+      The current database contains 61 verified breakthroughs.
+    </p>
+    <p>
+      <strong>Deep Research Enhancement</strong> follows links from hub pages, fetches scientific reference images,
+      and analyzes them with Claude vision to build rich visual descriptions.
+      98 reference images have been analyzed this way — the pipeline sees real imagery before generating anything.
+    </p>
+    <p>
+      <strong>Science Educator</strong> reads the full breakthrough database and finds connections:
+      how one discovery enabled another, where themes recur across fields, what stories span decades.
+      It produces narrative threads — each a 3-beat arc (setup, breakthrough, consequence) connecting
+      2-4 breakthroughs. 27 threads identified so far, from quantum computing's journey to
+      AI-driven protein folding.
+    </p>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="section-num">Stage 2: Autonomous Generation</div>
+  <h2>Director, critic, generator, <em>reviewer.</em></h2>
+
+  <div class="prose">
+    <p>
+      The <strong>Director</strong> designs three-beat visual sequences (before / moment / after) grounded
+      in real breakthroughs and narrative threads. Each beat gets a detailed image prompt,
+      emotional tone, and compositional direction.
+    </p>
+    <p>
+      The <strong>CREA Critic</strong> challenges every concept before any image is generated — rejecting
+      weak ideas, clichéd compositions, or scenes that don't connect to real science. This is creative
+      abrasion by design: bad concepts are caught before they waste generation time.
+    </p>
+    <p>
+      Approved concepts go to the <strong>Sparky API</strong> — <a href="https://huggingface.co/black-forest-labs/FLUX.2-dev" target="_blank" rel="noopener" style="color: inherit;">FLUX.2-dev</a> running
+      on a DGX Spark. Every image gets an <strong>Always-Refine</strong> pass via image-to-image editing,
+      using the initial output as a reference to improve detail and coherence.
+      Visual continuity across beats is maintained by passing each beat's refined image as the
+      reference for the next.
+    </p>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="section-num">Stage 3: Multi-Signal Evaluation</div>
+  <h2>Three critics, <em>zero trust.</em></h2>
+
+  <div class="prose">
+    <p>
+      Every generated image faces three independent evaluations:
+    </p>
+    <p>
+      <strong>VLM Critique</strong> — Claude evaluates actual images (not just prompts), scoring
+      composition, emotional impact, style coherence, narrative clarity, and grounding in real science.
+      This catches problems that prompt-based audits miss entirely.
+    </p>
+    <p>
+      <strong>PickScore</strong> measures prompt-image alignment — how well the generated image matches
+      what was asked for. <strong>HPSv2</strong> measures aesthetic quality independent of the prompt.
+      Together they provide automated scoring that complements the VLM's semantic evaluation.
+    </p>
+    <p>
+      A <strong>Sequence Continuity Check</strong> sends all three beats of a triptych to Claude together,
+      verifying that the visual narrative reads coherently as a sequence — not just as individual images.
+    </p>
+    <p>
+      Results feed back into a <strong>creative memory</strong>: a winners board, mode switching
+      (explore / exploit / pivot / thread), and a continuously updated HTML report with
+      triptych sequences, auto-scores, and continuity badges.
+    </p>
   </div>
 </section>
 
